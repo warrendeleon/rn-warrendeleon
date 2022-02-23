@@ -1,9 +1,7 @@
 import React from "react";
-import { Box, Button, Center, HStack, Icon, useColorMode, useColorModeValue } from "native-base";
-import { Entypo } from "@native-base/icons";
+import { Box, Center, HStack, useColorModeValue } from "native-base";
 
-export const Placeholder = () => {
-  const {toggleColorMode} = useColorMode();
+export const WorkXP = () => {
   return (
     <Center flex={1} bg={useColorModeValue('muted.100', 'blueGray.900')}>
       <HStack alignItems="center" space={4}>
@@ -18,7 +16,7 @@ export const Placeholder = () => {
           p="12"
           rounded="lg"
           _text={{fontSize: 'md', fontWeight: 'bold', color: 'white'}}>
-          This is a placeholder screen
+          This is a Box with Linear Gradient
         </Box>
       </HStack>
     </Center>
