@@ -2,14 +2,7 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Placeholder} from '../screens/placeholder';
-import {
-  Icon,
-  Text,
-  useColorModeValue,
-  useTheme,
-  useToken,
-  VStack,
-} from 'native-base';
+import {Icon, Text, useColorModeValue, useToken, VStack} from 'native-base';
 import {BlurView} from '@react-native-community/blur';
 import {Pressable, StyleSheet} from 'react-native';
 import {AntDesign, MaterialIcons} from '@native-base/icons';
@@ -20,7 +13,6 @@ import {WorkXP} from '../screens/workXP';
 const Tab = createBottomTabNavigator();
 
 export const TabNavigator = () => {
-  const {colors} = useTheme();
   const [
     activeTintColorLight,
     activeTintColorDark,
