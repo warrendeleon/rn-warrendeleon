@@ -1,7 +1,13 @@
-import React from "react";
-import { Box, Center, HStack, useColorModeValue } from "native-base";
+import React, {useEffect} from 'react';
+import {Box, Center, HStack, useColorModeValue} from 'native-base';
+import {useDispatch} from 'react-redux';
+import {getWorkXP} from '../../modules/workXP/actions';
 
 export const WorkXP = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getWorkXP());
+  }, []);
   return (
     <Center flex={1} bg={useColorModeValue('muted.100', 'blueGray.900')}>
       <HStack alignItems="center" space={4}>

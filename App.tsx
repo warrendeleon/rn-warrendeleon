@@ -6,8 +6,10 @@ import {persistStore} from 'redux-persist';
 import {store} from './src/redux/configureStore';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
+import {injectStore} from './src/httpClient';
 
 export default function App() {
+  injectStore(store);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)}>
@@ -18,7 +20,10 @@ export default function App() {
             },
           }}
           theme={extendTheme({
-            useSystemColorMode: true,
+            config: {
+              useSystemColorMode: false,
+              initialColorMode: 'dark',
+            },
           })}>
           <TabNavigator />
         </NativeBaseProvider>
