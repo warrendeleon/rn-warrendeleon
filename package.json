@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@native-base/icons": "^0.0.10",
+    "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-native-community/blur": "^3.6.0",
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
+    "@reduxjs/toolkit": "^1.7.2",
     "native-base": "^3.3.7",
     "react": "17.0.2",
     "react-native": "0.67.2",
@@ -24,7 +26,10 @@
     "react-native-safe-area-context": "^3.4.1",
     "react-native-screens": "^3.12.0",
     "react-native-svg": "^12.1.1",
-    "react-native-vector-icons": "^9.1.0"
+    "react-native-vector-icons": "^9.1.0",
+    "react-redux": "^7.2.6",
+    "redux-persist": "^6.0.0",
+    "redux-persist-transform-encrypt": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
