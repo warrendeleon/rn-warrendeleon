@@ -1,7 +1,12 @@
 export interface WorkXP {
   id: string;
   company: string;
+  position: string;
+  gradStart: string;
+  gradEnd: string;
   projects: Project[];
+  start: string;
+  end: string;
 }
 
 export interface Project {
