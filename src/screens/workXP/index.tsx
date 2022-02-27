@@ -1,30 +1,38 @@
 import React, {useEffect} from 'react';
-import {Box, Center, HStack, useColorModeValue} from 'native-base';
-import {useDispatch} from 'react-redux';
+import {Box, FlatList, useColorModeValue} from 'native-base';
+import {useDispatch, useSelector} from 'react-redux';
 import {getWorkXP} from '../../modules/workXP/actions';
+import {ListItem} from '../../components/listItem';
+import {workXPSelector} from '../../modules/workXP/selectors';
 
 export const WorkXP = () => {
   const dispatch = useDispatch();
+  const workXPData = useSelector(workXPSelector);
   useEffect(() => {
     dispatch(getWorkXP());
-  }, []);
+  }, [dispatch]);
+
   return (
-    <Center flex={1} bg={useColorModeValue('muted.100', 'blueGray.900')}>
-      <HStack alignItems="center" space={4}>
-        <Box
-          bg={{
-            linearGradient: {
-              colors: ['lightBlue.300', 'violet.800'],
-              start: [0, 0],
-              end: [1, 0],
-            },
-          }}
-          p="12"
-          rounded="lg"
-          _text={{fontSize: 'md', fontWeight: 'bold', color: 'white'}}>
-          This is a Box with Linear Gradient
-        </Box>
-      </HStack>
-    </Center>
+    <Box
+      flex={1}
+      bg={useColorModeValue('muted.100', 'blueGray.900')}
+      safeArea>
+      <FlatList
+        data={workXPData}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => {
+          return (
+            <ListItem
+              gradStart={item.gradStart}
+              gradEnd={item.gradEnd}
+              header={item.company}
+              content={item.position}
+              dateStart={item.start}
+              dateEnd={item.end}
+            />
+          );
+        }}
+      />
+    </Box>
   );
 };
