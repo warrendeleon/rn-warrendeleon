@@ -10,7 +10,7 @@ import {
 
 export const Settings = () => {
   const {toggleColorMode, colorMode} = useColorMode();
-  const [isEnabled, setIsEnabled] = useState(colorMode === 'dark');
+  const [isEnabled, setIsEnabled] = useState(colorMode === 'light');
   const toggleSwitch = () => {
     toggleColorMode();
     setIsEnabled(previousState => !previousState);
@@ -19,7 +19,7 @@ export const Settings = () => {
   return (
     <Center flex={1} bg={useColorModeValue('muted.100', 'blueGray.900')}>
       <HStack alignItems="center" space={4}>
-        <Text fontSize="md">Dark mode</Text>
+        <Text fontSize="md">Light mode</Text>
         <Switch
           size="md"
           onValueChange={toggleSwitch}
