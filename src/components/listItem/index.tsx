@@ -12,7 +12,7 @@ export const ListItem = ({
 }) => {
   const gStart = useColorModeValue(gradStart[0], gradStart[1]);
   const gEnd = useColorModeValue(gradEnd[0], gradEnd[1]);
-  const textColor = useColorModeValue("darkText", "lightText");
+  const textColor = useColorModeValue('darkText', 'lightText');
   return (
     <Box flex={1} padding={1}>
       <Box

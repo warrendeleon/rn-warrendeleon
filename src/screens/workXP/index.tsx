@@ -16,7 +16,8 @@ export const WorkXP = () => {
     <Box
       flex={1}
       bg={useColorModeValue('muted.100', 'blueGray.900')}
-      safeArea>
+      safeArea
+      px={4}>
       <FlatList
         data={workXPData}
         keyExtractor={item => item.id}
