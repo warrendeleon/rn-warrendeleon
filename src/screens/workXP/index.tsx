@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getWorkXP} from '../../modules/workXP/actions';
 import {ListItem} from '../../components/listItem';
 import {workXPSelector} from '../../modules/workXP/selectors';
+import {StyleSheet} from 'react-native';
 
 export const WorkXP = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export const WorkXP = () => {
       <FlatList
         data={workXPData}
         keyExtractor={item => item.id}
+        contentContainerStyle={StyleSheet.flatten({paddingBottom: 90})}
         renderItem={({item}) => {
           return (
             <ListItem
