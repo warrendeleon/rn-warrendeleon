@@ -5,6 +5,7 @@ import {getWorkXP} from '../../modules/workXP/actions';
 import {ListItem} from '../../components/listItem';
 import {workXPSelector} from '../../modules/workXP/selectors';
 import {StyleSheet} from 'react-native';
+import LottieView from 'lottie-react-native';
 
 export const WorkXP = () => {
   const dispatch = useDispatch();
@@ -12,30 +13,39 @@ export const WorkXP = () => {
   useEffect(() => {
     dispatch(getWorkXP());
   }, [dispatch]);
+  const logo = useColorModeValue(
+    require('../../assets/animations/logo/dark.json'),
+    require('../../assets/animations/logo/light.json'),
+  );
 
   return (
-    <Box
-      flex={1}
-      bg={useColorModeValue('muted.100', 'blueGray.900')}
-      safeArea
-      px={4}>
-      <FlatList
-        data={workXPData}
-        keyExtractor={item => item.id}
-        contentContainerStyle={StyleSheet.flatten({paddingBottom: 90})}
-        renderItem={({item}) => {
-          return (
-            <ListItem
-              gradStart={item.gradStart}
-              gradEnd={item.gradEnd}
-              header={item.company}
-              content={item.position}
-              dateStart={item.start}
-              dateEnd={item.end}
-            />
-          );
-        }}
-      />
+    <Box flex={1} bg={useColorModeValue('muted.100', 'blueGray.900')} safeArea>
+      <Box flexGrow={0} px={4}>
+        <FlatList
+          data={workXPData}
+          keyExtractor={item => item.id}
+          contentContainerStyle={StyleSheet.flatten({paddingBottom: 90})}
+          renderItem={({item, index}) => {
+            return (
+              <>
+                {index === 0 && (
+                  <Box height={50}>
+                    <LottieView source={logo} autoPlay />
+                  </Box>
+                )}
+                <ListItem
+                  gradStart={item.gradStart}
+                  gradEnd={item.gradEnd}
+                  header={item.company}
+                  content={item.position}
+                  dateStart={item.start}
+                  dateEnd={item.end}
+                />
+              </>
+            );
+          }}
+        />
+      </Box>
     </Box>
   );
 };
