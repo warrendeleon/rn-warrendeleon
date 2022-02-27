@@ -2,7 +2,16 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Placeholder} from '../screens/placeholder';
-import {Icon, Text, useColorModeValue, useToken, VStack} from 'native-base';
+import {
+  Box,
+  Center,
+  Icon,
+  Text,
+  useColorModeValue,
+  useToken,
+  VStack,
+  ZStack,
+} from 'native-base';
 import {BlurView} from '@react-native-community/blur';
 import {Pressable, StyleSheet} from 'react-native';
 import {AntDesign, MaterialIcons} from '@native-base/icons';
@@ -16,20 +25,14 @@ export const TabNavigator = () => {
   const [
     activeTintColorLight,
     activeTintColorDark,
-    shadowColorLight,
-    shadowColorDark,
     inactiveTintColorLight,
     inactiveTintColorDark,
   ] = useToken('colors', [
     'blueGray.900',
     'lime.500',
-    'blueGray.900',
-    'blue.200',
     'muted.200',
     'muted.400',
   ]);
-  const shadowColor = useColorModeValue(shadowColorLight, shadowColorDark);
-  const blurType = useColorModeValue('dark', 'light');
   const tabBarActiveTintColor = useColorModeValue(
     activeTintColorLight,
     activeTintColorDark,
@@ -39,7 +42,6 @@ export const TabNavigator = () => {
     inactiveTintColorLight,
     inactiveTintColorDark,
   );
-
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -53,26 +55,18 @@ export const TabNavigator = () => {
             height: 90,
             borderRadius: 25,
             borderTopWidth: 0,
-            shadowColor: shadowColor,
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.23,
-            shadowRadius: 2.62,
             elevation: 4,
           },
           tabBarActiveTintColor,
           tabBarInactiveTintColor,
           tabBarBackground: () => (
             <BlurView
-              blurType={blurType}
+              blurType={'dark'}
               blurAmount={50}
               style={[
                 StyleSheet.absoluteFill,
                 StyleSheet.flatten({
                   borderRadius: 25,
-                  opacity: 0.35,
                 }),
               ]}
             />
