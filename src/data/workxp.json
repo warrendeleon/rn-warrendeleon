@@ -3,8 +3,8 @@
     "id": "bfb3c0e3-3e58-4ea6-aa6f-39b52d6d674f",
     "company": "xDesign",
     "position": "Lead React Native Developer",
-    "gradStart": "fuchsia",
-    "gradEnd": "pink",
+    "gradStart": ["fuchsia.800", "fuchsia.900"],
+    "gradEnd": ["pink.300", "pink.500"],
     "start": "Sept 2021",
     "end": "Present",
     "projects": [
@@ -41,8 +41,8 @@
     "id": "86bef9b9-0186-467e-8eac-df5df88131a7",
     "company": "Concentrix TigerSpike",
     "position": "Senior Software Engineer",
-    "gradStart": "lightBlue",
-    "gradEnd": "cyan",
+    "gradStart": ["lightBlue.400", "lightBlue.600"],
+    "gradEnd": ["cyan.200", "cyan.300"],
     "start": "Apr 2021",
     "end": "Sept 2021"
   },
@@ -50,8 +50,8 @@
     "id": "868f37a1-a30b-46b7-985c-6cc9199c6208",
     "company": "OpenHealth Group",
     "position": "Senior Software Engineer",
-    "gradStart": "blue",
-    "gradEnd": "purple",
+    "gradStart": ["blue.400", "lightBlue.400"],
+    "gradEnd": ["purple.400", "cyan.400"],
     "start": "Nov 2020",
     "end": "Apr 2021"
   },
@@ -59,8 +59,8 @@
     "id": "d399b4a7-0868-487e-b867-2c85f430b883",
     "company": "BP",
     "position": "Senior Software Engineer",
-    "gradStart": "emerald",
-    "gradEnd": "lime",
+    "gradStart": ["emerald.400", "emerald.600"],
+    "gradEnd": ["lime.200", "lime.300"],
     "start": "Nov 2019",
     "end": "May 2020"
   }
