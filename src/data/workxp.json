@@ -63,5 +63,41 @@
     "gradEnd": ["lime.200", "lime.300"],
     "start": "Nov 2019",
     "end": "May 2020"
+  },
+  {
+    "id": "b90bdfea-2f6b-4268-b7a4-93a7bfc5e6a8",
+    "company": "Shell",
+    "position": "Software Engineer",
+    "gradStart": ["orange.400", "orange.600"],
+    "gradEnd": ["amber.200", "amber.300"],
+    "start": "Nov 2018",
+    "end": "Nov 2019"
+  },
+  {
+    "id": "e33e0393-f6e4-41ae-8d42-6ed42bd52490",
+    "company": "WonderBill",
+    "position": "Software Engineer",
+    "gradStart": ["darkBlue.300", "darkBlue.500"],
+    "gradEnd": ["pink.300", "pink.500"],
+    "start": "Dec 2017",
+    "end": "Nov 2018"
+  },
+  {
+    "id": "a9afc50f-4a09-4e69-b98c-4019fbf9d415",
+    "company": "Nucleus Central",
+    "position": "Frontend Developer",
+    "gradStart": ["cyan.300", "cyan.400"],
+    "gradEnd": ["yellow.200", "yellow.300"],
+    "start": "Jul 2017",
+    "end": "Nov 2017"
+  },
+  {
+    "id": "75a4c397-d6b6-4fb9-840f-13419e394498",
+    "company": "Lexel Software Ltd",
+    "position": "Multiplatform Developer",
+    "gradStart": ["rose.400", "rose.600"],
+    "gradEnd": ["red.200", "red.300"],
+    "start": "Sep 2016",
+    "end": "Jun 2017"
   }
 ]
