@@ -6,8 +6,8 @@
     "android": "react-native run-android",
     "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && yarn cache clean && rm -rf ./node_modules && rm -rf ios/DerivedData && rm -rf ios/build && rm -rf ios/Pods && yarn && cd ios && pod install && cd ..",
     "ios": "react-native run-ios",
-    "lint:fix": "eslint . --ext .json,.js,.jsx,.ts,.tsx --fix",
-    "lint": "eslint . --ext .json,.js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx --fix",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "packager": "env watchman watch-del-all && react-native start --reset-cache",
     "start": "react-native start",
     "test": "jest"

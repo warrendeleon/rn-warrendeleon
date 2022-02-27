@@ -1,7 +1,7 @@
-import {createSelector} from "@reduxjs/toolkit";
+import {createSelector} from '@reduxjs/toolkit';
 
-import {RootState} from "../../redux/configStore";
-import {FULFILLED, PENDING, REJECTED} from "./reducer";
+import {RootState} from '../../redux/configureStore';
+import {FULFILLED, PENDING, REJECTED} from './reducer';
 
 export const statusSelector = (
   state: RootState,

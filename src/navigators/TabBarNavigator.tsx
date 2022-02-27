@@ -9,6 +9,7 @@ import {AntDesign, MaterialIcons} from '@native-base/icons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Settings} from '../screens/settings';
 import {WorkXP} from '../screens/workXP';
+import {IconProps} from 'react-native-vector-icons/Icon';
 
 const Tab = createBottomTabNavigator();
 
@@ -66,26 +67,26 @@ export const TabNavigator = () => {
           tabBarButton: props => (
             <Pressable
               {...props}
-              style={{
+              style={StyleSheet.flatten({
                 flex: 1,
                 height: 90,
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: 10,
-              }}
+              })}
             />
           ),
           tabBarIcon: props => {
-            const CustomIcon = props => {
+            const CustomIcon = (p: IconProps) => {
               switch (route.name) {
                 case 'Work XP':
-                  return <AntDesign {...props} name={'codesquareo'} />;
+                  return <AntDesign {...p} name={'codesquareo'} />;
                 case 'Settings':
-                  return <FontAwesome5 {...props} name={'cog'} />;
+                  return <FontAwesome5 {...p} name={'cog'} />;
                 case 'Studies':
-                  return <FontAwesome5 {...props} name={'user-graduate'} />;
+                  return <FontAwesome5 {...p} name={'user-graduate'} />;
                 default:
-                  return <MaterialIcons {...props} name={'perm-device-info'} />;
+                  return <MaterialIcons {...p} name={'perm-device-info'} />;
               }
             };
             return (

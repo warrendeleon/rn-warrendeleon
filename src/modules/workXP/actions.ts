@@ -7,7 +7,6 @@ export const getWorkXP = createAsyncThunk<WorkXP[]>(
   'workXP/getWorkXP',
   async (_, {rejectWithValue}) => {
     try {
-      console.log("HERE1")
       const workXP = await getWorkXPService();
       return workXP.data;
     } catch (error) {

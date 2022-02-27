@@ -2,8 +2,8 @@ export interface WorkXP {
   id: string;
   company: string;
   position: string;
-  gradStart: string;
-  gradEnd: string;
+  gradStart: string[];
+  gradEnd: string[];
   projects: Project[];
   start: string;
   end: string;

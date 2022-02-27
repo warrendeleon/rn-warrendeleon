@@ -2,7 +2,16 @@ import React from 'react';
 import {Box, Center, Heading, Text, useColorModeValue} from 'native-base';
 import {StyleSheet} from 'react-native';
 
-export const ListItem = ({
+interface ListItemProps {
+  gradStart: string[];
+  gradEnd: string[];
+  header: string;
+  content: string;
+  dateStart: string;
+  dateEnd: string;
+}
+
+export const ListItem: React.FC<ListItemProps> = ({
   gradStart,
   gradEnd,
   header,

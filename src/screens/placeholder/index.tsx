@@ -1,9 +1,7 @@
-import React from "react";
-import { Box, Button, Center, HStack, Icon, useColorMode, useColorModeValue } from "native-base";
-import { Entypo } from "@native-base/icons";
+import React from 'react';
+import {Box, Center, HStack, useColorModeValue} from 'native-base';
 
 export const Placeholder = () => {
-  const {toggleColorMode} = useColorMode();
   return (
     <Center flex={1} bg={useColorModeValue('muted.100', 'blueGray.900')}>
       <HStack alignItems="center" space={4}>

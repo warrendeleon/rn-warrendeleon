@@ -40,7 +40,7 @@ export const store = configureStore({
       immutableCheck: false,
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      }
+      },
     }),
   reducer: persistedReducer,
 });

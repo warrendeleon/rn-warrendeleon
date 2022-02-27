@@ -1,11 +1,11 @@
-import Redux from "redux";
+import Redux from 'redux';
 
-import {StatusState} from "../../models/StatusState";
+import {StatusState} from '../../models/StatusState';
 
-export const NOT_STARTED = "NOT_STARTED";
-export const PENDING = "PENDING";
-export const REJECTED = "REJECTED";
-export const FULFILLED = "FULFILLED";
+export const NOT_STARTED = 'NOT_STARTED';
+export const PENDING = 'PENDING';
+export const REJECTED = 'REJECTED';
+export const FULFILLED = 'FULFILLED';
 
 const initialState: StatusState = {};
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {EnhancedStore} from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -5,7 +6,8 @@ let store: any;
 const APPLICATION_FORM = 'application/json';
 const CONTENT_TYPE = 'Content-Type';
 
-export const BASE_URL = 'https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/data';
+export const BASE_URL =
+  'https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/data';
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,
