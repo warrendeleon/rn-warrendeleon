@@ -50,8 +50,8 @@
     "id": "868f37a1-a30b-46b7-985c-6cc9199c6208",
     "company": "OpenHealth Group",
     "position": "Senior Software Engineer",
-    "gradStart": ["blue.400", "lightBlue.400"],
-    "gradEnd": ["purple.400", "cyan.400"],
+    "gradStart": ["blue.400", "blue.400"],
+    "gradEnd": ["purple.400", "purple.400"],
     "start": "Nov 2020",
     "end": "Apr 2021"
   },
