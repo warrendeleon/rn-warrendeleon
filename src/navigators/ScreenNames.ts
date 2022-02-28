@@ -4,7 +4,8 @@ export enum ScreenNames {
   STUDIES = 'Studies',
   INFO = 'Info',
   CLIENTS = 'Clients',
-  NANDOS = 'Nandos',
+  RESTAURANTS = 'Restaurants',
+  WEB_VIEW = 'Webview',
 }
 
 export enum NavigatorNames {

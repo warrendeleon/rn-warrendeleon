@@ -1,19 +1,16 @@
 import React, {useCallback, useEffect} from 'react';
-import {
-  Box,
-  Divider,
-  FlatList,
-  Pressable,
-  useColorModeValue,
-  VStack,
-} from 'native-base';
+import {Box, FlatList, Pressable, useColorModeValue, VStack} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {getRestaurants} from '../../modules/nandos/actions';
 import {nandosSelector} from '../../modules/nandos/selectors';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NandosStackParamList} from '../../navigators/NandosNavigator';
 
-export const Nandos = ({navigation}) => {
+export const Nandos = ({
+  navigation,
+}: NativeStackScreenProps<NandosStackParamList, 'Restaurants'>) => {
   const dispatch = useDispatch();
   const restaurants = useSelector(nandosSelector);
   useEffect(() => {

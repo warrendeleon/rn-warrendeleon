@@ -4,18 +4,23 @@ import {Nandos} from '../screens/nandos';
 import {WebView} from '../screens/webView';
 import {ScreenNames} from './ScreenNames';
 
-const Stack = createNativeStackNavigator();
+export type NandosStackParamList = {
+  [ScreenNames.RESTAURANTS]: {url: string};
+  [ScreenNames.WEB_VIEW]: undefined;
+};
+
+const Stack = createNativeStackNavigator<NandosStackParamList>();
 
 export const NandosStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
         options={{headerShown: false}}
-        name="Restaurants"
+        name={ScreenNames.RESTAURANTS}
         component={Nandos}
       />
       <Stack.Screen
-        name={ScreenNames.NANDOS}
+        name={ScreenNames.WEB_VIEW}
         component={WebView}
         options={{presentation: 'modal'}}
       />

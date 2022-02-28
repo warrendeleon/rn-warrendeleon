@@ -123,6 +123,7 @@ export const TabNavigator = () => {
                   return <MaterialIcons {...p} name={'perm-device-info'} />;
               }
             };
+
             return (
               <VStack space={1} alignItems="center">
                 <Icon color={props.color} size={7} as={CustomIcon} />
