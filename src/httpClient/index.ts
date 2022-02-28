@@ -8,9 +8,15 @@ const CONTENT_TYPE = 'Content-Type';
 
 export const BASE_URL =
   'https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/data';
+export const NANDOS_BASE_URL =
+  'https://storage.googleapis.com/nandos-engineering-public/coding-challenge-rn';
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,
+});
+
+export const nandoApiClient = axios.create({
+  baseURL: NANDOS_BASE_URL,
 });
 
 export const injectStore = (_store: EnhancedStore) => {
