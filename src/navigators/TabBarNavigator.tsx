@@ -5,7 +5,11 @@ import {Placeholder} from '../screens/placeholder';
 import {Icon, Text, useColorModeValue, useToken, VStack} from 'native-base';
 import {BlurView} from '@react-native-community/blur';
 import {Pressable, StyleSheet} from 'react-native';
-import {AntDesign, MaterialIcons} from '@native-base/icons';
+import {
+  AntDesign,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from '@native-base/icons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Settings} from '../screens/settings';
 import {IconProps} from 'react-native-vector-icons/Icon';
@@ -17,12 +21,14 @@ import {RootState} from '../redux/configureStore';
 import {setLanguage} from '../modules/settings/actions';
 import {isPendingSelector} from '../modules/status/selectors';
 import {Loading} from '../screens/loading';
+import {NandosStackNavigator} from './NandosNavigator';
 
 type TabBarParamList = {
   [NavigatorNames.WORK_XP]: {title: string} | undefined;
   [ScreenNames.STUDIES]: {title: string} | undefined;
   [ScreenNames.INFO]: {title: string} | undefined;
   [ScreenNames.SETTINGS]: {title: string} | undefined;
+  [NavigatorNames.NANDOS]: {title: string} | undefined;
 };
 
 const Tab = createBottomTabNavigator<TabBarParamList>();
@@ -109,6 +115,10 @@ export const TabNavigator = () => {
                   return <FontAwesome5 {...p} name={'cog'} />;
                 case ScreenNames.STUDIES:
                   return <FontAwesome5 {...p} name={'user-graduate'} />;
+                case NavigatorNames.NANDOS:
+                  return (
+                    <MaterialCommunityIcons {...p} name={'food-drumstick'} />
+                  );
                 default:
                   return <MaterialIcons {...p} name={'perm-device-info'} />;
               }
@@ -129,15 +139,20 @@ export const TabNavigator = () => {
           initialParams={{title: t('tabs.workXP')}}
         />
         <Tab.Screen
-          name={ScreenNames.STUDIES}
-          component={Placeholder}
-          initialParams={{title: t('tabs.studies')}}
+          name={NavigatorNames.NANDOS}
+          initialParams={{title: t('tabs.nandos')}}
+          component={NandosStackNavigator}
         />
-        <Tab.Screen
-          name={ScreenNames.INFO}
-          component={Placeholder}
-          initialParams={{title: t('tabs.info')}}
-        />
+        {/*<Tab.Screen*/}
+        {/*  name={ScreenNames.STUDIES}*/}
+        {/*  component={Placeholder}*/}
+        {/*  initialParams={{title: t('tabs.studies')}}*/}
+        {/*/>*/}
+        {/*<Tab.Screen*/}
+        {/*  name={ScreenNames.INFO}*/}
+        {/*  component={Placeholder}*/}
+        {/*  initialParams={{title: t('tabs.info')}}*/}
+        {/*/>*/}
         <Tab.Screen
           name={ScreenNames.SETTINGS}
           component={Settings}
