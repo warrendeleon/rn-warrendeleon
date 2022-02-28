@@ -10,7 +10,8 @@
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "packager": "env watchman watch-del-all && react-native start --reset-cache",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@native-base/icons": "^0.0.10",
@@ -38,6 +39,10 @@
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/jest-native": "^4.0.4",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/react-native": "^9.0.0",
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.66.15",
     "@types/react-native-vector-icons": "^6.4.10",
