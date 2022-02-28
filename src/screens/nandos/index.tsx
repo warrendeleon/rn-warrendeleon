@@ -20,8 +20,6 @@ export const Nandos = ({
     require('../../assets/animations/logo/dark.json'),
     require('../../assets/animations/logo/light.json'),
   );
-  const cardsBGColor = useColorModeValue('blueGray.900', 'muted.100');
-  const textColor = useColorModeValue('lightText', 'darkText');
 
   const onPress = useCallback(
     (url: string) => () => navigation.navigate('Nandos', {url: url}),
@@ -44,22 +42,43 @@ export const Nandos = ({
                   </Box>
                 )}
                 <Pressable onPress={onPress(item.url)}>
-                  <VStack
-                    bgColor={cardsBGColor}
-                    rounded={'xl'}
-                    padding={3}
-                    my={2}>
-                    <Box _text={{color: textColor}}>{item.name}</Box>
-                    <Box _text={{color: textColor}}>
-                      {item.geo.address.streetAddress}
-                    </Box>
-                    <Box _text={{color: textColor}}>
-                      {item.geo.address.addressLocality}
-                    </Box>
-                    <Box _text={{color: textColor}}>
-                      {item.geo.address.postalCode}
-                    </Box>
-                  </VStack>
+                  {({isPressed}) => {
+                    return (
+                      <Box
+                        maxW="96"
+                        borderWidth="1"
+                        borderColor="coolGray.300"
+                        shadow="3"
+                        my={2}
+                        bg={
+                          isPressed
+                            ? 'coolGray.200'
+                            : 'white'
+                        }
+                        p="5"
+                        rounded="8"
+                        style={{
+                          transform: [
+                            {
+                              scale: isPressed ? 0.96 : 1,
+                            },
+                          ],
+                        }}>
+                        <VStack>
+                          <Box _text={{color: 'darkText'}}>{item.name}</Box>
+                          <Box _text={{color: 'darkText'}}>
+                            {item.geo.address.streetAddress}
+                          </Box>
+                          <Box _text={{color: 'darkText'}}>
+                            {item.geo.address.addressLocality}
+                          </Box>
+                          <Box _text={{color: 'darkText'}}>
+                            {item.geo.address.postalCode}
+                          </Box>
+                        </VStack>
+                      </Box>
+                    );
+                  }}
                 </Pressable>
               </>
             );
