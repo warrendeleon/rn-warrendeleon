@@ -107,5 +107,55 @@
     "gradEnd": ["red.200", "red.300"],
     "start": "Sep 2016",
     "end": "Jun 2017"
+  },
+  {
+    "id": "bdc79e4b-0f16-4e0d-bf15-65428ac801dc",
+    "company": "Altran",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/altran-circle.svg",
+    "position": "Full stack developer & teacher",
+    "gradStart": ["cyan.500", "cyan.600"],
+    "gradEnd": ["emerald.200", "emerald.300"],
+    "start": "Dec 2015",
+    "end": "Mar 2016"
+  },
+  {
+    "id": "b32665f2-4c85-4b7d-8c02-cf42bb4c8265",
+    "company": "Desigual",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/desigual-circle.svg",
+    "position": "Software developer",
+    "gradStart": ["red.200", "red.300"],
+    "gradEnd": ["fuchsia.800", "fuchsia.900"],
+    "start": "Aug 2015",
+    "end": "Dec 2015"
+  },
+  {
+    "id": "29f99d9a-72f5-4a6c-a24b-852e2021c10d",
+    "company": "Everis NTT Data",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/teknon-circle.svg",
+    "position": "Backend Developer",
+    "gradStart": ["lime.400", "lime.600"],
+    "gradEnd": ["cyan.200", "cyan.300"],
+    "start": "Apr 2015",
+    "end": "Jun 2015"
+  },
+  {
+    "id": "0d387a9f-f6c1-48df-8649-faf3dcf6a939",
+    "company": "Teknon Uroclínica Barcelona",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/teknon-circle.svg",
+    "position": "Full Stack developer",
+    "gradStart": ["pink.500", "pink.600"],
+    "gradEnd": ["red.200", "red.300"],
+    "start": "Oct 2014",
+    "end": "Apr 2015"
+  },
+  {
+    "id": "057bcc45-c451-4d34-a13b-d01f2f6c1351",
+    "company": "Edenic Games",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/edenic-circle.svg",
+    "position": "Android Teacher in Edenic Games",
+    "gradStart": ["emerald.400", "emerald.600"],
+    "gradEnd": ["yellow.200", "yellow.300"],
+    "start": "Oct 2012",
+    "end": "Jul 2014"
   }
 ]
