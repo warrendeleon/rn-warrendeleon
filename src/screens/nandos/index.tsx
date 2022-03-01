@@ -50,11 +50,7 @@ export const Nandos = ({
                         borderColor="coolGray.300"
                         shadow="3"
                         my={2}
-                        bg={
-                          isPressed
-                            ? 'coolGray.200'
-                            : 'white'
-                        }
+                        bg={isPressed ? 'coolGray.200' : 'white'}
                         p="5"
                         rounded="8"
                         style={{
