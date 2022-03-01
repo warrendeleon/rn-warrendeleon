@@ -8,8 +8,8 @@ import {Pressable, StyleSheet} from 'react-native';
 import {AntDesign, MaterialIcons} from '@native-base/icons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Settings} from '../screens/settings';
-import {WorkXP} from '../screens/workXP';
 import {IconProps} from 'react-native-vector-icons/Icon';
+import {WorkXPStackNavigator} from './WorkXPNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -99,7 +99,7 @@ export const TabNavigator = () => {
             );
           },
         })}>
-        <Tab.Screen name="Work XP" component={WorkXP} />
+        <Tab.Screen name="Work XP" component={WorkXPStackNavigator} />
         <Tab.Screen name="Studies" component={Placeholder} />
         <Tab.Screen name="Info" component={Placeholder} />
         <Tab.Screen name="Settings" component={Settings} />

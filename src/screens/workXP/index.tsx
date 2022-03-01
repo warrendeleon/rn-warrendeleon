@@ -6,8 +6,12 @@ import {ListItem} from '../../components/listItem';
 import {workXPSelector} from '../../modules/workXP/selectors';
 import {StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
+import {WorkXPStackParamList} from '../../navigators/WorkXPNavigator';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-export const WorkXP = () => {
+export const WorkXP = ({
+  navigation,
+}: NativeStackScreenProps<WorkXPStackParamList, 'WorkXP'>) => {
   const dispatch = useDispatch();
   const workXPData = useSelector(workXPSelector);
   useEffect(() => {
@@ -41,6 +45,7 @@ export const WorkXP = () => {
                   dateStart={item.start}
                   dateEnd={item.end}
                   logo={item.logo}
+                  onPress={() => navigation.navigate('Projects')}
                 />
               </>
             );
