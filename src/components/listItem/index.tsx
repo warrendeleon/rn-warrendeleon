@@ -35,7 +35,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   const textColor = useColorModeValue('darkText', 'lightText');
   const pressedBG = {
     linearGradient: {
-      colors: ['muted.600', 'muted.300'],
+      colors: [gEnd, gStart],
       start: [0, 0],
       end: [0, 1],
     },
@@ -62,30 +62,30 @@ export const ListItem: React.FC<ListItemProps> = ({
             style={{
               transform: [
                 {
-                  scale: isPressed ? 0.96 : 1,
+                  scale: isPressed ? 0.98 : 1,
                 },
               ],
             }}>
-            <HStack>
+            <HStack flex={1}>
               {logo && (
-                <Box alignItems="center" size={24} overflow={'hidden'}>
-                  <SvgWithCssUri width={'100%'} height={'100%'} uri={logo} />
+                <Box alignItems="center" size={16} overflow="hidden" mr={2}>
+                  <SvgWithCssUri width="100%" height="100%" uri={logo} />
                 </Box>
               )}
 
-              <VStack flexGrow={1} pl={2} justifyContent={'center'}>
+              <VStack justifyContent={'center'} overflow={'hidden'}>
                 <Heading size="sm" color={textColor} shadow="2">
                   {header}
                 </Heading>
                 <Text
                   fontSize="sm"
                   shadow="2"
-                  mt={2}
-                  style={StyleSheet.flatten({textTransform: 'uppercase'})}
+                  mb={2}
+                  textTransform="uppercase"
                   color={textColor}>
                   {content}
                 </Text>
-                <Text fontSize={'2xs'} color={textColor} shadow="6">
+                <Text fontSize={'xs'} color={textColor} shadow="2">
                   {dateStart} - {dateEnd}
                 </Text>
               </VStack>
