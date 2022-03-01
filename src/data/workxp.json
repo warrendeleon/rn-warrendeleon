@@ -7,6 +7,7 @@
     "gradEnd": ["pink.300", "pink.500"],
     "start": "Sept 2021",
     "end": "Present",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/xdesign-circle.svg",
     "projects": [
       {
         "id": "6d263e52-5ebf-4394-9ff6-8d9aa9d16690",
@@ -40,6 +41,7 @@
   {
     "id": "86bef9b9-0186-467e-8eac-df5df88131a7",
     "company": "Concentrix TigerSpike",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/tigerspike-circle.svg",
     "position": "Senior Software Engineer",
     "gradStart": ["lightBlue.400", "lightBlue.600"],
     "gradEnd": ["cyan.200", "cyan.300"],
@@ -49,6 +51,7 @@
   {
     "id": "868f37a1-a30b-46b7-985c-6cc9199c6208",
     "company": "OpenHealth Group",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/openhealth-circle.svg",
     "position": "Senior Software Engineer",
     "gradStart": ["blue.400", "blue.400"],
     "gradEnd": ["purple.400", "purple.400"],
@@ -58,6 +61,7 @@
   {
     "id": "d399b4a7-0868-487e-b867-2c85f430b883",
     "company": "BP",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/bp-circle.svg",
     "position": "Senior Software Engineer",
     "gradStart": ["emerald.400", "emerald.600"],
     "gradEnd": ["lime.200", "lime.300"],
@@ -67,6 +71,7 @@
   {
     "id": "b90bdfea-2f6b-4268-b7a4-93a7bfc5e6a8",
     "company": "Shell",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/newmotion-circle.svg",
     "position": "Software Engineer",
     "gradStart": ["orange.400", "orange.600"],
     "gradEnd": ["amber.200", "amber.300"],
@@ -76,6 +81,7 @@
   {
     "id": "e33e0393-f6e4-41ae-8d42-6ed42bd52490",
     "company": "WonderBill",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/wonderbill-circle.svg",
     "position": "Software Engineer",
     "gradStart": ["darkBlue.300", "darkBlue.500"],
     "gradEnd": ["pink.300", "pink.500"],
@@ -85,6 +91,7 @@
   {
     "id": "a9afc50f-4a09-4e69-b98c-4019fbf9d415",
     "company": "Nucleus Central",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/nucleus-circle.svg",
     "position": "Frontend Developer",
     "gradStart": ["cyan.300", "cyan.400"],
     "gradEnd": ["yellow.200", "yellow.300"],
@@ -94,6 +101,7 @@
   {
     "id": "75a4c397-d6b6-4fb9-840f-13419e394498",
     "company": "Lexel Software Ltd",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/lexel-circle.svg",
     "position": "Multiplatform Developer",
     "gradStart": ["rose.400", "rose.600"],
     "gradEnd": ["red.200", "red.300"],
