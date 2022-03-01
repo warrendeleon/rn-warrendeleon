@@ -1,6 +1,14 @@
 import React from 'react';
-import {Box, Center, Heading, Text, useColorModeValue} from 'native-base';
+import {
+  Box,
+  Heading,
+  HStack,
+  Text,
+  useColorModeValue,
+  VStack,
+} from 'native-base';
 import {StyleSheet} from 'react-native';
+import {SvgWithCssUri} from 'react-native-svg';
 
 interface ListItemProps {
   gradStart: string[];
@@ -9,6 +17,7 @@ interface ListItemProps {
   content: string;
   dateStart: string;
   dateEnd: string;
+  logo: string;
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
@@ -18,6 +27,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   content,
   dateStart,
   dateEnd,
+  logo,
 }) => {
   const gStart = useColorModeValue(gradStart[0], gradStart[1]);
   const gEnd = useColorModeValue(gradEnd[0], gradEnd[1]);
@@ -32,25 +42,33 @@ export const ListItem: React.FC<ListItemProps> = ({
             end: [0, 1],
           },
         }}
-        p="5"
+        p="3"
         flex={1}
         rounded="lg">
-        <Center>
-          <Heading size="lg" color={textColor} shadow="2">
-            {header}
-          </Heading>
-          <Heading
-            size="sm"
-            shadow="2"
-            mt={2.5}
-            style={StyleSheet.flatten({textTransform: 'uppercase'})}
-            color={textColor}>
-            {content}
-          </Heading>
-          <Text fontSize={'md'} color={textColor} shadow="6">
-            {dateStart} - {dateEnd}
-          </Text>
-        </Center>
+        <HStack>
+          {logo && (
+            <Box alignItems="center" size={24} overflow={'hidden'}>
+              <SvgWithCssUri width={'100%'} height={'100%'} uri={logo} />
+            </Box>
+          )}
+
+          <VStack flexGrow={1} pl={2} justifyContent={'center'}>
+            <Heading size="sm" color={textColor} shadow="2">
+              {header}
+            </Heading>
+            <Text
+              fontSize="sm"
+              shadow="2"
+              mt={2}
+              style={StyleSheet.flatten({textTransform: 'uppercase'})}
+              color={textColor}>
+              {content}
+            </Text>
+            <Text fontSize={'2xs'} color={textColor} shadow="6">
+              {dateStart} - {dateEnd}
+            </Text>
+          </VStack>
+        </HStack>
       </Box>
     </Box>
   );

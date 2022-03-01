@@ -7,6 +7,7 @@ export interface WorkXP {
   projects: Project[];
   start: string;
   end: string;
+  logo: string;
 }
 
 export interface Project {
