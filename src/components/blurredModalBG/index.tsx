@@ -1,4 +1,4 @@
-import React, {ComponentType, ReactNode} from 'react';
+import React from 'react';
 import {BlurView as RNBlurView} from '@react-native-community/blur';
 import {
   Factory,

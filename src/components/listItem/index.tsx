@@ -9,7 +9,7 @@ import {
   VStack,
 } from 'native-base';
 import {SvgWithCssUri} from 'react-native-svg';
-import { GestureResponderEvent } from "react-native";
+import {GestureResponderEvent} from 'react-native';
 
 interface ListItemProps {
   gradStart: string[];
@@ -30,7 +30,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   dateStart,
   dateEnd,
   logo,
-  onPress
+  onPress,
 }) => {
   const gStart = useColorModeValue(gradStart[0], gradStart[1]);
   const gEnd = useColorModeValue(gradEnd[0], gradEnd[1]);
