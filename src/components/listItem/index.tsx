@@ -8,7 +8,6 @@ import {
   useColorModeValue,
   VStack,
 } from 'native-base';
-import {StyleSheet} from 'react-native';
 import {SvgWithCssUri} from 'react-native-svg';
 
 interface ListItemProps {

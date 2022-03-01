@@ -18,7 +18,6 @@ export const WorkXP = () => {
     require('../../assets/animations/logo/light.json'),
   );
 
-  console.log("WORKXP", workXPData)
   return (
     <Box flex={1} bg={useColorModeValue('muted.100', 'blueGray.900')} safeArea>
       <Box flexGrow={0} px={4}>
