@@ -10,6 +10,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Settings} from '../screens/settings';
 import {IconProps} from 'react-native-vector-icons/Icon';
 import {WorkXPStackNavigator} from './WorkXPNavigator';
+import {NavigatorNames, ScreenNames} from './ScreenNames';
 
 const Tab = createBottomTabNavigator();
 
@@ -79,11 +80,11 @@ export const TabNavigator = () => {
           tabBarIcon: props => {
             const CustomIcon = (p: IconProps) => {
               switch (route.name) {
-                case 'Work XP':
+                case NavigatorNames.WORK_XP:
                   return <AntDesign {...p} name={'codesquareo'} />;
-                case 'Settings':
+                case ScreenNames.SETTINGS:
                   return <FontAwesome5 {...p} name={'cog'} />;
-                case 'Studies':
+                case ScreenNames.STUDIES:
                   return <FontAwesome5 {...p} name={'user-graduate'} />;
                 default:
                   return <MaterialIcons {...p} name={'perm-device-info'} />;
@@ -99,10 +100,13 @@ export const TabNavigator = () => {
             );
           },
         })}>
-        <Tab.Screen name="Work XP" component={WorkXPStackNavigator} />
-        <Tab.Screen name="Studies" component={Placeholder} />
-        <Tab.Screen name="Info" component={Placeholder} />
-        <Tab.Screen name="Settings" component={Settings} />
+        <Tab.Screen
+          name={NavigatorNames.WORK_XP}
+          component={WorkXPStackNavigator}
+        />
+        <Tab.Screen name={ScreenNames.STUDIES} component={Placeholder} />
+        <Tab.Screen name={ScreenNames.INFO} component={Placeholder} />
+        <Tab.Screen name={ScreenNames.SETTINGS} component={Settings} />
       </Tab.Navigator>
     </NavigationContainer>
   );

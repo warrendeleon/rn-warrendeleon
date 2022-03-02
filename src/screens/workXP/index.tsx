@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Box, FlatList, useColorModeValue} from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
 import {getWorkXP} from '../../modules/workXP/actions';
@@ -8,10 +8,11 @@ import {StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {WorkXPStackParamList} from '../../navigators/WorkXPNavigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {ScreenNames} from '../../navigators/ScreenNames';
 
 export const WorkXP = ({
   navigation,
-}: NativeStackScreenProps<WorkXPStackParamList, 'WorkXP'>) => {
+}: NativeStackScreenProps<WorkXPStackParamList, ScreenNames.WORK_XP>) => {
   const dispatch = useDispatch();
   const workXPData = useSelector(workXPSelector);
   useEffect(() => {
@@ -20,6 +21,11 @@ export const WorkXP = ({
   const logo = useColorModeValue(
     require('../../assets/animations/logo/dark.json'),
     require('../../assets/animations/logo/light.json'),
+  );
+
+  const onPress = useCallback(
+    item => () => navigation.navigate(ScreenNames.CLIENTS, {id: item.id}),
+    [navigation],
   );
 
   return (
@@ -45,7 +51,7 @@ export const WorkXP = ({
                   dateStart={item.start}
                   dateEnd={item.end}
                   logo={item.logo}
-                  onPress={() => navigation.navigate('Clients', {id: item.id})}
+                  onPress={onPress(item)}
                 />
               </>
             );

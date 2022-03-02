@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Center,
   Heading,
   HStack,
   Pressable,
