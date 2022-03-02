@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Box,
+  Center,
   Heading,
   HStack,
   Pressable,
@@ -70,23 +71,28 @@ export const ListItem: React.FC<ListItemProps> = ({
             }}>
             <HStack flex={1}>
               {logo && (
-                <Box alignItems="center" size={16} overflow="hidden" mr={2}>
-                  <SvgWithCssUri width="100%" height="100%" uri={logo} />
-                </Box>
+                <VStack justifyContent="center">
+                  <Box alignItems="center" size={16} overflow="hidden" mr={2}>
+                    <SvgWithCssUri width="100%" height="100%" uri={logo} />
+                  </Box>
+                </VStack>
               )}
 
-              <VStack justifyContent={'center'} overflow={'hidden'}>
+              <VStack justifyContent={'center'} flex={1} overflow="hidden">
                 <Heading size="sm" color={textColor} shadow="2">
                   {header}
                 </Heading>
+
                 <Text
                   fontSize="sm"
                   shadow="2"
+                  numberOfLines={2}
                   mb={2}
                   textTransform="uppercase"
                   color={textColor}>
                   {content}
                 </Text>
+
                 <Text fontSize={'xs'} color={textColor} shadow="2">
                   {dateStart} - {dateEnd}
                 </Text>

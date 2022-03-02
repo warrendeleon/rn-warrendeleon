@@ -82,6 +82,7 @@ export const BlurredModalBG: React.FC<BlurredModalBGProps> = ({
               }}>
               <BlurView
                 blurType={useColorModeValue('xlight', 'dark')}
+                padding={2}
                 borderRadius={'2xl'}
                 size={72}>
                 {children}

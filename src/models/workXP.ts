@@ -4,13 +4,13 @@ export interface WorkXP {
   position: string;
   gradStart: string[];
   gradEnd: string[];
-  projects: Project[];
+  clients: Client[];
   start: string;
   end: string;
   logo: string;
 }
 
-export interface Project {
+export interface Client {
   id: string;
   name: string;
   start: string;

@@ -45,7 +45,7 @@ export const WorkXP = ({
                   dateStart={item.start}
                   dateEnd={item.end}
                   logo={item.logo}
-                  onPress={() => navigation.navigate('Projects')}
+                  onPress={() => navigation.navigate('Clients', {id: item.id})}
                 />
               </>
             );
