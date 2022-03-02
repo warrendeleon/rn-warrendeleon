@@ -24,4 +24,5 @@ export interface Project {
   devTools: string[];
   agileMethodology: string[];
   description: string;
+  logo: string;
 }

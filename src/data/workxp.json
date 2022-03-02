@@ -8,10 +8,11 @@
     "start": "Sept 2021",
     "end": "Present",
     "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/xdesign-circle.svg",
-    "projects": [
+    "clients": [
       {
         "id": "6d263e52-5ebf-4394-9ff6-8d9aa9d16690",
         "name": "Fanduel",
+        "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/fanduel-circle.svg",
         "start": "Jan 2022",
         "end": "Present",
         "type": "contract",
@@ -24,6 +25,7 @@
       {
         "id": "e0686319-2744-4b1b-abec-b90d0832d0b7",
         "name": "Zonal",
+        "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/zonal-circle.svg",
         "start": "Sept 2021",
         "end": "Dec 2021",
         "type": "contract",
