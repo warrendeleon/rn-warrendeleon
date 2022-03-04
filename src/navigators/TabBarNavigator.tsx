@@ -11,10 +11,24 @@ import {Settings} from '../screens/settings';
 import {IconProps} from 'react-native-vector-icons/Icon';
 import {WorkXPStackNavigator} from './WorkXPNavigator';
 import {NavigatorNames, ScreenNames} from './ScreenNames';
+import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
+import {RootState} from '../redux/configureStore';
+import {setLanguage} from '../modules/settings/actions';
+import {isPendingSelector} from '../modules/status/selectors';
+import {Loading} from '../screens/loading';
 
-const Tab = createBottomTabNavigator();
+type TabBarParamList = {
+  [NavigatorNames.WORK_XP]: {title: string} | undefined;
+  [ScreenNames.STUDIES]: {title: string} | undefined;
+  [ScreenNames.INFO]: {title: string} | undefined;
+  [ScreenNames.SETTINGS]: {title: string} | undefined;
+};
+
+const Tab = createBottomTabNavigator<TabBarParamList>();
 
 export const TabNavigator = () => {
+  const {t} = useTranslation();
   const [
     activeTintColorLight,
     activeTintColorDark,
@@ -35,6 +49,15 @@ export const TabNavigator = () => {
     inactiveTintColorLight,
     inactiveTintColorDark,
   );
+
+  const isLanguageChanging = useSelector((state: RootState) =>
+    isPendingSelector(state, setLanguage.typePrefix),
+  );
+
+  if (isLanguageChanging) {
+    return <Loading />;
+  }
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -94,7 +117,7 @@ export const TabNavigator = () => {
               <VStack space={1} alignItems="center">
                 <Icon color={props.color} size={7} as={CustomIcon} />
                 <Text fontSize="sm" color={props.color}>
-                  {route.name}
+                  {route.params?.title ?? route.name}
                 </Text>
               </VStack>
             );
@@ -103,10 +126,23 @@ export const TabNavigator = () => {
         <Tab.Screen
           name={NavigatorNames.WORK_XP}
           component={WorkXPStackNavigator}
+          initialParams={{title: t('tabs.workXP')}}
         />
-        <Tab.Screen name={ScreenNames.STUDIES} component={Placeholder} />
-        <Tab.Screen name={ScreenNames.INFO} component={Placeholder} />
-        <Tab.Screen name={ScreenNames.SETTINGS} component={Settings} />
+        <Tab.Screen
+          name={ScreenNames.STUDIES}
+          component={Placeholder}
+          initialParams={{title: t('tabs.studies')}}
+        />
+        <Tab.Screen
+          name={ScreenNames.INFO}
+          component={Placeholder}
+          initialParams={{title: t('tabs.info')}}
+        />
+        <Tab.Screen
+          name={ScreenNames.SETTINGS}
+          component={Settings}
+          initialParams={{title: t('tabs.settings')}}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
