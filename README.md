@@ -1,8 +1,22 @@
 # React Native App Example
 
-This is a React Native app that uses NativeBase for primitive compoenents, Redux, Redux Toolkit, Thunks, etc.
+#  🚧 Work in progress
 
-The example shows my CV.
+![alt text](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/gifs/app.gif?raw=true)
+
+## Tech stack
+- React Native
+- NativeBase
+- Redux
+- Redux Toolkit with thunks
+- Redux Persist
+- Redux Persist Transform Encrypt
+- React Navigation
+- Translations with React Native Localize and i18next
+- Lottie Animations
+- React Native SVGs
+- React Native Testing Library
+- Typescript
 
 
 ## Setup
