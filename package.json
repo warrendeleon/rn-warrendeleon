@@ -11,7 +11,8 @@
     "packager": "env watchman watch-del-all && react-native start --reset-cache",
     "start": "react-native start",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@native-base/icons": "^0.0.10",
@@ -26,6 +27,8 @@
     "lottie-ios": "3.2.3",
     "lottie-react-native": "^5.0.1",
     "native-base": "^3.3.7",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "react": "17.0.2",
     "react-i18next": "^11.15.5",
     "react-native": "0.67.2",
