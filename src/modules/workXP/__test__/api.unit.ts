@@ -27,15 +27,13 @@ describe('getWorkXPService', () => {
     it('should return menu', async () => {
       mock.onGet('/en/workxp.json').reply(200, mockWorkXPResponse);
 
-      mockGetWorkXPService.mockImplementation(() =>
-        Promise.resolve({
-          config: {},
-          data: mockWorkXPResponse,
-          headers: {},
-          status: 200,
-          statusText: 'OK',
-        }),
-      );
+      mockGetWorkXPService.mockImplementation(() =>({
+        config: {},
+        data: mockWorkXPResponse,
+        headers: {},
+        status: 200,
+        statusText: 'OK',
+      }));
       const result = await mockGetWorkXPService();
 
       expect(mockGetWorkXPService).toHaveBeenCalled();
