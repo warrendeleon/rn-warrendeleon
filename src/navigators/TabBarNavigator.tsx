@@ -3,10 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Placeholder} from '../screens/placeholder';
 import {Icon, Text, useColorModeValue, useToken, VStack} from 'native-base';
-import {BlurView} from '@react-native-community/blur';
 import {Pressable, StyleSheet} from 'react-native';
-import {AntDesign, MaterialIcons} from '@native-base/icons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Settings} from '../screens/settings';
 import {IconProps} from 'react-native-vector-icons/Icon';
 import {WorkXPStackNavigator} from './WorkXPNavigator';
@@ -17,6 +14,10 @@ import {RootState} from '../redux/configureStore';
 import {setLanguage} from '../modules/settings/actions';
 import {isPendingSelector} from '../modules/status/selectors';
 import {Loading} from '../screens/loading';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { BlurView } from "@react-native-community/blur";
 
 type TabBarParamList = {
   [NavigatorNames.WORK_XP]: {title: string} | undefined;

@@ -1,27 +1,28 @@
-diff --git a/node_modules/@react-native-community/blur/android/build.gradle b/node_modules/@react-native-community/blur/android/build.gradle
-index 8177235..5d310b9 100644
---- a/node_modules/@react-native-community/blur/android/build.gradle
-+++ b/node_modules/@react-native-community/blur/android/build.gradle
-@@ -9,7 +9,6 @@ buildscript {
-     if (project == rootProject) {
-         repositories {
-             google()
--            jcenter()
-         }
+diff --git a/node_modules/@react-native-community/blur/src/BlurView.android.js b/node_modules/@react-native-community/blur/src/BlurView.android.js
+index a192476..7fd03b6 100644
+--- a/node_modules/@react-native-community/blur/src/BlurView.android.js
++++ b/node_modules/@react-native-community/blur/src/BlurView.android.js
+@@ -4,9 +4,9 @@ import {
+   View,
+   requireNativeComponent,
+   DeviceEventEmitter,
+-  ViewPropTypes,
+   StyleSheet,
+ } from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types'
 
-         dependencies {
-@@ -37,11 +36,12 @@ android {
+ const OVERLAY_COLORS = {
+   light: 'rgba(255, 255, 255, 0.2)',
+diff --git a/node_modules/@react-native-community/blur/src/BlurView.ios.js b/node_modules/@react-native-community/blur/src/BlurView.ios.js
+index f675bf9..9cf1304 100644
+--- a/node_modules/@react-native-community/blur/src/BlurView.ios.js
++++ b/node_modules/@react-native-community/blur/src/BlurView.ios.js
+@@ -1,6 +1,7 @@
+ import React, { Component } from 'react';
+ import PropTypes from 'prop-types';
+-import {View, requireNativeComponent, ViewPropTypes, StyleSheet} from 'react-native';
++import {View, requireNativeComponent, StyleSheet} from 'react-native';
++import { ViewPropTypes } from 'deprecated-react-native-prop-types'
 
- repositories {
-     google()
--    jcenter()
-+
-+    maven { url 'https://jitpack.io' }
- }
-
- dependencies {
-     //noinspection GradleDynamicVersion
-     implementation 'com.facebook.react:react-native:+'
--    implementation 'com.eightbitlab:blurview:1.6.3'
-+    implementation 'com.github.Dimezis:BlurView:version-1.6.6'
- }
+ class BlurView extends Component {
+   setNativeProps = nativeProps => {
