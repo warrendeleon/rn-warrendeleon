@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Center, Spinner, useColorModeValue} from 'native-base';
+import {Box, Spinner, useColorModeValue} from 'native-base';
 
 export const Loading = () => {
   return (

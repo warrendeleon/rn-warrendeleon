@@ -8,7 +8,6 @@ import {ScreenNames} from '../../navigators/ScreenNames';
 import {
   Badge,
   Box,
-  Center,
   Heading,
   HStack,
   ScrollView,
@@ -18,6 +17,7 @@ import {
 } from 'native-base';
 import {SvgWithCssUri} from 'react-native-svg';
 import {useTranslation} from 'react-i18next';
+import {StyleSheet} from 'react-native';
 
 export const JobDescription = ({
   navigation,
@@ -33,7 +33,7 @@ export const JobDescription = ({
       bounces={false}
       flex={1}
       bg={useColorModeValue('muted.100', 'blueGray.900')}
-      contentContainerStyle={{paddingBottom: 120}}>
+      contentContainerStyle={StyleSheet.flatten({paddingBottom: 120})}>
       <Box flex={1} p={5}>
         <VStack>
           <Box alignItems="center" size={24} w={'full'} mb={5}>
