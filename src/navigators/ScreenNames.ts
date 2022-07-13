@@ -4,6 +4,7 @@ export enum ScreenNames {
   STUDIES = 'Studies',
   INFO = 'Info',
   CLIENTS = 'Clients',
+  JOB_DESCRIPTION = 'Job Description',
 }
 
 export enum NavigatorNames {

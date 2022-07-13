@@ -9,6 +9,7 @@ import LottieView from 'lottie-react-native';
 import {WorkXPStackParamList} from '../../navigators/WorkXPNavigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ScreenNames} from '../../navigators/ScreenNames';
+import {WorkXP as IWorkXP} from '../../models/workXP';
 
 export const WorkXP = ({
   navigation,
@@ -24,7 +25,12 @@ export const WorkXP = ({
   );
 
   const onPress = useCallback(
-    item => () => navigation.navigate(ScreenNames.CLIENTS, {id: item.id}),
+    (item: IWorkXP) => () => {
+      if (item.clients) {
+        return navigation.push(ScreenNames.CLIENTS, {id: item.id});
+      }
+      return navigation.push(ScreenNames.JOB_DESCRIPTION, {id: item.id});
+    },
     [navigation],
   );
 

@@ -4,5 +4,11 @@
     "studies": "Studies",
     "info": "Info",
     "settings": "Settings"
+  },
+  "jobDescription": {
+    "programmingLanguages": "Programming languages: ",
+    "techStack": "Tech stack: ",
+    "devTools": "Developer tools: ",
+    "agileMethodology": "Agile Methodology: "
   }
 }
