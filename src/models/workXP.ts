@@ -20,7 +20,7 @@ export interface WorkXP {
 
 export interface Client {
   id: string;
-  name: string;
+  company: string;
   start: string;
   end: string;
   type: string;
