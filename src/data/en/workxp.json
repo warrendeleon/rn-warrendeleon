@@ -12,7 +12,7 @@
     "techStack": ["React Native", "Redux", "Redux Toolkit", "Redux Thunk", "React Navigation v6"],
     "unitTest": ["RNTL"],
     "e2e": ["Detox"],
-    "devTools": ["Webstorm", "XCode", "Android Studio", "Git"],
+    "devTools": ["Webstorm", "XCode", "Android Studio", "Git", "Circle CI"],
     "agileMethodology": ["Kanban"],
     "description": "I was developing the new apps for BabylonStoren and The Newt."
   },
@@ -37,7 +37,8 @@
         "programmingLanguages": ["Typescript"],
         "techStack": ["React Native", "ReactJS", "Redux", "RxJS", "React Navigation"],
         "devTools": ["Webstorm", "XCode", "Android Studio", "Git"],
-        "agileMethodology": ["SCRUM"]
+        "agileMethodology": ["SCRUM"],
+        "description": "I was lead software engineer for FanDuel, a betting company. I was leading a multifunctional team that does NodeJS, ReactJS, and React Native."
       },
       {
         "id": "e0686319-2744-4b1b-abec-b90d0832d0b7",
@@ -51,9 +52,9 @@
         "techStack": ["React Native", "Redux", "Redux Toolkit", "Redux Thunk", "React Navigation v6"],
         "unitTest": ["RNTL"],
         "e2e": ["Detox"],
-        "devTools": ["Webstorm", "XCode", "Android Studio", "Git"],
+        "devTools": ["Webstorm", "XCode", "Android Studio", "Git", "Bitrise"],
         "agileMethodology": ["SCRUM"],
-        "description": "I was part of the team working for a client called Zonal. Zonal is the tech provider for lots of restaurants like Wetherspoon, PizzaExpress, The Restaurant Group, among others. The project is about creating a POS (Point Of Sale) for tablets.\nI was brought as a React Native Senior Developer to lead the team and achieve the release of an MVP in 4 months. My main tasks were to start the react native project in Typescript and to set the architecture. At the same time, I’ve been involved in architecture meetings about how the xDesign will do React Native projects in the future."
+        "description": "I was part of the team working for a client called Zonal. Zonal is the tech provider for lots of restaurants like Wetherspoon, PizzaExpress, The Restaurant Group, among others. The project is about creating a POS (Point Of Sale) for tablets.\n\nI was brought as a React Native Senior Developer to lead the team and achieve the release of an MVP in 4 months. My main tasks were to start the react native project in Typescript and to set the architecture. At the same time, I’ve been involved in architecture meetings about how the xDesign will do React Native projects in the future."
       }
     ]
   },
@@ -65,7 +66,12 @@
     "gradStart": ["lightBlue.400", "lightBlue.600"],
     "gradEnd": ["cyan.200", "cyan.300"],
     "start": "Apr 2021",
-    "end": "Sept 2021"
+    "end": "Sept 2021",
+    "programmingLanguages": ["Typescript"],
+    "techStack": ["React Native", "Redux", "Redux Toolkit", "Redux Thunk", "React Navigation v6"],
+    "devTools": ["Webstorm", "XCode", "Android Studio", "Git", "Bitrise"],
+    "agileMethodology": ["SCRUM"],
+    "description": "I was leading a transformation squad that had the task of converting Priority Pass, Mastercard Airport Experience and Lounge Key apps from native iOS and Android to React Native."
   },
   {
     "id": "868f37a1-a30b-46b7-985c-6cc9199c6208",
@@ -75,7 +81,12 @@
     "gradStart": ["blue.400", "blue.400"],
     "gradEnd": ["purple.400", "purple.400"],
     "start": "Nov 2020",
-    "end": "Apr 2021"
+    "end": "Apr 2021",
+    "programmingLanguages": ["Typescript"],
+    "techStack": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+    "devTools": ["Webstorm", "XCode", "Android Studio", "Git", "Circle CI"],
+    "agileMethodology": ["SCRUM"],
+    "description": "My role in the team was to lead and develop React Native projects for different clients that OpenHealth had. I was part of a project to develop an app that connected to a proprietary bluetooth device and gathered medical information."
   },
   {
     "id": "d399b4a7-0868-487e-b867-2c85f430b883",
@@ -85,7 +96,12 @@
     "gradStart": ["emerald.400", "emerald.600"],
     "gradEnd": ["lime.200", "lime.300"],
     "start": "Nov 2019",
-    "end": "May 2020"
+    "end": "May 2020",
+    "programmingLanguages": ["Typescript"],
+    "techStack": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+    "devTools": ["Webstorm", "XCode", "Android Studio", "Git", "Jira", "Azure DevOps"],
+    "agileMethodology": ["SCRUM"],
+    "description": "My role in the team was to lead and develop a platform that later was going to be used by other projects. Using Lerna and its mono-repo approach we achieved the ability to create an app from scratch just by installing features and doing minimal configuration. With this approach boilerplate and development time was reduced considerably. The created platform gave any new app features like: theming, fonts, a colour palette, translations, redux-store, analytics, security and a component library.\n\nIn addition to this, I was part of creating the new version of BPme Mexico, using the recently created platform."
   },
   {
     "id": "b90bdfea-2f6b-4268-b7a4-93a7bfc5e6a8",
@@ -95,7 +111,12 @@
     "gradStart": ["orange.400", "orange.600"],
     "gradEnd": ["amber.200", "amber.300"],
     "start": "Nov 2018",
-    "end": "Nov 2019"
+    "end": "Nov 2019",
+    "programmingLanguages": ["Typescript"],
+    "techStack": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+    "devTools": ["Webstorm", "XCode", "Android Studio", "Git", "Jira", "Azure DevOps"],
+    "agileMethodology": ["SCRUM"],
+    "description": "My role in the team is to develop an app to find charge points for electric cars. As part of my day-to-day tasks I setup the base project that the team is currently using and created the initial unit tests and integration tests for the app using Detox. As part of BDD and TDD, we initially develop the unit tests and integration tests before creating any component or screen.\n\nIn addition to this, I also developed the component library we use to showcase our components to the business, design and QA teams. I also created the ability to dynamically change between the Shell or NewMotion themes (automatically applying the appropriate styling to all screens and components in the app just by selecting a theme)."
   },
   {
     "id": "e33e0393-f6e4-41ae-8d42-6ed42bd52490",
@@ -105,7 +126,12 @@
     "gradStart": ["darkBlue.300", "darkBlue.500"],
     "gradEnd": ["pink.300", "pink.500"],
     "start": "Dec 2017",
-    "end": "Nov 2018"
+    "end": "Nov 2018",
+    "programmingLanguages": ["Javascript"],
+    "techStack": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+    "devTools": ["Webstorm", "XCode", "Android Studio", "Git", "Jira", "Gitlab"],
+    "agileMethodology": ["SCRUM"],
+    "description": "I was part of the application team where we developed the React Web App and the React Native Mobile App. Also, I developed integration tests for all the React Native projects that I’ve been involved on."
   },
   {
     "id": "a9afc50f-4a09-4e69-b98c-4019fbf9d415",
