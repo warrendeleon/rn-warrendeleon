@@ -1,5 +1,5 @@
 import React from 'react';
-import {BlurView as RNBlurView} from '@react-native-community/blur';
+import {BlurView as RNBlurView} from 'rn-id-blurview';
 import {
   Factory,
   Heading,
@@ -9,6 +9,7 @@ import {
   VStack,
   ZStack,
 } from 'native-base';
+import { Platform } from "react-native";
 
 interface BlurredModalBGProps {
   children: string | JSX.Element | JSX.Element[] | undefined;
@@ -81,6 +82,7 @@ export const BlurredModalBG: React.FC<BlurredModalBGProps> = ({
                 },
               }}>
               <BlurView
+                overlayColor={Platform.select({ android: "transparent", ios: "white" })}
                 blurType={useColorModeValue('xlight', 'dark')}
                 padding={2}
                 borderRadius={'2xl'}

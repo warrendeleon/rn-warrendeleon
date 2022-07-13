@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Placeholder} from '../screens/placeholder';
 import {Icon, Text, useColorModeValue, useToken, VStack} from 'native-base';
-import {Pressable, StyleSheet} from 'react-native';
+import { Platform, Pressable, StyleSheet } from "react-native";
 import {Settings} from '../screens/settings';
 import {IconProps} from 'react-native-vector-icons/Icon';
 import {WorkXPStackNavigator} from './WorkXPNavigator';
@@ -17,7 +17,7 @@ import {Loading} from '../screens/loading';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { BlurView } from "@react-native-community/blur";
+import {BlurView} from 'rn-id-blurview';
 
 type TabBarParamList = {
   [NavigatorNames.WORK_XP]: {title: string} | undefined;
@@ -80,6 +80,7 @@ export const TabNavigator = () => {
             <BlurView
               blurType={'dark'}
               blurAmount={50}
+              overlayColor={Platform.select({ android: "transparent", ios: "white" })}
               style={[
                 StyleSheet.absoluteFill,
                 StyleSheet.flatten({
