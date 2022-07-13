@@ -1,12 +1,29 @@
 [
   {
+    "id": "1519bf4f-73c6-4556-80e3-7cc0bca90396",
+    "company": "Candide",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/candide-circle.svg",
+    "position": "Senior Software Engineer",
+    "gradStart": ["darkBlue.200", "darkBlue.800"],
+    "gradEnd": ["lightBlue.200", "lightBlue.300"],
+    "start": "Apr 2022",
+    "end": "Jul 2022",
+    "programmingLanguages": ["Typescript"],
+    "techStack": ["React Native", "Redux", "Redux Toolkit", "Redux Thunk", "React Navigation v6"],
+    "unitTest": ["RNTL"],
+    "e2e": ["Detox"],
+    "devTools": ["Webstorm", "XCode", "Android Studio", "Git"],
+    "agileMethodology": ["Kanban"],
+    "description": "I was developing the new apps for BabylonStoren and The Newt."
+  },
+  {
     "id": "bfb3c0e3-3e58-4ea6-aa6f-39b52d6d674f",
     "company": "xDesign",
     "position": "Lead React Native Developer",
     "gradStart": ["fuchsia.800", "fuchsia.900"],
     "gradEnd": ["pink.300", "pink.500"],
     "start": "Sept 2021",
-    "end": "Present",
+    "end": "Apr 2022",
     "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/xdesign-circle.svg",
     "clients": [
       {
