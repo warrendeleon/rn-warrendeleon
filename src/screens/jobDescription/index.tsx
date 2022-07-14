@@ -18,6 +18,7 @@ import {
 import {SvgWithCssUri} from 'react-native-svg';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet} from 'react-native';
+import Markdown from 'react-native-markdown-display';
 
 export const JobDescription = ({
   navigation,
@@ -113,9 +114,43 @@ export const JobDescription = ({
           <Box
             bgColor={useColorModeValue('white', 'coolGray.800')}
             mt={10}
-            p={5}
-            w={'full'}>
-            <Text fontSize={'md'}>{info?.description}</Text>
+            py={1}
+            px={5}
+            flex={1}>
+            <Markdown
+              style={{
+                bullet_list: {
+                  color: useColorModeValue('black', 'white'),
+                },
+              }}
+              rules={{
+                // Emphasis
+                strong: (node, children, parent, styles) => (
+                  <Text key={node.key} fontSize={'md'} style={styles.strong}>
+                    {children}
+                  </Text>
+                ),
+                text: node => (
+                  <Text key={node.key} fontSize={'md'}>
+                    {node.content}
+                  </Text>
+                ),
+                bullet_list: (node, children) => (
+                  <Box key={node.key} pb={5}>
+                    {children}
+                  </Box>
+                ),
+                list_item: (node, children) => {
+                  return (
+                    <HStack key={node.key} space={2} pl={6} pr={5}>
+                      <Text fontSize={'md'}>{'\u2022'}</Text>
+                      <Text fontSize={'md'}>{children}</Text>
+                    </HStack>
+                  );
+                },
+              }}>
+              {info?.description}
+            </Markdown>
           </Box>
         </VStack>
       </Box>
