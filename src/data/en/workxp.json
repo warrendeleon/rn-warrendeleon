@@ -231,7 +231,8 @@
     "gradStart": ["pink.500", "pink.600"],
     "gradEnd": ["red.200", "red.300"],
     "start": "Oct 2014",
-    "end": "Apr 2015"
+    "end": "Apr 2015",
+    "description": "I was developing a medical system using the following technological stack:\n\n - Spring Boot Framework, Spring/Hibernate integration with MySQL and Spring MVC Restful Web Services API.\n - Android with Material Design UI for Lollipop and backwards compatibility.\n - OpenShift RedHat Cloud: Apache HTTP server+Apache Tomcat 7.\n - Complete end-to-end security system: AES, CBC, and PKCS5 encryption on local Android DB, HTTPS client/ server communication, Spring Security hashing algorithm for remote MySQL DB.\n - Bidirectional synchronisation between local Android DB and remote MySQL DB via REST API. This feature allows the user to switch between different devices.\n - Development tools: IntelliJ IDEA, Maven Build System, FindBugs, GitHub & Bitbucket SCMs, Basecamp project management platform. Agile methodology with rigorous iterative development approach.\n\n Patients, using their credentials to access, introduced urological measurements on the Android app. The app sends those measurements to the Spring Boot Web Service programmed using Rest Template API. The Backend uses Hibernate to manage all Java objects and saving the data into the database. Marc Fuentes was developing a similar app using Ionic technology to cover operating systems other than Android. Alberto Mendez was developing a website using Angular JS to retrieve that data for the doctors and they can see charts filtering by different type of settings."
   },
   {
     "id": "057bcc45-c451-4d34-a13b-d01f2f6c1351",
@@ -241,6 +242,7 @@
     "gradStart": ["emerald.400", "emerald.600"],
     "gradEnd": ["yellow.200", "yellow.300"],
     "start": "Oct 2012",
-    "end": "Jul 2014"
+    "end": "Jul 2014",
+    "description": "I taught Android in training sessions in english around Europe as part of the international \"Smart Employability Program\". This project aimed to train trainers and teachers in new technologies so that they in turn can train their students in these technologies in order to improve their employability in the global labour market. I taught Android in Barcelona, Berlin, Hameln, Ryde and Piotrków Trybunalski."
   }
 ]
