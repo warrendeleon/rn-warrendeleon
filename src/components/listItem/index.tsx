@@ -12,6 +12,7 @@ import {SvgWithCssUri} from 'react-native-svg';
 import {GestureResponderEvent} from 'react-native';
 
 interface ListItemProps {
+  testID: string;
   gradStart: string[];
   gradEnd: string[];
   header: string;
@@ -23,6 +24,7 @@ interface ListItemProps {
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
+  testID,
   gradStart,
   gradEnd,
   header,
@@ -51,7 +53,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   };
 
   return (
-    <Pressable flex={1} padding={1} onPress={onPress}>
+    <Pressable testID={testID} flex={1} padding={1} onPress={onPress}>
       {({isPressed}) => {
         return (
           <Box
