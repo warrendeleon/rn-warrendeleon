@@ -10,11 +10,14 @@ import {WorkXPStackParamList} from '../../navigators/WorkXPNavigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ScreenNames} from '../../navigators/ScreenNames';
 import {WorkXP as IWorkXP} from '../../models/workXP';
+import {useNavigation} from '@react-navigation/native';
 
-export const WorkXP = ({
-  navigation,
-}: NativeStackScreenProps<WorkXPStackParamList, ScreenNames.WORK_XP>) => {
+export const WorkXP = () => {
   const dispatch = useDispatch();
+  const navigation =
+    useNavigation<
+      NativeStackScreenProps<WorkXPStackParamList, ScreenNames.WORK_XP>
+    >();
   const workXPData = useSelector(workXPSelector);
   useEffect(() => {
     dispatch(getWorkXP());
@@ -45,11 +48,12 @@ export const WorkXP = ({
             return (
               <>
                 {index === 0 && (
-                  <Box height={50}>
+                  <Box testID={'appLogo'} height={50}>
                     <LottieView source={logo} autoPlay />
                   </Box>
                 )}
                 <ListItem
+                  testID={'listItem'}
                   gradStart={item.gradStart}
                   gradEnd={item.gradEnd}
                   header={item.company}

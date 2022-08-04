@@ -13,3 +13,7 @@ jest.mock('react-native-localize', () => ({
 }));
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useSelector: jest.fn(),
+}));
