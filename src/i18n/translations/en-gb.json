@@ -10,5 +10,12 @@
     "techStack": "Tech stack: ",
     "devTools": "Developer tools: ",
     "agileMethodology": "Agile Methodology: "
+  },
+  "profile": {
+    "accProfilePic": "Profile picture of",
+    "accName": "Name and last name: ",
+    "accHeadline": "Headline: ",
+    "namePronunciation": "Name pronunciation: ",
+    "accNamePronunciation": "Button to hear name pronunciation"
   }
 }

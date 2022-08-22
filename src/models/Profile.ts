@@ -4,4 +4,5 @@ export interface Profile {
   headline: string;
   namePronunciation: string;
   namePronunciationAudioTrack: string;
+  profilePicture: string;
 }

@@ -1,33 +1,36 @@
 import {
   Avatar,
   Box,
+  Button,
   Heading,
   HStack,
+  Icon,
+  Text,
   useColorModeValue,
   VStack,
 } from 'native-base';
-import React, {useEffect, useState} from 'react';
-import TrackPlayer, {
-  IOSCategory,
-  IOSCategoryMode,
-} from 'react-native-track-player';
+import React, {useCallback, useEffect} from 'react';
+import TrackPlayer from 'react-native-track-player';
 import {useDispatch, useSelector} from 'react-redux';
 import {profileSelector} from '../../modules/profile/selectors';
 import {getProfile} from '../../modules/profile/actions';
 import {Profile as ProfileType} from '../../models/Profile';
-import {AudioPlayerSetupService} from '../../service/audioPlayerSetupService';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useTranslation} from 'react-i18next';
 
 export const Profile = () => {
   const profile = useSelector(profileSelector) as ProfileType;
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   useEffect(() => {
     dispatch(getProfile());
   }, [dispatch]);
 
-  useEffect(() => {
+  const onPress = useCallback(() => {
+    TrackPlayer.reset();
     TrackPlayer.add({
-      url: 'https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/audio/warren.m4a?raw=true',
+      url: profile?.namePronunciationAudioTrack,
       title: 'name pronunciation',
     });
     TrackPlayer.play();
@@ -41,16 +44,38 @@ export const Profile = () => {
       safeArea>
       <HStack>
         <Avatar
+          accessibilityLabel={`${t('profile.accProfilePic')} ${profile?.name}`}
           size="2xl"
-          source={require('../../assets/img/profile-pic.png')}
+          source={{
+            uri: profile?.profilePicture,
+          }}
         />
         <VStack px={4} alignSelf="center">
-          <Heading size="lg">
+          <Heading
+            size="lg"
+            accessibilityLabel={`${t('profile.accName')} ${profile?.name} ${profile?.lastName}`}>
             {profile?.name} {profile?.lastName}
           </Heading>
-          <Heading size="sm">{profile?.headline}</Heading>
+          <Heading
+            size="sm"
+            accessibilityLabel={`${t('profile.accHeadline')} ${profile?.headline}`}>
+            {profile?.headline}
+          </Heading>
         </VStack>
       </HStack>
+      <VStack mt={4}>
+        <HStack space={4} alignItems={'center'}>
+          <Text accessible={false} bold>
+            {t('profile.namePronunciation')}
+          </Text>
+          <Button
+            accessibilityLabel={t('profile.accNamePronunciation')}
+            onPress={onPress}
+            leftIcon={<Icon as={Ionicons} name="md-play-sharp" />}>
+            {profile?.namePronunciation}
+          </Button>
+        </HStack>
+      </VStack>
     </Box>
   );
 };
