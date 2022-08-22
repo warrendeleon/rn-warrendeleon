@@ -23,7 +23,7 @@ const persistConfig = {
   blacklist: REDUCERS_NOT_TO_PERSIST,
   key: 'warrendeleon',
   storage: AsyncStorage,
-  timeout: 100000,
+  timeout: 1000,
   transforms: [
     encryptTransform({
       secretKey: 'warrendeleon',
