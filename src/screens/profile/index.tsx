@@ -71,7 +71,7 @@ export const Profile = () => {
         </VStack>
       </HStack>
       <VStack mt={4}>
-        <HStack space={4} alignItems={'center'}>
+        <HStack space={2} alignItems={'center'}>
           <Text accessible={false} bold>
             {t('profile.namePronunciation')}
           </Text>
@@ -82,15 +82,14 @@ export const Profile = () => {
             {profile?.namePronunciation}
           </Button>
         </HStack>
-        <Box mt={4} w={'full'} height={48}>
-          <HStack space={4} alignItems={'center'}>
-            <Text bold>
-              {t('profile.namePronunciation')}
-            </Text>
-            <Text>
-              {profile.location.cityTown}, {profile.location.county}, {profile.location.country}
-            </Text>
-          </HStack>
+        <HStack mt={4} space={2} alignItems={'center'}>
+          <Text bold>{t('profile.location')}</Text>
+          <Text>
+            {profile?.location?.cityTown}, {profile?.location?.county},{' '}
+            {profile?.location?.country}
+          </Text>
+        </HStack>
+        <Box mt={2} w={'full'} height={48}>
           <MapView
             style={StyleSheet.absoluteFill}
             initialCamera={{
@@ -99,9 +98,7 @@ export const Profile = () => {
               center: profile?.location?.coordinates,
               altitude: 100000,
             }}>
-            <Marker
-              coordinate={profile?.location?.coordinates}
-            />
+            <Marker coordinate={profile?.location?.coordinates} />
           </MapView>
         </Box>
       </VStack>
