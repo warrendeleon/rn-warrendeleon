@@ -18,6 +18,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {BlurView} from 'rn-id-blurview';
+import { Profile } from "../screens/profile";
 
 type TabBarParamList = {
   [NavigatorNames.WORK_XP]: {title: string} | undefined;
@@ -140,7 +141,7 @@ export const TabNavigator = () => {
         />
         <Tab.Screen
           name={ScreenNames.INFO}
-          component={Placeholder}
+          component={Profile}
           initialParams={{title: t('tabs.info')}}
         />
         <Tab.Screen

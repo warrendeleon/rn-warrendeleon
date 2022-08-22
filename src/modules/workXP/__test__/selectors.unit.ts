@@ -2,7 +2,7 @@ import mockWorkXP from '../../../data/en/workxp.json';
 import {RootState} from '../../../redux/configureStore';
 import {workXPSelector} from '../selectors';
 
-describe('Products selectors', () => {
+describe('WorkXP selectors', () => {
   let state: RootState;
 
   beforeEach(() => {
@@ -11,7 +11,7 @@ describe('Products selectors', () => {
     } as RootState;
   });
 
-  test('Restaurants Nandos selector', () => {
+  test('WorkXP selector', () => {
     expect(workXPSelector(state)).toStrictEqual(mockWorkXP);
   });
 });

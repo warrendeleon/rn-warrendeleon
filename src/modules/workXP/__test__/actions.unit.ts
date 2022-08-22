@@ -5,11 +5,11 @@ jest.mock('../api', () => ({
 import {getWorkXP} from '../actions';
 import {getWorkXPService} from '../api';
 
-describe('getRestaurants', () => {
+describe('getWorkXP', () => {
   const dispatch = jest.fn();
   const getState = jest.fn().mockReturnValue([]);
 
-  test('Should execute getRestaurants', async () => {
+  test('Should execute getWorkXP', async () => {
     await getWorkXP()(dispatch, getState, {});
     expect(getWorkXPService).toHaveBeenCalledTimes(1);
   });

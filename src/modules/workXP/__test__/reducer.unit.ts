@@ -4,8 +4,8 @@ import {workXPReducer} from '../reducer';
 import mockWorkXP from '../../../data/en/workxp.json';
 import {WorkXP} from '../../../models/workXP';
 
-describe('Nandos reducer', () => {
-  test(`should put restaurants in the state after dispatch ${getWorkXP.fulfilled}`, () => {
+describe('workXP reducer', () => {
+  test(`should put workXP in the state after dispatch ${getWorkXP.fulfilled}`, () => {
     const state: WorkXP[] | EmptyObject = [];
 
     const action = {

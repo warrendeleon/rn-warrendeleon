@@ -24,7 +24,7 @@ describe('getWorkXPService', () => {
   });
 
   describe('when API call is successful', () => {
-    it('should return menu', async () => {
+    it('should return workXP', async () => {
       mock.onGet('/en/workxp.json').reply(200, mockWorkXPResponse);
 
       mockGetWorkXPService.mockImplementation(() => ({
