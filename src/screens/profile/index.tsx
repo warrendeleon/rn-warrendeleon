@@ -82,25 +82,29 @@ export const Profile = () => {
             {profile?.namePronunciation}
           </Button>
         </HStack>
-        <HStack mt={4} space={2} alignItems={'center'}>
-          <Text bold>{t('profile.location')}</Text>
-          <Text>
-            {profile?.location?.cityTown}, {profile?.location?.county},{' '}
-            {profile?.location?.country}
-          </Text>
-        </HStack>
-        <Box mt={2} w={'full'} height={48}>
-          <MapView
-            style={StyleSheet.absoluteFill}
-            initialCamera={{
-              pitch: 0,
-              heading: 0,
-              center: profile?.location?.coordinates,
-              altitude: 100000,
-            }}>
-            <Marker coordinate={profile?.location?.coordinates} />
-          </MapView>
-        </Box>
+        {profile?.location?.coordinates && (
+          <>
+            <HStack mt={4} space={2} alignItems={'center'}>
+              <Text bold>{t('profile.location')}</Text>
+              <Text>
+                {profile?.location?.cityTown}, {profile?.location?.county},{' '}
+                {profile?.location?.country}
+              </Text>
+            </HStack>
+            <Box mt={2} w={'full'} height={48}>
+              <MapView
+                style={StyleSheet.absoluteFill}
+                initialCamera={{
+                  pitch: 0,
+                  heading: 0,
+                  center: profile?.location?.coordinates,
+                  altitude: 100000,
+                }}>
+                <Marker coordinate={profile?.location?.coordinates} />
+              </MapView>
+            </Box>
+          </>
+        )}
       </VStack>
     </Box>
   );
