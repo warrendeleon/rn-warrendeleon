@@ -17,6 +17,8 @@ import {getProfile} from '../../modules/profile/actions';
 import {Profile as ProfileType} from '../../models/Profile';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useTranslation} from 'react-i18next';
+import MapView, {Marker} from 'react-native-maps';
+import {StyleSheet} from 'react-native';
 
 export const Profile = () => {
   const profile = useSelector(profileSelector) as ProfileType;
@@ -48,17 +50,22 @@ export const Profile = () => {
           size="2xl"
           source={{
             uri: profile?.profilePicture,
-          }}
-        />
+          }}>
+          WD
+        </Avatar>
         <VStack px={4} alignSelf="center">
           <Heading
             size="lg"
-            accessibilityLabel={`${t('profile.accName')} ${profile?.name} ${profile?.lastName}`}>
+            accessibilityLabel={`${t('profile.accName')} ${profile?.name} ${
+              profile?.lastName
+            }`}>
             {profile?.name} {profile?.lastName}
           </Heading>
           <Heading
             size="sm"
-            accessibilityLabel={`${t('profile.accHeadline')} ${profile?.headline}`}>
+            accessibilityLabel={`${t('profile.accHeadline')} ${
+              profile?.headline
+            }`}>
             {profile?.headline}
           </Heading>
         </VStack>
@@ -75,6 +82,28 @@ export const Profile = () => {
             {profile?.namePronunciation}
           </Button>
         </HStack>
+        <Box mt={4} w={'full'} height={48}>
+          <HStack space={4} alignItems={'center'}>
+            <Text bold>
+              {t('profile.namePronunciation')}
+            </Text>
+            <Text>
+              {profile.location.cityTown}, {profile.location.county}, {profile.location.country}
+            </Text>
+          </HStack>
+          <MapView
+            style={StyleSheet.absoluteFill}
+            initialCamera={{
+              pitch: 0,
+              heading: 0,
+              center: profile?.location?.coordinates,
+              altitude: 100000,
+            }}>
+            <Marker
+              coordinate={profile?.location?.coordinates}
+            />
+          </MapView>
+        </Box>
       </VStack>
     </Box>
   );
