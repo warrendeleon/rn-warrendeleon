@@ -12,6 +12,29 @@ export const AudioPlayerSetupService = () => {
     iosCategoryMode: IOSCategoryMode.SpokenAudio,
   });
   TrackPlayer.updateOptions({
-    capabilities: [Capability.Play],
+    capabilities: [
+      Capability.Play,
+      Capability.Pause,
+      Capability.Stop,
+      Capability.JumpBackward,
+      Capability.JumpForward,
+      Capability.SeekTo,
+    ],
+    compactCapabilities: [
+      Capability.Play,
+      Capability.Pause,
+      Capability.Stop,
+      Capability.JumpBackward,
+      Capability.JumpForward,
+      Capability.SeekTo,
+    ],
+    notificationCapabilities: [
+      Capability.Play,
+      Capability.Pause,
+      Capability.Stop,
+      Capability.JumpBackward,
+      Capability.JumpForward,
+      Capability.SeekTo,
+    ],
   });
 };
