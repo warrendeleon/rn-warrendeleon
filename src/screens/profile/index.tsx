@@ -5,6 +5,8 @@ import {
   Heading,
   HStack,
   Icon,
+  IconButton,
+  Link,
   Text,
   useColorModeValue,
   VStack,
@@ -18,7 +20,10 @@ import {Profile as ProfileType} from '../../models/Profile';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useTranslation} from 'react-i18next';
 import MapView, {Marker} from 'react-native-maps';
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export const Profile = () => {
   const profile = useSelector(profileSelector) as ProfileType;
@@ -42,7 +47,7 @@ export const Profile = () => {
     <Box
       flex={1}
       px={4}
-      bg={useColorModeValue('muted.100', 'blueGray.900')}
+      bg={useColorModeValue('white', 'blueGray.900')}
       safeArea>
       <HStack>
         <Avatar
@@ -71,25 +76,73 @@ export const Profile = () => {
         </VStack>
       </HStack>
       <VStack mt={4}>
-        <HStack space={2} alignItems={'center'}>
-          <Text accessible={false} bold>
-            {t('profile.namePronunciation')}
-          </Text>
-          <Button
-            accessibilityLabel={t('profile.accNamePronunciation')}
-            onPress={onPress}
-            leftIcon={<Icon as={Ionicons} name="md-play-sharp" />}>
-            {profile?.namePronunciation}
-          </Button>
-        </HStack>
+        {profile?.namePronunciation && (
+          <HStack space={2} alignItems={'center'}>
+            <Icon as={MaterialIcons} name="record-voice-over" />
+            <Text accessible={false} bold>
+              {t('profile.namePronunciation')}
+            </Text>
+            <Button
+              size={'xs'}
+              accessibilityLabel={t('profile.accNamePronunciation')}
+              onPress={onPress}
+              leftIcon={<Icon as={Ionicons} name="md-play-sharp" />}>
+              {profile?.namePronunciation}
+            </Button>
+          </HStack>
+        )}
+
+        {profile?.birthday && (
+          <HStack mt={4} space={2} alignItems={'center'}>
+            <Icon as={FontAwesome5} name="birthday-cake" />
+            <Text bold>{t('profile.birthday')}</Text>
+            <Text>{profile.birthday}</Text>
+          </HStack>
+        )}
+
+        {profile?.phone && (
+          <HStack mt={4} space={2} alignItems={'center'}>
+            <Icon as={MaterialIcons} name="phone-iphone" />
+            <Text bold>{t('profile.phone')}</Text>
+            <Link href={`tel:${profile.phone}`}>{profile.phone}</Link>
+            <Link href={`sms:${profile.phone}`}>
+              <IconButton
+                size={'sm'}
+                disabled={true}
+                icon={<Icon as={FontAwesome5} name={'sms'} />}
+              />
+            </Link>
+            <Link href={`whatsapp://send?phone=${profile.phone.slice(1)}`}>
+              <IconButton
+                size={'sm'}
+                disabled={true}
+                icon={<Icon as={MaterialCommunity} name={'whatsapp'} />}
+              />
+            </Link>
+          </HStack>
+        )}
+
+        {profile?.email && (
+          <HStack mt={4} space={2} alignItems={'center'}>
+            <Icon as={MaterialIcons} name="alternate-email" />
+            <Text bold>{t('profile.email')}</Text>
+            <Link href={`mailto:${profile.email}`}>{profile.email}</Link>
+          </HStack>
+        )}
+
         {profile?.location?.coordinates && (
           <>
             <HStack mt={4} space={2} alignItems={'center'}>
+              <Icon as={MaterialCommunity} name="map-marker" />
               <Text bold>{t('profile.location')}</Text>
-              <Text>
+              <Link
+                href={Platform.select({
+                  ios: `maps:0,0?q=Warren location@${profile?.location?.coordinates?.latitude},${profile?.location?.coordinates?.longitude}`,
+                  android: `geo:0,0?q=${profile?.location?.coordinates?.latitude},${profile?.location?.coordinates?.longitude}(Warren location)`,
+                })}>
                 {profile?.location?.cityTown}, {profile?.location?.county},{' '}
                 {profile?.location?.country}
-              </Text>
+              </Link>
             </HStack>
             <Box mt={2} w={'full'} height={48}>
               <MapView
