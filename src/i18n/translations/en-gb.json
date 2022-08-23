@@ -17,6 +17,9 @@
     "accHeadline": "Headline: ",
     "namePronunciation": "Name pronunciation: ",
     "accNamePronunciation": "Button to hear name pronunciation",
-    "location": "Location: "
+    "location": "Location: ",
+    "email": "Email: ",
+    "phone": "Phone number: ",
+    "birthday": "Birthday: "
   }
 }
