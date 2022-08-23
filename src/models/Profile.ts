@@ -7,6 +7,9 @@ export interface Profile {
   namePronunciation: string;
   namePronunciationAudioTrack: string;
   profilePicture: string;
+  birthday: string;
+  email: string;
+  phone: string;
   location: {
     cityTown: string;
     county: string;
