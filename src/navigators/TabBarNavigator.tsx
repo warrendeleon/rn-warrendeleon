@@ -1,24 +1,24 @@
-import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Placeholder} from '../screens/placeholder';
-import {Icon, Text, useColorModeValue, useToken, VStack} from 'native-base';
-import {Platform, Pressable, StyleSheet} from 'react-native';
-import {Settings} from '../screens/settings';
-import {IconProps} from 'react-native-vector-icons/Icon';
-import {WorkXPStackNavigator} from './WorkXPNavigator';
-import {NavigatorNames, ScreenNames} from './ScreenNames';
-import {useTranslation} from 'react-i18next';
-import {useSelector} from 'react-redux';
-import {RootState} from '../redux/configureStore';
-import {setLanguage} from '../modules/settings/actions';
-import {isPendingSelector} from '../modules/status/selectors';
-import {Loading} from '../screens/loading';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {BlurView} from 'rn-id-blurview';
-import { Profile } from "../screens/profile";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Placeholder } from "../screens/placeholder";
+import { Icon, Text, useColorModeValue, useToken, VStack } from "native-base";
+import { Platform, Pressable, StyleSheet } from "react-native";
+import { Settings } from "../screens/settings";
+import { IconProps } from "react-native-vector-icons/Icon";
+import { WorkXPStackNavigator } from "./WorkXPNavigator";
+import { NavigatorNames, ScreenNames } from "./ScreenNames";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/configureStore";
+import { setLanguage } from "../modules/settings/actions";
+import { isPendingSelector } from "../modules/status/selectors";
+import { Loading } from "../screens/loading";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import { BlurView } from "rn-id-blurview";
+import { ProfileStackNavigator } from "./ProfileNavigator";
 
 type TabBarParamList = {
   [NavigatorNames.WORK_XP]: {title: string} | undefined;
@@ -140,8 +140,8 @@ export const TabNavigator = () => {
           initialParams={{title: t('tabs.studies')}}
         />
         <Tab.Screen
-          name={ScreenNames.INFO}
-          component={Profile}
+          name={NavigatorNames.PROFILE}
+          component={ProfileStackNavigator}
           initialParams={{title: t('tabs.info')}}
         />
         <Tab.Screen

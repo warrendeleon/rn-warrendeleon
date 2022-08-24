@@ -24,11 +24,19 @@ import {Platform, StyleSheet} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {ScreenNames} from '../../navigators/ScreenNames';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {ProfileStackParamList} from '../../navigators/ProfileNavigator';
 
 export const Profile = () => {
   const profile = useSelector(profileSelector) as ProfileType;
   const dispatch = useDispatch();
   const {t} = useTranslation();
+  const navigation =
+    useNavigation<
+      NativeStackScreenProps<ProfileStackParamList, ScreenNames.INFO>
+    >();
 
   useEffect(() => {
     dispatch(getProfile());
@@ -43,6 +51,13 @@ export const Profile = () => {
     TrackPlayer.play();
   }, [profile]);
 
+  const onPressPDFBtn = useCallback(
+    () =>
+      navigation.push(ScreenNames.PDF, {
+        url: 'https://warrendeleon.com/docs/CV_WARREN_2022_EN.pdf',
+      }),
+    [navigation],
+  );
   return (
     <Box
       flex={1}
@@ -73,11 +88,12 @@ export const Profile = () => {
             }`}>
             {profile?.headline}
           </Heading>
+          <Button onPress={onPressPDFBtn}>CV PDF</Button>
         </VStack>
       </HStack>
       <VStack mt={4}>
         {profile?.namePronunciation && (
-          <HStack w={"full"} h={10} space={2} alignItems={'center'}>
+          <HStack w={'full'} h={10} space={2} alignItems={'center'}>
             <Icon as={MaterialIcons} name="record-voice-over" />
             <Text accessible={false} bold>
               {t('profile.namePronunciation')}
@@ -93,7 +109,7 @@ export const Profile = () => {
         )}
 
         {profile?.birthday && (
-          <HStack w={"full"} h={10} mt={4} space={2} alignItems={'center'}>
+          <HStack w={'full'} h={10} mt={4} space={2} alignItems={'center'}>
             <Icon as={FontAwesome5} name="birthday-cake" />
             <Text bold>{t('profile.birthday')}</Text>
             <Text>{profile.birthday}</Text>
@@ -101,7 +117,7 @@ export const Profile = () => {
         )}
 
         {profile?.phone && (
-          <HStack w={"full"} h={10} mt={4} space={2} alignItems={'center'}>
+          <HStack w={'full'} h={10} mt={4} space={2} alignItems={'center'}>
             <Icon as={MaterialIcons} name="phone-iphone" />
             <Text bold>{t('profile.phone')}</Text>
             <Link href={`tel:${profile.phone}`}>{profile.phone}</Link>
@@ -123,7 +139,7 @@ export const Profile = () => {
         )}
 
         {profile?.email && (
-          <HStack w={"full"} h={10} mt={4} space={2} alignItems={'center'}>
+          <HStack w={'full'} h={10} mt={4} space={2} alignItems={'center'}>
             <Icon as={MaterialIcons} name="alternate-email" />
             <Text bold>{t('profile.email')}</Text>
             <Link href={`mailto:${profile.email}`}>{profile.email}</Link>
@@ -132,7 +148,7 @@ export const Profile = () => {
 
         {profile?.location?.coordinates && (
           <>
-            <HStack w={"full"} h={10} mt={4} space={2} alignItems={'center'}>
+            <HStack w={'full'} h={10} mt={4} space={2} alignItems={'center'}>
               <Icon as={MaterialCommunity} name="map-marker" />
               <Text bold>{t('profile.location')}</Text>
               <Link

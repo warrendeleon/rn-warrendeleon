@@ -5,8 +5,10 @@ export enum ScreenNames {
   INFO = 'Info',
   CLIENTS = 'Clients',
   JOB_DESCRIPTION = 'Job Description',
+  PDF = 'PDF',
 }
 
 export enum NavigatorNames {
-  WORK_XP = 'Work XP',
+  WORK_XP = 'Work XP Nav',
+  PROFILE = 'Profile Nav',
 }
