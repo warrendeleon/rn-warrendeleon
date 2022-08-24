@@ -77,7 +77,7 @@ export const Profile = () => {
       </HStack>
       <VStack mt={4}>
         {profile?.namePronunciation && (
-          <HStack space={2} alignItems={'center'}>
+          <HStack w={"full"} h={10} space={2} alignItems={'center'}>
             <Icon as={MaterialIcons} name="record-voice-over" />
             <Text accessible={false} bold>
               {t('profile.namePronunciation')}
@@ -93,7 +93,7 @@ export const Profile = () => {
         )}
 
         {profile?.birthday && (
-          <HStack mt={4} space={2} alignItems={'center'}>
+          <HStack w={"full"} h={10} mt={4} space={2} alignItems={'center'}>
             <Icon as={FontAwesome5} name="birthday-cake" />
             <Text bold>{t('profile.birthday')}</Text>
             <Text>{profile.birthday}</Text>
@@ -101,7 +101,7 @@ export const Profile = () => {
         )}
 
         {profile?.phone && (
-          <HStack mt={4} space={2} alignItems={'center'}>
+          <HStack w={"full"} h={10} mt={4} space={2} alignItems={'center'}>
             <Icon as={MaterialIcons} name="phone-iphone" />
             <Text bold>{t('profile.phone')}</Text>
             <Link href={`tel:${profile.phone}`}>{profile.phone}</Link>
@@ -123,7 +123,7 @@ export const Profile = () => {
         )}
 
         {profile?.email && (
-          <HStack mt={4} space={2} alignItems={'center'}>
+          <HStack w={"full"} h={10} mt={4} space={2} alignItems={'center'}>
             <Icon as={MaterialIcons} name="alternate-email" />
             <Text bold>{t('profile.email')}</Text>
             <Link href={`mailto:${profile.email}`}>{profile.email}</Link>
@@ -132,7 +132,7 @@ export const Profile = () => {
 
         {profile?.location?.coordinates && (
           <>
-            <HStack mt={4} space={2} alignItems={'center'}>
+            <HStack w={"full"} h={10} mt={4} space={2} alignItems={'center'}>
               <Icon as={MaterialCommunity} name="map-marker" />
               <Text bold>{t('profile.location')}</Text>
               <Link
