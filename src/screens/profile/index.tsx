@@ -88,7 +88,9 @@ export const Profile = () => {
             }`}>
             {profile?.headline}
           </Heading>
-          <Button onPress={onPressPDFBtn}>CV PDF</Button>
+          <Button size={'sm'} mt={4} onPress={onPressPDFBtn}>
+            CV PDF
+          </Button>
         </VStack>
       </HStack>
       <VStack mt={4}>
