@@ -33,7 +33,7 @@ export const ProfileStackNavigator = () => {
         component={Profile}
       />
       <Stack.Screen
-        options={{headerShown: true}}
+        options={{headerShown: true, presentation: 'modal'}}
         name={ScreenNames.PDF}
         component={PdfScreen}
       />
