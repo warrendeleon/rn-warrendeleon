@@ -19,12 +19,14 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { BlurView } from "rn-id-blurview";
 import { ProfileStackNavigator } from "./ProfileNavigator";
+import { SalveStackNavigator } from "./SalveNavigator";
 
 type TabBarParamList = {
   [NavigatorNames.WORK_XP]: {title: string} | undefined;
   [ScreenNames.STUDIES]: {title: string} | undefined;
-  [ScreenNames.INFO]: {title: string} | undefined;
+  [NavigatorNames.PROFILE]: {title: string} | undefined;
   [ScreenNames.SETTINGS]: {title: string} | undefined;
+  [NavigatorNames.SALVE]: {title: string} | undefined;
 };
 
 const Tab = createBottomTabNavigator<TabBarParamList>();
@@ -134,10 +136,15 @@ export const TabNavigator = () => {
           component={WorkXPStackNavigator}
           initialParams={{title: t('tabs.workXP')}}
         />
+        {/*<Tab.Screen*/}
+        {/*  name={ScreenNames.STUDIES}*/}
+        {/*  component={Placeholder}*/}
+        {/*  initialParams={{title: t('tabs.studies')}}*/}
+        {/*/>*/}
         <Tab.Screen
-          name={ScreenNames.STUDIES}
-          component={Placeholder}
-          initialParams={{title: t('tabs.studies')}}
+          name={NavigatorNames.SALVE}
+          initialParams={{title: t('tabs.salve')}}
+          component={SalveStackNavigator}
         />
         <Tab.Screen
           name={NavigatorNames.PROFILE}
