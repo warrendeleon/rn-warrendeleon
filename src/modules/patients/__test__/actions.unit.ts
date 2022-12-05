@@ -10,7 +10,7 @@ describe('getPatients', () => {
   const getState = jest.fn().mockReturnValue([]);
 
   test('Should execute getPatients', async () => {
-    await getPatients()(dispatch, getState, {});
+    await getPatients(1)(dispatch, getState, {});
     expect(getPatientsService).toHaveBeenCalledTimes(1);
   });
 });
