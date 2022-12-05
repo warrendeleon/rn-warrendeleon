@@ -6,11 +6,10 @@ import {RootState} from '../../redux/configureStore';
 
 export const getPatients = createAsyncThunk<
   Patient[],
-  {clinicId: number},
+  number,
   {state: RootState}
 >('patients/getPatients', async (clinicId, {rejectWithValue}) => {
   try {
-    console.log(clinicId)
     const patients = await getPatientsService(clinicId);
     return patients.data;
   } catch (error) {

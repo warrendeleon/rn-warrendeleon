@@ -7,6 +7,7 @@ export enum ScreenNames {
   JOB_DESCRIPTION = 'Job Description',
   PDF = 'PDF',
   CLINICS = 'Clinics',
+  PATIENTS = 'Patients',
 }
 
 export enum NavigatorNames {
