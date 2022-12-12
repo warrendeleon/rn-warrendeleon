@@ -6,9 +6,11 @@ export enum ScreenNames {
   CLIENTS = 'Clients',
   JOB_DESCRIPTION = 'Job Description',
   PDF = 'PDF',
+  POKEDEX = 'Pokedex',
 }
 
 export enum NavigatorNames {
   WORK_XP = 'Work XP Nav',
   PROFILE = 'Profile Nav',
+  POKEMON = 'Pokemon Nav',
 }
