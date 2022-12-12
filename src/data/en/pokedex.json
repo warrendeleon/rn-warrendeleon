@@ -1,11 +1,11 @@
 {
+  "currentCount": 9,
   "count": 1154,
-  "next": "https://pokeapi.co/api/v2/pokemon?offset=500&limit=100",
-  "previous": "https://pokeapi.co/api/v2/pokemon?offset=300&limit=100",
   "results": [
     {
       "name": "bulbasaur",
-      "url": "https://pokeapi.co/api/v2/pokemon/1/"
+      "url": "https://pokeapi.co/api/v2/pokemon/1/",
+      "party": true
     },
     {
       "name": "ivysaur",
@@ -40,5 +40,90 @@
       "url": "https://pokeapi.co/api/v2/pokemon/9/"
     }
   ],
-  "currentCount": 9
+  "viewedPokemons": [
+    {
+      "base_experience": 64,
+      "height": 7,
+      "id": 1,
+      "is_default": true,
+      "name": "bulbasaur",
+      "order": 1,
+      "sprites": {
+        "other": {
+          "official-artwork": {
+            "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+          }
+        }
+      },
+      "stats": [
+        {
+          "base_stat": 45,
+          "effort": 0,
+          "stat": {
+            "name": "hp",
+            "url": "https://pokeapi.co/api/v2/stat/1/"
+          }
+        },
+        {
+          "base_stat": 49,
+          "effort": 0,
+          "stat": {
+            "name": "attack",
+            "url": "https://pokeapi.co/api/v2/stat/2/"
+          }
+        },
+        {
+          "base_stat": 49,
+          "effort": 0,
+          "stat": {
+            "name": "defense",
+            "url": "https://pokeapi.co/api/v2/stat/3/"
+          }
+        },
+        {
+          "base_stat": 65,
+          "effort": 1,
+          "stat": {
+            "name": "special-attack",
+            "url": "https://pokeapi.co/api/v2/stat/4/"
+          }
+        },
+        {
+          "base_stat": 65,
+          "effort": 0,
+          "stat": {
+            "name": "special-defense",
+            "url": "https://pokeapi.co/api/v2/stat/5/"
+          }
+        },
+        {
+          "base_stat": 45,
+          "effort": 0,
+          "stat": {
+            "name": "speed",
+            "url": "https://pokeapi.co/api/v2/stat/6/"
+          }
+        }
+      ],
+      "types": [
+        {
+          "slot": 1,
+          "type": {
+            "name": "grass",
+            "url": "https://pokeapi.co/api/v2/type/12/"
+          }
+        },
+        {
+          "slot": 2,
+          "type": {
+            "name": "poison",
+            "url": "https://pokeapi.co/api/v2/type/4/"
+          }
+        }
+      ],
+      "weight": 69
+    }
+  ],
+  "next": "https://pokeapi.co/api/v2/pokemon?offset=100&limit=100",
+  "previous": null
 }

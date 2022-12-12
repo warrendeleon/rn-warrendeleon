@@ -27,7 +27,14 @@ describe('<Pokedex />', () => {
   test('should not render pokedex listItems', async () => {
     try {
       (useSelector as jest.Mock).mockImplementation(callback => {
-        return callback({pokedex: []});
+        return callback({
+          pokedex: {
+            currentCount: 0,
+            count: 0,
+            results: [],
+            viewedPokemons: [],
+          },
+        });
       });
       const {getAllByTestId} = customRender(() => <Pokedex />);
       getAllByTestId('listItem');

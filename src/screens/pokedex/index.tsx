@@ -10,8 +10,7 @@ import {
 } from 'native-base';
 import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet} from 'react-native';
-import {PokemonNavigatorParamList} from '../../navigators/PokemonNavigator';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {PokemonNavigationProps} from '../../navigators/PokemonNavigator';
 import {ScreenNames} from '../../navigators/ScreenNames';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -30,10 +29,9 @@ import {POKEMON_URL} from '../../httpClient';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {PokedexEntry} from '../../models/Pokedex';
 
-export const PokedexScreen = ({
-  navigation,
-}: NativeStackScreenProps<PokemonNavigatorParamList, ScreenNames.POKEMON>) => {
+export const PokedexScreen = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation<PokemonNavigationProps>();
   const pokedex = useSelector(pokedexSelector);
   const party = useSelector(partySelector);
   const [showParty, setShowParty] = useState(false);
