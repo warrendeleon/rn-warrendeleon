@@ -2,6 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 import {
   Box,
   FlatList,
+  IconButton,
   Image,
   Pressable,
   useColorModeValue,
@@ -14,12 +15,16 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ScreenNames} from '../../navigators/ScreenNames';
 import {useNavigation} from '@react-navigation/native';
 import {
+  addPokemonToParty,
   getInitialPokedexInfo,
   getPokedex,
   getPokemonInfo,
+  removePokemonFromParty,
 } from '../../modules/pokedex/actions';
 import {pokedexSelector} from '../../modules/pokedex/selectors';
 import {POKEMON_URL} from '../../httpClient';
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import {PokedexEntry} from '../../models/Pokedex';
 
 export const PokedexScreen = () => {
   const dispatch = useDispatch();
@@ -44,6 +49,18 @@ export const PokedexScreen = () => {
     },
     [dispatch, navigation],
   );
+
+  const onHeartPressed = useCallback(
+    (pokemon: PokedexEntry) => () => {
+      if (pokemon.party) {
+        dispatch(removePokemonFromParty(pokemon.name));
+      } else {
+        dispatch(addPokemonToParty(pokemon.name));
+      }
+    },
+    [dispatch],
+  );
+
   const onEndReached = useCallback(() => {
     if (pokedex.next && pokedex.currentCount < 1000) {
       dispatch(getPokedex({url: pokedex.next}));
@@ -104,6 +121,16 @@ export const PokedexScreen = () => {
                       _text={{color: 'darkText', textAlign: 'center'}}
                       flexGrow={0}>
                       {item.name}
+                    </Box>
+                    <Box flexGrow={0}>
+                      <IconButton
+                        onPress={onHeartPressed(item)}
+                        _icon={{
+                          color: 'black',
+                          as: MaterialCommunity,
+                          name: item.party ? 'heart' : 'heart-outline',
+                        }}
+                      />
                     </Box>
                   </VStack>
                 );

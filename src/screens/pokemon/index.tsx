@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ScreenNames} from '../../navigators/ScreenNames';
 import {
@@ -13,32 +13,64 @@ import {
   VStack,
 } from 'native-base';
 import {PokemonNavigatorParamList} from '../../navigators/PokemonNavigator';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/configureStore';
-import {pokemonSelector} from '../../modules/pokedex/selectors';
+import {
+  isPokemonInPartySelector,
+  pokemonSelector,
+} from '../../modules/pokedex/selectors';
 import {POKEMON_TYPE_COLORS} from '../../models/Pokemon';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import {
+  addPokemonToParty,
+  removePokemonFromParty,
+} from '../../modules/pokedex/actions';
 
 export const PokemonScreen = ({
   navigation,
   route,
 }: NativeStackScreenProps<PokemonNavigatorParamList, ScreenNames.POKEMON>) => {
+  const dispatch = useDispatch();
   const {url} = route.params;
   const pokemon = useSelector((state: RootState) =>
     pokemonSelector(state, url),
   );
+  const isPokemonInParty = useSelector((state: RootState) =>
+    isPokemonInPartySelector(state, pokemon?.name ? pokemon?.name : ''),
+  );
   const containerBgColor = useColorModeValue('muted.100', 'blueGray.900');
   const borderColor = useColorModeValue('black', 'white');
+  const onHeaderRightBtnPress = useCallback(() => {
+    if (isPokemonInParty) {
+      dispatch(removePokemonFromParty(pokemon?.name ? pokemon?.name : ''));
+    } else {
+      dispatch(addPokemonToParty(pokemon?.name ? pokemon?.name : ''));
+    }
+  }, [dispatch, isPokemonInParty, pokemon]);
+
+  useEffect(() => {
+    if (pokemon) {
+      navigation.setOptions({
+        title:
+          pokemon.name.slice(0, 1).toUpperCase() +
+          pokemon.name.slice(1, pokemon.name.length),
+        headerRight: () => (
+          <IconButton
+            onPress={onHeaderRightBtnPress}
+            _icon={{
+              color: 'white',
+              as: MaterialCommunity,
+              name: isPokemonInParty ? 'heart' : 'heart-outline',
+            }}
+          />
+        ),
+      });
+    }
+  }, [navigation, onHeaderRightBtnPress, pokemon, isPokemonInParty]);
 
   if (!pokemon) {
     return <Box />;
   }
-
-  navigation.setOptions({
-    title:
-      pokemon.name.slice(0, 1).toUpperCase() +
-      pokemon.name.slice(1, pokemon.name.length),
-  });
 
   return (
     <VStack w={'full'} h={'full'} bg={containerBgColor}>
@@ -105,7 +137,7 @@ export const PokemonScreen = ({
           space={2}
           alignItems={'center'}>
           {pokemon.stats.map(item => (
-            <HStack space={2}>
+            <HStack key={item.stat.name} space={2}>
               <Text textAlign={'right'} flex={2}>
                 {item.stat.name}
               </Text>

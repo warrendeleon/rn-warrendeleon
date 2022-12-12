@@ -1,6 +1,12 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {Reducer} from 'redux';
-import {getInitialPokedexInfo, getPokedex, getPokemonInfo} from './actions';
+import {
+  addPokemonToParty,
+  getInitialPokedexInfo,
+  getPokedex,
+  getPokemonInfo,
+  removePokemonFromParty,
+} from './actions';
 import {Pokedex} from '../../models/Pokedex';
 import lodash from 'lodash';
 
@@ -21,6 +27,7 @@ export const pokedexReducer: Reducer<Pokedex> = createReducer<Pokedex>(
           'url',
         );
         return {
+          ...state,
           ...action.payload,
           currentCount: newResults.length,
           results: newResults,
@@ -32,22 +39,41 @@ export const pokedexReducer: Reducer<Pokedex> = createReducer<Pokedex>(
           'url',
         );
         return {
+          ...state,
           ...action.payload,
           currentCount: newResults.length,
           results: newResults,
         };
       })
       .addCase(getPokemonInfo.fulfilled, (state, action) => {
-        if (state.viewedPokemons?.length > 0) {
-          return {
-            ...state,
-            viewedPokemons: [...state.viewedPokemons, action.payload],
+        state.viewedPokemons = [...state.viewedPokemons, action.payload];
+        return;
+      })
+      .addCase(addPokemonToParty, (state, action) => {
+        const index = state.results.findIndex(
+          pokemon => pokemon.name === action.payload,
+        );
+
+        if (index !== -1) {
+          state.results[index] = {
+            ...state.results[index],
+            party: true,
           };
         }
-        return {
-          ...state,
-          viewedPokemons: [action.payload],
-        };
+        return;
+      })
+      .addCase(removePokemonFromParty, (state, action) => {
+        const index = state.results.findIndex(
+          pokemon => pokemon.name === action.payload,
+        );
+
+        if (index !== -1) {
+          state.results[index] = {
+            ...state.results[index],
+            party: false,
+          };
+        }
+        return;
       });
   },
 );

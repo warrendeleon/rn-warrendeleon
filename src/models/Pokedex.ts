@@ -12,4 +12,5 @@ export interface Pokedex {
 export interface PokedexEntry {
   name: string;
   url: string;
+  party: boolean;
 }

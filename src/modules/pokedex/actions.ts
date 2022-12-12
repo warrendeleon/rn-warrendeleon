@@ -1,4 +1,4 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
 
 import {getPokedexService, getPokemonInfoService} from './api';
 import {RootState} from '../../redux/configureStore';
@@ -48,3 +48,17 @@ export const getPokemonInfo = createAsyncThunk<
     return rejectWithValue('API Error');
   }
 });
+
+export const addPokemonToParty = createAction(
+  'pokedex/addPokemonToParty',
+  (pokemonName: string) => ({
+    payload: pokemonName,
+  }),
+);
+
+export const removePokemonFromParty = createAction(
+  'pokedex/removePokemonFromParty',
+  (pokemonName: string) => ({
+    payload: pokemonName,
+  }),
+);
