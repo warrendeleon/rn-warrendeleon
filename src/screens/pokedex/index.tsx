@@ -40,8 +40,9 @@ export const PokedexScreen = () => {
   const onPress = useCallback(
     (url: string) => () => {
       dispatch(getPokemonInfo({url}));
+      navigation.push(ScreenNames.POKEMON, {url});
     },
-    [dispatch],
+    [dispatch, navigation],
   );
   const onEndReached = useCallback(() => {
     if (pokedex.next && pokedex.currentCount < 1000) {

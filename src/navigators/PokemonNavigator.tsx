@@ -3,9 +3,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ScreenNames} from './ScreenNames';
 import {useTheme} from 'native-base';
 import {PokedexScreen} from '../screens/pokedex';
+import {PokemonScreen} from '../screens/pokemon';
 
 export type PokemonNavigatorParamList = {
   [ScreenNames.POKEDEX]: undefined;
+  [ScreenNames.POKEMON]: {url: string};
 };
 
 const Stack = createNativeStackNavigator<PokemonNavigatorParamList>();
@@ -29,6 +31,11 @@ export const PokemonNavigator = () => {
         options={{headerShown: false}}
         name={ScreenNames.POKEDEX}
         component={PokedexScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: true}}
+        name={ScreenNames.POKEMON}
+        component={PokemonScreen}
       />
     </Stack.Navigator>
   );

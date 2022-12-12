@@ -7,6 +7,7 @@ export enum ScreenNames {
   JOB_DESCRIPTION = 'Job Description',
   PDF = 'PDF',
   POKEDEX = 'Pokedex',
+  POKEMON = 'Pokemon',
 }
 
 export enum NavigatorNames {
