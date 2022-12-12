@@ -7,11 +7,15 @@ import {store} from './src/redux/configureStore';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
 import {injectStore} from './src/httpClient';
-import { AudioPlayerSetupService } from "./src/service/audioPlayerSetupService";
+import {AudioPlayerSetupService} from './src/service/audioPlayerSetupService';
+import {LogBox} from 'react-native';
 
 export default function App() {
   injectStore(store);
   AudioPlayerSetupService();
+  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+  LogBox.ignoreAllLogs(); //Ignore all log notifications
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)}>
