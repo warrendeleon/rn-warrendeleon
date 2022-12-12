@@ -17,7 +17,6 @@ export const PokemonNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
         headerStyle: {
           backgroundColor: theme.colors.primary[900],
         },
@@ -28,12 +27,10 @@ export const PokemonNavigator = () => {
         },
       }}>
       <Stack.Screen
-        options={{headerShown: false}}
         name={ScreenNames.POKEDEX}
         component={PokedexScreen}
       />
       <Stack.Screen
-        options={{headerShown: true}}
         name={ScreenNames.POKEMON}
         component={PokemonScreen}
       />

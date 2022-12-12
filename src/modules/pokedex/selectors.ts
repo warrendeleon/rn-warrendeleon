@@ -18,6 +18,10 @@ export const resultsSelector = createSelector(
   pokedex => pokedex.results,
 );
 
+export const partySelector = createSelector(pokedexSelector, pokedex =>
+  pokedex.results.filter(pokemon => pokemon.party),
+);
+
 export const pokemonSelector = createSelector(
   viewedPokemonsSelector,
   (_: RootState, url: string) => url,

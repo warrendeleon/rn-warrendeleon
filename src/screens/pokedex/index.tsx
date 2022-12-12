@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Box,
   FlatList,
@@ -23,19 +23,20 @@ import {
 } from '../../modules/pokedex/actions';
 import {
   isPartyFullSelector,
+  partySelector,
   pokedexSelector,
 } from '../../modules/pokedex/selectors';
 import {POKEMON_URL} from '../../httpClient';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {PokedexEntry} from '../../models/Pokedex';
 
-export const PokedexScreen = () => {
+export const PokedexScreen = ({
+  navigation,
+}: NativeStackScreenProps<PokemonNavigatorParamList, ScreenNames.POKEMON>) => {
   const dispatch = useDispatch();
-  const navigation =
-    useNavigation<
-      NativeStackScreenProps<PokemonNavigatorParamList, ScreenNames.POKEDEX>
-    >();
   const pokedex = useSelector(pokedexSelector);
+  const party = useSelector(partySelector);
+  const [showParty, setShowParty] = useState(false);
   useEffect(() => {
     if (pokedex.next && pokedex.currentCount < 1000) {
       dispatch(getPokedex({url: pokedex.next}));
@@ -44,6 +45,21 @@ export const PokedexScreen = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          onPress={() => setShowParty(!showParty)}
+          _icon={{
+            color: 'white',
+            as: MaterialCommunity,
+            name: showParty ? 'filter-off-outline' : 'filter-outline',
+          }}
+        />
+      ),
+    });
+  }, [navigation, showParty]);
+
   const isPartyFull = useSelector(isPartyFullSelector);
   const onPress = useCallback(
     (url: string) => () => {
@@ -77,7 +93,7 @@ export const PokedexScreen = () => {
       px={4}
       safeArea>
       <FlatList
-        data={pokedex.results}
+        data={showParty ? party : pokedex.results}
         numColumns={2}
         keyExtractor={item => `${item.url}`}
         contentContainerStyle={StyleSheet.flatten({paddingBottom: 90})}
