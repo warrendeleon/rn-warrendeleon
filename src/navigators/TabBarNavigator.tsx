@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Placeholder} from '../screens/placeholder';
 import {Icon, Text, useColorModeValue, useToken, VStack} from 'native-base';
 import {Platform, Pressable, StyleSheet} from 'react-native';
 import {Settings} from '../screens/settings';
@@ -19,10 +18,13 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {BlurView} from 'rn-id-blurview';
 import {ProfileStackNavigator} from './ProfileNavigator';
+import {PokemonNavigator} from './PokemonNavigator';
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type TabBarParamList = {
   [NavigatorNames.WORK_XP]: {title: string} | undefined;
   [ScreenNames.STUDIES]: {title: string} | undefined;
+  [NavigatorNames.POKEMON]: {title: string} | undefined;
   [NavigatorNames.PROFILE]: {title: string} | undefined;
   [ScreenNames.SETTINGS]: {title: string} | undefined;
 };
@@ -115,6 +117,8 @@ export const TabNavigator = () => {
                   return <FontAwesome5 {...p} name={'cog'} />;
                 case ScreenNames.STUDIES:
                   return <FontAwesome5 {...p} name={'user-graduate'} />;
+                case NavigatorNames.POKEMON:
+                  return <MaterialCommunity {...p} name={'pokeball'} />;
                 default:
                   return <MaterialIcons {...p} name={'perm-device-info'} />;
               }
@@ -135,9 +139,9 @@ export const TabNavigator = () => {
           initialParams={{title: t('tabs.workXP')}}
         />
         <Tab.Screen
-          name={ScreenNames.STUDIES}
-          component={Placeholder}
-          initialParams={{title: t('tabs.studies')}}
+          name={NavigatorNames.POKEMON}
+          component={PokemonNavigator}
+          initialParams={{title: t('tabs.pokedex')}}
         />
         <Tab.Screen
           name={NavigatorNames.PROFILE}

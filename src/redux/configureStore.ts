@@ -16,7 +16,7 @@ import {ThunkAction} from 'redux-thunk';
 
 import {rootReducer} from './rootReducer';
 
-const REDUCERS_TO_PERSIST: string[] = ['profile'];
+const REDUCERS_TO_PERSIST: string[] = ['profile', 'pokedex'];
 const REDUCERS_NOT_TO_PERSIST: string[] = ['status'];
 
 const persistConfig = {

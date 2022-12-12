@@ -13,6 +13,12 @@ export const apiClient = axios.create({
   baseURL: BASE_URL,
 });
 
+export const POKEMON_URL = 'https://pokeapi.co/api/v2';
+
+export const pokemonApiClient = axios.create({
+  baseURL: POKEMON_URL,
+});
+
 export const injectStore = (_store: EnhancedStore) => {
   store = _store;
 };
