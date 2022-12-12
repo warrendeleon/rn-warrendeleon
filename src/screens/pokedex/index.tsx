@@ -21,7 +21,10 @@ import {
   getPokemonInfo,
   removePokemonFromParty,
 } from '../../modules/pokedex/actions';
-import {pokedexSelector} from '../../modules/pokedex/selectors';
+import {
+  isPartyFullSelector,
+  pokedexSelector,
+} from '../../modules/pokedex/selectors';
 import {POKEMON_URL} from '../../httpClient';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import {PokedexEntry} from '../../models/Pokedex';
@@ -41,7 +44,7 @@ export const PokedexScreen = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const isPartyFull = useSelector(isPartyFullSelector);
   const onPress = useCallback(
     (url: string) => () => {
       dispatch(getPokemonInfo({url}));
@@ -122,16 +125,30 @@ export const PokedexScreen = () => {
                       flexGrow={0}>
                       {item.name}
                     </Box>
-                    <Box flexGrow={0}>
-                      <IconButton
-                        onPress={onHeartPressed(item)}
-                        _icon={{
-                          color: 'black',
-                          as: MaterialCommunity,
-                          name: item.party ? 'heart' : 'heart-outline',
-                        }}
-                      />
-                    </Box>
+                    {item.party && (
+                      <Box flexGrow={0}>
+                        <IconButton
+                          onPress={onHeartPressed(item)}
+                          _icon={{
+                            color: 'red.500',
+                            as: MaterialCommunity,
+                            name: 'heart',
+                          }}
+                        />
+                      </Box>
+                    )}
+                    {!item.party && !isPartyFull && (
+                      <Box flexGrow={0}>
+                        <IconButton
+                          onPress={onHeartPressed(item)}
+                          _icon={{
+                            color: 'black',
+                            as: MaterialCommunity,
+                            name: 'heart-outline',
+                          }}
+                        />
+                      </Box>
+                    )}
                   </VStack>
                 );
               }}

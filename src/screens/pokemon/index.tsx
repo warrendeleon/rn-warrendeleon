@@ -16,6 +16,7 @@ import {PokemonNavigatorParamList} from '../../navigators/PokemonNavigator';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/configureStore';
 import {
+  isPartyFullSelector,
   isPokemonInPartySelector,
   pokemonSelector,
 } from '../../modules/pokedex/selectors';
@@ -38,6 +39,7 @@ export const PokemonScreen = ({
   const isPokemonInParty = useSelector((state: RootState) =>
     isPokemonInPartySelector(state, pokemon?.name ? pokemon?.name : ''),
   );
+  const isPartyFull = useSelector(isPartyFullSelector);
   const containerBgColor = useColorModeValue('muted.100', 'blueGray.900');
   const borderColor = useColorModeValue('black', 'white');
   const onHeaderRightBtnPress = useCallback(() => {
@@ -54,19 +56,41 @@ export const PokemonScreen = ({
         title:
           pokemon.name.slice(0, 1).toUpperCase() +
           pokemon.name.slice(1, pokemon.name.length),
-        headerRight: () => (
-          <IconButton
-            onPress={onHeaderRightBtnPress}
-            _icon={{
-              color: 'white',
-              as: MaterialCommunity,
-              name: isPokemonInParty ? 'heart' : 'heart-outline',
-            }}
-          />
-        ),
+        headerRight: () => {
+          if (isPokemonInParty) {
+            return (
+              <IconButton
+                onPress={onHeaderRightBtnPress}
+                _icon={{
+                  color: 'white',
+                  as: MaterialCommunity,
+                  name: 'heart',
+                }}
+              />
+            );
+          }
+          if (!isPokemonInParty && !isPartyFull) {
+            return (
+              <IconButton
+                onPress={onHeaderRightBtnPress}
+                _icon={{
+                  color: 'white',
+                  as: MaterialCommunity,
+                  name: 'heart-outline',
+                }}
+              />
+            );
+          }
+        },
       });
     }
-  }, [navigation, onHeaderRightBtnPress, pokemon, isPokemonInParty]);
+  }, [
+    navigation,
+    onHeaderRightBtnPress,
+    pokemon,
+    isPokemonInParty,
+    isPartyFull,
+  ]);
 
   if (!pokemon) {
     return <Box />;

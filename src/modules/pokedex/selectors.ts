@@ -44,3 +44,8 @@ export const isPokemonInPartySelector = createSelector(
     return false;
   },
 );
+
+export const isPartyFullSelector = createSelector(resultsSelector, pokemons => {
+  const party = pokemons.filter(pokemon => pokemon.party === true);
+  return party.length >= 6;
+});
