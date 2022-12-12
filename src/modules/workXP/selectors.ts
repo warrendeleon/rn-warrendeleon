@@ -1,8 +1,6 @@
 import {createSelector} from '@reduxjs/toolkit';
 import {RootState} from '../../redux/configureStore';
 import {WorkXP} from '../../models/workXP';
-import { PENDING } from "../status/reducer";
-import { statusSelector } from "../status/selectors";
 
 const workXPState = (state: RootState) => state.workXP;
 

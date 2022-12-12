@@ -124,12 +124,7 @@ export const JobDescription = ({
           )}
 
           {info?.description && (
-            <Box
-              bgColor={descriptionBgColor}
-              mt={10}
-              py={1}
-              px={5}
-              flex={1}>
+            <Box bgColor={descriptionBgColor} mt={10} py={1} px={5} flex={1}>
               <Markdown
                 style={{
                   bullet_list: {

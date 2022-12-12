@@ -1,4 +1,4 @@
-import {fireEvent, render, waitFor} from '@testing-library/react-native';
+import {fireEvent} from '@testing-library/react-native';
 import React from 'react';
 import {ListItem} from '../index';
 import {customRender} from '../../../testUtils/custom-render';
