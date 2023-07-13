@@ -2,12 +2,15 @@ import React from 'react';
 import StorybookUIRoot from './.ondevice/Storybook';
 import {useCallback, useEffect, useState} from 'react';
 import {NativeBaseProvider, Box} from 'native-base';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = (): JSX.Element => {
   return (
-    <NativeBaseProvider>
-      <Box>Hello world</Box>
-    </NativeBaseProvider>
+    <NavigationContainer>
+      <NativeBaseProvider>
+        <Box>Hello world</Box>
+      </NativeBaseProvider>
+    </NavigationContainer>
   );
 };
 
