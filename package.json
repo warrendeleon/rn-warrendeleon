@@ -20,6 +20,7 @@
     "@react-native-community/datetimepicker": "^7.4.0",
     "@react-native-community/slider": "^4.4.2",
     "@react-navigation/native": "^6.1.7",
+    "@react-navigation/native-stack": "^6.9.13",
     "native-base": "^3.4.28",
     "patch-package": "^7.0.2",
     "postinstall-postinstall": "^2.1.0",
