@@ -4,14 +4,22 @@ import {useCallback, useEffect, useState} from 'react';
 import {NativeBaseProvider} from 'native-base';
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigator from './src/navigators/Root';
+import {store} from './src/redux/configureStore';
+import {persistStore} from 'redux-persist';
+import {PersistGate} from 'redux-persist/integration/react';
+import {Provider} from 'react-redux';
 
 const App = (): JSX.Element => {
   return (
-    <NavigationContainer>
-      <NativeBaseProvider>
-        <RootNavigator />
-      </NativeBaseProvider>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistStore(store)}>
+        <NavigationContainer>
+          <NativeBaseProvider>
+            <RootNavigator />
+          </NativeBaseProvider>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 };
 
