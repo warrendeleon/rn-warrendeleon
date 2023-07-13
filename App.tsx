@@ -1,10 +1,14 @@
 import React from 'react';
 import StorybookUIRoot from './.ondevice/Storybook';
-import {Text} from 'react-native';
 import {useCallback, useEffect, useState} from 'react';
+import {NativeBaseProvider, Box} from 'native-base';
 
 const App = (): JSX.Element => {
-  return <Text>Hello World!</Text>;
+  return (
+    <NativeBaseProvider>
+      <Box>Hello world</Box>
+    </NativeBaseProvider>
+  );
 };
 
 const Root = (): JSX.Element => {
