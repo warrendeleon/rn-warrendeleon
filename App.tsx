@@ -1,13 +1,13 @@
 import React from 'react';
-import StorybookUIRoot from './.ondevice/Storybook';
 import {useCallback, useEffect, useState} from 'react';
 import {NativeBaseProvider} from 'native-base';
 import {NavigationContainer} from '@react-navigation/native';
-import RootNavigator from './src/navigators/Root';
-import {store} from './src/redux/configureStore';
+import {RootNavigator} from '@app/navigators';
+import {store} from '@app/redux';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
+import {Storybook} from '@rn-storybook';
 
 const App = (): JSX.Element => {
   return (
@@ -37,7 +37,13 @@ const Root = (): JSX.Element => {
     }
   }, [toggleStorybook]);
 
-  return storybookActive ? <StorybookUIRoot /> : <App />;
+  return storybookActive ? (
+    <NativeBaseProvider>
+      <Storybook />
+    </NativeBaseProvider>
+  ) : (
+    <App />
+  );
 };
 
 export default Root;

@@ -1,6 +1,6 @@
 import Redux from 'redux';
 
-import {StatusState} from '../../models/StatusState';
+import {StatusState} from '@app/models';
 
 export const NOT_STARTED = 'NOT_STARTED';
 export const PENDING = 'PENDING';

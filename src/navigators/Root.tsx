@@ -1,7 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from '../screens/home/Home';
-import Settings from '../screens/settings/Settings';
+import {Home, Settings} from '@app/screens';
 
 const RootNavigator = (): JSX.Element => {
   const RootStack = createNativeStackNavigator();

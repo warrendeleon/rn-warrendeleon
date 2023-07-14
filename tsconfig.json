@@ -1,3 +1,11 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "*": ["./*"],
+      "@app/*": ["./src/*"],
+      "@rn-storybook": ["./.ondevice"],
+      "@app/atoms/*": ["./src/components/atoms/*"]
+    }
+  }
 }
