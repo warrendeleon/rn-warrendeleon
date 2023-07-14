@@ -49,6 +49,7 @@ try {
 
 const getStories = () => {
   return {
+    "./src/components/atoms/buttons/button-with-chevron/ButtonWithChevron.stories.tsx": require("../src/components/atoms/buttons/button-with-chevron/ButtonWithChevron.stories.tsx"),
     "./src/components/atoms/logo/Logo.stories.tsx": require("../src/components/atoms/logo/Logo.stories.tsx"),
   };
 };

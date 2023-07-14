@@ -18,9 +18,9 @@ module.exports = {
           '.json',
         ],
         alias: {
-          '*': '.',
-          '@app': './src',
           '@app/atoms': './src/components/atoms',
+          '@app': './src',
+          '*': '.',
           '@rn-storybook': './.ondevice',
         },
       },

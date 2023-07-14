@@ -1,6 +1,11 @@
 import React from 'react';
-import {Box} from 'native-base';
+import {VStack} from 'native-base';
+import {ButtonWithChevron} from '@app/atoms/buttons';
 
 export const Settings = (): JSX.Element => {
-  return <Box>Settings</Box>;
+  return (
+    <VStack p={4}>
+      <ButtonWithChevron label={'Language'} />
+    </VStack>
+  );
 };

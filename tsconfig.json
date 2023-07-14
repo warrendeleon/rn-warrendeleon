@@ -3,9 +3,9 @@
   "compilerOptions": {
     "paths": {
       "*": ["./*"],
+      "@app/atoms/*": ["./src/components/atoms/*"],
       "@app/*": ["./src/*"],
-      "@rn-storybook": ["./.ondevice"],
-      "@app/atoms/*": ["./src/components/atoms/*"]
+      "@rn-storybook": ["./.ondevice"]
     }
   }
 }
