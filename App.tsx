@@ -8,13 +8,14 @@ import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
 import {Storybook} from '@rn-storybook';
+import {theme} from '@app/theme/Theme';
 
 const App = (): JSX.Element => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)}>
         <NavigationContainer>
-          <NativeBaseProvider>
+          <NativeBaseProvider theme={theme}>
             <RootNavigator />
           </NativeBaseProvider>
         </NavigationContainer>
