@@ -1,10 +1,16 @@
 import React from 'react';
-import {Button} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
+import {ButtonWithChevron} from '@app/atoms/buttons';
+import {VStack} from 'native-base';
 
 export const Home = (): JSX.Element => {
   const navigation = useNavigation();
   return (
-    <Button onPress={() => navigation.navigate('Settings')}>Settings</Button>
+    <VStack p={4}>
+      <ButtonWithChevron
+        onPress={() => navigation.navigate('Settings')}
+        label={'Settings'}
+      />
+    </VStack>
   );
 };

@@ -14,11 +14,9 @@ const App = (): JSX.Element => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)}>
-        <NavigationContainer>
           <NativeBaseProvider theme={theme}>
             <RootNavigator />
           </NativeBaseProvider>
-        </NavigationContainer>
       </PersistGate>
     </Provider>
   );

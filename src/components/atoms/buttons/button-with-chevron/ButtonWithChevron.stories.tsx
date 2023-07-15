@@ -8,6 +8,11 @@ import {VStack} from 'native-base';
 export default {
   title: 'components/menu-item',
   component: ButtonWithChevron,
+  parameters: {
+    actions: {
+      argTypesRegex: '^on.*',
+    },
+  },
 } as ComponentMeta<typeof ButtonWithChevron>;
 
 export const MenuItem: ComponentStory<typeof ButtonWithChevron> = args => (

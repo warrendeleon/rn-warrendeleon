@@ -45,4 +45,7 @@ export const theme = extendTheme({
     body: 'SFProText',
     mono: 'SFProText',
   },
+  config: {
+    useSystemColorMode: true,
+  },
 });
