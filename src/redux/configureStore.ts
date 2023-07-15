@@ -1,5 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {configureStore} from '@reduxjs/toolkit';
+import {
+  configureStore,
+  EnhancedStore,
+  Store,
+  ThunkDispatch,
+} from '@reduxjs/toolkit';
 import {CurriedGetDefaultMiddleware} from '@reduxjs/toolkit/src/getDefaultMiddleware';
 import {AnyAction} from 'redux';
 import {persistReducer} from 'redux-persist';
@@ -14,8 +19,9 @@ import {
 import {ThunkAction} from 'redux-thunk';
 
 import {rootReducer} from './rootReducer';
+import {useDispatch} from 'react-redux';
 
-const REDUCERS_TO_PERSIST: string[] = [];
+const REDUCERS_TO_PERSIST: string[] = ['settings'];
 const REDUCERS_NOT_TO_PERSIST: string[] = ['status'];
 
 const persistConfig = {
@@ -28,7 +34,13 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const createDebugger = require('redux-flipper').default;
-export const store = configureStore({
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = Omit<Store<RootState>, 'dispatch'> & {
+  dispatch: AppThunkDispatch;
+};
+
+export const store: AppStore = configureStore({
   middleware: (getDefaultMiddleware: CurriedGetDefaultMiddleware) => {
     const defaultMiddleware = getDefaultMiddleware({
       immutableCheck: false,
@@ -43,9 +55,9 @@ export const store = configureStore({
   },
   reducer: persistedReducer,
 });
-
-export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
+export type AppThunkDispatch = ThunkDispatch<RootState, any, AnyAction>;
+export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -53,3 +65,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   AnyAction
 >;
+
+let injectedStore: any;
+export const injectStore = (_store: EnhancedStore) => {
+  injectedStore = _store;
+};

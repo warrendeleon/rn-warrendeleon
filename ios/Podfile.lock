@@ -503,6 +503,8 @@ PODS:
     - React-Core
     - React-Core/DevSupport
     - React-RCTNetwork
+  - RNLocalize (3.0.2):
+    - React-Core
   - RNScreens (3.22.1):
     - React-Core
     - React-RCTImage
@@ -583,6 +585,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNDevMenu (from `../node_modules/react-native-dev-menu`)
+  - RNLocalize (from `../node_modules/react-native-localize`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -697,6 +700,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNDevMenu:
     :path: "../node_modules/react-native-dev-menu"
+  RNLocalize:
+    :path: "../node_modules/react-native-localize"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
@@ -763,6 +768,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 4b98ac3c64efa4e35c1197cb0c5ca5e9f5d4c666
   RNDateTimePicker: 4cb76f42ef1411f5e0cfc69758b7d9d7a30e12e4
   RNDevMenu: 72807568fe4188bd4c40ce32675d82434b43c45d
+  RNLocalize: dbea38dcb344bf80ff18a1757b1becf11f70cae4
   RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   RNSVG: 80584470ff1ffc7994923ea135a3e5ad825546b9
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17

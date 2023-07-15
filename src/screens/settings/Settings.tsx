@@ -1,16 +1,23 @@
 import React from 'react';
-import { Heading, useColorModeValue, VStack } from "native-base";
+import {Heading, VStack} from 'native-base';
 import {Select} from '@app/atoms/select';
+import {useSelector} from 'react-redux';
+import {setLocale} from '@app/modules/settings/actions';
+import {localeSelector} from '@app/modules/settings/selectors';
+import {useAppDispatch} from '@app/redux/configureStore';
+import {useTranslation} from 'react-i18next';
 
 export const Settings = (): JSX.Element => {
-  const [language, setLanguage] = React.useState('en');
+  const dispatch = useAppDispatch();
+  const locale = useSelector(localeSelector);
+  const {t} = useTranslation();
   const languages = [
     {
-      label: 'Spanish',
+      label: t('settings.languages.spanish'),
       value: 'es',
     },
     {
-      label: 'English',
+      label: t('settings.languages.english'),
       value: 'en',
     },
   ];
@@ -22,14 +29,12 @@ export const Settings = (): JSX.Element => {
         mb={2}
         ml={4}
         textTransform="uppercase">
-        Language
+        {t('settings.language')}
       </Heading>
       <Select
         items={languages}
-        selectedValue={language}
-        accessibilityLabel="Choose language"
-        placeholder="Choose language"
-        onValueChange={(itemValue: string) => setLanguage(itemValue)}
+        selectedValue={locale}
+        onValueChange={(itemValue: string) => dispatch(setLocale(itemValue))}
       />
     </VStack>
   );

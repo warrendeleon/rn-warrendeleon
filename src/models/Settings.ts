@@ -1,3 +1,3 @@
 export interface Settings {
-  language: string;
+  locale: string;
 }

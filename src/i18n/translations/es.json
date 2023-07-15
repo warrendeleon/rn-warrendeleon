@@ -1,0 +1,17 @@
+{
+  "screens": {
+    "home": "Inicio",
+    "settings": "Ajustes"
+  },
+  "home": {
+    "settings": "Ajustes"
+  },
+  "settings": {
+    "language": "idioma",
+    "chooseLanguage": "Por favor, escoge un idioma",
+    "languages": {
+      "spanish": "Español",
+      "english": "Inglés"
+    }
+  }
+}
