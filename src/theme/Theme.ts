@@ -1,6 +1,6 @@
 import {extendTheme} from 'native-base';
 
-export const theme = extendTheme({
+export const theme = {
   fontConfig: {
     SFProText: {
       100: {
@@ -46,6 +46,6 @@ export const theme = extendTheme({
     mono: 'SFProText',
   },
   config: {
-    useSystemColorMode: true,
+    useSystemColorMode: false,
   },
-});
+};

@@ -8,6 +8,8 @@
   },
   "settings": {
     "language": "idioma",
+    "appearance": "Aspecto",
+    "darkMode": "Aspecto oscuro",
     "chooseLanguage": "Por favor, escoge un idioma",
     "languages": {
       "spanish": "Español",

@@ -15,3 +15,14 @@ export const setLocale = createAsyncThunk<string, string>(
     }
   },
 );
+
+export const setDarkMode = createAsyncThunk<boolean, boolean>(
+  'settings/theme/setDarkMode',
+  async (darkMode, {rejectWithValue}) => {
+    try {
+      return darkMode;
+    } catch (error) {
+      return rejectWithValue('Error');
+    }
+  },
+);

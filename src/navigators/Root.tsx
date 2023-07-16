@@ -14,13 +14,7 @@ import {changeLanguage} from '@app/i18n/i18n.config';
 
 const RootNavigator = (): JSX.Element => {
   const RootStack = createNativeStackNavigator();
-  const locale = useSelector(localeSelector);
-  useEffect(() => {
-    setTimeout(() => {
-      changeLanguage(locale);
-    }, 500);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   const {t} = useTranslation();
   return (
     <NavigationContainer theme={useColorModeValue(DefaultTheme, DarkTheme)}>
