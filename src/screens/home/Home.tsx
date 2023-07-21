@@ -1,8 +1,10 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ButtonWithChevron} from '@app/atoms/buttons';
-import {VStack} from 'native-base';
+import {Box, VStack} from 'native-base';
 import {useTranslation} from 'react-i18next';
+import {faSliders} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 export const Home = (): JSX.Element => {
   const navigation = useNavigation();
@@ -10,6 +12,10 @@ export const Home = (): JSX.Element => {
   return (
     <VStack p={4}>
       <ButtonWithChevron
+        startIcon={
+          <FontAwesomeIcon size={18} icon={faSliders} color={'white'} />
+        }
+        startIconBgColor={'blue.600'}
         onPress={() => navigation.navigate('Settings')}
         label={t('home.settings')}
       />
