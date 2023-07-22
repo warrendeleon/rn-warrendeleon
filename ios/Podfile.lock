@@ -389,6 +389,8 @@ PODS:
     - React-Core
   - react-native-slider (4.4.2):
     - React-Core
+  - react-native-webview (13.2.3):
+    - React-Core
   - React-NativeModulesApple (0.72.3):
     - hermes-engine
     - React-callinvoker
@@ -573,6 +575,7 @@ DEPENDENCIES:
   - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -673,6 +676,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-slider:
     :path: "../node_modules/@react-native-community/slider"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-NativeModulesApple:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios"
   React-perflogger:
@@ -765,6 +770,7 @@ SPEC CHECKSUMS:
   react-native-pdf: 7c0e91ada997bac8bac3bb5bea5b6b81f5a3caae
   react-native-safe-area-context: 9697629f7b2cda43cf52169bb7e0767d330648c2
   react-native-slider: 33b8d190b59d4f67a541061bb91775d53d617d9d
+  react-native-webview: b85dfe0bf95bef83e82fc354d6987c80fed5e7ad
   React-NativeModulesApple: c57f3efe0df288a6532b726ad2d0322a9bf38472
   React-perflogger: 6bd153e776e6beed54c56b0847e1220a3ff92ba5
   React-RCTActionSheet: c0b62af44e610e69d9a2049a682f5dba4e9dff17

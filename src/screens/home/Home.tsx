@@ -43,7 +43,7 @@ export const Home = (): JSX.Element => {
       icon: faYoutube,
       iconBgColor: 'red.500',
       label: t('home.videos'),
-      onPress: () => navigation.navigate('Settings'),
+      onPress: () => navigation.navigate('Videos'),
     },
   ];
 

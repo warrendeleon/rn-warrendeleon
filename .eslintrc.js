@@ -35,7 +35,6 @@ module.exports = {
     '@typescript-eslint',
     'sort-keys-fix',
     'simple-import-sort',
-    'tsc',
     'jest',
   ],
   root: true,
@@ -48,11 +47,5 @@ module.exports = {
       {caseSensitive: false, natural: true},
     ],
     'sort-vars': 'error',
-    'tsc/config': [
-      1,
-      {
-        configFile: 'tsconfig.json',
-      },
-    ],
   },
 };
