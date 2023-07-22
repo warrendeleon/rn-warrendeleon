@@ -14,6 +14,7 @@ module.exports = {
           '@app/redux': './src/redux',
           '@app/screens': './src/screens',
           '@app/theme': './src/theme',
+          '@app/httpClients': './src/httpClients',
           '@rn-storybook': './.ondevice',
           '@app': './src',
           '*': '.',

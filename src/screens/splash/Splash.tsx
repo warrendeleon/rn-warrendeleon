@@ -5,8 +5,9 @@ import {extendTheme, NativeBaseProvider, Spinner, VStack} from 'native-base';
 
 import {Logo} from '@app/atoms';
 import {changeLanguage} from '@app/i18n';
-import {darkModeSelector, localeSelector} from '@app/modules';
+import {darkModeSelector, getVideos, localeSelector} from '@app/modules';
 import {RootNavigator} from '@app/navigators';
+import {useAppDispatch} from '@app/redux';
 import {theme as tempTheme} from '@app/theme';
 import {Storybook} from '@rn-storybook';
 
@@ -18,10 +19,12 @@ const ContentOrSplash = (): JSX.Element => {
     [],
   );
   const locale = useSelector(localeSelector);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
+    setLoading(true);
+    dispatch(getVideos());
     setTimeout(() => {
-      setLoading(true);
       changeLanguage(locale).then(() => setLoading(false));
     }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
