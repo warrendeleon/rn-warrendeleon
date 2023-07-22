@@ -9,7 +9,7 @@ import {
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Home, Settings} from '@app/screens';
+import {Home, Pdf, Settings} from '@app/screens';
 
 const RootNavigator = (): JSX.Element => {
   const RootStack = createNativeStackNavigator();
@@ -27,6 +27,11 @@ const RootNavigator = (): JSX.Element => {
           name="Settings"
           component={Settings}
           options={{title: t('screens.settings')}}
+        />
+        <RootStack.Screen
+          name="Pdf"
+          component={Pdf}
+          options={{title: t('home.pdf')}}
         />
       </RootStack.Navigator>
     </NavigationContainer>

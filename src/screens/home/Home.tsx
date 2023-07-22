@@ -37,7 +37,7 @@ export const Home = (): JSX.Element => {
       icon: faFilePdf,
       iconBgColor: 'cyan.600',
       label: t('home.pdf'),
-      onPress: () => navigation.navigate('Settings'),
+      onPress: () => navigation.navigate('Pdf'),
     },
     {
       icon: faYoutube,
