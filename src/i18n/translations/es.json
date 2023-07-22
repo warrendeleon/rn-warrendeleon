@@ -5,7 +5,12 @@
   },
   "home": {
     "settings": "Ajustes",
-    "videos": "Videos"
+    "videos": "Videos",
+    "workXP": "Experiencia laboral",
+    "studies": "Estudios",
+    "pdf": "Descargar CV",
+    "contact": "Contáctame",
+    "meet": "Reserva una reunión"
   },
   "settings": {
     "language": "idioma",
