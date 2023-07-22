@@ -1,6 +1,6 @@
 import React, {JSX} from 'react';
 import YoutubePlayer from 'react-native-youtube-iframe';
-import {Center, VStack} from 'native-base';
+import {VStack} from 'native-base';
 
 export const Videos = (): JSX.Element => {
   return (

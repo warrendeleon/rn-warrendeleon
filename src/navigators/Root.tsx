@@ -11,30 +11,39 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {Home, Pdf, Settings, Videos} from '@app/screens';
 
+import {ScreenNames} from './screen-names';
+
+export type RootStackParamList = {
+  [ScreenNames.HOME]: undefined;
+  [ScreenNames.SETTINGS]: undefined;
+  [ScreenNames.PDF]: undefined;
+  [ScreenNames.VIDEOS]: undefined;
+};
+
 const RootNavigator = (): JSX.Element => {
-  const RootStack = createNativeStackNavigator();
+  const RootStack = createNativeStackNavigator<RootStackParamList>();
 
   const {t} = useTranslation();
   return (
     <NavigationContainer theme={useColorModeValue(DefaultTheme, DarkTheme)}>
       <RootStack.Navigator>
         <RootStack.Screen
-          name="Home"
+          name={ScreenNames.HOME}
           component={Home}
           options={{title: t('screens.home')}}
         />
         <RootStack.Screen
-          name="Settings"
+          name={ScreenNames.SETTINGS}
           component={Settings}
           options={{title: t('screens.settings')}}
         />
         <RootStack.Screen
-          name="Pdf"
+          name={ScreenNames.PDF}
           component={Pdf}
           options={{title: t('home.pdf')}}
         />
         <RootStack.Screen
-          name="Videos"
+          name={ScreenNames.VIDEOS}
           component={Videos}
           options={{title: t('home.videos')}}
         />
