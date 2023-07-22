@@ -1,11 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  configureStore,
-  EnhancedStore,
-  Store,
-  ThunkDispatch,
-} from '@reduxjs/toolkit';
-import {CurriedGetDefaultMiddleware} from '@reduxjs/toolkit/src/getDefaultMiddleware';
+import {useDispatch} from 'react-redux';
 import {AnyAction} from 'redux';
 import {persistReducer} from 'redux-persist';
 import {
@@ -18,8 +11,16 @@ import {
 } from 'redux-persist/lib/constants';
 import {ThunkAction} from 'redux-thunk';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  configureStore,
+  EnhancedStore,
+  Store,
+  ThunkDispatch,
+} from '@reduxjs/toolkit';
+import {CurriedGetDefaultMiddleware} from '@reduxjs/toolkit/src/getDefaultMiddleware';
+
 import {rootReducer} from './rootReducer';
-import {useDispatch} from 'react-redux';
 
 const REDUCERS_TO_PERSIST: string[] = ['settings'];
 const REDUCERS_NOT_TO_PERSIST: string[] = ['status'];

@@ -1,9 +1,9 @@
 import React, {JSX} from 'react';
 import {
   Box,
+  Divider as NBDivider,
   HStack,
   useColorModeValue,
-  Divider as NBDivider,
 } from 'native-base';
 
 export const MenuButtonDivider = (): JSX.Element => {

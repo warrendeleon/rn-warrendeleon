@@ -1,11 +1,23 @@
+/* eslint-disable sort-keys-fix/sort-keys-fix */
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
   plugins: [
     ['babel-plugin-react-docgen-typescript', {exclude: 'node_modules'}],
     [
       'module-resolver',
       {
-        root: ['.'],
+        alias: {
+          '@app/atoms': './src/components/atoms',
+          '@app/i18n': './src/i18n',
+          '@app/models': './src/models',
+          '@app/modules': './src/modules',
+          '@app/molecules': './src/components/molecules',
+          '@app/redux': './src/redux',
+          '@app/screens': './src/screens',
+          '@app/theme': './src/theme',
+          '@rn-storybook': './.ondevice',
+          '@app': './src',
+          '*': '.',
+        },
         extensions: [
           '.ios.ts',
           '.android.ts',
@@ -17,18 +29,9 @@ module.exports = {
           '.js',
           '.json',
         ],
-        alias: {
-          '@app/theme': './src/theme',
-          '@app/i18n': './src/i18n',
-          '@app/redux': './src/redux',
-          '@app/modules': './src/modules',
-          '@app/atoms': './src/components/atoms',
-          '@app/molecules': './src/components/molecules',
-          '@app': './src',
-          '*': '.',
-          '@rn-storybook': './.ondevice',
-        },
+        root: ['.'],
       },
     ],
   ],
+  presets: ['module:metro-react-native-babel-preset'],
 };

@@ -1,7 +1,9 @@
 import React, {JSX, useState} from 'react';
-import {Heading, useColorMode, VStack} from 'native-base';
-import {Select, Switch} from '@app/atoms';
+import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
+import {Heading, useColorMode, VStack} from 'native-base';
+
+import {Select, Switch} from '@app/atoms';
 import {
   darkModeSelector,
   localeSelector,
@@ -9,7 +11,6 @@ import {
   setLocale,
 } from '@app/modules';
 import {useAppDispatch} from '@app/redux';
-import {useTranslation} from 'react-i18next';
 
 export const Settings = (): JSX.Element => {
   const dispatch = useAppDispatch();

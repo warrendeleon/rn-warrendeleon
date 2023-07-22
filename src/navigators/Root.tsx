@@ -1,13 +1,15 @@
 import React, {JSX} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Home, Settings} from '@app/screens';
+import {useTranslation} from 'react-i18next';
+import {useColorModeValue} from 'native-base';
+
 import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
 } from '@react-navigation/native';
-import {useColorModeValue} from 'native-base';
-import {useTranslation} from 'react-i18next';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import {Home, Settings} from '@app/screens';
 
 const RootNavigator = (): JSX.Element => {
   const RootStack = createNativeStackNavigator();

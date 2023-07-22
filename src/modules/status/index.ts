@@ -1,7 +1,7 @@
 export {statusReducer} from './reducer';
 export {
-  statusSelector,
   isPendingSelector,
+  statusSelector,
   wasFulfilledSelector,
   wasRejectedSelector,
 } from './selectors';

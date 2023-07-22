@@ -1,14 +1,13 @@
-// stories/MyButton.stories.tsx
 import React from 'react';
-import {ComponentMeta, ComponentStory} from '@storybook/react';
-
-import {ButtonWithChevron} from '@app/atoms/buttons';
 import {VStack} from 'native-base';
+
 import {faSliders} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {ComponentMeta, ComponentStory} from '@storybook/react';
+
+import {ButtonWithChevron} from '@app/atoms';
 
 export default {
-  title: 'components/menu-item',
   component: ButtonWithChevron,
   parameters: {
     actions: {
@@ -18,6 +17,7 @@ export default {
       exclude: ['startIcon'],
     },
   },
+  title: 'components/menu-item',
 } as ComponentMeta<typeof ButtonWithChevron>;
 
 export const Basic: ComponentStory<typeof ButtonWithChevron> = args => (
@@ -46,7 +46,7 @@ WithIcon.args = {
 
 WithIcon.argTypes = {
   startIconBgColor: {
-    options: ['primary.600', 'secondary.600', 'blue.600', 'teal.600'],
     control: {type: 'radio'},
+    options: ['primary.600', 'secondary.600', 'blue.600', 'teal.600'],
   },
 };

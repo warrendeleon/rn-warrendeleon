@@ -1,13 +1,14 @@
-import {extendTheme, NativeBaseProvider, Spinner, VStack} from 'native-base';
-import {theme as tempTheme} from '@app/theme';
-import {RootNavigator} from '@app/navigators';
 import React, {JSX, useCallback, useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {darkModeSelector, localeSelector} from '@app/modules';
-import {changeLanguage} from '@app/i18n';
 import DevMenu from 'react-native-dev-menu';
-import {Storybook} from '@rn-storybook';
+import {useSelector} from 'react-redux';
+import {extendTheme, NativeBaseProvider, Spinner, VStack} from 'native-base';
+
 import {Logo} from '@app/atoms';
+import {changeLanguage} from '@app/i18n';
+import {darkModeSelector, localeSelector} from '@app/modules';
+import {RootNavigator} from '@app/navigators';
+import {theme as tempTheme} from '@app/theme';
+import {Storybook} from '@rn-storybook';
 
 const ContentOrSplash = (): JSX.Element => {
   const [storybookActive, setStorybookActive] = useState(false);

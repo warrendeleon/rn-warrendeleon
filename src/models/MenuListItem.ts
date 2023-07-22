@@ -1,10 +1,11 @@
-import {IconDefinition} from '@fortawesome/fontawesome-common-types';
+import {GestureResponderEvent} from 'react-native/Libraries/Types/CoreEventTypes';
+import {ILinearGradientProps} from 'native-base/lib/typescript/components/primitives/Box/types';
 import {
   ColorType,
   ResponsiveValue,
 } from 'native-base/lib/typescript/components/types';
-import {ILinearGradientProps} from 'native-base/lib/typescript/components/primitives/Box/types';
-import {GestureResponderEvent} from 'react-native/Libraries/Types/CoreEventTypes';
+
+import {IconDefinition} from '@fortawesome/fontawesome-common-types';
 
 export interface MenuListItem {
   icon: IconDefinition;

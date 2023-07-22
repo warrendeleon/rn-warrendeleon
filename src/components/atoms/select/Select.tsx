@@ -5,7 +5,6 @@ import {
   Select as NBSelect,
   useColorModeValue,
 } from 'native-base';
-import {DarkTheme, DefaultTheme} from '@react-navigation/native';
 
 type SelectItem = {
   label: string;

@@ -1,13 +1,16 @@
-import {createReducer} from '@reduxjs/toolkit';
-import {Reducer} from 'redux';
-import {setDarkMode, setLocale} from './actions';
-import {Settings} from '@app/models';
-import * as RNLocalize from 'react-native-localize';
 import {Appearance} from 'react-native';
+import * as RNLocalize from 'react-native-localize';
+import {Reducer} from 'redux';
+
+import {createReducer} from '@reduxjs/toolkit';
+
+import {Settings} from '@app/models';
+
+import {setDarkMode, setLocale} from './actions';
 
 const initialState: Settings = {
-  locale: RNLocalize.getLocales()[0].languageCode,
   darkMode: Appearance.getColorScheme() === 'dark',
+  locale: RNLocalize.getLocales()[0].languageCode,
 };
 
 export const settingsReducer: Reducer<Settings> = createReducer<Settings>(

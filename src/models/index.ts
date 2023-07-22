@@ -1,3 +1,3 @@
-export type {StatusState} from './StatusState';
-export type {Settings} from './Settings';
 export type {MenuListItem} from './MenuListItem';
+export type {Settings} from './Settings';
+export type {StatusState} from './StatusState';

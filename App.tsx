@@ -1,9 +1,9 @@
 import React from 'react';
-import {store} from '@app/redux';
+import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
-import {Provider} from 'react-redux';
-import {injectStore} from '@app/redux/configureStore';
+
+import {injectStore, store} from '@app/redux';
 import {Splash} from '@app/screens';
 
 const App = (): JSX.Element => {

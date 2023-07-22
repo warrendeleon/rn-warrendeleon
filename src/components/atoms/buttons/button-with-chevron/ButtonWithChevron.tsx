@@ -1,4 +1,5 @@
 import React, {JSX} from 'react';
+import {GestureResponderEvent} from 'react-native/Libraries/Types/CoreEventTypes';
 import {
   Box,
   HStack,
@@ -7,14 +8,14 @@ import {
   useColorModeValue,
   useTheme,
 } from 'native-base';
-import {GestureResponderEvent} from 'react-native/Libraries/Types/CoreEventTypes';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {ILinearGradientProps} from 'native-base/lib/typescript/components/primitives/Box/types';
 import {
   ColorType,
   ResponsiveValue,
 } from 'native-base/lib/typescript/components/types';
-import {ILinearGradientProps} from 'native-base/lib/typescript/components/primitives/Box/types';
+
+import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 type ButtonProps = {
   label: string;

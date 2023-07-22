@@ -1,6 +1,6 @@
 import React, {JSX, PropsWithChildren} from 'react';
-import {Box, useColorModeValue} from 'native-base';
 import {Switch as RNSwitch} from 'react-native';
+import {Box, useColorModeValue} from 'native-base';
 
 type SwitchProps = PropsWithChildren<{
   value: boolean;

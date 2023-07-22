@@ -18,4 +18,3 @@ export const Logo = ({darkMode = false}: LogoProp): JSX.Element => {
     />
   );
 };
-

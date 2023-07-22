@@ -1,4 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
+
 import {changeLanguage} from '@app/i18n/i18n.config';
 
 export const setLocale = createAsyncThunk<string, string>(
