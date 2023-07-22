@@ -1,7 +1,6 @@
 import {combineReducers} from '@reduxjs/toolkit';
 
-import {statusReducer} from '@app/modules/status';
-import {settingsReducer} from '@app/modules/settings';
+import {statusReducer, settingsReducer} from '@app/modules';
 
 export const rootReducer = combineReducers({
   status: statusReducer,

@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import React, {JSX, useState} from 'react';
 import {Heading, useColorMode, VStack} from 'native-base';
-import {Select} from '@app/atoms/select';
+import {Select, Switch} from '@app/atoms';
 import {useSelector} from 'react-redux';
-import {setDarkMode, setLocale} from '@app/modules/settings/actions';
 import {
   darkModeSelector,
   localeSelector,
-} from '@app/modules/settings/selectors';
-import {useAppDispatch} from '@app/redux/configureStore';
+  setDarkMode,
+  setLocale,
+} from '@app/modules';
+import {useAppDispatch} from '@app/redux';
 import {useTranslation} from 'react-i18next';
-import {Switch} from '@app/atoms/switch';
 
 export const Settings = (): JSX.Element => {
   const dispatch = useAppDispatch();

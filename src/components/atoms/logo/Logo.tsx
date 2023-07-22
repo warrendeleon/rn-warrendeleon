@@ -5,7 +5,7 @@ type LogoProp = PropsWithChildren<{
   darkMode?: boolean;
 }>;
 
-const Logo = ({darkMode = false}: LogoProp): JSX.Element => {
+export const Logo = ({darkMode = false}: LogoProp): JSX.Element => {
   return (
     <Lottie
       source={
@@ -19,4 +19,3 @@ const Logo = ({darkMode = false}: LogoProp): JSX.Element => {
   );
 };
 
-export default Logo;

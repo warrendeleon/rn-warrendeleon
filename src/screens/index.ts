@@ -1,3 +1,3 @@
-export {Home} from './home/Home';
-export {Settings} from './settings/Settings';
-export {Splash} from './splash/Splash';
+export * from './home/Home';
+export * from './settings/Settings';
+export * from './splash/Splash';

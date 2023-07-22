@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {ButtonWithChevron} from '@app/atoms/buttons';
-import {Box, VStack} from 'native-base';
+import {ButtonWithChevron} from '@app/atoms';
+import {VStack} from 'native-base';
 import {useTranslation} from 'react-i18next';
 import {faSliders} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';

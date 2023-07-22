@@ -3,7 +3,11 @@
   "compilerOptions": {
     "paths": {
       "*": ["./*"],
-      "@app/atoms/*": ["./src/components/atoms/*"],
+      "@app/atoms": ["./src/components/atoms"],
+      "@app/modules": ["./src/modules"],
+      "@app/redux": ["./src/redux"],
+      "@app/i18n": ["./src/i18n"],
+      "@app/theme": ["./src/theme"],
       "@app/*": ["./src/*"],
       "@rn-storybook": ["./.ondevice"]
     }

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {JSX} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Home, Settings} from '@app/screens';
 import {
@@ -8,9 +8,6 @@ import {
 } from '@react-navigation/native';
 import {useColorModeValue} from 'native-base';
 import {useTranslation} from 'react-i18next';
-import {useSelector} from 'react-redux';
-import {localeSelector} from '@app/modules/settings/selectors';
-import {changeLanguage} from '@app/i18n/i18n.config';
 
 const RootNavigator = (): JSX.Element => {
   const RootStack = createNativeStackNavigator();

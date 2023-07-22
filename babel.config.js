@@ -18,6 +18,10 @@ module.exports = {
           '.json',
         ],
         alias: {
+          '@app/theme': './src/theme',
+          '@app/i18n': './src/i18n',
+          '@app/redux': './src/redux',
+          '@app/modules': './src/modules',
           '@app/atoms': './src/components/atoms',
           '@app': './src',
           '*': '.',
