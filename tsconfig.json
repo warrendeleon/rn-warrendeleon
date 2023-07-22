@@ -4,6 +4,7 @@
     "paths": {
       "*": ["./*"],
       "@app/atoms": ["./src/components/atoms"],
+      "@app/molecules": ["./src/components/molecules"],
       "@app/modules": ["./src/modules"],
       "@app/redux": ["./src/redux"],
       "@app/i18n": ["./src/i18n"],

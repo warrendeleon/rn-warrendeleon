@@ -1,24 +1,28 @@
 import React, {JSX} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {ButtonWithChevron} from '@app/atoms';
-import {VStack} from 'native-base';
-import {useTranslation} from 'react-i18next';
+import {MenuButtonGroup} from '@app/molecules';
+import {MenuListItem} from '@app/models';
 import {faSliders} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import {faYoutube} from '@fortawesome/free-brands-svg-icons';
 
 export const Home = (): JSX.Element => {
   const navigation = useNavigation();
   const {t} = useTranslation();
-  return (
-    <VStack p={4}>
-      <ButtonWithChevron
-        startIcon={
-          <FontAwesomeIcon size={18} icon={faSliders} color={'white'} />
-        }
-        startIconBgColor={'blue.600'}
-        onPress={() => navigation.navigate('Settings')}
-        label={t('home.settings')}
-      />
-    </VStack>
-  );
+
+  const buttons: MenuListItem[] = [
+    {
+      icon: faYoutube,
+      iconBgColor: 'red.500',
+      onPress: () => navigation.navigate('Settings'),
+      label: t('home.videos'),
+    },
+    {
+      icon: faSliders,
+      iconBgColor: 'blue.600',
+      onPress: () => navigation.navigate('Settings'),
+      label: t('home.settings'),
+    },
+  ];
+  return <MenuButtonGroup menuList={buttons} />;
 };

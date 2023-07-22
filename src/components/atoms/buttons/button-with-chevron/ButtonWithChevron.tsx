@@ -23,6 +23,32 @@ type ButtonProps = {
     ColorType | (string & {}) | ILinearGradientProps
   >;
   startIcon?: JSX.Element | Array<JSX.Element>;
+  roundedTop: ResponsiveValue<
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl'
+    | string
+    | number
+    | 'xs'
+    | 'full'
+    | 'none'
+    | '3xl'
+  >;
+  roundedBottom: ResponsiveValue<
+    | 'sm'
+    | 'md'
+    | 'lg'
+    | 'xl'
+    | '2xl'
+    | string
+    | number
+    | 'xs'
+    | 'full'
+    | 'none'
+    | '3xl'
+  >;
 };
 
 export const ButtonWithChevron = ({
@@ -30,14 +56,16 @@ export const ButtonWithChevron = ({
   onPress,
   startIconBgColor,
   startIcon,
+  roundedTop,
+  roundedBottom,
 }: ButtonProps): JSX.Element => {
   const theme = useTheme();
 
   return (
     <Pressable
       onPress={onPress}
-      rounded={8}
-      mt={2}
+      roundedTop={roundedTop}
+      roundedBottom={roundedBottom}
       px={4}
       py={2}
       bgColor={useColorModeValue('white', 'dark.50')}

@@ -4,7 +4,8 @@
     "settings": "Settings"
   },
   "home": {
-    "settings": "Settings"
+    "settings": "Settings",
+    "videos": "Videos"
   },
   "settings": {
     "language": "language",

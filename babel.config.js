@@ -23,6 +23,7 @@ module.exports = {
           '@app/redux': './src/redux',
           '@app/modules': './src/modules',
           '@app/atoms': './src/components/atoms',
+          '@app/molecules': './src/components/molecules',
           '@app': './src',
           '*': '.',
           '@rn-storybook': './.ondevice',
