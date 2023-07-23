@@ -1,8 +1,14 @@
 import {combineReducers} from '@reduxjs/toolkit';
 
-import {settingsReducer, statusReducer, videosReducer} from '@app/modules';
+import {
+  profileReducer,
+  settingsReducer,
+  statusReducer,
+  videosReducer,
+} from '@app/modules';
 
 export const rootReducer = combineReducers({
+  profile: profileReducer,
   settings: settingsReducer,
   status: statusReducer,
   videos: videosReducer,

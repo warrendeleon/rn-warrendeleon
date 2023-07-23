@@ -7,7 +7,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {VideoCard} from '@app/components/atoms/buttons/video-card/VideoCard';
 import {Video} from '@app/models/Video';
-import {videosSelector} from '@app/modules/videos/selectors';
+import {videosSelector} from '@app/modules';
 import {RootStackParamList, ScreenNames} from '@app/navigators';
 
 export const Videos = (): JSX.Element => {
