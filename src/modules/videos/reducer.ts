@@ -11,9 +11,9 @@ const initialState: Video[] = [];
 export const videosReducer: Reducer<Video[]> = createReducer<Video[]>(
   initialState,
   builder => {
-    builder.addCase(getVideos.fulfilled, (state, action) => ({
-      ...state,
-      ...action.payload.items,
-    }));
+    builder.addCase(
+      getVideos.fulfilled,
+      (state, action) => action.payload.items,
+    );
   },
 );
