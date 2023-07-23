@@ -4,4 +4,5 @@ export enum ScreenNames {
   SETTINGS = 'SettingsScreen',
   SPLASH = 'SplashScreen',
   VIDEOS = 'VideosScreen',
+  VIDEO = 'VideoScreen',
 }

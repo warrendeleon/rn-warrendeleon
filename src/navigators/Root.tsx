@@ -10,6 +10,7 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {Home, Pdf, Settings, Videos} from '@app/screens';
+import {Video} from '@app/screens/videos/Video';
 
 import {ScreenNames} from './screen-names';
 
@@ -18,6 +19,7 @@ export type RootStackParamList = {
   [ScreenNames.SETTINGS]: undefined;
   [ScreenNames.PDF]: undefined;
   [ScreenNames.VIDEOS]: undefined;
+  [ScreenNames.VIDEO]: {videoId: string; title: string};
 };
 
 const RootNavigator = (): JSX.Element => {
@@ -46,6 +48,11 @@ const RootNavigator = (): JSX.Element => {
           name={ScreenNames.VIDEOS}
           component={Videos}
           options={{title: t('home.videos')}}
+        />
+        <RootStack.Screen
+          name={ScreenNames.VIDEO}
+          component={Video}
+          options={{presentation: 'modal'}}
         />
       </RootStack.Navigator>
     </NavigationContainer>
