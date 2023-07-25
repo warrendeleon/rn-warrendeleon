@@ -1,7 +1,9 @@
 {
   "screens": {
     "home": "Inicio",
-    "settings": "Ajustes"
+    "settings": "Ajustes",
+    "contact": "Contáctame",
+    "meet": "Reserva una reunión"
   },
   "home": {
     "settings": "Ajustes",

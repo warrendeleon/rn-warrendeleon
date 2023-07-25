@@ -1,6 +1,6 @@
 import React, {JSX} from 'react';
 import {useTranslation} from 'react-i18next';
-import {VStack} from 'native-base';
+import {ScrollView, VStack} from 'native-base';
 
 import {faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {
@@ -57,13 +57,13 @@ export const Home = (): JSX.Element => {
       icon: faComment,
       iconBgColor: 'green.500',
       label: t('home.contact'),
-      onPress: () => navigation.navigate(ScreenNames.SETTINGS),
+      onPress: () => navigation.navigate(ScreenNames.CONTACT),
     },
     {
       icon: faCalendar,
       iconBgColor: 'pink.700',
       label: t('home.meet'),
-      onPress: () => navigation.navigate(ScreenNames.SETTINGS),
+      onPress: () => navigation.navigate(ScreenNames.MEET),
     },
   ];
 
@@ -77,10 +77,12 @@ export const Home = (): JSX.Element => {
   ];
 
   return (
-    <VStack space={1}>
-      <MenuButtonGroup menuList={buttonsWork} />
-      <MenuButtonGroup menuList={contact} />
-      <MenuButtonGroup menuList={settings} />
-    </VStack>
+    <ScrollView flex={1}>
+      <VStack space={1}>
+        <MenuButtonGroup menuList={buttonsWork} />
+        <MenuButtonGroup menuList={contact} />
+        <MenuButtonGroup menuList={settings} />
+      </VStack>
+    </ScrollView>
   );
 };

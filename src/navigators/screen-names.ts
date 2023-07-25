@@ -5,4 +5,6 @@ export enum ScreenNames {
   SPLASH = 'SplashScreen',
   VIDEOS = 'VideosScreen',
   VIDEO = 'VideoScreen',
+  CONTACT = 'ContactScreen',
+  MEET = 'MeetScreen',
 }

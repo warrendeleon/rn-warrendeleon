@@ -1,7 +1,9 @@
 {
   "screens": {
     "home": "Home",
-    "settings": "Settings"
+    "settings": "Settings",
+    "contact": "Contact Me",
+    "meet": 'Book a meeting',
   },
   "home": {
     "settings": "Settings",
