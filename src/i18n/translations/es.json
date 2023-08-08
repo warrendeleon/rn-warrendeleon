@@ -23,5 +23,15 @@
       "spanish": "Español",
       "english": "Inglés"
     }
+  },
+  "contact": {
+    "call": "Llamar",
+    "text": "SMS",
+    "email": "Email",
+    "video": "Video llamada",
+    "facetime": "Facetime",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "saveContact": "Guardar contacto"
   }
 }
