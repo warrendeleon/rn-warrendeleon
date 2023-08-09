@@ -1,4 +1,5 @@
 import React from 'react';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -11,7 +12,9 @@ const App = (): JSX.Element => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)}>
-        <Splash />
+        <GestureHandlerRootView style={{flex: 1}}>
+          <Splash />
+        </GestureHandlerRootView>
       </PersistGate>
     </Provider>
   );
