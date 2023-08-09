@@ -2,8 +2,17 @@ import React, {JSX} from 'react';
 import {Dimensions} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import {useSelector} from 'react-redux';
-import {Box, Image, ScrollView, ZStack} from 'native-base';
+import {
+  Box,
+  Center,
+  Divider,
+  Image,
+  ScrollView,
+  useColorModeValue,
+  ZStack,
+} from 'native-base';
 
+import {HorizontalImgCarousel} from '@app/components/molecules/horizontal-img-carousel/HorizontalImgCarousel';
 import {profileSelector} from '@app/modules';
 
 export const Profile = (): JSX.Element => {
@@ -11,44 +20,20 @@ export const Profile = (): JSX.Element => {
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height * 0.5;
   return (
-    <ZStack flex={1} bgColor={'black'}>
-      <Box width={'full'} height={'50%'} position={'absolute'} top={0}>
-        <Carousel
-          loop
-          width={width}
-          height={height}
-          autoPlay={true}
-          data={profile.carousel}
-          scrollAnimationDuration={1000}
-          mode="parallax"
-          modeConfig={{
-            parallaxScrollingOffset: 50,
-            parallaxScrollingScale: 0.9,
-          }}
-          autoPlayInterval={5000}
-          renderItem={({item, index}) => (
-            <Image
-              key={index}
-              w={'full'}
-              h={'full'}
-              resizeMode="cover"
-              alt={'image profile'}
-              source={{
-                uri: item,
-              }}
-            />
-          )}
-        />
-      </Box>
-      <ScrollView w={'full'} h={'full'}>
+    <ZStack flex={1} bgColor={useColorModeValue('#F2F2F2FF', 'gray.900')}>
+      <HorizontalImgCarousel width={width} height={height} profile={profile} />
+      <ScrollView w={'full'} h={'full'} showsVerticalScrollIndicator={false}>
         <Box w={'full'} h={height} />
         <Box
           w={'full'}
           roundedTop={'2xl'}
-          p={4}
-          pt={6}
+          px={4}
           h={10000}
-          bgColor={'white'}>
+          shadow={4}
+          bgColor={useColorModeValue('white', 'muted.800')}>
+          <Center>
+            <Divider thickness="4" rounded={'2xl'} width={8} m={4} />
+          </Center>
           Content here
         </Box>
       </ScrollView>
