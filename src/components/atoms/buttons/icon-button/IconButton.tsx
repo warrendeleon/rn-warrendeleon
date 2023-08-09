@@ -1,5 +1,12 @@
 import React, {JSX, PropsWithChildren} from 'react';
-import {Link, Pressable, Text, useColorModeValue, VStack} from 'native-base';
+import {
+  Factory,
+  Link,
+  Pressable,
+  Text,
+  useColorModeValue,
+  VStack,
+} from 'native-base';
 import {ILinearGradientProps} from 'native-base/lib/typescript/components/primitives/Box/types';
 import {
   ColorType,
@@ -16,6 +23,7 @@ type IconButtonProps = PropsWithChildren<{
   iconBgColor: ResponsiveValue<
     ColorType | (string & {}) | ILinearGradientProps
   >;
+  iconColor?: ResponsiveValue<ColorType | (string & {}) | ILinearGradientProps>;
 }>;
 
 export const IconButton = ({
@@ -23,8 +31,10 @@ export const IconButton = ({
   iconBgColor,
   label,
   link,
+  iconColor,
 }: IconButtonProps): JSX.Element => {
   const bgColor = useColorModeValue(iconBgColor, 'dark.50');
+  const NBFontAwesomeIcon = Factory(FontAwesomeIcon);
   return (
     <Pressable flex={1} height={16}>
       {({isPressed}) => {
@@ -46,8 +56,14 @@ export const IconButton = ({
               space={1}
               padding={1}
               height={16}>
-              <FontAwesomeIcon size={18} icon={icon} color={'white'} />
-              <Text fontSize={'xs'} color={'white'}>
+              <NBFontAwesomeIcon
+                size={18}
+                icon={icon}
+                color={iconColor ? (iconColor as string) : 'white'}
+              />
+              <Text
+                fontSize={'xs'}
+                color={iconColor ? (iconColor as string) : 'white'}>
                 {label}
               </Text>
             </VStack>

@@ -34,5 +34,10 @@
     "whatsapp": "WhatsApp",
     "telegram": "Telegram",
     "saveContact": "Save contact"
+  },
+  "profile": {
+    "phone": "Mobile Phone",
+    "email": "Email",
+    "birthday": "Birthday"
   }
 }

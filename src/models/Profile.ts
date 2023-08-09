@@ -14,4 +14,10 @@ export interface Profile {
     country: string;
   };
   carousel: string[];
+  socials: {
+    facebook: string;
+    twitter: string;
+    instagram: string;
+    linkedIn: string;
+  };
 }

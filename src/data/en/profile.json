@@ -24,5 +24,11 @@
     "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-4.jpg?raw=true",
     "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-5.jpg?raw=true",
     "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-6.jpg?raw=true"
-  ]
+  ],
+  "socials": {
+    "facebook": "https://www.facebook.com/warren.deleon/",
+    "twitter": "https://twitter.com/warren_deleon",
+    "instagram": "https://www.instagram.com/warren_deleon/",
+    "linkedIn": "https://www.linkedin.com/in/warrendeleonofalla/?locale=en_GB"
+  }
 }
