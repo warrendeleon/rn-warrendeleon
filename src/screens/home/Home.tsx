@@ -17,6 +17,9 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MenuListItem} from '@app/models';
 import {MenuButtonGroup} from '@app/molecules';
 import {RootStackParamList, ScreenNames} from '@app/navigators';
+import {ViewProfileButton} from '@app/atoms';
+import { useSelector } from 'react-redux';
+import { profileSelector } from '@app/modules';
 
 export const Home = (): JSX.Element => {
   const navigation =
@@ -24,6 +27,7 @@ export const Home = (): JSX.Element => {
       NativeStackNavigationProp<RootStackParamList, ScreenNames.HOME>
     >();
   const {t} = useTranslation();
+  const profile = useSelector(profileSelector);
 
   const buttonsWork: MenuListItem[] = [
     {
@@ -77,8 +81,9 @@ export const Home = (): JSX.Element => {
   ];
 
   return (
-    <ScrollView flex={1}>
-      <VStack space={1}>
+    <ScrollView flex={1} padding={4}>
+      <VStack space={4}>
+        <ViewProfileButton profilePicture={profile.profilePicture} name={profile.name} lastname={profile.lastName} />
         <MenuButtonGroup menuList={buttonsWork} />
         <MenuButtonGroup menuList={contact} />
         <MenuButtonGroup menuList={settings} />

@@ -13,7 +13,7 @@ export const MenuButtonGroup = ({
   menuList,
 }: MenuButtonGroupProps): JSX.Element => {
   return (
-    <VStack p={4}>
+    <VStack>
       {menuList.map((button, index) => {
         let roundedTop = index === 0 ? 8 : 0;
         let roundedBottom = index === menuList.length - 1 ? 8 : 0;
