@@ -13,4 +13,5 @@ export interface Profile {
     county: string;
     country: string;
   };
+  carousel: string[];
 }

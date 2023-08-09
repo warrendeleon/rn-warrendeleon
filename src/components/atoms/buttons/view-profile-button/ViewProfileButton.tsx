@@ -1,4 +1,5 @@
 import React, {JSX} from 'react';
+import {GestureResponderEvent} from 'react-native/Libraries/Types/CoreEventTypes';
 import {
   Avatar,
   Box,
@@ -12,22 +13,23 @@ import {
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
-import {Profile} from '@app/models';
-
 type ViewProfileButtonProps = {
   profilePicture: string;
   name: string;
   lastname: string;
+  onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
 };
 
 export const ViewProfileButton = ({
   profilePicture,
   name,
   lastname,
+  onPress,
 }: ViewProfileButtonProps): JSX.Element => {
   const theme = useTheme();
   return (
     <Pressable
+      onPress={onPress}
       px={4}
       alignItems={'center'}
       rounded={'lg'}

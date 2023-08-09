@@ -1,5 +1,6 @@
 import React, {JSX} from 'react';
 import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 import {ScrollView, VStack} from 'native-base';
 
 import {faYoutube} from '@fortawesome/free-brands-svg-icons';
@@ -14,12 +15,11 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
+import {ViewProfileButton} from '@app/atoms';
 import {MenuListItem} from '@app/models';
+import {profileSelector} from '@app/modules';
 import {MenuButtonGroup} from '@app/molecules';
 import {RootStackParamList, ScreenNames} from '@app/navigators';
-import {ViewProfileButton} from '@app/atoms';
-import { useSelector } from 'react-redux';
-import { profileSelector } from '@app/modules';
 
 export const Home = (): JSX.Element => {
   const navigation =
@@ -83,7 +83,12 @@ export const Home = (): JSX.Element => {
   return (
     <ScrollView flex={1} padding={4}>
       <VStack space={4}>
-        <ViewProfileButton profilePicture={profile.profilePicture} name={profile.name} lastname={profile.lastName} />
+        <ViewProfileButton
+          onPress={() => navigation.navigate(ScreenNames.PROFILE)}
+          profilePicture={profile.profilePicture}
+          name={profile.name}
+          lastname={profile.lastName}
+        />
         <MenuButtonGroup menuList={buttonsWork} />
         <MenuButtonGroup menuList={contact} />
         <MenuButtonGroup menuList={settings} />

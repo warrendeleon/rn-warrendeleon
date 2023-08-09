@@ -9,7 +9,15 @@ import {
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Contact, Home, Pdf, Settings, Videos, WebView} from '@app/screens';
+import {
+  Contact,
+  Home,
+  Pdf,
+  Profile,
+  Settings,
+  Videos,
+  WebView,
+} from '@app/screens';
 import {Video} from '@app/screens/videos/Video';
 
 import {ScreenNames} from './screen-names';
@@ -22,6 +30,7 @@ export type RootStackParamList = {
   [ScreenNames.VIDEO]: {videoId: string; title: string};
   [ScreenNames.CONTACT]: undefined;
   [ScreenNames.MEET]: {uri: string} | undefined;
+  [ScreenNames.PROFILE]: undefined;
 };
 
 const RootNavigator = (): JSX.Element => {
@@ -66,6 +75,11 @@ const RootNavigator = (): JSX.Element => {
           component={WebView}
           options={{title: t('screens.meet')}}
           initialParams={{uri: 'https://calendly.com/warrendeleon'}}
+        />
+        <RootStack.Screen
+          name={ScreenNames.PROFILE}
+          component={Profile}
+          options={{title: t('screens.profile')}}
         />
       </RootStack.Navigator>
     </NavigationContainer>

@@ -7,4 +7,5 @@ export enum ScreenNames {
   VIDEO = 'VideoScreen',
   CONTACT = 'ContactScreen',
   MEET = 'MeetScreen',
+  PROFILE = 'ProfileScreen',
 }
