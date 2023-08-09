@@ -1,5 +1,5 @@
 {
-  "profilePicture": "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-pic.png?raw=true",
+  "profilePicture": "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/avatar.png?raw=true",
   "name": "Warren",
   "lastName": "de Leon",
   "headline": "React Native Developer",
@@ -16,5 +16,15 @@
       "latitude": 51.4561,
       "longitude": 0.24678
     }
-  }
+  },
+  "carousel": [
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-1.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-2.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-3.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-4.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-5.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-6.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-7.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-8.jpg?raw=true"
+  ]
 }
