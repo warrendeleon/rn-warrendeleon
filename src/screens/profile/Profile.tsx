@@ -9,9 +9,7 @@ import {
   Heading,
   HStack,
   ScrollView,
-  Text,
   useColorModeValue,
-  VStack,
   ZStack,
 } from 'native-base';
 
@@ -22,9 +20,9 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 
-import {IconButton} from '@app/atoms';
-import {HorizontalImgCarousel} from '@app/components/molecules/horizontal-img-carousel/HorizontalImgCarousel';
+import {IconButton, TextWithLabel} from '@app/atoms';
 import {profileSelector} from '@app/modules';
+import {HorizontalImgCarousel} from '@app/molecules';
 
 export const Profile = (): JSX.Element => {
   const {t} = useTranslation();
@@ -70,47 +68,27 @@ export const Profile = (): JSX.Element => {
           <Center>
             <Divider thickness="4" rounded={'2xl'} width={8} m={4} />
           </Center>
-          <VStack flex={1}>
-            <Heading size={'md'} mb={2}>
-              {profile.name} {profile.lastName}
-            </Heading>
-            <HStack my={2} space={4}>
-              {socials.map((item, index) => (
-                <IconButton
-                  key={index}
-                  label={item.label}
-                  iconBgColor={'white'}
-                  icon={item.icon}
-                  iconColor={'darkBlue.500'}
-                  link={item.link}
-                />
-              ))}
-            </HStack>
-            <VStack
-              rounded={'lg'}
-              bgColor={'white'}
-              py={3}
-              px={4}
-              my={2}
-              space={1}>
-              <Text fontSize={'2xs'} fontWeight={'bold'}>
-                {t('profile.phone')}
-              </Text>
-              <Text>{profile.phone}</Text>
-            </VStack>
-            <VStack rounded={'lg'} bgColor={'white'} py={3} px={4} my={2}>
-              <Text fontSize={'2xs'} fontWeight={'bold'}>
-                {t('profile.email')}
-              </Text>
-              <Text>{profile.email}</Text>
-            </VStack>
-            <VStack rounded={'lg'} bgColor={'white'} py={3} px={4} my={2}>
-              <Text fontSize={'2xs'} fontWeight={'bold'}>
-                {t('profile.birthday')}
-              </Text>
-              <Text>{profile.birthday}</Text>
-            </VStack>
-          </VStack>
+          <Heading size={'md'} mb={2}>
+            {profile.name} {profile.lastName}
+          </Heading>
+          <HStack my={2} space={4}>
+            {socials.map((item, index) => (
+              <IconButton
+                key={index}
+                label={item.label}
+                iconBgColor={'white'}
+                icon={item.icon}
+                iconColor={'darkBlue.500'}
+                link={item.link}
+              />
+            ))}
+          </HStack>
+          <TextWithLabel label={t('profile.phone')} text={profile.phone} />
+          <TextWithLabel label={t('profile.email')} text={profile.email} />
+          <TextWithLabel
+            label={t('profile.birthday')}
+            text={profile.birthday}
+          />
         </Box>
       </ScrollView>
     </ZStack>
