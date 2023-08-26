@@ -38,6 +38,7 @@
   "profile": {
     "phone": "Mobile Phone",
     "email": "Email",
-    "birthday": "Birthday"
+    "birthday": "Birthday",
+    "location": "Location"
   }
 }

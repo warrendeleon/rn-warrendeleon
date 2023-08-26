@@ -38,6 +38,7 @@
   "profile": {
     "phone": "Teléfono móvil",
     "email": "Correo electrónico",
-    "birthday": "Fecha de nacimiento"
+    "birthday": "Fecha de nacimiento",
+    "location": "Localización"
   }
 }
