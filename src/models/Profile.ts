@@ -1,3 +1,5 @@
+import {LatLng} from 'react-native-maps';
+
 export interface Profile {
   name: string;
   lastName: string;
@@ -12,6 +14,7 @@ export interface Profile {
     cityTown: string;
     county: string;
     country: string;
+    coordinates: LatLng;
   };
   carousel: string[];
   socials: {

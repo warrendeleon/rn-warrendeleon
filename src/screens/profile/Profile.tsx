@@ -21,6 +21,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 import {IconButton, TextWithLabel} from '@app/atoms';
+import {ProfileMap} from '@app/components/organisms/profile-map/ProfileMap';
 import {profileSelector} from '@app/modules';
 import {HorizontalImgCarousel} from '@app/molecules';
 
@@ -63,7 +64,6 @@ export const Profile = (): JSX.Element => {
           px={4}
           pb={4}
           shadow={4}
-          height={height * 1.75}
           bgColor={useColorModeValue('muted.100', 'muted.800')}>
           <Center>
             <Divider thickness="4" rounded={'2xl'} width={8} m={4} />
@@ -89,6 +89,13 @@ export const Profile = (): JSX.Element => {
             label={t('profile.birthday')}
             text={profile.birthday}
           />
+
+          {profile?.location?.coordinates && (
+            <ProfileMap
+              label={t('profile.location')}
+              location={profile.location}
+            />
+          )}
         </Box>
       </ScrollView>
     </ZStack>
