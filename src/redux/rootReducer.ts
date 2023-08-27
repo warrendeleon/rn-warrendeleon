@@ -5,6 +5,7 @@ import {
   settingsReducer,
   statusReducer,
   videosReducer,
+  workXPReducer,
 } from '@app/modules';
 
 export const rootReducer = combineReducers({
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers({
   settings: settingsReducer,
   status: statusReducer,
   videos: videosReducer,
+  workXP: workXPReducer,
 });

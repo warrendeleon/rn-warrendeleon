@@ -34,7 +34,7 @@ export const Home = (): JSX.Element => {
       icon: faBriefcase,
       iconBgColor: 'yellow.800',
       label: t('home.workXP'),
-      onPress: () => navigation.navigate(ScreenNames.SETTINGS),
+      onPress: () => navigation.navigate(ScreenNames.WORK_XP),
     },
     {
       icon: faSchool,

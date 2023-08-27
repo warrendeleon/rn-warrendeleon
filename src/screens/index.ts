@@ -6,3 +6,4 @@ export * from './settings/Settings';
 export * from './splash/Splash';
 export * from './videos/Videos';
 export * from './webview/Webview';
+export * from './work-xp/WorkXP';

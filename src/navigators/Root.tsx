@@ -17,6 +17,7 @@ import {
   Settings,
   Videos,
   WebView,
+  WorkXP,
 } from '@app/screens';
 import {Video} from '@app/screens/videos/Video';
 
@@ -31,6 +32,7 @@ export type RootStackParamList = {
   [ScreenNames.CONTACT]: undefined;
   [ScreenNames.MEET]: {uri: string} | undefined;
   [ScreenNames.PROFILE]: undefined;
+  [ScreenNames.WORK_XP]: undefined;
 };
 
 const RootNavigator = (): JSX.Element => {
@@ -80,6 +82,11 @@ const RootNavigator = (): JSX.Element => {
           name={ScreenNames.PROFILE}
           component={Profile}
           options={{title: t('screens.profile')}}
+        />
+        <RootStack.Screen
+          name={ScreenNames.WORK_XP}
+          component={WorkXP}
+          options={{title: t('screens.workXP')}}
         />
       </RootStack.Navigator>
     </NavigationContainer>

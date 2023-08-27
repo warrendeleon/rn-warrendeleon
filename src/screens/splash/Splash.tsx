@@ -9,6 +9,7 @@ import {
   darkModeSelector,
   getProfile,
   getVideos,
+  getWorkXP,
   localeSelector,
 } from '@app/modules';
 import {RootNavigator} from '@app/navigators';
@@ -30,6 +31,7 @@ const ContentOrSplash = (): JSX.Element => {
     setLoading(true);
     dispatch(getVideos());
     dispatch(getProfile());
+    dispatch(getWorkXP());
     setTimeout(() => {
       changeLanguage(locale).then(() => setLoading(false));
     }, 1000);

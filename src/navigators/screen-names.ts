@@ -8,4 +8,5 @@ export enum ScreenNames {
   CONTACT = 'ContactScreen',
   MEET = 'MeetScreen',
   PROFILE = 'ProfileScreen',
+  WORK_XP = 'WorkExperienceScreen',
 }
