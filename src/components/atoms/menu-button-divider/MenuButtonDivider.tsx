@@ -6,12 +6,16 @@ import {
   useColorModeValue,
 } from 'native-base';
 
-export const MenuButtonDivider = (): JSX.Element => {
+export const MenuButtonDivider = ({
+  paddingLeftWidth = 9,
+}: {
+  paddingLeftWidth?: number;
+}): JSX.Element => {
   const bgColor = useColorModeValue('white', 'dark.50');
   const divider = useColorModeValue('muted.200', 'muted.700');
   return (
     <HStack bgColor={bgColor}>
-      <Box mr={4} width={9} />
+      <Box mr={4} width={paddingLeftWidth} />
       <Box flex={1}>
         <NBDivider bgColor={divider} />
       </Box>

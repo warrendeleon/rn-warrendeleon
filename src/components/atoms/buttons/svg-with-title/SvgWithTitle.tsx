@@ -1,10 +1,12 @@
 import React, {JSX} from 'react';
 import {GestureResponderEvent} from 'react-native/Libraries/Types/CoreEventTypes';
-import {Box, HStack, Pressable, Text, useColorModeValue} from 'native-base';
+import {Box, Heading, Pressable, Text, useColorModeValue} from 'native-base';
 import {ResponsiveValue} from 'native-base/lib/typescript/components/types';
 
 type SvgWithTitleProps = {
   label: string;
+  title: string;
+  subtitle: string;
   onPress: null | ((event: GestureResponderEvent) => void) | undefined;
   svg: JSX.Element | Array<JSX.Element>;
   roundedTop: ResponsiveValue<
@@ -41,6 +43,8 @@ export const SvgWithTitle = ({
   roundedTop,
   roundedBottom,
   svg,
+  title,
+  subtitle,
 }: SvgWithTitleProps): JSX.Element => {
   return (
     <Pressable
@@ -48,16 +52,17 @@ export const SvgWithTitle = ({
       roundedTop={roundedTop}
       roundedBottom={roundedBottom}
       px={4}
-      py={2}
-      bgColor={useColorModeValue('white', 'dark.50')}
-      _pressed={{bgColor: useColorModeValue('muted.300', 'dark.100')}}
-      flexDirection={'row'}
       alignItems={'center'}
-      justifyContent={'space-between'}>
+      rounded={'lg'}
+      width={'full'}
+      height={20}
+      flexDirection={'row'}
+      bgColor={useColorModeValue('white', 'dark.50')}
+      _pressed={{bgColor: useColorModeValue('muted.300', 'dark.100')}}>
       {svg && (
         <Box
           mr={4}
-          size={'24'}
+          size={'16'}
           p={3}
           rounded={'full'}
           alignItems={'center'}
@@ -66,9 +71,11 @@ export const SvgWithTitle = ({
           {svg}
         </Box>
       )}
-      <HStack flex={1} alignItems={'center'} justifyContent={'space-between'}>
-        <Text fontSize={'md'}>{label}</Text>
-      </HStack>
+      <Box ml={2} flexGrow={2}>
+        <Heading size={'sm'}>{label}</Heading>
+        <Text>{title}</Text>
+        <Text>{subtitle}</Text>
+      </Box>
     </Pressable>
   );
 };

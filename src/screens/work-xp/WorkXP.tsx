@@ -1,12 +1,17 @@
 import React, {JSX} from 'react';
 import {useSelector} from 'react-redux';
-import {Box} from 'native-base';
+import {ScrollView, VStack} from 'native-base';
 
+import {MenuButtonGroupSvg} from '@app/components/molecules/menu-button-group-svg/MenuButtonGroupSvg';
 import {workXPSelector} from '@app/modules';
+import {WorkXP as WorkXPType} from '@app/types';
 
 export const WorkXP = (): JSX.Element => {
-  const experience = useSelector(workXPSelector);
+  const experience: WorkXPType[] = useSelector(workXPSelector);
 
-  console.log('WORK:', JSON.stringify(experience));
-  return <Box>Hello World!</Box>;
+  return (
+    <ScrollView flex={1} padding={4}>
+      <MenuButtonGroupSvg menuList={experience} />
+    </ScrollView>
+  );
 };
