@@ -2,7 +2,7 @@
   {
     "id": "1519bf4f-73c6-4556-80e3-7cc0bca90396",
     "company": "Candide",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/candide-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/candide.svg",
     "position": "Senior Software Engineer",
     "gradStart": ["darkBlue.200", "darkBlue.800"],
     "gradEnd": ["lightBlue.200", "lightBlue.300"],
@@ -24,12 +24,12 @@
     "gradEnd": ["pink.300", "pink.500"],
     "start": "Sept 2021",
     "end": "Apr 2022",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/xdesign-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/xdesign.svg",
     "clients": [
       {
         "id": "6d263e52-5ebf-4394-9ff6-8d9aa9d16690",
         "company": "Fanduel",
-        "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/fanduel-circle.svg",
+        "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/fanduel.svg",
         "start": "Jan 2022",
         "end": "Present",
         "type": "contract",
@@ -43,7 +43,7 @@
       {
         "id": "e0686319-2744-4b1b-abec-b90d0832d0b7",
         "company": "Zonal",
-        "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/zonal-circle.svg",
+        "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/zonal.svg",
         "start": "Sept 2021",
         "end": "Dec 2021",
         "type": "contract",
@@ -61,7 +61,7 @@
   {
     "id": "86bef9b9-0186-467e-8eac-df5df88131a7",
     "company": "Concentrix TigerSpike",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/tigerspike-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/tigerspike.svg",
     "position": "Senior Software Engineer",
     "gradStart": ["lightBlue.400", "lightBlue.600"],
     "gradEnd": ["cyan.200", "cyan.300"],
@@ -76,7 +76,7 @@
   {
     "id": "868f37a1-a30b-46b7-985c-6cc9199c6208",
     "company": "OpenHealth Group",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/openhealth-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/openhealth.svg",
     "position": "Senior Software Engineer",
     "gradStart": ["blue.400", "blue.400"],
     "gradEnd": ["purple.400", "purple.400"],
@@ -91,7 +91,7 @@
   {
     "id": "d399b4a7-0868-487e-b867-2c85f430b883",
     "company": "BP",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/bp-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/bp.svg",
     "position": "Senior Software Engineer",
     "gradStart": ["emerald.400", "emerald.600"],
     "gradEnd": ["lime.200", "lime.300"],
@@ -106,7 +106,7 @@
   {
     "id": "b90bdfea-2f6b-4268-b7a4-93a7bfc5e6a8",
     "company": "Shell",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/newmotion-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/newmotion.svg",
     "position": "Software Engineer",
     "gradStart": ["orange.400", "orange.600"],
     "gradEnd": ["amber.200", "amber.300"],
@@ -121,7 +121,7 @@
   {
     "id": "e33e0393-f6e4-41ae-8d42-6ed42bd52490",
     "company": "WonderBill",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/wonderbill-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/wonderbill.svg",
     "position": "Software Engineer",
     "gradStart": ["darkBlue.300", "darkBlue.500"],
     "gradEnd": ["pink.300", "pink.500"],
@@ -136,7 +136,7 @@
   {
     "id": "a9afc50f-4a09-4e69-b98c-4019fbf9d415",
     "company": "Nucleus Central",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/nucleus-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/nucleus.svg",
     "position": "Frontend Developer",
     "gradStart": ["cyan.300", "cyan.400"],
     "gradEnd": ["yellow.200", "yellow.300"],
@@ -151,7 +151,7 @@
   {
     "id": "75a4c397-d6b6-4fb9-840f-13419e394498",
     "company": "Lexel Software Ltd",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/lexel-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/lexel.svg",
     "position": "Multiplatform Developer",
     "gradStart": ["rose.400", "rose.600"],
     "gradEnd": ["red.200", "red.300"],
@@ -166,7 +166,7 @@
   {
     "id": "16a33b33-9fc1-4374-8cc8-b107887d5ef1",
     "company": "All Now Europe S.L.",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/allnowcorp-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/allnowcorp.svg",
     "position": "Frontend developer",
     "gradStart": ["fuchsia.800", "fuchsia.900"],
     "gradEnd": ["pink.300", "pink.500"],
@@ -181,7 +181,7 @@
   {
     "id": "bdc79e4b-0f16-4e0d-bf15-65428ac801dc",
     "company": "Altran",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/altran-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/altran.svg",
     "position": "Full stack developer & teacher",
     "gradStart": ["cyan.500", "cyan.600"],
     "gradEnd": ["emerald.200", "emerald.300"],
@@ -196,7 +196,7 @@
   {
     "id": "b32665f2-4c85-4b7d-8c02-cf42bb4c8265",
     "company": "Desigual",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/desigual-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/desigual.svg",
     "position": "Software developer",
     "gradStart": ["red.200", "red.300"],
     "gradEnd": ["fuchsia.800", "fuchsia.900"],
@@ -211,7 +211,7 @@
   {
     "id": "29f99d9a-72f5-4a6c-a24b-852e2021c10d",
     "company": "Everis NTT Data",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/everis-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/everis.svg",
     "position": "Backend Developer",
     "gradStart": ["lime.400", "lime.600"],
     "gradEnd": ["cyan.200", "cyan.300"],
@@ -226,7 +226,7 @@
   {
     "id": "0d387a9f-f6c1-48df-8649-faf3dcf6a939",
     "company": "Teknon Uroclínica Barcelona",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/teknon-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/teknon.svg",
     "position": "Full Stack developer",
     "gradStart": ["pink.500", "pink.600"],
     "gradEnd": ["red.200", "red.300"],
@@ -237,7 +237,7 @@
   {
     "id": "057bcc45-c451-4d34-a13b-d01f2f6c1351",
     "company": "Edenic Games",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/edenic-circle.svg",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/edenic.svg",
     "position": "Android Teacher in Edenic Games",
     "gradStart": ["emerald.400", "emerald.600"],
     "gradEnd": ["yellow.200", "yellow.300"],
