@@ -6,7 +6,7 @@ import {ResponsiveValue} from 'native-base/lib/typescript/components/types';
 type SvgWithTitleProps = {
   label: string;
   onPress: null | ((event: GestureResponderEvent) => void) | undefined;
-  svg?: JSX.Element | Array<JSX.Element>;
+  svg: JSX.Element | Array<JSX.Element>;
   roundedTop: ResponsiveValue<
     | 'sm'
     | 'md'
