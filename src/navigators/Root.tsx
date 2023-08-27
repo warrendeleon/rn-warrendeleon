@@ -15,11 +15,12 @@ import {
   Pdf,
   Profile,
   Settings,
+  Video,
   Videos,
   WebView,
   WorkXP,
+  WorkXPDetails,
 } from '@app/screens';
-import {Video} from '@app/screens/videos/Video';
 
 import {ScreenNames} from './screen-names';
 
@@ -32,7 +33,8 @@ export type RootStackParamList = {
   [ScreenNames.CONTACT]: undefined;
   [ScreenNames.MEET]: {uri: string} | undefined;
   [ScreenNames.PROFILE]: undefined;
-  [ScreenNames.WORK_XP]: undefined;
+  [ScreenNames.WORK_XP]: {workXPId: string} | undefined;
+  [ScreenNames.WORK_XP_DETAILS]: {workXPId: string} | undefined;
 };
 
 const RootNavigator = (): JSX.Element => {
@@ -87,6 +89,11 @@ const RootNavigator = (): JSX.Element => {
           name={ScreenNames.WORK_XP}
           component={WorkXP}
           options={{title: t('screens.workXP')}}
+        />
+        <RootStack.Screen
+          name={ScreenNames.WORK_XP_DETAILS}
+          component={WorkXPDetails}
+          options={{headerBackTitleVisible: false, title: t('screens.workXP')}}
         />
       </RootStack.Navigator>
     </NavigationContainer>

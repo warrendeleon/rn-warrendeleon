@@ -7,7 +7,7 @@ const workXPState = (state: RootState) => state.workXP;
 
 export const workXPSelector = createSelector(workXPState, workXP => workXP);
 
-export const jobInfoSelector = createSelector(
+export const workXPDetailsSelector = createSelector(
   workXPSelector,
   (_: RootState, id: string) => id,
   (workXP, id: string) => {
