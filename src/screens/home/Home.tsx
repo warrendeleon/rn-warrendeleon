@@ -16,10 +16,10 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {ViewProfileButton} from '@app/atoms';
-import {MenuListItem} from '@app/models';
 import {profileSelector} from '@app/modules';
 import {MenuButtonGroup} from '@app/molecules';
 import {RootStackParamList, ScreenNames} from '@app/navigators';
+import {MenuListItem} from '@app/types';
 
 export const Home = (): JSX.Element => {
   const navigation =

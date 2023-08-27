@@ -1,8 +1,8 @@
 import {AxiosResponse} from 'axios';
 
 import {GithubApiClient} from '@app/httpClients';
-import {Profile} from '@app/models';
 import {RootState} from '@app/redux';
+import {Profile} from '@app/types';
 
 export const getProfileService = async (
   getState: () => RootState,

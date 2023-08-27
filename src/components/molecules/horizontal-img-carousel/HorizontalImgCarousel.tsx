@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from 'react-native-reanimated-carousel';
 import {Image} from 'native-base';
 
-import {Profile} from '@app/models';
+import {Profile} from '@app/types';
 
 type HorizontalImgCarouselProps = {
   profile: Profile;

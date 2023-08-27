@@ -1,4 +1,4 @@
-import {StatusState} from '../../../models/StatusState';
+import {StatusState} from '../../../types/StatusState';
 import {FULFILLED, PENDING, REJECTED, statusReducer} from '../reducer';
 
 describe('Status reducer', () => {

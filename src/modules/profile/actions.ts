@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {Profile} from '@app/models';
 import {RootState} from '@app/redux';
+import {Profile} from '@app/types';
 
 import {getProfileService} from './api';
 

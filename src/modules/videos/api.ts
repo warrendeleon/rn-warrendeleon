@@ -1,7 +1,7 @@
 import {AxiosResponse} from 'axios';
 
 import {YoutubeApiClient} from '@app/httpClients';
-import {YoutubeApiResponse} from '@app/models/Video';
+import {YoutubeApiResponse} from '@app/types/Video';
 
 export const getVideosService = async (): Promise<
   AxiosResponse<YoutubeApiResponse>

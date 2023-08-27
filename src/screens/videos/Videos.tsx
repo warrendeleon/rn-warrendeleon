@@ -5,10 +5,10 @@ import {Box, FlatList} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import {VideoCard} from '@app/components/atoms/buttons/video-card/VideoCard';
-import {Video} from '@app/models/Video';
+import {VideoCard} from '@app/atoms';
 import {videosSelector} from '@app/modules';
 import {RootStackParamList, ScreenNames} from '@app/navigators';
+import {Video} from '@app/types';
 
 export const Videos = (): JSX.Element => {
   const videos: Video[] = useSelector(videosSelector);

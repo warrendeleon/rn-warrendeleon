@@ -2,7 +2,7 @@ import {EmptyObject, Reducer} from 'redux';
 
 import {createReducer} from '@reduxjs/toolkit';
 
-import {Profile} from '@app/models';
+import {Profile} from '@app/types';
 
 import {getProfile} from './actions';
 

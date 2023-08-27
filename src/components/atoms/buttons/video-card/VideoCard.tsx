@@ -2,7 +2,7 @@ import React, {JSX, PropsWithChildren} from 'react';
 import {GestureResponderEvent} from 'react-native/Libraries/Types/CoreEventTypes';
 import {Box, Image, Pressable, useColorModeValue} from 'native-base';
 
-import {Video} from '@app/models/Video';
+import {Video} from '@app/types/Video';
 
 type VideoCardProps = PropsWithChildren<{
   item: Video;

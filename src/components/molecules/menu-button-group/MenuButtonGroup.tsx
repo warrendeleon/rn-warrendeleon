@@ -4,7 +4,7 @@ import {VStack} from 'native-base';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 import {ButtonWithChevron, MenuButtonDivider} from '@app/atoms';
-import {MenuListItem} from '@app/models';
+import {MenuListItem} from '@app/types';
 
 type MenuButtonGroupProps = PropsWithChildren<{
   menuList: MenuListItem[];

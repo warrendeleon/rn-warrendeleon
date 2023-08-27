@@ -2,7 +2,7 @@ import {Reducer} from 'redux';
 
 import {createReducer} from '@reduxjs/toolkit';
 
-import {Video} from '@app/models/Video';
+import {Video} from '@app/types/Video';
 
 import {getVideos} from './actions';
 

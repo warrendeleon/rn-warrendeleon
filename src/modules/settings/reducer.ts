@@ -4,7 +4,7 @@ import {Reducer} from 'redux';
 
 import {createReducer} from '@reduxjs/toolkit';
 
-import {Settings} from '@app/models';
+import {Settings} from '@app/types';
 
 import {setDarkMode, setLocale} from './actions';
 

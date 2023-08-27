@@ -1,8 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {YoutubeApiResponse} from '@app/models/Video';
 import {getVideosService} from '@app/modules';
 import {RootState} from '@app/redux';
+import {YoutubeApiResponse} from '@app/types/Video';
 
 export const getVideos = createAsyncThunk<
   YoutubeApiResponse,
