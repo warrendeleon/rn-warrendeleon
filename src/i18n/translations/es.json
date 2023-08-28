@@ -40,5 +40,12 @@
     "email": "Correo electrónico",
     "birthday": "Fecha de nacimiento",
     "location": "Localización"
+  },
+  "workXPDetails": {
+    "programmingLanguages": "Lenguajes de programación: ",
+    "techStack": "Tech stack: ",
+    "devTools": "Herramientas de dessarrollo: ",
+    "agileMethodology": "Metodologías ágiles: ",
+    "description": "Descripción: "
   }
 }

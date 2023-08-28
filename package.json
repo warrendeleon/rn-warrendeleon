@@ -41,6 +41,7 @@
     "react-native-gesture-handler": "^2.12.1",
     "react-native-localize": "^3.0.2",
     "react-native-maps": "^1.7.1",
+    "react-native-markdown-display": "^7.0.0-alpha.2",
     "react-native-pdf": "^6.7.1",
     "react-native-reanimated": "^3.4.2",
     "react-native-reanimated-carousel": "^3.5.1",
