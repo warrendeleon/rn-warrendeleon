@@ -21,6 +21,7 @@ import {
   WorkXP,
   WorkXPDetails,
 } from '@app/screens';
+import {Education} from '@app/screens/education/Education';
 
 import {ScreenNames} from './screen-names';
 
@@ -35,6 +36,8 @@ export type RootStackParamList = {
   [ScreenNames.PROFILE]: undefined;
   [ScreenNames.WORK_XP]: {workXPId: string} | undefined;
   [ScreenNames.WORK_XP_DETAILS]: {workXPId: string} | undefined;
+  [ScreenNames.EDUCATION]: undefined;
+  [ScreenNames.WEBVIEW]: {uri: string} | undefined;
 };
 
 const RootNavigator = (): JSX.Element => {
@@ -81,6 +84,11 @@ const RootNavigator = (): JSX.Element => {
           initialParams={{uri: 'https://calendly.com/warrendeleon'}}
         />
         <RootStack.Screen
+          name={ScreenNames.WEBVIEW}
+          component={WebView}
+          options={{title: t('screens.meet')}}
+        />
+        <RootStack.Screen
           name={ScreenNames.PROFILE}
           component={Profile}
           options={{title: t('screens.profile')}}
@@ -94,6 +102,11 @@ const RootNavigator = (): JSX.Element => {
           name={ScreenNames.WORK_XP_DETAILS}
           component={WorkXPDetails}
           options={{headerBackTitleVisible: false, title: t('screens.workXP')}}
+        />
+        <RootStack.Screen
+          name={ScreenNames.EDUCATION}
+          component={Education}
+          options={{title: t('screens.education')}}
         />
       </RootStack.Navigator>
     </NavigationContainer>

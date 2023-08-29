@@ -10,4 +10,6 @@ export enum ScreenNames {
   PROFILE = 'ProfileScreen',
   WORK_XP = 'WorkExperienceScreen',
   WORK_XP_DETAILS = 'WorkExperienceDetailsScreen',
+  EDUCATION = 'EducationScreen',
+  WEBVIEW = 'WebViewScreen',
 }

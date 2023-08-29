@@ -4,9 +4,9 @@ import {Box, Heading, Pressable, Text, useColorModeValue} from 'native-base';
 import {ResponsiveValue} from 'native-base/lib/typescript/components/types';
 
 type SvgWithTitleProps = {
-  label: string;
-  title: string;
-  subtitle: string;
+  label?: string;
+  title?: string;
+  subtitle?: string;
   onPress: null | ((event: GestureResponderEvent) => void) | undefined;
   svg: JSX.Element | Array<JSX.Element>;
   roundedTop: ResponsiveValue<
@@ -54,7 +54,7 @@ export const SvgWithTitle = ({
       px={4}
       alignItems={'center'}
       rounded={'lg'}
-      width={'full'}
+      flex={1}
       height={20}
       flexDirection={'row'}
       bgColor={useColorModeValue('white', 'dark.50')}
@@ -71,10 +71,18 @@ export const SvgWithTitle = ({
           {svg}
         </Box>
       )}
-      <Box ml={2} flexGrow={2}>
-        <Heading size={'sm'}>{label}</Heading>
-        <Text>{title}</Text>
-        <Text>{subtitle}</Text>
+      <Box ml={2} flex={1} overflow={'hidden'}>
+        {label && (
+          <Heading size={'sm'} numberOfLines={2}>
+            {label}
+          </Heading>
+        )}
+        {title && (
+          <Text bold numberOfLines={2}>
+            {title}
+          </Text>
+        )}
+        {subtitle && <Text numberOfLines={1}>{subtitle}</Text>}
       </Box>
     </Pressable>
   );

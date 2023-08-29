@@ -7,6 +7,7 @@ import {Logo} from '@app/atoms';
 import {changeLanguage} from '@app/i18n';
 import {
   darkModeSelector,
+  getEducation,
   getProfile,
   getVideos,
   getWorkXP,
@@ -32,6 +33,7 @@ const ContentOrSplash = (): JSX.Element => {
     dispatch(getVideos());
     dispatch(getProfile());
     dispatch(getWorkXP());
+    dispatch(getEducation());
     setTimeout(() => {
       changeLanguage(locale).then(() => setLoading(false));
     }, 1000);

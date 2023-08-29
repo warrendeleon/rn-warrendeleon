@@ -40,7 +40,7 @@ export const Home = (): JSX.Element => {
       icon: faSchool,
       iconBgColor: 'blue.600',
       label: t('home.studies'),
-      onPress: () => navigation.navigate(ScreenNames.SETTINGS),
+      onPress: () => navigation.navigate(ScreenNames.EDUCATION),
     },
     {
       icon: faFilePdf,
