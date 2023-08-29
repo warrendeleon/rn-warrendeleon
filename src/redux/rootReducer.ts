@@ -1,6 +1,7 @@
 import {combineReducers} from '@reduxjs/toolkit';
 
 import {
+  educationReducer,
   profileReducer,
   settingsReducer,
   statusReducer,
@@ -9,6 +10,7 @@ import {
 } from '@app/modules';
 
 export const rootReducer = combineReducers({
+  education: educationReducer,
   profile: profileReducer,
   settings: settingsReducer,
   status: statusReducer,

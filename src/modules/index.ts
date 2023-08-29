@@ -1,3 +1,4 @@
+export * from './education';
 export * from './profile';
 export * from './settings/actions';
 export * from './settings/reducer';
