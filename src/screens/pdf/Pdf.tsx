@@ -10,7 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 export const Pdf = (): JSX.Element => {
   const navigation = useNavigation();
   const FactoryPDF = Factory(PdfReader);
-  const url = 'https://warrendeleon.com/docs/CV_WARREN_2022_EN.pdf';
+  const url = 'https://warrendeleon.com/docs/CV_WARREN_2023_EN.pdf';
   const onPress = useCallback(() => {
     Share.open({url});
   }, [url]);
