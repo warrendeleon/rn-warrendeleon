@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {StyleSheet} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider} from 'react-redux';

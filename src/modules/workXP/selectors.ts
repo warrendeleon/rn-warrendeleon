@@ -1,7 +1,6 @@
 import {createSelector} from '@reduxjs/toolkit';
 
 import {RootState} from '@app/redux';
-import {WorkXP} from '@app/types';
 
 const workXPState = (state: RootState) => state.workXP;
 
@@ -32,23 +31,5 @@ export const clientsSelector = createSelector(
   (workXP, id: string) => {
     const res = workXP.find(work => work.id === id);
     return res?.clients;
-  },
-);
-
-export const colorsSelector = createSelector(
-  workXPSelector,
-  (_: RootState, id: string) => id,
-  (workXP, id: string) => {
-    const res: WorkXP | {gradStart: string[]; gradEnd: string[]} = workXP.find(
-      work => work.id === id,
-    ) ?? {
-      gradEnd: ['muted.200', 'muted.300'],
-      gradStart: ['muted.500', 'muted.600'],
-    };
-
-    return {
-      gradEnd: res?.gradEnd,
-      gradStart: res?.gradStart,
-    };
   },
 );

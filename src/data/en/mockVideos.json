@@ -1,0 +1,57 @@
+{
+  "etag": "gUhFBAoy5-iAAKFbCNlhzm6Uh1M",
+  "kind": "youtube#playlistItemListResponse",
+  "items": [
+    {
+      "snippet": {
+        "thumbnails": {
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/-0PS1AWk0L8/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          },
+          "default": {
+            "url": "https://i.ytimg.com/vi/-0PS1AWk0L8/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/-0PS1AWk0L8/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/-0PS1AWk0L8/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/-0PS1AWk0L8/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          }
+        },
+        "videoOwnerChannelTitle": "Warren de León Ofalla",
+        "title": "Salve Developer Programming Problem",
+        "channelId": "UCG6_5PnSJ8iVzEuAbdh1UmA",
+        "position": 0,
+        "resourceId": {
+          "videoId": "-0PS1AWk0L8",
+          "kind": "youtube#video"
+        },
+        "videoOwnerChannelId": "UCG6_5PnSJ8iVzEuAbdh1UmA",
+        "publishedAt": "2023-07-22T17:59:23Z",
+        "playlistId": "PLKcwUOTleOhUQ-x6n2G3ewduGaC6XIOvI",
+        "description": "",
+        "channelTitle": "Warren de León Ofalla"
+      },
+      "id": "UExLY3dVT1RsZU9oVVEteDZuMkczZXdkdUdhQzZYSU92SS41NkI0NEY2RDEwNTU3Q0M2",
+      "kind": "youtube#playlistItem",
+      "etag": "74X0KxFQhtN5uVtntlhtqajf5hY"
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 6,
+    "resultsPerPage": 50
+  }
+}

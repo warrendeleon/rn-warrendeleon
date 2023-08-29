@@ -1,4 +1,5 @@
-import {RootState} from '../../../redux/configureStore';
+import {RootState} from '@app/redux';
+
 import {FULFILLED, PENDING, REJECTED} from '../reducer';
 import * as Selectors from '../selectors';
 
