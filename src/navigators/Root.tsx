@@ -21,6 +21,7 @@ import {
   WorkXP,
   WorkXPDetails,
 } from '@app/screens';
+import {Clients} from '@app/screens/clients/Clients';
 import {Education} from '@app/screens/education/Education';
 
 import {ScreenNames} from './screen-names';
@@ -38,6 +39,7 @@ export type RootStackParamList = {
   [ScreenNames.WORK_XP_DETAILS]: {workXPId: string} | undefined;
   [ScreenNames.EDUCATION]: undefined;
   [ScreenNames.WEBVIEW]: {uri: string} | undefined;
+  [ScreenNames.CLIENTS]: {workXPId: string; company: string} | undefined;
 };
 
 const RootNavigator = (): JSX.Element => {
@@ -107,6 +109,11 @@ const RootNavigator = (): JSX.Element => {
           name={ScreenNames.EDUCATION}
           component={Education}
           options={{title: t('screens.education')}}
+        />
+        <RootStack.Screen
+          name={ScreenNames.CLIENTS}
+          component={Clients}
+          options={{headerBackTitleVisible: false, title: t('screens.workXP')}}
         />
       </RootStack.Navigator>
     </NavigationContainer>
