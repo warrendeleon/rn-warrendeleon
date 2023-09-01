@@ -36,7 +36,7 @@ const ContentOrSplash = (): JSX.Element => {
     dispatch(getEducation());
     setTimeout(() => {
       changeLanguage(locale).then(() => setLoading(false));
-    }, 1000);
+    }, 4500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -50,7 +50,6 @@ const ContentOrSplash = (): JSX.Element => {
     return (
       <VStack flex={1} space={32} alignItems={'center'} justifyContent="center">
         <Logo />
-        <Spinner size="lg" accessibilityLabel="Loading posts" />
       </VStack>
     );
   }
