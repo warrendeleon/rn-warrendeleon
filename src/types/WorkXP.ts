@@ -1,3 +1,5 @@
+import {Client} from '@app/types';
+
 export interface WorkXP {
   id: string;
   company: string;
@@ -16,21 +18,4 @@ export interface WorkXP {
   devTools?: string[];
   agileMethodology?: string[];
   description?: string;
-}
-
-export interface Client {
-  id: string;
-  company: string;
-  start: string;
-  end: string;
-  type: string;
-  position: string;
-  programmingLanguages: string[];
-  techStack: string[];
-  unitTest: string[];
-  e2e: string[];
-  devTools: string[];
-  agileMethodology: string[];
-  description: string;
-  logo: string;
 }
