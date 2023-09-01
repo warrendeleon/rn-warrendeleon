@@ -6,8 +6,8 @@ import {ScrollView} from 'native-base';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import {MenuButtonGroupSvg} from '@app/components/molecules/menu-button-group-svg/MenuButtonGroupSvg';
 import {workXPSelector} from '@app/modules';
+import {MenuButtonGroupSvg} from '@app/molecules';
 import {RootStackParamList, ScreenNames} from '@app/navigators';
 import {MenuListItemSvg, WorkXP as WorkXPType} from '@app/types';
 
@@ -32,6 +32,7 @@ export const WorkXP = (): JSX.Element => {
 
   const menuList: MenuListItemSvg[] = experience.map((xp: WorkXPType) => {
     return {
+      badge: xp.clients ? xp.clients.length : undefined,
       end: xp.end,
       label: xp.position,
       onPressItem: () => {

@@ -1,8 +1,7 @@
 import React, {Fragment, JSX, PropsWithChildren} from 'react';
 import {VStack} from 'native-base';
 
-import {MenuButtonDivider} from '@app/atoms';
-import {SvgWithTitle} from '@app/components/atoms/buttons/svg-with-title/SvgWithTitle';
+import {MenuButtonDivider, SvgWithTitle} from '@app/atoms';
 import {MenuListItemSvg} from '@app/types';
 
 type MenuButtonGroupSvgProps = PropsWithChildren<{
@@ -26,6 +25,7 @@ export const MenuButtonGroupSvg = ({
               title={item.title}
               subtitle={subtitle}
               onPress={item.onPressItem}
+              badge={item.badge}
               roundedTop={roundedTop}
               roundedBottom={roundedBottom}
             />

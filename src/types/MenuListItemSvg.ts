@@ -9,4 +9,5 @@ export type MenuListItemSvg = {
   start: string;
   end: string;
   onPressItem: (event: GestureResponderEvent) => void;
+  badge?: number;
 };
