@@ -27,6 +27,7 @@ const ContentOrSplash = (): JSX.Element => {
   );
   const locale = useSelector(localeSelector);
   const dispatch = useAppDispatch();
+  const darkMode = useSelector(darkModeSelector);
 
   useEffect(() => {
     setLoading(true);
@@ -49,7 +50,7 @@ const ContentOrSplash = (): JSX.Element => {
   if (loading) {
     return (
       <VStack flex={1} space={32} alignItems={'center'} justifyContent="center">
-        <Logo />
+        <Logo darkMode={darkMode} />
       </VStack>
     );
   }

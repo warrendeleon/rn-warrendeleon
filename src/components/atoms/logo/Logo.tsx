@@ -10,8 +10,8 @@ export const Logo = ({darkMode = false}: LogoProp): JSX.Element => {
     <Lottie
       source={
         darkMode
-          ? require('../../../assets/animations/logo/white.json')
-          : require('../../../assets/animations/logo/black.json')
+          ? require('../../../assets/animations/logo/black.json')
+          : require('../../../assets/animations/logo/white.json')
       }
       autoPlay
       loop

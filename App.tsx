@@ -1,5 +1,6 @@
-import React, {JSX} from 'react';
+import React, {JSX, useEffect} from 'react';
 import {StyleSheet} from 'react-native';
+import BootSplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
@@ -9,6 +10,9 @@ import {injectStore, store} from '@app/redux';
 import {Splash} from '@app/screens';
 
 const App = (): JSX.Element => {
+  useEffect(() => {
+    BootSplash.hide({fade: true});
+  }, []);
   injectStore(store);
   return (
     <Provider store={store}>

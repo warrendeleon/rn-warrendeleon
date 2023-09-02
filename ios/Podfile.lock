@@ -381,8 +381,6 @@ PODS:
     - glog
   - react-native-blob-util (0.18.3):
     - React-Core
-  - react-native-flipper (0.203.0):
-    - React-Core
   - react-native-maps (1.7.1):
     - React-Core
   - react-native-pdf (6.7.1):
@@ -503,6 +501,8 @@ PODS:
     - React-jsi (= 0.72.3)
     - React-logger (= 0.72.3)
     - React-perflogger (= 0.72.3)
+  - RNBootSplash (5.0.2):
+    - React-Core
   - RNCAsyncStorage (1.19.0):
     - React-Core
   - RNDateTimePicker (7.4.0):
@@ -604,7 +604,6 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-blob-util (from `../node_modules/react-native-blob-util`)
-  - react-native-flipper (from `../node_modules/react-native-flipper`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -627,6 +626,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNDevMenu (from `../node_modules/react-native-dev-menu`)
@@ -704,8 +704,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-blob-util:
     :path: "../node_modules/react-native-blob-util"
-  react-native-flipper:
-    :path: "../node_modules/react-native-flipper"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
   react-native-pdf:
@@ -750,6 +748,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNBootSplash:
+    :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNDateTimePicker:
@@ -808,7 +808,6 @@ SPEC CHECKSUMS:
   React-jsinspector: b511447170f561157547bc0bef3f169663860be7
   React-logger: c5b527272d5f22eaa09bb3c3a690fee8f237ae95
   react-native-blob-util: 2d36383bb52c15c5451be81cb7ddf22bc34a12a6
-  react-native-flipper: 598f601b6dc19d58f8f58088c6c570917efea2c4
   react-native-maps: 667f9b975549c6fa9b1631bf859440f68ebd3b8f
   react-native-pdf: 7c0e91ada997bac8bac3bb5bea5b6b81f5a3caae
   react-native-safe-area-context: 9697629f7b2cda43cf52169bb7e0767d330648c2
@@ -831,6 +830,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 837c1bebd2f84572db17698cd702ceaf585b0d9a
   React-utils: bcb57da67eec2711f8b353f6e3d33bd8e4b2efa3
   ReactCommon: 3ccb8fb14e6b3277e38c73b0ff5e4a1b8db017a9
+  RNBootSplash: 162e6b22df17b8fadc1ab68b0a43093d1e6c4cab
   RNCAsyncStorage: 4b98ac3c64efa4e35c1197cb0c5ca5e9f5d4c666
   RNDateTimePicker: 4cb76f42ef1411f5e0cfc69758b7d9d7a30e12e4
   RNDevMenu: 72807568fe4188bd4c40ce32675d82434b43c45d
@@ -846,4 +846,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 247d71a47afd91f5b362a3cd242112beabe5bcdf
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.12.0

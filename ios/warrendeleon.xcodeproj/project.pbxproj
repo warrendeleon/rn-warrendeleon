@@ -17,6 +17,7 @@
 		38BFB227A1BF49F8A44C1854 /* SFProText-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7A6F71418CEE4D888578AA67 /* SFProText-Light.otf */; };
 		39B9EBB962384F18BF4189F9 /* SFProText-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = B6C8068121EB4568A5697E24 /* SFProText-HeavyItalic.otf */; };
 		3B9700D9AA4B4A1E9D2044DD /* SFProText-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 555B275310F049E5815705AC /* SFProText-ThinItalic.otf */; };
+		5579F0A42AA3865C00923D77 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5579F0A32AA3865C00923D77 /* BootSplash.storyboard */; };
 		5910C51231CB45ABB6A8FEDD /* SFProText-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E1519F2CB13044FAA3C3B215 /* SFProText-BlackItalic.otf */; };
 		644F5571A1BC41E6A6FC0FC8 /* SFProText-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0425BB6FB864E67895D41DE /* SFProText-LightItalic.otf */; };
 		6A2E88D5AE004F80B442ECA1 /* SFProText-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C38FD82A24A445583D41162 /* SFProText-MediumItalic.otf */; };
@@ -61,6 +62,7 @@
 		3B4392A12AC88292D35C810B /* Pods-warrendeleon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-warrendeleon.debug.xcconfig"; path = "Target Support Files/Pods-warrendeleon/Pods-warrendeleon.debug.xcconfig"; sourceTree = "<group>"; };
 		47DE31964FFF46589EB54D51 /* SFProText-Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Thin.otf"; path = "../src/assets/fonts/SFProText-Thin.otf"; sourceTree = "<group>"; };
 		555B275310F049E5815705AC /* SFProText-ThinItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-ThinItalic.otf"; path = "../src/assets/fonts/SFProText-ThinItalic.otf"; sourceTree = "<group>"; };
+		5579F0A32AA3865C00923D77 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = warrendeleon/BootSplash.storyboard; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-warrendeleon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-warrendeleon.release.xcconfig"; path = "Target Support Files/Pods-warrendeleon/Pods-warrendeleon.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-warrendeleon-warrendeleonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-warrendeleon-warrendeleonTests.debug.xcconfig"; path = "Target Support Files/Pods-warrendeleon-warrendeleonTests/Pods-warrendeleon-warrendeleonTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-warrendeleon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-warrendeleon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				5579F0A32AA3865C00923D77 /* BootSplash.storyboard */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -310,6 +313,7 @@
 				5910C51231CB45ABB6A8FEDD /* SFProText-BlackItalic.otf in Resources */,
 				CD3866D921C84FB885B76226 /* SFProText-Bold.otf in Resources */,
 				DB54033C8ECB450F92E9EF70 /* SFProText-BoldItalic.otf in Resources */,
+				5579F0A42AA3865C00923D77 /* BootSplash.storyboard in Resources */,
 				3007E17D05D4457DBED752E8 /* SFProText-Heavy.otf in Resources */,
 				39B9EBB962384F18BF4189F9 /* SFProText-HeavyItalic.otf in Resources */,
 				38BFB227A1BF49F8A44C1854 /* SFProText-Light.otf in Resources */,
@@ -579,8 +583,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.reactjs.native.warrendeleon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.warrendeleon.cv;
 				PRODUCT_NAME = warrendeleon;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -607,8 +610,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.reactjs.native.warrendeleon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.warrendeleon.cv;
 				PRODUCT_NAME = warrendeleon;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
