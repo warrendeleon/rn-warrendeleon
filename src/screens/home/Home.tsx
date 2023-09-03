@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {ScrollView, VStack} from 'native-base';
 
-import {faYoutube} from '@fortawesome/free-brands-svg-icons';
+import {faGithub, faYoutube} from '@fortawesome/free-brands-svg-icons';
 import {
   faBriefcase,
   faCalendar,
@@ -72,6 +72,16 @@ export const Home = (): JSX.Element => {
   ];
 
   const settings: MenuListItem[] = [
+    {
+      icon: faGithub,
+      iconBgColor: 'black',
+      label: t('home.github'),
+      onPress: () =>
+        navigation.navigate(ScreenNames.WEBVIEW, {
+          title: t('home.github'),
+          uri: 'https://github.com/warrendeleon/rn-warrendeleon',
+        }),
+    },
     {
       icon: faSliders,
       iconBgColor: 'grey',
