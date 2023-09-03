@@ -38,7 +38,7 @@ export type RootStackParamList = {
   [ScreenNames.WORK_XP]: {workXPId: string} | undefined;
   [ScreenNames.WORK_XP_DETAILS]: {workXPId: string} | undefined;
   [ScreenNames.EDUCATION]: undefined;
-  [ScreenNames.WEBVIEW]: {uri: string} | undefined;
+  [ScreenNames.WEBVIEW]: {uri: string; title?: string} | undefined;
   [ScreenNames.CLIENTS]: {workXPId: string; company: string} | undefined;
 };
 
@@ -72,7 +72,10 @@ const RootNavigator = (): JSX.Element => {
         <RootStack.Screen
           name={ScreenNames.VIDEO}
           component={Video}
-          options={{presentation: 'modal'}}
+          options={({route}) => ({
+            presentation: 'modal',
+            title: route.params?.title ? route.params.title : '',
+          })}
         />
         <RootStack.Screen
           name={ScreenNames.CONTACT}
@@ -88,7 +91,10 @@ const RootNavigator = (): JSX.Element => {
         <RootStack.Screen
           name={ScreenNames.WEBVIEW}
           component={WebView}
-          options={{title: t('screens.meet')}}
+          options={({route}) => ({
+            headerBackTitleVisible: !route.params?.title,
+            title: route.params?.title ? route.params.title : t('screens.meet'),
+          })}
         />
         <RootStack.Screen
           name={ScreenNames.PROFILE}
@@ -103,7 +109,7 @@ const RootNavigator = (): JSX.Element => {
         <RootStack.Screen
           name={ScreenNames.WORK_XP_DETAILS}
           component={WorkXPDetails}
-          options={{headerBackTitleVisible: false, title: t('screens.workXP')}}
+          options={{headerBackTitleVisible: false}}
         />
         <RootStack.Screen
           name={ScreenNames.EDUCATION}
@@ -113,7 +119,10 @@ const RootNavigator = (): JSX.Element => {
         <RootStack.Screen
           name={ScreenNames.CLIENTS}
           component={Clients}
-          options={{headerBackTitleVisible: false, title: t('screens.workXP')}}
+          options={({route}) => ({
+            headerBackTitleVisible: false,
+            title: route.params?.company ? route.params?.company : '',
+          })}
         />
       </RootStack.Navigator>
     </NavigationContainer>

@@ -22,7 +22,10 @@ export const Education = (): JSX.Element => {
       end: ed.end,
       onPressItem: () => {
         if (ed.certificate) {
-          navigation.navigate(ScreenNames.WEBVIEW, {uri: ed.certificate});
+          navigation.navigate(ScreenNames.WEBVIEW, {
+            title: ed.title,
+            uri: ed.certificate,
+          });
         }
       },
       start: ed.start,

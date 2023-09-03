@@ -23,11 +23,6 @@ export const Clients = (): JSX.Element => {
     clientsSelector(state, params?.workXPId || ''),
   );
 
-  useLayoutEffect(() => {
-    if (params?.workXPId) {
-      navigation.setOptions({title: params?.company});
-    }
-  }, [navigation, params]);
   let menuList: MenuListItemSvg[] = [];
 
   if (clientList) {
