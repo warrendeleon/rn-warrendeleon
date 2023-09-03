@@ -1,7 +1,12 @@
 import React, {JSX, useCallback, useEffect, useState} from 'react';
 import DevMenu from 'react-native-dev-menu';
 import {useSelector} from 'react-redux';
-import {extendTheme, NativeBaseProvider, Spinner, VStack} from 'native-base';
+import {
+  extendTheme,
+  NativeBaseProvider,
+  useColorModeValue,
+  VStack,
+} from 'native-base';
 
 import {Logo} from '@app/atoms';
 import {changeLanguage} from '@app/i18n';
@@ -28,6 +33,7 @@ const ContentOrSplash = (): JSX.Element => {
   const locale = useSelector(localeSelector);
   const dispatch = useAppDispatch();
   const darkMode = useSelector(darkModeSelector);
+  const bgColor = useColorModeValue('white', 'black');
 
   useEffect(() => {
     setLoading(true);
@@ -49,7 +55,12 @@ const ContentOrSplash = (): JSX.Element => {
 
   if (loading) {
     return (
-      <VStack flex={1} space={32} alignItems={'center'} justifyContent="center">
+      <VStack
+        bgColor={bgColor}
+        flex={1}
+        space={32}
+        alignItems={'center'}
+        justifyContent="center">
         <Logo darkMode={darkMode} />
       </VStack>
     );
