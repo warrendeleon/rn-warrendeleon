@@ -1,97 +1,287 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🪶 warrendeleon
 
-# Getting Started
+<p align="center">
+  <img src="https://img.shields.io/badge/react--native-0.82.1-61DAFB?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/typescript-5.x-3178C6?style=for-the-badge&logo=typescript" />
+  <img src="https://img.shields.io/badge/yarn-1.22.x-2C8EBB?style=for-the-badge&logo=yarn" />
+  <img src="https://img.shields.io/badge/node-22.x-5FA04E?style=for-the-badge&logo=node.js" />
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
+</p>
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+A **React Native** application built with **TypeScript**, using **Yarn** as the package manager.  
+This project is configured for both **iOS** and **Android**, with **Hermes** enabled for improved performance.
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🚀 Tech Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **React Native:** 0.82.1  
+- **Language:** TypeScript  
+- **Package Manager:** Yarn  
+- **JavaScript Engine:** Hermes  
+- **Linting & Formatting:** ESLint + Prettier (recommended setup)  
+- **Build Tools:** Xcode 26 / Android SDK 35  
 
-```sh
-# Using npm
-npm start
+---
 
-# OR using Yarn
-yarn start
+<details>
+<summary>🧩 <b>Available Scripts</b> (click to expand)</summary>
+
+| Command | Description |
+|----------|-------------|
+| `yarn start` | Start the Metro bundler |
+| `yarn ios` | Build and run the iOS app (launches Simulator) |
+| `yarn android` | Build and run the Android app |
+| `yarn lint` | Run ESLint for code quality checks |
+| `yarn lint:fix` | Automatically fix lint issues where possible |
+| `yarn format` | Format code using Prettier |
+
+</details>
+
+---
+
+## 🧑‍💻 Development setup
+
+These steps describe the environment used to develop this app on macOS (Apple Silicon).
+
+### Prerequisites
+
+- **macOS** (Apple Silicon)
+- **Homebrew** installed
+
+### Node & Yarn
+
+```bash
+node -v    # 22.x
+yarn -v    # 1.22.x
 ```
 
-## Step 2: Build and run your app
+If Node isn’t installed via a version manager yet, use `nvm`:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+brew install nvm
+mkdir -p ~/.nvm
+# Add the NVM init snippet from brew to your ~/.zshrc, then:
+nvm install 22
+nvm use 22
 ```
+
+### Java (JDK 17 – Temurin)
+
+Install Temurin 17:
+
+```bash
+brew install --cask temurin@17
+```
+
+In `~/.zshrc`:
+
+```bash
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export PATH="$JAVA_HOME/bin:$PATH"
+```
+
+Reload:
+
+```bash
+source ~/.zshrc
+java -version
+```
+
+### Android SDK
+
+Install **Android Studio**, then in `~/.zshrc`:
+
+```bash
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+```
+
+Reload:
+
+```bash
+source ~/.zshrc
+adb devices
+```
+
+You should see a list (possibly empty) of devices with no error.
+
+### Xcode (iOS)
+
+- Install **Xcode 26+** from the Mac App Store.
+- Open Xcode once and accept the licence / install components.
+
+Check:
+
+```bash
+xcodebuild -version
+xcode-select -p
+```
+
+`xcode-select -p` should point to `/Applications/Xcode.app/Contents/Developer`.
+
+### CocoaPods
+
+```bash
+sudo gem install cocoapods
+pod --version
+```
+
+---
+
+## 🧑‍💻 Getting Started (project)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/<your-username>/warrendeleon.git
+cd warrendeleon
+```
+
+### 2. Install dependencies
+
+```bash
+yarn install
+```
+
+### 3. iOS pods
+
+```bash
+cd ios
+pod install
+cd ..
+```
+
+---
+
+## 📱 Running the app
 
 ### iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
+```bash
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+This will:
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+- Start Metro
+- Build the iOS app with Xcode
+- Launch the iOS simulator (e.g. iPhone 15 Pro)
 
-## Step 3: Modify your app
+### Android
 
-Now that you have successfully run the app, let's make changes!
+1. Start an Android emulator from Android Studio (or connect a device).
+2. Run:
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+```bash
+yarn android
+```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## 🧩 Project Structure
 
-## Congratulations! :tada:
+```text
+warrendeleon/
+├── android/              # Native Android project
+├── ios/                  # Native iOS project (.xcworkspace, Pods, etc.)
+├── src/                  # App source (recommended place for your code)
+│   ├── components/       # Reusable UI components
+│   ├── screens/          # Screens / routes
+│   ├── navigation/       # Navigation setup (if used)
+│   └── utils/            # Helpers & utilities
+├── App.tsx               # Root component
+├── index.tsx             # Entry file
+├── tsconfig.json         # TypeScript configuration
+├── package.json
+└── README.md
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+---
 
-### Now what?
+## 🧹 Linting & Formatting (recommended)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+Install ESLint + Prettier:
 
-# Troubleshooting
+```bash
+yarn add -D   eslint   @react-native/eslint-config   @typescript-eslint/eslint-plugin   @typescript-eslint/parser   prettier   eslint-config-prettier   eslint-plugin-prettier
+```
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+Create `.eslintrc.js`:
 
-# Learn More
+```js
+module.exports = {
+  root: true,
+  extends: ['@react-native', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'prettier'],
+  rules: {
+    'prettier/prettier': 'warn',
+  },
+};
+```
 
-To learn more about React Native, take a look at the following resources:
+Create `.prettierrc`:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+```json
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "semi": true
+}
+```
+
+Add scripts in `package.json`:
+
+```jsonc
+{
+  "scripts": {
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write ."
+  }
+}
+```
+
+Run:
+
+```bash
+yarn lint
+yarn format
+```
+
+---
+
+## 🧠 Useful Commands
+
+| Command        | Description                          |
+|----------------|--------------------------------------|
+| `yarn start`   | Start Metro bundler                  |
+| `yarn ios`     | Build & run iOS app                  |
+| `yarn android` | Build & run Android app              |
+| `yarn lint`    | Run ESLint                           |
+| `yarn lint:fix`| Auto-fix lint issues where possible  |
+| `yarn format`  | Run Prettier over the codebase       |
+
+---
+
+## 🛠 Requirements (summary)
+
+| Tool | Recommended Version |
+|------|----------------------|
+| Node.js | 22.x |
+| Yarn | 1.22.x |
+| Java | Temurin 17 |
+| Android SDK | 35+ |
+| Xcode | 26.0.1 |
+| CocoaPods | 1.16.x |
+
+---
+
+## 🧾 License
+
+This project is licensed under the [MIT License](LICENSE).
