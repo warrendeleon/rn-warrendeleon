@@ -109,3 +109,4 @@ jest-html-reporters-*.html
 *.swo
 *.tmp
 *.bak
+android/app/.cxx/
