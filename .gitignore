@@ -1,0 +1,111 @@
+# ============================================
+# React Native Comprehensive .gitignore
+# Covers: macOS, Android Studio, Xcode, VS Code, WebStorm
+# ============================================
+
+# --- Node & Package Managers ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn.lock.old
+pnpm-debug.log*
+package-lock.json
+
+# --- Build Artifacts ---
+dist/
+build/
+output/
+*.log
+.DS_Store
+Thumbs.db
+
+# --- Environment & Secrets ---
+.env
+.env.*
+!.env.example
+
+# --- React Native / Expo ---
+.expo/
+.expo-shared/
+.expo3/
+.cache/
+.watchmanconfig
+react-native-debugger.json
+
+# --- Android (Gradle / Studio) ---
+android/.gradle/
+android/app/build/
+android/build/
+android/.idea/
+android/local.properties
+android/.cxx/
+.gradle/
+*.apk
+*.aab
+*.iml
+*.hprof
+*.keystore
+*.jks
+
+# --- iOS (Xcode) ---
+ios/Pods/
+ios/build/
+ios/DerivedData/
+ios/.idea/
+ios/.vscode/
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.pbxuser
+*.xcworkspace/xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+*.xcuserdatad
+*.xcscmblueprint
+!ios/Podfile
+!ios/Podfile.lock
+
+# --- macOS System Files ---
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# --- IDEs ---
+# VS Code
+.vscode/
+.history/
+# WebStorm / IntelliJ / Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+# Xcode
+*.xcuserstate
+*.xcuserdatad
+
+# --- TypeScript ---
+*.tsbuildinfo
+
+# --- Testing / Coverage ---
+coverage/
+jest-html-reporters-*.html
+*.lcov
+
+# --- Misc / OS-specific ---
+*.swp
+*.swo
+*.tmp
+*.bak
