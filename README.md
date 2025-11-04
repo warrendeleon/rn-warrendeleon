@@ -3,7 +3,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/react--native-0.82.1-61DAFB?style=for-the-badge&logo=react" />
   <img src="https://img.shields.io/badge/typescript-5.x-3178C6?style=for-the-badge&logo=typescript" />
-  <img src="https://img.shields.io/badge/yarn-1.22.x-2C8EBB?style=for-the-badge&logo=yarn" />
+  <img src="https://img.shields.io/badge/yarn-3.6.4-2C8EBB?style=for-the-badge&logo=yarn" />
   <img src="https://img.shields.io/badge/node-22.x-5FA04E?style=for-the-badge&logo=node.js" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
@@ -13,14 +13,36 @@ This project is configured for both **iOS** and **Android**, with **Hermes** ena
 
 ---
 
+## 📋 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/warrendeleon/rn-warrendeleon.git
+cd rn-warrendeleon
+
+# Install dependencies
+yarn install
+
+# iOS setup
+cd ios && pod install && cd ..
+
+# Run on iOS
+yarn ios
+
+# Run on Android (start emulator first)
+yarn android
+```
+
+---
+
 ## 🚀 Tech Stack
 
-- **React Native:** 0.82.1  
-- **Language:** TypeScript  
-- **Package Manager:** Yarn  
-- **JavaScript Engine:** Hermes  
-- **Linting & Formatting:** ESLint + Prettier (recommended setup)  
-- **Build Tools:** Xcode 26 / Android SDK 35  
+- **React Native:** 0.82.1
+- **Language:** TypeScript 5.8.3
+- **Package Manager:** Yarn 3.6.4 (Berry)
+- **JavaScript Engine:** Hermes
+- **Linting & Formatting:** ESLint 9 (flat config) + Prettier
+- **Build Tools:** Xcode 26 / Android SDK 35
 
 ---
 
@@ -32,6 +54,7 @@ This project is configured for both **iOS** and **Android**, with **Hermes** ena
 | `yarn start` | Start the Metro bundler |
 | `yarn ios` | Build and run the iOS app (launches Simulator) |
 | `yarn android` | Build and run the Android app |
+| `yarn test` | Run Jest tests |
 | `yarn lint` | Run ESLint for code quality checks |
 | `yarn lint:fix` | Automatically fix lint issues where possible |
 | `yarn format` | Format code using Prettier |
@@ -40,57 +63,109 @@ This project is configured for both **iOS** and **Android**, with **Hermes** ena
 
 ---
 
-## 🧑‍💻 Development setup
+## 🧩 Project Structure
+
+```text
+rn-warrendeleon/
+├── android/              # Native Android project
+├── ios/                  # Native iOS project (.xcworkspace, Pods, etc.)
+├── __tests__/            # Jest test files
+├── App.tsx               # Root component
+├── index.js              # Entry file
+├── eslint.config.mjs     # ESLint flat config
+├── .prettierrc           # Prettier configuration
+├── tsconfig.json         # TypeScript configuration
+├── babel.config.js       # Babel configuration
+├── metro.config.js       # Metro bundler configuration
+├── jest.config.js        # Jest configuration
+├── package.json
+└── README.md
+```
+
+---
+
+## 🧑‍💻 Development Setup
 
 These steps describe the environment used to develop this app on macOS (Apple Silicon).
 
 ### Prerequisites
 
-- **macOS** (Apple Silicon)
+- **macOS** (Apple Silicon recommended)
 - **Homebrew** installed
 
 ### Node & Yarn
 
+This project uses **Node.js 22.x** and **Yarn 3.6.4** (Berry).
+
 ```bash
-node -v    # 22.x
-yarn -v    # 1.22.x
+# Check versions
+node -v    # Should be 22.x
+yarn -v    # Should be 3.6.4
 ```
 
-If Node isn’t installed via a version manager yet, use `nvm`:
+#### Install Node with nvm (recommended)
 
 ```bash
+# Install nvm
 brew install nvm
 mkdir -p ~/.nvm
-# Add the NVM init snippet from brew to your ~/.zshrc, then:
+
+# Add to ~/.zshrc:
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+
+# Reload and install Node
+source ~/.zshrc
 nvm install 22
 nvm use 22
+nvm alias default 22
 ```
+
+#### Yarn is managed by the project
+
+Yarn 3.6.4 is automatically managed via Corepack (included with Node.js 22). You don't need to install it globally.
+
+```bash
+# Enable Corepack if not already enabled
+corepack enable
+```
+
+---
 
 ### Java (JDK 17 – Temurin)
 
-Install Temurin 17:
+Install Temurin 17 for Android development:
 
 ```bash
 brew install --cask temurin@17
 ```
 
-In `~/.zshrc`:
+Add to `~/.zshrc`:
 
 ```bash
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 export PATH="$JAVA_HOME/bin:$PATH"
 ```
 
-Reload:
+Reload and verify:
 
 ```bash
 source ~/.zshrc
-java -version
+java -version  # Should show Temurin 17
 ```
+
+---
 
 ### Android SDK
 
-Install **Android Studio**, then in `~/.zshrc`:
+1. Install **Android Studio** from [developer.android.com](https://developer.android.com/studio)
+2. Open Android Studio and install:
+    - Android SDK Platform 35
+    - Android SDK Build-Tools
+    - Android Emulator
+    - Intel x86 Emulator Accelerator (HAXM) or use ARM images
+
+Add to `~/.zshrc`:
 
 ```bash
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -100,188 +175,175 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 ```
 
-Reload:
+Reload and verify:
 
 ```bash
 source ~/.zshrc
-adb devices
+adb devices  # Should list connected devices (or empty list with no error)
 ```
 
-You should see a list (possibly empty) of devices with no error.
+---
 
 ### Xcode (iOS)
 
-- Install **Xcode 26+** from the Mac App Store.
-- Open Xcode once and accept the licence / install components.
+1. Install **Xcode 26+** from the Mac App Store
+2. Open Xcode and accept the license agreement
+3. Install additional components when prompted
 
-Check:
+Verify installation:
 
 ```bash
-xcodebuild -version
-xcode-select -p
+xcodebuild -version  # Should show Xcode 26.x
+xcode-select -p      # Should show /Applications/Xcode.app/Contents/Developer
 ```
 
-`xcode-select -p` should point to `/Applications/Xcode.app/Contents/Developer`.
+---
 
 ### CocoaPods
 
+CocoaPods is required for iOS dependency management:
+
 ```bash
 sudo gem install cocoapods
-pod --version
+pod --version  # Should show 1.16.x or higher
 ```
 
 ---
 
-## 🧑‍💻 Getting Started (project)
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/<your-username>/warrendeleon.git
-cd warrendeleon
-```
-
-### 2. Install dependencies
-
-```bash
-yarn install
-```
-
-### 3. iOS pods
-
-```bash
-cd ios
-pod install
-cd ..
-```
-
----
-
-## 📱 Running the app
+## 📱 Running the App
 
 ### iOS
 
 ```bash
+# Install iOS dependencies first (one time)
+cd ios
+pod install
+cd ..
+
+# Run the app
 yarn ios
+
+# Or specify a device
+yarn ios --simulator="iPhone 16 Pro"
 ```
-
-This will:
-
-- Start Metro
-- Build the iOS app with Xcode
-- Launch the iOS simulator (e.g. iPhone 15 Pro)
 
 ### Android
 
-1. Start an Android emulator from Android Studio (or connect a device).
-2. Run:
-
 ```bash
+# Start an Android emulator from Android Studio first
+# Or connect a physical device with USB debugging enabled
+
+# Run the app
 yarn android
+
+# Or specify a device
+yarn android --deviceId=<device-id>
 ```
 
 ---
 
-## 🧩 Project Structure
+## 🧪 Testing
 
-```text
-warrendeleon/
-├── android/              # Native Android project
-├── ios/                  # Native iOS project (.xcworkspace, Pods, etc.)
-├── src/                  # App source (recommended place for your code)
-│   ├── components/       # Reusable UI components
-│   ├── screens/          # Screens / routes
-│   ├── navigation/       # Navigation setup (if used)
-│   └── utils/            # Helpers & utilities
-├── App.tsx               # Root component
-├── index.tsx             # Entry file
-├── tsconfig.json         # TypeScript configuration
-├── package.json
-└── README.md
+```bash
+# Run all tests
+yarn test
+
+# Run tests in watch mode
+yarn test --watch
+
+# Run tests with coverage
+yarn test --coverage
 ```
 
 ---
 
-## 🧹 Linting & Formatting (recommended)
+## 🧹 Code Quality
 
-Install ESLint + Prettier:
+### Linting
 
-```bash
-yarn add -D   eslint   @react-native/eslint-config   @typescript-eslint/eslint-plugin   @typescript-eslint/parser   prettier   eslint-config-prettier   eslint-plugin-prettier
-```
-
-Create `.eslintrc.js`:
-
-```js
-module.exports = {
-  root: true,
-  extends: ['@react-native', 'plugin:@typescript-eslint/recommended', 'prettier'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'prettier'],
-  rules: {
-    'prettier/prettier': 'warn',
-  },
-};
-```
-
-Create `.prettierrc`:
-
-```json
-{
-  "singleQuote": true,
-  "trailingComma": "all",
-  "printWidth": 100,
-  "semi": true
-}
-```
-
-Add scripts in `package.json`:
-
-```jsonc
-{
-  "scripts": {
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "format": "prettier --write ."
-  }
-}
-```
-
-Run:
+This project uses **ESLint 9** with the flat config format (`eslint.config.mjs`):
 
 ```bash
+# Check for lint issues
 yarn lint
+
+# Auto-fix issues
+yarn lint:fix
+```
+
+### Formatting
+
+Prettier is configured to format code automatically:
+
+```bash
+# Format all files
 yarn format
 ```
 
----
+### Configuration
 
-## 🧠 Useful Commands
-
-| Command        | Description                          |
-|----------------|--------------------------------------|
-| `yarn start`   | Start Metro bundler                  |
-| `yarn ios`     | Build & run iOS app                  |
-| `yarn android` | Build & run Android app              |
-| `yarn lint`    | Run ESLint                           |
-| `yarn lint:fix`| Auto-fix lint issues where possible  |
-| `yarn format`  | Run Prettier over the codebase       |
+- **ESLint config:** `eslint.config.mjs` (flat config format)
+- **Prettier config:** `.prettierrc`
+- **TypeScript config:** `tsconfig.json`
 
 ---
 
-## 🛠 Requirements (summary)
+## 🛠 Troubleshooting
 
-| Tool | Recommended Version |
-|------|----------------------|
+### iOS Build Issues
+
+```bash
+# Clean build folders
+cd ios
+rm -rf Pods Podfile.lock
+pod install
+cd ..
+```
+
+### Android Build Issues
+
+```bash
+# Clean Android build
+cd android
+./gradlew clean
+cd ..
+```
+
+### Metro Bundler Issues
+
+```bash
+# Clear Metro cache
+yarn start --reset-cache
+```
+
+---
+
+## 🛠 Requirements Summary
+
+| Tool | Required Version |
+|------|------------------|
 | Node.js | 22.x |
-| Yarn | 1.22.x |
+| Yarn | 3.6.4 (managed by project) |
 | Java | Temurin 17 |
 | Android SDK | 35+ |
-| Xcode | 26.0.1 |
-| CocoaPods | 1.16.x |
+| Xcode | 26.0+ |
+| CocoaPods | 1.16+ |
 
 ---
 
-## 🧾 License
+## 📝 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## 📧 Contact
+
+For questions or support, please open an issue on GitHub.
+```
