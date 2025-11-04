@@ -8,6 +8,8 @@
 import { NewAppScreen } from '@react-native/new-app-screen';
 import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { APP_ENV, API_URL } from './config/env';
+import Config from 'react-native-config';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -37,3 +39,6 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+console.log('ENV:', APP_ENV, 'API_URL:', API_URL);
+console.log('directly from file ENV:', Config.APP_ENV, 'API_URL:', Config.API_URL);
