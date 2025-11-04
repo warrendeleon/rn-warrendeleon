@@ -58,6 +58,7 @@ yarn android
 | `yarn lint` | Run ESLint for code quality checks |
 | `yarn lint:fix` | Automatically fix lint issues where possible |
 | `yarn format` | Format code using Prettier |
+| `yarn validate` | Run typecheck, lint, and tests together |
 
 </details>
 
@@ -77,7 +78,7 @@ rn-warrendeleon/
 ├── tsconfig.json         # TypeScript configuration
 ├── babel.config.js       # Babel configuration
 ├── metro.config.js       # Metro bundler configuration
-├── jest.config.js        # Jest configuration
+├── jest.config.cjs       # Jest configuration
 ├── package.json
 └── README.md
 ```
