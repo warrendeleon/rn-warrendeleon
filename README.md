@@ -49,16 +49,16 @@ yarn android
 <details>
 <summary>🧩 <b>Available Scripts</b> (click to expand)</summary>
 
-| Command | Description |
-|----------|-------------|
-| `yarn start` | Start the Metro bundler |
-| `yarn ios` | Build and run the iOS app (launches Simulator) |
-| `yarn android` | Build and run the Android app |
-| `yarn test` | Run Jest tests |
-| `yarn lint` | Run ESLint for code quality checks |
-| `yarn lint:fix` | Automatically fix lint issues where possible |
-| `yarn format` | Format code using Prettier |
-| `yarn validate` | Run typecheck, lint, and tests together |
+| Command         | Description                                    |
+| --------------- | ---------------------------------------------- |
+| `yarn start`    | Start the Metro bundler                        |
+| `yarn ios`      | Build and run the iOS app (launches Simulator) |
+| `yarn android`  | Build and run the Android app                  |
+| `yarn test`     | Run Jest tests                                 |
+| `yarn lint`     | Run ESLint for code quality checks             |
+| `yarn lint:fix` | Automatically fix lint issues where possible   |
+| `yarn format`   | Format code using Prettier                     |
+| `yarn validate` | Run typecheck, lint, and tests together        |
 
 </details>
 
@@ -161,10 +161,10 @@ java -version  # Should show Temurin 17
 
 1. Install **Android Studio** from [developer.android.com](https://developer.android.com/studio)
 2. Open Android Studio and install:
-    - Android SDK Platform 35
-    - Android SDK Build-Tools
-    - Android Emulator
-    - Intel x86 Emulator Accelerator (HAXM) or use ARM images
+   - Android SDK Platform 35
+   - Android SDK Build-Tools
+   - Android Emulator
+   - Intel x86 Emulator Accelerator (HAXM) or use ARM images
 
 Add to `~/.zshrc`:
 
@@ -281,6 +281,16 @@ Prettier is configured to format code automatically:
 yarn format
 ```
 
+### Git hooks
+
+This project uses **Husky** + **lint-staged** to enforce code quality on each commit:
+
+- On `git commit`, `lint-staged` will:
+  - Run `eslint --fix` and `prettier --write` on staged `*.js, *.jsx, *.ts, *.tsx` files
+  - Run `prettier --write` on staged `*.json, *.md, *.yml, *.yaml` files
+
+If a check fails, the commit will be aborted so you can fix the issues first.
+
 ### Configuration
 
 - **ESLint config:** `eslint.config.mjs` (flat config format)
@@ -321,14 +331,14 @@ yarn start --reset-cache
 
 ## 🛠 Requirements Summary
 
-| Tool | Required Version |
-|------|------------------|
-| Node.js | 22.x |
-| Yarn | 3.6.4 (managed by project) |
-| Java | Temurin 17 |
-| Android SDK | 35+ |
-| Xcode | 26.0+ |
-| CocoaPods | 1.16+ |
+| Tool        | Required Version           |
+| ----------- | -------------------------- |
+| Node.js     | 22.x                       |
+| Yarn        | 3.6.4 (managed by project) |
+| Java        | Temurin 17                 |
+| Android SDK | 35+                        |
+| Xcode       | 26.0+                      |
+| CocoaPods   | 1.16+                      |
 
 ---
 
@@ -347,4 +357,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📧 Contact
 
 For questions or support, please open an issue on GitHub.
-```
