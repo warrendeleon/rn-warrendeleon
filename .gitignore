@@ -30,7 +30,6 @@ Thumbs.db
 .expo-shared/
 .expo3/
 .cache/
-.watchmanconfig
 react-native-debugger.json
 
 # --- Android (Gradle / Studio) ---
@@ -46,6 +45,7 @@ android/.cxx/
 *.iml
 *.hprof
 *.keystore
+!debug.keystore
 *.jks
 
 # --- iOS (Xcode) ---
@@ -66,6 +66,15 @@ ios/.vscode/
 *.xcscmblueprint
 !ios/Podfile
 !ios/Podfile.lock
+
+# --- Fastlane ---
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+*.mobileprovision
+*.p12
+*.cer
 
 # --- macOS System Files ---
 .AppleDouble
@@ -110,3 +119,29 @@ jest-html-reporters-*.html
 *.tmp
 *.bak
 android/app/.cxx/
+
+# --- Yarn Berry (Zero-Install) ---
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Ignore Yarn cache and state
+.yarn/cache
+.yarn/install-state.gz
+
+# --- React Native Specific ---
+# Metro bundler
+.metro-health-check*
+.metro-health-check.tmp
+
+# Buck (alternative build system)
+buck-out/
+\.buckd/
+\.buckconfig.local
+\.buckversion
+
+# Temporary files created by Metro
+*.jsbundle
