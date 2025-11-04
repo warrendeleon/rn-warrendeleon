@@ -54,16 +54,27 @@ yarn android
 <details>
 <summary>🧩 <b>Available Scripts</b> (click to expand)</summary>
 
-| Command         | Description                                    |
-| --------------- | ---------------------------------------------- |
-| `yarn start`    | Start the Metro bundler                        |
-| `yarn ios`      | Build and run the iOS app (launches Simulator) |
-| `yarn android`  | Build and run the Android app                  |
-| `yarn test`     | Run Jest tests                                 |
-| `yarn lint`     | Run ESLint for code quality checks             |
-| `yarn lint:fix` | Automatically fix lint issues where possible   |
-| `yarn format`   | Format code using Prettier                     |
-| `yarn validate` | Run typecheck, lint, and tests together        |
+| Command                | Description                                                        |
+| ---------------------- | ------------------------------------------------------------------ |
+| `yarn start`           | Start the Metro bundler                                            |
+| `yarn start:reset`     | Start Metro and clear its cache                                    |
+| `yarn ios`             | Build and run the iOS app in Debug (default `warrendeleon` scheme) |
+| `yarn ios:release`     | Build and run iOS with `warrendeleon-Prod` scheme in Release mode  |
+| `yarn android`         | Build and run the Android app in Debug                             |
+| `yarn android:release` | Build and run the Android app in Release mode                      |
+| `yarn android:apk`     | Build a Release APK and print the output path                      |
+| `yarn android:aab`     | Build a Release AAB and print the output path                      |
+| `yarn test`            | Run Jest tests once                                                |
+| `yarn test:watch`      | Run Jest in watch mode                                             |
+| `yarn test:coverage`   | Run Jest tests and generate a coverage report                      |
+| `yarn lint`            | Run ESLint for code quality checks                                 |
+| `yarn lint:fix`        | Automatically fix lint issues where possible                       |
+| `yarn format`          | Format code using Prettier                                         |
+| `yarn format:check`    | Check formatting without writing changes                           |
+| `yarn typecheck`       | Run a full TypeScript typecheck (`tsc --noEmit`)                   |
+| `yarn validate`        | Run typecheck, lint, and tests together                            |
+| `yarn clean`           | Clean Android/iOS builds and reinstall node modules                |
+| `yarn doctor`          | Run `react-native doctor` to check the environment                 |
 
 </details>
 
@@ -272,6 +283,14 @@ Using `--mode` controls the Xcode build configuration:
 
 Both commands use the `warrendeleon-Prod` scheme (and therefore `.env.production`); the difference is whether you want a Debug or Release build of that scheme.
 
+As a shortcut, you can also run:
+
+```bash
+yarn ios:release
+```
+
+which is equivalent to running the `warrendeleon-Prod` scheme in Release mode.
+
 ### Android
 
 ```bash
@@ -283,6 +302,22 @@ yarn android
 
 # Or specify a device
 yarn android --deviceId=<device-id>
+```
+
+To run a Release build on a device or emulator:
+
+```bash
+yarn android:release
+```
+
+To build release artifacts without installing them:
+
+```bash
+# Build a Release APK and print its path
+yarn android:apk
+
+# Build a Release AAB and print its path
+yarn android:aab
 ```
 
 ---
@@ -371,8 +406,10 @@ If a check fails, the commit will be aborted so you can fix the issues first.
 Before trying manual fixes, you can run:
 
 ```bash
-npx react-native doctor
+yarn doctor
 ```
+
+This runs `react-native doctor` through the project's script for convenience.
 
 This checks your React Native development environment and suggests fixes for common issues.
 
