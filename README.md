@@ -71,7 +71,8 @@ rn-warrendeleon/
 ├── android/              # Native Android project
 ├── ios/                  # Native iOS project (.xcworkspace, Pods, etc.)
 ├── __tests__/            # Jest test files
-├── App.tsx               # Root component
+├── src/
+│   └── App.tsx           # Root component
 ├── index.js              # Entry file
 ├── eslint.config.mjs     # ESLint flat config
 ├── .prettierrc           # Prettier configuration
@@ -286,7 +287,7 @@ yarn format
 This project uses **Husky** + **lint-staged** to enforce code quality on each commit:
 
 - On `git commit`, `lint-staged` will:
-  - Run `eslint --fix` and `prettier --write` on staged `*.js, *.jsx, *.ts, *.tsx` files
+  - Run `eslint --fix`, `prettier --write`, and `tsc-files --noEmit` on staged `*.js, *.jsx, *.ts, *.tsx` files
   - Run `prettier --write` on staged `*.json, *.md, *.yml, *.yaml` files
 
 If a check fails, the commit will be aborted so you can fix the issues first.
