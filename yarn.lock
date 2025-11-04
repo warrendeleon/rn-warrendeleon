@@ -8731,6 +8731,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tsc-files@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "tsc-files@npm:1.1.4"
+  peerDependencies:
+    typescript: ">=3"
+  bin:
+    tsc-files: cli.js
+  checksum: 4acae1dcfe635f3153051707ed747acd095f7fb67ebb767133f80fe6a9bad572eecb062ac2077e06fcfff547e4bbc4eb9e04b64305f0dd11d62ff1d3eb638601
+  languageName: node
+  linkType: hard
+
 "type-check@npm:^0.4.0, type-check@npm:~0.4.0":
   version: 0.4.0
   resolution: "type-check@npm:0.4.0"
@@ -9043,6 +9054,7 @@ __metadata:
     react-native: 0.82.1
     react-native-safe-area-context: ^5.5.2
     react-test-renderer: 19.1.1
+    tsc-files: ^1.1.4
     typescript: ^5.8.3
     typescript-eslint: ^8.46.3
   languageName: unknown
