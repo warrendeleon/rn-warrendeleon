@@ -8,6 +8,10 @@
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
 
+## 🧭 Project Overview
+
+_Placeholder: Brief summary of the app’s purpose, architecture, and goals will be added here._
+
 A **React Native** application built with **TypeScript**, using **Yarn** as the package manager.  
 This project is configured for both **iOS** and **Android**, with **Hermes** enabled for improved performance.
 
@@ -23,7 +27,7 @@ cd rn-warrendeleon
 # Install dependencies
 yarn install
 
-# iOS setup
+# iOS setup (first time only)
 cd ios && pod install && cd ..
 
 # Run on iOS
@@ -41,6 +45,7 @@ yarn android
 - **Language:** TypeScript 5.8.3
 - **Package Manager:** Yarn 3.6.4 (Berry)
 - **JavaScript Engine:** Hermes
+- **Environment Management:** react-native-config
 - **Linting & Formatting:** ESLint 9 (flat config) + Prettier
 - **Build Tools:** Xcode 26 / Android SDK 35
 
@@ -72,7 +77,8 @@ rn-warrendeleon/
 ├── ios/                  # Native iOS project (.xcworkspace, Pods, etc.)
 ├── __tests__/            # Jest test files
 ├── src/
-│   └── App.tsx           # Root component
+│   ├── App.tsx           # Root component
+│   └── config/           # Configuration folder (contains env.ts for environment variables)
 ├── index.js              # Entry file
 ├── eslint.config.mjs     # ESLint flat config
 ├── .prettierrc           # Prettier configuration
@@ -216,18 +222,55 @@ pod --version  # Should show 1.16.x or higher
 
 ### iOS
 
-```bash
-# Install iOS dependencies first (one time)
-cd ios
-pod install
-cd ..
+This project supports multiple build schemes for iOS:
 
-# Run the app
+| Scheme                      | Environment File | Build Type | Example Command                                      |
+| --------------------------- | ---------------- | ---------- | ---------------------------------------------------- |
+| warrendeleon                | .env.development | Debug      | `yarn ios` or `yarn ios --scheme warrendeleon`       |
+| warrendeleon-Prod           | .env.production  | Debug      | `yarn ios --scheme warrendeleon-Prod`                |
+| warrendeleon-Prod (Release) | .env.production  | Release    | `yarn ios --scheme warrendeleon-Prod --mode Release` |
+
+### Environment files
+
+Environment variables are managed using **react-native-config**. These files live in the project root and define environment-specific settings.
+
+- `.env.development` – used by the `warrendeleon` scheme (Debug)
+- `.env.production` – used by the `warrendeleon-Prod` scheme (Debug and Release)
+
+These files **should not be committed** to source control. You can create `.env.development` and `.env.production` locally with your own API keys or URLs.  
+If needed, provide `.env.development.example` and `.env.production.example` as templates for collaborators.
+
+To run the app with the development scheme (this is the default scheme used by `yarn ios`):
+
+```bash
+# Default:
 yarn ios
 
-# Or specify a device
-yarn ios --simulator="iPhone 16 Pro"
+# Explicitly specifying the scheme:
+yarn ios --scheme warrendeleon
 ```
+
+To run the app with the production scheme (which uses `.env.production`):
+
+```bash
+# Run with the production scheme using the default mode (usually Debug)
+yarn ios --scheme warrendeleon-Prod
+
+# Run with the production scheme in Release mode
+yarn ios --scheme warrendeleon-Prod --mode Release
+```
+
+> ℹ️ The `--mode` flag determines the Xcode build configuration:
+>
+> - `--mode Debug` enables developer tools and logging (default).
+> - `--mode Release` creates an optimised production build without dev tools.
+
+Using `--mode` controls the Xcode build configuration:
+
+- `--mode Debug` (default) builds a debug binary with DevTools, log output, etc.
+- `--mode Release` builds an optimized release binary, closer to what ships to users.
+
+Both commands use the `warrendeleon-Prod` scheme (and therefore `.env.production`); the difference is whether you want a Debug or Release build of that scheme.
 
 ### Android
 
@@ -257,6 +300,12 @@ yarn test --watch
 yarn test --coverage
 ```
 
+For a full check (types + lint + tests), see:
+
+```bash
+yarn validate
+```
+
 ---
 
 ## 🧹 Code Quality
@@ -275,11 +324,28 @@ yarn lint:fix
 
 ### Formatting
 
-Prettier is configured to format code automatically:
+Prettier is configured to format code consistently:
 
 ```bash
 # Format all files
 yarn format
+```
+
+### Type checking
+
+TypeScript is used for static typing:
+
+```bash
+# Run a full-project typecheck
+yarn typecheck
+```
+
+### One-shot validation
+
+To run typecheck, lint, and tests together:
+
+```bash
+yarn validate
 ```
 
 ### Git hooks
@@ -302,6 +368,14 @@ If a check fails, the commit will be aborted so you can fix the issues first.
 
 ## 🛠 Troubleshooting
 
+Before trying manual fixes, you can run:
+
+```bash
+npx react-native doctor
+```
+
+This checks your React Native development environment and suggests fixes for common issues.
+
 ### iOS Build Issues
 
 ```bash
@@ -311,6 +385,8 @@ rm -rf Pods Podfile.lock
 pod install
 cd ..
 ```
+
+**Note:** When switching between build schemes (`warrendeleon` and `warrendeleon-Prod`), it's recommended to clean Xcode's Derived Data to avoid caching issues and verify that the correct `.env` files are present and properly configured for each scheme.
 
 ### Android Build Issues
 
@@ -337,7 +413,7 @@ yarn start --reset-cache
 | Node.js     | 22.x                       |
 | Yarn        | 3.6.4 (managed by project) |
 | Java        | Temurin 17                 |
-| Android SDK | 35+                        |
+| Android SDK | API level 35+              |
 | Xcode       | 26.0+                      |
 | CocoaPods   | 1.16+                      |
 
@@ -346,6 +422,20 @@ yarn start --reset-cache
 ## 📝 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🧷 Commit conventions
+
+This repo uses [gitmoji](https://gitmoji.dev/) + conventional-style prefixes in commit messages, for example:
+
+- `✨ feat: add new feature`
+- `🐛 fix: resolve a bug`
+- `🧹 chore: clean up or refactor`
+- `✅ test: add or update tests`
+- `📝 docs: update documentation`
+
+This is optional but recommended to keep history easy to read.
 
 ---
 
