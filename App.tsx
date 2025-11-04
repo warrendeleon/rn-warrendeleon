@@ -37,5 +37,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-
-// temporary change to test husky
