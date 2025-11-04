@@ -8,73 +8,95 @@
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
 
+## 📑 Table of Contents
+
+- [🧭 Project Overview](#-project-overview)
+- [🚀 Tech Stack](#-tech-stack)
+- [🧩 Available Scripts](#-available-scripts-click-to-expand)
+- [🧩 Project Structure](#-project-structure)
+- [🧑‍💻 Development Setup](#-development-setup)
+- [📱 Running the App](#-running-the-app)
+- [🧪 Testing](#-testing)
+- [🧹 Code Quality](#-code-quality)
+- [🧷 Git Hooks & Commit Conventions](#-git-hooks--commit-conventions)
+- [🛠 Troubleshooting](#-troubleshooting)
+- [🛠 Requirements Summary](#-requirements-summary)
+- [📝 License](#-license)
+- [🤝 Contributing](#-contributing)
+- [📧 Contact](#-contact)
+
 ## 🧭 Project Overview
 
 _Placeholder: Brief summary of the app’s purpose, architecture, and goals will be added here._
 
-A **React Native** application built with **TypeScript**, using **Yarn** as the package manager.  
+A **React Native** application built with **TypeScript**, using **Yarn** as the package manager.
 This project is configured for both **iOS** and **Android**, with **Hermes** enabled for improved performance.
-
----
-
-## 📋 Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/warrendeleon/rn-warrendeleon.git
-cd rn-warrendeleon
-
-# Install dependencies
-yarn install
-
-# iOS setup (first time only)
-cd ios && pod install && cd ..
-
-# Run on iOS
-yarn ios
-
-# Run on Android (start emulator first)
-yarn android
-```
 
 ---
 
 ## 🚀 Tech Stack
 
 - **React Native:** 0.82.1
+- **React Native CLI:** 20.0.2
 - **Language:** TypeScript 5.8.3
 - **Package Manager:** Yarn 3.6.4 (Berry)
 - **JavaScript Engine:** Hermes
 - **Environment Management:** react-native-config
 - **Linting & Formatting:** ESLint 9 (flat config) + Prettier
-- **Build Tools:** Xcode 26 / Android SDK 35
+- **Build Tools:** Xcode 26 / Android SDK 35 / Android Studio 2023.1+
+- **CocoaPods:** 1.16.x
 
 ---
+
+## 🧩 Available Scripts (click to expand)
 
 <details>
 <summary>🧩 <b>Available Scripts</b> (click to expand)</summary>
 
+### 🚧 Development
+
+| Command            | Description                     |
+| ------------------ | ------------------------------- |
+| `yarn start`       | Start the Metro bundler         |
+| `yarn start:reset` | Start Metro and clear its cache |
+
+---
+
+### 📱 Run / Build
+
 | Command                | Description                                                        |
 | ---------------------- | ------------------------------------------------------------------ |
-| `yarn start`           | Start the Metro bundler                                            |
-| `yarn start:reset`     | Start Metro and clear its cache                                    |
 | `yarn ios`             | Build and run the iOS app in Debug (default `warrendeleon` scheme) |
 | `yarn ios:release`     | Build and run iOS with `warrendeleon-Prod` scheme in Release mode  |
 | `yarn android`         | Build and run the Android app in Debug                             |
 | `yarn android:release` | Build and run the Android app in Release mode                      |
 | `yarn android:apk`     | Build a Release APK and print the output path                      |
 | `yarn android:aab`     | Build a Release AAB and print the output path                      |
-| `yarn test`            | Run Jest tests once                                                |
-| `yarn test:watch`      | Run Jest in watch mode                                             |
-| `yarn test:coverage`   | Run Jest tests and generate a coverage report                      |
-| `yarn lint`            | Run ESLint for code quality checks                                 |
-| `yarn lint:fix`        | Automatically fix lint issues where possible                       |
-| `yarn format`          | Format code using Prettier                                         |
-| `yarn format:check`    | Check formatting without writing changes                           |
-| `yarn typecheck`       | Run a full TypeScript typecheck (`tsc --noEmit`)                   |
-| `yarn validate`        | Run typecheck, lint, and tests together                            |
-| `yarn clean`           | Clean Android/iOS builds and reinstall node modules                |
-| `yarn doctor`          | Run `react-native doctor` to check the environment                 |
+
+---
+
+### 🧪 Testing
+
+| Command              | Description                                   |
+| -------------------- | --------------------------------------------- |
+| `yarn test`          | Run Jest tests once                           |
+| `yarn test:watch`    | Run Jest in watch mode                        |
+| `yarn test:coverage` | Run Jest tests and generate a coverage report |
+
+---
+
+### 🧹 Maintenance
+
+| Command             | Description                                         |
+| ------------------- | --------------------------------------------------- |
+| `yarn lint`         | Run ESLint for code quality checks                  |
+| `yarn lint:fix`     | Automatically fix lint issues where possible        |
+| `yarn format`       | Format code using Prettier                          |
+| `yarn format:check` | Check formatting without writing changes            |
+| `yarn typecheck`    | Run a full TypeScript typecheck (`tsc --noEmit`)    |
+| `yarn validate`     | Run typecheck, lint, and tests together             |
+| `yarn clean`        | Clean Android/iOS builds and reinstall node modules |
+| `yarn doctor`       | Run `react-native doctor` to check the environment  |
 
 </details>
 
@@ -86,10 +108,14 @@ yarn android
 rn-warrendeleon/
 ├── android/              # Native Android project
 ├── ios/                  # Native iOS project (.xcworkspace, Pods, etc.)
-├── __tests__/            # Jest test files
+├── docs/                 # Documentation files
 ├── src/
 │   ├── App.tsx           # Root component
+│   ├── components/       # Reusable UI components
+│   ├── screens/          # Screen components
+│   ├── __tests__/        # Tests related to src code
 │   └── config/           # Configuration folder (contains env.ts for environment variables)
+├── __tests__/            # Jest test files at root level
 ├── index.js              # Entry file
 ├── eslint.config.mjs     # ESLint flat config
 ├── .prettierrc           # Prettier configuration
@@ -177,7 +203,7 @@ java -version  # Should show Temurin 17
 
 ### Android SDK
 
-1. Install **Android Studio** from [developer.android.com](https://developer.android.com/studio)
+1. Install **Android Studio** from [developer.android.com](https://developer.android.com/studio) (minimum version 2023.1)
 2. Open Android Studio and install:
    - Android SDK Platform 35
    - Android SDK Build-Tools
@@ -246,9 +272,23 @@ This project supports multiple build schemes for iOS:
 Environment variables are managed using **react-native-config**. These files live in the project root and define environment-specific settings.
 
 - `.env.development` – used by the `warrendeleon` scheme (Debug)
-- `.env.production` – used by the `warrendeleon-Prod` scheme (Debug and Release)
+  Example contents:
 
-These files **should not be committed** to source control. You can create `.env.development` and `.env.production` locally with your own API keys or URLs.  
+  ```
+  API_URL=https://api.dev.example.com
+  FEATURE_FLAG=true
+  ```
+
+- `.env.production` – used by the `warrendeleon-Prod` scheme (Debug and Release)
+  Example contents:
+  ```
+  API_URL=https://api.example.com
+  FEATURE_FLAG=false
+  ```
+  > ⚠️ **Important:** `.env.production` contains sensitive production keys and **should NOT be committed** to source control.
+  > Provide `.env.production.example` as a template for collaborators.
+
+These files **should not be committed** to source control. You can create `.env.development` and `.env.production` locally with your own API keys or URLs.
 If needed, provide `.env.development.example` and `.env.production.example` as templates for collaborators.
 
 To run the app with the development scheme (this is the default scheme used by `yarn ios`):
@@ -310,6 +350,11 @@ To run a Release build on a device or emulator:
 yarn android:release
 ```
 
+The output APK and AAB files will be located in the standard build directories, typically under:
+
+- `android/app/build/outputs/apk/release/` for APK
+- `android/app/build/outputs/bundle/release/` for AAB
+
 To build release artifacts without installing them:
 
 ```bash
@@ -324,6 +369,10 @@ yarn android:aab
 
 ## 🧪 Testing
 
+This project uses Jest and React Native Testing Library for unit and integration tests, with snapshot testing for UI stability.
+
+Refer to `jest.setup.ts` for test environment configuration and setup details.
+
 ```bash
 # Run all tests
 yarn test
@@ -335,11 +384,31 @@ yarn test --watch
 yarn test --coverage
 ```
 
-For a full check (types + lint + tests), see:
+### Running Individual Tests
+
+You can run a specific test file or test name using Jest CLI:
 
 ```bash
-yarn validate
+yarn test path/to/file.test.ts
 ```
+
+or
+
+```bash
+yarn test -t "test name"
+```
+
+### React Native Testing Library
+
+This project uses [React Native Testing Library](https://testing-library.com/docs/react-native-testing-library/intro) to test UI components with a focus on user interactions and accessibility.
+
+### Snapshot Testing
+
+Snapshot testing is used to capture the rendered output of components and detect unintended UI changes. Snapshots are stored alongside test files.
+
+### Coverage Reports
+
+Running tests with coverage (`yarn test --coverage`) produces a report showing the percentage of code covered by tests, helping identify untested parts of the codebase. The coverage output is saved in the `coverage/` folder.
 
 ---
 
@@ -383,15 +452,35 @@ To run typecheck, lint, and tests together:
 yarn validate
 ```
 
-### Git hooks
+---
 
-This project uses **Husky** + **lint-staged** to enforce code quality on each commit:
+## 🧷 Git Hooks & Commit Conventions
+
+This repo uses [gitmoji](https://gitmoji.dev/) + conventional-style prefixes in commit messages, for example:
+
+- `✨ feat: add new feature`
+- `🐛 fix: resolve a bug`
+- `🧹 chore: clean up or refactor`
+- `✅ test: add or update tests`
+- `📝 docs: update documentation`
+
+This is optional but recommended to keep history easy to read.
+
+Example of a full commit command:
+
+```bash
+git add . && git commit -m "✨ feat: add new feature"
+```
+
+Husky + lint-staged enforce code quality checks before commits to ensure consistency.
 
 - On `git commit`, `lint-staged` will:
   - Run `eslint --fix`, `prettier --write`, and `tsc-files --noEmit` on staged `*.js, *.jsx, *.ts, *.tsx` files
   - Run `prettier --write` on staged `*.json, *.md, *.yml, *.yaml` files
 
 If a check fails, the commit will be aborted so you can fix the issues first.
+
+This ensures code quality is maintained before changes are committed.
 
 ### Configuration
 
@@ -423,7 +512,23 @@ pod install
 cd ..
 ```
 
+> 💡 You can also use the shortcut:
+>
+> ```bash
+> yarn clean
+> ```
+>
+> which cleans Android/iOS builds and reinstalls node modules.
+>
+> After cleaning, reopen the `.xcworkspace` file in Xcode to avoid build issues.
+
 **Note:** When switching between build schemes (`warrendeleon` and `warrendeleon-Prod`), it's recommended to clean Xcode's Derived Data to avoid caching issues and verify that the correct `.env` files are present and properly configured for each scheme.
+
+If `pod install` fails, try:
+
+```bash
+sudo arch -arm64 gem install ffi
+```
 
 ### Android Build Issues
 
@@ -432,6 +537,12 @@ cd ..
 cd android
 ./gradlew clean
 cd ..
+```
+
+If you see ‘Permission denied’ on gradlew, run:
+
+```bash
+chmod +x android/gradlew
 ```
 
 ### Metro Bundler Issues
@@ -445,34 +556,21 @@ yarn start --reset-cache
 
 ## 🛠 Requirements Summary
 
-| Tool        | Required Version           |
-| ----------- | -------------------------- |
-| Node.js     | 22.x                       |
-| Yarn        | 3.6.4 (managed by project) |
-| Java        | Temurin 17                 |
-| Android SDK | API level 35+              |
-| Xcode       | 26.0+                      |
-| CocoaPods   | 1.16+                      |
+| Tool           | Required Version           |
+| -------------- | -------------------------- |
+| Node.js        | 22.x                       |
+| Yarn           | 3.6.4 (managed by project) |
+| Java           | Temurin 17                 |
+| Android SDK    | API level 35+              |
+| Android Studio | 2023.1+                    |
+| Xcode          | 26.0+                      |
+| CocoaPods      | 1.16+                      |
 
 ---
 
 ## 📝 License
 
 This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 🧷 Commit conventions
-
-This repo uses [gitmoji](https://gitmoji.dev/) + conventional-style prefixes in commit messages, for example:
-
-- `✨ feat: add new feature`
-- `🐛 fix: resolve a bug`
-- `🧹 chore: clean up or refactor`
-- `✅ test: add or update tests`
-- `📝 docs: update documentation`
-
-This is optional but recommended to keep history easy to read.
 
 ---
 
