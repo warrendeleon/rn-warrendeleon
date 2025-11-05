@@ -1,5 +1,5 @@
 const Config = {
-  ENV: 'development',
+  APP_ENV: 'development',
   API_URL: 'https://api-dev.example.com',
 };
 

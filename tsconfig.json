@@ -13,9 +13,10 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "module": "Node16",
-    "moduleResolution": "node16",
-    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-native",
     "forceConsistentCasingInFileNames": true,
 
     /* Path Mapping (Optional but useful) */
@@ -24,14 +25,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "**/node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "**/Pods"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["**/node_modules", "babel.config.js", "metro.config.js", "**/Pods"]
 }
