@@ -1,33 +1,33 @@
 import React from 'react';
-import { ScrollView, StatusBar, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { API_URL, APP_ENV } from '@config/env';
 
 const HomeScreen: React.FC = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar barStyle="dark-content" />
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={{ flex: 1, padding: 16 }}>
-        <View>
-          <Text
-            style={{
-              fontSize: 24,
-              fontWeight: '600',
-              marginBottom: 8,
-            }}
-          >
-            Home
-          </Text>
+    <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
+      <View>
+        <Text style={styles.title}>Home</Text>
 
-          <Text testID="env-text">
-            ENV: {APP_ENV}
-            {'\n'}
-            API_URL: {API_URL}
-          </Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        <Text testID="env-text">
+          ENV: {APP_ENV}
+          {'\n'}
+          API_URL: {API_URL}
+        </Text>
+      </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+});
 
 export default HomeScreen;
