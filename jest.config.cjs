@@ -23,4 +23,6 @@ module.exports = {
     },
   },
   coverageReporters: ['text', 'text-summary', 'html'],
+  verbose: true,
+  silent: false,
 };
