@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import RootNavigator from '../RootNavigator';
+import RootNavigator from '@navigation/RootNavigator';
 
 describe('RootNavigator', () => {
   it('renders the Home screen as the initial route', () => {

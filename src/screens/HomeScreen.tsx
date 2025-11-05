@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StatusBar, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { APP_ENV, API_URL } from '../config/env';
+import { API_URL, APP_ENV } from '@config/env';
 
 const HomeScreen: React.FC = () => {
   return (

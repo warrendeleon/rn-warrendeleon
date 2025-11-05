@@ -7,6 +7,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "types": ["jest", "react-native", "node"],
 
     /* Module Resolution */
     "esModuleInterop": true,
@@ -18,11 +19,20 @@
     "moduleResolution": "bundler",
     "jsx": "react-native",
     "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
 
     /* Path Mapping (Optional but useful) */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@screens/*": ["src/screens/*"],
+      "@navigation/*": ["src/navigation/*"],
+      "@config/*": ["src/config/*"],
+      "@services/*": ["src/services/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
