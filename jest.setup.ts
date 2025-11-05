@@ -1,5 +1,22 @@
 import '@testing-library/jest-native/extend-expect';
+import '@i18n';
 import type React from 'react';
+
+// Mock react-native-localize to avoid native dependency issues in Jest
+jest.mock('react-native-localize', () => ({
+  getLocales: () => [
+    {
+      languageTag: 'en',
+      isRTL: false,
+    },
+  ],
+  findBestAvailableLanguage: (tags: string[]) => {
+    const languageTag = tags[0] ?? 'en';
+    return { languageTag, isRTL: false };
+  },
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+}));
 
 // Mock react-navigation/native
 jest.mock('@react-navigation/native', () => {

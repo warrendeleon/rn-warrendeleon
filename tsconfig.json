@@ -32,7 +32,8 @@
       "@services/*": ["src/services/*"],
       "@hooks/*": ["src/hooks/*"],
       "@utils/*": ["src/utils/*"],
-      "@types/*": ["src/types/*"]
+      "@types/*": ["src/types/*"],
+      "@i18n/*": ["src/i18n/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

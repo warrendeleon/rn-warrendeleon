@@ -1,0 +1,7 @@
+{
+  "home": {
+    "title": "Home",
+    "env": "ENV",
+    "apiUrl": "API_URL"
+  }
+}

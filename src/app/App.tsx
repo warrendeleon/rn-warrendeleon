@@ -1,3 +1,4 @@
+import '@i18n';
 import React from 'react';
 import RootNavigator from '@navigation/RootNavigator';
 

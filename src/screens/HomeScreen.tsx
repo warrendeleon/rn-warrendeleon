@@ -1,17 +1,20 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { API_URL, APP_ENV } from '@config/env';
 
 const HomeScreen: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
       <View>
-        <Text style={styles.title}>Home</Text>
+        <Text style={styles.title}>{t('home.title')}</Text>
 
         <Text testID="env-text">
-          ENV: {APP_ENV}
+          {t('home.env')}: {APP_ENV}
           {'\n'}
-          API_URL: {API_URL}
+          {t('home.apiUrl')}: {API_URL}
         </Text>
       </View>
     </ScrollView>
