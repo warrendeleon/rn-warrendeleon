@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import prettierPlugin from 'eslint-plugin-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default [
   // Global ignores - must be in a separate object
@@ -29,9 +30,24 @@ export default [
     files: ['**/*.{js,jsx,ts,tsx}'],
     plugins: {
       prettier: prettierPlugin,
+      'simple-import-sort': simpleImportSort,
     },
     rules: {
       'prettier/prettier': 'warn',
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            ['^\\u0000'], // side effect imports
+            ['^react', '^@?\\w'], // external packages
+            ['^@app(/.*|$)'], // internal aliases starting with @app
+            ['^\\.\\.(?!/?$)', '^\\.\\./?$'], // parent imports
+            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'], // relative imports
+            ['^.+\\.s?css$'], // style imports
+          ],
+        },
+      ],
+      'simple-import-sort/exports': 'error',
     },
   },
 ];

@@ -1,4 +1,4 @@
-import { resolveLanguageTag, type LocalizeModule } from '@/i18n';
+import { type LocalizeModule, resolveLanguageTag } from '@app/i18n';
 
 describe('resolveLanguageTag()', () => {
   it('returns the language tag provided by react-native-localize when available', () => {

@@ -9,7 +9,7 @@ describe('env.ts', () => {
   const loadEnv = () => {
     // Use the path alias configured for this project
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require('@config/env');
+    return require('@app/config/env');
   };
 
   it('re-exports APP_ENV and API_URL from react-native-config (happy path)', () => {

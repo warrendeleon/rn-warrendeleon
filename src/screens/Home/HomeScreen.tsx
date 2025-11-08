@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { API_URL, APP_ENV } from '@config/env';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-const HomeScreen: React.FC = () => {
+import { API_URL, APP_ENV } from '@app/config/env.ts';
+
+export const HomeScreen: React.FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -32,5 +33,3 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 });
-
-export default HomeScreen;

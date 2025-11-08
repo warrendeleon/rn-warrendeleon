@@ -1,9 +1,9 @@
-import '@i18n';
-import React from 'react';
-import RootNavigator from '@navigation/RootNavigator';
+import '@app/i18n';
 
-const App: React.FC = () => {
+import React from 'react';
+
+import { RootNavigator } from '@app/navigation';
+
+export const App: React.FC = () => {
   return <RootNavigator />;
 };
-
-export default App;

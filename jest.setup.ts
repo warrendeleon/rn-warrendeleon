@@ -1,5 +1,6 @@
 import '@testing-library/jest-native/extend-expect';
-import '@i18n';
+import '@app/i18n';
+
 import type React from 'react';
 
 // Mock react-native-localize to avoid native dependency issues in Jest

@@ -1,8 +1,9 @@
 import React from 'react';
+import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { enableScreens } from 'react-native-screens';
-import HomeScreen from '@screens/HomeScreen';
+
+import { HomeScreen } from '@app/screens';
 
 enableScreens(true);
 
@@ -12,7 +13,7 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const RootNavigator: React.FC = () => {
+export const RootNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -21,5 +22,3 @@ const RootNavigator: React.FC = () => {
     </NavigationContainer>
   );
 };
-
-export default RootNavigator;
