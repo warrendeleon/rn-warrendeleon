@@ -111,10 +111,12 @@ rn-warrendeleon/
 ├── docs/                 # Documentation files
 ├── src/
 │   ├── App.tsx           # Root component
-│   ├── components/       # Reusable UI components
-│   ├── screens/          # Screen components
+│   ├── features/         # Feature-first modules (screens, feature-specific logic, tests)
+│   ├── components/       # Shared/reusable UI components
+│   ├── navigation/       # Navigation setup (RootNavigator, types)
+│   ├── i18n/             # Internationalisation (i18next config, locales)
 │   ├── __tests__/        # Tests related to src code
-│   └── config/           # Configuration folder (contains env.ts for environment variables)
+│   └── config/           # Configuration (e.g. env.ts for environment variables)
 ├── __tests__/            # Jest test files at root level
 ├── index.js              # Entry file
 ├── eslint.config.mjs     # ESLint flat config
