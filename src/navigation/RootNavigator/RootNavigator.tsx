@@ -3,7 +3,7 @@ import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { HomeScreen } from '@app/screens';
+import { HomeScreen } from '@app/features';
 
 enableScreens(true);
 
