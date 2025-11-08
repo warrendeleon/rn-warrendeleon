@@ -2,13 +2,10 @@ import { initReactI18next } from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
 import i18next from 'i18next';
 
-import en from './locales/en.json';
-import es from './locales/es.json';
+import { resources } from './resources';
 
-const resources = {
-  en: { translation: en },
-  es: { translation: es },
-};
+export { resources };
+export const defaultNS = 'translation';
 
 export type LanguageTagInfo = { languageTag: string; isRTL: boolean };
 
@@ -30,6 +27,7 @@ i18next.use(initReactI18next).init({
   compatibilityJSON: 'v4',
   lng: languageTag,
   fallbackLng: 'en',
+  defaultNS,
   resources,
   interpolation: {
     escapeValue: false,

@@ -28,6 +28,6 @@
       "@app/*": ["src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
   "exclude": ["**/node_modules", "babel.config.js", "metro.config.js", "**/Pods"]
 }
