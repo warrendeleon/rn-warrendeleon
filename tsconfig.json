@@ -8,7 +8,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "types": ["jest", "react-native", "node"],
-
     /* Module Resolution */
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -20,7 +19,6 @@
     "jsx": "react-native",
     "forceConsistentCasingInFileNames": true,
     "noUncheckedIndexedAccess": true,
-
     /* Path Mapping (Optional but useful) */
     "baseUrl": ".",
     "paths": {
@@ -28,6 +26,6 @@
       "@app/*": ["src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", "nativewind-env.d.ts"],
   "exclude": ["**/node_modules", "babel.config.js", "metro.config.js", "**/Pods"]
 }

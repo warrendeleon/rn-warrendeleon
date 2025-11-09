@@ -1,22 +1,17 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { API_URL, APP_ENV } from '@app/config/env.ts';
+import { ViewProfileButton } from '@app/features';
+import { LibraryCheck } from '@app/features/Home/components/LibraryCheck';
 
 export const HomeScreen: React.FC = () => {
-  const { t } = useTranslation();
+  //const { t } = useTranslation();
 
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
       <View>
-        <Text style={styles.title}>{t('home.title')}</Text>
-
-        <Text testID="env-text">
-          {t('home.env')}: {APP_ENV}
-          {'\n'}
-          {t('home.apiUrl')}: {API_URL}
-        </Text>
+        <ViewProfileButton />
+        <LibraryCheck />
       </View>
     </ScrollView>
   );
