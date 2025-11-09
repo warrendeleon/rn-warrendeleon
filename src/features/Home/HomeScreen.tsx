@@ -1,17 +1,23 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { ViewProfileButton } from '@app/features';
-import { LibraryCheck } from '@app/features/Home/components/LibraryCheck';
+import { ButtonWithChevron } from '@app/features';
+
+export const handleSettingsPress = (): void => {
+  // We keep this simple for now; behaviour can evolve later.
+
+  console.log('Pressed!');
+};
 
 export const HomeScreen: React.FC = () => {
-  //const { t } = useTranslation();
-
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
       <View>
-        <ViewProfileButton />
-        <LibraryCheck />
+        <ButtonWithChevron
+          label="Settings"
+          onPress={handleSettingsPress}
+          testID="home-settings-button"
+        />
       </View>
     </ScrollView>
   );

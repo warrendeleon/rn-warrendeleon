@@ -21,7 +21,7 @@ export default [
       '**/.prettierrc.*',
       '**/.jest/**',
       '.yarn/**',
-      '__tests__/**',
+      // NOTE: no '__tests__/**' here so tests are linted
     ],
   },
   js.configs.recommended,
@@ -48,6 +48,14 @@ export default [
         },
       ],
       'simple-import-sort/exports': 'error',
+    },
+  },
+  // 👇 Test-only override: don't auto-fix imports in tests
+  {
+    files: ['**/__tests__/**/*.{js,jsx,ts,tsx}', '**/*.test.{js,jsx,ts,tsx}'],
+    rules: {
+      'no-restricted-imports': 'off',
+      'import/no-relative-parent-imports': 'off',
     },
   },
 ];

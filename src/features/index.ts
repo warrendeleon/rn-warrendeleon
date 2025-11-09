@@ -1,3 +1,2 @@
-export * from './Home/components/LibraryCheck';
-export * from './Home/components/ViewProfileButton';
+export * from './Home/components/ButtonWithChevron/ButtonWithChevron';
 export * from './Home/HomeScreen';

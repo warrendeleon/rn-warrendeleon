@@ -1,19 +1,25 @@
 import React from 'react';
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
-import { render } from '@testing-library/react-native';
 
-import { HomeScreen } from '@app/features';
+import { handleSettingsPress, HomeScreen } from '@app/features';
+import { renderWithProviders } from '@app/test-utils/renderWithProviders';
 
 describe('HomeScreen', () => {
-  it('renders correctly', () => {
-    const { getByTestId } = render(
-      <GluestackUIProvider config={config}>
-        <HomeScreen />
-      </GluestackUIProvider>
-    );
+  it('renders without crashing', () => {
+    expect(() => renderWithProviders(<HomeScreen />)).not.toThrow();
+  });
 
-    // Check that the screen renders without crashing
-    expect(getByTestId).toBeDefined();
+  it('invokes the settings handler without crashing', () => {
+    expect(() => handleSettingsPress()).not.toThrow();
+  });
+});
+
+describe('HomeScreen implementation', () => {
+  it('can be invoked directly to produce an element', () => {
+    type HomeScreenProps = Parameters<typeof HomeScreen>[0];
+    const props = {} as HomeScreenProps;
+
+    const element = HomeScreen(props);
+
+    expect(element).toBeTruthy();
   });
 });

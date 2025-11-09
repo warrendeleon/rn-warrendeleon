@@ -1,19 +1,22 @@
 import React from 'react';
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
-import { render } from '@testing-library/react-native';
+
+import { renderWithProviders } from '@app/test-utils/renderWithProviders';
 
 import { RootNavigator } from '../RootNavigator';
 
 describe('RootNavigator', () => {
-  it('renders the Home screen as the initial route', () => {
-    const { getByText } = render(
-      <GluestackUIProvider config={config}>
-        <RootNavigator />
-      </GluestackUIProvider>
-    );
+  it('renders without crashing', () => {
+    expect(() => renderWithProviders(<RootNavigator />)).not.toThrow();
+  });
+});
 
-    // Check that the navigator renders
-    expect(getByText).toBeDefined();
+describe('RootNavigator implementation', () => {
+  it('can be invoked directly to produce an element', () => {
+    type RootNavigatorProps = Parameters<typeof RootNavigator>[0];
+    const props = {} as RootNavigatorProps;
+
+    const element = RootNavigator(props);
+
+    expect(element).toBeTruthy();
   });
 });
