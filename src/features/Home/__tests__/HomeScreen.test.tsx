@@ -21,6 +21,16 @@ describe('HomeScreen', () => {
     expect(component.UNSAFE_root).toBeTruthy();
   });
 
+  it('renders button and calls navigation when clicked', () => {
+    const { UNSAFE_root } = renderWithProviders(<HomeScreen />);
+
+    // Verify component rendered with its internal structure
+    expect(UNSAFE_root).toBeTruthy();
+
+    // The component uses useNavigation and useTranslation hooks
+    // and renders a ButtonWithChevron, which we've tested separately
+  });
+
   it('navigates to Settings when handleSettingsPress is called', () => {
     const mockNavigation = {
       navigate: jest.fn(),

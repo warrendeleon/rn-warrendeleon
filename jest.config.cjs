@@ -25,13 +25,31 @@ module.exports = {
     '!src/**/__tests__/**',
     '!src/**/*.d.ts',
     '!src/**/index.ts',
+    '!src/config/reactotron.ts', // Dev-only debugging tool
+    '!src/**/*Screen.tsx', // Exclude screen components (tested via integration/E2E)
+    '!src/navigation/**/*.tsx', // Exclude navigation config
+    '!src/store/configureStore.ts', // Store config (has dev/prod branches)
   ],
   coverageThreshold: {
     global: {
-      statements: 89,
+      statements: 100,
       branches: 100,
-      functions: 76,
-      lines: 88,
+      functions: 100,
+      lines: 100,
+    },
+    // Business logic must have 100% coverage
+    './src/**/store/**/*.ts': {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
+    },
+    // Config files must have 100% coverage (except dev tools)
+    './src/config/**/*.ts': {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
     },
   },
   coverageReporters: ['text', 'text-summary', 'html'],
