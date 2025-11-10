@@ -194,3 +194,75 @@ jest.mock('react-native-screens', () => {
     enableScreens: jest.fn(),
   };
 });
+
+// Mock @react-native-async-storage/async-storage
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  default: {
+    setItem: jest.fn(() => Promise.resolve()),
+    getItem: jest.fn(() => Promise.resolve(null)),
+    removeItem: jest.fn(() => Promise.resolve()),
+    clear: jest.fn(() => Promise.resolve()),
+    getAllKeys: jest.fn(() => Promise.resolve([])),
+    multiGet: jest.fn(() => Promise.resolve([])),
+    multiSet: jest.fn(() => Promise.resolve()),
+    multiRemove: jest.fn(() => Promise.resolve()),
+  },
+}));
+
+// Mock react-native-encrypted-storage
+jest.mock('react-native-encrypted-storage', () => ({
+  default: {
+    setItem: jest.fn(() => Promise.resolve()),
+    getItem: jest.fn(() => Promise.resolve(null)),
+    removeItem: jest.fn(() => Promise.resolve()),
+    clear: jest.fn(() => Promise.resolve()),
+  },
+}));
+
+// Mock redux-persist
+jest.mock('redux-persist', () => {
+  const actual = jest.requireActual('redux-persist');
+  return {
+    ...actual,
+    persistReducer: jest.fn((_config, reducer) => reducer),
+    persistStore: jest.fn(() => ({
+      purge: jest.fn(() => Promise.resolve()),
+      flush: jest.fn(() => Promise.resolve()),
+      pause: jest.fn(),
+      persist: jest.fn(),
+      subscribe: jest.fn(() => jest.fn()),
+      getState: jest.fn(() => ({ bootstrapped: true })),
+    })),
+  };
+});
+
+// Mock redux-persist/integration/react PersistGate
+jest.mock('redux-persist/integration/react', () => ({
+  PersistGate: ({ children }: { children: React.ReactNode }) => children,
+}));
+
+// Mock Reactotron for tests
+jest.mock('reactotron-react-native', () => ({
+  default: {
+    configure: jest.fn(() => ({
+      useReactNative: jest.fn(() => ({
+        use: jest.fn(() => ({
+          connect: jest.fn(() => ({
+            createEnhancer: jest.fn(() => (next: unknown) => next),
+          })),
+        })),
+      })),
+    })),
+  },
+}));
+
+jest.mock('reactotron-redux', () => ({
+  reactotronRedux: jest.fn(() => ({})),
+}));
+
+// Mock the Reactotron config file
+jest.mock('@app/config/reactotron', () => ({
+  default: {
+    createEnhancer: () => (createStore: unknown) => createStore,
+  },
+}));

@@ -1,34 +1,39 @@
 import React from 'react';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { handleSettingsPress, HomeScreen } from '@app/features';
+import type { RootStackParamList } from '@app/navigation';
 import { renderWithProviders } from '@app/test-utils/renderWithProviders';
+
+type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 describe('HomeScreen', () => {
   it('renders without crashing', () => {
     const { UNSAFE_root } = renderWithProviders(<HomeScreen />);
 
-    // Verify the component renders successfully
     expect(UNSAFE_root).toBeTruthy();
   });
 
-  it('invokes the settings handler and logs correctly', () => {
-    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+  it('renders complete component tree', () => {
+    const component = renderWithProviders(<HomeScreen />);
 
-    handleSettingsPress();
+    // Ensure the component rendered successfully
+    expect(component.UNSAFE_root).toBeTruthy();
+  });
 
-    expect(consoleSpy).toHaveBeenCalledWith('Pressed!');
+  it('navigates to Settings when handleSettingsPress is called', () => {
+    const mockNavigation = {
+      navigate: jest.fn(),
+    } as unknown as HomeScreenNavigationProp;
 
-    consoleSpy.mockRestore();
+    handleSettingsPress(mockNavigation);
+
+    expect(mockNavigation.navigate).toHaveBeenCalledWith('Settings');
   });
 });
 
 describe('HomeScreen implementation', () => {
-  it('can be invoked directly to produce an element', () => {
-    type HomeScreenProps = Parameters<typeof HomeScreen>[0];
-    const props = {} as HomeScreenProps;
-
-    const element = HomeScreen(props);
-
-    expect(element).toBeTruthy();
+  it('exports handleSettingsPress function', () => {
+    expect(typeof handleSettingsPress).toBe('function');
   });
 });

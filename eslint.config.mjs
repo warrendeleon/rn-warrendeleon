@@ -28,6 +28,11 @@ export default [
   ...tseslint.configs.recommended,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      globals: {
+        __DEV__: 'readonly',
+      },
+    },
     plugins: {
       prettier: prettierPlugin,
       'simple-import-sort': simpleImportSort,

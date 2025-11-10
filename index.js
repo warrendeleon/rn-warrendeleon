@@ -3,6 +3,11 @@
  */
 import 'react-native-reanimated';
 
+// Initialize Reactotron first in development
+if (__DEV__) {
+  import('./src/config/reactotron');
+}
+
 import { AppRegistry } from 'react-native';
 
 import { App } from './src/app';

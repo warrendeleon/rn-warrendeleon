@@ -8,15 +8,11 @@ describe('RootNavigator', () => {
   it('renders without crashing', () => {
     expect(() => renderWithProviders(<RootNavigator />)).not.toThrow();
   });
-});
 
-describe('RootNavigator implementation', () => {
-  it('can be invoked directly to produce an element', () => {
-    type RootNavigatorProps = Parameters<typeof RootNavigator>[0];
-    const props = {} as RootNavigatorProps;
+  it('renders complete component tree', () => {
+    const component = renderWithProviders(<RootNavigator />);
 
-    const element = RootNavigator(props);
-
-    expect(element).toBeTruthy();
+    // Ensure the component rendered successfully
+    expect(component.UNSAFE_root).toBeTruthy();
   });
 });

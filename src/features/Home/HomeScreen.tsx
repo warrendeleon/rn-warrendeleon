@@ -1,36 +1,31 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { ScrollView, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { ButtonWithChevron } from '@app/features';
+import type { RootStackParamList } from '@app/navigation';
 
-export const handleSettingsPress = (): void => {
-  // We keep this simple for now; behaviour can evolve later.
+type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
-  console.log('Pressed!');
+export const handleSettingsPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('Settings');
 };
 
 export const HomeScreen: React.FC = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { t } = useTranslation();
+
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
+    <ScrollView contentInsetAdjustmentBehavior="automatic" className="flex-1 p-4">
       <View>
         <ButtonWithChevron
-          label="Settings"
-          onPress={handleSettingsPress}
+          label={t('home.settings')}
+          onPress={() => handleSettingsPress(navigation)}
           testID="home-settings-button"
         />
       </View>
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-});
