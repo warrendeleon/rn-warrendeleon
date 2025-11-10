@@ -5,11 +5,20 @@ import { renderWithProviders } from '@app/test-utils/renderWithProviders';
 
 describe('HomeScreen', () => {
   it('renders without crashing', () => {
-    expect(() => renderWithProviders(<HomeScreen />)).not.toThrow();
+    const { UNSAFE_root } = renderWithProviders(<HomeScreen />);
+
+    // Verify the component renders successfully
+    expect(UNSAFE_root).toBeTruthy();
   });
 
-  it('invokes the settings handler without crashing', () => {
-    expect(() => handleSettingsPress()).not.toThrow();
+  it('invokes the settings handler and logs correctly', () => {
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+
+    handleSettingsPress();
+
+    expect(consoleSpy).toHaveBeenCalledWith('Pressed!');
+
+    consoleSpy.mockRestore();
   });
 });
 
