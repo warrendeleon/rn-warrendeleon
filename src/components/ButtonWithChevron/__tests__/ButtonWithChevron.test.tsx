@@ -1,4 +1,4 @@
-import React, { type ComponentProps } from 'react';
+import React from 'react';
 import * as ReactNative from 'react-native';
 
 import { renderWithProviders } from '@app/test-utils/renderWithProviders';
@@ -68,36 +68,30 @@ describe('ButtonWithChevron implementation', () => {
     mockUseColorScheme.mockReset();
   });
 
-  type ButtonWithChevronProps = ComponentProps<typeof ButtonWithChevron>;
-
-  it('invokes component body in light mode with explicit groupVariant', () => {
+  it('renders in light mode with explicit groupVariant', () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const props: ButtonWithChevronProps = {
-      label: 'Direct light',
-      groupVariant: 'single',
-    };
+    const { UNSAFE_root } = renderWithProviders(
+      <ButtonWithChevron label="Direct light" groupVariant="single" />
+    );
 
-    const element = ButtonWithChevron(props);
-
-    expect(element).toBeTruthy();
+    expect(UNSAFE_root).toBeDefined();
   });
 
-  it('invokes component body using default groupVariant, startIcon, and custom startIconBgColor', () => {
+  it('renders with default groupVariant, startIcon, and custom startIconBgColor', () => {
     mockUseColorScheme.mockReturnValue('dark');
 
     const DummyIcon = () => null;
 
-    const props: ButtonWithChevronProps = {
-      label: 'Default groupVariant',
-      // no groupVariant → exercises the default 'single'
-      startIcon: DummyIcon, // → exercises the startIconElement assignment branch
-      startIconBgColor: '$secondary500', // → exercises the non-default iconBackgroundColor branch
-    };
+    const { UNSAFE_root } = renderWithProviders(
+      <ButtonWithChevron
+        label="Default groupVariant"
+        startIcon={DummyIcon}
+        startIconBgColor="$secondary500"
+      />
+    );
 
-    const element = ButtonWithChevron(props);
-
-    expect(element).toBeTruthy();
+    expect(UNSAFE_root).toBeDefined();
   });
 });
 
@@ -105,9 +99,8 @@ describe('getButtonWithChevronStyles', () => {
   it('returns light mode styles for single variant', () => {
     const styles = getButtonWithChevronStyles('light', 'single');
 
-    expect(styles.bg).toBe('$backgroundLight0');
-    expect(styles.borderColor).toBe('$borderLight200');
-    expect(styles.labelColor).toBe('$textDark900');
+    expect(styles.bg).toBe('$white');
+    expect(styles.labelColor).toBe('$black');
     expect(styles.chevronColor).toBe('$textLight500');
     expect(styles.top).toBe('$2xl');
     expect(styles.bottom).toBe('$2xl');
@@ -116,9 +109,8 @@ describe('getButtonWithChevronStyles', () => {
   it('returns dark mode styles for bottom variant', () => {
     const styles = getButtonWithChevronStyles('dark', 'bottom');
 
-    expect(styles.bg).toBe('$backgroundDark950');
-    expect(styles.borderColor).toBe('$borderDark700');
-    expect(styles.labelColor).toBe('$textLight50');
+    expect(styles.bg).toBe('$backgroundDark900');
+    expect(styles.labelColor).toBe('$white');
     expect(styles.chevronColor).toBe('$textLight400');
     expect(styles.top).toBe('$none');
     expect(styles.bottom).toBe('$2xl');

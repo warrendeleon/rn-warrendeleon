@@ -4,7 +4,8 @@ import { ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { ButtonWithChevron } from '@app/features';
+import { ButtonWithChevron } from '@app/components';
+import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
@@ -16,9 +17,15 @@ export const handleSettingsPress = (navigation: HomeScreenNavigationProp): void 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
+  const colorScheme = useAppColorScheme();
+  const isDark = colorScheme === 'dark';
 
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" className="flex-1 p-4">
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      className="flex-1 p-4"
+      style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
+    >
       <View>
         <ButtonWithChevron
           label={t('home.settings')}

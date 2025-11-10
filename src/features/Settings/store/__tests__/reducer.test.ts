@@ -4,7 +4,7 @@ import {
   setTheme,
   settingsReducer,
   type SettingsState,
-} from '../../index';
+} from '@app/features/Settings';
 
 describe('settingsReducer', () => {
   const initialState: SettingsState = {

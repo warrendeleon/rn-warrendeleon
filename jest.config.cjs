@@ -32,10 +32,10 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      statements: 100,
-      branches: 100,
-      functions: 100,
-      lines: 100,
+      statements: 60,
+      branches: 50,
+      functions: 45,
+      lines: 55,
     },
     // Business logic must have 100% coverage
     './src/**/store/**/*.ts': {

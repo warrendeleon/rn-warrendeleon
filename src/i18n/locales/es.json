@@ -6,6 +6,24 @@
     "settings": "Configuración"
   },
   "settings": {
-    "title": "Configuración"
+    "title": "Configuración",
+    "language": "Idioma",
+    "preferredLanguage": "Idioma preferido",
+    "appearance": "Apariencia",
+    "darkAppearance": "Apariencia Oscura",
+    "general": "General"
+  },
+  "language": {
+    "title": "Idioma",
+    "languages": "Idiomas",
+    "english": "Inglés",
+    "spanish": "Español"
+  },
+  "appearance": {
+    "title": "Apariencia",
+    "appearance": "Apariencia",
+    "automatic": "Automático",
+    "light": "Claro",
+    "dark": "Oscuro"
   }
 }

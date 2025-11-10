@@ -12,7 +12,7 @@ import {
 } from 'redux-persist';
 
 import reactotron from '@app/config/reactotron';
-import { settingsReducer } from '@app/features/Settings';
+import { settingsReducer } from '@app/features/Settings/store';
 
 /**
  * Root reducer combining all slices

@@ -1,6 +1,5 @@
+import { selectLanguage, selectTheme } from '@app/features/Settings';
 import type { RootState } from '@app/store';
-
-import { selectLanguage, selectTheme } from '../../index';
 
 describe('settingsSelectors', () => {
   const mockState = {

@@ -1,14 +1,37 @@
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
+import { Provider } from 'react-redux';
 import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
+import { configureStore, type PreloadedStateShapeFromReducersMapObject } from '@reduxjs/toolkit';
 import { render, type RenderAPI } from '@testing-library/react-native';
 
+import { settingsReducer } from '@app/features/Settings';
 import i18n from '@app/i18n';
+import type { RootState } from '@app/store';
 
-export const renderWithProviders = (ui: React.ReactElement): RenderAPI =>
-  render(
-    <I18nextProvider i18n={i18n}>
-      <GluestackUIProvider config={config}>{ui}</GluestackUIProvider>
-    </I18nextProvider>
+type RenderWithProvidersOptions = {
+  preloadedState?: PreloadedStateShapeFromReducersMapObject<{
+    settings: ReturnType<typeof settingsReducer>;
+  }>;
+};
+
+export const renderWithProviders = (
+  ui: React.ReactElement,
+  options?: RenderWithProvidersOptions
+): RenderAPI => {
+  const store = configureStore({
+    reducer: {
+      settings: settingsReducer,
+    },
+    preloadedState: options?.preloadedState as Partial<RootState>,
+  });
+
+  return render(
+    <Provider store={store}>
+      <I18nextProvider i18n={i18n}>
+        <GluestackUIProvider config={config}>{ui}</GluestackUIProvider>
+      </I18nextProvider>
+    </Provider>
   );
+};
