@@ -2,16 +2,31 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/react--native-0.82.1-61DAFB?style=for-the-badge&logo=react" />
-  <img src="https://img.shields.io/badge/typescript-5.x-3178C6?style=for-the-badge&logo=typescript" />
+  <img src="https://img.shields.io/badge/typescript-5.8.3-3178C6?style=for-the-badge&logo=typescript" />
   <img src="https://img.shields.io/badge/yarn-3.6.4-2C8EBB?style=for-the-badge&logo=yarn" />
-  <img src="https://img.shields.io/badge/node-22.x-5FA04E?style=for-the-badge&logo=node.js" />
+  <img src="https://img.shields.io/badge/node-22.12-5FA04E?style=for-the-badge&logo=node.js" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/gluestack--ui-1.1.x-8B5CF6?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/nativewind-4.x-38BDF8?style=for-the-badge&logo=tailwindcss" />
+  <img src="https://img.shields.io/badge/i18next-25.x-26A69A?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/jest-29.x-C21325?style=for-the-badge&logo=jest" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/code%20style-prettier-F7B93E?style=for-the-badge&logo=prettier" />
+  <img src="https://img.shields.io/badge/eslint-9.x-4B32C3?style=for-the-badge&logo=eslint" />
+  <img src="https://img.shields.io/badge/coverage-85%25-success?style=for-the-badge" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
 
 ## 📑 Table of Contents
 
 - [🧭 Project Overview](#-project-overview)
+- [⚡ Quick Start](#-quick-start)
 - [🚀 Tech Stack](#-tech-stack)
+- [📸 Screenshots](#-screenshots)
 - [🧩 Available Scripts](#-available-scripts-click-to-expand)
 - [🧩 Project Structure](#-project-structure)
 - [🧑‍💻 Development Setup](#-development-setup)
@@ -27,10 +42,42 @@
 
 ## 🧭 Project Overview
 
-_Placeholder: Brief summary of the app’s purpose, architecture, and goals will be added here._
+A modern **React Native** application built with **TypeScript**, featuring a feature-first architecture and a comprehensive tech stack for scalable mobile development. This project is configured for both **iOS** and **Android**, with **Hermes** enabled for improved performance.
 
-A **React Native** application built with **TypeScript**, using **Yarn** as the package manager.
-This project is configured for both **iOS** and **Android**, with **Hermes** enabled for improved performance.
+Built with industry best practices including:
+
+- Feature-first architecture for better code organization
+- Full internationalization (i18n) support with react-i18next
+- Modern UI framework with GlueStack UI and NativeWind (Tailwind CSS)
+- Comprehensive testing setup with Jest and React Native Testing Library
+- Git hooks and code quality automation with Husky, ESLint, and Prettier
+
+---
+
+## ⚡ Quick Start
+
+```bash
+# Clone the repo
+git clone <repo-url>
+cd warrendeleon
+
+# Install dependencies
+yarn install
+
+# iOS setup
+cd ios && pod install && cd ..
+
+# Verify environment files exist (these are in .gitignore)
+ls -la .env*  # Should show .env.development and .env.production
+
+# Run on iOS
+yarn ios
+
+# Run on Android (start emulator first)
+yarn android
+```
+
+> **Note:** If `.env` files are missing, the app will build but environment variables won't be available.
 
 ---
 
@@ -41,10 +88,22 @@ This project is configured for both **iOS** and **Android**, with **Hermes** ena
 - **Language:** TypeScript 5.8.3
 - **Package Manager:** Yarn 3.6.4 (Berry)
 - **JavaScript Engine:** Hermes
+- **UI Framework:** GlueStack UI 1.1.x + NativeWind 4.x (Tailwind for React Native)
+- **Navigation:** React Navigation 7.x (Native Stack)
+- **Internationalization:** i18next + react-i18next
+- **Animation:** React Native Reanimated 4.0.2
 - **Environment Management:** react-native-config
 - **Linting & Formatting:** ESLint 9 (flat config) + Prettier
+- **Testing:** Jest + React Native Testing Library
+- **Git Workflow:** Husky + lint-staged + gitmoji-cli
 - **Build Tools:** Xcode 26 / Android SDK 35 / Android Studio 2023.1+
 - **CocoaPods:** 1.16.x
+
+---
+
+## 📸 Screenshots
+
+_Screenshots will be added here as features are developed._
 
 ---
 
@@ -105,19 +164,17 @@ This project is configured for both **iOS** and **Android**, with **Hermes** ena
 ## 🧩 Project Structure
 
 ```text
-rn-warrendeleon/
+warrendeleon/
 ├── android/              # Native Android project
 ├── ios/                  # Native iOS project (.xcworkspace, Pods, etc.)
-├── docs/                 # Documentation files
 ├── src/
-│   ├── App.tsx           # Root component
-│   ├── features/         # Feature-first modules (screens, feature-specific logic, tests)
-│   ├── components/       # Shared/reusable UI components
+│   ├── app/              # Root app component and providers
+│   ├── features/         # Feature-first modules (screens, components, tests)
 │   ├── navigation/       # Navigation setup (RootNavigator, types)
-│   ├── i18n/             # Internationalisation (i18next config, locales)
-│   ├── __tests__/        # Tests related to src code
-│   └── config/           # Configuration (e.g. env.ts for environment variables)
-├── __tests__/            # Jest test files at root level
+│   ├── i18n/             # Internationalization (i18next config, locales)
+│   ├── config/           # Configuration (e.g. env.ts for environment variables)
+│   ├── test-utils/       # Testing utilities and helpers
+│   └── types/            # TypeScript type definitions
 ├── index.js              # Entry file
 ├── eslint.config.mjs     # ESLint flat config
 ├── .prettierrc           # Prettier configuration
@@ -128,6 +185,72 @@ rn-warrendeleon/
 ├── package.json
 └── README.md
 ```
+
+### Feature-First Architecture
+
+This project follows a **feature-first structure** where each feature is self-contained with its own components, screens, tests, and logic.
+
+**Example structure:**
+
+```text
+src/features/Home/
+├── components/
+│   └── ButtonWithChevron/
+│       ├── ButtonWithChevron.tsx
+│       ├── __tests__/
+│       │   └── ButtonWithChevron.test.tsx
+│       └── index.ts
+├── HomeScreen.tsx
+├── __tests__/
+│   └── HomeScreen.test.tsx
+└── index.ts
+```
+
+**Benefits:**
+
+- ✅ Better code organization and discoverability
+- ✅ Easier to locate feature-related code
+- ✅ Improved scalability as the app grows
+- ✅ Clear ownership and boundaries between features
+- ✅ Easier to test and maintain feature-specific logic
+
+Each feature contains its own components, screens, and tests. As the app grows, shared components can be extracted to a `src/components/` folder when needed.
+
+### Import Path Aliases
+
+This project uses path aliases for cleaner imports:
+
+```typescript
+// Instead of: import { Something } from '../../../config/something'
+import { Something } from '@app/config/something';
+```
+
+Configured in `tsconfig.json` and `babel.config.js`.
+
+### Internationalization
+
+This app supports multiple languages using i18next:
+
+- 🇬🇧 **English (en)** - Default
+- 🇪🇸 **Spanish (es)**
+
+Language is automatically detected from device settings, with fallback to English. Translation files are located in `src/i18n/locales/`.
+
+### Environment Variables
+
+The app uses the following environment variables:
+
+| Variable  | Description          | Example                       |
+| --------- | -------------------- | ----------------------------- |
+| `API_URL` | Backend API endpoint | `https://api-dev.example.com` |
+| `APP_ENV` | Current environment  | `development` or `production` |
+
+**Available environment files:**
+
+- `.env.development` - Used by `warrendeleon` scheme
+- `.env.production` - Used by `warrendeleon-Prod` scheme
+
+> ⚠️ These files are in `.gitignore` and should not be committed to version control.
 
 ---
 
@@ -152,6 +275,8 @@ yarn -v    # Should be 3.6.4
 
 #### Install Node with nvm (recommended)
 
+This project includes an `.nvmrc` file for automatic Node version management.
+
 ```bash
 # Install nvm
 brew install nvm
@@ -163,10 +288,12 @@ export NVM_DIR="$HOME/.nvm"
 
 # Reload and install Node
 source ~/.zshrc
-nvm install 22
-nvm use 22
+nvm install  # Reads version from .nvmrc
+nvm use      # Activates the version from .nvmrc
 nvm alias default 22
 ```
+
+> 💡 With nvm configured, running `nvm install` and `nvm use` in the project directory will automatically use the version specified in `.nvmrc`.
 
 #### Yarn is managed by the project
 
@@ -261,13 +388,15 @@ pod --version  # Should show 1.16.x or higher
 
 ### iOS
 
-This project supports multiple build schemes for iOS:
+This project supports multiple build schemes for iOS.
 
-| Scheme                      | Environment File | Build Type | Example Command                                      |
-| --------------------------- | ---------------- | ---------- | ---------------------------------------------------- |
-| warrendeleon                | .env.development | Debug      | `yarn ios` or `yarn ios --scheme warrendeleon`       |
-| warrendeleon-Prod           | .env.production  | Debug      | `yarn ios --scheme warrendeleon-Prod`                |
-| warrendeleon-Prod (Release) | .env.production  | Release    | `yarn ios --scheme warrendeleon-Prod --mode Release` |
+**Available iOS Schemes:**
+
+| Scheme              | Environment | Build Config | Command                               |
+| ------------------- | ----------- | ------------ | ------------------------------------- |
+| `warrendeleon`      | Development | Debug        | `yarn ios`                            |
+| `warrendeleon-Prod` | Production  | Debug        | `yarn ios --scheme warrendeleon-Prod` |
+| `warrendeleon-Prod` | Production  | Release      | `yarn ios:release`                    |
 
 ### Environment files
 
@@ -412,6 +541,27 @@ Snapshot testing is used to capture the rendered output of components and detect
 
 Running tests with coverage (`yarn test --coverage`) produces a report showing the percentage of code covered by tests, helping identify untested parts of the codebase. The coverage output is saved in the `coverage/` folder.
 
+### Coverage Thresholds
+
+This project enforces minimum code coverage requirements:
+
+- **Statements:** 85%
+- **Branches:** 80%
+- **Functions:** 85%
+- **Lines:** 85%
+
+If your code doesn't meet these thresholds, the test command will fail. Run `yarn test:coverage` to see current coverage.
+
+### Testing Utilities
+
+The project includes testing utilities in `src/test-utils/`:
+
+- Custom render functions with providers (GlueStack, Navigation)
+- Mock data helpers
+- Common test assertions
+
+See existing tests in `src/features/Home/__tests__/` for usage examples.
+
 ---
 
 ## 🧹 Code Quality
@@ -458,17 +608,40 @@ yarn validate
 
 ## 🧷 Git Hooks & Commit Conventions
 
-This repo uses [gitmoji](https://gitmoji.dev/) + conventional-style prefixes in commit messages, for example:
+This project uses **gitmoji-cli** for consistent, semantic commit messages with emojis.
+
+### Using gitmoji-cli
+
+The project has `gitmoji-cli` installed globally for interactive commits:
+
+```bash
+# Interactive commit with emoji picker
+gitmoji -c
+
+# List all available gitmojis
+gitmoji -l
+
+# Search for specific gitmoji
+gitmoji -s "fix"
+```
+
+### Commit Format
+
+This repo uses [gitmoji](https://gitmoji.dev/) + conventional-style prefixes:
 
 - `✨ feat: add new feature`
 - `🐛 fix: resolve a bug`
-- `🧹 chore: clean up or refactor`
+- `🔧 chore: update configuration`
+- `♻️ refactor: restructure code`
 - `✅ test: add or update tests`
 - `📝 docs: update documentation`
+- `🎨 style: improve structure/format`
+- `⚡ perf: improve performance`
+- `🔥 remove: delete code or files`
 
-This is optional but recommended to keep history easy to read.
+### Manual commit (alternative)
 
-Example of a full commit command:
+You can also commit manually without gitmoji-cli:
 
 ```bash
 git add . && git commit -m "✨ feat: add new feature"
@@ -541,11 +714,30 @@ cd android
 cd ..
 ```
 
-If you see ‘Permission denied’ on gradlew, run:
+If you see 'Permission denied' on gradlew, run:
 
 ```bash
 chmod +x android/gradlew
 ```
+
+### Node Version Issues in Xcode
+
+If Xcode can't find Node during builds or you see "command not found: node" errors:
+
+1. Verify `.xcode.env` has nvm configuration:
+   ```bash
+   cat ios/.xcode.env
+   ```
+2. Check Node path is correct:
+   ```bash
+   which node
+   ```
+3. Clean and rebuild:
+   ```bash
+   yarn clean:ios
+   ```
+
+The project uses `ios/.xcode.env` for portable Node configuration across team members. This file sources nvm and exports `NODE_BINARY` dynamically.
 
 ### Metro Bundler Issues
 

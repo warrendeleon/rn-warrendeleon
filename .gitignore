@@ -54,6 +54,7 @@ ios/build/
 ios/DerivedData/
 ios/.idea/
 ios/.vscode/
+ios/.xcode.env.local
 *.mode1v3
 *.mode2v3
 *.perspectivev3
