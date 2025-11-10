@@ -1,9 +1,8 @@
 import React from 'react';
 import { HStack, Pressable, Text } from '@gluestack-ui/themed';
 
+import { type GroupVariant, groupVariantRadius } from '@app/components/shared';
 import { useAppColorScheme } from '@app/hooks';
-
-type GroupVariant = 'single' | 'top' | 'middle' | 'bottom';
 
 type SelectableListButtonProps = {
   label: string;
@@ -13,13 +12,6 @@ type SelectableListButtonProps = {
   /** Show check icon when selected */
   isSelected?: boolean;
   testID?: string;
-};
-
-const groupVariantRadius: Record<GroupVariant, { top: string; bottom: string }> = {
-  single: { top: '$2xl', bottom: '$2xl' },
-  top: { top: '$2xl', bottom: '$none' },
-  middle: { top: '$none', bottom: '$none' },
-  bottom: { top: '$none', bottom: '$2xl' },
 };
 
 /**

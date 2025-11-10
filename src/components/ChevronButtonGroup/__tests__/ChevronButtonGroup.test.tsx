@@ -3,34 +3,9 @@ import * as ReactNative from 'react-native';
 
 import { renderWithProviders } from '@app/test-utils';
 
-import { ChevronButtonGroup, getChevronButtonGroupVariant } from '../ChevronButtonGroup';
+import { ChevronButtonGroup } from '../ChevronButtonGroup';
 
 describe('ChevronButtonGroup', () => {
-  describe('getChevronButtonGroupVariant', () => {
-    it('should return single for a single item', () => {
-      expect(getChevronButtonGroupVariant(0, 1)).toBe('single');
-    });
-
-    it('should return top for the first item of multiple', () => {
-      expect(getChevronButtonGroupVariant(0, 2)).toBe('top');
-      expect(getChevronButtonGroupVariant(0, 3)).toBe('top');
-      expect(getChevronButtonGroupVariant(0, 10)).toBe('top');
-    });
-
-    it('should return bottom for the last item of multiple', () => {
-      expect(getChevronButtonGroupVariant(1, 2)).toBe('bottom');
-      expect(getChevronButtonGroupVariant(2, 3)).toBe('bottom');
-      expect(getChevronButtonGroupVariant(9, 10)).toBe('bottom');
-    });
-
-    it('should return middle for middle items', () => {
-      expect(getChevronButtonGroupVariant(1, 3)).toBe('middle');
-      expect(getChevronButtonGroupVariant(1, 4)).toBe('middle');
-      expect(getChevronButtonGroupVariant(2, 4)).toBe('middle');
-      expect(getChevronButtonGroupVariant(5, 10)).toBe('middle');
-    });
-  });
-
   describe('ChevronButtonGroup Component', () => {
     const mockUseColorScheme = jest.spyOn(ReactNative, 'useColorScheme') as jest.Mock;
 
