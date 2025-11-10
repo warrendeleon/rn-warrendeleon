@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
+import i18n from 'i18next';
 
 import { App } from '../App';
 
@@ -15,11 +16,12 @@ describe('App', () => {
     expect(UNSAFE_root).toBeTruthy();
   });
 
-  it('initializes i18n on import', () => {
+  it('initializes i18n with correct configuration', () => {
     // The import '@app/i18n' at the top of App.tsx initializes i18next
-    // This test verifies that the import doesn't throw
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    expect(() => require('@app/i18n')).not.toThrow();
+    // Verify i18n is initialized and has a valid language
+    expect(i18n.isInitialized).toBe(true);
+    expect(i18n.language).toBeTruthy();
+    expect(['en', 'es']).toContain(i18n.language);
   });
 });
 
