@@ -22,8 +22,8 @@ A modern React Native application built with TypeScript, featuring a **feature-f
 
 **Key Features:**
 
-- 🏗️ Feature-first architecture for better code organization
-- 🌍 Full internationalization (English & Spanish)
+- 🏗️ Feature-first architecture for better code organisation
+- 🌍 Full internationalisation (English & Spanish)
 - 🎨 Modern UI with GlueStack UI + NativeWind (Tailwind for React Native)
 - 🧪 Comprehensive testing (Jest + React Native Testing Library + Detox E2E)
 - 📦 Redux Toolkit for state management
@@ -57,7 +57,7 @@ yarn android
 - **UI Framework:** GlueStack UI + NativeWind
 - **State Management:** Redux Toolkit with Redux Persist
 - **Navigation:** React Navigation 7 (Native Stack)
-- **Internationalization:** i18next + react-i18next
+- **Internationalisation:** i18next + react-i18next
 - **Testing:** Jest + React Native Testing Library + Detox
 - **Code Quality:** ESLint 9 + Prettier + Husky
 - **Package Manager:** Yarn 3.6.4 (Berry)
@@ -66,18 +66,39 @@ yarn android
 
 ## Documentation
 
-Comprehensive guides are available in the `/docs` folder:
+Comprehensive guides are available in the `/docs` folder. Here's how to navigate them:
+
+### 📖 How to Use This Documentation
+
+**New to the project?** Follow this onboarding path:
+
+1. **[Development Guide](docs/DEVELOPMENT.md)** - Set up your environment, install dependencies, and run the app
+2. **[Architecture](docs/ARCHITECTURE.md)** - Understand the project structure and feature-first organisation
+3. **[Contributing](docs/CONTRIBUTING.md)** - Learn code standards, commit conventions, and the PR process
+
+**Working on specific features?**
+
+- 🎨 **UI & Components** → [Architecture Guide](docs/ARCHITECTURE.md#component-patterns)
+- 🧪 **Unit Testing** → [Testing Guide](docs/TESTING.md)
+- 🎭 **E2E Testing** → [E2E Testing Guide](docs/E2E_TESTING.md)
+- 🌍 **Translations** → [Internationalisation Guide](docs/I18N.md)
+- 📦 **State Management** → [State Management Guide](docs/STATE_MANAGEMENT.md)
+
+**Need quick help?**
+
+- ⚡ **Quick Commands** → [Cheatsheet](docs/CHEATSHEET.md) _(coming soon)_
+- 🔄 **Common Workflows** → [Workflows Guide](docs/WORKFLOWS.md) _(coming soon)_
 
 ### 📚 Core Documentation
 
-- **[Architecture](docs/ARCHITECTURE.md)** - Project structure, feature-first organization, and design decisions
+- **[Architecture](docs/ARCHITECTURE.md)** - Project structure, feature-first organisation, and design decisions
 - **[Development](docs/DEVELOPMENT.md)** - Setup guide, running the app, debugging, and troubleshooting
 - **[Testing](docs/TESTING.md)** - Unit and integration testing with Jest and React Native Testing Library
 - **[E2E Testing](docs/E2E_TESTING.md)** - End-to-end testing with Detox, Cucumber, and MSW
 
 ### 🛠️ Feature-Specific Guides
 
-- **[Internationalization](docs/I18N.md)** - i18n setup, adding translations, and language management
+- **[Internationalisation](docs/I18N.md)** - i18n setup, adding translations, and language management
 - **[State Management](docs/STATE_MANAGEMENT.md)** - Redux Toolkit usage, creating features, and best practices
 - **[Contributing](docs/CONTRIBUTING.md)** - Code style, commit conventions, and PR process
 
@@ -96,17 +117,18 @@ yarn android            # Run Android app (Debug)
 yarn test               # Run unit tests
 yarn test:watch         # Run tests in watch mode
 yarn test:coverage      # Run tests with coverage report
+yarn detox:ios:build    # Build app for iOS E2E tests
+yarn detox:ios:test     # Run iOS E2E tests
+yarn e2e:ios            # Build + run iOS E2E tests (convenience)
 
 # Code Quality
 yarn lint               # Run ESLint
 yarn lint:fix           # Auto-fix ESLint issues
 yarn typecheck          # Run TypeScript type check
 yarn validate           # Run typecheck, lint, and tests
-
-# E2E Testing (after setup)
-yarn e2e:ios            # Run E2E tests on iOS
-yarn e2e:android        # Run E2E tests on Android
 ```
+
+> **Note:** See [Cheatsheet](docs/CHEATSHEET.md) for a complete command reference _(coming soon)_.
 
 ---
 
@@ -120,14 +142,14 @@ warrendeleon/
 │   ├── components/       # Shared components
 │   ├── features/         # Feature modules (screens, components, tests)
 │   ├── navigation/       # Navigation setup
-│   ├── i18n/             # Internationalization
+│   ├── i18n/             # Internationalisation
 │   ├── store/            # Redux store
 │   └── test-utils/       # Testing utilities
 ├── ios/                  # iOS native code
 └── android/              # Android native code
 ```
 
-See [Architecture](docs/ARCHITECTURE.md) for detailed structure explanation.
+See [Architecture Guide](docs/ARCHITECTURE.md#project-structure) for detailed structure explanation.
 
 ---
 
@@ -142,7 +164,7 @@ See [Architecture](docs/ARCHITECTURE.md) for detailed structure explanation.
 | Java (JDK)     | 17      |
 | CocoaPods      | 1.16+   |
 
-See [Development Guide](docs/DEVELOPMENT.md) for detailed setup instructions.
+See [Development Guide](docs/DEVELOPMENT.md#prerequisites) for detailed setup instructions.
 
 ---
 
