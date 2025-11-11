@@ -37,40 +37,36 @@ export const getSelectableListButtonStyles = (
  * Automatically handles rounded corners based on groupVariant.
  * Shows a blue check mark when isSelected is true.
  */
-export const SelectableListButton: React.FC<SelectableListButtonProps> = ({
-  label,
-  onPress,
-  groupVariant = 'single',
-  isSelected = false,
-  testID,
-}) => {
-  const scheme = useAppColorScheme(); // "light" | "dark"
+export const SelectableListButton = React.memo<SelectableListButtonProps>(
+  ({ label, onPress, groupVariant = 'single', isSelected = false, testID }) => {
+    const scheme = useAppColorScheme(); // "light" | "dark"
 
-  const { bg, labelColor, top, bottom } = getSelectableListButtonStyles(scheme, groupVariant);
+    const { bg, labelColor, top, bottom } = getSelectableListButtonStyles(scheme, groupVariant);
 
-  return (
-    <Pressable
-      onPress={onPress}
-      testID={testID}
-      className="w-full flex-row items-center justify-between px-4"
-      py="$3"
-      bg={bg}
-      borderTopLeftRadius={top}
-      borderTopRightRadius={top}
-      borderBottomLeftRadius={bottom}
-      borderBottomRightRadius={bottom}
-    >
-      <HStack space="md" alignItems="center" flex={1}>
-        <Text color={labelColor} fontWeight="$semibold" lineHeight="$xl">
-          {label}
-        </Text>
-      </HStack>
+    return (
+      <Pressable
+        onPress={onPress}
+        testID={testID}
+        className="w-full flex-row items-center justify-between px-4"
+        py="$3"
+        bg={bg}
+        borderTopLeftRadius={top}
+        borderTopRightRadius={top}
+        borderBottomLeftRadius={bottom}
+        borderBottomRightRadius={bottom}
+      >
+        <HStack space="md" alignItems="center" flex={1}>
+          <Text color={labelColor} fontWeight="$semibold" lineHeight="$xl">
+            {label}
+          </Text>
+        </HStack>
 
-      {isSelected && (
-        <Text className="text-xl" color="$blue600" fontWeight="$bold">
-          ✓
-        </Text>
-      )}
-    </Pressable>
-  );
-};
+        {isSelected && (
+          <Text className="text-xl" color="$blue600" fontWeight="$bold">
+            ✓
+          </Text>
+        )}
+      </Pressable>
+    );
+  }
+);
