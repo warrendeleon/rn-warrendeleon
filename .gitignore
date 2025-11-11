@@ -118,6 +118,7 @@ jest-html-reporters-*.html
 cucumber-report.json
 cucumber-report.html
 detox-artifacts/
+artifacts/
 
 # --- Misc / OS-specific ---
 *.swp
