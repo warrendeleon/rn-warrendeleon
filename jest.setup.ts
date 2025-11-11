@@ -209,16 +209,6 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   },
 }));
 
-// Mock react-native-encrypted-storage
-jest.mock('react-native-encrypted-storage', () => ({
-  default: {
-    setItem: jest.fn(() => Promise.resolve()),
-    getItem: jest.fn(() => Promise.resolve(null)),
-    removeItem: jest.fn(() => Promise.resolve()),
-    clear: jest.fn(() => Promise.resolve()),
-  },
-}));
-
 // Mock redux-persist
 jest.mock('redux-persist', () => {
   const actual = jest.requireActual('redux-persist');

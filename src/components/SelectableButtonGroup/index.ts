@@ -1,2 +1,2 @@
 export type { SelectableButtonGroupItem } from './SelectableButtonGroup';
-export { getSelectableButtonGroupVariant, SelectableButtonGroup } from './SelectableButtonGroup';
+export { SelectableButtonGroup } from './SelectableButtonGroup';

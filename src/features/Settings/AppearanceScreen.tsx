@@ -46,7 +46,7 @@ export const AppearanceScreen: React.FC = () => {
     >
       <View className="mt-2">
         <Text
-          className="pt-1 mb-3 text-xs font-semibold uppercase leading-normal"
+          className="mb-3 pt-1 text-xs font-semibold uppercase leading-normal"
           color="$coolGray500"
         >
           {t('appearance.appearance')}

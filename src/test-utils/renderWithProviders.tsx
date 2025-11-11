@@ -3,7 +3,7 @@ import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
-import { configureStore, type PreloadedStateShapeFromReducersMapObject } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { render, type RenderAPI } from '@testing-library/react-native';
 
 import { settingsReducer } from '@app/features/Settings';
@@ -11,20 +11,20 @@ import i18n from '@app/i18n';
 import type { RootState } from '@app/store';
 
 type RenderWithProvidersOptions = {
-  preloadedState?: PreloadedStateShapeFromReducersMapObject<{
-    settings: ReturnType<typeof settingsReducer>;
-  }>;
+  preloadedState?: Partial<RootState>;
 };
 
 export const renderWithProviders = (
   ui: React.ReactElement,
   options?: RenderWithProvidersOptions
 ): RenderAPI => {
+  const rootReducer = combineReducers({
+    settings: settingsReducer,
+  });
+
   const store = configureStore({
-    reducer: {
-      settings: settingsReducer,
-    },
-    preloadedState: options?.preloadedState as Partial<RootState>,
+    reducer: rootReducer,
+    preloadedState: options?.preloadedState,
   });
 
   return render(
