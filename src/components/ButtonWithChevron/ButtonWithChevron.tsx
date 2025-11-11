@@ -35,76 +35,78 @@ export const getButtonWithChevronStyles = (
   return { bg, labelColor, chevronColor, top, bottom };
 };
 
-export const ButtonWithChevron: React.FC<ButtonWithChevronProps> = ({
-  label,
-  onPress,
-  startIcon: StartIcon,
-  startIconBgColor,
-  endLabel,
-  groupVariant = 'single',
-  testID,
-}) => {
-  const scheme = useAppColorScheme(); // "light" | "dark"
+export const ButtonWithChevron = React.memo<ButtonWithChevronProps>(
+  ({
+    label,
+    onPress,
+    startIcon: StartIcon,
+    startIconBgColor,
+    endLabel,
+    groupVariant = 'single',
+    testID,
+  }) => {
+    const scheme = useAppColorScheme(); // "light" | "dark"
 
-  const { bg, labelColor, chevronColor, top, bottom } = getButtonWithChevronStyles(
-    scheme,
-    groupVariant
-  );
+    const { bg, labelColor, chevronColor, top, bottom } = getButtonWithChevronStyles(
+      scheme,
+      groupVariant
+    );
 
-  const iconBackgroundColor = startIconBgColor ?? '$primary500';
+    const iconBackgroundColor = startIconBgColor ?? '$primary500';
 
-  const shouldRenderStartIcon = Boolean(StartIcon);
+    const shouldRenderStartIcon = Boolean(StartIcon);
 
-  /*
-   * I use an explicit variable instead of a ternary because Istanbul coverage tools
-   * sometimes misreport JSX conditional branches. This makes both branches testable
-   * and ensures more accurate coverage reporting.
-   */
-  let startIconElement: React.ReactNode = null;
-  if (shouldRenderStartIcon && StartIcon) {
-    startIconElement = (
-      <Box
-        testID="button-with-chevron-icon"
-        w="$9"
-        h="$9"
-        borderRadius="$lg"
-        alignItems="center"
-        justifyContent="center"
-        bg={iconBackgroundColor}
+    /*
+     * I use an explicit variable instead of a ternary because Istanbul coverage tools
+     * sometimes misreport JSX conditional branches. This makes both branches testable
+     * and ensures more accurate coverage reporting.
+     */
+    let startIconElement: React.ReactNode = null;
+    if (shouldRenderStartIcon && StartIcon) {
+      startIconElement = (
+        <Box
+          testID="button-with-chevron-icon"
+          w="$9"
+          h="$9"
+          borderRadius="$lg"
+          alignItems="center"
+          justifyContent="center"
+          bg={iconBackgroundColor}
+        >
+          <Icon as={StartIcon} color="$white" size="md" />
+        </Box>
+      );
+    }
+
+    return (
+      <Pressable
+        onPress={onPress}
+        testID={testID}
+        className="w-full flex-row items-center justify-between px-4"
+        py="$3"
+        bg={bg}
+        borderTopLeftRadius={top}
+        borderTopRightRadius={top}
+        borderBottomLeftRadius={bottom}
+        borderBottomRightRadius={bottom}
       >
-        <Icon as={StartIcon} color="$white" size="md" />
-      </Box>
+        <HStack space="md" alignItems="center" flex={1}>
+          {startIconElement}
+
+          <Text color={labelColor} fontWeight="$semibold" lineHeight="$xl">
+            {label}
+          </Text>
+        </HStack>
+
+        <HStack space="sm" alignItems="center">
+          {endLabel && (
+            <Text color={chevronColor} fontSize="$sm">
+              {endLabel}
+            </Text>
+          )}
+          <Icon as={ChevronRightIcon} color={chevronColor} size="lg" />
+        </HStack>
+      </Pressable>
     );
   }
-
-  return (
-    <Pressable
-      onPress={onPress}
-      testID={testID}
-      className="w-full flex-row items-center justify-between px-4"
-      py="$3"
-      bg={bg}
-      borderTopLeftRadius={top}
-      borderTopRightRadius={top}
-      borderBottomLeftRadius={bottom}
-      borderBottomRightRadius={bottom}
-    >
-      <HStack space="md" alignItems="center" flex={1}>
-        {startIconElement}
-
-        <Text color={labelColor} fontWeight="$semibold" lineHeight="$xl">
-          {label}
-        </Text>
-      </HStack>
-
-      <HStack space="sm" alignItems="center">
-        {endLabel && (
-          <Text color={chevronColor} fontSize="$sm">
-            {endLabel}
-          </Text>
-        )}
-        <Icon as={ChevronRightIcon} color={chevronColor} size="lg" />
-      </HStack>
-    </Pressable>
-  );
-};
+);
