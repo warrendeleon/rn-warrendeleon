@@ -20,7 +20,11 @@ module.exports = {
     ],
 
     // Format output
-    format: ['progress', 'json:cucumber-report.json', 'html:cucumber-report.html'],
+    format: [
+      './src/test-utils/cucumber/formatters/CheckmarkFormatter.js',
+      'json:cucumber-report.json',
+      'html:cucumber-report.html',
+    ],
     formatOptions: {
       colorsEnabled: true,
     },
