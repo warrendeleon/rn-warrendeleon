@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { Text } from '@gluestack-ui/themed';
@@ -30,12 +30,16 @@ export const LanguageScreen: React.FC = () => {
     navigation.goBack();
   };
 
-  const languageItems: SelectableButtonGroupItem[] = languages.map(language => ({
-    label: language.label,
-    onPress: () => handleLanguageSelect(language.code),
-    isSelected: currentLanguage === language.code,
-    testID: `language-option-${language.code}`,
-  }));
+  const languageItems: SelectableButtonGroupItem[] = useMemo(
+    () =>
+      languages.map(language => ({
+        label: language.label,
+        onPress: () => handleLanguageSelect(language.code),
+        isSelected: currentLanguage === language.code,
+        testID: `language-option-${language.code}`,
+      })),
+    [t, currentLanguage, handleLanguageSelect]
+  );
 
   return (
     <ScrollView
