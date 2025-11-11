@@ -415,38 +415,101 @@ await expect(element(by.id('toggle'))).toHaveToggleValue(true);
 
 ## Running E2E Tests
 
-### Build and Test
+### Quick Reference
 
 ```bash
-# iOS
-yarn e2e:build:ios    # Build app for testing
-yarn e2e:test:ios     # Run tests
-yarn e2e:ios          # Build + test
+# Build the app first (only needed once or after code changes)
+yarn detox:ios:build     # Takes ~2-3 minutes
 
-# Android
-yarn e2e:build:android
-yarn e2e:test:android
+# Run all tests
+yarn detox:ios:test      # Takes ~2.5 minutes (12 scenarios, 96 steps)
+
+# Run single scenario (much faster!)
+yarn detox:ios:test 'src/features/Settings/__tests__/Settings.feature:10'  # Takes ~16 seconds
+```
+
+### Full Test Suite
+
+```bash
+# iOS - Full suite
+yarn detox:ios:build    # Build app for testing
+yarn detox:ios:test     # Run all tests
+yarn e2e:ios            # Build + test (convenience)
+
+# Android - Full suite
+yarn detox:android:build
+yarn detox:android:test
 yarn e2e:android
 ```
 
-### Run Specific Features
+**Timing**: Running the full suite takes approximately **2.5 minutes** for all 12 scenarios (96 steps).
+
+### Run Single Scenario (Faster Iteration)
+
+For faster development cycles, run individual scenarios by specifying the line number:
 
 ```bash
-# Run specific feature file
-detox test --configuration ios.sim.debug src/features/Home/__tests__/HomeScreen.feature
+# Run a specific scenario (starts at line 10)
+yarn detox:ios:test 'src/features/Settings/__tests__/Settings.feature:10'
 
-# Run with tag
-detox test --configuration ios.sim.debug --tags @smoke
+# Or directly with DETOX_CONFIGURATION
+DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js \
+  --require-module ts-node/register \
+  --require-module tsconfig-paths/register \
+  'src/features/Settings/__tests__/Settings.feature:10' \
+  --require 'src/test-utils/cucumber/**/*.{ts,tsx}' \
+  --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'
+```
+
+**Timing**: Running a single scenario takes approximately **16 seconds** - much faster for iterating on a specific test!
+
+**Pro tip**: Find the line number by opening your `.feature` file and noting the line where the `Scenario:` keyword appears.
+
+### Run Specific Feature
+
+```bash
+# Run all scenarios in a feature file
+yarn detox:ios:test 'src/features/Home/__tests__/HomeScreen.feature'
+
+# Run all scenarios in Settings feature
+yarn detox:ios:test 'src/features/Settings/__tests__/Settings.feature'
+```
+
+### Run with Tags
+
+```bash
+# Add tags to scenarios in .feature files
+@smoke
+Scenario: Critical user flow
+  Given initial state
+  When action
+  Then outcome
+
+# Run only @smoke tests
+DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js \
+  --tags @smoke \
+  --require-module ts-node/register \
+  --require-module tsconfig-paths/register \
+  'src/features/**/__tests__/*.feature' \
+  --require 'src/test-utils/cucumber/**/*.{ts,tsx}' \
+  --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'
+
+# Run all except @slow tests
+DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js \
+  --tags "not @slow" \
+  # ... (same require flags)
 ```
 
 ### Debug Mode
 
 ```bash
 # Run with debug logging
-detox test --configuration ios.sim.debug --loglevel trace
+DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js --loglevel trace \
+  # ... (other flags)
 
 # Keep app running after tests
-detox test --configuration ios.sim.debug --cleanup false
+DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js --cleanup false \
+  # ... (other flags)
 ```
 
 ## MSW for API Mocking
