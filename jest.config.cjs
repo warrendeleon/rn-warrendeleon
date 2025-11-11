@@ -9,7 +9,7 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(react-native|@react-native|@react-navigation|@react-aria|@react-native-aria|@expo|@gluestack-ui|@gluestack-style|@gluestack|@legendapp|react-native-reanimated|react-native-screens|react-native-safe-area-context|react-native-svg|react-native-worklets|react-native-css-interop|nativewind)/)',
   ],
-  testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
+  testMatch: ['**/__tests__/**/*.rntl.[jt]s?(x)'],
   clearMocks: true,
   resetMocks: true,
   restoreMocks: true,
@@ -19,7 +19,13 @@ module.exports = {
     '^react-dom$': '<rootDir>/__mocks__/react-dom.js',
     '^react-dom/(.*)$': '<rootDir>/__mocks__/react-dom.js',
   },
-  testPathIgnorePatterns: ['/node_modules/', '/android/', '/ios/'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/android/',
+    '/ios/',
+    '.*\\.feature$',        // Exclude Cucumber feature files
+    '.*\\.cucumber\\.tsx$', // Exclude Cucumber step definitions
+  ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/__tests__/**',
