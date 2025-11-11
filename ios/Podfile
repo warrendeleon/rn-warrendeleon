@@ -26,6 +26,9 @@ target 'warrendeleon' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  # Detox for E2E testing
+  pod 'RCT-Folly', :podspec => "#{$RN_ROOT}/third-party-podspecs/RCT-Folly.podspec"
+
   post_install do |installer|
     react_native_post_install(
       installer,

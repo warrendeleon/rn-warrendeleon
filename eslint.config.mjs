@@ -21,6 +21,9 @@ export default [
       '**/.prettierrc.*',
       '**/.jest/**',
       '.yarn/**',
+      // E2E config files
+      '.detoxrc.js',
+      '.cucumber.js',
       // NOTE: no '__tests__/**' here so tests are linted
     ],
   },
@@ -31,6 +34,20 @@ export default [
     languageOptions: {
       globals: {
         __DEV__: 'readonly',
+        // Detox globals
+        device: 'readonly',
+        element: 'readonly',
+        expect: 'readonly',
+        waitFor: 'readonly',
+        by: 'readonly',
+        // Cucumber globals
+        Given: 'readonly',
+        When: 'readonly',
+        Then: 'readonly',
+        Before: 'readonly',
+        After: 'readonly',
+        BeforeAll: 'readonly',
+        AfterAll: 'readonly',
       },
     },
     plugins: {

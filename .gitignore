@@ -114,6 +114,11 @@ coverage/
 jest-html-reporters-*.html
 *.lcov
 
+# --- E2E artifacts ---
+cucumber-report.json
+cucumber-report.html
+detox-artifacts/
+
 # --- Misc / OS-specific ---
 *.swp
 *.swo

@@ -25,6 +25,7 @@ export const HomeScreen: React.FC = () => {
       contentInsetAdjustmentBehavior="automatic"
       className="flex-1 p-4"
       style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
+      testID="home-screen"
     >
       <View>
         <ButtonWithChevron

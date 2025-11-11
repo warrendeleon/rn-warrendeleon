@@ -10927,7 +10927,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:^2.2.3":
+"json5@npm:^2.2.2, json5@npm:^2.2.3":
   version: 2.2.3
   resolution: "json5@npm:2.2.3"
   bin:
@@ -15290,6 +15290,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tsconfig-paths@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "tsconfig-paths@npm:4.2.0"
+  dependencies:
+    json5: ^2.2.2
+    minimist: ^1.2.6
+    strip-bom: ^3.0.0
+  checksum: 28c5f7bbbcabc9dabd4117e8fdc61483f6872a1c6b02a4b1c4d68c5b79d06896c3cc9547610c4c3ba64658531caa2de13ead1ea1bf321c7b53e969c4752b98c7
+  languageName: node
+  linkType: hard
+
 "tsconfig@npm:7":
   version: 7.0.0
   resolution: "tsconfig@npm:7.0.0"
@@ -15838,6 +15849,7 @@ __metadata:
     tailwindcss: 3.4.17
     ts-node: ^10.9.2
     tsc-files: ^1.1.4
+    tsconfig-paths: ^4.2.0
     typescript: ^5.8.3
     typescript-eslint: ^8.46.3
   languageName: unknown

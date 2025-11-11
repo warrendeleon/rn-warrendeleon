@@ -39,17 +39,17 @@ export const RootNavigator: React.FC = () => {
         <Stack.Screen
           name="Settings"
           component={SettingsScreen}
-          options={{ title: t('settings.title') }}
+          options={{ title: t('settings.title'), headerBackTestID: 'settings-back-button' }}
         />
         <Stack.Screen
           name="Language"
           component={LanguageScreen}
-          options={{ title: t('language.title') }}
+          options={{ title: t('language.title'), headerBackTestID: 'language-back-button' }}
         />
         <Stack.Screen
           name="Appearance"
           component={AppearanceScreen}
-          options={{ title: t('appearance.title') }}
+          options={{ title: t('appearance.title'), headerBackTestID: 'appearance-back-button' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
