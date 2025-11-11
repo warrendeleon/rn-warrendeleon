@@ -22,14 +22,53 @@ End-to-end testing validates the complete user flow from start to finish, simula
 
 ### Why Detox + Cucumber?
 
-- **Detox**: Gray-box testing framework for React Native with excellent performance and synchronization
-- **Cucumber**: Behavior-Driven Development (BDD) tool using human-readable Gherkin syntax
+- **Detox**: Grey-box testing framework for React Native with excellent performance and synchronisation
+- **Cucumber**: Behaviour-Driven Development (BDD) tool using human-readable Gherkin syntax
 - **MSW (Mock Service Worker)**: API mocking for consistent, reliable tests without backend dependencies
 
-### Testing Approach
+### Testing Flow
 
+```mermaid
+graph LR
+    A[User Action<br/>Cucumber Scenario] --> B[App Interaction<br/>Detox]
+    B --> C[API Call]
+    C --> D[MSW Intercept<br/>Mock Response]
+    D --> E[App State Update]
+    E --> F[UI Update]
+    F --> G[Assertion<br/>Detox Matcher]
+
+    style A fill:#e1f5ff
+    style B fill:#fff9c4
+    style D fill:#f3e5f5
+    style G fill:#c8e6c9
 ```
-User Action (Cucumber) → App Interaction (Detox) → API Call (MSW) → Assertion
+
+### Detox Test Execution Flow
+
+```mermaid
+graph TD
+    A[BeforeAll Hook] --> B[Start MSW Server]
+    B --> C[Launch App]
+    C --> D[Before Hook]
+    D --> E[Reset MSW Handlers]
+    E --> F[Reload React Native]
+    F --> G[Run Scenario Steps]
+    G --> H{Test Result}
+    H -->|Pass| I[After Hook]
+    H -->|Fail| J[After Hook: Take Screenshot]
+    I --> K{More Scenarios?}
+    J --> K
+    K -->|Yes| D
+    K -->|No| L[AfterAll Hook]
+    L --> M[Terminate App]
+    M --> N[Stop MSW Server]
+
+    style A fill:#e1f5ff
+    style B fill:#f3e5f5
+    style G fill:#fff9c4
+    style H fill:#ffccbc
+    style J fill:#ef9a9a
+    style N fill:#c8e6c9
 ```
 
 ## Test Stack
@@ -67,7 +106,7 @@ yarn add -D detox @cucumber/cucumber msw
 yarn add -D @types/cucumber @types/detox
 ```
 
-### 2. Initialize Detox
+### 2. Initialise Detox
 
 ```bash
 detox init
@@ -154,14 +193,18 @@ This creates:
 
 ### 4. Configure Cucumber
 
-**`cucumber.js`:**
+**`.cucumber.js`:**
 
 ```javascript
 module.exports = {
   default: {
     require: ['src/test-utils/cucumber/support/**/*.ts', 'src/**/*.cucumber.tsx'],
     requireModule: ['ts-node/register'],
-    format: ['progress', 'json:e2e-results.json'],
+    format: [
+      './src/test-utils/cucumber/formatters/CheckmarkFormatter.js',
+      'json:cucumber-report.json',
+      'html:cucumber-report.html',
+    ],
     formatOptions: { snippetInterface: 'async-await' },
   },
 };
@@ -172,12 +215,12 @@ module.exports = {
 ```json
 {
   "scripts": {
-    "e2e:build:ios": "detox build --configuration ios.sim.debug",
-    "e2e:build:android": "detox build --configuration android.emu.debug",
-    "e2e:test:ios": "detox test --configuration ios.sim.debug",
-    "e2e:test:android": "detox test --configuration android.emu.debug",
-    "e2e:ios": "yarn e2e:build:ios && yarn e2e:test:ios",
-    "e2e:android": "yarn e2e:build:android && yarn e2e:test:android"
+    "detox:ios:build": "detox build -c ios.sim.debug",
+    "detox:android:build": "detox build -c android.emu.debug",
+    "detox:ios:test": "DETOX_LOGLEVEL=error DETOX_CONFIGURATION=ios.sim.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js --format ./src/test-utils/cucumber/formatters/CheckmarkFormatter.js --require-module ts-node/register --require-module tsconfig-paths/register 'src/features/**/__tests__/*.feature' --require 'src/test-utils/cucumber/**/*.{ts,tsx}' --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'",
+    "detox:android:test": "DETOX_LOGLEVEL=error DETOX_CONFIGURATION=android.emu.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js --format ./src/test-utils/cucumber/formatters/CheckmarkFormatter.js --require-module ts-node/register --require-module tsconfig-paths/register 'src/features/**/__tests__/*.feature' --require 'src/test-utils/cucumber/**/*.{ts,tsx}' --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'",
+    "e2e:ios": "yarn detox:ios:build && yarn detox:ios:test",
+    "e2e:android": "yarn detox:android:build && yarn detox:android:test"
   }
 }
 ```
@@ -289,7 +332,7 @@ Feature: Feature Name
     When user action
     Then expected outcome
 
-  Scenario Outline: Parameterized Scenario
+  Scenario Outline: Parameterised Scenario
     Given initial state with <param>
     When action with <param>
     Then outcome with <param>
@@ -504,8 +547,12 @@ DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js \
 
 ```bash
 # Run with debug logging
-DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js --loglevel trace \
-  # ... (other flags)
+DETOX_LOGLEVEL=trace DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js \
+  --require-module ts-node/register \
+  --require-module tsconfig-paths/register \
+  'src/features/**/__tests__/*.feature' \
+  --require 'src/test-utils/cucumber/**/*.{ts,tsx}' \
+  --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'
 
 # Keep app running after tests
 DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js --cleanup false \
@@ -513,6 +560,26 @@ DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js --cleanup false \
 ```
 
 ## MSW for API Mocking
+
+### MSW Request Interception Flow
+
+```mermaid
+graph LR
+    A[App Component] --> B[API Request<br/>fetch/axios]
+    B --> C{MSW Handler<br/>Matches?}
+    C -->|Yes| D[MSW Handler]
+    C -->|No| E[Network Request<br/>Not Intercepted]
+    D --> F[Mock Response]
+    F --> G[App State Update]
+    G --> H[UI Renders<br/>with Mock Data]
+    E --> I[Real API Call<br/>May Fail in Tests]
+
+    style A fill:#e1f5ff
+    style C fill:#fff9c4
+    style D fill:#f3e5f5
+    style F fill:#c8e6c9
+    style I fill:#ffccbc
+```
 
 ### Setup MSW
 
@@ -633,6 +700,14 @@ Then('I should see an error message', async () => {
 });
 ```
 
+### MSW Best Practices
+
+1. **Default Handlers**: Define common successful responses in `handlers.ts`
+2. **Override Per Scenario**: Use `server.use()` to override handlers for specific test scenarios
+3. **Reset Between Tests**: Always call `resetMockServer()` in `Before` hook to prevent state leakage
+4. **Warn on Unhandled**: Use `onUnhandledRequest: 'warn'` to identify missing handlers
+5. **Match Exact URLs**: Ensure handler URLs match your app's API calls exactly (including protocol, domain, path)
+
 ## Best Practices
 
 ### 1. Use Page Object Pattern
@@ -744,8 +819,8 @@ Scenario: Long-running test
 Run by tag:
 
 ```bash
-detox test --tags @smoke
-detox test --tags "not @slow"
+yarn detox:ios:test --tags @smoke
+yarn detox:ios:test --tags "not @slow"
 ```
 
 ### 5. Keep Tests Independent
@@ -754,7 +829,7 @@ Each scenario should:
 
 - Set up its own data
 - Not depend on other scenarios
-- Clean up after itself
+- Clean up after itself (handled by `Before` hook)
 
 ### 6. Use Meaningful testIDs
 
@@ -790,10 +865,19 @@ Automatic on failure (configured in hooks), or manual:
 await device.takeScreenshot('test-failure');
 ```
 
+Screenshots are saved to:
+
+- **iOS**: `e2e/artifacts/<test-name>.png`
+- **Android**: `e2e/artifacts/<test-name>.png`
+
 ### 2. Debug Logging
 
 ```typescript
+// Log element attributes
 console.log('Current screen:', await element(by.id('screen-title')).getAttributes());
+
+// Log test context
+console.log('Storage:', this.storage);
 ```
 
 ### 3. Slow Down Tests
@@ -808,10 +892,10 @@ await device.launchApp({
 ### 4. Inspect Element Hierarchy
 
 ```bash
-# iOS
+# iOS - Generate element tree
 detox test --configuration ios.sim.debug --take-screenshots all --record-logs all
 
-# Android
+# Android - Dump UI hierarchy
 adb shell uiautomator dump
 adb pull /sdcard/window_dump.xml
 ```
@@ -819,99 +903,311 @@ adb pull /sdcard/window_dump.xml
 ### 5. Keep App Running
 
 ```bash
+# Don't terminate app after tests (useful for debugging UI state)
 detox test --configuration ios.sim.debug --cleanup false
+```
+
+### 6. Verbose Logging
+
+```bash
+# Enable trace logging
+DETOX_LOGLEVEL=trace yarn detox:ios:test
+
+# Enable MSW logging
+# In server.ts:
+server.listen({
+  onUnhandledRequest: req => {
+    console.log('Unhandled request:', req.method, req.url);
+  },
+});
 ```
 
 ## Troubleshooting
 
 ### Tests Timeout
 
-**Problem**: Tests hang or timeout
+**Problem**: Tests hang or timeout during execution
 
 **Solution**:
 
 ```typescript
-// Increase timeout in specific test
+// Increase timeout for specific element
 await waitFor(element(by.id('slow-element')))
   .toBeVisible()
-  .withTimeout(30000);
+  .withTimeout(30000); // 30 seconds
 
-// Or in .detoxrc.json
+// Or globally in .detoxrc.json
 {
   "testRunner": {
     "jest": {
-      "setupTimeout": 300000
+      "setupTimeout": 300000 // 5 minutes
     }
   }
 }
 ```
 
+**Common Causes**:
+
+- Network requests taking too long (use MSW to mock)
+- Animations not completing (disable in test builds)
+- Detox waiting for app to be idle (disable synchronisation temporarily)
+
 ### Element Not Found
 
-**Problem**: `Error: Cannot find element`
+**Problem**: `Error: Cannot find element with id "element-id"`
 
 **Solution**:
 
-1. Verify testID in component
-2. Check element visibility
-3. Wait for element:
+1. **Verify testID exists in component**:
 
-```typescript
-await waitFor(element(by.id('element')))
-  .toBeVisible()
-  .withTimeout(5000);
-```
+   ```typescript
+   <Button testID="submit-button">Submit</Button>
+   ```
 
-### Synchronization Issues
+2. **Check element visibility**:
 
-**Problem**: Detox can't sync with app
+   ```typescript
+   // Element might exist but not be visible
+   await waitFor(element(by.id('element')))
+     .toBeVisible()
+     .withTimeout(5000);
+   ```
+
+3. **Use correct matcher**:
+
+   ```typescript
+   // For testID prop
+   element(by.id('element-id'));
+
+   // For text content
+   element(by.text('Button Label'));
+
+   // For accessibility label
+   element(by.label('Accessibility Label'));
+   ```
+
+4. **Debug element tree**:
+   ```typescript
+   // Log all attributes
+   const attributes = await element(by.id('parent')).getAttributes();
+   console.log('Element tree:', JSON.stringify(attributes, null, 2));
+   ```
+
+### Synchronisation Issues
+
+**Problem**: "Detox can't synchronise with the app" or "App is busy"
 
 **Solution**:
 
 ```typescript
-// Disable synchronization temporarily
+// Temporarily disable synchronisation
 await device.disableSynchronization();
 await element(by.id('element')).tap();
 await device.enableSynchronization();
 ```
 
+**Common Causes**:
+
+- Infinite animations (timers, loading spinners)
+- WebSockets keeping app "busy"
+- Long-running background tasks
+
+**Permanent Fix**:
+
+```typescript
+// Disable animations in test builds
+if (__DEV__ && process.env.DETOX_ENABLED) {
+  UIManager.setLayoutAnimationEnabledExperimental?.(false);
+}
+```
+
 ### Build Failures
 
-**Problem**: Detox build fails
+**Problem**: Detox build fails with Xcode or Gradle errors
 
 **Solution**:
 
 ```bash
-# Clean and rebuild
-# iOS
-cd ios && xcodebuild clean && cd ..
-yarn e2e:build:ios
+# iOS - Clean and rebuild
+cd ios
+xcodebuild clean -workspace warrendeleon.xcworkspace -scheme warrendeleon
+cd ..
+yarn detox:ios:build
 
-# Android
-cd android && ./gradlew clean && cd ..
-yarn e2e:build:android
+# iOS - Reset DerivedData
+rm -rf ~/Library/Developer/Xcode/DerivedData
+yarn detox:ios:build
+
+# Android - Clean and rebuild
+cd android
+./gradlew clean
+cd ..
+yarn detox:android:build
+
+# Android - Invalidate caches
+cd android
+./gradlew cleanBuildCache
+cd ..
 ```
 
-### MSW Not Intercepting
+**Verify Configuration**:
 
-**Problem**: API calls not being mocked
+- Check `.detoxrc.json` binary paths match actual build output
+- Ensure Xcode scheme matches configuration name
+- Verify Android build type (debug/release) matches configuration
+
+### MSW Not Intercepting Requests
+
+**Problem**: API calls not being mocked, tests fail with network errors
 
 **Solution**:
 
-1. Verify MSW is started in hooks
-2. Check handler URL matches exactly
-3. Enable logging:
+1. **Verify MSW is started**:
 
-```typescript
-server.listen({
-  onUnhandledRequest: req => {
-    console.log('Unhandled request:', req.url);
-  },
-});
+   ```typescript
+   // In hooks.ts BeforeAll
+   BeforeAll(async () => {
+     startMockServer(); // Must be called!
+     await device.launchApp();
+   });
+   ```
+
+2. **Check handler URL matches exactly**:
+
+   ```typescript
+   // Handler URL must match API call exactly
+   http.get('https://api.example.com/user/profile', () => { ... })
+
+   // In app:
+   fetch('https://api.example.com/user/profile') // Must match!
+   ```
+
+3. **Enable unhandled request logging**:
+
+   ```typescript
+   server.listen({
+     onUnhandledRequest: req => {
+       console.warn('Unhandled request:', req.method, req.url);
+     },
+   });
+   ```
+
+4. **Check MSW version compatibility**:
+   ```bash
+   # Ensure MSW v2+ is installed
+   yarn list msw
+   ```
+
+### Simulator/Emulator Issues
+
+**Problem**: Simulator not responding or app not installing
+
+**Solution**:
+
+```bash
+# iOS - Reset specific simulator
+xcrun simctl list | grep "iPhone 15 Pro"  # Find UDID
+xcrun simctl erase <UDID>
+
+# iOS - Reset all simulators (WARNING: deletes all data)
+xcrun simctl erase all
+
+# iOS - Boot simulator manually
+xcrun simctl boot "iPhone 15 Pro"
+
+# Android - List emulators
+emulator -list-avds
+
+# Android - Cold boot emulator
+emulator -avd Pixel_7_API_35 -no-snapshot-load
+
+# Android - Wipe emulator data
+emulator -avd Pixel_7_API_35 -wipe-data
 ```
+
+### Step Definition Not Found
+
+**Problem**: "Undefined. Implement with the following snippet:"
+
+**Solution**:
+
+1. **Check file naming**:
+
+   ```
+   HomeScreen.cucumber.tsx  ✓ Correct
+   HomeScreen.steps.tsx     ✗ Wrong (not loaded)
+   ```
+
+2. **Verify Cucumber require paths in package.json**:
+
+   ```json
+   {
+     "detox:ios:test": "... --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'"
+   }
+   ```
+
+3. **Ensure step definition is exported**:
+   ```typescript
+   import { Given, When, Then } from '@cucumber/cucumber';
+   // Steps are auto-registered, no need to export
+   Given('I am on the {string} screen', async (screenName: string) => {
+     // Implementation
+   });
+   ```
+
+### Flaky Tests
+
+**Problem**: Tests pass sometimes and fail other times
+
+**Common Causes & Solutions**:
+
+1. **Timing Issues**:
+
+   ```typescript
+   // Bad - May fail if element appears slowly
+   await element(by.id('button')).tap();
+
+   // Good - Wait for element first
+   await waitFor(element(by.id('button')))
+     .toBeVisible()
+     .withTimeout(5000);
+   await element(by.id('button')).tap();
+   ```
+
+2. **State Leakage Between Tests**:
+
+   ```typescript
+   // Ensure Before hook resets app state
+   Before(async () => {
+     resetMockServer(); // Reset MSW handlers
+     await device.reloadReactNative(); // Reset app state
+   });
+   ```
+
+3. **Animation Interference**:
+
+   ```typescript
+   // Disable animations in test builds
+   await device.launchApp({
+     newInstance: true,
+     launchArgs: { detoxEnableSynchronization: 'NO' },
+   });
+   ```
+
+4. **Network Race Conditions**:
+   ```typescript
+   // Use MSW to return responses immediately
+   // Avoid relying on real network timing
+   ```
 
 ## Next Steps
 
 - See [Testing](./TESTING.md) for unit/integration testing
 - See [Contributing](./CONTRIBUTING.md) for test requirements
 - See [Development](./DEVELOPMENT.md) for running the app
+- See [CHEATSHEET](./CHEATSHEET.md) for quick command reference
+- See [WORKFLOWS](./WORKFLOWS.md) for E2E debugging workflow
+
+---
+
+**Need help?** Check the [Detox documentation](https://wix.github.io/Detox/) or [Cucumber documentation](https://cucumber.io/docs/cucumber/).
