@@ -25,5 +25,11 @@
     "automatic": "Automático",
     "light": "Claro",
     "dark": "Oscuro"
+  },
+  "error": {
+    "title": "Algo Salió Mal",
+    "message": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "tryAgain": "Intentar de Nuevo",
+    "goHome": "Ir al Inicio"
   }
 }

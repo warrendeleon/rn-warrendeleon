@@ -25,5 +25,11 @@
     "automatic": "Automatic",
     "light": "Light",
     "dark": "Dark"
+  },
+  "error": {
+    "title": "Something Went Wrong",
+    "message": "An unexpected error occurred. Please try again.",
+    "tryAgain": "Try Again",
+    "goHome": "Go Home"
   }
 }
