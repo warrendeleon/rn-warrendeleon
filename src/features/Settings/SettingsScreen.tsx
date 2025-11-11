@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { GlobeIcon, MoonIcon, Text } from '@gluestack-ui/themed';
@@ -47,24 +47,27 @@ export const SettingsScreen: React.FC = () => {
     navigation.navigate('Appearance');
   };
 
-  const settingsItems: ChevronButtonGroupItem[] = [
-    {
-      label: t('settings.appearance'),
-      onPress: handleAppearancePress,
-      endLabel: getThemeLabel(),
-      startIcon: MoonIcon,
-      startIconBgColor: '$indigo500',
-      testID: 'settings-appearance-button',
-    },
-    {
-      label: t('settings.language'),
-      onPress: handleLanguagePress,
-      endLabel: getLanguageLabel(),
-      startIcon: GlobeIcon,
-      startIconBgColor: '$blue500',
-      testID: 'settings-language-button',
-    },
-  ];
+  const settingsItems: ChevronButtonGroupItem[] = useMemo(
+    () => [
+      {
+        label: t('settings.appearance'),
+        onPress: handleAppearancePress,
+        endLabel: getThemeLabel(),
+        startIcon: MoonIcon,
+        startIconBgColor: '$indigo500',
+        testID: 'settings-appearance-button',
+      },
+      {
+        label: t('settings.language'),
+        onPress: handleLanguagePress,
+        endLabel: getLanguageLabel(),
+        startIcon: GlobeIcon,
+        startIconBgColor: '$blue500',
+        testID: 'settings-language-button',
+      },
+    ],
+    [t, currentLanguage, currentTheme, handleLanguagePress, handleAppearancePress]
+  );
 
   return (
     <ScrollView

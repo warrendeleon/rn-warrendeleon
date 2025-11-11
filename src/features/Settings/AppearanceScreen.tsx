@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { Text } from '@gluestack-ui/themed';
@@ -30,12 +30,16 @@ export const AppearanceScreen: React.FC = () => {
     navigation.goBack();
   };
 
-  const themeItems: SelectableButtonGroupItem[] = themes.map(theme => ({
-    label: theme.label,
-    onPress: () => handleThemeSelect(theme.value),
-    isSelected: currentTheme === theme.value,
-    testID: `appearance-option-${theme.value}`,
-  }));
+  const themeItems: SelectableButtonGroupItem[] = useMemo(
+    () =>
+      themes.map(theme => ({
+        label: theme.label,
+        onPress: () => handleThemeSelect(theme.value),
+        isSelected: currentTheme === theme.value,
+        testID: `appearance-option-${theme.value}`,
+      })),
+    [t, currentTheme, handleThemeSelect]
+  );
 
   return (
     <ScrollView

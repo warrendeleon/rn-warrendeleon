@@ -5,8 +5,8 @@
 **Epic**: [EPIC-001: Performance Optimization](../epics/EPIC-001-performance-optimization.md)
 **User Story**: [US-001: Smooth & Responsive Interactions](../stories/US-001-smooth-responsive-interactions.md)
 **Created**: 2025-01-11
-**Completed**: _Not yet completed_
-**Status**: Not Started
+**Completed**: 2025-11-11
+**Status**: Completed
 **Priority**: High
 **Effort Estimate**: 0.75 hours
 **Tags**: `performance`, `usememo`, `optimization`
@@ -54,10 +54,10 @@ const settingsItems = useMemo(
 
 ## Acceptance Criteria
 
-- [ ] settingsItems wrapped with useMemo
-- [ ] Dependency array correct (likely `[t]` for translations)
-- [ ] ESLint exhaustive-deps rule passes
-- [ ] All functionality unchanged
+- [x] settingsItems wrapped with useMemo
+- [x] Dependency array correct (`[t, currentLanguage, currentTheme, handleLanguagePress, handleAppearancePress]`)
+- [x] ESLint exhaustive-deps rule passes
+- [x] All functionality unchanged
 
 ---
 
