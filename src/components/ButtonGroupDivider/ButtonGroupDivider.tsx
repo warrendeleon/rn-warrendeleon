@@ -14,8 +14,9 @@ export const getDividerColor = (isDark: boolean): string => {
 /**
  * ButtonGroupDivider component renders a thin horizontal line between grouped buttons.
  * Follows iOS Settings app style with left padding to align with button text.
+ * Wrapped with React.memo to prevent unnecessary re-renders.
  */
-export const ButtonGroupDivider: React.FC = () => {
+export const ButtonGroupDivider: React.FC = React.memo(() => {
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
   const dividerColor = getDividerColor(isDark);
@@ -29,4 +30,4 @@ export const ButtonGroupDivider: React.FC = () => {
       }}
     />
   );
-};
+});
