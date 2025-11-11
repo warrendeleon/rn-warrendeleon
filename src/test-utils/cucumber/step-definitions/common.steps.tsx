@@ -52,6 +52,47 @@ When('I wait for {int} seconds', async function (this: DetoxWorld, seconds: numb
   await new Promise(resolve => setTimeout(resolve, seconds * 1000));
 });
 
+When(
+  'I dismiss the React Native error screen',
+  { timeout: 30000 },
+  async function (this: DetoxWorld) {
+    // In development mode, React Native shows error screens (red) and warning boxes (yellow)
+    // Both have "Dismiss" buttons that need to be tapped
+    // Multiple errors/warnings can stack, requiring multiple dismisses (typically 3-4)
+    // We need to tap "Dismiss" repeatedly until all are cleared
+    // and the ErrorBoundary FallbackUI is revealed underneath
+
+    const MAX_DISMISS_ATTEMPTS = 10;
+    let dismissCount = 0;
+
+    for (let attempt = 0; attempt < MAX_DISMISS_ATTEMPTS; attempt++) {
+      try {
+        // Try to find and tap the "Dismiss" button
+        await waitFor(element(by.text('Dismiss')))
+          .toBeVisible()
+          .withTimeout(1000);
+
+        // Dismiss button found - tap it
+        await element(by.text('Dismiss')).tap();
+        dismissCount++;
+
+        // Wait for the error/warning to dismiss before checking again
+        await new Promise(resolve => setTimeout(resolve, 500));
+      } catch {
+        // "Dismiss" button not found - all errors/warnings have been cleared
+        console.log(`Successfully dismissed ${dismissCount} error(s)/warning(s)`);
+        return;
+      }
+    }
+
+    // If we get here, we hit max attempts and still see errors/warnings
+    throw new Error(
+      `Failed to clear error/warning screens after ${MAX_DISMISS_ATTEMPTS} attempts. ` +
+        `ErrorBoundary FallbackUI may not be working correctly.`
+    );
+  }
+);
+
 // Common Then steps
 
 Then('I should see the {string} screen', async function (this: DetoxWorld, screenName: string) {
@@ -91,6 +132,21 @@ Then('I should see text {string}', async function (this: DetoxWorld, text: strin
     .toBeVisible()
     .withTimeout(5000);
 });
+
+Then('I should see the text {string}', async function (this: DetoxWorld, text: string) {
+  await waitFor(element(by.text(text)))
+    .toBeVisible()
+    .withTimeout(5000);
+});
+
+Then(
+  'I should see the element with testID {string}',
+  async function (this: DetoxWorld, testID: string) {
+    await waitFor(element(by.id(testID)))
+      .toBeVisible()
+      .withTimeout(5000);
+  }
+);
 
 Then(
   'the element with testID {string} should contain text {string}',

@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { ButtonWithChevron } from '@app/components';
+import { ButtonWithChevron, TestErrorButton } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 
@@ -33,6 +33,7 @@ export const HomeScreen: React.FC = () => {
           onPress={() => handleSettingsPress(navigation)}
           testID="home-settings-button"
         />
+        <TestErrorButton />
       </View>
     </ScrollView>
   );

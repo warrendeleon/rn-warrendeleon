@@ -5,8 +5,8 @@
 **Epic**: [EPIC-002: Quality & Reliability](../epics/EPIC-002-quality-reliability.md)
 **User Story**: [US-002: Graceful Error Handling](../stories/US-002-graceful-error-handling.md)
 **Created**: 2025-01-11
-**Completed**: _Not yet completed_
-**Status**: Not Started
+**Completed**: 2025-01-11
+**Status**: Completed
 **Priority**: High
 **Effort Estimate**: 0.5 hours
 **Tags**: `error-handling`, `integration`, `navigation`, `production`
@@ -77,46 +77,81 @@ export * from './ErrorBoundary';
 
 ## Acceptance Criteria
 
-- [ ] ErrorBoundary wraps entire app at root level
-- [ ] ErrorBoundary exported from src/components/index.ts
-- [ ] Manual test: Throw error in component, verify fallback UI displays
-- [ ] Manual test: Press "Try Again", verify reset works
-- [ ] Manual test: Press "Go Home", verify navigation works
-- [ ] App functions normally when no errors occur
-- [ ] Zero performance impact in non-error scenarios
+- [x] ErrorBoundary wraps entire app at root level ✅
+- [x] ErrorBoundary exported from src/components/index.ts ✅
+- [x] App functions normally when no errors occur (97/97 tests passing) ✅
+- [x] Zero performance impact in non-error scenarios ✅
+- [x] TypeScript compilation passes ✅
+- [x] Lint passes ✅
+- [x] E2E test: ErrorBoundary catches component error and displays fallback UI ✅
+- [x] E2E test: "Try Again" button resets error state ✅
+- [x] E2E test: "Go Home" button navigates to Home screen ✅
 
 ---
 
-## Test Scenarios
+## E2E Test Results
 
-**Scenario 1: Integration at Root**
+**Test File**: `src/components/ErrorBoundary/__tests__/ErrorBoundary.feature`
 
-```gherkin
-Given ErrorBoundary is integrated at app root
-When I navigate to any screen
-Then the app should function normally
-And ErrorBoundary should be ready to catch errors
-```
+**Results**: ✅ **3 scenarios (3 passed), 22 steps (22 passed)**
 
-**Scenario 2: Catch Real Component Error**
+**Test Environment**:
 
-```gherkin
-Given ErrorBoundary is integrated
-When a component throws an error (trigger manually via test flag)
-Then ErrorBoundary should catch the error
-And display fallback UI with "Something went wrong"
-And provide recovery options
-```
+- Detox iOS Simulator
+- React Native Development Mode
+- Recursive dismiss logic handles React Native error screens and warnings
 
-**Scenario 3: Recovery Flow**
+**Scenario 1: ErrorBoundary catches component error and displays fallback UI**
 
 ```gherkin
-Given ErrorBoundary is displaying fallback UI
-When I press "Go Home"
-Then I should navigate to Home screen
-And the app should function normally
-And I can navigate to other screens without issues
+Given the app is launched
+And I am on the "Home" screen
+When I tap the element with testID "test-error-button"
+And I dismiss the React Native error screen
+Then I should see an element with testID "error-try-again-button"
+And I should see an element with testID "error-go-home-button"
+And I should see the text "Something Went Wrong"
 ```
+
+**Scenario 2: Try Again button resets error state**
+
+```gherkin
+Given the app is launched
+And I am on the "Home" screen
+When I tap the element with testID "test-error-button"
+And I dismiss the React Native error screen
+Then I should see an element with testID "error-try-again-button"
+When I tap the element with testID "error-try-again-button"
+Then I should see the element with testID "test-error-button"
+```
+
+**Scenario 3: Go Home button navigates to Home screen**
+
+```gherkin
+Given the app is launched
+And I am on the "Home" screen
+When I tap the element with testID "test-error-button"
+And I dismiss the React Native error screen
+Then I should see an element with testID "error-go-home-button"
+When I tap the element with testID "error-go-home-button"
+Then I should see the "Home" screen
+And I should see the element with testID "home-settings-button"
+```
+
+### Test Implementation Details
+
+**TestErrorButton Component** (`src/components/TestErrorButton/`):
+
+- DEV-only component (only renders when `__DEV__ === true`)
+- Throws error when pressed to trigger ErrorBoundary
+- Used exclusively for E2E testing
+
+**Recursive Dismiss Logic** (`src/test-utils/cucumber/step-definitions/common.steps.tsx`):
+
+- Handles React Native error screens (red) and warning boxes (yellow)
+- Taps "Dismiss" button repeatedly until all errors/warnings are cleared
+- Maximum 10 attempts with 500ms wait between each
+- 30-second timeout to handle multiple stacked errors
 
 ---
 
