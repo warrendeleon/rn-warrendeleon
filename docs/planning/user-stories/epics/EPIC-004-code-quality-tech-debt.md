@@ -5,8 +5,8 @@
 **Created**: 2025-01-11
 **Status**: Not Started
 **Priority**: Medium
-**Total Effort**: 4 hours
-**Total Tasks**: 4
+**Total Effort**: 4.25 hours
+**Total Tasks**: 5
 
 ---
 
@@ -174,12 +174,13 @@ This epic's prerequisites (TASK-023, TASK-024) block:
 
 ## Timeline
 
-**Estimated Duration**: 1 day (4 hours total)
+**Estimated Duration**: 1 day (4.25 hours total)
 
-### Day 1 (4 hours)
+### Day 1 (4.25 hours)
 
 - Remove unused dependencies (TASK-023): 0.25h
 - Add @types/node (TASK-024): 0.25h
+- Standardise component imports (TASK-027): 0.25h
 - Extract label utilities (TASK-025): 1h
 - ButtonGroup abstraction analysis (TASK-026): 2.5h
 
@@ -189,14 +190,15 @@ This epic's prerequisites (TASK-023, TASK-024) block:
 
 ## Tasks
 
-| ID                                                          | Task                            | Effort | Priority |
-| ----------------------------------------------------------- | ------------------------------- | ------ | -------- |
-| [TASK-023](../tasks/TASK-023-remove-unused-dependencies.md) | Remove Unused Dependencies      | 0.25h  | High     |
-| [TASK-024](../tasks/TASK-024-add-missing-types.md)          | Add Missing @types/node         | 0.25h  | High     |
-| [TASK-025](../tasks/TASK-025-extract-label-utilities.md)    | Extract Accessibility Utilities | 1h     | Medium   |
-| [TASK-026](../tasks/TASK-026-button-group-abstraction.md)   | ButtonGroup Abstraction         | 2.5h   | Low      |
+| ID                                                             | Task                            | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------- | ------ | -------- |
+| [TASK-023](../tasks/TASK-023-remove-unused-dependencies.md)    | Remove Unused Dependencies      | 0.25h  | High     |
+| [TASK-024](../tasks/TASK-024-add-missing-types.md)             | Add Missing @types/node         | 0.25h  | High     |
+| [TASK-025](../tasks/TASK-025-extract-label-utilities.md)       | Extract Accessibility Utilities | 1h     | Medium   |
+| [TASK-026](../tasks/TASK-026-button-group-abstraction.md)      | ButtonGroup Abstraction         | 2.5h   | Low      |
+| [TASK-027](../tasks/TASK-027-standardise-component-imports.md) | Standardise Component Imports   | 0.25h  | Low      |
 
-**Total**: 4 tasks, 4 hours
+**Total**: 5 tasks, 4.25 hours
 
 ---
 
