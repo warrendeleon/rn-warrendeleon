@@ -5,8 +5,8 @@
 **Epic**: [EPIC-001: Performance Optimization](../epics/EPIC-001-performance-optimization.md)
 **User Story**: [US-001: Smooth & Responsive Interactions](../stories/US-001-smooth-responsive-interactions.md)
 **Created**: 2025-01-11
-**Completed**: _Not yet completed_
-**Status**: Not Started
+**Completed**: 2025-01-12
+**Status**: Completed
 **Priority**: High
 **Effort Estimate**: 0.5 hours
 **Tags**: `performance`, `usecallback`
@@ -35,9 +35,9 @@ Wrap language selection handler with `useCallback(() => {...}, [dependencies])`.
 
 ## Acceptance Criteria
 
-- [ ] Selection handler wrapped with useCallback
-- [ ] Dependency array correct (likely `[dispatch]`)
-- [ ] ESLint passes
+- [x] Selection handler wrapped with useCallback
+- [x] Dependency array correct (`[dispatch, i18n, navigation]`)
+- [x] ESLint passes
 
 ---
 
@@ -47,4 +47,4 @@ Wrap language selection handler with `useCallback(() => {...}, [dependencies])`.
 
 ---
 
-**Last Updated**: 2025-01-11
+**Last Updated**: 2025-01-12
