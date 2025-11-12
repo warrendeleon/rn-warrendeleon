@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ReactNative from 'react-native';
+import { screen } from '@testing-library/react-native';
 
 import { renderWithProviders } from '@app/test-utils';
 
@@ -90,6 +91,57 @@ describe('SelectableListButton', () => {
           <SelectableListButton label="Clickable" onPress={mockOnPress} testID="clickable-button" />
         )
       ).not.toThrow();
+    });
+  });
+
+  describe('Accessibility Props', () => {
+    const mockUseColorScheme = jest.spyOn(ReactNative, 'useColorScheme') as jest.Mock;
+
+    beforeEach(() => {
+      mockUseColorScheme.mockReturnValue('light');
+    });
+
+    it('has accessibilityRole set to "button"', () => {
+      renderWithProviders(<SelectableListButton label="Test Button" testID="test-button" />);
+
+      const button = screen.getByTestId('test-button');
+      expect(button).toHaveProp('accessibilityRole', 'button');
+    });
+
+    it('has accessibilityLabel without selection state when not selected', () => {
+      renderWithProviders(
+        <SelectableListButton label="English" isSelected={false} testID="english-button" />
+      );
+
+      const button = screen.getByTestId('english-button');
+      expect(button).toHaveProp('accessibilityLabel', 'English');
+    });
+
+    it('has accessibilityLabel with selection state when selected', () => {
+      renderWithProviders(
+        <SelectableListButton label="English" isSelected={true} testID="english-button" />
+      );
+
+      const button = screen.getByTestId('english-button');
+      expect(button).toHaveProp('accessibilityLabel', 'English, selected');
+    });
+
+    it('has accessibilityState with selected: false when not selected', () => {
+      renderWithProviders(
+        <SelectableListButton label="Spanish" isSelected={false} testID="spanish-button" />
+      );
+
+      const button = screen.getByTestId('spanish-button');
+      expect(button).toHaveProp('accessibilityState', { selected: false });
+    });
+
+    it('has accessibilityState with selected: true when selected', () => {
+      renderWithProviders(
+        <SelectableListButton label="Spanish" isSelected={true} testID="spanish-button" />
+      );
+
+      const button = screen.getByTestId('spanish-button');
+      expect(button).toHaveProp('accessibilityState', { selected: true });
     });
   });
 });

@@ -5,8 +5,8 @@
 **Epic**: [EPIC-001: Performance Optimization](../epics/EPIC-001-performance-optimization.md)
 **User Story**: [US-001: Smooth & Responsive Interactions](../stories/US-001-smooth-responsive-interactions.md)
 **Created**: 2025-01-11
-**Completed**: _Not yet completed_
-**Status**: Not Started
+**Completed**: 2025-01-12
+**Status**: Completed
 **Priority**: Medium
 **Effort Estimate**: 1 hour
 **Tags**: `performance`, `redux`, `reselect`, `optimization`
@@ -52,10 +52,10 @@ export const selectLanguage = createSelector(selectSettings, settings => setting
 
 ## Acceptance Criteria
 
-- [ ] All selectors use createSelector
-- [ ] Selectors only recompute when state slice changes
-- [ ] All existing functionality unchanged
-- [ ] Tests verify memoization works
+- [x] All selectors use createSelector
+- [x] Selectors only recompute when state slice changes
+- [x] All existing functionality unchanged
+- [x] Tests verify memoization works
 
 ---
 
@@ -95,4 +95,27 @@ And return the new value
 
 ---
 
-**Last Updated**: 2025-01-11
+## Implementation Summary
+
+**Date Completed**: 2025-01-12
+
+**Changes Made**:
+
+- Converted `selectTheme` and `selectLanguage` to use `createSelector` from Redux Toolkit
+- Added base selector `selectSettings` for optimal memoization
+- Enhanced test suite with 8 comprehensive tests verifying:
+  - Correct value extraction from state
+  - Memoization (same reference when state unchanged)
+  - Recomputation when settings slice changes
+  - No recomputation when unrelated state changes
+
+**Results**:
+
+- All 31 Settings-related tests passing
+- 100% coverage maintained on Redux store
+- Selectors now only recompute when `state.settings` changes
+- No breaking changes to existing functionality
+
+---
+
+**Last Updated**: 2025-01-12
