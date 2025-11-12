@@ -1,14 +1,13 @@
 # US-002: Graceful Error Handling
 
-**ID**: US-002
+**Story ID**: US-002
 **Title**: Graceful Error Handling
 **Epic**: [EPIC-002: Quality & Reliability](../epics/EPIC-002-quality-reliability.md)
-**Created**: 2025-01-11
-**Completed**: _Not yet completed_
 **Status**: Not Started
 **Priority**: High
-**Effort Estimate**: 2 hours
-**Tags**: `reliability`, `error-handling`, `ux`, `production`
+**Created**: 2025-01-11
+**Assigned To**: Warren de Leon
+**Category**: Quality
 
 ---
 
@@ -54,6 +53,17 @@ React Error Boundaries provide a way to catch errors in component trees, log the
 - Error logging for debugging and monitoring
 - Safety net during refactoring and development
 - Foundation for error monitoring service integration (Sentry/Bugsnag)
+
+---
+
+## Impact & Effort
+
+**Impact**: High
+**Effort**: Low
+**Story Points**: 2
+
+**Effort Estimate**: 2 hours
+**Actual Effort**: _To be tracked_
 
 ---
 
@@ -138,14 +148,13 @@ React Error Boundaries provide a way to catch errors in component trees, log the
 - [ ] Integration into RootNavigator
 - [ ] No impact on non-error scenarios (zero overhead)
 - [ ] All existing tests pass
+- [ ] No regressions introduced
 
 ---
 
 ## Test Scenarios
 
-### Error Boundary Functionality
-
-**Scenario 1: Component Error Caught**
+### Scenario 1: Component Error Caught
 
 ```gherkin
 Given the ErrorBoundary is integrated at navigation root
@@ -156,7 +165,7 @@ And log the error details to console
 And the rest of the app should remain functional
 ```
 
-**Scenario 2: Recovery Flow - Try Again**
+### Scenario 2: Recovery Flow - Try Again
 
 ```gherkin
 Given the ErrorBoundary is displaying fallback UI
@@ -166,7 +175,7 @@ And attempt to re-render the errored component
 And if successful, display the component normally
 ```
 
-**Scenario 3: Recovery Flow - Go Home**
+### Scenario 3: Recovery Flow - Go Home
 
 ```gherkin
 Given the ErrorBoundary is displaying fallback UI
@@ -176,7 +185,7 @@ And the ErrorBoundary should reset state
 And the Home screen should display normally
 ```
 
-**Scenario 4: Feature Isolation**
+### Scenario 4: Feature Isolation
 
 ```gherkin
 Given ErrorBoundary is placed at feature boundaries
@@ -186,19 +195,39 @@ And the Settings screen remains accessible via back button
 And the Home screen remains accessible
 ```
 
-### E2E Testing (Detox)
-
-**Scenario 5: Error Boundary E2E**
+### E2E Testing (Detox + Cucumber)
 
 ```gherkin
-Given I am on the Settings screen
-And a component error is triggered (via test flag)
-When the error occurs
-Then I should see text "Something went wrong"
-And I should see a "Try Again" button
-And I should see a "Go Home" button
-And I can tap "Go Home" to return to Home screen
+Scenario: ErrorBoundary catches error and displays fallback UI
+  Given the app is launched
+  When I tap the element with testID "test-error-button"
+  And I dismiss the React Native error screen
+  Then I should see an element with testID "error-try-again-button"
+  And I should see an element with testID "error-go-home-button"
 ```
+
+---
+
+## Definition of Ready
+
+- [x] User story statement written (As a/I want/So that)
+- [x] Acceptance criteria defined
+- [x] Story points estimated
+- [x] Dependencies identified
+- [x] Epic linked
+- [x] Technical approach discussed
+
+---
+
+## Definition of Done
+
+- [ ] All acceptance criteria met
+- [ ] Code reviewed and approved
+- [ ] Tests written and passing (unit + E2E)
+- [ ] Documentation updated
+- [ ] No regressions
+- [ ] Deployed to staging
+- [ ] Product owner approval
 
 ---
 
@@ -225,7 +254,8 @@ And I can tap "Go Home" to return to Home screen
 | [TASK-012](../tasks/TASK-012-test-error-boundary.md)      | Test ErrorBoundary             | 0.5h   | High     | Not Started |
 | [TASK-013](../tasks/TASK-013-integrate-error-boundary.md) | Integrate ErrorBoundary        | 0.5h   | High     | Not Started |
 
-**Total**: 3 tasks, 2 hours
+**Total Tasks**: 3
+**Total Effort**: 2 hours
 
 ---
 
@@ -263,6 +293,44 @@ Deploy to app navigation:
 
 ---
 
+## Timeline & Dates
+
+**Start Date**: 2025-01-11
+**Completed Date**: _Not yet completed_
+
+---
+
+## Blocked Information
+
+**Blocked Since**: _Not blocked_
+**Blocked Reason**: _N/A_
+
+---
+
+## Status History
+
+_Auto-tracked when status changes_
+
+| Date       | Status      | Notes         |
+| ---------- | ----------- | ------------- |
+| 2025-01-11 | Not Started | Story created |
+
+---
+
+## Work Log
+
+_Manual developer notes for significant updates_
+
+---
+
+## Technical Debt
+
+**Technical Debt Score**: 0
+
+This story pays down reliability debt by adding error resilience.
+
+---
+
 ## Success Criteria
 
 This user story is complete when:
@@ -270,7 +338,7 @@ This user story is complete when:
 1. ✅ **Error Resilience**: Component errors display fallback UI, no full-app crashes
 2. ✅ **Recovery Options**: Users can "Try Again" or "Go Home" from error state
 3. ✅ **All Tasks Complete**: 3 tasks implemented, tested, and merged
-4. ✅ **Comprehensive Testing**: Unit tests + manual testing with real errors
+4. ✅ **Comprehensive Testing**: Unit tests + E2E tests + manual testing with real errors
 5. ✅ **Production Ready**: Deployed at navigation root and feature boundaries
 6. ✅ **Documentation**: Error handling strategy documented in code comments
 
@@ -313,4 +381,4 @@ _To be filled in during/after implementation_
 
 ---
 
-**Last Updated**: 2025-01-11
+**Last Updated**: 2025-01-12

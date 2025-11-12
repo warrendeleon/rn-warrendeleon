@@ -1,14 +1,13 @@
 # US-001: Smooth & Responsive Interactions
 
-**ID**: US-001
+**Story ID**: US-001
 **Title**: Smooth & Responsive Interactions
 **Epic**: [EPIC-001: Performance Optimization](../epics/EPIC-001-performance-optimization.md)
-**Created**: 2025-01-11
-**Completed**: _Not yet completed_
 **Status**: Not Started
 **Priority**: High
-**Effort Estimate**: 6 hours
-**Tags**: `performance`, `ux`, `memoization`, `redux`
+**Created**: 2025-01-11
+**Assigned To**: Warren de Leon
+**Category**: Performance
 
 ---
 
@@ -33,6 +32,8 @@ React Native apps can achieve native-level performance when properly optimised. 
 
 This user story addresses the #1 user complaint about app performance and directly impacts app store ratings and user retention.
 
+**Real-world scenario**: A user scrolling through the Settings screen to change language expects instant 60 FPS scrolling like iOS native apps. Currently, they experience visible stuttering and frame drops.
+
 **Related Epic**: See [EPIC-001](../epics/EPIC-001-performance-optimization.md) for business value, success metrics, and technical approach details.
 
 ---
@@ -49,16 +50,27 @@ This user story addresses the #1 user complaint about app performance and direct
 ### Business Impact
 
 - Higher app store ratings (target: 4.2★ → 4.5★+)
-- Reduced user churn and complaints
+- Reduced user churn from performance complaints (-67% support tickets)
 - Competitive parity with polished apps
 - Better first impressions for new users
 
 ### Technical Benefits
 
-- Established memoization patterns for future features
+- Established memoisation patterns for future features
 - Reduced CPU usage and battery drain
 - Foundation for more complex UI features
 - Developer confidence in performance
+
+---
+
+## Impact & Effort
+
+**Impact**: High
+**Effort**: Medium
+**Story Points**: 8
+
+**Effort Estimate**: 6 hours
+**Actual Effort**: _To be tracked_
 
 ---
 
@@ -74,14 +86,14 @@ This user story addresses the #1 user complaint about app performance and direct
 - Comprehensive testing of all interactive scenarios
 - Code review focus on dependency arrays
 
-### Risk 2: Over-memoization Complexity
+### Risk 2: Over-memoisation Complexity
 
 **Impact**: Code becomes harder to understand and maintain
 **Likelihood**: Low
 **Mitigation**:
 
 - Only memoize components in lists or with expensive renders
-- Document why each memoization exists
+- Document why each memoisation exists
 - Profile before/after to prove value
 
 ---
@@ -100,7 +112,7 @@ This user story addresses the #1 user complaint about app performance and direct
 
 ❌ Adds complexity with useMemo/useCallback/React.memo
 ❌ Requires discipline with dependency arrays
-❌ Marginal memory overhead from memoization caches
+❌ Marginal memory overhead from memoisation caches
 ❌ May need refactoring if component logic changes
 
 **Trade-off**: Slight code complexity increase for significant UX improvement. The benefits far outweigh the costs.
@@ -117,29 +129,28 @@ This user story addresses the #1 user complaint about app performance and direct
 - [ ] Button presses respond instantly (no delay)
 - [ ] All existing functionality works identically
 
-### Performance
+### Coverage
 
-- [ ] Component re-renders reduced by 70%+ (30 → 9 or fewer per scroll)
-- [ ] Frame rate improved to 58-60 FPS during interactions
-- [ ] React DevTools Profiler shows memoization working
+- [ ] React DevTools Profiler shows memoisation working
 - [ ] No performance regressions on slower devices
 
 ### Technical
 
+- [ ] Component re-renders reduced by 70%+ (30 → 9 or fewer per scroll)
+- [ ] Frame rate improved to 58-60 FPS during interactions
 - [ ] All components in lists wrapped with React.memo
 - [ ] Expensive computations wrapped with useMemo
 - [ ] Event handlers wrapped with useCallback
 - [ ] Redux selectors use createSelector (Reselect)
 - [ ] All tests pass (100% coverage maintained)
 - [ ] ESLint exhaustive-deps rule enabled and passing
+- [ ] No regressions introduced
 
 ---
 
 ## Test Scenarios
 
-### Performance Testing
-
-**Scenario 1: Settings Screen Scroll Performance**
+### Scenario 1: Settings Screen Scroll Performance
 
 ```gherkin
 Given I am on the Settings screen
@@ -149,7 +160,7 @@ And there should be no visible stuttering or lag
 And React DevTools Profiler shows ButtonWithChevron not re-rendering unnecessarily
 ```
 
-**Scenario 2: Button Response Time**
+### Scenario 2: Button Response Time
 
 ```gherkin
 Given I am on the Settings screen
@@ -158,7 +169,7 @@ Then the navigation should occur instantly (< 100ms)
 And there should be no visible delay or frame drop
 ```
 
-**Scenario 3: Re-render Count Validation**
+### Scenario 3: Re-render Count Validation
 
 ```gherkin
 Given React DevTools Profiler is recording
@@ -167,9 +178,7 @@ Then the total number of component re-renders should be 9 or fewer
 And each ButtonWithChevron should re-render at most once
 ```
 
-### Regression Testing
-
-**Scenario 4: Functionality Unchanged**
+### Scenario 4: Functionality Unchanged
 
 ```gherkin
 Given the performance optimisations are applied
@@ -181,6 +190,29 @@ And all language changes should apply correctly
 
 ---
 
+## Definition of Ready
+
+- [x] User story statement written (As a/I want/So that)
+- [x] Acceptance criteria defined
+- [x] Story points estimated
+- [x] Dependencies identified
+- [x] Epic linked
+- [x] Technical approach discussed
+
+---
+
+## Definition of Done
+
+- [ ] All acceptance criteria met
+- [ ] Code reviewed and approved
+- [ ] Tests written and passing (unit + integration)
+- [ ] Documentation updated
+- [ ] No regressions
+- [ ] Deployed to staging
+- [ ] Product owner approval
+
+---
+
 ## Dependencies
 
 ### Blockers
@@ -189,7 +221,7 @@ And all language changes should apply correctly
 - [TASK-024](../tasks/TASK-024-add-missing-types.md): Add @types/node first
 - [TASK-011](../tasks/TASK-011-create-error-boundary.md): Error Boundary in place as safety net
 
-### Related Stories
+### Enables
 
 - [US-004](./US-004-comprehensive-test-coverage.md): Tests validate performance improvements
 
@@ -208,15 +240,16 @@ And all language changes should apply correctly
 | [TASK-007](../tasks/TASK-007-usecallback-settings-screen.md)   | useCallback SettingsScreen      | 0.5h   | High     | Not Started |
 | [TASK-008](../tasks/TASK-008-usecallback-language-screen.md)   | useCallback LanguageScreen      | 0.5h   | High     | Not Started |
 | [TASK-009](../tasks/TASK-009-usecallback-appearance-screen.md) | useCallback AppearanceScreen    | 0.5h   | High     | Not Started |
-| [TASK-010](../tasks/TASK-010-optimize-redux-selectors.md)      | Optimize Redux Selectors        | 1h     | Medium   | Not Started |
+| [TASK-010](../tasks/TASK-010-optimize-redux-selectors.md)      | Optimise Redux Selectors        | 1h     | Medium   | Not Started |
 
-**Total**: 10 tasks, 6 hours
+**Total Tasks**: 10
+**Total Effort**: 6 hours
 
 ---
 
 ## Implementation Phases
 
-### Phase 1: Component Memoization (1.5h)
+### Phase 1: Component Memoisation (1.5h)
 
 Apply React.memo to list components to prevent unnecessary re-renders:
 
@@ -246,7 +279,7 @@ Wrap event handlers with useCallback:
 
 **Validation**: Function references stable, child components don't re-render
 
-### Phase 4: Redux Optimization (1h)
+### Phase 4: Redux Optimisation (1h)
 
 Memoize Redux selectors with createSelector:
 
@@ -263,6 +296,44 @@ Memoize Redux selectors with createSelector:
 
 ---
 
+## Timeline & Dates
+
+**Start Date**: 2025-01-11
+**Completed Date**: _Not yet completed_
+
+---
+
+## Blocked Information
+
+**Blocked Since**: _Not blocked_
+**Blocked Reason**: _N/A_
+
+---
+
+## Status History
+
+_Auto-tracked when status changes_
+
+| Date       | Status      | Notes         |
+| ---------- | ----------- | ------------- |
+| 2025-01-11 | Not Started | Story created |
+
+---
+
+## Work Log
+
+_Manual developer notes for significant updates_
+
+---
+
+## Technical Debt
+
+**Technical Debt Score**: 0
+
+This story pays down performance debt by implementing memoisation patterns.
+
+---
+
 ## Success Criteria
 
 This user story is complete when:
@@ -271,8 +342,30 @@ This user story is complete when:
 2. ✅ **Frame Rate Achieved**: Consistent 58-60 FPS during scrolling and interactions
 3. ✅ **All Tasks Complete**: 10 tasks implemented, tested, and merged
 4. ✅ **Zero Regressions**: All existing functionality works identically
-5. ✅ **Profiler Validation**: React DevTools Profiler confirms memoization effectiveness
+5. ✅ **Profiler Validation**: React DevTools Profiler confirms memoisation effectiveness
 6. ✅ **Physical Device Testing**: Tested on actual iPhone, performance validated
+
+---
+
+## Alternative Approaches
+
+### Alternative 1: FlatList Virtualisation
+
+Use FlatList instead of ScrollView for lists.
+
+**Pros**: Built-in virtualisation, handles large lists well
+**Cons**: Current lists are small (< 10 items), unnecessary complexity
+
+**Decision**: Memoisation sufficient for current list sizes (future consideration for large lists)
+
+### Alternative 2: Native Optimisation
+
+Optimise at native module level instead of React layer.
+
+**Pros**: Potentially better performance
+**Cons**: High complexity, React-level optimisation usually sufficient
+
+**Decision**: React-level optimisation first, native optimisation only if needed
 
 ---
 
@@ -293,4 +386,4 @@ _To be filled in during/after implementation_
 
 ---
 
-**Last Updated**: 2025-01-11
+**Last Updated**: 2025-01-12
