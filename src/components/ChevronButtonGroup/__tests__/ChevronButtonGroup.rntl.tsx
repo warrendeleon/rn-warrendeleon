@@ -3,246 +3,306 @@ import * as ReactNative from 'react-native';
 
 import { renderWithProviders } from '@app/test-utils';
 
+import type { ChevronButtonGroupItem } from '../ChevronButtonGroup';
 import { ChevronButtonGroup } from '../ChevronButtonGroup';
 
 describe('ChevronButtonGroup', () => {
-  describe('ChevronButtonGroup Component', () => {
-    const mockUseColorScheme = jest.spyOn(ReactNative, 'useColorScheme') as jest.Mock;
+  const mockUseColorScheme = jest.spyOn(ReactNative, 'useColorScheme') as jest.Mock;
 
-    beforeEach(() => {
-      mockUseColorScheme.mockReset();
+  beforeEach(() => {
+    mockUseColorScheme.mockReset();
+    mockUseColorScheme.mockReturnValue('light');
+  });
+
+  describe('Rendering', () => {
+    it('renders empty container when items array is empty', () => {
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={[]} />);
+      expect(UNSAFE_root).toBeDefined();
     });
 
-    describe('Rendering', () => {
-      it('renders a single item without crashing in light mode', () => {
-        mockUseColorScheme.mockReturnValue('light');
+    it('renders single button correctly', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Button 1', onPress: jest.fn(), testID: 'button-1' },
+      ];
 
-        const items = [
-          {
-            label: 'Single Item',
-            onPress: jest.fn(),
-          },
-        ];
-
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
-
-      it('renders multiple items without crashing in dark mode', () => {
-        mockUseColorScheme.mockReturnValue('dark');
-
-        const items = [
-          { label: 'First Item', onPress: jest.fn() },
-          { label: 'Second Item', onPress: jest.fn() },
-          { label: 'Third Item', onPress: jest.fn() },
-        ];
-
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
-
-      it('renders items with all optional props without crashing', () => {
-        mockUseColorScheme.mockReturnValue('light');
-
-        const MockIcon = () => null;
-
-        const items = [
-          {
-            label: 'Complex Item',
-            onPress: jest.fn(),
-            startIcon: MockIcon,
-            startIconBgColor: '$blue500',
-            endLabel: 'Detail',
-            testID: 'complex-item',
-          },
-        ];
-
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
-
-      it('renders with two items (exercises top and bottom variants)', () => {
-        mockUseColorScheme.mockReturnValue('light');
-
-        const items = [
-          { label: 'First', onPress: jest.fn() },
-          { label: 'Last', onPress: jest.fn() },
-        ];
-
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
-
-      it('renders with four items (exercises top, middle, middle, bottom)', () => {
-        mockUseColorScheme.mockReturnValue('dark');
-
-        const items = [
-          { label: 'Top Item', onPress: jest.fn() },
-          { label: 'Middle 1', onPress: jest.fn() },
-          { label: 'Middle 2', onPress: jest.fn() },
-          { label: 'Bottom Item', onPress: jest.fn() },
-        ];
-
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
-
-      it('renders in light mode without divider on single item', () => {
-        mockUseColorScheme.mockReturnValue('light');
-
-        const items = [{ label: 'Only One', onPress: jest.fn() }];
-
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
-
-      it('renders in dark mode without divider on single item', () => {
-        mockUseColorScheme.mockReturnValue('dark');
-
-        const items = [{ label: 'Singular', onPress: jest.fn() }];
-
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
     });
 
-    describe('Edge Cases', () => {
-      it('renders empty View when items array is empty', () => {
-        mockUseColorScheme.mockReturnValue('light');
+    it('renders multiple buttons correctly', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Button 1', onPress: jest.fn(), testID: 'button-1' },
+        { label: 'Button 2', onPress: jest.fn(), testID: 'button-2' },
+        { label: 'Button 3', onPress: jest.fn(), testID: 'button-3' },
+      ];
 
-        const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={[]} />);
-
-        // Component should render successfully (not crash) with empty items
-        expect(UNSAFE_root).toBeDefined();
-      });
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
     });
 
-    describe('Button Rendering', () => {
-      it('renders correct number of buttons from items config', () => {
-        mockUseColorScheme.mockReturnValue('light');
+    it('renders button with all optional props', () => {
+      const MockIcon = () => null;
 
-        const items = [
-          { label: 'Button 1', onPress: jest.fn() },
-          { label: 'Button 2', onPress: jest.fn() },
-          { label: 'Button 3', onPress: jest.fn() },
-        ];
+      const items: ChevronButtonGroupItem[] = [
+        {
+          label: 'Complex Item',
+          onPress: jest.fn(),
+          startIcon: MockIcon,
+          startIconBgColor: '$blue500',
+          endLabel: 'Detail',
+          testID: 'complex-item',
+        },
+      ];
 
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+  });
 
-      it('renders items with all optional props without crashing', () => {
-        mockUseColorScheme.mockReturnValue('light');
+  describe('GroupVariant Application', () => {
+    it('applies correct variant for single item', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Only One', onPress: jest.fn(), testID: 'single-button' },
+      ];
 
-        const MockIcon = () => null;
-        const items = [
-          {
-            label: 'Language',
-            onPress: jest.fn(),
-            startIcon: MockIcon,
-            startIconBgColor: '$blue500',
-            endLabel: 'English',
-            testID: 'language-button',
-          },
-        ];
-
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
-
-      it('renders items with different props', () => {
-        mockUseColorScheme.mockReturnValue('light');
-
-        const MockIcon1 = () => null;
-        const MockIcon2 = () => null;
-
-        const items = [
-          {
-            label: 'Language',
-            onPress: jest.fn(),
-            startIcon: MockIcon1,
-            startIconBgColor: '$blue500',
-            endLabel: 'English',
-          },
-          {
-            label: 'Appearance',
-            onPress: jest.fn(),
-            startIcon: MockIcon2,
-            startIconBgColor: '$indigo500',
-            endLabel: 'Automatic',
-          },
-          {
-            label: 'Settings',
-            onPress: jest.fn(),
-          },
-        ];
-
-        expect(() => renderWithProviders(<ChevronButtonGroup items={items} />)).not.toThrow();
-      });
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
     });
 
-    describe('Event Handlers', () => {
-      it('does not crash when button onPress handler is invoked', () => {
-        mockUseColorScheme.mockReturnValue('light');
+    it('applies correct variants for two items', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'First', onPress: jest.fn(), testID: 'first-button' },
+        { label: 'Last', onPress: jest.fn(), testID: 'last-button' },
+      ];
 
-        const mockOnPress = jest.fn();
-        const items = [{ label: 'Clickable Button', onPress: mockOnPress }];
-
-        const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
-
-        // Verify component renders
-        expect(UNSAFE_root).toBeDefined();
-      });
-
-      it('renders multiple buttons with different handlers', () => {
-        mockUseColorScheme.mockReturnValue('light');
-
-        const mockOnPress1 = jest.fn();
-        const mockOnPress2 = jest.fn();
-        const mockOnPress3 = jest.fn();
-
-        const items = [
-          { label: 'Button 1', onPress: mockOnPress1 },
-          { label: 'Button 2', onPress: mockOnPress2 },
-          { label: 'Button 3', onPress: mockOnPress3 },
-        ];
-
-        const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
-
-        expect(UNSAFE_root).toBeDefined();
-      });
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
     });
 
-    describe('Divider Logic', () => {
-      it('renders without crashing for single item (no dividers)', () => {
-        mockUseColorScheme.mockReturnValue('light');
+    it('applies correct variants for three items', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Top Item', onPress: jest.fn(), testID: 'top-button' },
+        { label: 'Middle Item', onPress: jest.fn(), testID: 'middle-button' },
+        { label: 'Bottom Item', onPress: jest.fn(), testID: 'bottom-button' },
+      ];
 
-        const items = [{ label: 'Single', onPress: jest.fn() }];
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
 
-        const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+    it('applies correct variants for four items', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Top', onPress: jest.fn(), testID: 'top' },
+        { label: 'Middle 1', onPress: jest.fn(), testID: 'middle-1' },
+        { label: 'Middle 2', onPress: jest.fn(), testID: 'middle-2' },
+        { label: 'Bottom', onPress: jest.fn(), testID: 'bottom' },
+      ];
 
-        // Single item should render successfully
-        expect(UNSAFE_root).toBeDefined();
-      });
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+  });
 
-      it('renders without crashing for multiple items (with dividers between)', () => {
-        mockUseColorScheme.mockReturnValue('light');
+  describe('Divider Rendering', () => {
+    it('does not render divider for single item', () => {
+      const items: ChevronButtonGroupItem[] = [{ label: 'Single', onPress: jest.fn() }];
 
-        const items = [
-          { label: 'First', onPress: jest.fn() },
-          { label: 'Second', onPress: jest.fn() },
-          { label: 'Third', onPress: jest.fn() },
-        ];
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
 
-        const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+    it('renders divider between two items', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'First', onPress: jest.fn(), testID: 'first' },
+        { label: 'Second', onPress: jest.fn(), testID: 'second' },
+      ];
 
-        // Multiple items should render with dividers between them
-        expect(UNSAFE_root).toBeDefined();
-      });
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
 
-      it('renders correctly with two items (one divider)', () => {
-        mockUseColorScheme.mockReturnValue('light');
+    it('renders dividers between all items in a list of three', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'First', onPress: jest.fn(), testID: 'first' },
+        { label: 'Second', onPress: jest.fn(), testID: 'second' },
+        { label: 'Third', onPress: jest.fn(), testID: 'third' },
+      ];
 
-        const items = [
-          { label: 'First', onPress: jest.fn() },
-          { label: 'Second', onPress: jest.fn() },
-        ];
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
 
-        const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+    it('does not render divider after last item', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'First', onPress: jest.fn(), testID: 'first' },
+        { label: 'Last', onPress: jest.fn(), testID: 'last' },
+      ];
 
-        expect(UNSAFE_root).toBeDefined();
-      });
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+  });
+
+  describe('Event Handlers', () => {
+    it('calls onPress handler when button is pressed', () => {
+      const mockOnPress = jest.fn();
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Clickable', onPress: mockOnPress, testID: 'clickable-button' },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+      expect(mockOnPress).not.toHaveBeenCalled();
+    });
+
+    it('renders multiple buttons with different handlers', () => {
+      const mockOnPress1 = jest.fn();
+      const mockOnPress2 = jest.fn();
+      const mockOnPress3 = jest.fn();
+
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Button 1', onPress: mockOnPress1, testID: 'button-1' },
+        { label: 'Button 2', onPress: mockOnPress2, testID: 'button-2' },
+        { label: 'Button 3', onPress: mockOnPress3, testID: 'button-3' },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+  });
+
+  describe('Props Propagation', () => {
+    it('passes label prop to ButtonWithChevron', () => {
+      const items: ChevronButtonGroupItem[] = [{ label: 'Test Label', onPress: jest.fn() }];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+
+    it('passes onPress prop to ButtonWithChevron', () => {
+      const mockOnPress = jest.fn();
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Click Me', onPress: mockOnPress, testID: 'test-button' },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+
+    it('passes optional startIcon prop to ButtonWithChevron', () => {
+      const MockIcon = () => null;
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'With Icon', onPress: jest.fn(), startIcon: MockIcon, testID: 'icon-button' },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+
+    it('passes optional startIconBgColor prop to ButtonWithChevron', () => {
+      const MockIcon = () => null;
+      const items: ChevronButtonGroupItem[] = [
+        {
+          label: 'Colored Icon',
+          onPress: jest.fn(),
+          startIcon: MockIcon,
+          startIconBgColor: '$blue500',
+          testID: 'colored-button',
+        },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+
+    it('passes optional endLabel prop to ButtonWithChevron', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Language', onPress: jest.fn(), endLabel: 'English' },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+
+    it('passes optional testID prop to ButtonWithChevron', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Test ID Button', onPress: jest.fn(), testID: 'custom-test-id' },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+
+    it('passes all props together to ButtonWithChevron', () => {
+      const MockIcon = () => null;
+      const mockOnPress = jest.fn();
+
+      const items: ChevronButtonGroupItem[] = [
+        {
+          label: 'Full Props Button',
+          onPress: mockOnPress,
+          startIcon: MockIcon,
+          startIconBgColor: '$indigo500',
+          endLabel: 'Detail Text',
+          testID: 'full-props-button',
+        },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+  });
+
+  describe('Edge Cases', () => {
+    it('handles empty items array gracefully', () => {
+      expect(() => renderWithProviders(<ChevronButtonGroup items={[]} />)).not.toThrow();
+    });
+
+    it('handles single item with all optional props', () => {
+      const MockIcon = () => null;
+      const items: ChevronButtonGroupItem[] = [
+        {
+          label: 'Single Complex',
+          onPress: jest.fn(),
+          startIcon: MockIcon,
+          startIconBgColor: '$coolGray500',
+          endLabel: 'Value',
+          testID: 'single-complex',
+        },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+
+    it('handles items with partial optional props', () => {
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Only Label 1', onPress: jest.fn(), testID: 'only-label-1' },
+        {
+          label: 'With End Label',
+          onPress: jest.fn(),
+          endLabel: 'Detail',
+          testID: 'with-end-label',
+        },
+        { label: 'Only Label 2', onPress: jest.fn(), testID: 'only-label-2' },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
+    });
+  });
+
+  describe('Dark Mode', () => {
+    it('renders correctly in dark mode', () => {
+      mockUseColorScheme.mockReturnValue('dark');
+
+      const items: ChevronButtonGroupItem[] = [
+        { label: 'Dark Item 1', onPress: jest.fn(), testID: 'dark-1' },
+        { label: 'Dark Item 2', onPress: jest.fn(), testID: 'dark-2' },
+      ];
+
+      const { UNSAFE_root } = renderWithProviders(<ChevronButtonGroup items={items} />);
+      expect(UNSAFE_root).toBeDefined();
     });
   });
 });
