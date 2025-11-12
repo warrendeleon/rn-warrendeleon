@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react';
 import { View } from 'react-native';
 
-import { getButtonGroupVariant } from '@app/components/shared';
-
-import { ButtonGroupDivider } from '../ButtonGroupDivider/ButtonGroupDivider';
-import { SelectableListButton } from '../SelectableListButton/SelectableListButton';
+import { ButtonGroupDivider, getButtonGroupVariant, SelectableListButton } from '@app/components';
 
 export type SelectableButtonGroupItem = {
   label: string;

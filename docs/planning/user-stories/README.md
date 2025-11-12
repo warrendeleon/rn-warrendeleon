@@ -3,9 +3,9 @@
 This directory contains a hierarchical breakdown of React Native optimization work organized into Epics (business initiatives), User Stories (user-facing value), and Tasks (technical implementations).
 
 **Created**: 2025-01-11
-**Last Updated**: 2025-01-11
-**Structure**: 4 Epics → 4 User Stories → 26 Tasks
-**Total Effort**: 18.5 hours
+**Last Updated**: 2025-01-12
+**Structure**: 4 Epics → 4 User Stories → 27 Tasks
+**Total Effort**: 18.75 hours
 
 ---
 
@@ -317,17 +317,18 @@ This makes it easy to:
 
 - [TASK-025](./tasks/TASK-025-extract-label-utilities.md): Extract utilities (1h)
 
-### ⚪ Low Priority (1 task, 1h)
+### ⚪ Low Priority (2 tasks, 2.75h)
 
 **Code Quality** (Epic 4):
 
 - [TASK-026](./tasks/TASK-026-buttongroup-abstraction.md): ButtonGroup abstraction (2.5h)
+- [TASK-027](./tasks/TASK-027-standardise-component-imports.md): Standardise component imports to @app alias (0.25h)
 
 ---
 
 ## Timeline & Effort
 
-### Total: 18.5 hours
+### Total: 18.75 hours
 
 **Suggested 2-Week Timeline** (1 developer, 4h/day):
 
@@ -557,4 +558,4 @@ graph TD
 
 **Status**: ✅ All epics, stories, and tasks documented
 **Ready**: Yes - pick any high-priority task to start
-**Total Work**: 26 tasks, 18.5 hours, ~2 weeks
+**Total Work**: 27 tasks, 18.75 hours, ~2 weeks

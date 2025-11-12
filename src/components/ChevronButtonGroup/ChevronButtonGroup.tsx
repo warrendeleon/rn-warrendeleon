@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react';
 import { View } from 'react-native';
 
-import { getButtonGroupVariant } from '@app/components/shared';
-
-import { ButtonGroupDivider } from '../ButtonGroupDivider/ButtonGroupDivider';
-import { ButtonWithChevron } from '../ButtonWithChevron/ButtonWithChevron';
+import { ButtonGroupDivider, ButtonWithChevron, getButtonGroupVariant } from '@app/components';
 
 export type ChevronButtonGroupItem = {
   label: string;
