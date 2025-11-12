@@ -1,14 +1,13 @@
 # US-003: Inclusive Screen Reader Support
 
-**ID**: US-003
+**Story ID**: US-003
 **Title**: Inclusive Screen Reader Support
 **Epic**: [EPIC-003: Accessibility & Compliance](../epics/EPIC-003-accessibility-compliance.md)
-**Created**: 2025-01-11
-**Completed**: _Not yet completed_
 **Status**: Not Started
 **Priority**: High
-**Effort Estimate**: 2 hours
-**Tags**: `accessibility`, `wcag`, `voiceover`, `talkback`, `a11y`
+**Created**: 2025-01-11
+**Assigned To**: Warren de Leon
+**Category**: Accessibility
 
 ---
 
@@ -38,6 +37,8 @@ Without accessibility labels:
 - Accessibility is a competitive differentiator (most apps ignore it)
 - Market opportunity: 1+ billion people with disabilities globally
 
+**Real-world scenario**: A blind user with VoiceOver enabled cannot navigate the Settings screen because buttons are unlabelled. After adding labels, they can independently change language, appearance, and use all features.
+
 **Related Epic**: See [EPIC-003](../epics/EPIC-003-accessibility-compliance.md) for business impact, WCAG compliance details, and success metrics.
 
 ---
@@ -65,6 +66,17 @@ Without accessibility labels:
 - Better semantic HTML/component structure
 - Improved usability for all users (elderly, temporary disabilities)
 - Prepared for future accessibility features
+
+---
+
+## Impact & Effort
+
+**Impact**: High
+**Effort**: Low
+**Story Points**: 2
+
+**Effort Estimate**: 2 hours
+**Actual Effort**: _To be tracked_
 
 ---
 
@@ -150,14 +162,13 @@ Without accessibility labels:
 - [ ] SelectableListButton component fully labelled
 - [ ] All screens (Home, Settings, Language, Appearance) fully labelled
 - [ ] Manual testing on both iOS (VoiceOver) and Android (TalkBack)
+- [ ] No regressions introduced
 
 ---
 
 ## Test Scenarios
 
-### VoiceOver Testing (iOS)
-
-**Scenario 1: Settings Button Navigation**
+### Scenario 1: Settings Button Navigation
 
 ```gherkin
 Given VoiceOver is enabled on iOS
@@ -168,7 +179,7 @@ And when I double-tap to activate
 Then I should navigate to the Settings screen
 ```
 
-**Scenario 2: Language Selection**
+### Scenario 2: Language Selection
 
 ```gherkin
 Given VoiceOver is enabled on iOS
@@ -181,22 +192,7 @@ And when I select "Spanish"
 Then VoiceOver should announce "Spanish, selected, button"
 ```
 
-### TalkBack Testing (Android)
-
-**Scenario 3: Settings Button Navigation**
-
-```gherkin
-Given TalkBack is enabled on Android
-And I am on the Home screen
-When I swipe right to navigate
-Then TalkBack should announce "Settings, button"
-And when I double-tap to activate
-Then I should navigate to the Settings screen
-```
-
-### WCAG Compliance Testing
-
-**Scenario 4: Complete User Journey**
+### Scenario 3: Complete User Journey
 
 ```gherkin
 Given I am using only a screen reader (VoiceOver or TalkBack)
@@ -210,17 +206,36 @@ And I can complete the entire flow without visual reference
 
 ### E2E Testing (Detox)
 
-**Scenario 5: Accessibility Props Validation**
-
 ```gherkin
-Given the app is running
-When I inspect the Settings button
-Then it should have accessibilityLabel="Settings"
-And it should have accessibilityRole="button"
-And when I inspect the Language button
-Then it should have accessibilityLabel="Language"
-And it should have an end label indicating current language
+Scenario: Accessibility props validation
+  Given the app is running
+  When I inspect the Settings button
+  Then it should have accessibilityLabel="Settings"
+  And it should have accessibilityRole="button"
 ```
+
+---
+
+## Definition of Ready
+
+- [x] User story statement written (As a/I want/So that)
+- [x] Acceptance criteria defined
+- [x] Story points estimated
+- [x] Dependencies identified
+- [x] Epic linked
+- [x] Technical approach discussed
+
+---
+
+## Definition of Done
+
+- [ ] All acceptance criteria met
+- [ ] Code reviewed and approved
+- [ ] Tests written and passing
+- [ ] Documentation updated (CONTRIBUTING.md)
+- [ ] No regressions
+- [ ] Deployed to staging
+- [ ] Product owner approval
 
 ---
 
@@ -249,7 +264,8 @@ And it should have an end label indicating current language
 | [TASK-016](../tasks/TASK-016-accessibility-all-screens.md)         | Accessibility All Screens          | 0.5h   | High     | Not Started |
 | [TASK-017](../tasks/TASK-017-test-screen-readers.md)               | Test VoiceOver and TalkBack        | 0.5h   | High     | Not Started |
 
-**Total**: 4 tasks, 2 hours
+**Total Tasks**: 4
+**Total Effort**: 2 hours
 
 ---
 
@@ -285,6 +301,44 @@ Manual testing on both platforms:
 
 ---
 
+## Timeline & Dates
+
+**Start Date**: 2025-01-11
+**Completed Date**: _Not yet completed_
+
+---
+
+## Blocked Information
+
+**Blocked Since**: _Not blocked_
+**Blocked Reason**: _N/A_
+
+---
+
+## Status History
+
+_Auto-tracked when status changes_
+
+| Date       | Status      | Notes         |
+| ---------- | ----------- | ------------- |
+| 2025-01-11 | Not Started | Story created |
+
+---
+
+## Work Log
+
+_Manual developer notes for significant updates_
+
+---
+
+## Technical Debt
+
+**Technical Debt Score**: 0
+
+This story pays down accessibility debt by adding WCAG 2.1 Level AA compliance.
+
+---
+
 ## Success Criteria
 
 This user story is complete when:
@@ -293,45 +347,8 @@ This user story is complete when:
 2. ✅ **WCAG 2.1 Level AA**: Meets all four WCAG principles
 3. ✅ **Platform Compatibility**: Works correctly on VoiceOver (iOS) and TalkBack (Android)
 4. ✅ **User Flow Completion**: Screen reader users can complete all primary user journeys
-5. ✅ **Documentation**: Accessibility guidelines added to [CONTRIBUTING.md](../../CONTRIBUTING.md)
+5. ✅ **Documentation**: Accessibility guidelines added to CONTRIBUTING.md
 6. ✅ **Manual Testing**: Tested on both platforms with real screen readers
-
----
-
-## Accessibility Considerations
-
-### Label Best Practices
-
-- **Concise**: Keep under 20 words, avoid redundancy
-- **Descriptive**: Explain what the element is and does
-- **Context-aware**: Include current state (e.g., "English, selected")
-- **No redundancy**: Don't repeat role (e.g., avoid "Settings button button")
-
-### Role Types
-
-- `button`: Interactive buttons and pressable elements
-- `header`: Screen titles and section headers
-- `link`: Navigation links
-- `text`: Non-interactive text content
-
-### Hints vs Labels
-
-- **accessibilityLabel**: What the element is (e.g., "Settings")
-- **accessibilityHint**: What happens when activated (e.g., "Opens settings menu")
-- Hints are optional; use when action isn't obvious from label
-
-### Example Implementation
-
-```typescript
-<ButtonWithChevron
-  label="Language"
-  endLabel="English"
-  accessibilityLabel="Language, English"
-  accessibilityHint="Opens language selection"
-  accessibilityRole="button"
-  onPress={handlePress}
-/>
-```
 
 ---
 
@@ -375,4 +392,4 @@ _To be filled in during/after implementation_
 
 ---
 
-**Last Updated**: 2025-01-11
+**Last Updated**: 2025-01-12

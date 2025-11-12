@@ -1,14 +1,13 @@
 # US-004: Comprehensive Test Coverage
 
-**ID**: US-004
+**Story ID**: US-004
 **Title**: Comprehensive Test Coverage
 **Epic**: [EPIC-002: Quality & Reliability](../epics/EPIC-002-quality-reliability.md)
-**Created**: 2025-01-11
-**Completed**: _Not yet completed_
 **Status**: Not Started
 **Priority**: Medium
-**Effort Estimate**: 5.5 hours
-**Tags**: `testing`, `quality`, `coverage`, `jest`, `refactoring`
+**Created**: 2025-01-11
+**Assigned To**: Warren de Leon
+**Category**: Testing
 
 ---
 
@@ -39,6 +38,8 @@ Without comprehensive tests:
 
 The project targets 60%+ coverage (up from 36.72%), focusing on business logic and shared components while excluding presentation layers (screens, navigation) per sustainable testing strategy.
 
+**Real-world scenario**: A developer wants to refactor the button component logic but fears breaking existing functionality. With 100% test coverage, they can refactor confidently knowing tests will catch any regressions.
+
 **Related Epic**: See [EPIC-002](../epics/EPIC-002-quality-reliability.md) for business impact, testing strategy, and success metrics.
 
 ---
@@ -65,6 +66,17 @@ The project targets 60%+ coverage (up from 36.72%), focusing on business logic a
 - Living documentation of component APIs
 - Foundation for CI/CD pipeline
 - Measurable quality metrics
+
+---
+
+## Impact & Effort
+
+**Impact**: Medium
+**Effort**: Medium
+**Story Points**: 5
+
+**Effort Estimate**: 5.5 hours
+**Actual Effort**: _To be tracked_
 
 ---
 
@@ -128,7 +140,7 @@ The project targets 60%+ coverage (up from 36.72%), focusing on business logic a
 
 ## Acceptance Criteria
 
-### Coverage Targets
+### Functional
 
 - [ ] Overall coverage increased from 36.72% to 60%+
 - [ ] ChevronButtonGroup: 0% → 100% coverage
@@ -137,7 +149,7 @@ The project targets 60%+ coverage (up from 36.72%), focusing on business logic a
 - [ ] useAppColorScheme: 0% → 100% coverage
 - [ ] Settings integration: New integration test suite
 
-### Test Quality
+### Coverage
 
 - [ ] All tests follow Testing Library principles
 - [ ] Tests use meaningful assertions (not just snapshot)
@@ -151,14 +163,13 @@ The project targets 60%+ coverage (up from 36.72%), focusing on business logic a
 - [ ] Tests run in < 10 seconds
 - [ ] Coverage reports accurate
 - [ ] No regressions in existing functionality
+- [ ] No regressions introduced
 
 ---
 
 ## Test Scenarios
 
-### ChevronButtonGroup Component
-
-**Scenario 1: Renders Multiple Buttons**
+### Scenario 1: ChevronButtonGroup Renders Multiple Buttons
 
 ```gherkin
 Given I have ChevronButtonGroup with 3 button configs
@@ -168,50 +179,17 @@ And each button should have correct groupVariant (top/middle/bottom)
 And buttons should be separated by ButtonGroupDivider
 ```
 
-**Scenario 2: Handles Button Press**
-
-```gherkin
-Given I have ChevronButtonGroup with button configs
-When I press the second button
-Then the corresponding onPress handler should be called
-And navigation or action should occur
-```
-
-### SelectableButtonGroup Component
-
-**Scenario 3: Renders Selection State**
-
-```gherkin
-Given I have SelectableButtonGroup with options and selectedValue
-When I render the component
-Then the selected option should show a checkmark
-And the selected option should be highlighted
-And unselected options should not have checkmark
-```
-
-**Scenario 4: Handles Selection Change**
+### Scenario 2: SelectableButtonGroup Handles Selection
 
 ```gherkin
 Given I have SelectableButtonGroup with options
 When I press an unselected option
 Then the onSelect handler should be called with the new value
 And the selection state should update
+And the selected option should show a checkmark
 ```
 
-### ButtonWithChevron Component
-
-**Scenario 5: Branch Coverage**
-
-```gherkin
-Given ButtonWithChevron with various prop combinations
-When I test with/without startIcon, endLabel, etc.
-Then all conditional rendering paths should be covered
-And all prop combinations should render correctly
-```
-
-### useAppColorScheme Hook
-
-**Scenario 6: Returns System Color Scheme**
+### Scenario 3: useAppColorScheme Returns System Scheme
 
 ```gherkin
 Given the theme preference is 'system'
@@ -220,18 +198,7 @@ When I call useAppColorScheme
 Then it should return 'dark'
 ```
 
-**Scenario 7: Returns Theme Preference**
-
-```gherkin
-Given the theme preference is 'light'
-And the device color scheme is 'dark'
-When I call useAppColorScheme
-Then it should return 'light' (overriding system)
-```
-
-### Settings Integration Tests
-
-**Scenario 8: Complete Settings Flow**
+### Scenario 4: Complete Settings Flow
 
 ```gherkin
 Given I am on the Settings screen
@@ -244,6 +211,29 @@ And Redux state should reflect the change
 
 ---
 
+## Definition of Ready
+
+- [x] User story statement written (As a/I want/So that)
+- [x] Acceptance criteria defined
+- [x] Story points estimated
+- [x] Dependencies identified
+- [x] Epic linked
+- [x] Technical approach discussed
+
+---
+
+## Definition of Done
+
+- [ ] All acceptance criteria met
+- [ ] Code reviewed and approved
+- [ ] Tests written and passing
+- [ ] Documentation updated (CONTRIBUTING.md)
+- [ ] No regressions
+- [ ] Deployed to staging
+- [ ] Product owner approval
+
+---
+
 ## Dependencies
 
 ### Blockers
@@ -251,7 +241,7 @@ And Redux state should reflect the change
 - [TASK-023](../tasks/TASK-023-remove-unused-dependencies.md): Clean dependencies first
 - [TASK-024](../tasks/TASK-024-add-missing-types.md): Complete types first
 
-### Related Stories
+### Enables
 
 - [US-001](./US-001-smooth-responsive-interactions.md): Tests validate performance improvements
 - [US-002](./US-002-graceful-error-handling.md): Tests verify error handling
@@ -268,9 +258,9 @@ And Redux state should reflect the change
 | [TASK-020](../tasks/TASK-020-test-button-with-chevron.md)     | Test ButtonWithChevron Coverage | 0.5h   | Medium   | Not Started |
 | [TASK-021](../tasks/TASK-021-test-use-app-color-scheme.md)    | Test useAppColorScheme Hook     | 1h     | Medium   | Not Started |
 | [TASK-022](../tasks/TASK-022-integration-test-settings.md)    | Integration Tests Settings Flow | 0.5h   | Medium   | Not Started |
-| Additional validation and manual testing                      |                                 | 1.5h   |          |             |
 
-**Total**: 5 tasks, 5.5 hours
+**Total Tasks**: 5 (plus 1.5h validation)
+**Total Effort**: 5.5 hours
 
 ---
 
@@ -315,6 +305,44 @@ Test component interactions and navigation:
 
 ---
 
+## Timeline & Dates
+
+**Start Date**: 2025-01-11
+**Completed Date**: _Not yet completed_
+
+---
+
+## Blocked Information
+
+**Blocked Since**: _Not blocked_
+**Blocked Reason**: _N/A_
+
+---
+
+## Status History
+
+_Auto-tracked when status changes_
+
+| Date       | Status      | Notes         |
+| ---------- | ----------- | ------------- |
+| 2025-01-11 | Not Started | Story created |
+
+---
+
+## Work Log
+
+_Manual developer notes for significant updates_
+
+---
+
+## Technical Debt
+
+**Technical Debt Score**: 0
+
+This story pays down testing debt by increasing coverage from 36.72% to 60%+.
+
+---
+
 ## Success Criteria
 
 This user story is complete when:
@@ -325,44 +353,6 @@ This user story is complete when:
 4. ✅ **Quality Tests**: Tests follow Testing Library principles, meaningful assertions
 5. ✅ **Fast Execution**: Full test suite runs in < 10 seconds
 6. ✅ **Documentation**: Testing patterns documented in CONTRIBUTING.md
-
----
-
-## Testing Philosophy
-
-### Business Logic First
-
-Per the project's sustainable testing strategy:
-
-**✅ 100% Coverage Required**:
-
-- Redux slices (state management)
-- Selectors and actions
-- Shared components (ButtonWithChevron, etc.)
-- Custom hooks (useAppColorScheme)
-- Utility functions
-
-**❌ Excluded from Coverage**:
-
-- Presentation components (screens)
-- Navigation setup (native dependencies)
-- Infrastructure config (store setup, metro.config)
-- Barrel exports (index.ts files)
-
-**Why**: Focus on testable, high-value business logic. Presentation layers better tested with E2E tools (Detox).
-
-### Testing Library Principles
-
-1. **Test Behaviour, Not Implementation**: Test what users see and do
-2. **Semantic Queries**: Prefer getByRole, getByLabelText over testID
-3. **User Events**: Simulate real user interactions
-4. **Avoid Implementation Details**: Don't test internal state or methods
-
-### Shared Utilities
-
-- `renderWithProviders`: For components using Gluestack UI or i18n
-- `render`: For standard React Native components
-- Mock Redux store for predictable state
 
 ---
 
@@ -404,4 +394,4 @@ _To be filled in during/after implementation_
 
 ---
 
-**Last Updated**: 2025-01-11
+**Last Updated**: 2025-01-12
