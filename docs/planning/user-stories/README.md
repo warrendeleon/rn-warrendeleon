@@ -315,14 +315,13 @@ This makes it easy to:
 
 **Code Quality** (Epic 4):
 
-- [TASK-025](./tasks/TASK-025-extract-label-utilities.md): Extract utilities (1h)
+- [TASK-025](./tasks/TASK-025-extract-label-utilities.md): Standardise imports (0.25h)
 
 ### ⚪ Low Priority (2 tasks, 2.75h)
 
 **Code Quality** (Epic 4):
 
-- [TASK-026](./tasks/TASK-026-buttongroup-abstraction.md): ButtonGroup abstraction (2.5h)
-- [TASK-027](./tasks/TASK-027-standardise-component-imports.md): Standardise component imports to @app alias (0.25h)
+- [TASK-027](./tasks/TASK-025-standardise-component-imports.md): Standardise component imports to @app alias (0.25h)
 
 ---
 
@@ -354,7 +353,7 @@ This makes it easy to:
   - TASK-020, TASK-021: More tests (1.5h)
   - TASK-022: Integration tests (0.5h)
   - TASK-017: Screen reader testing (0.5h)
-  - TASK-025: Extract utilities (1h)
+  - TASK-025: Standardise imports (0.25h)
   - Buffer (0.5h)
 
 - **Day 5** (4h):

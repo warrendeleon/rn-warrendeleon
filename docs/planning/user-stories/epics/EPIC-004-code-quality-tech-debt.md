@@ -143,13 +143,11 @@ By cleaning up technical debt:
 
 ## Tasks
 
-| ID                                                             | Task                            | Status    | Effort | Priority |
-| -------------------------------------------------------------- | ------------------------------- | --------- | ------ | -------- |
-| [TASK-023](../tasks/TASK-023-remove-unused-dependencies.md)    | Remove Unused Dependencies      | To Do     | 0.25h  | High     |
-| [TASK-024](../tasks/TASK-024-add-missing-types.md)             | Add Missing @types/node         | To Do     | 0.25h  | High     |
-| [TASK-025](../tasks/TASK-025-extract-label-utilities.md)       | Extract Accessibility Utilities | To Do     | 1h     | Medium   |
-| [TASK-026](../tasks/TASK-026-button-group-abstraction.md)      | ButtonGroup Abstraction         | To Do     | 2.5h   | Low      |
-| [TASK-027](../tasks/TASK-027-standardise-component-imports.md) | Standardise Component Imports   | Completed | 0.25h  | Low      |
+| ID                                                             | Task                          | Status    | Effort | Priority |
+| -------------------------------------------------------------- | ----------------------------- | --------- | ------ | -------- |
+| [TASK-023](../tasks/TASK-023-remove-unused-dependencies.md)    | Remove Unused Dependencies    | To Do     | 0.25h  | High     |
+| [TASK-024](../tasks/TASK-024-add-missing-types.md)             | Add Missing @types/node       | To Do     | 0.25h  | High     |
+| [TASK-025](../tasks/TASK-025-standardise-component-imports.md) | Standardise Component Imports | Completed | 0.25h  | Low      |
 
 **Total Tasks**: 5
 **Total Effort**: 4.25 hours

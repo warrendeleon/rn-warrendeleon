@@ -1,6 +1,6 @@
-# TASK-027: Standardise Component Imports to @app Alias
+# TASK-025: Standardise Component Imports to @app Alias
 
-**ID**: TASK-027
+**Task ID**: TASK-025
 **Title**: Standardise Component Imports to Use @app Alias
 **Epic**: [EPIC-004: Code Quality & Technical Debt](../epics/EPIC-004-code-quality-tech-debt.md)
 **User Story**: N/A (Technical task)
