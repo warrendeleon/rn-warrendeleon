@@ -1,12 +1,12 @@
 # EPIC-002: Quality & Reliability
 
-**ID**: EPIC-002
+**Epic ID**: EPIC-002
 **Title**: Quality & Reliability - Error Resilience & Comprehensive Testing
-**Created**: 2025-01-11
 **Status**: Not Started
 **Priority**: High
-**Total Effort**: 7.5 hours
-**Total Tasks**: 8
+**Created**: 2025-01-11
+**Owner**: Warren de Leon
+**Category**: Quality
 
 ---
 
@@ -89,168 +89,115 @@ By implementing error boundaries and comprehensive testing:
 
 ---
 
-## User Stories
+## Timeline & Dates
 
-### [US-002: Graceful Error Handling](../stories/US-002-graceful-error-handling.md)
-
-**As a** mobile app user,
-**I want** errors to be handled gracefully without crashing the entire app,
-**So that** I can continue using other features even when something goes wrong.
-
-**Value**: Prevents complete app crashes, maintains user trust during errors
-
-**Tasks**: 3 tasks (TASK-011, TASK-012, TASK-013)
-
-### [US-004: Comprehensive Test Coverage](../stories/US-004-comprehensive-test-coverage.md)
-
-**As a** developer,
-**I want** comprehensive test coverage across components and hooks,
-**So that** I can refactor confidently without fear of breaking existing functionality.
-
-**Value**: Enables rapid development, catches bugs before production
-
-**Tasks**: 5 tasks (TASK-018, TASK-019, TASK-020, TASK-021, TASK-022)
-
----
-
-## Technical Approach
-
-### Error Boundary Pattern
-
-React error boundaries catch JavaScript errors in component trees and display fallback UI:
-
-```typescript
-class ErrorBoundary extends React.Component {
-  static getDerivedStateFromError(error) {
-    return {hasError: true, error};
-  }
-
-  componentDidCatch(error, errorInfo) {
-    // Log to monitoring service
-    console.error('Error caught by boundary:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <FallbackUI error={this.state.error} onReset={this.reset} />;
-    }
-    return this.props.children;
-  }
-}
-```
-
-**Impact**: Isolates errors to specific features, prevents full app crashes
-
-### Testing Strategy
-
-Comprehensive coverage across the testing pyramid:
-
-1. **Unit Tests**: Individual components and hooks in isolation
-2. **Integration Tests**: Component interactions and navigation flows
-3. **Snapshot Tests**: Catch unexpected UI changes
-
-**Tools**: Jest + React Native Testing Library + `renderWithProviders` utility
-
-**Impact**: Catches bugs early, enables confident refactoring, reduces debugging time
-
----
-
-## Dependencies
-
-### Prerequisites
-
-- [TASK-023](../tasks/TASK-023-remove-unused-dependencies.md): Clean dependency tree
-- [TASK-024](../tasks/TASK-024-add-missing-types.md): Complete TypeScript types
-- Performance optimization tasks (EPIC-001) should be complete to establish stable baseline
-
-### Blocks
-
-This epic must be completed before:
-
-- [EPIC-003: Accessibility](./EPIC-003-accessibility-compliance.md) (tests verify accessibility)
-- Production release of optimised features
-- Major refactoring initiatives (need test safety net first)
-
----
-
-## Risks & Mitigation
-
-### Risk 1: Error Boundary Complexity
-
-**Risk**: Incorrectly implemented boundaries could hide critical errors
-**Likelihood**: Medium
-**Mitigation**: Comprehensive testing; always log errors; clear fallback UI with recovery options
-
-### Risk 2: Test Maintenance Burden
-
-**Risk**: Tests become brittle and require constant updates
-**Likelihood**: Medium
-**Mitigation**: Focus on behaviour over implementation; use Testing Library best practices; prefer integration over unit where appropriate
-
-### Risk 3: False Confidence from Coverage
-
-**Risk**: 60% coverage doesn't guarantee quality tests
-**Likelihood**: Low
-**Mitigation**: Review tests for meaningful assertions; combine with code review practices; focus on critical paths
-
----
-
-## Timeline
+**Start Date**: 2025-01-11
+**Target Date**: 2025-01-13
+**Completed Date**: _Not yet completed_
 
 **Estimated Duration**: 2 days (7.5 hours total)
 
-### Day 1 (4 hours)
+---
 
-- Error Boundary creation and testing (TASK-011, 012): 1.5h
-- Error Boundary integration (TASK-013): 0.5h
-- ChevronButtonGroup tests (TASK-018): 1h
-- SelectableButtonGroup tests (TASK-019): 1h
+## Budget & Resources
 
-### Day 2 (3.5 hours)
+**Budget**: £0
+**Actual Cost**: _To be tracked_
+**Total Effort**: 7.5 hours
+**Actual Effort**: _To be tracked_
 
-- ButtonWithChevron tests (TASK-020): 0.5h
-- useAppColorScheme hook tests (TASK-021): 1h
-- Settings integration tests (TASK-022): 0.5h
-- Manual testing and verification: 1.5h
+---
+
+## Stakeholders
+
+**Owner**: Warren de Leon
+**Stakeholders**: Development team, QA team, end users
+
+---
+
+## ROI & Risk
+
+**ROI Score**: High
+**Risk Level**: Medium
+
+### Key Risks
+
+**Risk 1**: Error Boundary Complexity
+
+- **Likelihood**: Medium
+- **Impact**: High
+- **Mitigation**: Comprehensive testing; always log errors; clear fallback UI with recovery options
+
+**Risk 2**: Test Maintenance Burden
+
+- **Likelihood**: Medium
+- **Impact**: Medium
+- **Mitigation**: Focus on behaviour over implementation; use Testing Library best practices; prefer integration over unit where appropriate
+
+**Risk 3**: False Confidence from Coverage
+
+- **Likelihood**: Low
+- **Impact**: Medium
+- **Mitigation**: Review tests for meaningful assertions; combine with code review practices; focus on critical paths
+
+---
+
+## User Stories
+
+| ID                                                         | User Story                  | Status      | Story Points |
+| ---------------------------------------------------------- | --------------------------- | ----------- | ------------ |
+| [US-002](../stories/US-002-graceful-error-handling.md)     | Graceful Error Handling     | Not Started | 2            |
+| [US-004](../stories/US-004-comprehensive-test-coverage.md) | Comprehensive Test Coverage | Not Started | 5            |
+
+**Total Stories**: 2
 
 ---
 
 ## Tasks
 
-| ID                                                            | Task                            | Effort | Priority |
-| ------------------------------------------------------------- | ------------------------------- | ------ | -------- |
-| [TASK-011](../tasks/TASK-011-create-error-boundary.md)        | Create ErrorBoundary Component  | 1h     | High     |
-| [TASK-012](../tasks/TASK-012-test-error-boundary.md)          | Test ErrorBoundary              | 0.5h   | High     |
-| [TASK-013](../tasks/TASK-013-integrate-error-boundary.md)     | Integrate ErrorBoundary         | 0.5h   | High     |
-| [TASK-018](../tasks/TASK-018-test-chevron-button-group.md)    | Test ChevronButtonGroup         | 1h     | Medium   |
-| [TASK-019](../tasks/TASK-019-test-selectable-button-group.md) | Test SelectableButtonGroup      | 1h     | Medium   |
-| [TASK-020](../tasks/TASK-020-test-button-with-chevron.md)     | Test ButtonWithChevron Coverage | 0.5h   | Medium   |
-| [TASK-021](../tasks/TASK-021-test-use-app-color-scheme.md)    | Test useAppColorScheme Hook     | 1h     | Medium   |
-| [TASK-022](../tasks/TASK-022-integration-test-settings.md)    | Integration Tests Settings Flow | 0.5h   | Medium   |
+| ID                                                            | Task                            | Status | Effort | Priority |
+| ------------------------------------------------------------- | ------------------------------- | ------ | ------ | -------- |
+| [TASK-011](../tasks/TASK-011-create-error-boundary.md)        | Create ErrorBoundary Component  | To Do  | 1h     | High     |
+| [TASK-012](../tasks/TASK-012-test-error-boundary.md)          | Test ErrorBoundary              | To Do  | 0.5h   | High     |
+| [TASK-013](../tasks/TASK-013-integrate-error-boundary.md)     | Integrate ErrorBoundary         | To Do  | 0.5h   | High     |
+| [TASK-018](../tasks/TASK-018-test-chevron-button-group.md)    | Test ChevronButtonGroup         | To Do  | 1h     | Medium   |
+| [TASK-019](../tasks/TASK-019-test-selectable-button-group.md) | Test SelectableButtonGroup      | To Do  | 1h     | Medium   |
+| [TASK-020](../tasks/TASK-020-test-button-with-chevron.md)     | Test ButtonWithChevron Coverage | To Do  | 0.5h   | Medium   |
+| [TASK-021](../tasks/TASK-021-test-use-app-color-scheme.md)    | Test useAppColorScheme Hook     | To Do  | 1h     | Medium   |
+| [TASK-022](../tasks/TASK-022-integration-test-settings.md)    | Integration Tests Settings Flow | To Do  | 0.5h   | Medium   |
 
-**Total**: 8 tasks, 7.5 hours
+**Total Tasks**: 8
+**Total Effort**: 7.5 hours
 
 ---
 
-## Success Criteria
+## Definition of Done
 
-This epic is successful when:
+This epic is complete when:
 
-1. ✅ **Error Resilience**: ErrorBoundary deployed at root and feature levels, catches all component errors
-2. ✅ **Test Coverage Target**: Coverage increased from 36.72% to 60%+
-3. ✅ **All Tests Pass**: 8 task test suites complete with meaningful assertions
-4. ✅ **No Regressions**: All existing functionality verified through tests
-5. ✅ **Developer Confidence**: Team can refactor without fear of breaking changes
+1. ✅ Error Resilience: ErrorBoundary deployed at root and feature levels, catches all component errors
+2. ✅ Test Coverage Target: Coverage increased from 36.72% to 60%+
+3. ✅ All Tests Pass: 8 task test suites complete with meaningful assertions
+4. ✅ No Regressions: All existing functionality verified through tests
+5. ✅ Developer Confidence: Team can refactor without fear of breaking changes
 
-**Validation**: Jest coverage reports + manual error testing + code review
+---
+
+## Status History
+
+_Auto-tracked when status changes_
+
+| Date       | Status      | Notes        |
+| ---------- | ----------- | ------------ |
+| 2025-01-11 | Not Started | Epic created |
 
 ---
 
 ## Related Epics
 
-- [EPIC-001: Performance Optimization](./EPIC-001-performance-optimization.md) - Should be complete before testing
-- [EPIC-003: Accessibility](./EPIC-003-accessibility-compliance.md) - Depends on test infrastructure
-- [EPIC-004: Code Quality](./EPIC-004-code-quality-tech-debt.md) - Prerequisites must complete first
+- [EPIC-001](./EPIC-001-performance-optimization.md) - Should be complete before testing
+- [EPIC-003](./EPIC-003-accessibility-compliance.md) - Depends on test infrastructure
+- [EPIC-004](./EPIC-004-code-quality-tech-debt.md) - Prerequisites must complete first
 
 ---
 
@@ -263,4 +210,4 @@ This epic is successful when:
 
 ---
 
-**Last Updated**: 2025-01-11
+**Last Updated**: 2025-01-12
