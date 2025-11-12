@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { GlobeIcon, MoonIcon, Text } from '@gluestack-ui/themed';
@@ -39,13 +39,13 @@ export const SettingsScreen: React.FC = () => {
     }
   };
 
-  const handleLanguagePress = () => {
+  const handleLanguagePress = useCallback(() => {
     navigation.navigate('Language');
-  };
+  }, [navigation]);
 
-  const handleAppearancePress = () => {
+  const handleAppearancePress = useCallback(() => {
     navigation.navigate('Appearance');
-  };
+  }, [navigation]);
 
   const settingsItems: ChevronButtonGroupItem[] = useMemo(
     () => [
@@ -66,7 +66,7 @@ export const SettingsScreen: React.FC = () => {
         testID: 'settings-language-button',
       },
     ],
-    [t, currentLanguage, currentTheme, handleLanguagePress, handleAppearancePress]
+    [t, currentLanguage, currentTheme, handleAppearancePress, handleLanguagePress]
   );
 
   return (
