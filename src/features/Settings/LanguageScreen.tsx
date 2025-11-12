@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { Text } from '@gluestack-ui/themed';
@@ -24,11 +24,14 @@ export const LanguageScreen: React.FC = () => {
     { code: 'es', label: t('language.spanish') },
   ];
 
-  const handleLanguageSelect = async (language: Language) => {
-    dispatch(setLanguage(language));
-    await i18n.changeLanguage(language);
-    navigation.goBack();
-  };
+  const handleLanguageSelect = useCallback(
+    async (language: Language) => {
+      dispatch(setLanguage(language));
+      await i18n.changeLanguage(language);
+      navigation.goBack();
+    },
+    [dispatch, i18n, navigation]
+  );
 
   const languageItems: SelectableButtonGroupItem[] = useMemo(
     () =>
