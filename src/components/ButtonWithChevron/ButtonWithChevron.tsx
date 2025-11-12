@@ -14,6 +14,8 @@ type ButtonWithChevronProps = {
   /** For grouped list styling */
   groupVariant?: GroupVariant;
   testID?: string;
+  /** Optional accessibility hint for screen readers */
+  accessibilityHint?: string;
 };
 
 /**
@@ -44,6 +46,7 @@ export const ButtonWithChevron = React.memo<ButtonWithChevronProps>(
     endLabel,
     groupVariant = 'single',
     testID,
+    accessibilityHint,
   }) => {
     const scheme = useAppColorScheme(); // "light" | "dark"
 
@@ -80,6 +83,9 @@ export const ButtonWithChevron = React.memo<ButtonWithChevronProps>(
 
     return (
       <Pressable
+        accessibilityLabel={label + (endLabel ? `, ${endLabel}` : '')}
+        accessibilityRole="button"
+        accessibilityHint={accessibilityHint}
         onPress={onPress}
         testID={testID}
         className="w-full flex-row items-center justify-between px-4"

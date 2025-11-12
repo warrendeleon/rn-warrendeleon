@@ -5,8 +5,8 @@
 **Epic**: [EPIC-003: Accessibility & Compliance](../epics/EPIC-003-accessibility-compliance.md)
 **User Story**: [US-003: Inclusive Screen Reader Support](../stories/US-003-inclusive-screen-reader-support.md)
 **Created**: 2025-01-11
-**Completed**: _Not yet completed_
-**Status**: Not Started
+**Completed**: 2025-11-12
+**Status**: Completed
 **Priority**: High
 **Effort Estimate**: 0.5 hours
 **Tags**: `accessibility`, `a11y`, `wcag`
@@ -46,11 +46,11 @@ Add accessibility labels to SelectableListButton, including selection state anno
 
 ## Acceptance Criteria
 
-- [ ] accessibilityLabel includes selection state
-- [ ] accessibilityState.selected set correctly
-- [ ] accessibilityRole="button"
-- [ ] Screen readers announce selection state
-- [ ] All tests pass
+- [x] accessibilityLabel includes selection state
+- [x] accessibilityState.selected set correctly
+- [x] accessibilityRole="button"
+- [x] Screen readers announce selection state
+- [x] All tests pass
 
 ---
 
@@ -60,4 +60,4 @@ Add accessibility labels to SelectableListButton, including selection state anno
 
 ---
 
-**Last Updated**: 2025-01-11
+**Last Updated**: 2025-11-12

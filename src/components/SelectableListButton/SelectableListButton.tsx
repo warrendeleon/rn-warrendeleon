@@ -45,6 +45,9 @@ export const SelectableListButton = React.memo<SelectableListButtonProps>(
 
     return (
       <Pressable
+        accessibilityLabel={label + (isSelected ? ', selected' : '')}
+        accessibilityRole="button"
+        accessibilityState={{ selected: isSelected }}
         onPress={onPress}
         testID={testID}
         className="w-full flex-row items-center justify-between px-4"

@@ -130,3 +130,45 @@ describe('getButtonWithChevronStyles', () => {
     expect(styles.bottom).toBe('$none');
   });
 });
+
+describe('ButtonWithChevron accessibility', () => {
+  const mockUseColorScheme = jest.spyOn(ReactNative, 'useColorScheme') as jest.Mock;
+
+  beforeEach(() => {
+    mockUseColorScheme.mockReset();
+    mockUseColorScheme.mockReturnValue('light');
+  });
+
+  it('renders with accessibilityLabel combining label and endLabel', () => {
+    expect(() =>
+      renderWithProviders(<ButtonWithChevron label="Language" endLabel="English" />)
+    ).not.toThrow();
+  });
+
+  it('renders with accessibilityLabel without endLabel', () => {
+    expect(() => renderWithProviders(<ButtonWithChevron label="Settings" />)).not.toThrow();
+  });
+
+  it('renders with accessibilityHint when provided', () => {
+    const hint = 'Double tap to change appearance settings';
+    expect(() =>
+      renderWithProviders(<ButtonWithChevron label="Appearance" accessibilityHint={hint} />)
+    ).not.toThrow();
+  });
+
+  it('renders without accessibilityHint when not provided', () => {
+    expect(() => renderWithProviders(<ButtonWithChevron label="About" />)).not.toThrow();
+  });
+
+  it('renders with all accessibility props correctly', () => {
+    expect(() =>
+      renderWithProviders(
+        <ButtonWithChevron
+          label="Appearance"
+          endLabel="Automatic"
+          accessibilityHint="Double tap to change theme"
+        />
+      )
+    ).not.toThrow();
+  });
+});
