@@ -26,6 +26,7 @@ export const HomeScreen: React.FC = () => {
       className="flex-1 p-4"
       style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
       testID="home-screen"
+      accessibilityLabel={t('home.title')}
     >
       <View>
         <ButtonWithChevron

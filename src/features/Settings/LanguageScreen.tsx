@@ -50,11 +50,13 @@ export const LanguageScreen: React.FC = () => {
       className="flex-1 p-4"
       style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
       testID="language-screen"
+      accessibilityLabel={t('language.title')}
     >
       <View className="mt-2">
         <Text
           className="mb-3 pt-1 text-xs font-semibold uppercase leading-normal"
           color="$coolGray500"
+          accessibilityRole="header"
         >
           {t('language.languages')}
         </Text>
