@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 import { Text } from '@gluestack-ui/themed';
@@ -25,10 +25,13 @@ export const AppearanceScreen: React.FC = () => {
     { value: 'dark', label: t('appearance.dark') },
   ];
 
-  const handleThemeSelect = (theme: Theme) => {
-    dispatch(setTheme(theme));
-    navigation.goBack();
-  };
+  const handleThemeSelect = useCallback(
+    (theme: Theme) => {
+      dispatch(setTheme(theme));
+      navigation.goBack();
+    },
+    [dispatch, navigation]
+  );
 
   const themeItems: SelectableButtonGroupItem[] = useMemo(
     () =>
