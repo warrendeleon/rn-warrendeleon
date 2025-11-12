@@ -64,32 +64,6 @@ yarn android
 
 ---
 
-## 📊 Project Planning & Tracking
-
-All project planning (Epics, User Stories, Tasks) is managed in **Notion**:
-
-**🔗 [warrendeleon RN App Workspace](https://notion.so/2a93743a097c8005a22cf96220612894)**
-
-**What's in Notion:**
-
-- 🎯 **Epics** - High-level business initiatives
-- 📖 **User Stories** - User-facing features with story points
-- ✅ **Tasks** - Day-to-day work tracked via Kanban boards
-
-**CLI Commands for Notion Integration:**
-
-```bash
-/create-epic "Title"              # Create new Epic
-/create-story EPIC-XXX "Title"    # Create User Story
-/create-task US-XXX "Title"       # Create Task
-/update-ticket TASK-XXX Status    # Update ticket
-/my-tickets                       # View your work
-```
-
-See [CLAUDE.md](CLAUDE.md#ticket-management-with-notion) for complete Notion integration guide.
-
----
-
 ## Documentation
 
 Comprehensive guides are available in the `/docs` folder. Here's how to navigate them:
