@@ -3,7 +3,7 @@
 **Story ID**: US-006
 **Title**: Data Migration & Structure
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
-**Status**: Backlog
+**Status**: Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -35,9 +35,9 @@ The old repository contains complete profile data (work experience, education, s
 - [x] Catalan translations in `src/test-utils/fixtures/api/ca/`
 - [x] Polish translations in `src/test-utils/fixtures/api/pl/`
 - [x] Tagalog translations in `src/test-utils/fixtures/api/tl/`
-- [ ] TypeScript types created (Profile, WorkXP, Education, Client)
+- [x] TypeScript types created (Profile, WorkExperience, Education, Client)
 - [x] All JSON files pass Prettier formatting
-- [ ] Data structure validated against types
+- [x] Data structure validated against types (TypeScript compilation passes)
 
 ---
 
@@ -56,7 +56,7 @@ The old repository contains complete profile data (work experience, education, s
 | [TASK-027](../tasks/TASK-027-translate-catalan-data.md)    | Translate Catalan data        | 1h     | Done   |
 | [TASK-028](../tasks/TASK-028-translate-polish-data.md)     | Translate Polish data         | 1h     | Done   |
 | [TASK-029](../tasks/TASK-029-translate-tagalog-data.md)    | Translate Tagalog data        | 1h     | Done   |
-| [TASK-030](../tasks/TASK-030-create-typescript-types.md)   | Create TypeScript types       | 1h     | To Do  |
+| [TASK-030](../tasks/TASK-030-create-typescript-types.md)   | Create TypeScript types       | 1h     | Done   |
 
 ---
 
