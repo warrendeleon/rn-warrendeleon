@@ -602,6 +602,8 @@ yarn format
 
 ## Commit Message Format
 
+**📖 For a comprehensive guide with examples and best practices, see [Git Commit Guide](GIT_COMMIT_GUIDE.md).**
+
 ### Gitmoji Convention
 
 We use [Gitmoji](https://gitmoji.dev/) for commit messages:
@@ -614,12 +616,15 @@ We use [Gitmoji](https://gitmoji.dev/) for commit messages:
 [optional footer]
 ```
 
-### Common Emojis
+### Common Emojis (Quick Reference)
+
+This table shows frequently used gitmojis. For the complete list, visit [gitmoji.dev](https://gitmoji.dev).
 
 | Emoji | Code                      | Type     | Description             |
 | ----- | ------------------------- | -------- | ----------------------- |
 | ✨    | `:sparkles:`              | feat     | New feature             |
 | 🐛    | `:bug:`                   | fix      | Bug fix                 |
+| 🚑    | `:ambulance:`             | hotfix   | Critical hotfix         |
 | ♻️    | `:recycle:`               | refactor | Code refactoring        |
 | 📝    | `:memo:`                  | docs     | Documentation           |
 | ✅    | `:white_check_mark:`      | test     | Tests                   |
@@ -628,6 +633,10 @@ We use [Gitmoji](https://gitmoji.dev/) for commit messages:
 | 🏗️    | `:building_construction:` | arch     | Architecture change     |
 | 🔧    | `:wrench:`                | chore    | Configuration/tooling   |
 | 🌐    | `:globe_with_meridians:`  | i18n     | Internationalization    |
+| ♿    | `:wheelchair:`            | a11y     | Accessibility           |
+| 🔒    | `:lock:`                  | security | Security fix            |
+| 💄    | `:lipstick:`              | ui       | UI/styling              |
+| 💥    | `:boom:`                  | breaking | Breaking changes        |
 
 ### Examples
 

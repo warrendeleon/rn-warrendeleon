@@ -71,7 +71,8 @@ Comprehensive guides are available in the `/docs` folder. Here's how to navigate
 ### 📋 Project Information
 
 - **[Changelog](CHANGELOG.md)** - Version history and release notes
-- **[Contributing](docs/CONTRIBUTING.md)** - Code standards, commit conventions, and PR process
+- **[Git Commit Guide](docs/GIT_COMMIT_GUIDE.md)** - Commit message format and gitmoji conventions
+- **[Contributing](docs/CONTRIBUTING.md)** - Code standards and PR process
 
 ### 📖 How to Use This Documentation
 
@@ -79,7 +80,8 @@ Comprehensive guides are available in the `/docs` folder. Here's how to navigate
 
 1. **[Development Guide](docs/DEVELOPMENT.md)** - Set up your environment, install dependencies, and run the app
 2. **[Architecture](docs/ARCHITECTURE.md)** - Understand the project structure and feature-first organisation
-3. **[Contributing](docs/CONTRIBUTING.md)** - Learn code standards, commit conventions, and the PR process
+3. **[Git Commit Guide](docs/GIT_COMMIT_GUIDE.md)** - Learn our commit message format with gitmoji
+4. **[Contributing](docs/CONTRIBUTING.md)** - Code standards and PR process
 
 **Working on specific features?**
 
@@ -105,7 +107,8 @@ Comprehensive guides are available in the `/docs` folder. Here's how to navigate
 
 - **[Internationalisation](docs/I18N.md)** - i18n setup, adding translations, and language management
 - **[State Management](docs/STATE_MANAGEMENT.md)** - Redux Toolkit usage, creating features, and best practices
-- **[Contributing](docs/CONTRIBUTING.md)** - Code style, commit conventions, and PR process
+- **[Git Commit Guide](docs/GIT_COMMIT_GUIDE.md)** - Commit message format and gitmoji conventions
+- **[Contributing](docs/CONTRIBUTING.md)** - Code style and PR process
 
 ---
 

@@ -628,12 +628,18 @@ Before committing:
 - Detail 2
 ```
 
-**Examples:**
+**Complete gitmoji reference**: [gitmoji.dev](https://gitmoji.dev)
+
+**Common examples:**
 
 - `✨ feat(ui): add dark mode toggle`
 - `🐛 fix(i18n): resolve missing Spanish translations`
+- `🚑 hotfix(auth): fix production login crash`
+- `⚡ perf(list): add React.memo to prevent re-renders`
 - `🔧 chore(deps): update React Native to 0.82.1`
 - `📝 docs(readme): add installation guide`
+- `♿ a11y(buttons): add screen reader labels`
+- `🔒 security(api): patch XSS vulnerability`
 
 ### TypeScript Strict Mode
 
