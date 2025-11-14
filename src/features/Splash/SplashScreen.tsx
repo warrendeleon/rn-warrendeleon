@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box } from '@gluestack-ui/themed';
+import { StyleSheet, View } from 'react-native';
 
 import { Logo } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
@@ -17,7 +17,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
     const timer = setTimeout(() => {
       setIsLoading(false);
       onComplete();
-    }, 2500); // 2.5 second loading time
+    }, 4500); // 4.5 second loading time (matches original implementation)
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -27,15 +27,25 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   }
 
   return (
-    <Box
-      flex={1}
-      backgroundColor={colorScheme === 'dark' ? '$black' : '$white'}
-      alignItems="center"
-      justifyContent="center"
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: colorScheme === 'dark' ? '#000000' : '#FFFFFF' },
+      ]}
     >
-      <Box width="$64" height="$64">
-        <Logo darkMode={colorScheme === 'dark'} />
-      </Box>
-    </Box>
+      <Logo darkMode={colorScheme === 'dark'} style={styles.logo} />
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    width: 350,
+    height: 75,
+  },
+});
