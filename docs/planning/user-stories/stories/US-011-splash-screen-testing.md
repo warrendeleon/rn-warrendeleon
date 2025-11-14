@@ -3,7 +3,7 @@
 **Story ID**: US-011
 **Title**: Comprehensive Testing for Splash Screen
 **Epic**: [EPIC-006: Splash Screen with Loading Animation](../epics/EPIC-006-splash-screen-loading-animation.md)
-**Status**: Backlog
+**Status**: Not Started
 **Priority**: High
 **Created**: 2025-01-14
 **Assigned To**: Warren de Leon

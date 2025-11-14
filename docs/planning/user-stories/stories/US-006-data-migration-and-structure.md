@@ -3,7 +3,7 @@
 **Story ID**: US-006
 **Title**: Data Migration & Structure
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
-**Status**: Done
+**Status**: Completed
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon

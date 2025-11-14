@@ -3,7 +3,7 @@
 **Story ID**: US-008
 **Title**: Splash Screen with Animated Logo and Data Loading
 **Epic**: [EPIC-006: Splash Screen with Loading Animation](../epics/EPIC-006-splash-screen-loading-animation.md)
-**Status**: Done
+**Status**: Completed
 **Priority**: High
 **Created**: 2025-01-12
 **Updated**: 2025-01-14

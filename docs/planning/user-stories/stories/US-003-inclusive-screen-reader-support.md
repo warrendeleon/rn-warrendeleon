@@ -3,7 +3,7 @@
 **Story ID**: US-003
 **Title**: Inclusive Screen Reader Support
 **Epic**: [EPIC-003: Accessibility & Compliance](../epics/EPIC-003-accessibility-compliance.md)
-**Status**: Not Started
+**Status**: In Progress
 **Priority**: High
 **Created**: 2025-01-11
 **Assigned To**: Warren de Leon

@@ -2,7 +2,7 @@
 
 **Epic ID**: EPIC-005
 **Title**: Multi-Language Portfolio Data Layer
-**Status**: Not Started
+**Status**: In Progress
 **Priority**: High
 **Created**: 2025-01-12
 **Updated**: 2025-01-14
@@ -169,9 +169,9 @@ By implementing complete portfolio data layer:
 
 | ID                                                          | User Story                 | Status      | Story Points |
 | ----------------------------------------------------------- | -------------------------- | ----------- | ------------ |
-| [US-006](../stories/US-006-data-migration-and-structure.md) | Data Migration & Structure | Not Started | 3            |
-| [US-007](../stories/US-007-redux-data-layer.md)             | Redux Data Layer           | Not Started | 5            |
-| [US-009](../stories/US-009-internationalization.md)         | Internationalization       | Not Started | 3            |
+| [US-006](../stories/US-006-data-migration-and-structure.md) | Data Migration & Structure | Completed   | 3            |
+| [US-007](../stories/US-007-redux-data-layer.md)             | Redux Data Layer           | In Progress | 5            |
+| [US-009](../stories/US-009-internationalization.md)         | Internationalization       | Completed   | 3            |
 | [US-010](../stories/US-010-data-layer-testing.md)           | Data Layer Testing         | Not Started | 5            |
 
 **Total Stories**: 4
@@ -183,22 +183,22 @@ By implementing complete portfolio data layer:
 
 | ID                                                                   | Task                                     | Status | Effort | Priority |
 | -------------------------------------------------------------------- | ---------------------------------------- | ------ | ------ | -------- |
-| [TASK-026](../tasks/TASK-026-copy-english-spanish-data.md)           | Copy en/es data from old repo            | To Do  | 0.5h   | High     |
-| [TASK-027](../tasks/TASK-027-translate-catalan-data.md)              | Translate Catalan data                   | To Do  | 1h     | High     |
-| [TASK-028](../tasks/TASK-028-translate-polish-data.md)               | Translate Polish data                    | To Do  | 1h     | High     |
-| [TASK-029](../tasks/TASK-029-translate-tagalog-data.md)              | Translate Tagalog data                   | To Do  | 1h     | High     |
-| [TASK-030](../tasks/TASK-030-create-typescript-types.md)             | Create TypeScript types                  | To Do  | 1h     | High     |
-| [TASK-031](../tasks/TASK-031-setup-axios-github-api-client.md)       | Set up Axios GitHub API client           | To Do  | 1h     | High     |
-| [TASK-032](../tasks/TASK-032-create-profile-redux-slice.md)          | Create profile Redux slice               | To Do  | 1.5h   | High     |
-| [TASK-033](../tasks/TASK-033-create-workxp-redux-slice.md)           | Create workXP Redux slice                | To Do  | 1h     | High     |
-| [TASK-034](../tasks/TASK-034-create-education-redux-slice.md)        | Create education Redux slice             | To Do  | 1h     | High     |
-| [TASK-035](../tasks/TASK-035-configure-redux-persist.md)             | Configure redux-persist                  | To Do  | 0.5h   | High     |
+| [TASK-026](../tasks/TASK-026-copy-english-spanish-data.md)           | Copy en/es data from old repo            | Done   | 0.5h   | High     |
+| [TASK-027](../tasks/TASK-027-translate-catalan-data.md)              | Translate Catalan data                   | Done   | 1h     | High     |
+| [TASK-028](../tasks/TASK-028-translate-polish-data.md)               | Translate Polish data                    | Done   | 1h     | High     |
+| [TASK-029](../tasks/TASK-029-translate-tagalog-data.md)              | Translate Tagalog data                   | Done   | 1h     | High     |
+| [TASK-030](../tasks/TASK-030-create-typescript-types.md)             | Create TypeScript types                  | Done   | 1h     | High     |
+| [TASK-031](../tasks/TASK-031-setup-axios-github-api-client.md)       | Set up Axios GitHub API client           | Done   | 1h     | High     |
+| [TASK-032](../tasks/TASK-032-create-profile-redux-slice.md)          | Create profile Redux slice               | Done   | 1.5h   | High     |
+| [TASK-033](../tasks/TASK-033-create-workxp-redux-slice.md)           | Create workXP Redux slice                | Done   | 1h     | High     |
+| [TASK-034](../tasks/TASK-034-create-education-redux-slice.md)        | Create education Redux slice             | Done   | 1h     | High     |
+| [TASK-035](../tasks/TASK-035-configure-redux-persist.md)             | Configure redux-persist                  | Done   | 0.5h   | High     |
 | [TASK-036](../tasks/TASK-036-unit-tests-redux-layer.md)              | Add unit tests for Redux layer           | To Do  | 2h     | High     |
-| [TASK-045](../tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n locale files (ca, pl, tl) | To Do  | 2h     | Medium   |
-| [TASK-046](../tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n config for 5 languages       | To Do  | 0.5h   | Medium   |
-| [TASK-047](../tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist                 | To Do  | 0.5h   | Medium   |
-| [TASK-048](../tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml            | To Do  | 1h     | Medium   |
-| [TASK-049](../tasks/TASK-049-update-language-selector-ui.md)         | Update language selector UI              | To Do  | 1h     | Medium   |
+| [TASK-045](../tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n locale files (ca, pl, tl) | Done   | 2h     | Medium   |
+| [TASK-046](../tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n config for 5 languages       | Done   | 0.5h   | Medium   |
+| [TASK-047](../tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist                 | Done   | 0.5h   | Medium   |
+| [TASK-048](../tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml            | Done   | 1h     | Medium   |
+| [TASK-049](../tasks/TASK-049-update-language-selector-ui.md)         | Update language selector UI              | Done   | 1h     | Medium   |
 | [TASK-050](../tasks/TASK-050-rntl-tests-redux-data-layer.md)         | RNTL tests for Redux data layer          | To Do  | 2h     | High     |
 | [TASK-052](../tasks/TASK-052-e2e-tests-language-switching.md)        | E2E tests for language switching         | To Do  | 1.5h   | High     |
 | [TASK-053](../tasks/TASK-053-e2e-tests-data-loading-persistence.md)  | E2E tests for data loading/persistence   | To Do  | 2h     | High     |
@@ -227,7 +227,8 @@ This epic is complete when:
 | Date       | Status      | Notes                                                      |
 | ---------- | ----------- | ---------------------------------------------------------- |
 | 2025-01-12 | Not Started | Epic created                                               |
-| 2025-01-14 | Not Started | Epic split: Splash screen moved to EPIC-006, scope reduced |
+| 2025-01-14 | In Progress | Epic split: Splash screen moved to EPIC-006, scope reduced |
+| 2025-01-14 | In Progress | 14 of 20 tasks completed, 6 testing tasks remaining        |
 
 ---
 

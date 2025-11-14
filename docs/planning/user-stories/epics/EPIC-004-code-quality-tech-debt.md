@@ -2,7 +2,7 @@
 
 **Epic ID**: EPIC-004
 **Title**: Code Quality & Technical Debt - Foundation Cleanup
-**Status**: Not Started
+**Status**: Completed
 **Priority**: Medium
 **Created**: 2025-01-11
 **Owner**: Warren de Leon
@@ -88,7 +88,7 @@ By cleaning up technical debt:
 **Target Date**: 2025-01-12
 **Completed Date**: _Not yet completed_
 
-**Estimated Duration**: 1 day (4.25 hours total)
+**Estimated Duration**: 1 day (0.75 hours total)
 
 ---
 
@@ -96,8 +96,8 @@ By cleaning up technical debt:
 
 **Budget**: £0
 **Actual Cost**: _To be tracked_
-**Total Effort**: 4.25 hours
-**Actual Effort**: _To be tracked_
+**Total Effort**: 0.75 hours
+**Actual Effort**: 0.75 hours
 
 ---
 
@@ -145,12 +145,12 @@ By cleaning up technical debt:
 
 | ID                                                             | Task                          | Status    | Effort | Priority |
 | -------------------------------------------------------------- | ----------------------------- | --------- | ------ | -------- |
-| [TASK-023](../tasks/TASK-023-remove-unused-dependencies.md)    | Remove Unused Dependencies    | To Do     | 0.25h  | High     |
-| [TASK-024](../tasks/TASK-024-add-missing-types.md)             | Add Missing @types/node       | To Do     | 0.25h  | High     |
+| [TASK-023](../tasks/TASK-023-remove-unused-dependencies.md)    | Remove Unused Dependencies    | Completed | 0.25h  | High     |
+| [TASK-024](../tasks/TASK-024-add-missing-types.md)             | Add Missing @types/node       | Completed | 0.25h  | High     |
 | [TASK-025](../tasks/TASK-025-standardise-component-imports.md) | Standardise Component Imports | Completed | 0.25h  | Low      |
 
-**Total Tasks**: 5
-**Total Effort**: 4.25 hours
+**Total Tasks**: 3
+**Total Effort**: 0.75 hours
 
 ---
 
@@ -170,9 +170,10 @@ This epic is complete when:
 
 _Auto-tracked when status changes_
 
-| Date       | Status      | Notes        |
-| ---------- | ----------- | ------------ |
-| 2025-01-11 | Not Started | Epic created |
+| Date       | Status      | Notes                            |
+| ---------- | ----------- | -------------------------------- |
+| 2025-01-11 | Not Started | Epic created                     |
+| 2025-01-14 | Completed   | All 3 tasks completed and merged |
 
 ---
 

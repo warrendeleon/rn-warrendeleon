@@ -2,7 +2,7 @@
 
 **Epic ID**: EPIC-001
 **Title**: Performance Optimization - Eliminate Unnecessary Re-renders
-**Status**: Not Started
+**Status**: Completed
 **Priority**: High
 **Created**: 2025-01-11
 **Owner**: Warren de Leon
@@ -149,9 +149,9 @@ By implementing performance optimisations:
 
 ## User Stories
 
-| ID                                                            | User Story                       | Status      | Story Points |
-| ------------------------------------------------------------- | -------------------------------- | ----------- | ------------ |
-| [US-001](../stories/US-001-smooth-responsive-interactions.md) | Smooth & Responsive Interactions | Not Started | 8            |
+| ID                                                            | User Story                       | Status    | Story Points |
+| ------------------------------------------------------------- | -------------------------------- | --------- | ------------ |
+| [US-001](../stories/US-001-smooth-responsive-interactions.md) | Smooth & Responsive Interactions | Completed | 8            |
 
 **Total Stories**: 1
 
@@ -159,18 +159,18 @@ By implementing performance optimisations:
 
 ## Tasks
 
-| ID                                                             | Task                            | Status | Effort | Priority |
-| -------------------------------------------------------------- | ------------------------------- | ------ | ------ | -------- |
-| [TASK-001](../tasks/TASK-001-memo-button-with-chevron.md)      | React.memo ButtonWithChevron    | To Do  | 0.5h   | High     |
-| [TASK-002](../tasks/TASK-002-memo-selectable-list-button.md)   | React.memo SelectableListButton | To Do  | 0.5h   | High     |
-| [TASK-003](../tasks/TASK-003-memo-button-group-divider.md)     | React.memo ButtonGroupDivider   | To Do  | 0.5h   | High     |
-| [TASK-004](../tasks/TASK-004-usememo-settings-screen.md)       | useMemo SettingsScreen          | To Do  | 0.75h  | High     |
-| [TASK-005](../tasks/TASK-005-usememo-language-screen.md)       | useMemo LanguageScreen          | To Do  | 0.5h   | High     |
-| [TASK-006](../tasks/TASK-006-usememo-appearance-screen.md)     | useMemo AppearanceScreen        | To Do  | 0.5h   | High     |
-| [TASK-007](../tasks/TASK-007-usecallback-settings-screen.md)   | useCallback SettingsScreen      | To Do  | 0.5h   | High     |
-| [TASK-008](../tasks/TASK-008-usecallback-language-screen.md)   | useCallback LanguageScreen      | To Do  | 0.5h   | High     |
-| [TASK-009](../tasks/TASK-009-usecallback-appearance-screen.md) | useCallback AppearanceScreen    | To Do  | 0.5h   | High     |
-| [TASK-010](../tasks/TASK-010-optimize-redux-selectors.md)      | Optimise Redux Selectors        | To Do  | 1h     | Medium   |
+| ID                                                             | Task                            | Status    | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------- | --------- | ------ | -------- |
+| [TASK-001](../tasks/TASK-001-memo-button-with-chevron.md)      | React.memo ButtonWithChevron    | Completed | 0.5h   | High     |
+| [TASK-002](../tasks/TASK-002-memo-selectable-list-button.md)   | React.memo SelectableListButton | Completed | 0.5h   | High     |
+| [TASK-003](../tasks/TASK-003-memo-button-group-divider.md)     | React.memo ButtonGroupDivider   | Completed | 0.5h   | High     |
+| [TASK-004](../tasks/TASK-004-usememo-settings-screen.md)       | useMemo SettingsScreen          | Completed | 0.75h  | High     |
+| [TASK-005](../tasks/TASK-005-usememo-language-screen.md)       | useMemo LanguageScreen          | Completed | 0.5h   | High     |
+| [TASK-006](../tasks/TASK-006-usememo-appearance-screen.md)     | useMemo AppearanceScreen        | Completed | 0.5h   | High     |
+| [TASK-007](../tasks/TASK-007-usecallback-settings-screen.md)   | useCallback SettingsScreen      | Completed | 0.5h   | High     |
+| [TASK-008](../tasks/TASK-008-usecallback-language-screen.md)   | useCallback LanguageScreen      | Completed | 0.5h   | High     |
+| [TASK-009](../tasks/TASK-009-usecallback-appearance-screen.md) | useCallback AppearanceScreen    | Completed | 0.5h   | High     |
+| [TASK-010](../tasks/TASK-010-optimize-redux-selectors.md)      | Optimise Redux Selectors        | Completed | 1h     | Medium   |
 
 **Total Tasks**: 10
 **Total Effort**: 6 hours
@@ -193,9 +193,10 @@ This epic is complete when:
 
 _Auto-tracked when status changes_
 
-| Date       | Status      | Notes        |
-| ---------- | ----------- | ------------ |
-| 2025-01-11 | Not Started | Epic created |
+| Date       | Status      | Notes                             |
+| ---------- | ----------- | --------------------------------- |
+| 2025-01-11 | Not Started | Epic created                      |
+| 2025-01-14 | Completed   | All 10 tasks completed and merged |
 
 ---
 
