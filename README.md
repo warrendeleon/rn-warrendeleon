@@ -68,6 +68,11 @@ yarn android
 
 Comprehensive guides are available in the `/docs` folder. Here's how to navigate them:
 
+### 📋 Project Information
+
+- **[Changelog](CHANGELOG.md)** - Version history and release notes
+- **[Contributing](docs/CONTRIBUTING.md)** - Code standards, commit conventions, and PR process
+
 ### 📖 How to Use This Documentation
 
 **New to the project?** Follow this onboarding path:
