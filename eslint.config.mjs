@@ -21,6 +21,7 @@ export default [
       '**/.prettierrc.*',
       '**/.jest/**',
       '.yarn/**',
+      '.claude/**',
       // E2E config files
       '.detoxrc.js',
       '.cucumber.js',
