@@ -3,24 +3,31 @@ import { StyleSheet, View } from 'react-native';
 
 import { Logo } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
+import { fetchEducation, fetchProfile, fetchWorkXP, useAppDispatch } from '@app/store';
 
 interface SplashScreenProps {
   onComplete: () => void;
 }
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
+  const dispatch = useAppDispatch();
   const colorScheme = useAppColorScheme();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate data loading (fetch user data, initialize app state, etc.)
+    // Fetch portfolio data from GitHub
+    dispatch(fetchProfile());
+    dispatch(fetchWorkXP());
+    dispatch(fetchEducation());
+
+    // Show splash screen for 4.5 seconds (matches original implementation)
     const timer = setTimeout(() => {
       setIsLoading(false);
       onComplete();
-    }, 4500); // 4.5 second loading time (matches original implementation)
+    }, 4500);
 
     return () => clearTimeout(timer);
-  }, [onComplete]);
+  }, [dispatch, onComplete]);
 
   if (!isLoading) {
     return null;
