@@ -1,0 +1,34 @@
+{
+  "profilePicture": "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/avatar.png?raw=true",
+  "name": "Warren",
+  "lastName": "de Leon",
+  "headline": "Senior React Native Developer",
+  "namePronunciation": "[ w AW - r uh n ]",
+  "namePronunciationAudioTrack": "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/audio/warren.m4a?raw=true",
+  "email": "hi@warrendeleon.com",
+  "phone": "+447510084239",
+  "birthday": "May 11th",
+  "location": {
+    "cityTown": "Dartford",
+    "county": "Kent",
+    "country": "UK",
+    "coordinates": {
+      "latitude": 51.4561,
+      "longitude": 0.24678
+    }
+  },
+  "carousel": [
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-1.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-2.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-3.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-4.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-5.jpg?raw=true",
+    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-6.jpg?raw=true"
+  ],
+  "socials": {
+    "facebook": "https://www.facebook.com/warren.deleon/",
+    "twitter": "https://twitter.com/warren_deleon",
+    "instagram": "https://www.instagram.com/warren_deleon/",
+    "linkedIn": "https://www.linkedin.com/in/warrendeleonofalla/?locale=en_GB"
+  }
+}

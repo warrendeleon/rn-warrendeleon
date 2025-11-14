@@ -31,12 +31,12 @@ The old repository contains complete profile data (work experience, education, s
 
 ## Acceptance Criteria
 
-- [ ] Data copied from old repo to `src/test-utils/fixtures/api/en/` and `/es/`
-- [ ] Catalan translations in `src/test-utils/fixtures/api/ca/`
-- [ ] Polish translations in `src/test-utils/fixtures/api/pl/`
-- [ ] Tagalog translations in `src/test-utils/fixtures/api/tl/`
+- [x] Data copied from old repo to `src/test-utils/fixtures/api/en/` and `/es/`
+- [x] Catalan translations in `src/test-utils/fixtures/api/ca/`
+- [x] Polish translations in `src/test-utils/fixtures/api/pl/`
+- [x] Tagalog translations in `src/test-utils/fixtures/api/tl/`
 - [ ] TypeScript types created (Profile, WorkXP, Education, Client)
-- [ ] All JSON files pass Prettier formatting
+- [x] All JSON files pass Prettier formatting
 - [ ] Data structure validated against types
 
 ---
@@ -52,12 +52,12 @@ The old repository contains complete profile data (work experience, education, s
 
 | ID                                                         | Task                          | Effort | Status |
 | ---------------------------------------------------------- | ----------------------------- | ------ | ------ |
-| [TASK-026](../tasks/TASK-026-copy-english-spanish-data.md) | Copy en/es data from old repo | 0.5h   | To Do  |
-| [TASK-027](../tasks/TASK-027-translate-catalan-data.md)    | Translate Catalan data        | 1h     | To Do  |
-| [TASK-028](../tasks/TASK-028-translate-polish-data.md)     | Translate Polish data         | 1h     | To Do  |
-| [TASK-029](../tasks/TASK-029-translate-tagalog-data.md)    | Translate Tagalog data        | 1h     | To Do  |
+| [TASK-026](../tasks/TASK-026-copy-english-spanish-data.md) | Copy en/es data from old repo | 0.5h   | Done   |
+| [TASK-027](../tasks/TASK-027-translate-catalan-data.md)    | Translate Catalan data        | 1h     | Done   |
+| [TASK-028](../tasks/TASK-028-translate-polish-data.md)     | Translate Polish data         | 1h     | Done   |
+| [TASK-029](../tasks/TASK-029-translate-tagalog-data.md)    | Translate Tagalog data        | 1h     | Done   |
 | [TASK-030](../tasks/TASK-030-create-typescript-types.md)   | Create TypeScript types       | 1h     | To Do  |
 
 ---
 
-**Last Updated**: 2025-01-12
+**Last Updated**: 2025-01-14

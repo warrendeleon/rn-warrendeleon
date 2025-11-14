@@ -1,0 +1,43 @@
+[
+  {
+    "location": "Udemy",
+    "title": "CircleCI: The complete introduction",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/udemy.svg",
+    "start": "Abril 2021",
+    "certificate": "https://udemy-certificate.s3.amazonaws.com/image/UC-48287ad9-9737-488f-966f-8dc85aaac0e5.jpg"
+  },
+  {
+    "location": "Udemy",
+    "title": "Fastlane for React Native: Deploy your app autonomously!",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/udemy.svg",
+    "start": "Marso 2021",
+    "certificate": "https://udemy-certificate.s3.amazonaws.com/image/UC-05701626-d6fb-4a5c-825d-756a1d7e655b.jpg"
+  },
+  {
+    "location": "Stucom Centre d'Estudis",
+    "title": "Pag-unlad ng Multiplatform Applications",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/stucom.svg",
+    "start": "2014",
+    "end": "2016"
+  },
+  {
+    "location": "Stucom Centre d'Estudis",
+    "title": "Oracle Certification Associate, Java SE7 Course",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/stucom.svg",
+    "start": "2014"
+  },
+  {
+    "location": "Stucom Centre d'Estudis",
+    "title": "Pag-unlad ng Web Applications",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/stucom.svg",
+    "start": "2012",
+    "end": "2014"
+  },
+  {
+    "location": "Stucom Centre d'Estudis",
+    "title": "Microcomputing Systems at Networks",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/stucom.svg",
+    "start": "2009",
+    "end": "2011"
+  }
+]
