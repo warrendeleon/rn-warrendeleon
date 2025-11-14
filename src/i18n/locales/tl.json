@@ -1,0 +1,38 @@
+{
+  "home": {
+    "title": "Home",
+    "env": "KAPALIGIRAN",
+    "apiUrl": "URL_NG_API",
+    "settings": "Mga Setting"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Wika",
+    "preferredLanguage": "Piniling Wika",
+    "appearance": "Itsura",
+    "darkAppearance": "Dark Mode",
+    "general": "Pangkalahatan"
+  },
+  "language": {
+    "title": "Wika",
+    "languages": "Mga Wika",
+    "english": "Ingles",
+    "spanish": "Espanyol",
+    "catalan": "Catalan",
+    "polish": "Polish",
+    "tagalog": "Tagalog"
+  },
+  "appearance": {
+    "title": "Itsura",
+    "appearance": "Itsura",
+    "automatic": "Awtomatiko",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "error": {
+    "title": "May Nangyaring Mali",
+    "message": "May nangyaring error. Subukan mo ulit.",
+    "tryAgain": "Subukan Mo Ulit",
+    "goHome": "Bumalik sa Home"
+  }
+}

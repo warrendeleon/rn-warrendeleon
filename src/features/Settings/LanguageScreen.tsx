@@ -22,6 +22,9 @@ export const LanguageScreen: React.FC = () => {
   const languages: Array<{ code: Language; label: string }> = [
     { code: 'en', label: t('language.english') },
     { code: 'es', label: t('language.spanish') },
+    { code: 'ca', label: t('language.catalan') },
+    { code: 'pl', label: t('language.polish') },
+    { code: 'tl', label: t('language.tagalog') },
   ];
 
   const handleLanguageSelect = useCallback(

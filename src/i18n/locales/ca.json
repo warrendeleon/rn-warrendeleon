@@ -1,0 +1,38 @@
+{
+  "home": {
+    "title": "Inici",
+    "env": "ENTORN",
+    "apiUrl": "URL_API",
+    "settings": "Configuració"
+  },
+  "settings": {
+    "title": "Configuració",
+    "language": "Idioma",
+    "preferredLanguage": "Idioma preferit",
+    "appearance": "Aparença",
+    "darkAppearance": "Mode fosc",
+    "general": "General"
+  },
+  "language": {
+    "title": "Idioma",
+    "languages": "Idiomes",
+    "english": "Anglès",
+    "spanish": "Espanyol",
+    "catalan": "Català",
+    "polish": "Polonès",
+    "tagalog": "Tagàlog"
+  },
+  "appearance": {
+    "title": "Aparença",
+    "appearance": "Aparença",
+    "automatic": "Automàtic",
+    "light": "Clar",
+    "dark": "Fosc"
+  },
+  "error": {
+    "title": "Alguna cosa ha anat malament",
+    "message": "Hi ha hagut un error inesperat. Torna-ho a provar, si us plau.",
+    "tryAgain": "Torna-ho a provar",
+    "goHome": "Torna a l'inici"
+  }
+}

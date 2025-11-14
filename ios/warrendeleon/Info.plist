@@ -55,6 +55,9 @@
 	<array>
 		<string>en</string>
 		<string>es</string>
+		<string>ca</string>
+		<string>pl</string>
+		<string>tl</string>
 	</array>
 </dict>
 </plist>

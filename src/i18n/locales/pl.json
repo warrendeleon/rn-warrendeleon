@@ -1,0 +1,38 @@
+{
+  "home": {
+    "title": "Strona główna",
+    "env": "ŚRODOWISKO",
+    "apiUrl": "URL_API",
+    "settings": "Ustawienia"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "language": "Język",
+    "preferredLanguage": "Preferowany język",
+    "appearance": "Wygląd",
+    "darkAppearance": "Tryb ciemny",
+    "general": "Ogólne"
+  },
+  "language": {
+    "title": "Język",
+    "languages": "Języki",
+    "english": "Angielski",
+    "spanish": "Hiszpański",
+    "catalan": "Kataloński",
+    "polish": "Polski",
+    "tagalog": "Tagalog"
+  },
+  "appearance": {
+    "title": "Wygląd",
+    "appearance": "Wygląd",
+    "automatic": "Automatyczny",
+    "light": "Jasny",
+    "dark": "Ciemny"
+  },
+  "error": {
+    "title": "Coś poszło nie tak",
+    "message": "Ups, coś się popsuło. Spróbuj jeszcze raz.",
+    "tryAgain": "Spróbuj ponownie",
+    "goHome": "Wróć na główną"
+  }
+}

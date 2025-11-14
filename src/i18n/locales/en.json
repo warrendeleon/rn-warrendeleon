@@ -17,7 +17,10 @@
     "title": "Language",
     "languages": "Languages",
     "english": "English",
-    "spanish": "Spanish"
+    "spanish": "Spanish",
+    "catalan": "Catalan",
+    "polish": "Polish",
+    "tagalog": "Tagalog"
   },
   "appearance": {
     "title": "Appearance",

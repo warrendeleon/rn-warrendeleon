@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { settingsActions } from './actions';
 
 export type Theme = 'light' | 'dark' | 'system';
-export type Language = 'en' | 'es';
+export type Language = 'en' | 'es' | 'ca' | 'pl' | 'tl';
 
 export interface SettingsState {
   theme: Theme;
