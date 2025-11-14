@@ -3,7 +3,7 @@
 **Story ID**: US-007
 **Title**: Redux Data Layer with GitHub Fetching
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
-**Status**: Done
+**Status**: In Progress
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -54,7 +54,7 @@ Implement complete Redux data layer following Redux Toolkit best practices, usin
 | [TASK-032](../tasks/TASK-032-create-profile-redux-slice.md)    | Create profile Redux slice     | 1.5h   | Done   |
 | [TASK-033](../tasks/TASK-033-create-workxp-redux-slice.md)     | Create workXP Redux slice      | 1h     | Done   |
 | [TASK-034](../tasks/TASK-034-create-education-redux-slice.md)  | Create education Redux slice   | 1h     | Done   |
-| [TASK-035](../tasks/TASK-035-configure-redux-persist.md)       | Configure redux-persist        | 0.5h   | To Do  |
+| [TASK-035](../tasks/TASK-035-configure-redux-persist.md)       | Configure redux-persist        | 0.5h   | Done   |
 | [TASK-036](../tasks/TASK-036-unit-tests-redux-layer.md)        | Add unit tests for Redux layer | 2h     | To Do  |
 
 ---

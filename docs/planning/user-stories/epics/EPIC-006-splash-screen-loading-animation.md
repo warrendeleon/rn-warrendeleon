@@ -2,7 +2,7 @@
 
 **Epic ID**: EPIC-006
 **Title**: Splash Screen with Loading Animation
-**Status**: Not Started
+**Status**: In Progress
 **Priority**: High
 **Created**: 2025-01-14
 **Owner**: Warren de Leon
@@ -177,7 +177,7 @@ By implementing native splash screen with animation:
 
 | ID                                                        | User Story                       | Status      | Story Points |
 | --------------------------------------------------------- | -------------------------------- | ----------- | ------------ |
-| [US-008](../stories/US-008-splash-screen-with-loading.md) | Splash Screen with Animated Logo | Not Started | 5            |
+| [US-008](../stories/US-008-splash-screen-with-loading.md) | Splash Screen with Animated Logo | Completed   | 5            |
 | [US-011](../stories/US-011-splash-screen-testing.md)      | Splash Screen Testing            | Not Started | 2            |
 
 **Total Stories**: 2
@@ -189,14 +189,14 @@ By implementing native splash screen with animation:
 
 | ID                                                                 | Task                                   | Status | Effort | Priority |
 | ------------------------------------------------------------------ | -------------------------------------- | ------ | ------ | -------- |
-| [TASK-037](../tasks/TASK-037-install-react-native-bootsplash.md)   | Install react-native-bootsplash        | To Do  | 0.5h   | High     |
-| [TASK-038](../tasks/TASK-038-configure-ios-native-splash.md)       | Configure iOS native splash            | To Do  | 1h     | High     |
-| [TASK-039](../tasks/TASK-039-configure-android-native-splash.md)   | Configure Android native splash        | To Do  | 1h     | High     |
-| [TASK-040](../tasks/TASK-040-install-lottie-react-native.md)       | Install lottie-react-native            | To Do  | 0.5h   | High     |
-| [TASK-041](../tasks/TASK-041-copy-logo-animation-assets.md)        | Copy logo animation assets             | To Do  | 0.5h   | Medium   |
-| [TASK-042](../tasks/TASK-042-create-logo-component.md)             | Create Logo component                  | To Do  | 1h     | High     |
-| [TASK-043](../tasks/TASK-043-create-splashscreen-component.md)     | Create SplashScreen component          | To Do  | 2h     | High     |
-| [TASK-044](../tasks/TASK-044-integrate-splash-react-navigation.md) | Integrate splash with React Navigation | To Do  | 1h     | High     |
+| [TASK-037](../tasks/TASK-037-install-react-native-bootsplash.md)   | Install react-native-bootsplash        | Done   | 0.5h   | High     |
+| [TASK-038](../tasks/TASK-038-configure-ios-native-splash.md)       | Configure iOS native splash            | Done   | 1h     | High     |
+| [TASK-039](../tasks/TASK-039-configure-android-native-splash.md)   | Configure Android native splash        | Done   | 1h     | High     |
+| [TASK-040](../tasks/TASK-040-install-lottie-react-native.md)       | Install lottie-react-native            | Done   | 0.5h   | High     |
+| [TASK-041](../tasks/TASK-041-copy-logo-animation-assets.md)        | Copy logo animation assets             | Done   | 0.5h   | Medium   |
+| [TASK-042](../tasks/TASK-042-create-logo-component.md)             | Create Logo component                  | Done   | 1h     | High     |
+| [TASK-043](../tasks/TASK-043-create-splashscreen-component.md)     | Create SplashScreen component          | Done   | 2h     | High     |
+| [TASK-044](../tasks/TASK-044-integrate-splash-react-navigation.md) | Integrate splash with React Navigation | Done   | 1h     | High     |
 | [TASK-051](../tasks/TASK-051-rntl-tests-splash-screen.md)          | RNTL tests for Splash screen           | To Do  | 1.5h   | High     |
 
 **Total Tasks**: 9
@@ -220,9 +220,10 @@ This epic is complete when:
 
 ## Status History
 
-| Date       | Status      | Notes                              |
-| ---------- | ----------- | ---------------------------------- |
-| 2025-01-14 | Not Started | Epic created (split from EPIC-005) |
+| Date       | Status      | Notes                                           |
+| ---------- | ----------- | ----------------------------------------------- |
+| 2025-01-14 | Not Started | Epic created (split from EPIC-005)              |
+| 2025-01-14 | In Progress | 8 of 9 tasks completed, pending RNTL tests only |
 
 ---
 
