@@ -1,8 +1,8 @@
 import React from 'react';
 import Lottie, { LottieViewProps } from 'lottie-react-native';
 
-import darkLogo from '../../../assets/animations/logo/dark.json';
-import lightLogo from '../../../assets/animations/logo/light.json';
+import darkLogo from '../../assets/animations/logo/dark.json';
+import lightLogo from '../../assets/animations/logo/light.json';
 
 interface LogoProps extends Omit<LottieViewProps, 'source'> {
   darkMode?: boolean;
