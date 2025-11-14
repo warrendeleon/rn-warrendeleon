@@ -4,7 +4,7 @@
 **Title**: Create SplashScreen Component
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-008-splash-screen-with-loading](../stories/US-008-splash-screen-with-loading.md)
-**Status**: To Do
+**Status**: Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -52,4 +52,4 @@ Create SplashScreen component that dispatches data fetch actions and handles loa
 
 ---
 
-**Last Updated**: 2025-01-12
+**Last Updated**: 2025-11-14
