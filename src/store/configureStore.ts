@@ -12,14 +12,20 @@ import {
 } from 'redux-persist';
 
 import reactotron from '@app/config/reactotron';
+import { educationReducer } from '@app/features/Education';
+import { profileReducer } from '@app/features/Profile';
 import { settingsReducer } from '@app/features/Settings/store';
+import { workXPReducer } from '@app/features/WorkXP';
 
 /**
  * Root reducer combining all slices
- * Separates persisted (settings) from non-persisted (future auth) state
+ * Separates persisted (settings) from non-persisted (profile, workXP, education) state
  */
 const rootReducer = combineReducers({
   settings: settingsReducer,
+  profile: profileReducer,
+  workXP: workXPReducer,
+  education: educationReducer,
   // Future: Add auth reducer here without persistence
   // auth: authReducer, // Will use EncryptedStorage separately
 });

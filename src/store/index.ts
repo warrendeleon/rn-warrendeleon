@@ -22,3 +22,40 @@ export {
   setLanguage,
   setTheme,
 } from '@app/features/Settings';
+
+// Re-export profile from Profile feature
+export type { ProfileState } from '@app/features/Profile';
+export {
+  clearProfile,
+  fetchProfile,
+  selectProfile,
+  selectProfileError,
+  selectProfileLoading,
+  selectProfileLocation,
+  selectProfileName,
+  selectProfileSocials,
+} from '@app/features/Profile';
+
+// Re-export workXP from WorkXP feature
+export type { WorkXPState } from '@app/features/WorkXP';
+export {
+  clearWorkXP,
+  fetchWorkXP,
+  selectCurrentPosition,
+  selectWorkXP,
+  selectWorkXPByCompany,
+  selectWorkXPError,
+  selectWorkXPLoading,
+} from '@app/features/WorkXP';
+
+// Re-export education from Education feature
+export type { EducationState } from '@app/features/Education';
+export {
+  clearEducation,
+  fetchEducation,
+  selectEducation,
+  selectEducationByLocation,
+  selectEducationError,
+  selectEducationLoading,
+  selectEducationWithCertificates,
+} from '@app/features/Education';
