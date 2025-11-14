@@ -2,7 +2,7 @@
 
 **Story ID**: US-006
 **Title**: Data Migration & Structure
-**Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
+**Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
 **Status**: Backlog
 **Priority**: High
 **Created**: 2025-01-12
@@ -50,13 +50,13 @@ The old repository contains complete profile data (work experience, education, s
 
 ## Tasks
 
-| ID       | Task                          | Effort | Status |
-| -------- | ----------------------------- | ------ | ------ |
-| TASK-026 | Copy en/es data from old repo | 0.5h   | To Do  |
-| TASK-027 | Translate Catalan data        | 1h     | To Do  |
-| TASK-028 | Translate Polish data         | 1h     | To Do  |
-| TASK-029 | Translate Tagalog data        | 1h     | To Do  |
-| TASK-030 | Create TypeScript types       | 1h     | To Do  |
+| ID                                                         | Task                          | Effort | Status |
+| ---------------------------------------------------------- | ----------------------------- | ------ | ------ |
+| [TASK-026](../tasks/TASK-026-copy-english-spanish-data.md) | Copy en/es data from old repo | 0.5h   | To Do  |
+| [TASK-027](../tasks/TASK-027-translate-catalan-data.md)    | Translate Catalan data        | 1h     | To Do  |
+| [TASK-028](../tasks/TASK-028-translate-polish-data.md)     | Translate Polish data         | 1h     | To Do  |
+| [TASK-029](../tasks/TASK-029-translate-tagalog-data.md)    | Translate Tagalog data        | 1h     | To Do  |
+| [TASK-030](../tasks/TASK-030-create-typescript-types.md)   | Create TypeScript types       | 1h     | To Do  |
 
 ---
 

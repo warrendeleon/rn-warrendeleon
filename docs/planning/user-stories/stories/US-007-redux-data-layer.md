@@ -2,7 +2,7 @@
 
 **Story ID**: US-007
 **Title**: Redux Data Layer with GitHub Fetching
-**Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
+**Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
 **Status**: Backlog
 **Priority**: High
 **Created**: 2025-01-12
@@ -46,14 +46,14 @@ Implement complete Redux data layer following Redux Toolkit best practices, usin
 
 ## Tasks
 
-| ID       | Task                           | Effort | Status |
-| -------- | ------------------------------ | ------ | ------ |
-| TASK-031 | Set up Axios GitHub API client | 1h     | To Do  |
-| TASK-032 | Create profile Redux slice     | 1.5h   | To Do  |
-| TASK-033 | Create workXP Redux slice      | 1h     | To Do  |
-| TASK-034 | Create education Redux slice   | 1h     | To Do  |
-| TASK-035 | Configure redux-persist        | 0.5h   | To Do  |
-| TASK-036 | Add unit tests for Redux layer | 2h     | To Do  |
+| ID                                                             | Task                           | Effort | Status |
+| -------------------------------------------------------------- | ------------------------------ | ------ | ------ |
+| [TASK-031](../tasks/TASK-031-setup-axios-github-api-client.md) | Set up Axios GitHub API client | 1h     | To Do  |
+| [TASK-032](../tasks/TASK-032-create-profile-redux-slice.md)    | Create profile Redux slice     | 1.5h   | To Do  |
+| [TASK-033](../tasks/TASK-033-create-workxp-redux-slice.md)     | Create workXP Redux slice      | 1h     | To Do  |
+| [TASK-034](../tasks/TASK-034-create-education-redux-slice.md)  | Create education Redux slice   | 1h     | To Do  |
+| [TASK-035](../tasks/TASK-035-configure-redux-persist.md)       | Configure redux-persist        | 0.5h   | To Do  |
+| [TASK-036](../tasks/TASK-036-unit-tests-redux-layer.md)        | Add unit tests for Redux layer | 2h     | To Do  |
 
 ---
 

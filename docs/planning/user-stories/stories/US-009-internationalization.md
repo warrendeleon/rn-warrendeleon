@@ -2,7 +2,7 @@
 
 **Story ID**: US-009
 **Title**: Internationalization with 5 Languages
-**Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
+**Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
 **Status**: Backlog
 **Priority**: Medium
 **Created**: 2025-01-12
@@ -45,13 +45,13 @@ Extend i18n support from 2 to 5 languages, adding UI translations and native pla
 
 ## Tasks
 
-| ID       | Task                                     | Effort | Status |
-| -------- | ---------------------------------------- | ------ | ------ |
-| TASK-045 | Translate i18n locale files (ca, pl, tl) | 2h     | To Do  |
-| TASK-046 | Update i18n config for 5 languages       | 0.5h   | To Do  |
-| TASK-047 | Configure iOS Info.plist                 | 0.5h   | To Do  |
-| TASK-048 | Configure Android strings.xml            | 1h     | To Do  |
-| TASK-049 | Update language selector UI              | 1h     | To Do  |
+| ID                                                                   | Task                                     | Effort | Status |
+| -------------------------------------------------------------------- | ---------------------------------------- | ------ | ------ |
+| [TASK-045](../tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n locale files (ca, pl, tl) | 2h     | To Do  |
+| [TASK-046](../tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n config for 5 languages       | 0.5h   | To Do  |
+| [TASK-047](../tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist                 | 0.5h   | To Do  |
+| [TASK-048](../tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml            | 1h     | To Do  |
+| [TASK-049](../tasks/TASK-049-update-language-selector-ui.md)         | Update language selector UI              | 1h     | To Do  |
 
 ---
 
