@@ -35,12 +35,14 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
 
   return (
     <View
+      testID="splash-screen"
+      accessibilityLabel="Loading splash screen"
       style={[
         styles.container,
         { backgroundColor: colorScheme === 'dark' ? '#000000' : '#FFFFFF' },
       ]}
     >
-      <Logo darkMode={colorScheme === 'dark'} style={styles.logo} />
+      <Logo testID="splash-logo" darkMode={colorScheme === 'dark'} style={styles.logo} />
     </View>
   );
 };

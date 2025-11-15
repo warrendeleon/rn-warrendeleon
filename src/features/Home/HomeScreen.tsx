@@ -14,6 +14,18 @@ export const handleSettingsPress = (navigation: HomeScreenNavigationProp): void 
   navigation.navigate('Settings');
 };
 
+export const handleProfileDataPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('ProfileData');
+};
+
+export const handleWorkXPDataPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('WorkXPData');
+};
+
+export const handleEducationDataPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('EducationData');
+};
+
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
@@ -29,6 +41,21 @@ export const HomeScreen: React.FC = () => {
       accessibilityLabel={t('home.title')}
     >
       <View>
+        <ButtonWithChevron
+          label="Profile Data"
+          onPress={() => handleProfileDataPress(navigation)}
+          testID="home-profile-data-button"
+        />
+        <ButtonWithChevron
+          label="Work Experience Data"
+          onPress={() => handleWorkXPDataPress(navigation)}
+          testID="home-workxp-data-button"
+        />
+        <ButtonWithChevron
+          label="Education Data"
+          onPress={() => handleEducationDataPress(navigation)}
+          testID="home-education-data-button"
+        />
         <ButtonWithChevron
           label={t('home.settings')}
           onPress={() => handleSettingsPress(navigation)}

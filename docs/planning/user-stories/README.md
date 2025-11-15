@@ -1,7 +1,7 @@
 # React Native Portfolio App - Planning Hub
 
 **Last Updated**: 2025-11-15
-**Overall Progress**: 95% (60/63 tasks completed)
+**Overall Progress**: 98% (62/63 tasks completed)
 
 ---
 
@@ -18,14 +18,14 @@
 
 ## 🎯 Epics Overview
 
-| Epic ID                                                             | Title                      | Status         | Tasks        | Priority | Notes                                                       |
-| ------------------------------------------------------------------- | -------------------------- | -------------- | ------------ | -------- | ----------------------------------------------------------- |
-| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization   | ✅ Completed   | 10/10 (100%) | High     | All memoisation and optimisation tasks complete             |
-| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ⏳ In Progress | 9/10 (90%)   | High     | Error boundaries complete, E2E error state tests remaining  |
-| [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing                   |
-| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt   | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                           |
-| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 22/25 (88%)  | High     | Data layer + API tests + docs complete, E2E tests remaining |
-| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ⏳ In Progress | 9/10 (90%)   | High     | Implementation complete, E2E splash flow tests remaining    |
+| Epic ID                                                             | Title                      | Status         | Tasks        | Priority | Notes                                                      |
+| ------------------------------------------------------------------- | -------------------------- | -------------- | ------------ | -------- | ---------------------------------------------------------- |
+| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization   | ✅ Completed   | 10/10 (100%) | High     | All memoisation and optimisation tasks complete            |
+| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ⏳ In Progress | 9/10 (90%)   | High     | Error boundaries complete, E2E error state tests remaining |
+| [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing                  |
+| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt   | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                          |
+| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 24/25 (96%)  | High     | Language & data E2E tests complete, 1 task remaining       |
+| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ⏳ In Progress | 9/10 (90%)   | High     | Implementation complete, E2E splash flow tests remaining   |
 
 ---
 
@@ -41,7 +41,7 @@
 | [US-007](./stories/US-007-redux-data-layer.md)                | Redux Data Layer                   | EPIC-005 | ✅ Completed   | 9/9   | High     |
 | [US-008](./stories/US-008-splash-screen-with-loading.md)      | Splash Screen with Animated Logo   | EPIC-006 | ✅ Completed   | 8/8   | High     |
 | [US-009](./stories/US-009-internationalization.md)            | Internationalization (5 Languages) | EPIC-005 | ✅ Completed   | 5/5   | Medium   |
-| [US-010](./stories/US-010-data-layer-testing.md)              | Data Layer Testing (E2E)           | EPIC-005 | ⏳ In Progress | 2/4   | High     |
+| [US-010](./stories/US-010-data-layer-testing.md)              | Data Layer Testing (E2E)           | EPIC-005 | ⏳ In Progress | 4/4   | High     |
 | [US-012](./stories/US-012-api-layer-testing.md)               | API Layer Unit Testing             | EPIC-005 | ✅ Completed   | 5/5   | High     |
 | [US-011](./stories/US-011-splash-screen-testing.md)           | Splash Screen Testing              | EPIC-006 | ⏳ In Progress | 1/2   | Medium   |
 
@@ -98,33 +98,33 @@
 
 ### EPIC-005: Multi-Language Portfolio Data Layer (25 tasks) ⏳
 
-| Task ID                                                             | Title                                         | Status   | Effort | Priority |
-| ------------------------------------------------------------------- | --------------------------------------------- | -------- | ------ | -------- |
-| [TASK-026](./tasks/TASK-026-copy-english-spanish-data.md)           | Copy English/Spanish Data from Old Repo       | ✅ Done  | 0.5h   | High     |
-| [TASK-027](./tasks/TASK-027-translate-catalan-data.md)              | Translate Profile Data to Catalan             | ✅ Done  | 1h     | High     |
-| [TASK-028](./tasks/TASK-028-translate-polish-data.md)               | Translate Profile Data to Polish              | ✅ Done  | 1h     | High     |
-| [TASK-029](./tasks/TASK-029-translate-tagalog-data.md)              | Translate Profile Data to Tagalog             | ✅ Done  | 1h     | High     |
-| [TASK-030](./tasks/TASK-030-create-typescript-types.md)             | Create TypeScript Types for Profile Data      | ✅ Done  | 1h     | High     |
-| [TASK-031](./tasks/TASK-031-setup-axios-github-api-client.md)       | Set Up Axios GitHub API Client                | ✅ Done  | 1h     | High     |
-| [TASK-032](./tasks/TASK-032-create-profile-redux-slice.md)          | Create Profile Redux Slice                    | ✅ Done  | 1.5h   | High     |
-| [TASK-033](./tasks/TASK-033-create-workxp-redux-slice.md)           | Create WorkXP Redux Slice                     | ✅ Done  | 1h     | High     |
-| [TASK-034](./tasks/TASK-034-create-education-redux-slice.md)        | Create Education Redux Slice                  | ✅ Done  | 1h     | High     |
-| [TASK-035](./tasks/TASK-035-configure-redux-persist.md)             | Configure Redux-Persist                       | ✅ Done  | 0.5h   | High     |
-| [TASK-036](./tasks/TASK-036-unit-tests-redux-layer.md)              | Add Unit Tests for Redux Layer                | ✅ Done  | 2h     | High     |
-| [TASK-045](./tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n Locale Files (ca, pl, tl)      | ✅ Done  | 2h     | Medium   |
-| [TASK-046](./tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n Config for 5 Languages            | ✅ Done  | 0.5h   | Medium   |
-| [TASK-047](./tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist for 5 Languages      | ✅ Done  | 0.5h   | Medium   |
-| [TASK-048](./tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml for 5 Languages | ✅ Done  | 1h     | Medium   |
-| [TASK-049](./tasks/TASK-049-update-language-selector-ui.md)         | Update Language Selector UI                   | ✅ Done  | 1h     | Medium   |
-| [TASK-050](./tasks/TASK-050-rntl-tests-redux-data-layer.md)         | RNTL Tests for Redux Data Layer               | ✅ Done  | 2h     | High     |
-| [TASK-052](./tasks/TASK-052-e2e-tests-language-switching.md)        | E2E Tests for Language Switching              | ⏳ To Do | 1.5h   | High     |
-| [TASK-053](./tasks/TASK-053-e2e-tests-data-loading-persistence.md)  | E2E Tests for Data Loading & Persistence      | ⏳ To Do | 2h     | High     |
-| [TASK-054](./tasks/TASK-054-mock-github-api-e2e-tests.md)           | Mock GitHub API in E2E Tests                  | ✅ Done  | 1h     | High     |
-| [TASK-056](./tasks/TASK-056-install-axios-mock-adapter.md)          | Install axios-mock-adapter                    | ✅ Done  | 0.25h  | High     |
-| [TASK-057](./tasks/TASK-057-api-tests-profile.md)                   | Create API Tests for Profile Feature          | ✅ Done  | 1h     | High     |
-| [TASK-058](./tasks/TASK-058-api-tests-education.md)                 | Create API Tests for Education Feature        | ✅ Done  | 1h     | High     |
-| [TASK-059](./tasks/TASK-059-api-tests-workxp.md)                    | Create API Tests for WorkXP Feature           | ✅ Done  | 1h     | High     |
-| [TASK-060](./tasks/TASK-060-document-api-testing-standard.md)       | Document API Testing Standard                 | ✅ Done  | 0.75h  | Medium   |
+| Task ID                                                             | Title                                         | Status  | Effort | Priority |
+| ------------------------------------------------------------------- | --------------------------------------------- | ------- | ------ | -------- |
+| [TASK-026](./tasks/TASK-026-copy-english-spanish-data.md)           | Copy English/Spanish Data from Old Repo       | ✅ Done | 0.5h   | High     |
+| [TASK-027](./tasks/TASK-027-translate-catalan-data.md)              | Translate Profile Data to Catalan             | ✅ Done | 1h     | High     |
+| [TASK-028](./tasks/TASK-028-translate-polish-data.md)               | Translate Profile Data to Polish              | ✅ Done | 1h     | High     |
+| [TASK-029](./tasks/TASK-029-translate-tagalog-data.md)              | Translate Profile Data to Tagalog             | ✅ Done | 1h     | High     |
+| [TASK-030](./tasks/TASK-030-create-typescript-types.md)             | Create TypeScript Types for Profile Data      | ✅ Done | 1h     | High     |
+| [TASK-031](./tasks/TASK-031-setup-axios-github-api-client.md)       | Set Up Axios GitHub API Client                | ✅ Done | 1h     | High     |
+| [TASK-032](./tasks/TASK-032-create-profile-redux-slice.md)          | Create Profile Redux Slice                    | ✅ Done | 1.5h   | High     |
+| [TASK-033](./tasks/TASK-033-create-workxp-redux-slice.md)           | Create WorkXP Redux Slice                     | ✅ Done | 1h     | High     |
+| [TASK-034](./tasks/TASK-034-create-education-redux-slice.md)        | Create Education Redux Slice                  | ✅ Done | 1h     | High     |
+| [TASK-035](./tasks/TASK-035-configure-redux-persist.md)             | Configure Redux-Persist                       | ✅ Done | 0.5h   | High     |
+| [TASK-036](./tasks/TASK-036-unit-tests-redux-layer.md)              | Add Unit Tests for Redux Layer                | ✅ Done | 2h     | High     |
+| [TASK-045](./tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n Locale Files (ca, pl, tl)      | ✅ Done | 2h     | Medium   |
+| [TASK-046](./tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n Config for 5 Languages            | ✅ Done | 0.5h   | Medium   |
+| [TASK-047](./tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist for 5 Languages      | ✅ Done | 0.5h   | Medium   |
+| [TASK-048](./tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml for 5 Languages | ✅ Done | 1h     | Medium   |
+| [TASK-049](./tasks/TASK-049-update-language-selector-ui.md)         | Update Language Selector UI                   | ✅ Done | 1h     | Medium   |
+| [TASK-050](./tasks/TASK-050-rntl-tests-redux-data-layer.md)         | RNTL Tests for Redux Data Layer               | ✅ Done | 2h     | High     |
+| [TASK-052](./tasks/TASK-052-e2e-tests-language-switching.md)        | E2E Tests for Language Switching              | ✅ Done | 1.5h   | High     |
+| [TASK-053](./tasks/TASK-053-e2e-tests-data-loading-persistence.md)  | E2E Tests for Data Loading & Persistence      | ✅ Done | 2h     | High     |
+| [TASK-054](./tasks/TASK-054-mock-github-api-e2e-tests.md)           | Mock GitHub API in E2E Tests                  | ✅ Done | 1h     | High     |
+| [TASK-056](./tasks/TASK-056-install-axios-mock-adapter.md)          | Install axios-mock-adapter                    | ✅ Done | 0.25h  | High     |
+| [TASK-057](./tasks/TASK-057-api-tests-profile.md)                   | Create API Tests for Profile Feature          | ✅ Done | 1h     | High     |
+| [TASK-058](./tasks/TASK-058-api-tests-education.md)                 | Create API Tests for Education Feature        | ✅ Done | 1h     | High     |
+| [TASK-059](./tasks/TASK-059-api-tests-workxp.md)                    | Create API Tests for WorkXP Feature           | ✅ Done | 1h     | High     |
+| [TASK-060](./tasks/TASK-060-document-api-testing-standard.md)       | Document API Testing Standard                 | ✅ Done | 0.75h  | Medium   |
 
 ### EPIC-006: Splash Screen with Loading Animation (10 tasks) ⏳
 
@@ -157,19 +157,11 @@
    - Local fixtures integrated
    - E2E hooks updated
 
-2. **TASK-052**: E2E Tests for Language Switching (1.5h) - **NEXT** - High Priority (EPIC-005)
-   - Test all 5 languages (en, es, ca, pl, tl)
-   - Requires TASK-054 complete
-
-3. **TASK-053**: E2E Tests for Data Loading & Persistence (2h) - High Priority (EPIC-005)
-   - Test initial fetch, display, app restart
-   - Requires TASK-054 complete
-
-4. **TASK-061**: E2E Tests for Splash Screen Flow (2h) - High Priority (EPIC-006)
+2. **TASK-061**: E2E Tests for Splash Screen Flow (2h) - **NEXT** - High Priority (EPIC-006)
    - Test splash → data loading → transition
    - Requires TASK-054 complete
 
-5. **TASK-062**: E2E Tests for Error States (2h) - High Priority (EPIC-002)
+3. **TASK-062**: E2E Tests for Error States (2h) - High Priority (EPIC-002)
    - Test network errors, API failures, recovery
    - Requires TASK-054 complete
 
@@ -181,6 +173,8 @@
 
 ### Recently Completed (2025-11-15)
 
+- ✅ **TASK-052**: E2E Tests for Language Switching (1.5h) - Tests all 5 languages with data reload
+- ✅ **TASK-053**: E2E Tests for Data Loading & Persistence (2h) - Tests initial fetch, display, restart
 - ✅ **TASK-054**: Mock GitHub API in E2E Tests (1h) - MSW configured with all fixtures
 - ✅ **TASK-060**: Document API Testing Standard (0.75h)
 - ✅ **TASK-057/058/059**: API Tests for Profile/Education/WorkXP (3h)

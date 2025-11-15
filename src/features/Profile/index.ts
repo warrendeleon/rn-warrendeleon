@@ -1,3 +1,4 @@
+export { ProfileDataScreen } from './ProfileDataScreen';
 export type { ProfileState } from './store';
 export {
   clearProfile,

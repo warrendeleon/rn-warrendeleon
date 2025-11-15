@@ -5,7 +5,15 @@ import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { ErrorBoundary } from '@app/components';
-import { AppearanceScreen, HomeScreen, LanguageScreen, SettingsScreen } from '@app/features';
+import {
+  AppearanceScreen,
+  EducationDataScreen,
+  HomeScreen,
+  LanguageScreen,
+  ProfileDataScreen,
+  SettingsScreen,
+  WorkXPDataScreen,
+} from '@app/features';
 import { useAppColorScheme } from '@app/hooks';
 
 enableScreens(true);
@@ -15,6 +23,9 @@ export type RootStackParamList = {
   Settings: undefined;
   Language: undefined;
   Appearance: undefined;
+  ProfileData: undefined;
+  WorkXPData: undefined;
+  EducationData: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -52,6 +63,21 @@ export const RootNavigator: React.FC = () => {
             name="Appearance"
             component={AppearanceScreen}
             options={{ title: t('appearance.title') }}
+          />
+          <Stack.Screen
+            name="ProfileData"
+            component={ProfileDataScreen}
+            options={{ title: 'Profile Data' }}
+          />
+          <Stack.Screen
+            name="WorkXPData"
+            component={WorkXPDataScreen}
+            options={{ title: 'Work Experience Data' }}
+          />
+          <Stack.Screen
+            name="EducationData"
+            component={EducationDataScreen}
+            options={{ title: 'Education Data' }}
           />
         </Stack.Navigator>
       </ErrorBoundary>
