@@ -1,18 +1,18 @@
 # React Native Portfolio App - Planning Hub
 
 **Last Updated**: 2025-11-15
-**Overall Progress**: 90% (60/67 tasks completed)
+**Overall Progress**: 82% (60/73 tasks completed)
 
 ---
 
 ## 📊 Quick Stats
 
-| Metric               | Count        | Progress                                    |
-| -------------------- | ------------ | ------------------------------------------- |
-| **Epics**            | 7 total      | 3 completed, 4 in progress                  |
-| **User Stories**     | 13 total     | 8 completed, 3 in progress, 2 not started   |
-| **Tasks**            | 67 total     | 60 completed, 7 remaining                   |
-| **Estimated Effort** | ~47.75 hours | ~37.75 hours completed, ~10 hours remaining |
+| Metric               | Count        | Progress                                      |
+| -------------------- | ------------ | --------------------------------------------- |
+| **Epics**            | 8 total      | 3 completed, 5 in progress                    |
+| **User Stories**     | 14 total     | 8 completed, 4 in progress, 2 not started     |
+| **Tasks**            | 73 total     | 60 completed, 13 remaining                    |
+| **Estimated Effort** | ~53.25 hours | ~37.75 hours completed, ~15.5 hours remaining |
 
 ---
 
@@ -27,6 +27,7 @@
 | [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 24/25 (96%)  | High     | Language & data E2E tests complete, 1 task remaining       |
 | [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ⏳ In Progress | 9/10 (90%)   | High     | Implementation complete, E2E splash flow tests remaining   |
 | [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign    | ⏳ In Progress | 2/6 (33%)    | Medium   | Button groups complete, ProfileCard pending                |
+| [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing           | ⏳ In Progress | 0/6 (0%)     | Medium   | CV PDF viewer with share functionality                     |
 
 ---
 
@@ -47,10 +48,11 @@
 | [US-011](./stories/US-011-splash-screen-testing.md)           | Splash Screen Testing              | EPIC-006 | ⏳ In Progress | 1/2   | Medium   |
 | [US-013](./stories/US-013-profile-card-home-screen.md)        | Display Profile Card on Home       | EPIC-007 | ⭕ Not Started | 0/4   | Medium   |
 | [US-014](./stories/US-014-home-screen-button-groups.md)       | Home Screen Button Groups          | EPIC-007 | ✅ Completed   | 2/2   | Medium   |
+| [US-015](./stories/US-015-cv-pdf-viewer.md)                   | CV PDF Viewer                      | EPIC-008 | ⭕ Not Started | 0/6   | Medium   |
 
 ---
 
-## ✅ Tasks Status (All 67 Tasks)
+## ✅ Tasks Status (All 73 Tasks)
 
 ### EPIC-001: Performance Optimization (10 tasks) ✅
 
@@ -154,6 +156,17 @@
 | [TASK-066](./tasks/TASK-066-update-home-screen-tests.md)    | Update HomeScreen Tests         | ⭕ Not Started | 0.5h   | Medium   |
 | **US-014 (Completed)**                                      | **Home Screen Button Groups**   | ✅ Done        | 2h     | Medium   |
 | **US-014 (Completed)**                                      | **Button Icons & Translations** | ✅ Done        | 2h     | Medium   |
+
+### EPIC-008: Document Viewing (6 tasks) ⏳
+
+| Task ID                                                  | Title                                 | Status         | Effort | Priority |
+| -------------------------------------------------------- | ------------------------------------- | -------------- | ------ | -------- |
+| [TASK-067](./tasks/TASK-067-install-react-native-pdf.md) | Install react-native-pdf Dependencies | ⭕ Not Started | 0.5h   | High     |
+| [TASK-068](./tasks/TASK-068-create-pdf-screen.md)        | Create PDFScreen Component            | ⭕ Not Started | 1h     | High     |
+| [TASK-069](./tasks/TASK-069-add-pdf-navigation-route.md) | Add PDF Route to Navigation           | ⭕ Not Started | 0.5h   | High     |
+| [TASK-070](./tasks/TASK-070-add-pdf-share-button.md)     | Add Share Button to PDF Header        | ⭕ Not Started | 1h     | Medium   |
+| [TASK-071](./tasks/TASK-071-unit-tests-pdf-screen.md)    | Unit Tests for PDFScreen              | ⭕ Not Started | 1h     | Medium   |
+| [TASK-072](./tasks/TASK-072-e2e-tests-pdf-viewer.md)     | E2E Tests for PDF Viewer Flow         | ⭕ Not Started | 1.5h   | Medium   |
 
 ---
 
