@@ -1,3 +1,4 @@
+export * from './ButtonGroup';
 export * from './ButtonGroupDivider';
 export * from './ButtonWithChevron';
 export * from './ChevronButtonGroup';

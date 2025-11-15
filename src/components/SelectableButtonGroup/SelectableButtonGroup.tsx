@@ -1,7 +1,6 @@
-import React, { Fragment } from 'react';
-import { View } from 'react-native';
+import React from 'react';
 
-import { ButtonGroupDivider, getButtonGroupVariant, SelectableListButton } from '@app/components';
+import { ButtonGroup, SelectableListButton } from '@app/components';
 
 export type SelectableButtonGroupItem = {
   label: string;
@@ -19,27 +18,22 @@ type SelectableButtonGroupProps = {
  * Automatically handles rounded corners (first item gets top radius, last gets bottom radius).
  * Adds dividers between items.
  * Shows check marks for selected items.
+ *
+ * This is a specialized wrapper around the generic ButtonGroup component.
  */
 export const SelectableButtonGroup: React.FC<SelectableButtonGroupProps> = ({ items }) => {
   return (
-    <View>
-      {items.map((item, index) => {
-        const groupVariant = getButtonGroupVariant(index, items.length);
-        const isLastItem = index === items.length - 1;
-
-        return (
-          <Fragment key={index}>
-            <SelectableListButton
-              label={item.label}
-              onPress={item.onPress}
-              groupVariant={groupVariant}
-              isSelected={item.isSelected}
-              testID={item.testID}
-            />
-            {!isLastItem && <ButtonGroupDivider />}
-          </Fragment>
-        );
-      })}
-    </View>
+    <ButtonGroup
+      items={items}
+      renderItem={(item, groupVariant) => (
+        <SelectableListButton
+          label={item.label}
+          onPress={item.onPress}
+          groupVariant={groupVariant}
+          isSelected={item.isSelected}
+          testID={item.testID}
+        />
+      )}
+    />
   );
 };
