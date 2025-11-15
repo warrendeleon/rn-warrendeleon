@@ -40,8 +40,8 @@ export const handleWorkXPDataPress = (navigation: HomeScreenNavigationProp): voi
   navigation.navigate('WorkXPData');
 };
 
-export const handleEducationDataPress = (navigation: HomeScreenNavigationProp): void => {
-  navigation.navigate('EducationData');
+export const handleEducationPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('Education');
 };
 
 export const handleGitHubPress = (navigation: HomeScreenNavigationProp): void => {
@@ -72,8 +72,8 @@ export const HomeScreen: React.FC = () => {
     handleWorkXPDataPress(navigation);
   }, [navigation]);
 
-  const handleEducationPress = useCallback(() => {
-    handleEducationDataPress(navigation);
+  const handleEducation = useCallback(() => {
+    handleEducationPress(navigation);
   }, [navigation]);
 
   const handleSettings = useCallback(() => {
@@ -110,11 +110,11 @@ export const HomeScreen: React.FC = () => {
         testID: 'home-work-experience-button',
       },
       {
-        label: t('home.studies'),
-        onPress: handleEducationPress,
+        label: t('home.education'),
+        onPress: handleEducation,
         startIcon: createIconComponent('school'),
         startIconBgColor: '#5856D6',
-        testID: 'home-studies-button',
+        testID: 'home-education-button',
       },
       {
         label: t('home.cv'),
@@ -131,7 +131,7 @@ export const HomeScreen: React.FC = () => {
         testID: 'home-videos-button',
       },
     ],
-    [t, handleWorkPress, handleEducationPress, handleCV, handleVideos]
+    [t, handleWorkPress, handleEducation, handleCV, handleVideos]
   );
 
   const contactItems: ChevronButtonGroupItem[] = useMemo(

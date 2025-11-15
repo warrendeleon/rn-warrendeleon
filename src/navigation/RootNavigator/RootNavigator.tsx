@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ErrorBoundary } from '@app/components';
 import {
   AppearanceScreen,
-  EducationDataScreen,
+  EducationScreen,
   HomeScreen,
   LanguageScreen,
   PDFScreen,
@@ -27,7 +27,7 @@ export type RootStackParamList = {
   Appearance: undefined;
   ProfileData: undefined;
   WorkXPData: undefined;
-  EducationData: undefined;
+  Education: undefined;
   WebView: { uri: string };
   PDF: { uri: string; title?: string };
 };
@@ -79,9 +79,9 @@ export const RootNavigator: React.FC = () => {
             options={{ title: 'Work Experience Data' }}
           />
           <Stack.Screen
-            name="EducationData"
-            component={EducationDataScreen}
-            options={{ title: t('home.studies') }}
+            name="Education"
+            component={EducationScreen}
+            options={{ title: t('home.education') }}
           />
           <Stack.Screen name="WebView" component={WebViewScreen} options={{ title: 'GitHub' }} />
           <Stack.Screen name="PDF" component={PDFScreen} options={{ title: 'CV' }} />
