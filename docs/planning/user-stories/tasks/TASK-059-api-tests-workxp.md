@@ -4,7 +4,7 @@
 **Title**: Create API Tests for WorkXP Feature
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
 **User Story**: [US-012: API Layer Unit Testing](../stories/US-012-api-layer-testing.md)
-**Status**: Done
+**Status**: Completed
 **Priority**: High
 **Created**: 2025-11-15
 **Assigned To**: Warren de Leon

@@ -4,7 +4,7 @@
 **Title**: Document API Testing Standard in Architecture Docs
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
 **User Story**: [US-012: API Layer Unit Testing](../stories/US-012-api-layer-testing.md)
-**Status**: Not Started
+**Status**: Done
 **Priority**: Medium
 **Created**: 2025-11-15
 **Assigned To**: Warren de Leon
@@ -20,12 +20,12 @@ Update architecture documentation to establish API testing as the standard for f
 
 ## Acceptance Criteria
 
-- [ ] `.claude/docs/architecture-testing.md` updated with API testing section
-- [ ] Document two-layer testing approach (API + Redux)
-- [ ] Include code examples using axios-mock-adapter
-- [ ] Document when to use API tests vs Redux tests
-- [ ] Reference old app pattern
-- [ ] Add to "Testing Requirements" section
+- [x] `.claude/docs/architecture-testing.md` updated with API testing section
+- [x] Document two-layer testing approach (API + Redux)
+- [x] Include code examples using axios-mock-adapter
+- [x] Document when to use API tests vs Redux tests
+- [x] Reference old app pattern
+- [x] Add to "Testing Requirements" section
 
 ---
 
@@ -75,11 +75,12 @@ Include:
 
 ## Definition of Done
 
-- [ ] Architecture docs updated
-- [ ] Examples included
-- [ ] Guidelines clear
-- [ ] Reviewed for accuracy
+- [x] Architecture docs updated
+- [x] Examples included
+- [x] Guidelines clear
+- [x] Reviewed for accuracy
 
 ---
 
+**Completed**: 2025-11-15
 **Last Updated**: 2025-11-15
