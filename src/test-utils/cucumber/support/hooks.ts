@@ -1,16 +1,25 @@
 import { After, AfterAll, Before, BeforeAll, Status } from '@cucumber/cucumber';
 import { device } from 'detox';
 
+import { resetMockServer, startMockServer, stopMockServer } from '../mocks/server';
+
 import { cleanupDetox, detox, setupDetox } from './detox-setup';
 import { DetoxWorld } from './world';
 
 BeforeAll({ timeout: 120 * 1000 }, async function () {
   console.log('🚀 Starting Detox E2E tests...');
+
+  // Start MSW server to mock GitHub API
+  startMockServer();
+
   await setupDetox();
   await device.launchApp();
 });
 
 Before(async function (this: DetoxWorld, { pickle }) {
+  // Reset MSW handlers between scenarios
+  resetMockServer();
+
   // Notify Detox that a test is starting
   await detox.onTestStart({
     title: pickle.name,
@@ -47,5 +56,9 @@ After(async function (this: DetoxWorld, { pickle, result }) {
 
 AfterAll(async function () {
   console.log('✅ Detox E2E tests completed.');
+
+  // Stop MSW server
+  stopMockServer();
+
   await cleanupDetox();
 });
