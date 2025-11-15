@@ -10,6 +10,7 @@ import {
   EducationDataScreen,
   HomeScreen,
   LanguageScreen,
+  PDFScreen,
   ProfileDataScreen,
   SettingsScreen,
   WebViewScreen,
@@ -28,6 +29,7 @@ export type RootStackParamList = {
   WorkXPData: undefined;
   EducationData: undefined;
   WebView: { uri: string };
+  PDF: { uri: string; title?: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -82,6 +84,7 @@ export const RootNavigator: React.FC = () => {
             options={{ title: 'Education Data' }}
           />
           <Stack.Screen name="WebView" component={WebViewScreen} options={{ title: 'GitHub' }} />
+          <Stack.Screen name="PDF" component={PDFScreen} options={{ title: 'CV' }} />
         </Stack.Navigator>
       </ErrorBoundary>
     </NavigationContainer>
