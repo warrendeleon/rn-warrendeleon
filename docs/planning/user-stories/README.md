@@ -1,18 +1,18 @@
 # React Native Portfolio App - Planning Hub
 
 **Last Updated**: 2025-11-15
-**Overall Progress**: 98% (53/54 tasks completed)
+**Overall Progress**: 98% (54/55 tasks completed)
 
 ---
 
 ## 📊 Quick Stats
 
-| Metric               | Count     | Progress                                    |
-| -------------------- | --------- | ------------------------------------------- |
-| **Epics**            | 6 total   | 4 completed, 2 in progress                  |
-| **User Stories**     | 10 total  | 8 completed, 1 in progress, 1 not started   |
-| **Tasks**            | 54 total  | 53 completed, 1 remaining                   |
-| **Estimated Effort** | ~30 hours | ~28.5 hours completed, ~1.5 hours remaining |
+| Metric               | Count        | Progress                                     |
+| -------------------- | ------------ | -------------------------------------------- |
+| **Epics**            | 6 total      | 4 completed, 2 in progress                   |
+| **User Stories**     | 10 total     | 8 completed, 1 in progress, 1 not started    |
+| **Tasks**            | 55 total     | 54 completed, 1 remaining                    |
+| **Estimated Effort** | ~30.25 hours | ~28.75 hours completed, ~1.5 hours remaining |
 
 ---
 
@@ -21,7 +21,7 @@
 | Epic ID                                                             | Title                      | Status         | Tasks        | Priority | Notes                                           |
 | ------------------------------------------------------------------- | -------------------------- | -------------- | ------------ | -------- | ----------------------------------------------- |
 | [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization   | ✅ Completed   | 10/10 (100%) | High     | All memoisation and optimisation tasks complete |
-| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ✅ Completed   | 8/8 (100%)   | High     | Error boundaries and test coverage complete     |
+| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ✅ Completed   | 9/9 (100%)   | High     | Error boundaries and test coverage complete     |
 | [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing       |
 | [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt   | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added               |
 | [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 17/20 (85%)  | High     | Data layer complete, E2E tests remaining        |
@@ -36,7 +36,7 @@
 | [US-001](./stories/US-001-smooth-responsive-interactions.md)  | Smooth & Responsive Interactions   | EPIC-001 | ✅ Completed   | 10/10 | High     |
 | [US-002](./stories/US-002-graceful-error-handling.md)         | Graceful Error Handling            | EPIC-002 | ✅ Completed   | 3/3   | High     |
 | [US-003](./stories/US-003-inclusive-screen-reader-support.md) | Inclusive Screen Reader Support    | EPIC-003 | ⏳ In Progress | 3/4   | High     |
-| [US-004](./stories/US-004-comprehensive-test-coverage.md)     | Comprehensive Test Coverage        | EPIC-002 | ✅ Completed   | 5/5   | High     |
+| [US-004](./stories/US-004-comprehensive-test-coverage.md)     | Comprehensive Test Coverage        | EPIC-002 | ✅ Completed   | 6/6   | High     |
 | [US-006](./stories/US-006-data-migration-and-structure.md)    | Data Migration & Structure         | EPIC-005 | ✅ Completed   | 5/5   | High     |
 | [US-007](./stories/US-007-redux-data-layer.md)                | Redux Data Layer                   | EPIC-005 | ✅ Completed   | 9/9   | High     |
 | [US-008](./stories/US-008-splash-screen-with-loading.md)      | Splash Screen with Animated Logo   | EPIC-006 | ✅ Completed   | 8/8   | High     |
@@ -63,18 +63,19 @@
 | [TASK-009](./tasks/TASK-009-usecallback-appearance-screen.md) | useCallback AppearanceScreen    | ✅ Completed | 0.5h   | High     |
 | [TASK-010](./tasks/TASK-010-optimize-redux-selectors.md)      | Optimise Redux Selectors        | ✅ Completed | 1h     | Medium   |
 
-### EPIC-002: Quality & Reliability (8 tasks) ✅
+### EPIC-002: Quality & Reliability (9 tasks) ✅
 
-| Task ID                                                      | Title                                    | Status       | Effort | Priority |
-| ------------------------------------------------------------ | ---------------------------------------- | ------------ | ------ | -------- |
-| [TASK-011](./tasks/TASK-011-create-error-boundary.md)        | Create ErrorBoundary Component           | ✅ Completed | 1h     | High     |
-| [TASK-012](./tasks/TASK-012-test-error-boundary.md)          | Test ErrorBoundary                       | ✅ Completed | 0.5h   | High     |
-| [TASK-013](./tasks/TASK-013-integrate-error-boundary.md)     | Integrate ErrorBoundary                  | ✅ Completed | 0.5h   | High     |
-| [TASK-018](./tasks/TASK-018-test-chevron-button-group.md)    | Test ChevronButtonGroup                  | ✅ Completed | 1h     | Medium   |
-| [TASK-019](./tasks/TASK-019-test-selectable-button-group.md) | Test SelectableButtonGroup               | ✅ Completed | 1h     | Medium   |
-| [TASK-020](./tasks/TASK-020-test-button-with-chevron.md)     | Complete ButtonWithChevron Test Coverage | ✅ Completed | 0.5h   | Medium   |
-| [TASK-021](./tasks/TASK-021-test-use-app-color-scheme.md)    | Add Tests for useAppColorScheme Hook     | ✅ Completed | 1h     | Medium   |
-| [TASK-022](./tasks/TASK-022-integration-test-settings.md)    | Integration Tests Settings Flow          | ✅ Completed | 0.5h   | Medium   |
+| Task ID                                                          | Title                                    | Status       | Effort | Priority |
+| ---------------------------------------------------------------- | ---------------------------------------- | ------------ | ------ | -------- |
+| [TASK-011](./tasks/TASK-011-create-error-boundary.md)            | Create ErrorBoundary Component           | ✅ Completed | 1h     | High     |
+| [TASK-012](./tasks/TASK-012-test-error-boundary.md)              | Test ErrorBoundary                       | ✅ Completed | 0.5h   | High     |
+| [TASK-013](./tasks/TASK-013-integrate-error-boundary.md)         | Integrate ErrorBoundary                  | ✅ Completed | 0.5h   | High     |
+| [TASK-018](./tasks/TASK-018-test-chevron-button-group.md)        | Test ChevronButtonGroup                  | ✅ Completed | 1h     | Medium   |
+| [TASK-019](./tasks/TASK-019-test-selectable-button-group.md)     | Test SelectableButtonGroup               | ✅ Completed | 1h     | Medium   |
+| [TASK-020](./tasks/TASK-020-test-button-with-chevron.md)         | Complete ButtonWithChevron Test Coverage | ✅ Completed | 0.5h   | Medium   |
+| [TASK-021](./tasks/TASK-021-test-use-app-color-scheme.md)        | Add Tests for useAppColorScheme Hook     | ✅ Completed | 1h     | Medium   |
+| [TASK-022](./tasks/TASK-022-integration-test-settings.md)        | Integration Tests Settings Flow          | ✅ Completed | 0.5h   | Medium   |
+| [TASK-055](./tasks/TASK-055-exclude-test-utils-from-coverage.md) | Exclude Test Utils from Jest Coverage    | ✅ Completed | 0.25h  | Medium   |
 
 ### EPIC-003: Accessibility & Compliance (4 tasks) ⏳
 

@@ -3,8 +3,33 @@
  * Provides jest mock functions for axios methods
  */
 
-const mockAxios = {
-  create: jest.fn(() => mockAxios),
+type MockAxiosType = {
+  create: jest.Mock;
+  get: jest.Mock;
+  post: jest.Mock;
+  put: jest.Mock;
+  delete: jest.Mock;
+  patch: jest.Mock;
+  request: jest.Mock;
+  defaults: {
+    headers: {
+      common: Record<string, unknown>;
+    };
+  };
+  interceptors: {
+    request: {
+      use: jest.Mock;
+      eject: jest.Mock;
+    };
+    response: {
+      use: jest.Mock;
+      eject: jest.Mock;
+    };
+  };
+};
+
+const mockAxios: MockAxiosType = {
+  create: jest.fn((): MockAxiosType => mockAxios),
   get: jest.fn(),
   post: jest.fn(),
   put: jest.fn(),

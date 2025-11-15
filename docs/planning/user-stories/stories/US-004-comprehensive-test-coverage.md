@@ -251,16 +251,17 @@ And Redux state should reflect the change
 
 ## Tasks
 
-| ID                                                            | Task                            | Effort | Priority | Status      |
-| ------------------------------------------------------------- | ------------------------------- | ------ | -------- | ----------- |
-| [TASK-018](../tasks/TASK-018-test-chevron-button-group.md)    | Test ChevronButtonGroup         | 1h     | Medium   | Not Started |
-| [TASK-019](../tasks/TASK-019-test-selectable-button-group.md) | Test SelectableButtonGroup      | 1h     | Medium   | Not Started |
-| [TASK-020](../tasks/TASK-020-test-button-with-chevron.md)     | Test ButtonWithChevron Coverage | 0.5h   | Medium   | Not Started |
-| [TASK-021](../tasks/TASK-021-test-use-app-color-scheme.md)    | Test useAppColorScheme Hook     | 1h     | Medium   | Not Started |
-| [TASK-022](../tasks/TASK-022-integration-test-settings.md)    | Integration Tests Settings Flow | 0.5h   | Medium   | Not Started |
+| ID                                                                | Task                                  | Effort | Priority | Status    |
+| ----------------------------------------------------------------- | ------------------------------------- | ------ | -------- | --------- |
+| [TASK-018](../tasks/TASK-018-test-chevron-button-group.md)        | Test ChevronButtonGroup               | 1h     | Medium   | Completed |
+| [TASK-019](../tasks/TASK-019-test-selectable-button-group.md)     | Test SelectableButtonGroup            | 1h     | Medium   | Completed |
+| [TASK-020](../tasks/TASK-020-test-button-with-chevron.md)         | Test ButtonWithChevron Coverage       | 0.5h   | Medium   | Completed |
+| [TASK-021](../tasks/TASK-021-test-use-app-color-scheme.md)        | Test useAppColorScheme Hook           | 1h     | Medium   | Completed |
+| [TASK-022](../tasks/TASK-022-integration-test-settings.md)        | Integration Tests Settings Flow       | 0.5h   | Medium   | Completed |
+| [TASK-055](../tasks/TASK-055-exclude-test-utils-from-coverage.md) | Exclude Test Utils from Jest Coverage | 0.25h  | Medium   | Completed |
 
-**Total Tasks**: 5 (plus 1.5h validation)
-**Total Effort**: 5.5 hours
+**Total Tasks**: 6
+**Total Effort**: 5.75 hours
 
 ---
 
