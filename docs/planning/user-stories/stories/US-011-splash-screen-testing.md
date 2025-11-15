@@ -3,10 +3,9 @@
 **Story ID**: US-011
 **Title**: Comprehensive Testing for Splash Screen
 **Epic**: [EPIC-006: Splash Screen with Loading Animation](../epics/EPIC-006-splash-screen-loading-animation.md)
-**Status**: Completed
+**Status**: In Progress
 **Priority**: High
 **Created**: 2025-01-14
-**Completed**: 2025-11-15
 **Assigned To**: Warren de Leon
 **Category**: Testing
 
@@ -42,17 +41,18 @@ Split from original US-010 to focus specifically on splash screen testing (separ
 
 ## Story Points & Effort
 
-**Story Points**: 2
-**Effort Estimate**: 1.5 hours
-**Actual Effort**: 1.5 hours
+**Story Points**: 3
+**Effort Estimate**: 3.5 hours
+**Actual Effort**: 1.5 hours (TASK-051 complete), 2h remaining (TASK-061)
 
 ---
 
 ## Tasks
 
-| ID                                                        | Task                         | Effort | Status |
-| --------------------------------------------------------- | ---------------------------- | ------ | ------ |
-| [TASK-051](../tasks/TASK-051-rntl-tests-splash-screen.md) | RNTL tests for Splash screen | 1.5h   | Done   |
+| ID                                                            | Task                             | Effort | Status |
+| ------------------------------------------------------------- | -------------------------------- | ------ | ------ |
+| [TASK-051](../tasks/TASK-051-rntl-tests-splash-screen.md)     | RNTL tests for Splash screen     | 1.5h   | Done   |
+| [TASK-061](../tasks/TASK-061-e2e-tests-splash-screen-flow.md) | E2E tests for Splash screen flow | 2h     | To Do  |
 
 ---
 

@@ -3,7 +3,7 @@
 **Story ID**: US-002
 **Title**: Graceful Error Handling
 **Epic**: [EPIC-002: Quality & Reliability](../epics/EPIC-002-quality-reliability.md)
-**Status**: Completed
+**Status**: In Progress
 **Priority**: High
 **Created**: 2025-01-11
 **Assigned To**: Warren de Leon
@@ -248,14 +248,15 @@ Scenario: ErrorBoundary catches error and displays fallback UI
 
 ## Tasks
 
-| ID                                                        | Task                           | Effort | Priority | Status      |
-| --------------------------------------------------------- | ------------------------------ | ------ | -------- | ----------- |
-| [TASK-011](../tasks/TASK-011-create-error-boundary.md)    | Create ErrorBoundary Component | 1h     | High     | Not Started |
-| [TASK-012](../tasks/TASK-012-test-error-boundary.md)      | Test ErrorBoundary             | 0.5h   | High     | Not Started |
-| [TASK-013](../tasks/TASK-013-integrate-error-boundary.md) | Integrate ErrorBoundary        | 0.5h   | High     | Not Started |
+| ID                                                        | Task                                | Effort | Priority | Status    |
+| --------------------------------------------------------- | ----------------------------------- | ------ | -------- | --------- |
+| [TASK-011](../tasks/TASK-011-create-error-boundary.md)    | Create ErrorBoundary Component      | 1h     | High     | Completed |
+| [TASK-012](../tasks/TASK-012-test-error-boundary.md)      | Test ErrorBoundary                  | 0.5h   | High     | Completed |
+| [TASK-013](../tasks/TASK-013-integrate-error-boundary.md) | Integrate ErrorBoundary             | 0.5h   | High     | Completed |
+| [TASK-062](../tasks/TASK-062-e2e-tests-error-states.md)   | E2E Tests for Error States/Recovery | 2h     | High     | To Do     |
 
-**Total Tasks**: 3
-**Total Effort**: 2 hours
+**Total Tasks**: 4
+**Total Effort**: 4 hours
 
 ---
 
@@ -381,4 +382,4 @@ _To be filled in during/after implementation_
 
 ---
 
-**Last Updated**: 2025-01-12
+**Last Updated**: 2025-11-15
