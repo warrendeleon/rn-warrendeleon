@@ -119,7 +119,7 @@ export const HomeScreen: React.FC = () => {
       {
         label: t('home.cv'),
         onPress: handleCV,
-        startIcon: createIconComponent('file-pdf-box'),
+        startIcon: createIconComponent('file-document'),
         startIconBgColor: '#00BCD4',
         testID: 'home-cv-button',
       },
@@ -139,7 +139,7 @@ export const HomeScreen: React.FC = () => {
       {
         label: t('home.contactMe'),
         onPress: handleContact,
-        startIcon: createIconComponent('email'),
+        startIcon: createIconComponent('message-text'),
         startIconBgColor: '#34C759',
         testID: 'home-contact-button',
       },
