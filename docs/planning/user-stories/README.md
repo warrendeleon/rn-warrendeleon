@@ -1,18 +1,18 @@
 # React Native Portfolio App - Planning Hub
 
 **Last Updated**: 2025-11-15
-**Overall Progress**: 82% (60/73 tasks completed)
+**Overall Progress**: 76% (60/79 tasks completed)
 
 ---
 
 ## 📊 Quick Stats
 
-| Metric               | Count        | Progress                                      |
-| -------------------- | ------------ | --------------------------------------------- |
-| **Epics**            | 8 total      | 3 completed, 5 in progress                    |
-| **User Stories**     | 14 total     | 8 completed, 4 in progress, 2 not started     |
-| **Tasks**            | 73 total     | 60 completed, 13 remaining                    |
-| **Estimated Effort** | ~53.25 hours | ~37.75 hours completed, ~15.5 hours remaining |
+| Metric               | Count        | Progress                                    |
+| -------------------- | ------------ | ------------------------------------------- |
+| **Epics**            | 9 total      | 3 completed, 6 in progress                  |
+| **User Stories**     | 15 total     | 8 completed, 4 in progress, 3 not started   |
+| **Tasks**            | 79 total     | 60 completed, 19 remaining                  |
+| **Estimated Effort** | ~60.75 hours | ~37.75 hours completed, ~23 hours remaining |
 
 ---
 
@@ -28,6 +28,7 @@
 | [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ⏳ In Progress | 9/10 (90%)   | High     | Implementation complete, E2E splash flow tests remaining   |
 | [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign    | ⏳ In Progress | 2/6 (33%)    | Medium   | Button groups complete, ProfileCard pending                |
 | [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing           | ⏳ In Progress | 0/6 (0%)     | Medium   | CV PDF viewer with share functionality                     |
+| [EPIC-009](./epics/EPIC-009-education-display-enhancement.md)       | Education Display          | ⭕ Not Started | 0/6 (0%)     | Medium   | Education screen with SVG logos and certificates           |
 
 ---
 
@@ -49,10 +50,11 @@
 | [US-013](./stories/US-013-profile-card-home-screen.md)        | Display Profile Card on Home       | EPIC-007 | ⭕ Not Started | 0/4   | Medium   |
 | [US-014](./stories/US-014-home-screen-button-groups.md)       | Home Screen Button Groups          | EPIC-007 | ✅ Completed   | 2/2   | Medium   |
 | [US-015](./stories/US-015-cv-pdf-viewer.md)                   | CV PDF Viewer                      | EPIC-008 | ⭕ Not Started | 0/6   | Medium   |
+| [US-016](./stories/US-016-education-screen-svg-logos.md)      | Education Screen with SVG Logos    | EPIC-009 | ⭕ Not Started | 0/6   | Medium   |
 
 ---
 
-## ✅ Tasks Status (All 73 Tasks)
+## ✅ Tasks Status (All 79 Tasks)
 
 ### EPIC-001: Performance Optimization (10 tasks) ✅
 
@@ -168,9 +170,20 @@
 | [TASK-071](./tasks/TASK-071-unit-tests-pdf-screen.md)    | Unit Tests for PDFScreen              | ⭕ Not Started | 1h     | Medium   |
 | [TASK-072](./tasks/TASK-072-e2e-tests-pdf-viewer.md)     | E2E Tests for PDF Viewer Flow         | ⭕ Not Started | 1.5h   | Medium   |
 
+### EPIC-009: Education Display Enhancement (6 tasks) ⭕
+
+| Task ID                                                      | Title                               | Status         | Effort | Priority |
+| ------------------------------------------------------------ | ----------------------------------- | -------------- | ------ | -------- |
+| [TASK-073](./tasks/TASK-073-download-svg-logo-assets.md)     | Download and Add SVG Logo Assets    | ⭕ Not Started | 0.75h  | High     |
+| [TASK-074](./tasks/TASK-074-create-menu-button-group-svg.md) | Create MenuButtonGroupSvg Component | ⭕ Not Started | 1.5h   | High     |
+| [TASK-075](./tasks/TASK-075-update-education-data-screen.md) | Update EducationDataScreen UI       | ⭕ Not Started | 1.25h  | High     |
+| [TASK-076](./tasks/TASK-076-add-certificate-navigation.md)   | Add Certificate WebView Navigation  | ⭕ Not Started | 0.5h   | Medium   |
+| [TASK-077](./tasks/TASK-077-unit-tests-education-screen.md)  | Unit Tests for Education Screen     | ⭕ Not Started | 2h     | Medium   |
+| [TASK-078](./tasks/TASK-078-e2e-tests-education-screen.md)   | E2E Tests for Education Screen Flow | ⭕ Not Started | 1.5h   | Medium   |
+
 ---
 
-## 🎯 What's Next? (7 Remaining Tasks)
+## 🎯 What's Next? (13 Remaining Tasks + 6 New Tasks for Education)
 
 ### Critical Path - E2E Test Coverage (100% Goal)
 
@@ -263,7 +276,9 @@ docs/planning/user-stories/
 │   ├── EPIC-004-code-quality-tech-debt.md
 │   ├── EPIC-005-multi-language-portfolio-data-layer.md
 │   ├── EPIC-006-splash-screen-loading-animation.md
-│   └── EPIC-007-home-screen-redesign.md
+│   ├── EPIC-007-home-screen-redesign.md
+│   ├── EPIC-008-document-viewing.md
+│   └── EPIC-009-education-display-enhancement.md
 ├── stories/
 │   ├── US-001-smooth-responsive-interactions.md
 │   ├── US-002-graceful-error-handling.md
@@ -277,11 +292,15 @@ docs/planning/user-stories/
 │   ├── US-011-splash-screen-testing.md
 │   ├── US-012-api-layer-testing.md
 │   ├── US-013-profile-card-home-screen.md
-│   └── US-014-home-screen-button-groups.md
+│   ├── US-014-home-screen-button-groups.md
+│   ├── US-015-cv-pdf-viewer.md
+│   └── US-016-education-screen-svg-logos.md
 └── tasks/
     ├── TASK-001 to TASK-025 (Epics 001-004)
     ├── TASK-026 to TASK-062 (Epics 005-006)
-    └── TASK-063 to TASK-066 (Epic 007)
+    ├── TASK-063 to TASK-066 (Epic 007)
+    ├── TASK-067 to TASK-072 (Epic 008)
+    └── TASK-073 to TASK-078 (Epic 009)
 ```
 
 ---
