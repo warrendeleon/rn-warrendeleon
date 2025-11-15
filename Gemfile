@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
 # You may use http://rbenv.org/ or https://rvm.io/ to install and use this version
-ruby ">= 2.6.10"
+# Note: Ruby 3.4+ is not yet supported due to removed standard libraries (kconv)
+# Use Ruby 3.3.x for best compatibility
+ruby ">= 2.6.10", "< 3.4"
 
 # Exclude problematic versions of cocoapods and activesupport that causes build failures.
 gem 'cocoapods', '>= 1.16', '!= 1.15.0', '!= 1.15.1', '!= 1.15.2'
