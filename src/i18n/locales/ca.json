@@ -3,6 +3,13 @@
     "title": "Inici",
     "env": "ENTORN",
     "apiUrl": "URL_API",
+    "workExperience": "Experiència laboral",
+    "studies": "Estudis",
+    "cv": "El meu CV",
+    "videos": "Vídeos",
+    "contactMe": "Contacta",
+    "bookMeeting": "Reserva una reunió",
+    "github": "Github",
     "settings": "Configuració"
   },
   "settings": {

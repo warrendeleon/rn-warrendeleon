@@ -1,9 +1,13 @@
+/* eslint-disable simple-import-sort/imports */
 import React from 'react';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { handleSettingsPress, HomeScreen } from '@app/features';
+// Import component directly to avoid circular dependency
+import { handleSettingsPress, HomeScreen } from '../HomeScreen';
+
 import type { RootStackParamList } from '@app/navigation';
 import { renderWithProviders } from '@app/test-utils/renderWithProviders';
+/* eslint-enable simple-import-sort/imports */
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 

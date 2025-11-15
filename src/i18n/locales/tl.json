@@ -3,6 +3,13 @@
     "title": "Home",
     "env": "KAPALIGIRAN",
     "apiUrl": "URL_NG_API",
+    "workExperience": "Karanasan sa Trabaho",
+    "studies": "Pag-aaral",
+    "cv": "Aking CV",
+    "videos": "Mga Video",
+    "contactMe": "Kontakin ako",
+    "bookMeeting": "Mag-book ng meeting",
+    "github": "Github",
     "settings": "Mga Setting"
   },
   "settings": {
