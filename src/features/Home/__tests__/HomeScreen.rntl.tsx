@@ -6,7 +6,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { handleSettingsPress, HomeScreen } from '../HomeScreen';
 
 import type { RootStackParamList } from '@app/navigation';
-import { renderWithProviders } from '@app/test-utils/renderWithProviders';
+import { mockProfile, renderWithProviders } from '@app/test-utils';
 /* eslint-enable simple-import-sort/imports */
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
@@ -54,31 +54,6 @@ describe('HomeScreen implementation', () => {
 
 describe('HomeScreen with ProfileCard', () => {
   it('renders without crashing when profile data exists', () => {
-    const mockProfile = {
-      profilePicture: 'https://example.com/avatar.jpg',
-      name: 'Warren',
-      lastName: 'de Leon',
-      headline: 'Senior Software Engineer',
-      namePronunciation: '',
-      namePronunciationAudioTrack: '',
-      email: 'warren@example.com',
-      phone: '',
-      birthday: '',
-      location: {
-        cityTown: 'London',
-        county: 'Greater London',
-        country: 'United Kingdom',
-        coordinates: { latitude: 51.5074, longitude: -0.1278 },
-      },
-      carousel: [],
-      socials: {
-        facebook: '',
-        twitter: '',
-        instagram: '',
-        linkedIn: '',
-      },
-    };
-
     const { UNSAFE_root } = renderWithProviders(<HomeScreen />, {
       preloadedState: {
         profile: {
@@ -108,31 +83,6 @@ describe('HomeScreen with ProfileCard', () => {
   });
 
   it('renders complete component tree with profile data', () => {
-    const mockProfile = {
-      profilePicture: 'https://example.com/avatar.jpg',
-      name: 'Warren',
-      lastName: 'de Leon',
-      headline: 'Senior Software Engineer',
-      namePronunciation: '',
-      namePronunciationAudioTrack: '',
-      email: 'warren@example.com',
-      phone: '',
-      birthday: '',
-      location: {
-        cityTown: 'London',
-        county: 'Greater London',
-        country: 'United Kingdom',
-        coordinates: { latitude: 51.5074, longitude: -0.1278 },
-      },
-      carousel: [],
-      socials: {
-        facebook: '',
-        twitter: '',
-        instagram: '',
-        linkedIn: '',
-      },
-    };
-
     const { UNSAFE_root } = renderWithProviders(<HomeScreen />, {
       preloadedState: {
         profile: {
