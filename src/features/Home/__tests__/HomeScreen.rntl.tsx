@@ -3,7 +3,7 @@ import React from 'react';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // Import component directly to avoid circular dependency
-import { handleSettingsPress, HomeScreen } from '../HomeScreen';
+import { handleGitHubPress, handleSettingsPress, HomeScreen } from '../HomeScreen';
 
 import type { RootStackParamList } from '@app/navigation';
 import { mockProfile, renderWithProviders } from '@app/test-utils';
@@ -44,11 +44,27 @@ describe('HomeScreen', () => {
 
     expect(mockNavigation.navigate).toHaveBeenCalledWith('Settings');
   });
+
+  it('navigates to WebView with GitHub URI when handleGitHubPress is called', () => {
+    const mockNavigation = {
+      navigate: jest.fn(),
+    } as unknown as HomeScreenNavigationProp;
+
+    handleGitHubPress(mockNavigation);
+
+    expect(mockNavigation.navigate).toHaveBeenCalledWith('WebView', {
+      uri: 'https://github.com/warrendeleon/rn-warrendeleon',
+    });
+  });
 });
 
 describe('HomeScreen implementation', () => {
   it('exports handleSettingsPress function', () => {
     expect(typeof handleSettingsPress).toBe('function');
+  });
+
+  it('exports handleGitHubPress function', () => {
+    expect(typeof handleGitHubPress).toBe('function');
   });
 });
 

@@ -44,6 +44,10 @@ export const handleEducationDataPress = (navigation: HomeScreenNavigationProp): 
   navigation.navigate('EducationData');
 };
 
+export const handleGitHubPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('WebView', { uri: 'https://github.com/warrendeleon/rn-warrendeleon' });
+};
+
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
@@ -86,8 +90,8 @@ export const HomeScreen: React.FC = () => {
   }, []);
 
   const handleGitHub = useCallback(() => {
-    // TODO: Add GitHub webview handler
-  }, []);
+    handleGitHubPress(navigation);
+  }, [navigation]);
 
   const workLearningItems: ChevronButtonGroupItem[] = useMemo(
     () => [
