@@ -2,6 +2,7 @@
  * @format
  */
 import 'react-native-reanimated';
+import './src/utils/polyfills';
 
 // Initialize Reactotron first in development
 if (__DEV__) {
