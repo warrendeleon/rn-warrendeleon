@@ -22,9 +22,9 @@
 
 ## Context & Rationale
 
-This story covers testing for the core data architecture: Redux slices, async thunks, selectors, persistence, and multi-language data loading. Tests ensure the data layer is robust and regression-free.
+This story covers **E2E testing** for the core data architecture: language switching, data loading, persistence, and GitHub API mocking. Tests ensure the data layer works correctly in real-world scenarios.
 
-Split from original US-010 to focus specifically on data layer testing (separate from splash screen testing in US-011).
+Split from original US-010 to focus specifically on E2E data layer testing (separate from splash screen testing in US-011). **API layer unit tests** are covered separately in [US-012](./US-012-api-layer-testing.md).
 
 ---
 
@@ -36,6 +36,8 @@ Split from original US-010 to focus specifically on data layer testing (separate
 - [ ] E2E tests for language switching triggering correct data reload
 - [ ] E2E tests for data persistence (redux-persist)
 - [ ] GitHub API mocked in tests using local fixtures
+
+**Note**: API layer unit tests (axios-mock-adapter) are covered in [US-012](./US-012-api-layer-testing.md).
 
 ---
 
@@ -63,6 +65,7 @@ Split from original US-010 to focus specifically on data layer testing (separate
 - [US-007](./US-007-redux-data-layer.md) - Redux layer being tested
 - [US-009](./US-009-internationalization.md) - Language switching being tested
 - [US-011](./US-011-splash-screen-testing.md) - Splash screen testing (separate)
+- [US-012](./US-012-api-layer-testing.md) - API layer unit testing (separate)
 
 ---
 
