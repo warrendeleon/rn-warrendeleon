@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { GithubApiClient } from '@app/httpClients';
 import type { RootState } from '@app/store';
 import type { Profile } from '@app/types/portfolio';
+
+import { fetchProfileData } from '../api/api';
 
 /**
  * Async thunk to fetch profile data from GitHub
@@ -14,7 +15,7 @@ export const fetchProfile = createAsyncThunk<Profile, void, { state: RootState }
     const state = getState();
     const language = state.settings.language;
 
-    const response = await GithubApiClient.get<Profile>(`/${language}/profile.json`);
+    const response = await fetchProfileData(language);
     return response.data;
   }
 );

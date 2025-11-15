@@ -4,7 +4,7 @@
 **Title**: Create API Tests for Profile Feature
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
 **User Story**: [US-012: API Layer Unit Testing](../stories/US-012-api-layer-testing.md)
-**Status**: Not Started
+**Status**: Done
 **Priority**: High
 **Created**: 2025-11-15
 **Assigned To**: Warren de Leon
@@ -20,16 +20,16 @@ Extract Profile API logic from Redux thunk and create dedicated unit tests using
 
 ## Acceptance Criteria
 
-- [ ] API function extracted to `src/features/Profile/api/api.ts`
-- [ ] Test file created at `src/features/Profile/api/__tests__/api.test.ts`
-- [ ] Tests use MockAdapter pattern (like old app)
-- [ ] Test success scenario (200 response)
-- [ ] Test network error scenario
-- [ ] Test 404 error scenario
-- [ ] Test correct URL construction with locale
-- [ ] 100% coverage for Profile API functions
-- [ ] Redux thunk updated to use extracted API function
-- [ ] All tests passing
+- [x] API function extracted to `src/features/Profile/api/api.ts`
+- [x] Test file created at `src/features/Profile/api/__tests__/api.test.ts`
+- [x] Tests use MockAdapter pattern (like old app)
+- [x] Test success scenario (200 response)
+- [x] Test network error scenario
+- [x] Test 404 error scenario
+- [x] Test correct URL construction with locale
+- [x] 100% coverage for Profile API functions
+- [x] Redux thunk updated to use extracted API function
+- [x] All tests passing
 
 ---
 
@@ -83,12 +83,13 @@ describe('Profile API', () => {
 
 ## Definition of Done
 
-- [ ] API function extracted
-- [ ] Tests written and passing
-- [ ] 100% coverage
-- [ ] Redux thunk refactored
-- [ ] No regressions
+- [x] API function extracted
+- [x] Tests written and passing
+- [x] 100% coverage
+- [x] Redux thunk refactored
+- [x] No regressions
 
 ---
 
+**Completed**: 2025-11-15
 **Last Updated**: 2025-11-15
