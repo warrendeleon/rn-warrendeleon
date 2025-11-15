@@ -3,7 +3,7 @@
 **Story ID**: US-012
 **Title**: API Layer Unit Testing
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
-**Status**: Not Started
+**Status**: Completed
 **Priority**: High
 **Created**: 2025-11-15
 **Updated**: 2025-11-15
@@ -44,14 +44,14 @@ This follows the pattern from the old app: https://github.com/warrendeleon/rn-wa
 
 ## Acceptance Criteria
 
-- [ ] axios-mock-adapter installed as dev dependency
-- [ ] API functions extracted from Redux thunks to `api/api.ts` files
-- [ ] Profile API tests with 100% coverage
-- [ ] Education API tests with 100% coverage
-- [ ] WorkXP API tests with 100% coverage
-- [ ] All API tests follow old app pattern (MockAdapter, success/error scenarios)
-- [ ] Architecture docs updated with API testing standard
-- [ ] All tests passing with 100% API layer coverage
+- [x] axios-mock-adapter installed as dev dependency
+- [x] API functions extracted from Redux thunks to `api/api.ts` files
+- [x] Profile API tests with 100% coverage
+- [x] Education API tests with 100% coverage
+- [x] WorkXP API tests with 100% coverage
+- [x] All API tests follow old app pattern (MockAdapter, success/error scenarios)
+- [x] Architecture docs updated with API testing standard
+- [x] All tests passing with 100% API layer coverage
 
 ---
 
@@ -94,11 +94,11 @@ This follows the pattern from the old app: https://github.com/warrendeleon/rn-wa
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] All tests passing
-- [ ] 100% coverage for API layer
-- [ ] No regressions
-- [ ] Documentation updated
+- [x] All acceptance criteria met
+- [x] All tests passing
+- [x] 100% coverage for API layer
+- [x] No regressions
+- [x] Documentation updated
 
 ---
 
@@ -124,4 +124,5 @@ This provides defence-in-depth: API bugs caught at API layer, Redux bugs caught 
 
 ---
 
+**Completed**: 2025-11-15
 **Last Updated**: 2025-11-15
