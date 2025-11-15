@@ -9,7 +9,7 @@
     "android:aab": "cd android && ./gradlew bundleRelease && cd .. && echo '\\n✅ AAB built at: android/app/build/outputs/bundle/release/app-release.aab'",
     "ios": "react-native run-ios",
     "ios:release": "react-native run-ios --scheme warrendeleon-Prod --mode Release",
-    "ios:pods": "cd ios && pod install && cd ..",
+    "ios:pods": "cd ios && bundle exec pod install && cd ..",
     "start": "react-native start",
     "start:reset": "react-native start --reset-cache",
     "test": "jest",
