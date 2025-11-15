@@ -81,7 +81,7 @@ export const MenuButtonGroupSvg: React.FC<MenuButtonGroupSvgProps> = ({
           </TouchableOpacity>
 
           {index < items.length - 1 && (
-            <View style={[styles.divider, { backgroundColor: isDark ? '#38383A' : '#C6C6C8' }]} />
+            <View style={[styles.divider, { backgroundColor: isDark ? '#3A3A3C' : '#C6C6C8' }]} />
           )}
         </React.Fragment>
       ))}
