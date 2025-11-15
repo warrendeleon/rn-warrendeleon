@@ -51,3 +51,142 @@ describe('HomeScreen implementation', () => {
     expect(typeof handleSettingsPress).toBe('function');
   });
 });
+
+describe('HomeScreen with ProfileCard', () => {
+  it('renders without crashing when profile data exists', () => {
+    const mockProfile = {
+      profilePicture: 'https://example.com/avatar.jpg',
+      name: 'Warren',
+      lastName: 'de Leon',
+      headline: 'Senior Software Engineer',
+      namePronunciation: '',
+      namePronunciationAudioTrack: '',
+      email: 'warren@example.com',
+      phone: '',
+      birthday: '',
+      location: {
+        cityTown: 'London',
+        county: 'Greater London',
+        country: 'United Kingdom',
+        coordinates: { latitude: 51.5074, longitude: -0.1278 },
+      },
+      carousel: [],
+      socials: {
+        facebook: '',
+        twitter: '',
+        instagram: '',
+        linkedIn: '',
+      },
+    };
+
+    const { UNSAFE_root } = renderWithProviders(<HomeScreen />, {
+      preloadedState: {
+        profile: {
+          data: mockProfile,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+          theme: 'light',
+        },
+        workXP: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+        education: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+      },
+    });
+
+    // Component should render without crashing
+    expect(UNSAFE_root).toBeTruthy();
+  });
+
+  it('renders complete component tree with profile data', () => {
+    const mockProfile = {
+      profilePicture: 'https://example.com/avatar.jpg',
+      name: 'Warren',
+      lastName: 'de Leon',
+      headline: 'Senior Software Engineer',
+      namePronunciation: '',
+      namePronunciationAudioTrack: '',
+      email: 'warren@example.com',
+      phone: '',
+      birthday: '',
+      location: {
+        cityTown: 'London',
+        county: 'Greater London',
+        country: 'United Kingdom',
+        coordinates: { latitude: 51.5074, longitude: -0.1278 },
+      },
+      carousel: [],
+      socials: {
+        facebook: '',
+        twitter: '',
+        instagram: '',
+        linkedIn: '',
+      },
+    };
+
+    const { UNSAFE_root } = renderWithProviders(<HomeScreen />, {
+      preloadedState: {
+        profile: {
+          data: mockProfile,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+          theme: 'light',
+        },
+        workXP: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+        education: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+      },
+    });
+
+    // Component should render successfully with profile data
+    expect(UNSAFE_root).toBeTruthy();
+  });
+
+  it('renders without crashing when profile data is null', () => {
+    const { UNSAFE_root } = renderWithProviders(<HomeScreen />, {
+      preloadedState: {
+        profile: {
+          data: null,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+          theme: 'light',
+        },
+        workXP: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+        education: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+      },
+    });
+
+    // Component should render without crashing
+    expect(UNSAFE_root).toBeTruthy();
+  });
+});

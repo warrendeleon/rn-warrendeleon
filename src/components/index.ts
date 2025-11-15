@@ -3,6 +3,7 @@ export * from './ButtonWithChevron';
 export * from './ChevronButtonGroup';
 export * from './ErrorBoundary';
 export * from './Logo';
+export * from './ProfileCard';
 export * from './SelectableButtonGroup';
 export * from './SelectableListButton';
 export * from './shared';
