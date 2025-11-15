@@ -69,6 +69,26 @@ export const HomeScreen: React.FC = () => {
     handleSettingsPress(navigation);
   }, [navigation]);
 
+  const handleCV = useCallback(() => {
+    // TODO: Add CV PDF viewer handler
+  }, []);
+
+  const handleVideos = useCallback(() => {
+    // TODO: Add Videos handler
+  }, []);
+
+  const handleContact = useCallback(() => {
+    // TODO: Add Contact handler
+  }, []);
+
+  const handleBookMeeting = useCallback(() => {
+    // TODO: Add Meeting booking handler
+  }, []);
+
+  const handleGitHub = useCallback(() => {
+    // TODO: Add GitHub webview handler
+  }, []);
+
   const workLearningItems: ChevronButtonGroupItem[] = useMemo(
     () => [
       {
@@ -87,47 +107,47 @@ export const HomeScreen: React.FC = () => {
       },
       {
         label: t('home.cv'),
-        onPress: () => {}, // TODO: Add CV PDF viewer handler
+        onPress: handleCV,
         startIcon: createIconComponent('file-pdf-box'),
         startIconBgColor: '#00BCD4',
         testID: 'home-cv-button',
       },
       {
         label: t('home.videos'),
-        onPress: () => {}, // TODO: Add Videos handler
+        onPress: handleVideos,
         startIcon: createIconComponent('youtube'),
         startIconBgColor: '#FF0000',
         testID: 'home-videos-button',
       },
     ],
-    [t, handleWorkPress, handleEducationPress]
+    [t, handleWorkPress, handleEducationPress, handleCV, handleVideos]
   );
 
   const contactItems: ChevronButtonGroupItem[] = useMemo(
     () => [
       {
         label: t('home.contactMe'),
-        onPress: () => {}, // TODO: Add Contact handler
+        onPress: handleContact,
         startIcon: createIconComponent('email'),
         startIconBgColor: '#34C759',
         testID: 'home-contact-button',
       },
       {
         label: t('home.bookMeeting'),
-        onPress: () => {}, // TODO: Add Meeting booking handler
+        onPress: handleBookMeeting,
         startIcon: createIconComponent('calendar'),
         startIconBgColor: '#FF9500',
         testID: 'home-book-meeting-button',
       },
     ],
-    [t]
+    [t, handleContact, handleBookMeeting]
   );
 
   const settingsItems: ChevronButtonGroupItem[] = useMemo(
     () => [
       {
         label: t('home.github'),
-        onPress: () => {}, // TODO: Add GitHub webview handler
+        onPress: handleGitHub,
         startIcon: createIconComponent('github'),
         startIconBgColor: '#1C1C1E',
         testID: 'home-github-button',
@@ -140,7 +160,7 @@ export const HomeScreen: React.FC = () => {
         testID: 'home-settings-button',
       },
     ],
-    [t, handleSettings]
+    [t, handleGitHub, handleSettings]
   );
 
   return (
