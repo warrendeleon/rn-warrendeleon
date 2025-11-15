@@ -6,9 +6,16 @@ import { Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { ChevronButtonGroup, type ChevronButtonGroupItem, TestErrorButton } from '@app/components';
+import {
+  ChevronButtonGroup,
+  type ChevronButtonGroupItem,
+  ProfileCard,
+  TestErrorButton,
+} from '@app/components';
+import { selectProfile } from '@app/features/Profile';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { useAppSelector } from '@app/store';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -42,6 +49,13 @@ export const HomeScreen: React.FC = () => {
   const { t } = useTranslation();
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
+
+  // Get profile data from Redux
+  const profile = useAppSelector(selectProfile);
+
+  const handleProfilePress = useCallback(() => {
+    handleProfileDataPress(navigation);
+  }, [navigation]);
 
   const handleWorkPress = useCallback(() => {
     handleWorkXPDataPress(navigation);
@@ -137,6 +151,17 @@ export const HomeScreen: React.FC = () => {
       testID="home-screen"
       accessibilityLabel={t('home.title')}
     >
+      {profile && (
+        <View className="mb-4">
+          <ProfileCard
+            profilePicture={profile.profilePicture}
+            name={profile.name}
+            lastName={profile.lastName}
+            onPress={handleProfilePress}
+          />
+        </View>
+      )}
+
       <View className="mt-2">
         <Text
           className="mb-3 pt-1 text-xs font-semibold uppercase leading-normal"
