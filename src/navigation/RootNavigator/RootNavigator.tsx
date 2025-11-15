@@ -71,7 +71,7 @@ export const RootNavigator: React.FC = () => {
           <Stack.Screen
             name="ProfileData"
             component={ProfileDataScreen}
-            options={{ title: 'Profile Data' }}
+            options={{ title: t('home.cv') }}
           />
           <Stack.Screen
             name="WorkXPData"
@@ -81,7 +81,7 @@ export const RootNavigator: React.FC = () => {
           <Stack.Screen
             name="EducationData"
             component={EducationDataScreen}
-            options={{ title: 'Education Data' }}
+            options={{ title: t('home.studies') }}
           />
           <Stack.Screen name="WebView" component={WebViewScreen} options={{ title: 'GitHub' }} />
           <Stack.Screen name="PDF" component={PDFScreen} options={{ title: 'CV' }} />
