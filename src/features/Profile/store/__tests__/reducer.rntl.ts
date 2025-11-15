@@ -36,7 +36,8 @@ describe('profileReducer', () => {
   });
 
   describe('fetchProfile async thunk', () => {
-    let store: ReturnType<typeof configureStore>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let store: any;
 
     beforeEach(() => {
       store = configureStore({

@@ -31,6 +31,7 @@ module.exports = {
     '!src/**/__tests__/**',
     '!src/**/*.d.ts',
     '!src/**/index.ts',
+    '!src/test-utils/**', // Exclude test utilities (test infrastructure, not application code)
     '!src/config/reactotron.ts', // Dev-only debugging tool
     '!src/**/*Screen.tsx', // Exclude screen components (tested via integration/E2E)
     '!src/navigation/**/*.tsx', // Exclude navigation config

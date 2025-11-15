@@ -14,7 +14,7 @@ describe('WorkXP selectors', () => {
     it('returns work experience data from state', () => {
       const state = {
         workXP: { data: workXPFixture, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectWorkXP(state)).toEqual(workXPFixture);
     });
@@ -22,7 +22,7 @@ describe('WorkXP selectors', () => {
     it('returns empty array when no data', () => {
       const state = {
         workXP: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectWorkXP(state)).toEqual([]);
     });
@@ -32,7 +32,7 @@ describe('WorkXP selectors', () => {
     it('returns loading state when true', () => {
       const state = {
         workXP: { data: [], loading: true, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectWorkXPLoading(state)).toBe(true);
     });
@@ -40,7 +40,7 @@ describe('WorkXP selectors', () => {
     it('returns loading state when false', () => {
       const state = {
         workXP: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectWorkXPLoading(state)).toBe(false);
     });
@@ -51,7 +51,7 @@ describe('WorkXP selectors', () => {
       const errorMessage = 'Failed to fetch work experience';
       const state = {
         workXP: { data: [], loading: false, error: errorMessage },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectWorkXPError(state)).toBe(errorMessage);
     });
@@ -59,7 +59,7 @@ describe('WorkXP selectors', () => {
     it('returns null when no error', () => {
       const state = {
         workXP: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectWorkXPError(state)).toBeNull();
     });
@@ -69,7 +69,7 @@ describe('WorkXP selectors', () => {
     it('returns current position when end is "Present"', () => {
       const state = {
         workXP: { data: workXPFixture, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       const current = selectCurrentPosition(state);
       expect(current).toBeTruthy();
@@ -81,7 +81,7 @@ describe('WorkXP selectors', () => {
       const pastJobs = workXPFixture.filter(job => job.end !== 'Present');
       const state = {
         workXP: { data: pastJobs, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectCurrentPosition(state)).toBeNull();
     });
@@ -89,7 +89,7 @@ describe('WorkXP selectors', () => {
     it('returns null when work experience is empty', () => {
       const state = {
         workXP: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectCurrentPosition(state)).toBeNull();
     });
@@ -99,17 +99,17 @@ describe('WorkXP selectors', () => {
     it('returns jobs filtered by company name', () => {
       const state = {
         workXP: { data: workXPFixture, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       const skyJobs = selectWorkXPByCompany(state, 'Sky');
       expect(skyJobs).toHaveLength(1);
-      expect(skyJobs[0].company).toBe('Sky');
+      expect(skyJobs[0]?.company).toBe('Sky');
     });
 
     it('returns empty array when company not found', () => {
       const state = {
         workXP: { data: workXPFixture, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       const jobs = selectWorkXPByCompany(state, 'NonExistentCompany');
       expect(jobs).toEqual([]);
@@ -118,7 +118,7 @@ describe('WorkXP selectors', () => {
     it('returns empty array when work experience is empty', () => {
       const state = {
         workXP: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       const jobs = selectWorkXPByCompany(state, 'Sky');
       expect(jobs).toEqual([]);

@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import workXPFixture from '@app/test-utils/fixtures/api/en/workxp.json';
+import type { WorkExperience } from '@app/types/portfolio';
 
 import { fetchWorkXP } from '../actions';
 import { clearWorkXP, workXPReducer, type WorkXPState } from '../reducer';
@@ -23,7 +24,7 @@ describe('workXPReducer', () => {
   describe('clearWorkXP', () => {
     it('clears work experience data and error', () => {
       const stateWithData: WorkXPState = {
-        data: workXPFixture,
+        data: workXPFixture as WorkExperience[],
         loading: false,
         error: 'Some error',
       };
@@ -36,7 +37,8 @@ describe('workXPReducer', () => {
   });
 
   describe('fetchWorkXP async thunk', () => {
-    let store: ReturnType<typeof configureStore>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let store: any;
 
     beforeEach(() => {
       store = configureStore({

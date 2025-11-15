@@ -14,7 +14,7 @@ describe('Education selectors', () => {
     it('returns education data from state', () => {
       const state = {
         education: { data: educationFixture, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectEducation(state)).toEqual(educationFixture);
     });
@@ -22,7 +22,7 @@ describe('Education selectors', () => {
     it('returns empty array when no data', () => {
       const state = {
         education: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectEducation(state)).toEqual([]);
     });
@@ -32,7 +32,7 @@ describe('Education selectors', () => {
     it('returns loading state when true', () => {
       const state = {
         education: { data: [], loading: true, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectEducationLoading(state)).toBe(true);
     });
@@ -40,7 +40,7 @@ describe('Education selectors', () => {
     it('returns loading state when false', () => {
       const state = {
         education: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectEducationLoading(state)).toBe(false);
     });
@@ -51,7 +51,7 @@ describe('Education selectors', () => {
       const errorMessage = 'Failed to fetch education';
       const state = {
         education: { data: [], loading: false, error: errorMessage },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectEducationError(state)).toBe(errorMessage);
     });
@@ -59,7 +59,7 @@ describe('Education selectors', () => {
     it('returns null when no error', () => {
       const state = {
         education: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectEducationError(state)).toBeNull();
     });
@@ -69,7 +69,7 @@ describe('Education selectors', () => {
     it('returns only education items with certificates', () => {
       const state = {
         education: { data: educationFixture, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       const withCertificates = selectEducationWithCertificates(state);
       expect(withCertificates.length).toBeGreaterThan(0);
@@ -87,7 +87,7 @@ describe('Education selectors', () => {
 
       const state = {
         education: { data: dataWithoutCertificates, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectEducationWithCertificates(state)).toEqual([]);
     });
@@ -95,7 +95,7 @@ describe('Education selectors', () => {
     it('returns empty array when education data is empty', () => {
       const state = {
         education: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       expect(selectEducationWithCertificates(state)).toEqual([]);
     });
@@ -105,7 +105,7 @@ describe('Education selectors', () => {
     it('returns education filtered by location', () => {
       const state = {
         education: { data: educationFixture, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       const stucomEducation = selectEducationByLocation(state, "Stucom Centre d'Estudis");
       expect(stucomEducation.length).toBeGreaterThan(0);
@@ -117,7 +117,7 @@ describe('Education selectors', () => {
     it('returns empty array when location not found', () => {
       const state = {
         education: { data: educationFixture, loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       const education = selectEducationByLocation(state, 'NonExistentLocation');
       expect(education).toEqual([]);
@@ -126,7 +126,7 @@ describe('Education selectors', () => {
     it('returns empty array when education data is empty', () => {
       const state = {
         education: { data: [], loading: false, error: null },
-      } as RootState;
+      } as unknown as RootState;
 
       const education = selectEducationByLocation(state, 'Udemy');
       expect(education).toEqual([]);

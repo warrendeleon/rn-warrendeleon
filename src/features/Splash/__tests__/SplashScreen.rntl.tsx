@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { act, render } from '@testing-library/react-native';
 
 import { fetchEducation, fetchProfile, fetchWorkXP } from '@app/store';
@@ -7,15 +6,20 @@ import { fetchEducation, fetchProfile, fetchWorkXP } from '@app/store';
 import { SplashScreen } from '../SplashScreen';
 
 // Mock Logo component
-jest.mock('@app/components', () => ({
-  Logo: ({ darkMode, style }: { darkMode: boolean; style: unknown }) => {
-    return (
-      <View testID="logo" style={style}>
-        <Text testID="logo-mode">{darkMode ? 'dark' : 'light'}</Text>
-      </View>
-    );
-  },
-}));
+jest.mock('@app/components', () => {
+  const React = jest.requireActual('react');
+  const RN = jest.requireActual('react-native');
+  return {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Logo: ({ darkMode, style }: { darkMode: boolean; style: any }) => {
+      return React.createElement(
+        RN.View,
+        { testID: 'logo', style },
+        React.createElement(RN.Text, { testID: 'logo-mode' }, darkMode ? 'dark' : 'light')
+      );
+    },
+  };
+});
 
 // Mock useAppColorScheme hook
 const mockUseAppColorScheme = jest.fn();
