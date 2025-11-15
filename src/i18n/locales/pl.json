@@ -3,6 +3,13 @@
     "title": "Strona główna",
     "env": "ŚRODOWISKO",
     "apiUrl": "URL_API",
+    "workExperience": "Doświadczenie zawodowe",
+    "studies": "Wykształcenie",
+    "cv": "Moje CV",
+    "videos": "Filmy",
+    "contactMe": "Napisz do mnie",
+    "bookMeeting": "Umów spotkanie",
+    "github": "Github",
     "settings": "Ustawienia"
   },
   "settings": {

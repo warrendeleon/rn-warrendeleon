@@ -3,6 +3,13 @@
     "title": "Home",
     "env": "ENV",
     "apiUrl": "API_URL",
+    "workExperience": "Work Experience",
+    "studies": "Studies",
+    "cv": "My CV",
+    "videos": "Videos",
+    "contactMe": "Get in touch",
+    "bookMeeting": "Book a meeting",
+    "github": "Github",
     "settings": "Settings"
   },
   "settings": {
