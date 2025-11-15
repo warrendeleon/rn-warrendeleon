@@ -26,7 +26,7 @@ export const ButtonGroupDivider: React.FC = React.memo(() => {
       style={{
         height: 0.5,
         backgroundColor: dividerColor,
-        marginLeft: 16, // Aligns with button text (px-4 = 16px)
+        marginLeft: 64, // Aligns with button text: padding (16px) + icon (36px) + spacing (12px)
       }}
     />
   );
