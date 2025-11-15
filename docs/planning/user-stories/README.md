@@ -1,18 +1,18 @@
 # React Native Portfolio App - Planning Hub
 
 **Last Updated**: 2025-11-15
-**Overall Progress**: 98% (62/63 tasks completed)
+**Overall Progress**: 90% (60/67 tasks completed)
 
 ---
 
 ## 📊 Quick Stats
 
-| Metric               | Count        | Progress                                     |
-| -------------------- | ------------ | -------------------------------------------- |
-| **Epics**            | 6 total      | 2 completed, 4 in progress                   |
-| **User Stories**     | 11 total     | 7 completed, 3 in progress, 1 not started    |
-| **Tasks**            | 63 total     | 60 completed, 3 remaining                    |
-| **Estimated Effort** | ~40.25 hours | ~33.75 hours completed, ~6.5 hours remaining |
+| Metric               | Count        | Progress                                    |
+| -------------------- | ------------ | ------------------------------------------- |
+| **Epics**            | 7 total      | 3 completed, 4 in progress                  |
+| **User Stories**     | 13 total     | 8 completed, 3 in progress, 2 not started   |
+| **Tasks**            | 67 total     | 60 completed, 7 remaining                   |
+| **Estimated Effort** | ~47.75 hours | ~37.75 hours completed, ~10 hours remaining |
 
 ---
 
@@ -26,6 +26,7 @@
 | [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt   | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                          |
 | [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 24/25 (96%)  | High     | Language & data E2E tests complete, 1 task remaining       |
 | [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ⏳ In Progress | 9/10 (90%)   | High     | Implementation complete, E2E splash flow tests remaining   |
+| [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign    | ⏳ In Progress | 2/6 (33%)    | Medium   | Button groups complete, ProfileCard pending                |
 
 ---
 
@@ -44,10 +45,12 @@
 | [US-010](./stories/US-010-data-layer-testing.md)              | Data Layer Testing (E2E)           | EPIC-005 | ⏳ In Progress | 4/4   | High     |
 | [US-012](./stories/US-012-api-layer-testing.md)               | API Layer Unit Testing             | EPIC-005 | ✅ Completed   | 5/5   | High     |
 | [US-011](./stories/US-011-splash-screen-testing.md)           | Splash Screen Testing              | EPIC-006 | ⏳ In Progress | 1/2   | Medium   |
+| [US-013](./stories/US-013-profile-card-home-screen.md)        | Display Profile Card on Home       | EPIC-007 | ⭕ Not Started | 0/4   | Medium   |
+| [US-014](./stories/US-014-home-screen-button-groups.md)       | Home Screen Button Groups          | EPIC-007 | ✅ Completed   | 2/2   | Medium   |
 
 ---
 
-## ✅ Tasks Status (All 54 Tasks)
+## ✅ Tasks Status (All 67 Tasks)
 
 ### EPIC-001: Performance Optimization (10 tasks) ✅
 
@@ -141,9 +144,20 @@
 | [TASK-051](./tasks/TASK-051-rntl-tests-splash-screen.md)          | RNTL Tests for Splash Screen           | ✅ Done  | 1.5h   | High     |
 | [TASK-061](./tasks/TASK-061-e2e-tests-splash-screen-flow.md)      | E2E Tests for Splash Screen Flow       | ⏳ To Do | 2h     | High     |
 
+### EPIC-007: Home Screen UI Redesign (6 tasks) ⏳
+
+| Task ID                                                     | Title                           | Status         | Effort | Priority |
+| ----------------------------------------------------------- | ------------------------------- | -------------- | ------ | -------- |
+| [TASK-063](./tasks/TASK-063-create-profile-card.md)         | Create ProfileCard Component    | ⭕ Not Started | 1.5h   | Medium   |
+| [TASK-064](./tasks/TASK-064-integrate-profile-card-home.md) | Integrate ProfileCard in Home   | ⭕ Not Started | 0.5h   | Medium   |
+| [TASK-065](./tasks/TASK-065-test-profile-card.md)           | Unit Tests for ProfileCard      | ⭕ Not Started | 1h     | Medium   |
+| [TASK-066](./tasks/TASK-066-update-home-screen-tests.md)    | Update HomeScreen Tests         | ⭕ Not Started | 0.5h   | Medium   |
+| **US-014 (Completed)**                                      | **Home Screen Button Groups**   | ✅ Done        | 2h     | Medium   |
+| **US-014 (Completed)**                                      | **Button Icons & Translations** | ✅ Done        | 2h     | Medium   |
+
 ---
 
-## 🎯 What's Next? (4 Remaining Tasks)
+## 🎯 What's Next? (7 Remaining Tasks)
 
 ### Critical Path - E2E Test Coverage (100% Goal)
 
@@ -165,7 +179,34 @@
    - Test network errors, API failures, recovery
    - Requires TASK-054 complete
 
-**Total Effort**: 7.5 hours remaining for 100% E2E coverage
+**Total Effort**: 4 hours remaining for 100% E2E coverage
+
+### Home Screen UI - ProfileCard Feature (EPIC-007)
+
+**Current Progress**: Button groups complete (commit ed34c00)
+**Next**: ProfileCard component implementation
+
+**Recommended Sequence**:
+
+1. **TASK-063**: Create ProfileCard Component (1.5h) - Medium Priority
+   - Avatar, name display, chevron icon
+   - Based on old app's ViewProfileButton
+   - iOS-style design matching button groups
+
+2. **TASK-064**: Integrate ProfileCard in HomeScreen (0.5h) - Medium Priority
+   - Position above button groups
+   - Connect Redux profile data
+   - Navigation to ProfileData screen
+
+3. **TASK-065**: Unit Tests for ProfileCard (1h) - Medium Priority
+   - Rendering, props, interactions
+   - Theme support tests
+
+4. **TASK-066**: Update HomeScreen Integration Tests (0.5h) - Medium Priority
+   - Add ProfileCard to existing test suite
+   - Verify navigation, data display
+
+**Total Effort**: 3.5 hours for ProfileCard feature completion
 
 ### Accessibility (Separate Track)
 
@@ -173,6 +214,7 @@
 
 ### Recently Completed (2025-11-15)
 
+- ✅ **US-014**: Home Screen Button Groups (4h) - Complete redesign with icons, fonts, translations (commit ed34c00)
 - ✅ **TASK-052**: E2E Tests for Language Switching (1.5h) - Tests all 5 languages with data reload
 - ✅ **TASK-053**: E2E Tests for Data Loading & Persistence (2h) - Tests initial fetch, display, restart
 - ✅ **TASK-054**: Mock GitHub API in E2E Tests (1h) - MSW configured with all fixtures
@@ -207,7 +249,8 @@ docs/planning/user-stories/
 │   ├── EPIC-003-accessibility-compliance.md
 │   ├── EPIC-004-code-quality-tech-debt.md
 │   ├── EPIC-005-multi-language-portfolio-data-layer.md
-│   └── EPIC-006-splash-screen-loading-animation.md
+│   ├── EPIC-006-splash-screen-loading-animation.md
+│   └── EPIC-007-home-screen-redesign.md
 ├── stories/
 │   ├── US-001-smooth-responsive-interactions.md
 │   ├── US-002-graceful-error-handling.md
@@ -218,10 +261,14 @@ docs/planning/user-stories/
 │   ├── US-008-splash-screen-with-loading.md
 │   ├── US-009-internationalization.md
 │   ├── US-010-data-layer-testing.md
-│   └── US-011-splash-screen-testing.md
+│   ├── US-011-splash-screen-testing.md
+│   ├── US-012-api-layer-testing.md
+│   ├── US-013-profile-card-home-screen.md
+│   └── US-014-home-screen-button-groups.md
 └── tasks/
     ├── TASK-001 to TASK-025 (Epics 001-004)
-    └── TASK-026 to TASK-054 (Epics 005-006)
+    ├── TASK-026 to TASK-062 (Epics 005-006)
+    └── TASK-063 to TASK-066 (Epic 007)
 ```
 
 ---
