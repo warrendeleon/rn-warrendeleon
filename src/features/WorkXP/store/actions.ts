@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { GithubApiClient } from '@app/httpClients';
 import type { RootState } from '@app/store';
 import type { WorkExperience } from '@app/types/portfolio';
+
+import { fetchWorkXPData } from '../api/api';
 
 /**
  * Async thunk to fetch work experience data from GitHub
@@ -14,7 +15,7 @@ export const fetchWorkXP = createAsyncThunk<WorkExperience[], void, { state: Roo
     const state = getState();
     const language = state.settings.language;
 
-    const response = await GithubApiClient.get<WorkExperience[]>(`/${language}/workxp.json`);
+    const response = await fetchWorkXPData(language);
     return response.data;
   }
 );
