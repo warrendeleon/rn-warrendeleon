@@ -56,7 +56,7 @@ export const ProfileCard = React.memo<ProfileCardProps>(
         onPress={onPress}
         testID={testID}
         bg={bg}
-        borderRadius="$lg"
+        borderRadius="$2xl"
         p="$3"
         className="w-full"
       >
