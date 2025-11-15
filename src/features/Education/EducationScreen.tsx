@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '@app/store';
 import { fetchEducation } from './store/actions';
 import { selectEducation, selectEducationError, selectEducationLoading } from './store/selectors';
 
-type EducationScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'EducationData'>;
+type EducationScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Education'>;
 
 // Format date range
 const formatDateRange = (start: string, end?: string): string => {
@@ -20,7 +20,7 @@ const formatDateRange = (start: string, end?: string): string => {
   return `${startYear} - ${endYear}`;
 };
 
-export const EducationDataScreen: React.FC = () => {
+export const EducationScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<EducationScreenNavigationProp>();
   const colorScheme = useAppColorScheme();
@@ -62,7 +62,7 @@ export const EducationDataScreen: React.FC = () => {
 
   return (
     <ScrollView
-      testID="education-data-screen"
+      testID="education-screen"
       className="flex-1 p-4"
       style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
       contentInsetAdjustmentBehavior="automatic"

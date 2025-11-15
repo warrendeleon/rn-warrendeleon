@@ -5,7 +5,7 @@ import { thunk } from 'redux-thunk';
 
 import type { Education } from '@app/types/portfolio';
 
-import { EducationDataScreen } from '../EducationDataScreen';
+import { EducationScreen } from '../EducationScreen';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockStore = configureStore([thunk as any]);
@@ -67,7 +67,7 @@ jest.mock('@app/components', () => {
   };
 });
 
-describe('EducationDataScreen', () => {
+describe('EducationScreen', () => {
   const mockEducationData: Education[] = [
     {
       location: 'University A',
@@ -104,7 +104,7 @@ describe('EducationDataScreen', () => {
 
     render(
       <Provider store={store}>
-        <EducationDataScreen />
+        <EducationScreen />
       </Provider>
     );
 
@@ -126,7 +126,7 @@ describe('EducationDataScreen', () => {
 
     render(
       <Provider store={store}>
-        <EducationDataScreen />
+        <EducationScreen />
       </Provider>
     );
 
@@ -155,7 +155,7 @@ describe('EducationDataScreen', () => {
 
     render(
       <Provider store={store}>
-        <EducationDataScreen />
+        <EducationScreen />
       </Provider>
     );
 
@@ -179,7 +179,7 @@ describe('EducationDataScreen', () => {
 
     render(
       <Provider store={store}>
-        <EducationDataScreen />
+        <EducationScreen />
       </Provider>
     );
 
@@ -201,7 +201,7 @@ describe('EducationDataScreen', () => {
 
     render(
       <Provider store={store}>
-        <EducationDataScreen />
+        <EducationScreen />
       </Provider>
     );
 
@@ -223,7 +223,7 @@ describe('EducationDataScreen', () => {
 
     render(
       <Provider store={store}>
-        <EducationDataScreen />
+        <EducationScreen />
       </Provider>
     );
 
@@ -246,7 +246,7 @@ describe('EducationDataScreen', () => {
 
     render(
       <Provider store={store}>
-        <EducationDataScreen />
+        <EducationScreen />
       </Provider>
     );
 

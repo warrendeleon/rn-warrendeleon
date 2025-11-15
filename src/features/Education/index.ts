@@ -1,4 +1,4 @@
-export { EducationDataScreen } from './EducationDataScreen';
+export { EducationScreen } from './EducationScreen';
 export type { EducationState } from './store';
 export {
   clearEducation,
