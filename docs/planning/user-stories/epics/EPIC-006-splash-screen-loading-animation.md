@@ -2,9 +2,10 @@
 
 **Epic ID**: EPIC-006
 **Title**: Splash Screen with Loading Animation
-**Status**: In Progress
+**Status**: Completed
 **Priority**: High
 **Created**: 2025-01-14
+**Completed**: 2025-11-15
 **Owner**: Warren de Leon
 **Category**: UX/UI - First Launch Experience
 
@@ -116,7 +117,7 @@ By implementing native splash screen with animation:
 
 **Start Date**: 2025-01-14
 **Target Date**: 2025-01-18
-**Completed Date**: _Not yet completed_
+**Completed Date**: 2025-11-15
 
 **Estimated Duration**: 4 days (~9 hours total)
 
@@ -127,9 +128,9 @@ By implementing native splash screen with animation:
 ## Budget & Resources
 
 **Budget**: £0
-**Actual Cost**: _To be tracked_
+**Actual Cost**: £0
 **Total Effort**: 9 hours
-**Actual Effort**: _To be tracked_
+**Actual Effort**: 9 hours
 
 ---
 
@@ -175,10 +176,10 @@ By implementing native splash screen with animation:
 
 ## User Stories
 
-| ID                                                        | User Story                       | Status      | Story Points |
-| --------------------------------------------------------- | -------------------------------- | ----------- | ------------ |
-| [US-008](../stories/US-008-splash-screen-with-loading.md) | Splash Screen with Animated Logo | Completed   | 5            |
-| [US-011](../stories/US-011-splash-screen-testing.md)      | Splash Screen Testing            | Not Started | 2            |
+| ID                                                        | User Story                       | Status    | Story Points |
+| --------------------------------------------------------- | -------------------------------- | --------- | ------------ |
+| [US-008](../stories/US-008-splash-screen-with-loading.md) | Splash Screen with Animated Logo | Completed | 5            |
+| [US-011](../stories/US-011-splash-screen-testing.md)      | Splash Screen Testing            | Completed | 2            |
 
 **Total Stories**: 2
 **Total Story Points**: 7
@@ -197,7 +198,7 @@ By implementing native splash screen with animation:
 | [TASK-042](../tasks/TASK-042-create-logo-component.md)             | Create Logo component                  | Done   | 1h     | High     |
 | [TASK-043](../tasks/TASK-043-create-splashscreen-component.md)     | Create SplashScreen component          | Done   | 2h     | High     |
 | [TASK-044](../tasks/TASK-044-integrate-splash-react-navigation.md) | Integrate splash with React Navigation | Done   | 1h     | High     |
-| [TASK-051](../tasks/TASK-051-rntl-tests-splash-screen.md)          | RNTL tests for Splash screen           | To Do  | 1.5h   | High     |
+| [TASK-051](../tasks/TASK-051-rntl-tests-splash-screen.md)          | RNTL tests for Splash screen           | Done   | 1.5h   | High     |
 
 **Total Tasks**: 9
 **Total Effort**: 9 hours
@@ -224,6 +225,7 @@ This epic is complete when:
 | ---------- | ----------- | ----------------------------------------------- |
 | 2025-01-14 | Not Started | Epic created (split from EPIC-005)              |
 | 2025-01-14 | In Progress | 8 of 9 tasks completed, pending RNTL tests only |
+| 2025-11-15 | Completed   | All 9 tasks completed, RNTL tests implemented   |
 
 ---
 
@@ -303,4 +305,4 @@ useEffect(() => {
 
 ---
 
-**Last Updated**: 2025-01-14
+**Last Updated**: 2025-11-15

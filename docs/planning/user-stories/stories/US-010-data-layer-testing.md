@@ -3,9 +3,10 @@
 **Story ID**: US-010
 **Title**: Comprehensive Testing for Data Layer
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
-**Status**: Not Started
+**Status**: In Progress
 **Priority**: High
 **Created**: 2025-01-14
+**Updated**: 2025-11-15
 **Assigned To**: Warren de Leon
 **Category**: Testing
 
@@ -29,9 +30,9 @@ Split from original US-010 to focus specifically on data layer testing (separate
 
 ## Acceptance Criteria
 
-- [ ] RNTL tests for all Redux slices (profile, workXP, education) with 100% coverage
-- [ ] Tests for async thunks (loading, success, error states)
-- [ ] Tests for memoised selectors
+- [x] RNTL tests for all Redux slices (profile, workXP, education) with 100% coverage
+- [x] Tests for async thunks (loading, success, error states)
+- [x] Tests for memoised selectors
 - [ ] E2E tests for language switching triggering correct data reload
 - [ ] E2E tests for data persistence (redux-persist)
 - [ ] GitHub API mocked in tests using local fixtures
@@ -49,7 +50,7 @@ Split from original US-010 to focus specifically on data layer testing (separate
 
 | ID                                                                  | Task                                   | Effort | Status |
 | ------------------------------------------------------------------- | -------------------------------------- | ------ | ------ |
-| [TASK-050](../tasks/TASK-050-rntl-tests-redux-data-layer.md)        | RNTL tests for Redux data layer        | 2h     | To Do  |
+| [TASK-050](../tasks/TASK-050-rntl-tests-redux-data-layer.md)        | RNTL tests for Redux data layer        | 2h     | Done   |
 | [TASK-052](../tasks/TASK-052-e2e-tests-language-switching.md)       | E2E tests for language switching       | 1.5h   | To Do  |
 | [TASK-053](../tasks/TASK-053-e2e-tests-data-loading-persistence.md) | E2E tests for data loading/persistence | 2h     | To Do  |
 | [TASK-054](../tasks/TASK-054-mock-github-api-e2e-tests.md)          | Mock GitHub API in E2E tests           | 1h     | To Do  |
@@ -65,4 +66,4 @@ Split from original US-010 to focus specifically on data layer testing (separate
 
 ---
 
-**Last Updated**: 2025-01-14
+**Last Updated**: 2025-11-15

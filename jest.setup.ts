@@ -104,6 +104,13 @@ jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }),
 }));
 
+// Mock react-native-bootsplash
+jest.mock('react-native-bootsplash', () => ({
+  hide: jest.fn(() => Promise.resolve()),
+  show: jest.fn(() => Promise.resolve()),
+  getVisibilityStatus: jest.fn(() => Promise.resolve('hidden')),
+}));
+
 const originalError = console.error;
 
 console.error = (...args: unknown[]) => {

@@ -4,7 +4,7 @@
 **Title**: RNTL Tests for Splash Screen
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-010-testing-coverage](../stories/US-010-testing-coverage.md)
-**Status**: To Do
+**Status**: Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -20,12 +20,12 @@ Add tests for SplashScreen component covering loading states and error handling.
 
 ## Acceptance Criteria
 
-- [ ] SplashScreen.test.tsx created
-- [ ] Tests loading state
-- [ ] Tests success navigation
-- [ ] Tests error handling
-- [ ] Mocks Logo component
-- [ ] All tests pass
+- [x] SplashScreen.test.tsx created
+- [x] Tests loading state
+- [x] Tests success navigation
+- [x] Tests error handling
+- [x] Mocks Logo component
+- [x] All tests pass
 
 ---
 
@@ -45,10 +45,11 @@ Add tests for SplashScreen component covering loading states and error handling.
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Tests passing
-- [ ] No regressions
+- [x] All acceptance criteria met
+- [x] Tests passing
+- [x] No regressions
 
 ---
 
-**Last Updated**: 2025-01-12
+**Completed**: 2025-11-15
+**Last Updated**: 2025-11-15

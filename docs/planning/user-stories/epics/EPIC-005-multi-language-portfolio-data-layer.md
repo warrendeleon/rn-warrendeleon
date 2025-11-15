@@ -5,7 +5,7 @@
 **Status**: In Progress
 **Priority**: High
 **Created**: 2025-01-12
-**Updated**: 2025-01-14
+**Updated**: 2025-11-15
 **Owner**: Warren de Leon
 **Category**: State Management / Data Architecture
 
@@ -170,9 +170,9 @@ By implementing complete portfolio data layer:
 | ID                                                          | User Story                 | Status      | Story Points |
 | ----------------------------------------------------------- | -------------------------- | ----------- | ------------ |
 | [US-006](../stories/US-006-data-migration-and-structure.md) | Data Migration & Structure | Completed   | 3            |
-| [US-007](../stories/US-007-redux-data-layer.md)             | Redux Data Layer           | In Progress | 5            |
+| [US-007](../stories/US-007-redux-data-layer.md)             | Redux Data Layer           | Completed   | 5            |
 | [US-009](../stories/US-009-internationalization.md)         | Internationalization       | Completed   | 3            |
-| [US-010](../stories/US-010-data-layer-testing.md)           | Data Layer Testing         | Not Started | 5            |
+| [US-010](../stories/US-010-data-layer-testing.md)           | Data Layer Testing         | In Progress | 5            |
 
 **Total Stories**: 4
 **Total Story Points**: 16 (reduced from 21)
@@ -193,13 +193,13 @@ By implementing complete portfolio data layer:
 | [TASK-033](../tasks/TASK-033-create-workxp-redux-slice.md)           | Create workXP Redux slice                | Done   | 1h     | High     |
 | [TASK-034](../tasks/TASK-034-create-education-redux-slice.md)        | Create education Redux slice             | Done   | 1h     | High     |
 | [TASK-035](../tasks/TASK-035-configure-redux-persist.md)             | Configure redux-persist                  | Done   | 0.5h   | High     |
-| [TASK-036](../tasks/TASK-036-unit-tests-redux-layer.md)              | Add unit tests for Redux layer           | To Do  | 2h     | High     |
+| [TASK-036](../tasks/TASK-036-unit-tests-redux-layer.md)              | Add unit tests for Redux layer           | Done   | 2h     | High     |
 | [TASK-045](../tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n locale files (ca, pl, tl) | Done   | 2h     | Medium   |
 | [TASK-046](../tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n config for 5 languages       | Done   | 0.5h   | Medium   |
 | [TASK-047](../tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist                 | Done   | 0.5h   | Medium   |
 | [TASK-048](../tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml            | Done   | 1h     | Medium   |
 | [TASK-049](../tasks/TASK-049-update-language-selector-ui.md)         | Update language selector UI              | Done   | 1h     | Medium   |
-| [TASK-050](../tasks/TASK-050-rntl-tests-redux-data-layer.md)         | RNTL tests for Redux data layer          | To Do  | 2h     | High     |
+| [TASK-050](../tasks/TASK-050-rntl-tests-redux-data-layer.md)         | RNTL tests for Redux data layer          | Done   | 2h     | High     |
 | [TASK-052](../tasks/TASK-052-e2e-tests-language-switching.md)        | E2E tests for language switching         | To Do  | 1.5h   | High     |
 | [TASK-053](../tasks/TASK-053-e2e-tests-data-loading-persistence.md)  | E2E tests for data loading/persistence   | To Do  | 2h     | High     |
 | [TASK-054](../tasks/TASK-054-mock-github-api-e2e-tests.md)           | Mock GitHub API in E2E tests             | To Do  | 1h     | High     |
@@ -224,11 +224,12 @@ This epic is complete when:
 
 ## Status History
 
-| Date       | Status      | Notes                                                      |
-| ---------- | ----------- | ---------------------------------------------------------- |
-| 2025-01-12 | Not Started | Epic created                                               |
-| 2025-01-14 | In Progress | Epic split: Splash screen moved to EPIC-006, scope reduced |
-| 2025-01-14 | In Progress | 14 of 20 tasks completed, 6 testing tasks remaining        |
+| Date       | Status      | Notes                                                                         |
+| ---------- | ----------- | ----------------------------------------------------------------------------- |
+| 2025-01-12 | Not Started | Epic created                                                                  |
+| 2025-01-14 | In Progress | Epic split: Splash screen moved to EPIC-006, scope reduced                    |
+| 2025-01-14 | In Progress | 14 of 20 tasks completed, 6 testing tasks remaining                           |
+| 2025-11-15 | In Progress | 17 of 20 tasks completed, unit and RNTL tests complete, 3 E2E tests remaining |
 
 ---
 
@@ -252,4 +253,4 @@ This epic is complete when:
 
 ---
 
-**Last Updated**: 2025-01-14
+**Last Updated**: 2025-11-15

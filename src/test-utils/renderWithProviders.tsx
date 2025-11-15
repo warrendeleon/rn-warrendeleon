@@ -6,7 +6,10 @@ import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { render, type RenderAPI } from '@testing-library/react-native';
 
+import { educationReducer } from '@app/features/Education';
+import { profileReducer } from '@app/features/Profile';
 import { settingsReducer } from '@app/features/Settings';
+import { workXPReducer } from '@app/features/WorkXP';
 import i18n from '@app/i18n';
 import type { RootState } from '@app/store';
 
@@ -20,6 +23,9 @@ export const renderWithProviders = (
 ): RenderAPI => {
   const rootReducer = combineReducers({
     settings: settingsReducer,
+    profile: profileReducer,
+    workXP: workXPReducer,
+    education: educationReducer,
   });
 
   const store = configureStore({
