@@ -12,6 +12,7 @@ import {
   LanguageScreen,
   ProfileDataScreen,
   SettingsScreen,
+  WebViewScreen,
   WorkXPDataScreen,
 } from '@app/features';
 import { useAppColorScheme } from '@app/hooks';
@@ -26,6 +27,7 @@ export type RootStackParamList = {
   ProfileData: undefined;
   WorkXPData: undefined;
   EducationData: undefined;
+  WebView: { uri: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -79,6 +81,7 @@ export const RootNavigator: React.FC = () => {
             component={EducationDataScreen}
             options={{ title: 'Education Data' }}
           />
+          <Stack.Screen name="WebView" component={WebViewScreen} options={{ title: 'GitHub' }} />
         </Stack.Navigator>
       </ErrorBoundary>
     </NavigationContainer>
