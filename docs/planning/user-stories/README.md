@@ -1,7 +1,7 @@
 # React Native Portfolio App - Planning Hub
 
 **Last Updated**: 2025-11-15
-**Overall Progress**: 92% (55/60 tasks completed)
+**Overall Progress**: 97% (58/60 tasks completed)
 
 ---
 
@@ -11,21 +11,21 @@
 | -------------------- | ------------ | ------------------------------------------ |
 | **Epics**            | 6 total      | 4 completed, 2 in progress                 |
 | **User Stories**     | 11 total     | 8 completed, 1 in progress, 2 not started  |
-| **Tasks**            | 60 total     | 55 completed, 5 remaining                  |
-| **Estimated Effort** | ~34.25 hours | ~29 hours completed, ~5.25 hours remaining |
+| **Tasks**            | 60 total     | 58 completed, 2 remaining                  |
+| **Estimated Effort** | ~34.25 hours | ~32 hours completed, ~2.25 hours remaining |
 
 ---
 
 ## 🎯 Epics Overview
 
-| Epic ID                                                             | Title                      | Status         | Tasks        | Priority | Notes                                           |
-| ------------------------------------------------------------------- | -------------------------- | -------------- | ------------ | -------- | ----------------------------------------------- |
-| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization   | ✅ Completed   | 10/10 (100%) | High     | All memoisation and optimisation tasks complete |
-| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ✅ Completed   | 9/9 (100%)   | High     | Error boundaries and test coverage complete     |
-| [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing       |
-| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt   | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added               |
-| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 18/25 (72%)  | High     | Data layer complete, API & E2E tests remaining  |
-| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ✅ Completed   | 9/9 (100%)   | High     | Implementation and testing complete             |
+| Epic ID                                                             | Title                      | Status         | Tasks        | Priority | Notes                                                 |
+| ------------------------------------------------------------------- | -------------------------- | -------------- | ------------ | -------- | ----------------------------------------------------- |
+| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization   | ✅ Completed   | 10/10 (100%) | High     | All memoisation and optimisation tasks complete       |
+| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ✅ Completed   | 9/9 (100%)   | High     | Error boundaries and test coverage complete           |
+| [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing             |
+| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt   | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                     |
+| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 21/25 (84%)  | High     | Data layer + API tests complete, E2E + docs remaining |
+| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ✅ Completed   | 9/9 (100%)   | High     | Implementation and testing complete                   |
 
 ---
 
@@ -42,7 +42,7 @@
 | [US-008](./stories/US-008-splash-screen-with-loading.md)      | Splash Screen with Animated Logo   | EPIC-006 | ✅ Completed   | 8/8   | High     |
 | [US-009](./stories/US-009-internationalization.md)            | Internationalization (5 Languages) | EPIC-005 | ✅ Completed   | 5/5   | Medium   |
 | [US-010](./stories/US-010-data-layer-testing.md)              | Data Layer Testing (E2E)           | EPIC-005 | ⏳ In Progress | 1/4   | High     |
-| [US-012](./stories/US-012-api-layer-testing.md)               | API Layer Unit Testing             | EPIC-005 | ⭕ Not Started | 0/5   | High     |
+| [US-012](./stories/US-012-api-layer-testing.md)               | API Layer Unit Testing             | EPIC-005 | ⏳ In Progress | 4/5   | High     |
 | [US-011](./stories/US-011-splash-screen-testing.md)           | Splash Screen Testing              | EPIC-006 | ✅ Completed   | 1/1   | Medium   |
 
 ---
@@ -120,9 +120,9 @@
 | [TASK-053](./tasks/TASK-053-e2e-tests-data-loading-persistence.md)  | E2E Tests for Data Loading & Persistence      | ⏳ To Do       | 2h     | High     |
 | [TASK-054](./tasks/TASK-054-mock-github-api-e2e-tests.md)           | Mock GitHub API in E2E Tests                  | ⏳ To Do       | 1h     | High     |
 | [TASK-056](./tasks/TASK-056-install-axios-mock-adapter.md)          | Install axios-mock-adapter                    | ✅ Done        | 0.25h  | High     |
-| [TASK-057](./tasks/TASK-057-api-tests-profile.md)                   | Create API Tests for Profile Feature          | ⭕ Not Started | 1h     | High     |
-| [TASK-058](./tasks/TASK-058-api-tests-education.md)                 | Create API Tests for Education Feature        | ⭕ Not Started | 1h     | High     |
-| [TASK-059](./tasks/TASK-059-api-tests-workxp.md)                    | Create API Tests for WorkXP Feature           | ⭕ Not Started | 1h     | High     |
+| [TASK-057](./tasks/TASK-057-api-tests-profile.md)                   | Create API Tests for Profile Feature          | ✅ Done        | 1h     | High     |
+| [TASK-058](./tasks/TASK-058-api-tests-education.md)                 | Create API Tests for Education Feature        | ✅ Done        | 1h     | High     |
+| [TASK-059](./tasks/TASK-059-api-tests-workxp.md)                    | Create API Tests for WorkXP Feature           | ✅ Done        | 1h     | High     |
 | [TASK-060](./tasks/TASK-060-document-api-testing-standard.md)       | Document API Testing Standard                 | ⭕ Not Started | 0.75h  | Medium   |
 
 ### EPIC-006: Splash Screen with Loading Animation (9 tasks) ✅
@@ -141,16 +141,13 @@
 
 ---
 
-## 🎯 What's Next? (6 Remaining Tasks)
+## 🎯 What's Next? (2 Remaining Tasks)
 
 ### Critical Path
 
-**High Priority API Testing (US-012)**:
+**Medium Priority Documentation (US-012)**:
 
-1. **TASK-057**: Create API Tests for Profile Feature (1h) - High Priority
-2. **TASK-058**: Create API Tests for Education Feature (1h) - High Priority
-3. **TASK-059**: Create API Tests for WorkXP Feature (1h) - High Priority
-4. **TASK-060**: Document API Testing Standard (0.75h) - Medium Priority
+1. **TASK-060**: Document API Testing Standard (0.75h) - Medium Priority
 
 **Remaining from Previous Epics**:
 
@@ -162,6 +159,9 @@
 - ✅ **TASK-050**: RNTL Tests for Redux Data Layer (2h)
 - ✅ **TASK-051**: RNTL Tests for Splash Screen (1.5h)
 - ✅ **TASK-056**: Install axios-mock-adapter (0.25h)
+- ✅ **TASK-057**: Create API Tests for Profile Feature (1h)
+- ✅ **TASK-058**: Create API Tests for Education Feature (1h)
+- ✅ **TASK-059**: Create API Tests for WorkXP Feature (1h)
 
 ### Optional/Future Enhancements (Not in Critical Path)
 
@@ -169,7 +169,7 @@
 - **TASK-053**: E2E Tests for Data Loading & Persistence (2h) - High Priority
 - **TASK-054**: Mock GitHub API in E2E Tests (1h) - High Priority
 
-**Note**: EPIC-006 is now complete (100%). EPIC-005 has unit and RNTL tests complete (18/25 tasks). US-012 (API Layer Unit Testing) was added to restore the two-layer testing approach from the old app. axios-mock-adapter installed. The remaining E2E tasks (052-054) are optional enhancements for comprehensive coverage.
+**Note**: EPIC-006 is now complete (100%). EPIC-005 has unit, RNTL, and API tests complete (21/25 tasks, 84%). US-012 (API Layer Unit Testing) was added to restore the two-layer testing approach from the old app. All API tests passing with 100% coverage. Only documentation (TASK-060) remains for US-012. The remaining E2E tasks (052-054) are optional enhancements for comprehensive coverage.
 
 ---
 
