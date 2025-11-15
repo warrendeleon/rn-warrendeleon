@@ -48,6 +48,13 @@ export const handleGitHubPress = (navigation: HomeScreenNavigationProp): void =>
   navigation.navigate('WebView', { uri: 'https://github.com/warrendeleon/rn-warrendeleon' });
 };
 
+export const handleCVPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('PDF', {
+    uri: 'https://warrendeleon.com/wp-content/uploads/2025/06/CV_WARRENDELEON_2025.pdf',
+    title: 'CV',
+  });
+};
+
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
@@ -74,8 +81,8 @@ export const HomeScreen: React.FC = () => {
   }, [navigation]);
 
   const handleCV = useCallback(() => {
-    // TODO: Add CV PDF viewer handler
-  }, []);
+    handleCVPress(navigation);
+  }, [navigation]);
 
   const handleVideos = useCallback(() => {
     // TODO: Add Videos handler
