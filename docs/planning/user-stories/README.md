@@ -1,7 +1,7 @@
 # React Native Portfolio App - Planning Hub
 
 **Last Updated**: 2025-11-15
-**Overall Progress**: 98% (59/60 tasks completed)
+**Overall Progress**: 94% (59/63 tasks completed)
 
 ---
 
@@ -9,10 +9,10 @@
 
 | Metric               | Count        | Progress                                     |
 | -------------------- | ------------ | -------------------------------------------- |
-| **Epics**            | 6 total      | 4 completed, 2 in progress                   |
-| **User Stories**     | 11 total     | 9 completed, 1 in progress, 1 not started    |
-| **Tasks**            | 60 total     | 59 completed, 1 remaining                    |
-| **Estimated Effort** | ~34.25 hours | ~32.75 hours completed, ~1.5 hours remaining |
+| **Epics**            | 6 total      | 2 completed, 4 in progress                   |
+| **User Stories**     | 11 total     | 7 completed, 3 in progress, 1 not started    |
+| **Tasks**            | 63 total     | 59 completed, 4 remaining                    |
+| **Estimated Effort** | ~40.25 hours | ~32.75 hours completed, ~7.5 hours remaining |
 
 ---
 
@@ -21,11 +21,11 @@
 | Epic ID                                                             | Title                      | Status         | Tasks        | Priority | Notes                                                       |
 | ------------------------------------------------------------------- | -------------------------- | -------------- | ------------ | -------- | ----------------------------------------------------------- |
 | [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization   | ✅ Completed   | 10/10 (100%) | High     | All memoisation and optimisation tasks complete             |
-| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ✅ Completed   | 9/9 (100%)   | High     | Error boundaries and test coverage complete                 |
+| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ⏳ In Progress | 9/10 (90%)   | High     | Error boundaries complete, E2E error state tests remaining  |
 | [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing                   |
 | [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt   | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                           |
 | [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 22/25 (88%)  | High     | Data layer + API tests + docs complete, E2E tests remaining |
-| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ✅ Completed   | 9/9 (100%)   | High     | Implementation and testing complete                         |
+| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ⏳ In Progress | 9/10 (90%)   | High     | Implementation complete, E2E splash flow tests remaining    |
 
 ---
 
@@ -34,7 +34,7 @@
 | Story ID                                                      | Title                              | Epic     | Status         | Tasks | Priority |
 | ------------------------------------------------------------- | ---------------------------------- | -------- | -------------- | ----- | -------- |
 | [US-001](./stories/US-001-smooth-responsive-interactions.md)  | Smooth & Responsive Interactions   | EPIC-001 | ✅ Completed   | 10/10 | High     |
-| [US-002](./stories/US-002-graceful-error-handling.md)         | Graceful Error Handling            | EPIC-002 | ✅ Completed   | 3/3   | High     |
+| [US-002](./stories/US-002-graceful-error-handling.md)         | Graceful Error Handling            | EPIC-002 | ⏳ In Progress | 3/4   | High     |
 | [US-003](./stories/US-003-inclusive-screen-reader-support.md) | Inclusive Screen Reader Support    | EPIC-003 | ⏳ In Progress | 3/4   | High     |
 | [US-004](./stories/US-004-comprehensive-test-coverage.md)     | Comprehensive Test Coverage        | EPIC-002 | ✅ Completed   | 6/6   | High     |
 | [US-006](./stories/US-006-data-migration-and-structure.md)    | Data Migration & Structure         | EPIC-005 | ✅ Completed   | 5/5   | High     |
@@ -43,7 +43,7 @@
 | [US-009](./stories/US-009-internationalization.md)            | Internationalization (5 Languages) | EPIC-005 | ✅ Completed   | 5/5   | Medium   |
 | [US-010](./stories/US-010-data-layer-testing.md)              | Data Layer Testing (E2E)           | EPIC-005 | ⏳ In Progress | 1/4   | High     |
 | [US-012](./stories/US-012-api-layer-testing.md)               | API Layer Unit Testing             | EPIC-005 | ✅ Completed   | 5/5   | High     |
-| [US-011](./stories/US-011-splash-screen-testing.md)           | Splash Screen Testing              | EPIC-006 | ✅ Completed   | 1/1   | Medium   |
+| [US-011](./stories/US-011-splash-screen-testing.md)           | Splash Screen Testing              | EPIC-006 | ⏳ In Progress | 1/2   | Medium   |
 
 ---
 
@@ -64,7 +64,7 @@
 | [TASK-009](./tasks/TASK-009-usecallback-appearance-screen.md) | useCallback AppearanceScreen    | ✅ Completed | 0.5h   | High     |
 | [TASK-010](./tasks/TASK-010-optimize-redux-selectors.md)      | Optimise Redux Selectors        | ✅ Completed | 1h     | Medium   |
 
-### EPIC-002: Quality & Reliability (9 tasks) ✅
+### EPIC-002: Quality & Reliability (10 tasks) ⏳
 
 | Task ID                                                          | Title                                    | Status       | Effort | Priority |
 | ---------------------------------------------------------------- | ---------------------------------------- | ------------ | ------ | -------- |
@@ -77,6 +77,7 @@
 | [TASK-021](./tasks/TASK-021-test-use-app-color-scheme.md)        | Add Tests for useAppColorScheme Hook     | ✅ Completed | 1h     | Medium   |
 | [TASK-022](./tasks/TASK-022-integration-test-settings.md)        | Integration Tests Settings Flow          | ✅ Completed | 0.5h   | Medium   |
 | [TASK-055](./tasks/TASK-055-exclude-test-utils-from-coverage.md) | Exclude Test Utils from Jest Coverage    | ✅ Completed | 0.25h  | Medium   |
+| [TASK-062](./tasks/TASK-062-e2e-tests-error-states.md)           | E2E Tests for Error States/Recovery      | ⏳ To Do     | 2h     | High     |
 
 ### EPIC-003: Accessibility & Compliance (4 tasks) ⏳
 
@@ -125,29 +126,58 @@
 | [TASK-059](./tasks/TASK-059-api-tests-workxp.md)                    | Create API Tests for WorkXP Feature           | ✅ Done  | 1h     | High     |
 | [TASK-060](./tasks/TASK-060-document-api-testing-standard.md)       | Document API Testing Standard                 | ✅ Done  | 0.75h  | Medium   |
 
-### EPIC-006: Splash Screen with Loading Animation (9 tasks) ✅
+### EPIC-006: Splash Screen with Loading Animation (10 tasks) ⏳
 
-| Task ID                                                           | Title                                  | Status  | Effort | Priority |
-| ----------------------------------------------------------------- | -------------------------------------- | ------- | ------ | -------- |
-| [TASK-037](./tasks/TASK-037-install-react-native-bootsplash.md)   | Install react-native-bootsplash        | ✅ Done | 0.5h   | High     |
-| [TASK-038](./tasks/TASK-038-configure-ios-native-splash.md)       | Configure iOS Native Splash Screen     | ✅ Done | 1h     | High     |
-| [TASK-039](./tasks/TASK-039-configure-android-native-splash.md)   | Configure Android Native Splash Screen | ✅ Done | 1h     | High     |
-| [TASK-040](./tasks/TASK-040-install-lottie-react-native.md)       | Install lottie-react-native            | ✅ Done | 0.5h   | High     |
-| [TASK-041](./tasks/TASK-041-copy-logo-animation-assets.md)        | Copy Logo Animation Assets             | ✅ Done | 0.5h   | Medium   |
-| [TASK-042](./tasks/TASK-042-create-logo-component.md)             | Create Logo Component                  | ✅ Done | 1h     | High     |
-| [TASK-043](./tasks/TASK-043-create-splashscreen-component.md)     | Create SplashScreen Component          | ✅ Done | 2h     | High     |
-| [TASK-044](./tasks/TASK-044-integrate-splash-react-navigation.md) | Integrate Splash with React Navigation | ✅ Done | 1h     | High     |
-| [TASK-051](./tasks/TASK-051-rntl-tests-splash-screen.md)          | RNTL Tests for Splash Screen           | ✅ Done | 1.5h   | High     |
+| Task ID                                                           | Title                                  | Status   | Effort | Priority |
+| ----------------------------------------------------------------- | -------------------------------------- | -------- | ------ | -------- |
+| [TASK-037](./tasks/TASK-037-install-react-native-bootsplash.md)   | Install react-native-bootsplash        | ✅ Done  | 0.5h   | High     |
+| [TASK-038](./tasks/TASK-038-configure-ios-native-splash.md)       | Configure iOS Native Splash Screen     | ✅ Done  | 1h     | High     |
+| [TASK-039](./tasks/TASK-039-configure-android-native-splash.md)   | Configure Android Native Splash Screen | ✅ Done  | 1h     | High     |
+| [TASK-040](./tasks/TASK-040-install-lottie-react-native.md)       | Install lottie-react-native            | ✅ Done  | 0.5h   | High     |
+| [TASK-041](./tasks/TASK-041-copy-logo-animation-assets.md)        | Copy Logo Animation Assets             | ✅ Done  | 0.5h   | Medium   |
+| [TASK-042](./tasks/TASK-042-create-logo-component.md)             | Create Logo Component                  | ✅ Done  | 1h     | High     |
+| [TASK-043](./tasks/TASK-043-create-splashscreen-component.md)     | Create SplashScreen Component          | ✅ Done  | 2h     | High     |
+| [TASK-044](./tasks/TASK-044-integrate-splash-react-navigation.md) | Integrate Splash with React Navigation | ✅ Done  | 1h     | High     |
+| [TASK-051](./tasks/TASK-051-rntl-tests-splash-screen.md)          | RNTL Tests for Splash Screen           | ✅ Done  | 1.5h   | High     |
+| [TASK-061](./tasks/TASK-061-e2e-tests-splash-screen-flow.md)      | E2E Tests for Splash Screen Flow       | ⏳ To Do | 2h     | High     |
 
 ---
 
-## 🎯 What's Next? (1 Remaining Task)
+## 🎯 What's Next? (5 Remaining Tasks)
 
-### Critical Path
+### Critical Path - E2E Test Coverage (100% Goal)
 
-**Remaining from Previous Epics**:
+**Current E2E Coverage**: ~75% (Home, Settings, ErrorBoundary covered)
+**Target**: 100% project-level E2E coverage
 
-1. **TASK-017**: Manual VoiceOver/TalkBack Testing (0.5h) - High Priority (EPIC-003)
+**Recommended Sequence**:
+
+1. **TASK-054**: Mock GitHub API in E2E Tests (1h) - **BLOCKER** for TASK-052/053
+   - Must be completed first (other E2E tests depend on this)
+   - Configure MSW with local fixtures
+   - Verify no real network calls
+
+2. **TASK-052**: E2E Tests for Language Switching (1.5h) - High Priority (EPIC-005)
+   - Test all 5 languages (en, es, ca, pl, tl)
+   - Requires TASK-054 complete
+
+3. **TASK-053**: E2E Tests for Data Loading & Persistence (2h) - High Priority (EPIC-005)
+   - Test initial fetch, display, app restart
+   - Requires TASK-054 complete
+
+4. **TASK-061**: E2E Tests for Splash Screen Flow (2h) - High Priority (EPIC-006)
+   - Test splash → data loading → transition
+   - Requires TASK-054 complete
+
+5. **TASK-062**: E2E Tests for Error States (2h) - High Priority (EPIC-002)
+   - Test network errors, API failures, recovery
+   - Requires TASK-054 complete
+
+**Total Effort**: 8.5 hours for 100% E2E coverage
+
+### Accessibility (Separate Track)
+
+- **TASK-017**: Manual VoiceOver/TalkBack Testing (0.5h) - High Priority (EPIC-003)
 
 ### Recently Completed (2025-11-15)
 
@@ -160,13 +190,13 @@
 - ✅ **TASK-059**: Create API Tests for WorkXP Feature (1h)
 - ✅ **TASK-060**: Document API Testing Standard (0.75h)
 
-### Optional/Future Enhancements (Not in Critical Path)
+### Coverage Assessment Completed (2025-11-15)
 
-- **TASK-052**: E2E Tests for Language Switching (1.5h) - High Priority
-- **TASK-053**: E2E Tests for Data Loading & Persistence (2h) - High Priority
-- **TASK-054**: Mock GitHub API in E2E Tests (1h) - High Priority
+- ✅ **E2E Coverage Audit**: Identified gaps in Splash flow, error states
+- ✅ **New Tickets Created**: TASK-061 (Splash E2E), TASK-062 (Error E2E)
+- 📊 **Coverage Analysis**: 75% → 100% target with 5 remaining E2E tasks
 
-**Note**: EPIC-006 is now complete (100%). EPIC-005 has unit, RNTL, API tests, and documentation complete (22/25 tasks, 88%). US-012 (API Layer Unit Testing) is now complete - successfully restored the two-layer testing approach from the old app with 100% coverage and full documentation. The remaining E2E tasks (052-054) are optional enhancements for comprehensive coverage.
+**Note**: E2E testing now prioritised for 100% project coverage. All unit, integration, and API layer tests are complete with full documentation. The five E2E tasks above will complete comprehensive test coverage across all app flows.
 
 ---
 
