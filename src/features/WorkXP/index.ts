@@ -9,3 +9,4 @@ export {
   selectWorkXPLoading,
   workXPReducer,
 } from './store';
+export { WorkXPDataScreen } from './WorkXPDataScreen';

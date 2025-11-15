@@ -4,7 +4,7 @@
 **Title**: E2E Tests for Data Loading & Persistence
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-010-testing-coverage](../stories/US-010-testing-coverage.md)
-**Status**: To Do
+**Status**: Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -20,11 +20,11 @@ Add E2E tests for data loading from GitHub and persistence across app restarts.
 
 ## Acceptance Criteria
 
-- [ ] data-loading.feature created
-- [ ] Tests initial data fetch
-- [ ] Tests data displays correctly
-- [ ] Tests persistence (restart app, data still there)
-- [ ] All scenarios pass
+- [x] data-loading.feature created
+- [x] Tests initial data fetch
+- [x] Tests data displays correctly
+- [x] Tests persistence (restart app, data still there)
+- [x] All scenarios pass
 
 ---
 
@@ -44,10 +44,10 @@ Add E2E tests for data loading from GitHub and persistence across app restarts.
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Tests passing
-- [ ] No regressions
+- [x] All acceptance criteria met
+- [x] Tests passing
+- [x] No regressions
 
 ---
 
-**Last Updated**: 2025-01-12
+**Last Updated**: 2025-11-15
