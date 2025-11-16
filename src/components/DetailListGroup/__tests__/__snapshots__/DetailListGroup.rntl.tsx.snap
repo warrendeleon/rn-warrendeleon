@@ -1,0 +1,248 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailListGroup matches snapshot for light mode 1`] = `
+<View
+  style={
+    [
+      {
+        "borderRadius": 10,
+        "overflow": "hidden",
+      },
+      {
+        "backgroundColor": "#FFFFFF",
+      },
+    ]
+  }
+>
+  <View
+    accessibilityLabel="Test Item 1"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "minHeight": 60,
+        "opacity": 1,
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      }
+    }
+    testID="test-item-1"
+  >
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "borderRadius": 25,
+            "height": 50,
+            "justifyContent": "center",
+            "marginRight": 12,
+            "width": 50,
+          },
+          {
+            "backgroundColor": "#F2F2F7",
+          },
+        ]
+      }
+    >
+      <SvgUri
+        height={40}
+        uri="file:///path/to/logo1.svg"
+        width={40}
+      />
+    </View>
+    <View
+      style={
+        {
+          "flex": 1,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontSize": 16,
+              "fontWeight": "400",
+            },
+            {
+              "color": "#000000",
+            },
+          ]
+        }
+      >
+        Test Item 1
+      </Text>
+      <Text
+        style={
+          [
+            {
+              "fontSize": 14,
+              "marginTop": 2,
+            },
+            {
+              "color": "#8E8E93",
+            },
+          ]
+        }
+      >
+        Subtitle 1
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginLeft": 12,
+        }
+      }
+    >
+      <ChevronRight
+        color="#8E8E93"
+        size={20}
+      />
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "height": 0.5,
+          "marginLeft": 78,
+        },
+        {
+          "backgroundColor": "#C6C6C8",
+        },
+      ]
+    }
+  />
+  <View
+    accessibilityLabel="Test Item 2"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "minHeight": 60,
+        "opacity": 1,
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      }
+    }
+    testID="test-item-2"
+  >
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "borderRadius": 25,
+            "height": 50,
+            "justifyContent": "center",
+            "marginRight": 12,
+            "width": 50,
+          },
+          {
+            "backgroundColor": "#F2F2F7",
+          },
+        ]
+      }
+    >
+      <SvgUri
+        height={40}
+        uri="file:///path/to/logo2.svg"
+        width={40}
+      />
+    </View>
+    <View
+      style={
+        {
+          "flex": 1,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontSize": 16,
+              "fontWeight": "400",
+            },
+            {
+              "color": "#000000",
+            },
+          ]
+        }
+      >
+        Test Item 2
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginLeft": 12,
+        }
+      }
+    />
+  </View>
+</View>
+`;
