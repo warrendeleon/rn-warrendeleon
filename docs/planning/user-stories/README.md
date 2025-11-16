@@ -1,7 +1,7 @@
 # React Native Portfolio App - Planning Hub
 
 **Last Updated**: 2025-01-16
-**Overall Progress**: 98% (100/102 tasks completed)
+**Overall Progress**: 96% (100/104 tasks completed)
 
 ---
 
@@ -11,8 +11,8 @@
 | -------------------- | ---------- | ------------------------------------------------------ |
 | **Epics**            | 19 total   | 10 completed, 1 in progress, 8 planned                 |
 | **User Stories**     | 57 total   | 12 completed, 5 in progress, 2 not started, 38 planned |
-| **Tasks**            | 102 total  | 100 completed, 2 remaining                             |
-| **Estimated Effort** | ~213 hours | ~78 hours completed, ~135 hours remaining              |
+| **Tasks**            | 104 total  | 100 completed, 4 in progress                           |
+| **Estimated Effort** | ~216 hours | ~78 hours completed, ~138 hours remaining              |
 
 ---
 
@@ -24,7 +24,7 @@
 | [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability          | ✅ Completed   | 10/10 (100%) | High     | Error boundaries and E2E error state tests complete       |
 | [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance     | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing                 |
 | [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt       | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                         |
-| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer      | ⏳ In Progress | 24/25 (96%)  | High     | Language & data E2E tests complete, 1 task remaining      |
+| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer      | ⏳ In Progress | 24/27 (89%)  | High     | Language & data E2E tests complete, 3 tasks remaining     |
 | [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation      | ✅ Completed   | 10/10 (100%) | High     | Implementation and E2E tests complete                     |
 | [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign        | ✅ Completed   | 4/4 (100%)   | Medium   | Button groups and ProfileCard complete                    |
 | [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing               | ✅ Completed   | 6/6 (100%)   | Medium   | CV PDF viewer with share functionality complete           |
@@ -117,35 +117,37 @@
 | [TASK-024](./tasks/TASK-024-add-missing-types.md)             | Add Missing @types/node                     | ✅ Completed | 0.25h  | High     |
 | [TASK-025](./tasks/TASK-025-standardise-component-imports.md) | Standardise Component Imports to @app Alias | ✅ Completed | 0.25h  | Low      |
 
-### EPIC-005: Multi-Language Portfolio Data Layer (25 tasks) ⏳
+### EPIC-005: Multi-Language Portfolio Data Layer (27 tasks) ⏳
 
-| Task ID                                                             | Title                                         | Status  | Effort | Priority |
-| ------------------------------------------------------------------- | --------------------------------------------- | ------- | ------ | -------- |
-| [TASK-026](./tasks/TASK-026-copy-english-spanish-data.md)           | Copy English/Spanish Data from Old Repo       | ✅ Done | 0.5h   | High     |
-| [TASK-027](./tasks/TASK-027-translate-catalan-data.md)              | Translate Profile Data to Catalan             | ✅ Done | 1h     | High     |
-| [TASK-028](./tasks/TASK-028-translate-polish-data.md)               | Translate Profile Data to Polish              | ✅ Done | 1h     | High     |
-| [TASK-029](./tasks/TASK-029-translate-tagalog-data.md)              | Translate Profile Data to Tagalog             | ✅ Done | 1h     | High     |
-| [TASK-030](./tasks/TASK-030-create-typescript-types.md)             | Create TypeScript Types for Profile Data      | ✅ Done | 1h     | High     |
-| [TASK-031](./tasks/TASK-031-setup-axios-github-api-client.md)       | Set Up Axios GitHub API Client                | ✅ Done | 1h     | High     |
-| [TASK-032](./tasks/TASK-032-create-profile-redux-slice.md)          | Create Profile Redux Slice                    | ✅ Done | 1.5h   | High     |
-| [TASK-033](./tasks/TASK-033-create-workxp-redux-slice.md)           | Create WorkXP Redux Slice                     | ✅ Done | 1h     | High     |
-| [TASK-034](./tasks/TASK-034-create-education-redux-slice.md)        | Create Education Redux Slice                  | ✅ Done | 1h     | High     |
-| [TASK-035](./tasks/TASK-035-configure-redux-persist.md)             | Configure Redux-Persist                       | ✅ Done | 0.5h   | High     |
-| [TASK-036](./tasks/TASK-036-unit-tests-redux-layer.md)              | Add Unit Tests for Redux Layer                | ✅ Done | 2h     | High     |
-| [TASK-045](./tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n Locale Files (ca, pl, tl)      | ✅ Done | 2h     | Medium   |
-| [TASK-046](./tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n Config for 5 Languages            | ✅ Done | 0.5h   | Medium   |
-| [TASK-047](./tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist for 5 Languages      | ✅ Done | 0.5h   | Medium   |
-| [TASK-048](./tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml for 5 Languages | ✅ Done | 1h     | Medium   |
-| [TASK-049](./tasks/TASK-049-update-language-selector-ui.md)         | Update Language Selector UI                   | ✅ Done | 1h     | Medium   |
-| [TASK-050](./tasks/TASK-050-rntl-tests-redux-data-layer.md)         | RNTL Tests for Redux Data Layer               | ✅ Done | 2h     | High     |
-| [TASK-052](./tasks/TASK-052-e2e-tests-language-switching.md)        | E2E Tests for Language Switching              | ✅ Done | 1.5h   | High     |
-| [TASK-053](./tasks/TASK-053-e2e-tests-data-loading-persistence.md)  | E2E Tests for Data Loading & Persistence      | ✅ Done | 2h     | High     |
-| [TASK-054](./tasks/TASK-054-mock-github-api-e2e-tests.md)           | Mock GitHub API in E2E Tests                  | ✅ Done | 1h     | High     |
-| [TASK-056](./tasks/TASK-056-install-axios-mock-adapter.md)          | Install axios-mock-adapter                    | ✅ Done | 0.25h  | High     |
-| [TASK-057](./tasks/TASK-057-api-tests-profile.md)                   | Create API Tests for Profile Feature          | ✅ Done | 1h     | High     |
-| [TASK-058](./tasks/TASK-058-api-tests-education.md)                 | Create API Tests for Education Feature        | ✅ Done | 1h     | High     |
-| [TASK-059](./tasks/TASK-059-api-tests-workxp.md)                    | Create API Tests for WorkXP Feature           | ✅ Done | 1h     | High     |
-| [TASK-060](./tasks/TASK-060-document-api-testing-standard.md)       | Document API Testing Standard                 | ✅ Done | 0.75h  | Medium   |
+| Task ID                                                             | Title                                         | Status         | Effort | Priority |
+| ------------------------------------------------------------------- | --------------------------------------------- | -------------- | ------ | -------- |
+| [TASK-026](./tasks/TASK-026-copy-english-spanish-data.md)           | Copy English/Spanish Data from Old Repo       | ✅ Done        | 0.5h   | High     |
+| [TASK-027](./tasks/TASK-027-translate-catalan-data.md)              | Translate Profile Data to Catalan             | ✅ Done        | 1h     | High     |
+| [TASK-028](./tasks/TASK-028-translate-polish-data.md)               | Translate Profile Data to Polish              | ✅ Done        | 1h     | High     |
+| [TASK-029](./tasks/TASK-029-translate-tagalog-data.md)              | Translate Profile Data to Tagalog             | ✅ Done        | 1h     | High     |
+| [TASK-030](./tasks/TASK-030-create-typescript-types.md)             | Create TypeScript Types for Profile Data      | ✅ Done        | 1h     | High     |
+| [TASK-031](./tasks/TASK-031-setup-axios-github-api-client.md)       | Set Up Axios GitHub API Client                | ✅ Done        | 1h     | High     |
+| [TASK-032](./tasks/TASK-032-create-profile-redux-slice.md)          | Create Profile Redux Slice                    | ✅ Done        | 1.5h   | High     |
+| [TASK-033](./tasks/TASK-033-create-workxp-redux-slice.md)           | Create WorkXP Redux Slice                     | ✅ Done        | 1h     | High     |
+| [TASK-034](./tasks/TASK-034-create-education-redux-slice.md)        | Create Education Redux Slice                  | ✅ Done        | 1h     | High     |
+| [TASK-035](./tasks/TASK-035-configure-redux-persist.md)             | Configure Redux-Persist                       | ✅ Done        | 0.5h   | High     |
+| [TASK-036](./tasks/TASK-036-unit-tests-redux-layer.md)              | Add Unit Tests for Redux Layer                | ✅ Done        | 2h     | High     |
+| [TASK-045](./tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n Locale Files (ca, pl, tl)      | ✅ Done        | 2h     | Medium   |
+| [TASK-046](./tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n Config for 5 Languages            | ✅ Done        | 0.5h   | Medium   |
+| [TASK-047](./tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist for 5 Languages      | ✅ Done        | 0.5h   | Medium   |
+| [TASK-048](./tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml for 5 Languages | ✅ Done        | 1h     | Medium   |
+| [TASK-049](./tasks/TASK-049-update-language-selector-ui.md)         | Update Language Selector UI                   | ✅ Done        | 1h     | Medium   |
+| [TASK-050](./tasks/TASK-050-rntl-tests-redux-data-layer.md)         | RNTL Tests for Redux Data Layer               | ✅ Done        | 2h     | High     |
+| [TASK-052](./tasks/TASK-052-e2e-tests-language-switching.md)        | E2E Tests for Language Switching              | ✅ Done        | 1.5h   | High     |
+| [TASK-053](./tasks/TASK-053-e2e-tests-data-loading-persistence.md)  | E2E Tests for Data Loading & Persistence      | ✅ Done        | 2h     | High     |
+| [TASK-054](./tasks/TASK-054-mock-github-api-e2e-tests.md)           | Mock GitHub API in E2E Tests                  | ✅ Done        | 1h     | High     |
+| [TASK-056](./tasks/TASK-056-install-axios-mock-adapter.md)          | Install axios-mock-adapter                    | ✅ Done        | 0.25h  | High     |
+| [TASK-057](./tasks/TASK-057-api-tests-profile.md)                   | Create API Tests for Profile Feature          | ✅ Done        | 1h     | High     |
+| [TASK-058](./tasks/TASK-058-api-tests-education.md)                 | Create API Tests for Education Feature        | ✅ Done        | 1h     | High     |
+| [TASK-059](./tasks/TASK-059-api-tests-workxp.md)                    | Create API Tests for WorkXP Feature           | ✅ Done        | 1h     | High     |
+| [TASK-060](./tasks/TASK-060-document-api-testing-standard.md)       | Document API Testing Standard                 | ✅ Done        | 0.75h  | Medium   |
+| [TASK-103](./tasks/TASK-103-mock-status-verification-screen.md)     | Mock Status Verification Screen               | 🚧 Blocked     | 2h     | Medium   |
+| [TASK-104](./tasks/TASK-104-migrate-msw-to-metro-mocking.md)        | Migrate MSW to Metro Mocking for E2E Tests    | ⏳ In Progress | 3h     | High     |
 
 ### EPIC-006: Splash Screen with Loading Animation (10 tasks) ⏳
 
@@ -208,24 +210,25 @@
 
 ### EPIC-011: Component Naming Clarity (13 tasks) ✅
 
-| Task ID                                                            | Title                                         | Status       | Effort | Priority |
-| ------------------------------------------------------------------ | --------------------------------------------- | ------------ | ------ | -------- |
-| [TASK-087](./tasks/TASK-087-create-migration-plan-document.md)     | Create Migration Plan Document                | ✅ Completed | 0.5h   | High     |
-| [TASK-088](./tasks/TASK-088-create-settings-group-component.md)    | Create SettingsGroup Component                | ✅ Completed | 0.25h  | High     |
-| [TASK-089](./tasks/TASK-089-create-detail-list-group-component.md) | Create DetailListGroup Component              | ✅ Completed | 0.25h  | High     |
-| [TASK-090](./tasks/TASK-090-create-picker-group-component.md)      | Create PickerGroup Component                  | ✅ Completed | 0.25h  | High     |
-| [TASK-091](./tasks/TASK-091-create-settings-item-component.md)     | Create SettingsItem Component                 | ✅ Completed | 0.25h  | High     |
-| [TASK-092](./tasks/TASK-092-create-picker-item-component.md)       | Create PickerItem Component                   | ✅ Completed | 0.25h  | High     |
-| [TASK-093](./tasks/TASK-093-migrate-settings-screen.md)            | Migrate SettingsScreen                        | ✅ Completed | 0.5h   | High     |
-| [TASK-094](./tasks/TASK-094-migrate-education-screen.md)           | Migrate EducationScreen                       | ✅ Completed | 0.5h   | High     |
-| [TASK-095](./tasks/TASK-095-migrate-work-xp-screen.md)             | Migrate WorkXPScreen                          | ✅ Completed | 0.5h   | High     |
-| [TASK-096](./tasks/TASK-096-migrate-language-screen.md)            | Migrate LanguageScreen                        | ✅ Completed | 0.5h   | Medium   |
-| [TASK-097](./tasks/TASK-097-migrate-appearance-screen.md)          | Migrate AppearanceScreen                      | ✅ Completed | 0.5h   | Medium   |
-| [TASK-098](./tasks/TASK-098-deprecate-old-components.md)           | Deprecate Old Components                      | ✅ Completed | 0.5h   | Medium   |
-| [TASK-099](./tasks/TASK-099-remove-old-components.md)              | Remove Old Components                         | ✅ Completed | 1.5h   | Low      |
-| [TASK-100](./tasks/TASK-100-fix-e2e-home-button-test-ids.md)       | Fix E2E Tests for Renamed Home Screen Buttons | ✅ Completed | 2h     | High     |
-| [TASK-101](./tasks/TASK-101-fix-e2e-pdf-step-definitions.md)       | Fix PDF Viewing E2E Step Definitions          | ✅ Completed | 0.5h   | High     |
-| [TASK-102](./tasks/TASK-102-fix-e2e-app-restart-timeout.md)        | Fix App Restart E2E Step Timeout              | ✅ Completed | 1h     | High     |
+| Task ID                                                            | Title                                         | Status         | Effort | Priority |
+| ------------------------------------------------------------------ | --------------------------------------------- | -------------- | ------ | -------- |
+| [TASK-087](./tasks/TASK-087-create-migration-plan-document.md)     | Create Migration Plan Document                | ✅ Completed   | 0.5h   | High     |
+| [TASK-088](./tasks/TASK-088-create-settings-group-component.md)    | Create SettingsGroup Component                | ✅ Completed   | 0.25h  | High     |
+| [TASK-089](./tasks/TASK-089-create-detail-list-group-component.md) | Create DetailListGroup Component              | ✅ Completed   | 0.25h  | High     |
+| [TASK-090](./tasks/TASK-090-create-picker-group-component.md)      | Create PickerGroup Component                  | ✅ Completed   | 0.25h  | High     |
+| [TASK-091](./tasks/TASK-091-create-settings-item-component.md)     | Create SettingsItem Component                 | ✅ Completed   | 0.25h  | High     |
+| [TASK-092](./tasks/TASK-092-create-picker-item-component.md)       | Create PickerItem Component                   | ✅ Completed   | 0.25h  | High     |
+| [TASK-093](./tasks/TASK-093-migrate-settings-screen.md)            | Migrate SettingsScreen                        | ✅ Completed   | 0.5h   | High     |
+| [TASK-094](./tasks/TASK-094-migrate-education-screen.md)           | Migrate EducationScreen                       | ✅ Completed   | 0.5h   | High     |
+| [TASK-095](./tasks/TASK-095-migrate-work-xp-screen.md)             | Migrate WorkXPScreen                          | ✅ Completed   | 0.5h   | High     |
+| [TASK-096](./tasks/TASK-096-migrate-language-screen.md)            | Migrate LanguageScreen                        | ✅ Completed   | 0.5h   | Medium   |
+| [TASK-097](./tasks/TASK-097-migrate-appearance-screen.md)          | Migrate AppearanceScreen                      | ✅ Completed   | 0.5h   | Medium   |
+| [TASK-098](./tasks/TASK-098-deprecate-old-components.md)           | Deprecate Old Components                      | ✅ Completed   | 0.5h   | Medium   |
+| [TASK-099](./tasks/TASK-099-remove-old-components.md)              | Remove Old Components                         | ✅ Completed   | 1.5h   | Low      |
+| [TASK-100](./tasks/TASK-100-fix-e2e-home-button-test-ids.md)       | Fix E2E Tests for Renamed Home Screen Buttons | ✅ Completed   | 2h     | High     |
+| [TASK-101](./tasks/TASK-101-fix-e2e-pdf-step-definitions.md)       | Fix PDF Viewing E2E Step Definitions          | ✅ Completed   | 0.5h   | High     |
+| [TASK-102](./tasks/TASK-102-fix-e2e-app-restart-timeout.md)        | Fix App Restart E2E Step Timeout              | ✅ Completed   | 1h     | High     |
+| [TASK-103](./tasks/TASK-103-mock-status-verification-screen.md)    | Mock Status Verification Screen               | ⏳ In Progress | 2h     | Medium   |
 
 ---
 

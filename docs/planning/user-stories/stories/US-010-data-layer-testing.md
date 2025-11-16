@@ -50,12 +50,14 @@ Split from original US-010 to focus specifically on E2E data layer testing (sepa
 
 ## Tasks
 
-| ID                                                                  | Task                                   | Effort | Status |
-| ------------------------------------------------------------------- | -------------------------------------- | ------ | ------ |
-| [TASK-050](../tasks/TASK-050-rntl-tests-redux-data-layer.md)        | RNTL tests for Redux data layer        | 2h     | Done   |
-| [TASK-052](../tasks/TASK-052-e2e-tests-language-switching.md)       | E2E tests for language switching       | 1.5h   | To Do  |
-| [TASK-053](../tasks/TASK-053-e2e-tests-data-loading-persistence.md) | E2E tests for data loading/persistence | 2h     | To Do  |
-| [TASK-054](../tasks/TASK-054-mock-github-api-e2e-tests.md)          | Mock GitHub API in E2E tests           | 1h     | To Do  |
+| ID                                                                  | Task                                       | Effort | Status      |
+| ------------------------------------------------------------------- | ------------------------------------------ | ------ | ----------- |
+| [TASK-050](../tasks/TASK-050-rntl-tests-redux-data-layer.md)        | RNTL tests for Redux data layer            | 2h     | Done        |
+| [TASK-052](../tasks/TASK-052-e2e-tests-language-switching.md)       | E2E tests for language switching           | 1.5h   | Done        |
+| [TASK-053](../tasks/TASK-053-e2e-tests-data-loading-persistence.md) | E2E tests for data loading/persistence     | 2h     | Done        |
+| [TASK-054](../tasks/TASK-054-mock-github-api-e2e-tests.md)          | Mock GitHub API in E2E tests               | 1h     | Done        |
+| [TASK-103](../tasks/TASK-103-mock-status-verification-screen.md)    | Mock Status Verification Screen            | 2h     | Blocked     |
+| [TASK-104](../tasks/TASK-104-migrate-msw-to-metro-mocking.md)       | Migrate MSW to Metro Mocking for E2E Tests | 3h     | In Progress |
 
 ---
 
