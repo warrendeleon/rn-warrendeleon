@@ -1,0 +1,964 @@
+import { Provider } from 'react-redux';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import configureStore from 'redux-mock-store';
+import { thunk } from 'redux-thunk';
+
+import type { WorkExperience } from '@app/types/portfolio';
+
+import { WorkExperienceScreen } from '../WorkExperienceScreen';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mockStore = configureStore([thunk as any]);
+
+// Mock navigation
+const mockNavigate = jest.fn();
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: mockNavigate,
+  }),
+  useRoute: () => ({}),
+}));
+
+// Mock Image.resolveAssetSource
+jest.mock('react-native/Libraries/Image/resolveAssetSource', () => {
+  return jest.fn((source: number) => ({
+    uri: `mocked://asset/${source}`,
+    width: 100,
+    height: 100,
+  }));
+});
+
+// Mock DetailListGroup
+jest.mock('@app/components', () => {
+  const mockReact = jest.requireActual('react');
+  const mockRN = jest.requireActual('react-native');
+
+  const MockDetailListGroup = ({ items, loading, error }: Record<string, unknown>) => {
+    if (loading) return mockReact.createElement(mockRN.View, { testID: 'loading-state' });
+    if (error)
+      return mockReact.createElement(
+        mockRN.View,
+        { testID: 'error-state' },
+        mockReact.createElement(mockRN.Text, {}, error)
+      );
+    if (!Array.isArray(items) || items.length === 0) {
+      return mockReact.createElement(mockRN.View, { testID: 'items-container-empty' });
+    }
+    return mockReact.createElement(
+      mockRN.View,
+      { testID: 'items-container' },
+      items.map((item: Record<string, unknown>) =>
+        mockReact.createElement(
+          mockRN.TouchableOpacity,
+          {
+            key: String(item.id),
+            onPress: typeof item.onPress === 'function' ? item.onPress : undefined,
+            testID: String(item.testID),
+            accessibilityLabel: String(item.accessibilityLabel),
+            accessibilityHint: item.accessibilityHint ? String(item.accessibilityHint) : undefined,
+            accessibilityRole: 'button',
+          },
+          [
+            mockReact.createElement(mockRN.Text, { key: 'label' }, String(item.label)),
+            item.badge
+              ? mockReact.createElement(
+                  mockRN.View,
+                  { key: 'badge', testID: `${String(item.testID)}-badge` },
+                  mockReact.createElement(mockRN.Text, {}, String(item.badge))
+                )
+              : null,
+          ]
+        )
+      )
+    );
+  };
+
+  return {
+    DetailListGroup: MockDetailListGroup,
+  };
+});
+
+describe('WorkExperienceScreen', () => {
+  const mockWorkExperienceData: WorkExperience[] = [
+    {
+      id: 'work-1',
+      company: 'Sky',
+      logo: 'https://example.com/sky.svg',
+      position: 'Senior React Native Developer',
+      start: 'Jan 2023',
+      end: 'Present',
+      programmingLanguages: ['TypeScript'],
+      techStack: ['React Native', 'Redux'],
+      unitTest: ['RNTL'],
+      e2e: ['Detox'],
+      devTools: ['Xcode'],
+      agileMethodology: ['Scrum'],
+      description: 'Working on eSIM features',
+    },
+    {
+      id: 'work-2',
+      company: 'xDesign',
+      logo: 'https://example.com/xdesign.svg',
+      position: 'Lead React Native Developer',
+      start: 'Sep 2021',
+      end: 'Apr 2022',
+      programmingLanguages: ['TypeScript'],
+      techStack: ['React Native'],
+      unitTest: ['RNTL'],
+      e2e: ['Detox'],
+      devTools: ['Xcode'],
+      agileMethodology: ['Scrum'],
+      description: 'Leading React Native projects',
+      clients: [
+        {
+          id: 'client-1',
+          company: 'FanDuel',
+          logo: 'https://example.com/fanduel.svg',
+          position: 'Lead Developer',
+          start: 'Jan 2022',
+          end: 'Present',
+          type: 'contract',
+          programmingLanguages: ['TypeScript'],
+          techStack: ['React Native'],
+          devTools: ['Xcode'],
+          agileMethodology: ['Scrum'],
+          description: 'Leading FanDuel team',
+        },
+        {
+          id: 'client-2',
+          company: 'Zonal',
+          logo: 'https://example.com/zonal.svg',
+          position: 'Senior Developer',
+          start: 'Sep 2021',
+          end: 'Dec 2021',
+          type: 'contract',
+          programmingLanguages: ['TypeScript'],
+          techStack: ['React Native'],
+          devTools: ['Xcode'],
+          agileMethodology: ['Scrum'],
+          description: 'POS development',
+        },
+      ],
+    },
+    {
+      id: 'work-3',
+      company: 'Candide',
+      logo: 'https://example.com/candide.svg',
+      position: 'Senior Software Engineer',
+      start: 'Apr 2022',
+      end: 'Jul 2022',
+      programmingLanguages: ['TypeScript'],
+      techStack: ['React Native'],
+      unitTest: ['RNTL'],
+      e2e: ['Detox'],
+      devTools: ['Xcode'],
+      agileMethodology: ['Kanban'],
+      description: 'Developing new apps',
+    },
+  ];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('Initial Render and Data Fetching', () => {
+    it('renders work experience items when data is loaded', () => {
+      const store = mockStore({
+        workExperience: {
+          data: mockWorkExperienceData,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.getByText('Senior React Native Developer')).toBeOnTheScreen();
+      expect(screen.getByText('Lead React Native Developer')).toBeOnTheScreen();
+      expect(screen.getByText('Senior Software Engineer')).toBeOnTheScreen();
+    });
+
+    it('fetches work experience data on mount', () => {
+      const store = mockStore({
+        workExperience: {
+          data: null,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(dispatchSpy).toHaveBeenCalled();
+      expect(dispatchSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('refetches data when language changes', () => {
+      const store = mockStore({
+        workExperience: {
+          data: mockWorkExperienceData,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+      const { rerender } = render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      // Initial mount triggers fetch
+      expect(dispatchSpy).toHaveBeenCalledTimes(1);
+
+      // Change language
+      const newStore = mockStore({
+        workExperience: {
+          data: mockWorkExperienceData,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'es',
+        },
+      });
+
+      const newDispatchSpy = jest.spyOn(newStore, 'dispatch');
+
+      rerender(
+        <Provider store={newStore}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      // Language change triggers refetch
+      expect(newDispatchSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('Loading State', () => {
+    it('displays loading state', () => {
+      const store = mockStore({
+        workExperience: {
+          data: null,
+          loading: true,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.getByTestId('loading-state')).toBeOnTheScreen();
+    });
+
+    it('displays loading state with empty data array', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: true,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.getByTestId('loading-state')).toBeOnTheScreen();
+    });
+  });
+
+  describe('Error State', () => {
+    it('displays error state with translated message', () => {
+      const store = mockStore({
+        workExperience: {
+          data: null,
+          loading: false,
+          error: 'Network error',
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.getByTestId('error-state')).toBeOnTheScreen();
+      expect(screen.getByText('workExperience.errorMessage')).toBeOnTheScreen();
+    });
+
+    it('does not display empty state when error is present', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: 'Network error',
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.getByTestId('error-state')).toBeOnTheScreen();
+      expect(screen.queryByTestId('work-experience-empty-state')).not.toBeOnTheScreen();
+    });
+  });
+
+  describe('Empty State', () => {
+    it('displays empty state when no data', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.getByTestId('work-experience-empty-state')).toBeOnTheScreen();
+      expect(screen.getByText('workExperience.empty')).toBeOnTheScreen();
+    });
+
+    it('does not display empty state when loading', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: true,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.queryByTestId('work-experience-empty-state')).not.toBeOnTheScreen();
+    });
+
+    it('does not display empty state when error is present', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: 'Error',
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.queryByTestId('work-experience-empty-state')).not.toBeOnTheScreen();
+    });
+  });
+
+  describe('Date Range Formatting', () => {
+    it('formats date range with "Present" correctly', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [
+            {
+              ...mockWorkExperienceData[0],
+              start: 'Jan 2023',
+              end: 'Present',
+            },
+          ],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const item = screen.getByTestId('work-experience-item-work-1');
+      expect(item.props.accessibilityLabel).toBe('workExperience.accessibility.itemLabel');
+    });
+
+    it('formats date range with end date correctly', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [mockWorkExperienceData[2]],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const item = screen.getByTestId('work-experience-item-work-3');
+      expect(item.props.accessibilityLabel).toBe('workExperience.accessibility.itemLabel');
+    });
+  });
+
+  describe('Navigation - Client List', () => {
+    it('navigates to WorkExperienceClients when item with clients is tapped', async () => {
+      const store = mockStore({
+        workExperience: {
+          data: mockWorkExperienceData,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const itemWithClients = screen.getByTestId('work-experience-item-work-2');
+      fireEvent.press(itemWithClients);
+
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceClients', {
+          workExperienceId: 'work-2',
+        });
+      });
+    });
+
+    it('displays badge with client count for items with clients', () => {
+      const store = mockStore({
+        workExperience: {
+          data: mockWorkExperienceData,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      // Item with 2 clients should show badge
+      const badge = screen.getByTestId('work-experience-item-work-2-badge');
+      expect(badge).toBeOnTheScreen();
+      expect(screen.getByText('2')).toBeOnTheScreen();
+    });
+
+    it('does not display badge for items without clients', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [mockWorkExperienceData[0]],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.queryByTestId('work-experience-item-work-1-badge')).not.toBeOnTheScreen();
+    });
+  });
+
+  describe('Navigation - Direct Details', () => {
+    it('navigates to WorkExperienceDetails when item without clients is tapped', async () => {
+      const store = mockStore({
+        workExperience: {
+          data: [mockWorkExperienceData[0]],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const itemWithoutClients = screen.getByTestId('work-experience-item-work-1');
+      fireEvent.press(itemWithoutClients);
+
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
+          workExperienceId: 'work-1',
+        });
+      });
+    });
+
+    it('navigates to WorkExperienceDetails when item has empty clients array', async () => {
+      const store = mockStore({
+        workExperience: {
+          data: [
+            {
+              ...mockWorkExperienceData[0],
+              clients: [],
+            },
+          ],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const itemWithEmptyClients = screen.getByTestId('work-experience-item-work-1');
+      fireEvent.press(itemWithEmptyClients);
+
+      await waitFor(() => {
+        expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
+          workExperienceId: 'work-1',
+        });
+      });
+    });
+  });
+
+  describe('Accessibility - EAA Compliance', () => {
+    it('has correct accessibility labels for items without clients', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [mockWorkExperienceData[0]],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const item = screen.getByTestId('work-experience-item-work-1');
+      expect(item.props.accessibilityLabel).toBe('workExperience.accessibility.itemLabel');
+      expect(item.props.accessibilityHint).toBe('workExperience.accessibility.detailsHint');
+      expect(item.props.accessibilityRole).toBe('button');
+    });
+
+    it('has correct accessibility labels for items with clients', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [mockWorkExperienceData[1]],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const item = screen.getByTestId('work-experience-item-work-2');
+      expect(item.props.accessibilityLabel).toBe('workExperience.accessibility.itemLabel');
+      expect(item.props.accessibilityHint).toBe('workExperience.accessibility.clientsHint');
+      expect(item.props.accessibilityRole).toBe('button');
+    });
+
+    it('has correct accessibility hint for single client', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [
+            {
+              ...mockWorkExperienceData[1],
+              clients: [mockWorkExperienceData[1]?.clients?.[0]],
+            },
+          ],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const item = screen.getByTestId('work-experience-item-work-2');
+      expect(item.props.accessibilityHint).toBe('workExperience.accessibility.clientsHint');
+    });
+  });
+
+  describe('Theme Support', () => {
+    it('renders with dark theme background', () => {
+      const store = mockStore({
+        workExperience: {
+          data: mockWorkExperienceData,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+          theme: 'dark',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const scrollView = screen.getByTestId('work-experience-screen');
+      expect(scrollView.props.style).toMatchObject({
+        backgroundColor: '#000000',
+      });
+    });
+
+    it('renders with light theme background', () => {
+      const store = mockStore({
+        workExperience: {
+          data: mockWorkExperienceData,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+          theme: 'light',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const scrollView = screen.getByTestId('work-experience-screen');
+      expect(scrollView.props.style).toMatchObject({
+        backgroundColor: '#F2F2F7',
+      });
+    });
+
+    it('applies dark mode to empty state text', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+          theme: 'dark',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const emptyText = screen.getByText('workExperience.empty');
+      expect(emptyText.props.style).toMatchObject({
+        color: '#FFFFFF',
+      });
+    });
+
+    it('applies light mode to empty state text', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+          theme: 'light',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const emptyText = screen.getByText('workExperience.empty');
+      expect(emptyText.props.style).toMatchObject({
+        color: '#000000',
+      });
+    });
+  });
+
+  describe('TestID Verification', () => {
+    it('has testID on main ScrollView', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.getByTestId('work-experience-screen')).toBeOnTheScreen();
+    });
+
+    it('has testID on each work experience item', () => {
+      const store = mockStore({
+        workExperience: {
+          data: mockWorkExperienceData,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.getByTestId('work-experience-item-work-1')).toBeOnTheScreen();
+      expect(screen.getByTestId('work-experience-item-work-2')).toBeOnTheScreen();
+      expect(screen.getByTestId('work-experience-item-work-3')).toBeOnTheScreen();
+    });
+
+    it('has testID on empty state', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.getByTestId('work-experience-empty-state')).toBeOnTheScreen();
+    });
+  });
+
+  describe('Edge Cases', () => {
+    it('handles null data gracefully', () => {
+      const store = mockStore({
+        workExperience: {
+          data: null,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      // Should show empty items container (no items to render)
+      expect(screen.getByTestId('items-container-empty')).toBeOnTheScreen();
+    });
+
+    it('handles undefined clients array correctly', () => {
+      const dataWithUndefinedClients: WorkExperience[] = [
+        {
+          id: mockWorkExperienceData[0]!.id,
+          company: mockWorkExperienceData[0]!.company,
+          logo: mockWorkExperienceData[0]!.logo,
+          position: mockWorkExperienceData[0]!.position,
+          start: mockWorkExperienceData[0]!.start,
+          end: mockWorkExperienceData[0]!.end,
+          programmingLanguages: mockWorkExperienceData[0]!.programmingLanguages,
+          techStack: mockWorkExperienceData[0]!.techStack,
+          unitTest: mockWorkExperienceData[0]!.unitTest,
+          e2e: mockWorkExperienceData[0]!.e2e,
+          devTools: mockWorkExperienceData[0]!.devTools,
+          agileMethodology: mockWorkExperienceData[0]!.agileMethodology,
+          description: mockWorkExperienceData[0]!.description,
+          clients: undefined,
+        },
+      ];
+
+      const store = mockStore({
+        workExperience: {
+          data: dataWithUndefinedClients,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      const item = screen.getByTestId('work-experience-item-work-1');
+      fireEvent.press(item);
+
+      expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
+        workExperienceId: 'work-1',
+      });
+    });
+
+    it('handles item with zero clients correctly', () => {
+      const dataWithZeroClients: WorkExperience[] = [
+        {
+          id: mockWorkExperienceData[0]!.id,
+          company: mockWorkExperienceData[0]!.company,
+          logo: mockWorkExperienceData[0]!.logo,
+          position: mockWorkExperienceData[0]!.position,
+          start: mockWorkExperienceData[0]!.start,
+          end: mockWorkExperienceData[0]!.end,
+          programmingLanguages: mockWorkExperienceData[0]!.programmingLanguages,
+          techStack: mockWorkExperienceData[0]!.techStack,
+          unitTest: mockWorkExperienceData[0]!.unitTest,
+          e2e: mockWorkExperienceData[0]!.e2e,
+          devTools: mockWorkExperienceData[0]!.devTools,
+          agileMethodology: mockWorkExperienceData[0]!.agileMethodology,
+          description: mockWorkExperienceData[0]!.description,
+          clients: [],
+        },
+      ];
+
+      const store = mockStore({
+        workExperience: {
+          data: dataWithZeroClients,
+          loading: false,
+          error: null,
+        },
+        settings: {
+          language: 'en',
+        },
+      });
+
+      render(
+        <Provider store={store}>
+          <WorkExperienceScreen />
+        </Provider>
+      );
+
+      expect(screen.queryByTestId('work-experience-item-work-1-badge')).not.toBeOnTheScreen();
+
+      const item = screen.getByTestId('work-experience-item-work-1');
+      expect(item.props.accessibilityHint).toBe('workExperience.accessibility.detailsHint');
+    });
+  });
+});
