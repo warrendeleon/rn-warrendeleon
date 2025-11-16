@@ -152,3 +152,7 @@ buck-out/
 
 # Temporary files created by Metro
 *.jsbundle
+
+# --- Ruby / Bundler (CocoaPods dependencies) ---
+vendor/bundle/
+.bundle/
