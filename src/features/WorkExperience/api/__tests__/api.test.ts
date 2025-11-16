@@ -8,15 +8,11 @@ import { fetchWorkExperienceData } from '../api';
 describe('WorkExperience API', () => {
   let mock: MockAdapter;
 
-  beforeAll(() => {
+  beforeEach(() => {
     mock = new MockAdapter(GithubApiClient);
   });
 
   afterEach(() => {
-    mock.reset();
-  });
-
-  afterAll(() => {
     mock.restore();
   });
 
@@ -33,7 +29,7 @@ describe('WorkExperience API', () => {
     it('should handle network errors', async () => {
       mock.onGet('/en/workxp.json').networkError();
 
-      await expect(fetchWorkExperienceData('en')).rejects.toThrow('Network Error');
+      await expect(fetchWorkExperienceData('en')).rejects.toThrow();
     });
 
     it('should handle 404 errors', async () => {

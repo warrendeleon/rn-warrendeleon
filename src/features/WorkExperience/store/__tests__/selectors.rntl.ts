@@ -130,7 +130,7 @@ describe('WorkExperience selectors', () => {
         },
       };
       const result = selectWorkExperienceWithClients(noClientsState);
-      expect(result).toEqual(mockWorkExperience.filter(item => !item.clients));
+      expect(result).toEqual([]); // Should return empty array since none have clients
     });
   });
 
