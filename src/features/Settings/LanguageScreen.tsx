@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import { Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 
-import { SelectableButtonGroup, type SelectableButtonGroupItem } from '@app/components';
+import { PickerGroup, type PickerGroupItem } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import { useAppDispatch, useAppSelector } from '@app/store';
 
@@ -36,7 +36,7 @@ export const LanguageScreen: React.FC = () => {
     [dispatch, i18n, navigation]
   );
 
-  const languageItems: SelectableButtonGroupItem[] = useMemo(
+  const languageItems: PickerGroupItem[] = useMemo(
     () =>
       languages.map(language => ({
         label: language.label,
@@ -63,7 +63,7 @@ export const LanguageScreen: React.FC = () => {
         >
           {t('language.languages')}
         </Text>
-        <SelectableButtonGroup items={languageItems} />
+        <PickerGroup items={languageItems} />
       </View>
     </ScrollView>
   );

@@ -3,7 +3,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { MenuButtonGroupSvg, type MenuButtonGroupSvgItem } from '@app/components';
+import { DetailListGroup, type DetailListGroupItem } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppDispatch, useAppSelector } from '@app/store';
@@ -45,7 +45,7 @@ export const EducationScreen: React.FC = () => {
     [navigation]
   );
 
-  const educationItems: MenuButtonGroupSvgItem[] = useMemo(() => {
+  const educationItems: DetailListGroupItem[] = useMemo(() => {
     if (!education) return [];
 
     return education.map(item => ({
@@ -66,7 +66,7 @@ export const EducationScreen: React.FC = () => {
       style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
       contentInsetAdjustmentBehavior="automatic"
     >
-      <MenuButtonGroupSvg items={educationItems} loading={loading} error={error || undefined} />
+      <DetailListGroup items={educationItems} loading={loading} error={error || undefined} />
 
       {!loading && !error && educationItems.length === 0 && (
         <View style={{ padding: 20, alignItems: 'center' }}>
