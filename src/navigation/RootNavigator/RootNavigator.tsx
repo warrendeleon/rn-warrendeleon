@@ -14,7 +14,9 @@ import {
   ProfileDataScreen,
   SettingsScreen,
   WebViewScreen,
-  WorkXPScreen,
+  WorkExperienceClientsScreen,
+  WorkExperienceDetailsScreen,
+  WorkExperienceScreen,
 } from '@app/features';
 import { useAppColorScheme } from '@app/hooks';
 
@@ -26,7 +28,9 @@ export type RootStackParamList = {
   Language: undefined;
   Appearance: undefined;
   ProfileData: undefined;
-  WorkXP: undefined;
+  WorkExperience: undefined;
+  WorkExperienceDetails: { workExperienceId: string };
+  WorkExperienceClients: { workExperienceId: string };
   Education: undefined;
   WebView: { uri: string };
   PDF: { uri: string; title?: string };
@@ -79,9 +83,23 @@ export const RootNavigator: React.FC = () => {
             options={{ title: t('home.education') }}
           />
           <Stack.Screen
-            name="WorkXP"
-            component={WorkXPScreen}
+            name="WorkExperience"
+            component={WorkExperienceScreen}
             options={{ title: t('home.workExperience') }}
+          />
+          <Stack.Screen
+            name="WorkExperienceDetails"
+            component={WorkExperienceDetailsScreen}
+            options={({ route }) => ({
+              title: route.params?.workExperienceId || t('home.workExperience'),
+            })}
+          />
+          <Stack.Screen
+            name="WorkExperienceClients"
+            component={WorkExperienceClientsScreen}
+            options={({ route }) => ({
+              title: route.params?.workExperienceId || t('home.workExperience'),
+            })}
           />
           <Stack.Screen name="WebView" component={WebViewScreen} options={{ title: 'GitHub' }} />
           <Stack.Screen name="PDF" component={PDFScreen} options={{ title: 'CV' }} />

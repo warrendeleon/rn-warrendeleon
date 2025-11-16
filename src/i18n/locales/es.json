@@ -48,10 +48,27 @@
     "present": "Actualidad",
     "errorMessage": "No se pudo cargar la experiencia laboral. Inténtalo de nuevo.",
     "empty": "No hay experiencia laboral disponible",
+    "notFound": "Experiencia laboral no encontrada",
+    "notFoundMessage": "La experiencia laboral que buscas no pudo ser encontrada.",
+    "description": "Descripción",
+    "programmingLanguages": "Lenguajes de programación",
+    "techStack": "Stack de tecnología",
+    "unitTest": "Testing unitario",
+    "e2e": "Testing de extremo a extremo",
+    "devTools": "Herramientas de desarrollo",
+    "agileMethodology": "Metodología ágil",
     "accessibility": {
       "itemLabel": "{{position}} en {{company}}, {{dates}}",
       "clientsHint": "Toca para ver {{count}} clientes",
       "detailsHint": "Toca para ver detalles del trabajo"
+    },
+    "clients": {
+      "title": "Clientes",
+      "empty": "No hay clientes disponibles",
+      "accessibility": {
+        "itemLabel": "{{position}} en {{company}}, {{dates}}",
+        "itemHint": "Ver detalles del cliente"
+      }
     }
   }
 }

@@ -48,10 +48,27 @@
     "present": "Kasalukuyan",
     "errorMessage": "Hindi ma-load ang karanasan sa trabaho. Subukan mo ulit.",
     "empty": "Walang available na karanasan sa trabaho",
+    "notFound": "Karanasan sa trabaho ay hindi nahanap",
+    "notFoundMessage": "Ang karanasan sa trabaho na hinahanap mo ay hindi mahanap.",
+    "description": "Paglalarawan",
+    "programmingLanguages": "Mga Wika sa Pamprogramahan",
+    "techStack": "Technology Stack",
+    "unitTest": "Unit Testing",
+    "e2e": "End-to-End Testing",
+    "devTools": "Mga Gamit sa Pag-develop",
+    "agileMethodology": "Agile Methodology",
     "accessibility": {
       "itemLabel": "{{position}} sa {{company}}, {{dates}}",
       "clientsHint": "Pindutin para makita ang {{count}} mga kliyente",
       "detailsHint": "Pindutin para makita ang detalye ng trabaho"
+    },
+    "clients": {
+      "title": "Mga Kliyente",
+      "empty": "Walang available na mga kliyente",
+      "accessibility": {
+        "itemLabel": "{{position}} sa {{company}}, {{dates}}",
+        "itemHint": "Tingnan ang detalye ng kliyente"
+      }
     }
   }
 }

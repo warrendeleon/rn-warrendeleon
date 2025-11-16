@@ -16,7 +16,10 @@ import {
   selectWorkExperienceLoading,
 } from './store/selectors';
 
-type WorkXPScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'WorkXP'>;
+type WorkExperienceScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'WorkExperience'
+>;
 
 // Format date range for work experience
 const formatDateRange = (start: string, end: string, presentText: string): string => {
@@ -24,10 +27,10 @@ const formatDateRange = (start: string, end: string, presentText: string): strin
   return `${start} - ${endDate}`;
 };
 
-export const WorkXPScreen: React.FC = () => {
+export const WorkExperienceScreen: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const navigation = useNavigation<WorkXPScreenNavigationProp>();
+  const navigation = useNavigation<WorkExperienceScreenNavigationProp>();
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -40,15 +43,13 @@ export const WorkXPScreen: React.FC = () => {
     dispatch(fetchWorkExperience());
   }, [dispatch, language]);
 
-  const handleWorkXPPress = useCallback(
-    (workXPId: string, hasClients: boolean) => {
-      // TODO: Implement navigation when WorkXPDetails and Clients screens are created
-      // if (hasClients) {
-      //   navigation.navigate('Clients', { workXPId });
-      // } else {
-      //   navigation.navigate('WorkXPDetails', { workXPId });
-      // }
-      console.log(`WorkXP pressed: ${workXPId}, hasClients: ${hasClients}`);
+  const handleWorkExperiencePress = useCallback(
+    (workExperienceId: string, hasClients: boolean) => {
+      if (hasClients) {
+        navigation.navigate('WorkExperienceClients', { workExperienceId });
+      } else {
+        navigation.navigate('WorkExperienceDetails', { workExperienceId });
+      }
     },
     [navigation]
   );
@@ -66,8 +67,8 @@ export const WorkXPScreen: React.FC = () => {
         label: item.position,
         subtitle: `${item.company} • ${dateRange}`,
         logoUri: item.logo,
-        onPress: () => handleWorkXPPress(item.id, hasClients),
-        testID: `work-xp-item-${item.id}`,
+        onPress: () => handleWorkExperiencePress(item.id, hasClients),
+        testID: `work-experience-item-${item.id}`,
         showChevron: true,
         badge: hasClients ? clientCount.toString() : undefined,
         accessibilityLabel: t('workExperience.accessibility.itemLabel', {
@@ -80,11 +81,11 @@ export const WorkXPScreen: React.FC = () => {
           : t('workExperience.accessibility.detailsHint'),
       };
     });
-  }, [t, workExperience, handleWorkXPPress]);
+  }, [t, workExperience, handleWorkExperiencePress]);
 
   return (
     <ScrollView
-      testID="work-xp-screen"
+      testID="work-experience-screen"
       className="flex-1 p-4"
       style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
       contentInsetAdjustmentBehavior="automatic"
@@ -96,7 +97,7 @@ export const WorkXPScreen: React.FC = () => {
       />
 
       {!loading && !error && workExperienceItems.length === 0 && (
-        <View style={{ padding: 20, alignItems: 'center' }} testID="work-xp-empty-state">
+        <View style={{ padding: 20, alignItems: 'center' }} testID="work-experience-empty-state">
           <Text style={{ color: isDark ? '#FFFFFF' : '#000000', fontSize: 16 }}>
             {t('workExperience.empty')}
           </Text>

@@ -48,10 +48,27 @@
     "present": "Present",
     "errorMessage": "Failed to load work experience. Please try again.",
     "empty": "No work experience available",
+    "notFound": "Work experience not found",
+    "notFoundMessage": "The work experience you're looking for could not be found.",
+    "description": "Description",
+    "programmingLanguages": "Programming Languages",
+    "techStack": "Technology Stack",
+    "unitTest": "Unit Testing",
+    "e2e": "End-to-End Testing",
+    "devTools": "Development Tools",
+    "agileMethodology": "Agile Methodology",
     "accessibility": {
       "itemLabel": "{{position}} at {{company}}, {{dates}}",
       "clientsHint": "Tap to view {{count}} clients",
       "detailsHint": "Tap to view job details"
+    },
+    "clients": {
+      "title": "Clients",
+      "empty": "No clients available",
+      "accessibility": {
+        "itemLabel": "{{position}} at {{company}}, {{dates}}",
+        "itemHint": "View client details"
+      }
     }
   }
 }

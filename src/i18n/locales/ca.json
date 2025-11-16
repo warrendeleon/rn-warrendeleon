@@ -48,10 +48,27 @@
     "present": "Actualitat",
     "errorMessage": "No s'ha pogut carregar l'experiència laboral. Torna-ho a provar.",
     "empty": "No hi ha experiència laboral disponible",
+    "notFound": "Experiència laboral no trobada",
+    "notFoundMessage": "L'experiència laboral que buscas no ha pogut ser trobada.",
+    "description": "Descripció",
+    "programmingLanguages": "Llenguatges de programació",
+    "techStack": "Stack de tecnologia",
+    "unitTest": "Testing unitari",
+    "e2e": "Testing de punta a punta",
+    "devTools": "Eines de desenvolupament",
+    "agileMethodology": "Metodologia àgil",
     "accessibility": {
       "itemLabel": "{{position}} a {{company}}, {{dates}}",
       "clientsHint": "Toca per veure {{count}} clients",
       "detailsHint": "Toca per veure detalls de la feina"
+    },
+    "clients": {
+      "title": "Clients",
+      "empty": "No hi ha clients disponibles",
+      "accessibility": {
+        "itemLabel": "{{position}} a {{company}}, {{dates}}",
+        "itemHint": "Veure detalls del client"
+      }
     }
   }
 }

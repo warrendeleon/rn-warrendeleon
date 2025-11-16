@@ -4,9 +4,12 @@ export {
   fetchWorkExperience,
   selectWorkExperience,
   selectWorkExperienceByCompany,
+  selectWorkExperienceById,
   selectWorkExperienceError,
   selectWorkExperienceLoading,
   selectWorkExperienceWithClients,
   workExperienceReducer,
 } from './store';
-export { WorkXPScreen } from './WorkXPScreen';
+export { WorkExperienceClientsScreen } from './WorkExperienceClientsScreen';
+export { WorkExperienceDetailsScreen } from './WorkExperienceDetailsScreen';
+export { WorkExperienceScreen } from './WorkExperienceScreen';

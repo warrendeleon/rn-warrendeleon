@@ -48,10 +48,27 @@
     "present": "Obecnie",
     "errorMessage": "Nie udało się załadować doświadczenia zawodowego. Spróbuj ponownie.",
     "empty": "Brak dostępnego doświadczenia zawodowego",
+    "notFound": "Doświadczenie zawodowe nie znalezione",
+    "notFoundMessage": "Nie można znaleźć szukanego doświadczenia zawodowego.",
+    "description": "Opis",
+    "programmingLanguages": "Języki programowania",
+    "techStack": "Stack technologiczny",
+    "unitTest": "Testy jednostkowe",
+    "e2e": "Testy end-to-end",
+    "devTools": "Narzędzia programistyczne",
+    "agileMethodology": "Metodologia Agile",
     "accessibility": {
       "itemLabel": "{{position}} w {{company}}, {{dates}}",
       "clientsHint": "Dotknij, aby zobaczyć {{count}} klientów",
       "detailsHint": "Dotknij, aby zobaczyć szczegóły pracy"
+    },
+    "clients": {
+      "title": "Klienci",
+      "empty": "Brak dostępnych klientów",
+      "accessibility": {
+        "itemLabel": "{{position}} w {{company}}, {{dates}}",
+        "itemHint": "Zobacz szczegóły klienta"
+      }
     }
   }
 }
