@@ -86,6 +86,55 @@ jest.mock('@expo/html-elements', () => {
   };
 });
 
+// Mock @gluestack-ui/themed
+jest.mock('@gluestack-ui/themed', () => {
+  const mockRN = require('react-native');
+
+  return {
+    // Layout components
+    Box: mockRN.View,
+    VStack: mockRN.View,
+    HStack: mockRN.View,
+    Center: mockRN.View,
+    Divider: mockRN.View,
+    Spinner: mockRN.ActivityIndicator,
+
+    // Typography
+    Text: mockRN.Text,
+    Heading: mockRN.Text,
+
+    // Interactive components
+    Button: mockRN.Pressable,
+    ButtonText: mockRN.Text,
+    ButtonIcon: mockRN.View,
+    Pressable: mockRN.Pressable,
+
+    // Avatar components
+    Avatar: mockRN.View,
+    AvatarImage: mockRN.Image,
+    AvatarFallbackText: mockRN.Text,
+
+    // Icon components
+    Icon: mockRN.View,
+    ChevronRightIcon: mockRN.View,
+    ChevronLeftIcon: mockRN.View,
+    ChevronDownIcon: mockRN.View,
+    ChevronUpIcon: mockRN.View,
+
+    // Image
+    Image: mockRN.Image,
+
+    // ScrollView
+    ScrollView: mockRN.ScrollView,
+
+    // GluestackUIProvider (pass through children)
+    GluestackUIProvider: ({ children }: { children?: unknown }) => children,
+
+    // Config
+    config: {},
+  };
+});
+
 // Mock @react-aria/utils to prevent react-dom import
 jest.mock('@react-aria/utils', () => ({
   useLayoutEffect: require('react').useEffect,
@@ -263,3 +312,39 @@ jest.mock('@app/config/reactotron', () => ({
     createEnhancer: () => (createStore: unknown) => createStore,
   },
 }));
+
+// Mock react-native-blob-util
+jest.mock('react-native-blob-util', () => ({
+  default: {
+    fetch: jest.fn(() => Promise.resolve({ path: jest.fn(() => '/mock/path') })),
+    fs: {
+      dirs: {
+        CacheDir: '/mock/cache',
+        DocumentDir: '/mock/documents',
+      },
+      exists: jest.fn(() => Promise.resolve(true)),
+      unlink: jest.fn(() => Promise.resolve()),
+    },
+    config: jest.fn(() => ({
+      fetch: jest.fn(() => Promise.resolve({ path: jest.fn(() => '/mock/path') })),
+    })),
+  },
+}));
+
+// Mock react-native-pdf
+jest.mock('react-native-pdf', () => 'Pdf');
+
+// Mock react-native-share
+jest.mock('react-native-share', () => ({
+  default: {
+    open: jest.fn(() => Promise.resolve({ success: true })),
+  },
+}));
+
+// Mock react-native-webview
+jest.mock('react-native-webview', () => {
+  const mockRN = require('react-native');
+  return {
+    default: mockRN.View,
+  };
+});

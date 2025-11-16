@@ -1,4 +1,4 @@
-export { EducationScreen } from './EducationScreen';
+// Export store first to avoid circular dependency issues
 export type { EducationState } from './store';
 export {
   clearEducation,
@@ -10,3 +10,6 @@ export {
   selectEducationLoading,
   selectEducationWithCertificates,
 } from './store';
+
+// Export screen component last
+export { EducationScreen } from './EducationScreen';
