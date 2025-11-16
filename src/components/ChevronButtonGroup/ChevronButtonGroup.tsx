@@ -11,6 +11,11 @@ export type ChevronButtonGroupItem = {
   testID?: string;
 };
 
+/**
+ * @deprecated Use SettingsGroup instead. This component will be removed.
+ * ChevronButtonGroup has been renamed to SettingsGroup for purpose-based clarity.
+ */
+
 type ChevronButtonGroupProps = {
   items: ChevronButtonGroupItem[];
 };

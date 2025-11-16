@@ -7,9 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import {
-  ChevronButtonGroup,
-  type ChevronButtonGroupItem,
   ProfileCard,
+  SettingsGroup,
+  type SettingsGroupItem,
   TestErrorButton,
 } from '@app/components';
 import { selectProfile } from '@app/features/Profile';
@@ -100,7 +100,7 @@ export const HomeScreen: React.FC = () => {
     handleGitHubPress(navigation);
   }, [navigation]);
 
-  const workLearningItems: ChevronButtonGroupItem[] = useMemo(
+  const workLearningItems: SettingsGroupItem[] = useMemo(
     () => [
       {
         label: t('home.workExperience'),
@@ -134,7 +134,7 @@ export const HomeScreen: React.FC = () => {
     [t, handleWorkPress, handleEducation, handleCV, handleVideos]
   );
 
-  const contactItems: ChevronButtonGroupItem[] = useMemo(
+  const contactItems: SettingsGroupItem[] = useMemo(
     () => [
       {
         label: t('home.contactMe'),
@@ -154,7 +154,7 @@ export const HomeScreen: React.FC = () => {
     [t, handleContact, handleBookMeeting]
   );
 
-  const settingsItems: ChevronButtonGroupItem[] = useMemo(
+  const settingsItems: SettingsGroupItem[] = useMemo(
     () => [
       {
         label: t('home.github'),
@@ -201,7 +201,7 @@ export const HomeScreen: React.FC = () => {
         >
           Work & Learning
         </Text>
-        <ChevronButtonGroup items={workLearningItems} />
+        <SettingsGroup items={workLearningItems} />
       </View>
 
       <View className="mt-6">
@@ -212,7 +212,7 @@ export const HomeScreen: React.FC = () => {
         >
           Contact
         </Text>
-        <ChevronButtonGroup items={contactItems} />
+        <SettingsGroup items={contactItems} />
       </View>
 
       <View className="mt-6">
@@ -223,7 +223,7 @@ export const HomeScreen: React.FC = () => {
         >
           Settings
         </Text>
-        <ChevronButtonGroup items={settingsItems} />
+        <SettingsGroup items={settingsItems} />
       </View>
 
       <TestErrorButton />

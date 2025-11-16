@@ -9,6 +9,11 @@ export type SelectableButtonGroupItem = {
   testID?: string;
 };
 
+/**
+ * @deprecated Use PickerGroup instead. This component will be removed.
+ * SelectableButtonGroup has been renamed to PickerGroup for purpose-based clarity.
+ */
+
 type SelectableButtonGroupProps = {
   items: SelectableButtonGroupItem[];
 };

@@ -24,6 +24,11 @@ export interface MenuButtonGroupSvgProps {
   error?: string;
 }
 
+/**
+ * @deprecated Use DetailListGroup instead. This component will be removed.
+ * MenuButtonGroupSvg has been renamed to DetailListGroup for purpose-based clarity.
+ */
+
 export const MenuButtonGroupSvg: React.FC<MenuButtonGroupSvgProps> = ({
   items,
   loading,
