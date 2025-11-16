@@ -14,7 +14,7 @@ import {
   ProfileDataScreen,
   SettingsScreen,
   WebViewScreen,
-  WorkXPDataScreen,
+  WorkXPScreen,
 } from '@app/features';
 import { useAppColorScheme } from '@app/hooks';
 
@@ -26,7 +26,7 @@ export type RootStackParamList = {
   Language: undefined;
   Appearance: undefined;
   ProfileData: undefined;
-  WorkXPData: undefined;
+  WorkXP: undefined;
   Education: undefined;
   WebView: { uri: string };
   PDF: { uri: string; title?: string };
@@ -74,14 +74,14 @@ export const RootNavigator: React.FC = () => {
             options={{ title: t('home.cv') }}
           />
           <Stack.Screen
-            name="WorkXPData"
-            component={WorkXPDataScreen}
-            options={{ title: 'Work Experience Data' }}
-          />
-          <Stack.Screen
             name="Education"
             component={EducationScreen}
             options={{ title: t('home.education') }}
+          />
+          <Stack.Screen
+            name="WorkXP"
+            component={WorkXPScreen}
+            options={{ title: t('home.workExperience') }}
           />
           <Stack.Screen name="WebView" component={WebViewScreen} options={{ title: 'GitHub' }} />
           <Stack.Screen name="PDF" component={PDFScreen} options={{ title: 'CV' }} />

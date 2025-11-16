@@ -81,7 +81,7 @@ describe('HomeScreen with ProfileCard', () => {
           language: 'en',
           theme: 'light',
         },
-        workXP: {
+        workExperience: {
           data: [],
           loading: false,
           error: null,
@@ -110,7 +110,7 @@ describe('HomeScreen with ProfileCard', () => {
           language: 'en',
           theme: 'light',
         },
-        workXP: {
+        workExperience: {
           data: [],
           loading: false,
           error: null,
@@ -139,7 +139,7 @@ describe('HomeScreen with ProfileCard', () => {
           language: 'en',
           theme: 'light',
         },
-        workXP: {
+        workExperience: {
           data: [],
           loading: false,
           error: null,

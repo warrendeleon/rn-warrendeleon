@@ -13,6 +13,9 @@ export interface MenuButtonGroupSvgItem {
   onPress?: () => void;
   testID?: string;
   showChevron?: boolean;
+  badge?: string;
+  accessibilityLabel?: string;
+  accessibilityHint?: string;
 }
 
 export interface MenuButtonGroupSvgProps {
@@ -59,6 +62,9 @@ export const MenuButtonGroupSvg: React.FC<MenuButtonGroupSvgProps> = ({
             onPress={item.onPress}
             activeOpacity={item.onPress ? 0.7 : 1}
             disabled={!item.onPress}
+            accessibilityRole={item.onPress ? 'button' : undefined}
+            accessibilityLabel={item.accessibilityLabel || item.label}
+            accessibilityHint={item.accessibilityHint}
           >
             <View
               style={[styles.logoContainer, { backgroundColor: isDark ? '#FFFFFF' : '#F2F2F7' }]}
@@ -75,9 +81,19 @@ export const MenuButtonGroupSvg: React.FC<MenuButtonGroupSvgProps> = ({
               )}
             </View>
 
-            {(item.showChevron ?? true) && item.onPress && (
-              <ChevronRight size={20} color="#8E8E93" />
-            )}
+            <View style={styles.trailingAccessories}>
+              {item.badge && (
+                <View style={[styles.badge, { backgroundColor: isDark ? '#2C2C2E' : '#E5E5EA' }]}>
+                  <Text style={[styles.badgeText, { color: isDark ? '#FFFFFF' : '#000000' }]}>
+                    {item.badge}
+                  </Text>
+                </View>
+              )}
+
+              {(item.showChevron ?? true) && item.onPress && (
+                <ChevronRight size={20} color="#8E8E93" />
+              )}
+            </View>
           </TouchableOpacity>
 
           {index < items.length - 1 && (
@@ -120,6 +136,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  trailingAccessories: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 12,
+  },
   label: {
     fontSize: 16,
     fontWeight: '400',
@@ -135,5 +156,18 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 16,
     textAlign: 'center',
+  },
+  badge: {
+    minWidth: 28,
+    height: 28,
+    borderRadius: 14,
+    paddingHorizontal: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  badgeText: {
+    fontSize: 12,
+    fontWeight: '600',
   },
 });

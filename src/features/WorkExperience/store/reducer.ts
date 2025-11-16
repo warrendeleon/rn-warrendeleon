@@ -2,50 +2,50 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { WorkExperience } from '@app/types/portfolio';
 
-import { fetchWorkXP } from './actions';
+import { fetchWorkExperience } from './actions';
 
-export interface WorkXPState {
+export interface WorkExperienceState {
   data: WorkExperience[];
   loading: boolean;
   error: string | null;
 }
 
-const initialState: WorkXPState = {
+const initialState: WorkExperienceState = {
   data: [],
   loading: false,
   error: null,
 };
 
 /**
- * WorkXP slice for managing work experience data
+ * Work experience slice for managing work experience data
  * Handles async data fetching from GitHub with loading and error states
  */
-const workXPSlice = createSlice({
-  name: 'workXP',
+const workExperienceSlice = createSlice({
+  name: 'workExperience',
   initialState,
   reducers: {
-    clearWorkXP: state => {
+    clearWorkExperience: state => {
       state.data = [];
       state.error = null;
     },
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchWorkXP.pending, state => {
+      .addCase(fetchWorkExperience.pending, state => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchWorkXP.fulfilled, (state, action) => {
+      .addCase(fetchWorkExperience.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
         state.error = null;
       })
-      .addCase(fetchWorkXP.rejected, (state, action) => {
+      .addCase(fetchWorkExperience.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch work experience';
       });
   },
 });
 
-export const workXPReducer = workXPSlice.reducer;
-export const { clearWorkXP } = workXPSlice.actions;
+export const workExperienceReducer = workExperienceSlice.reducer;
+export const { clearWorkExperience } = workExperienceSlice.actions;

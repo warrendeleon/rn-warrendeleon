@@ -36,17 +36,17 @@ export {
   selectProfileSocials,
 } from '@app/features/Profile';
 
-// Re-export workXP from WorkXP feature
-export type { WorkXPState } from '@app/features/WorkXP';
+// Re-export work experience from WorkExperience feature
+export type { WorkExperienceState } from '@app/features/WorkExperience';
 export {
-  clearWorkXP,
-  fetchWorkXP,
-  selectCurrentPosition,
-  selectWorkXP,
-  selectWorkXPByCompany,
-  selectWorkXPError,
-  selectWorkXPLoading,
-} from '@app/features/WorkXP';
+  clearWorkExperience,
+  fetchWorkExperience,
+  selectWorkExperience,
+  selectWorkExperienceByCompany,
+  selectWorkExperienceError,
+  selectWorkExperienceLoading,
+  selectWorkExperienceWithClients,
+} from '@app/features/WorkExperience';
 
 // Re-export education from Education feature
 export type { EducationState } from '@app/features/Education';

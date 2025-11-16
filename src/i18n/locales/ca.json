@@ -41,5 +41,17 @@
     "message": "Hi ha hagut un error inesperat. Torna-ho a provar, si us plau.",
     "tryAgain": "Torna-ho a provar",
     "goHome": "Torna a l'inici"
+  },
+  "workExperience": {
+    "title": "Experiència laboral",
+    "dateRange": "{{start}} - {{end}}",
+    "present": "Actualitat",
+    "errorMessage": "No s'ha pogut carregar l'experiència laboral. Torna-ho a provar.",
+    "empty": "No hi ha experiència laboral disponible",
+    "accessibility": {
+      "itemLabel": "{{position}} a {{company}}, {{dates}}",
+      "clientsHint": "Toca per veure {{count}} clients",
+      "detailsHint": "Toca per veure detalls de la feina"
+    }
   }
 }

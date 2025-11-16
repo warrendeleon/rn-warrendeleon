@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, render } from '@testing-library/react-native';
 
-import { fetchEducation, fetchProfile, fetchWorkXP } from '@app/store';
+import { fetchEducation, fetchProfile, fetchWorkExperience } from '@app/store';
 
 import { SplashScreen } from '../SplashScreen';
 
@@ -31,7 +31,7 @@ jest.mock('@app/hooks', () => ({
 const mockDispatch = jest.fn();
 jest.mock('@app/store', () => ({
   fetchProfile: jest.fn(),
-  fetchWorkXP: jest.fn(),
+  fetchWorkExperience: jest.fn(),
   fetchEducation: jest.fn(),
   useAppDispatch: () => mockDispatch,
 }));
@@ -82,10 +82,10 @@ describe('SplashScreen', () => {
     expect(mockDispatch).toHaveBeenCalledWith(fetchProfile());
   });
 
-  it('dispatches fetchWorkXP on mount', () => {
+  it('dispatches fetchWorkExperience on mount', () => {
     render(<SplashScreen onComplete={mockOnComplete} />);
 
-    expect(mockDispatch).toHaveBeenCalledWith(fetchWorkXP());
+    expect(mockDispatch).toHaveBeenCalledWith(fetchWorkExperience());
   });
 
   it('dispatches fetchEducation on mount', () => {
@@ -99,7 +99,7 @@ describe('SplashScreen', () => {
 
     expect(mockDispatch).toHaveBeenCalledTimes(3);
     expect(mockDispatch).toHaveBeenCalledWith(fetchProfile());
-    expect(mockDispatch).toHaveBeenCalledWith(fetchWorkXP());
+    expect(mockDispatch).toHaveBeenCalledWith(fetchWorkExperience());
     expect(mockDispatch).toHaveBeenCalledWith(fetchEducation());
   });
 

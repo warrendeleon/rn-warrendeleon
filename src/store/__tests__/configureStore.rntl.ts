@@ -15,7 +15,7 @@ describe('configureStore', () => {
       const state: RootState = store.getState();
       expect(state).toHaveProperty('settings');
       expect(state).toHaveProperty('profile');
-      expect(state).toHaveProperty('workXP');
+      expect(state).toHaveProperty('workExperience');
       expect(state).toHaveProperty('education');
     });
 
@@ -36,9 +36,9 @@ describe('configureStore', () => {
       });
     });
 
-    it('initializes with empty workXP state', () => {
+    it('initializes with empty workExperience state', () => {
       const state = store.getState();
-      expect(state.workXP).toEqual({
+      expect(state.workExperience).toEqual({
         data: [],
         loading: false,
         error: null,
@@ -73,9 +73,9 @@ describe('configureStore', () => {
       const state = store.getState();
       // Settings should be persisted
       expect(state).toHaveProperty('settings');
-      // Profile, workXP, education should NOT be persisted (blacklisted by default)
+      // Profile, workExperience, education should NOT be persisted (blacklisted by default)
       expect(state).toHaveProperty('profile');
-      expect(state).toHaveProperty('workXP');
+      expect(state).toHaveProperty('workExperience');
       expect(state).toHaveProperty('education');
       // Note: Actual persistence is tested in manual verification
       // This test ensures all slices exist in store shape

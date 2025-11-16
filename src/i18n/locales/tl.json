@@ -41,5 +41,17 @@
     "message": "May nangyaring error. Subukan mo ulit.",
     "tryAgain": "Subukan Mo Ulit",
     "goHome": "Bumalik sa Home"
+  },
+  "workExperience": {
+    "title": "Karanasan sa Trabaho",
+    "dateRange": "{{start}} - {{end}}",
+    "present": "Kasalukuyan",
+    "errorMessage": "Hindi ma-load ang karanasan sa trabaho. Subukan mo ulit.",
+    "empty": "Walang available na karanasan sa trabaho",
+    "accessibility": {
+      "itemLabel": "{{position}} sa {{company}}, {{dates}}",
+      "clientsHint": "Pindutin para makita ang {{count}} mga kliyente",
+      "detailsHint": "Pindutin para makita ang detalye ng trabaho"
+    }
   }
 }

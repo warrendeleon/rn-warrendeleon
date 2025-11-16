@@ -36,8 +36,8 @@ export const handleProfileDataPress = (navigation: HomeScreenNavigationProp): vo
   navigation.navigate('ProfileData');
 };
 
-export const handleWorkXPDataPress = (navigation: HomeScreenNavigationProp): void => {
-  navigation.navigate('WorkXPData');
+export const handleWorkXPPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('WorkXP');
 };
 
 export const handleEducationPress = (navigation: HomeScreenNavigationProp): void => {
@@ -69,7 +69,7 @@ export const HomeScreen: React.FC = () => {
   }, [navigation]);
 
   const handleWorkPress = useCallback(() => {
-    handleWorkXPDataPress(navigation);
+    handleWorkXPPress(navigation);
   }, [navigation]);
 
   const handleEducation = useCallback(() => {
