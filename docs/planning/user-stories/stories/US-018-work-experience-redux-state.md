@@ -2,10 +2,12 @@
 
 **User Story ID**: US-018
 **Epic**: [EPIC-010: Work Experience Display Enhancement](../epics/EPIC-010-work-experience-display.md)
-**Status**: Planning
+**Status**: ⏳ In Progress
 **Priority**: High
 **Estimated Effort**: 4-5 hours
+**Progress**: 3/4 tasks completed (75%)
 **Created**: 2025-11-15
+**Last Updated**: 2025-11-16
 
 ---
 
@@ -207,14 +209,14 @@ None. All dependencies are met.
 
 ## Tasks
 
-| Task ID                                                           | Title                                   | Status   | Effort |
-| ----------------------------------------------------------------- | --------------------------------------- | -------- | ------ |
-| [TASK-079](../tasks/TASK-079-work-experience-types.md)            | Define Work Experience TypeScript Types | Planning | 0.5h   |
-| [TASK-084](../tasks/TASK-084-work-experience-api-client.md)       | Create Work Experience API Client       | Planning | 1.5h   |
-| [TASK-085](../tasks/TASK-085-work-experience-redux-slice.md)      | Implement Work Experience Redux Slice   | Planning | 2h     |
-| [TASK-086](../tasks/TASK-086-unit-tests-work-experience-redux.md) | Unit Tests for Work Experience Redux    | Planning | 2h     |
+| Task ID                                                           | Title                                   | Status         | Effort | Completed Date |
+| ----------------------------------------------------------------- | --------------------------------------- | -------------- | ------ | -------------- |
+| [TASK-079](../tasks/TASK-079-work-experience-types.md)            | Define Work Experience TypeScript Types | ✅ Completed   | 0.5h   | 2025-11-16     |
+| [TASK-084](../tasks/TASK-084-work-experience-api-client.md)       | Create Work Experience API Client       | ✅ Completed   | 1.5h   | 2025-11-16     |
+| [TASK-085](../tasks/TASK-085-work-experience-redux-slice.md)      | Implement Work Experience Redux Slice   | ✅ Completed   | 2h     | 2025-11-16     |
+| [TASK-086](../tasks/TASK-086-unit-tests-work-experience-redux.md) | Unit Tests for Work Experience Redux    | ⏳ In Progress | 2h     | -              |
 
-**Total Estimated Effort**: 6 hours
+**Total Estimated Effort**: 6 hours (4h completed, 2h in progress)
 
 ---
 
