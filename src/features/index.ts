@@ -1,5 +1,6 @@
 export * from './Education';
 export * from './Home';
+export * from './MockStatus';
 export * from './PDF';
 export * from './Profile';
 export * from './Settings';

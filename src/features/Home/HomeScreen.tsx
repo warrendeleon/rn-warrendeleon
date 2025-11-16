@@ -6,12 +6,7 @@ import { Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import {
-  ProfileCard,
-  SettingsGroup,
-  type SettingsGroupItem,
-  TestErrorButton,
-} from '@app/components';
+import { ProfileCard, SettingsGroup, type SettingsGroupItem } from '@app/components';
 import { selectProfile } from '@app/features/Profile';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
@@ -225,8 +220,6 @@ export const HomeScreen: React.FC = () => {
         </Text>
         <SettingsGroup items={settingsItems} />
       </View>
-
-      <TestErrorButton />
     </ScrollView>
   );
 };

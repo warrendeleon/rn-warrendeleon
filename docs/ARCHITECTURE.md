@@ -298,10 +298,10 @@ test-utils/
       hooks.ts                # Before/After hooks
     step-definitions/
       common.steps.tsx        # Shared Cucumber steps
-    mocks/
-      server.ts               # MSW server setup
     formatters/
       CheckmarkFormatter.js   # Custom test output formatter
+  fixtures/                   # Mock data for E2E tests
+    api/                      # API response fixtures (Metro mocking)
 ```
 
 **renderWithProviders Utility:**

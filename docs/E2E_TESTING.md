@@ -1,6 +1,6 @@
 # E2E Testing Guide
 
-This document covers end-to-end (E2E) testing with Detox, Cucumber, and MSW.
+This document covers end-to-end (E2E) testing with Detox, Cucumber, and Metro Runtime Mocking.
 
 ## Table of Contents
 
@@ -9,7 +9,7 @@ This document covers end-to-end (E2E) testing with Detox, Cucumber, and MSW.
 - [Setup](#setup)
 - [Writing E2E Tests](#writing-e2e-tests)
 - [Running E2E Tests](#running-e2e-tests)
-- [MSW for API Mocking](#msw-for-api-mocking)
+- [Metro Runtime Mocking for API Data](#metro-runtime-mocking-for-api-data)
 - [Best Practices](#best-practices)
 - [Debugging](#debugging)
 - [Troubleshooting](#troubleshooting)
@@ -24,7 +24,7 @@ End-to-end testing validates the complete user flow from start to finish, simula
 
 - **Detox**: Grey-box testing framework for React Native with excellent performance and synchronisation
 - **Cucumber**: Behaviour-Driven Development (BDD) tool using human-readable Gherkin syntax
-- **MSW (Mock Service Worker)**: API mocking for consistent, reliable tests without backend dependencies
+- **Metro Runtime Mocking**: Bundle-time environment variable injection for deterministic API mocking without network interception
 
 ### Testing Flow
 
@@ -32,43 +32,43 @@ End-to-end testing validates the complete user flow from start to finish, simula
 graph LR
     A[User Action<br/>Cucumber Scenario] --> B[App Interaction<br/>Detox]
     B --> C[API Call]
-    C --> D[MSW Intercept<br/>Mock Response]
-    D --> E[App State Update]
-    E --> F[UI Update]
-    F --> G[Assertion<br/>Detox Matcher]
+    C --> D{E2E_MOCK<br/>Enabled?}
+    D -->|Yes| E[Return Fixture Data]
+    D -->|No| F[Real GitHub API Call]
+    E --> G[App State Update]
+    F --> G
+    G --> H[UI Update]
+    H --> I[Assertion<br/>Detox Matcher]
 
     style A fill:#e1f5ff
     style B fill:#fff9c4
     style D fill:#f3e5f5
-    style G fill:#c8e6c9
+    style E fill:#c8e6c9
+    style I fill:#c8e6c9
 ```
 
 ### Detox Test Execution Flow
 
 ```mermaid
 graph TD
-    A[BeforeAll Hook] --> B[Start MSW Server]
-    B --> C[Launch App]
-    C --> D[Before Hook]
-    D --> E[Reset MSW Handlers]
-    E --> F[Reload React Native]
-    F --> G[Run Scenario Steps]
-    G --> H{Test Result}
-    H -->|Pass| I[After Hook]
-    H -->|Fail| J[After Hook: Take Screenshot]
-    I --> K{More Scenarios?}
-    J --> K
-    K -->|Yes| D
-    K -->|No| L[AfterAll Hook]
-    L --> M[Terminate App]
-    M --> N[Stop MSW Server]
+    A[BeforeAll Hook] --> B[Launch App]
+    B --> C[Before Hook]
+    C --> D[Reload React Native]
+    D --> E[Run Scenario Steps]
+    E --> F{Test Result}
+    F -->|Pass| G[After Hook]
+    F -->|Fail| H[After Hook: Take Screenshot]
+    G --> I{More Scenarios?}
+    H --> I
+    I -->|Yes| C
+    I -->|No| J[AfterAll Hook]
+    J --> K[Terminate App]
 
     style A fill:#e1f5ff
-    style B fill:#f3e5f5
-    style G fill:#fff9c4
-    style H fill:#ffccbc
-    style J fill:#ef9a9a
-    style N fill:#c8e6c9
+    style E fill:#fff9c4
+    style F fill:#ffccbc
+    style H fill:#ef9a9a
+    style K fill:#c8e6c9
 ```
 
 ## Test Stack
@@ -77,7 +77,7 @@ graph TD
 
 - **Detox**: E2E test runner and automation framework
 - **Cucumber**: BDD test framework with Gherkin syntax
-- **MSW**: API request interception and mocking
+- **Metro Bundler**: JavaScript bundler with Babel transformation for environment variables
 - **Jest**: Test runner (shared with unit tests)
 
 ### File Naming Convention
@@ -102,8 +102,11 @@ features/
 npm install -g detox-cli
 
 # Project dependencies
-yarn add -D detox @cucumber/cucumber msw
+yarn add -D detox @cucumber/cucumber
 yarn add -D @types/cucumber @types/detox
+
+# Metro runtime mocking (Babel plugin for environment variables)
+yarn add -D babel-plugin-transform-inline-environment-variables
 ```
 
 ### 2. Initialise Detox
@@ -119,91 +122,65 @@ This creates:
 
 ### 3. Configure Detox
 
-**`.detoxrc.json`:**
+**`.detoxrc.js`:**
 
-```json
-{
-  "testRunner": {
-    "args": {
-      "$0": "cucumber-js",
-      "features": "src/**/*.feature",
-      "require": ["src/test-utils/cucumber/support/**/*.ts", "src/**/*.cucumber.tsx"],
-      "format": ["progress", "json:e2e-results.json"]
+```javascript
+/** @type {Detox.DetoxConfig} */
+module.exports = {
+  apps: {
+    'ios.debug': {
+      type: 'ios.app',
+      binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/warrendeleon.app',
+      build:
+        'xcodebuild -workspace ios/warrendeleon.xcworkspace -scheme warrendeleon -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build',
     },
-    "jest": {
-      "setupTimeout": 120000
-    }
+    'android.debug': {
+      type: 'android.apk',
+      binaryPath: 'android/app/build/outputs/apk/debug/app-debug.apk',
+      build:
+        'cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ..',
+      reversePorts: [8081],
+    },
   },
-  "apps": {
-    "ios.debug": {
-      "type": "ios.app",
-      "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/warrendeleon.app",
-      "build": "xcodebuild -workspace ios/warrendeleon.xcworkspace -scheme warrendeleon -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build"
+  devices: {
+    simulator: {
+      type: 'ios.simulator',
+      device: {
+        type: 'iPhone 17 Pro',
+      },
     },
-    "ios.release": {
-      "type": "ios.app",
-      "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/warrendeleon.app",
-      "build": "xcodebuild -workspace ios/warrendeleon.xcworkspace -scheme warrendeleon -configuration Release -sdk iphonesimulator -derivedDataPath ios/build"
+    emulator: {
+      type: 'android.emulator',
+      device: {
+        avdName: 'Pixel_7_API_35',
+      },
     },
-    "android.debug": {
-      "type": "android.apk",
-      "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
-      "build": "cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd .."
-    },
-    "android.release": {
-      "type": "android.apk",
-      "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
-      "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd .."
-    }
   },
-  "devices": {
-    "simulator": {
-      "type": "ios.simulator",
-      "device": {
-        "type": "iPhone 15 Pro"
-      }
+  configurations: {
+    'ios.sim.debug': {
+      device: 'simulator',
+      app: 'ios.debug',
     },
-    "emulator": {
-      "type": "android.emulator",
-      "device": {
-        "avdName": "Pixel_7_API_35"
-      }
-    }
+    'android.emu.debug': {
+      device: 'emulator',
+      app: 'android.debug',
+    },
   },
-  "configurations": {
-    "ios.sim.debug": {
-      "device": "simulator",
-      "app": "ios.debug"
-    },
-    "ios.sim.release": {
-      "device": "simulator",
-      "app": "ios.release"
-    },
-    "android.emu.debug": {
-      "device": "emulator",
-      "app": "android.debug"
-    },
-    "android.emu.release": {
-      "device": "emulator",
-      "app": "android.release"
-    }
-  }
-}
+};
 ```
 
 ### 4. Configure Cucumber
 
-**`.cucumber.js`:**
+**`cucumber.js`:**
 
 ```javascript
 module.exports = {
   default: {
     require: ['src/test-utils/cucumber/support/**/*.ts', 'src/**/*.cucumber.tsx'],
-    requireModule: ['ts-node/register'],
+    requireModule: ['ts-node/register', 'tsconfig-paths/register'],
     format: [
       './src/test-utils/cucumber/formatters/CheckmarkFormatter.js',
       'json:cucumber-report.json',
-      'html:cucumber-report.html',
     ],
     formatOptions: { snippetInterface: 'async-await' },
   },
@@ -215,15 +192,17 @@ module.exports = {
 ```json
 {
   "scripts": {
-    "detox:ios:build": "detox build -c ios.sim.debug",
-    "detox:android:build": "detox build -c android.emu.debug",
-    "detox:ios:test": "DETOX_LOGLEVEL=error DETOX_CONFIGURATION=ios.sim.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js --format ./src/test-utils/cucumber/formatters/CheckmarkFormatter.js --require-module ts-node/register --require-module tsconfig-paths/register 'src/features/**/__tests__/*.feature' --require 'src/test-utils/cucumber/**/*.{ts,tsx}' --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'",
-    "detox:android:test": "DETOX_LOGLEVEL=error DETOX_CONFIGURATION=android.emu.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js --format ./src/test-utils/cucumber/formatters/CheckmarkFormatter.js --require-module ts-node/register --require-module tsconfig-paths/register 'src/features/**/__tests__/*.feature' --require 'src/test-utils/cucumber/**/*.{ts,tsx}' --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'",
+    "detox:ios:build": "E2E_MOCK=true detox build -c ios.sim.debug",
+    "detox:ios:test": "E2E_MOCK=true ENABLE_TEST_UI=true DETOX_LOGLEVEL=error DETOX_CONFIGURATION=ios.sim.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js --format ./src/test-utils/cucumber/formatters/CheckmarkFormatter.js --require-module ts-node/register --require-module tsconfig-paths/register 'src/features/**/__tests__/*.feature' --require 'src/test-utils/cucumber/**/*.{ts,tsx}' --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'",
+    "detox:android:build": "E2E_MOCK=true detox build -c android.emu.debug",
+    "detox:android:test": "E2E_MOCK=true ENABLE_TEST_UI=true DETOX_LOGLEVEL=error DETOX_CONFIGURATION=android.emu.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js --format ./src/test-utils/cucumber/formatters/CheckmarkFormatter.js --require-module ts-node/register --require-module tsconfig-paths/register 'src/features/**/__tests__/*.feature' --require 'src/test-utils/cucumber/**/*.{ts,tsx}' --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'",
     "e2e:ios": "yarn detox:ios:build && yarn detox:ios:test",
     "e2e:android": "yarn detox:android:build && yarn detox:android:test"
   }
 }
 ```
+
+**Note**: `E2E_MOCK=true` is set in both build and test scripts to ensure consistent bundle-time mocking.
 
 ### 6. Setup Test Utilities
 
@@ -236,7 +215,7 @@ import { device, element, expect as detoxExpect } from 'detox';
 /**
  * Cucumber World - shared context across step definitions
  */
-export class CustomWorld extends World {
+export class DetoxWorld extends World {
   device = device;
   element = element;
   expect = detoxExpect;
@@ -245,7 +224,7 @@ export class CustomWorld extends World {
   storage: Record<string, any> = {};
 }
 
-setWorldConstructor(CustomWorld);
+setWorldConstructor(DetoxWorld);
 ```
 
 **`src/test-utils/cucumber/support/hooks.ts`:**
@@ -255,13 +234,10 @@ import { Before, After, BeforeAll, AfterAll } from '@cucumber/cucumber';
 import { device } from 'detox';
 
 /**
- * Detox lifecycle hooks
+ * Detox lifecycle hooks for E2E tests
  */
 BeforeAll(async () => {
-  await device.launchApp({
-    newInstance: true,
-    permissions: { notifications: 'YES' },
-  });
+  // No Metro server needed - Detox uses already-running app bundle
 });
 
 Before(async () => {
@@ -284,33 +260,53 @@ AfterAll(async () => {
 
 ```typescript
 import { Given, When, Then } from '@cucumber/cucumber';
-import { by, element, expect as detoxExpect } from 'detox';
+import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
 
-/**
- * Common step definitions shared across all features
- */
-Given('I am on the {string} screen', async (screenName: string) => {
-  await detoxExpect(element(by.text(screenName))).toBeVisible();
+import { DetoxWorld } from '../support/world';
+
+// Common Given steps
+
+Given('the app is launched', async function (this: DetoxWorld) {
+  await device.launchApp({ newInstance: true });
 });
 
-When('I tap the {string} button', async (buttonLabel: string) => {
-  await element(by.text(buttonLabel)).tap();
+Given('I am on the {string} screen', async function (this: DetoxWorld, screenName: string) {
+  const testID = `${screenName.toLowerCase().replace(/\s+/g, '-')}-screen`;
+  await waitFor(element(by.id(testID)))
+    .toBeVisible()
+    .withTimeout(5000);
 });
 
-When('I tap the element with testID {string}', async (testID: string) => {
+// Common When steps
+
+When('I tap the {string} button', async function (this: DetoxWorld, buttonName: string) {
+  const testID = `${buttonName.toLowerCase().replace(/\s+/g, '-')}-button`;
+  await waitFor(element(by.id(testID)))
+    .toBeVisible()
+    .withTimeout(5000);
   await element(by.id(testID)).tap();
 });
 
-Then('I should see {string}', async (text: string) => {
-  await detoxExpect(element(by.text(text))).toBeVisible();
+When('I tap the element with testID {string}', async function (this: DetoxWorld, testID: string) {
+  await waitFor(element(by.id(testID)))
+    .toBeVisible()
+    .withTimeout(5000);
+  await element(by.id(testID)).tap();
 });
 
-Then('I should not see {string}', async (text: string) => {
-  await detoxExpect(element(by.text(text))).not.toBeVisible();
+// Common Then steps
+
+Then('I should see the {string} screen', async function (this: DetoxWorld, screenName: string) {
+  const testID = `${screenName.toLowerCase().replace(/\s+/g, '-')}-screen`;
+  await waitFor(element(by.id(testID)))
+    .toBeVisible()
+    .withTimeout(5000);
 });
 
-Then('the element with testID {string} should be visible', async (testID: string) => {
-  await detoxExpect(element(by.id(testID))).toBeVisible();
+Then('I should see text {string}', async function (this: DetoxWorld, text: string) {
+  await waitFor(element(by.text(text)))
+    .toBeVisible()
+    .withTimeout(5000);
 });
 ```
 
@@ -338,7 +334,7 @@ Feature: Feature Name
     Then outcome with <param>
 
     Examples:
-      | param |
+      | param  |
       | value1 |
       | value2 |
 ```
@@ -348,32 +344,19 @@ Feature: Feature Name
 ```gherkin
 Feature: Home Screen
   As a user
-  I want to navigate from the home screen
-  So I can access different parts of the app
+  I want to interact with the Home screen
+  So that I can navigate to different parts of the app
 
-  Background:
+  Scenario: Display Home Screen
     Given the app is launched
-    And I am on the "Home" screen
+    Then I should see the "Home" screen
+    And I should see the "home-settings" button
 
   Scenario: Navigate to Settings
-    When I tap the "Settings" button
-    Then I should see "Settings"
-    And I should see "Language"
-    And I should see "Appearance"
-
-  Scenario: Display environment information
-    Then I should see "ENV"
-    And I should see "API_URL"
-
-  Scenario Outline: Language-specific content
-    Given the app language is set to "<language>"
-    When I am on the "Home" screen
-    Then I should see "<homeTitle>"
-
-    Examples:
-      | language | homeTitle |
-      | en       | Home      |
-      | es       | Inicio    |
+    Given the app is launched
+    And I am on the "Home" screen
+    When I tap the "home-settings" button
+    Then I should see the "Settings" screen
 ```
 
 ### Step Definitions
@@ -381,39 +364,36 @@ Feature: Home Screen
 **Example: `src/features/Home/__tests__/HomeScreen.cucumber.tsx`:**
 
 ```typescript
-import { Given, When, Then } from '@cucumber/cucumber';
-import { by, element, expect as detoxExpect } from 'detox';
+// Import common steps to make them available
+import '@app/test-utils/cucumber/step-definitions/common.steps';
 
-/**
- * Home screen-specific step definitions
- */
-Given('the app is launched', async () => {
-  // Detox handles this in BeforeAll hook
-  await detoxExpect(element(by.id('app-root'))).toExist();
+import { Given, Then, When } from '@cucumber/cucumber';
+import { by, device, element, waitFor } from 'detox';
+
+import { DetoxWorld } from '@app/test-utils/cucumber/support/world';
+
+// Home Screen specific steps
+
+Given('I am viewing the home screen', async function (this: DetoxWorld) {
+  await waitFor(element(by.id('home-screen')))
+    .toBeVisible()
+    .withTimeout(5000);
 });
 
-Given('the app language is set to {string}', async function (language: string) {
-  // Navigate to language settings
-  await element(by.text('Settings')).tap();
-  await element(by.text('Language')).tap();
-
-  // Select language
-  const languageMap: Record<string, string> = {
-    en: 'English',
-    es: 'Spanish',
-  };
-  await element(by.text(languageMap[language])).tap();
-
-  // Navigate back to home
-  await element(by.id('back-button')).tap();
-  await element(by.id('back-button')).tap();
-
-  // Store language for later steps
-  this.storage.language = language;
+When('I go back', async function (this: DetoxWorld) {
+  // Navigate back using device back button (Android) or header back button (iOS)
+  if (device.getPlatform() === 'android') {
+    await device.pressBack();
+  } else {
+    // iOS: Find the back button by traits (first button in navigation bar)
+    await element(by.traits(['button']).and(by.label('Back'))).tap();
+  }
 });
 
-Then('I should see {string}', async (text: string) => {
-  await detoxExpect(element(by.text(text))).toBeVisible();
+Then('the home screen should display the settings button', async function (this: DetoxWorld) {
+  await waitFor(element(by.id('home-settings-button')))
+    .toBeVisible()
+    .withTimeout(5000);
 });
 ```
 
@@ -467,8 +447,8 @@ yarn detox:ios:build     # Takes ~2-3 minutes
 # Run all tests
 yarn detox:ios:test      # Takes ~2.5 minutes (12 scenarios, 96 steps)
 
-# Run single scenario (much faster!)
-yarn detox:ios:test 'src/features/Settings/__tests__/Settings.feature:10'  # Takes ~16 seconds
+# Run single feature file
+yarn detox:ios:test src/features/Settings/__tests__/Settings.feature
 ```
 
 ### Full Test Suite
@@ -485,28 +465,34 @@ yarn detox:android:test
 yarn e2e:android
 ```
 
-**Timing**: Running the full suite takes approximately **2.5 minutes** for all 12 scenarios (96 steps).
+**Timing**: Running the full suite takes approximately **2.5 minutes** for all scenarios.
 
-### Run Single Scenario (Faster Iteration)
+### Run with/without Mocked Data
 
-For faster development cycles, run individual scenarios by specifying the line number:
+**With Mocked Data (E2E Tests)**:
 
 ```bash
-# Run a specific scenario (starts at line 10)
-yarn detox:ios:test 'src/features/Settings/__tests__/Settings.feature:10'
+# Metro bundler must be running with E2E_MOCK=true
+E2E_MOCK=true yarn start
 
-# Or directly with DETOX_CONFIGURATION
-DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js \
-  --require-module ts-node/register \
-  --require-module tsconfig-paths/register \
-  'src/features/Settings/__tests__/Settings.feature:10' \
-  --require 'src/test-utils/cucumber/**/*.{ts,tsx}' \
-  --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'
+# In separate terminal, run tests
+yarn detox:ios:test
 ```
 
-**Timing**: Running a single scenario takes approximately **16 seconds** - much faster for iterating on a specific test!
+The `E2E_MOCK=true` environment variable is **already configured** in the Detox scripts, so running `yarn detox:ios:test` automatically uses mocked data.
 
-**Pro tip**: Find the line number by opening your `.feature` file and noting the line where the `Scenario:` keyword appears.
+**Without Mocked Data (Manual Testing/Real API)**:
+
+```bash
+# Start Metro normally (no E2E_MOCK)
+yarn start
+
+# Run app normally
+yarn ios
+yarn android
+```
+
+**Key Point**: You must restart Metro bundler when switching between mocked and real data modes, as the environment variable is baked into the bundle at build time.
 
 ### Run Specific Feature
 
@@ -518,195 +504,401 @@ yarn detox:ios:test 'src/features/Home/__tests__/HomeScreen.feature'
 yarn detox:ios:test 'src/features/Settings/__tests__/Settings.feature'
 ```
 
-### Run with Tags
-
-```bash
-# Add tags to scenarios in .feature files
-@smoke
-Scenario: Critical user flow
-  Given initial state
-  When action
-  Then outcome
-
-# Run only @smoke tests
-DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js \
-  --tags @smoke \
-  --require-module ts-node/register \
-  --require-module tsconfig-paths/register \
-  'src/features/**/__tests__/*.feature' \
-  --require 'src/test-utils/cucumber/**/*.{ts,tsx}' \
-  --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'
-
-# Run all except @slow tests
-DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js \
-  --tags "not @slow" \
-  # ... (same require flags)
-```
-
 ### Debug Mode
 
 ```bash
 # Run with debug logging
-DETOX_LOGLEVEL=trace DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js \
-  --require-module ts-node/register \
-  --require-module tsconfig-paths/register \
-  'src/features/**/__tests__/*.feature' \
-  --require 'src/test-utils/cucumber/**/*.{ts,tsx}' \
-  --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'
+DETOX_LOGLEVEL=trace yarn detox:ios:test
 
 # Keep app running after tests
-DETOX_CONFIGURATION=ios.sim.debug yarn cucumber-js --cleanup false \
-  # ... (other flags)
+detox test --configuration ios.sim.debug --cleanup false
 ```
 
-## MSW for API Mocking
+## Metro Runtime Mocking for API Data
 
-### MSW Request Interception Flow
+### Overview
+
+Metro Runtime Mocking uses **Babel plugin transformation** to inject environment variables at **bundle time**, allowing deterministic API mocking for E2E tests without network interception.
+
+### Why Metro Mocking Instead of Network Interception?
+
+**Problem with MSW/Network Mocking**:
+
+- React Native app runs in **native iOS/Android process** (simulator/emulator)
+- Network mocking tools like MSW run in **Node.js test process**
+- **Process isolation** prevents MSW from intercepting native networking
+
+**Metro Mocking Solution**:
+
+- Environment variable (`E2E_MOCK`) is transformed by Babel at **bundle time**
+- API functions check the flag at **runtime** and return fixture data when enabled
+- **No network interception needed** - mocking happens in application code
+- Works perfectly with React Native's native networking stack
+
+### How Metro Mocking Works
 
 ```mermaid
-graph LR
-    A[App Component] --> B[API Request<br/>fetch/axios]
-    B --> C{MSW Handler<br/>Matches?}
-    C -->|Yes| D[MSW Handler]
-    C -->|No| E[Network Request<br/>Not Intercepted]
-    D --> F[Mock Response]
-    F --> G[App State Update]
-    G --> H[UI Renders<br/>with Mock Data]
-    E --> I[Real API Call<br/>May Fail in Tests]
+graph TD
+    A[E2E_MOCK=true yarn start] --> B[Metro Bundler]
+    B --> C[Babel Transform]
+    C --> D[Replace process.env.E2E_MOCK<br/>with 'true']
+    D --> E[Bundle JavaScript]
+    E --> F[App Loads Bundle]
+    F --> G{isE2EMockEnabled?}
+    G -->|true| H[Return Fixture Data]
+    G -->|false| I[Real API Call]
 
     style A fill:#e1f5ff
-    style C fill:#fff9c4
-    style D fill:#f3e5f5
-    style F fill:#c8e6c9
-    style I fill:#ffccbc
+    style C fill:#f3e5f5
+    style D fill:#fff9c4
+    style G fill:#ffccbc
+    style H fill:#c8e6c9
 ```
 
-### Setup MSW
+### Installation & Configuration
 
-**`src/test-utils/cucumber/mocks/server.ts`:**
+**1. Install Babel Plugin**:
 
-```typescript
-import { setupServer } from 'msw/node';
-import { handlers } from './handlers';
+```bash
+yarn add -D babel-plugin-transform-inline-environment-variables
+```
 
-/**
- * MSW server for E2E tests
- * Intercepts API calls and returns mock responses
- */
-export const server = setupServer(...handlers);
+**2. Configure Babel** (`babel.config.js`):
 
-export const startMockServer = () => {
-  server.listen({ onUnhandledRequest: 'warn' });
-};
-
-export const stopMockServer = () => {
-  server.close();
-};
-
-export const resetMockServer = () => {
-  server.resetHandlers();
+```javascript
+module.exports = {
+  presets: ['@react-native/babel-preset', 'nativewind/babel'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        extensions: [
+          '.ios.ts',
+          '.android.ts',
+          '.ts',
+          '.ios.tsx',
+          '.android.tsx',
+          '.tsx',
+          '.jsx',
+          '.js',
+          '.json',
+        ],
+        alias: {
+          '@app': './src',
+        },
+      },
+    ],
+    'react-native-worklets/plugin',
+    'transform-inline-environment-variables', // Add this line
+  ],
 };
 ```
 
-**`src/test-utils/cucumber/mocks/handlers.ts`:**
+**3. Create E2E Configuration** (`src/config/e2e.ts`):
 
 ```typescript
-import { http, HttpResponse } from 'msw';
+/**
+ * E2E Configuration
+ * Determines if E2E mocking is enabled based on build-time environment variable
+ * process.env.E2E_MOCK is transformed at build time by babel-plugin-transform-inline-environment-variables
+ */
+
+export const isE2EMockEnabled = process.env.E2E_MOCK === 'true';
+```
+
+**How the transformation works**:
+
+```typescript
+// Source code
+export const isE2EMockEnabled = process.env.E2E_MOCK === 'true';
+
+// After Babel transformation (with E2E_MOCK=true)
+export const isE2EMockEnabled = 'true' === 'true'; // → true
+
+// After Babel transformation (without E2E_MOCK)
+export const isE2EMockEnabled = undefined === 'true'; // → false
+```
+
+### Implementing Runtime Mocking in API Files
+
+**Example: `src/features/Profile/api/api.ts`**:
+
+```typescript
+import type { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+
+import { isE2EMockEnabled } from '@app/config/e2e';
+import { GithubApiClient } from '@app/httpClients';
+import profileCA from '@app/test-utils/fixtures/api/ca/profile.json';
+import profileEN from '@app/test-utils/fixtures/api/en/profile.json';
+import profileES from '@app/test-utils/fixtures/api/es/profile.json';
+import profilePL from '@app/test-utils/fixtures/api/pl/profile.json';
+import profileTL from '@app/test-utils/fixtures/api/tl/profile.json';
+import type { Profile } from '@app/types/portfolio';
+
+type MockedProfile = Profile & { mocked: boolean };
+
+const profileFixtures: Record<string, Profile> = {
+  en: profileEN as Profile,
+  es: profileES as Profile,
+  ca: profileCA as Profile,
+  pl: profilePL as Profile,
+  tl: profileTL as Profile,
+};
 
 /**
- * Default API mock handlers
+ * Fetch profile data from GitHub for a specific language
+ * @param language - Language code (e.g., 'en', 'es', 'ca', 'pl', 'tl')
+ * @returns Promise with profile data
  */
-export const handlers = [
-  // User profile endpoint
-  http.get('https://api.example.com/user/profile', () => {
-    return HttpResponse.json({
-      id: '1',
-      name: 'Test User',
-      email: 'test@example.com',
+export const fetchProfileData = async (language: string): Promise<AxiosResponse<Profile>> => {
+  // E2E mocking: Return fixture data when E2E_MOCK=true
+  if (isE2EMockEnabled) {
+    const fixtureData = profileFixtures[language] || profileFixtures.en;
+    const mockedData = {
+      ...(fixtureData as Profile),
+      mocked: true,
+    } as MockedProfile;
+
+    return Promise.resolve({
+      data: mockedData,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
     });
-  }),
+  }
 
-  // Login endpoint
-  http.post('https://api.example.com/auth/login', async ({ request }) => {
-    const { email, password } = await request.json();
-
-    if (email === 'test@example.com' && password === 'password123') {
-      return HttpResponse.json({
-        token: 'mock-jwt-token',
-        user: { id: '1', email },
-      });
-    }
-
-    return HttpResponse.json({ error: 'Invalid credentials' }, { status: 401 });
-  }),
-
-  // Error scenario
-  http.get('https://api.example.com/error', () => {
-    return HttpResponse.json({ error: 'Server error' }, { status: 500 });
-  }),
-];
+  // Real API call
+  return GithubApiClient.get<Profile>(`/${language}/profile.json`);
+};
 ```
 
-### Use MSW in Tests
-
-**Update `hooks.ts`:**
+**Example with Array Data: `src/features/Education/api/api.ts`**:
 
 ```typescript
-import { BeforeAll, AfterAll, Before } from '@cucumber/cucumber';
-import { device } from 'detox';
-import { startMockServer, stopMockServer, resetMockServer } from '../mocks/server';
+import type { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-BeforeAll(async () => {
-  // Start MSW server before all tests
-  startMockServer();
+import { isE2EMockEnabled } from '@app/config/e2e';
+import { GithubApiClient } from '@app/httpClients';
+import educationCA from '@app/test-utils/fixtures/api/ca/education.json';
+import educationEN from '@app/test-utils/fixtures/api/en/education.json';
+import educationES from '@app/test-utils/fixtures/api/es/education.json';
+import educationPL from '@app/test-utils/fixtures/api/pl/education.json';
+import educationTL from '@app/test-utils/fixtures/api/tl/education.json';
+import type { Education } from '@app/types/portfolio';
 
-  await device.launchApp({
-    newInstance: true,
-  });
-});
+type MockedEducation = Education & { mocked: boolean };
 
-Before(async () => {
-  // Reset handlers between scenarios
-  resetMockServer();
-  await device.reloadReactNative();
-});
+const educationFixtures: Record<string, Education[]> = {
+  en: educationEN as Education[],
+  es: educationES as Education[],
+  ca: educationCA as Education[],
+  pl: educationPL as Education[],
+  tl: educationTL as Education[],
+};
 
-AfterAll(async () => {
-  await device.terminateApp();
+/**
+ * Fetch education data from GitHub for a specific language
+ * @param language - Language code (e.g., 'en', 'es', 'ca', 'pl', 'tl')
+ * @returns Promise with education data array
+ */
+export const fetchEducationData = async (language: string): Promise<AxiosResponse<Education[]>> => {
+  // E2E mocking: Return fixture data when E2E_MOCK=true
+  if (isE2EMockEnabled) {
+    const fixtureData = educationFixtures[language] || educationFixtures.en;
+    const mockedData: MockedEducation[] = (fixtureData as Education[]).map(item => ({
+      ...item,
+      mocked: true,
+    }));
 
-  // Stop MSW server after all tests
-  stopMockServer();
-});
+    return Promise.resolve({
+      data: mockedData,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig,
+    });
+  }
+
+  // Real API call
+  return GithubApiClient.get<Education[]>(`/${language}/education.json`);
+};
 ```
 
-**Custom Handlers in Tests:**
+### Creating Fixture Files
+
+**Directory Structure**:
+
+```
+src/test-utils/fixtures/api/
+  ca/
+    profile.json
+    education.json
+    workxp.json
+  en/
+    profile.json
+    education.json
+    workxp.json
+  es/
+    profile.json
+    education.json
+    workxp.json
+  pl/
+    profile.json
+    education.json
+    workxp.json
+  tl/
+    profile.json
+    education.json
+    workxp.json
+```
+
+**Example Fixture: `src/test-utils/fixtures/api/en/profile.json`**:
+
+```json
+{
+  "name": "Warren",
+  "lastName": "De Leon",
+  "title": "Senior Software Engineer",
+  "profilePicture": "https://avatars.githubusercontent.com/u/12345678",
+  "email": "warren@example.com",
+  "location": "Barcelona, Spain",
+  "bio": "Full-stack developer passionate about React Native"
+}
+```
+
+**Note**: Fixtures should match your API response structure exactly. The `mocked: true` flag is added programmatically in the API function.
+
+### Verifying Mocking Works
+
+**Create a Mock Status Screen** (for development/debugging):
 
 ```typescript
-import { Given, When, Then } from '@cucumber/cucumber';
-import { http, HttpResponse } from 'msw';
-import { server } from '@app/test-utils/cucumber/mocks/server';
+import React from 'react';
+import { View, Text } from 'react-native';
+import { useAppSelector } from '@app/store';
 
-Given('the API returns a server error', async () => {
-  // Override default handler for this scenario
-  server.use(
-    http.get('https://api.example.com/user/profile', () => {
-      return HttpResponse.json({ error: 'Server error' }, { status: 500 });
-    })
+export const MockStatusScreen: React.FC = () => {
+  const profile = useAppSelector(state => state.profile.data);
+  const education = useAppSelector(state => state.education.data);
+  const workExperience = useAppSelector(state => state.workExperience.data);
+
+  const profileMocked = (profile as any)?.mocked === true;
+  const educationMocked = (education as any)?.[0]?.mocked === true;
+  const workMocked = (workExperience as any)?.[0]?.mocked === true;
+
+  return (
+    <View testID="mock-status-screen">
+      <Text testID="mock-status-profile">
+        Profile: {profileMocked ? 'Mocked' : 'Not Mocked'}
+      </Text>
+      <Text testID="mock-status-education">
+        Education: {educationMocked ? 'Mocked' : 'Not Mocked'}
+      </Text>
+      <Text testID="mock-status-work-experience">
+        Work: {workMocked ? 'Mocked' : 'Not Mocked'}
+      </Text>
+    </View>
   );
-});
-
-Then('I should see an error message', async () => {
-  await expect(element(by.text('Failed to load profile'))).toBeVisible();
-});
+};
 ```
 
-### MSW Best Practices
+**E2E Test to Verify Mocking**:
 
-1. **Default Handlers**: Define common successful responses in `handlers.ts`
-2. **Override Per Scenario**: Use `server.use()` to override handlers for specific test scenarios
-3. **Reset Between Tests**: Always call `resetMockServer()` in `Before` hook to prevent state leakage
-4. **Warn on Unhandled**: Use `onUnhandledRequest: 'warn'` to identify missing handlers
-5. **Match Exact URLs**: Ensure handler URLs match your app's API calls exactly (including protocol, domain, path)
+```gherkin
+Feature: Mock Status Verification
+  As a developer
+  I want to verify API mocking is working during E2E tests
+  So that I can confirm data is being mocked correctly
+
+  Scenario: View mock status screen shows all mocked data
+    Given the app is launched
+    And I am on the "Home" screen
+    When I tap the "home-settings" button
+    Then I should see the "Settings" screen
+    When I tap the element with testID "settings-mock-status-button"
+    Then I should see the "Mock Status" screen
+    And the element with testID "mock-status-profile" should contain text "Mocked"
+    And the element with testID "mock-status-education" should contain text "Mocked"
+    And the element with testID "mock-status-work-experience" should contain text "Mocked"
+```
+
+### Switching Between Mocked and Real Data
+
+**Development Workflow**:
+
+```bash
+# 1. For E2E tests (mocked data)
+E2E_MOCK=true yarn start          # Start Metro with mocking enabled
+yarn detox:ios:test               # Run tests with mocked data
+
+# 2. For manual testing with real API
+yarn start                        # Start Metro normally (no mocking)
+yarn ios                          # Run app with real API calls
+
+# 3. Switching modes
+killall node                      # Kill Metro bundler
+E2E_MOCK=true yarn start          # Restart with desired mode
+```
+
+**Important**: You **MUST restart Metro** when switching modes because the environment variable is transformed at **bundle time**, not runtime. The value is "baked in" to the JavaScript bundle.
+
+### Replicating in Other Projects
+
+To implement Metro mocking in a new React Native project:
+
+1. **Install Babel plugin**:
+
+   ```bash
+   yarn add -D babel-plugin-transform-inline-environment-variables
+   ```
+
+2. **Add to `babel.config.js`**:
+
+   ```javascript
+   plugins: [
+     // ... existing plugins
+     'transform-inline-environment-variables',
+   ];
+   ```
+
+3. **Create `src/config/e2e.ts`**:
+
+   ```typescript
+   export const isE2EMockEnabled = process.env.E2E_MOCK === 'true';
+   ```
+
+4. **Update API functions**:
+
+   ```typescript
+   import { isE2EMockEnabled } from '@app/config/e2e';
+   import fixtureData from '@app/fixtures/data.json';
+
+   export const fetchData = async () => {
+     if (isE2EMockEnabled) {
+       return Promise.resolve({ data: fixtureData, status: 200 });
+     }
+     return apiClient.get('/data');
+   };
+   ```
+
+5. **Update Detox scripts in `package.json`**:
+
+   ```json
+   {
+     "detox:build": "E2E_MOCK=true detox build -c ios.sim.debug",
+     "detox:test": "E2E_MOCK=true detox test -c ios.sim.debug"
+   }
+   ```
+
+6. **Create fixture files** matching your API response structures
+
+7. **Run tests**:
+   ```bash
+   yarn detox:build
+   yarn detox:test
+   ```
 
 ## Best Practices
 
@@ -741,26 +933,9 @@ export class HomeScreenPage {
   }
 
   async waitForScreen() {
-    await this.screen.waitToBeVisible();
+    await waitFor(this.screen).toBeVisible().withTimeout(5000);
   }
 }
-```
-
-**Use in steps:**
-
-```typescript
-import { When, Then } from '@cucumber/cucumber';
-import { HomeScreenPage } from './HomeScreen.page';
-
-const homePage = new HomeScreenPage();
-
-When('I navigate to Settings from Home', async () => {
-  await homePage.tapSettings();
-});
-
-Then('the Home screen is visible', async () => {
-  await homePage.waitForScreen();
-});
 ```
 
 ### 2. Write Declarative Scenarios
@@ -800,30 +975,7 @@ Feature: Settings
     Then the app language should be Spanish
 ```
 
-### 4. Tag Scenarios
-
-```gherkin
-@smoke
-Scenario: Critical user flow
-  Given initial state
-  When action
-  Then outcome
-
-@slow
-Scenario: Long-running test
-  Given initial state
-  When slow action
-  Then outcome
-```
-
-Run by tag:
-
-```bash
-yarn detox:ios:test --tags @smoke
-yarn detox:ios:test --tags "not @slow"
-```
-
-### 5. Keep Tests Independent
+### 4. Keep Tests Independent
 
 Each scenario should:
 
@@ -831,7 +983,7 @@ Each scenario should:
 - Not depend on other scenarios
 - Clean up after itself (handled by `Before` hook)
 
-### 6. Use Meaningful testIDs
+### 5. Use Meaningful testIDs
 
 ```typescript
 // Bad
@@ -841,7 +993,7 @@ Each scenario should:
 <Button testID="submit-login-button" />
 ```
 
-### 7. Wait for Elements
+### 6. Wait for Elements
 
 ```typescript
 // Wait for element to appear
@@ -854,6 +1006,22 @@ await waitFor(element(by.id('loading')))
   .not.toBeVisible()
   .withTimeout(10000);
 ```
+
+### 7. Use Fixture Data for All Test Scenarios
+
+**Organize by Language**:
+
+```
+fixtures/api/
+  en/
+    profile.json
+    education.json
+  es/
+    profile.json
+    education.json
+```
+
+**Keep Fixtures Up-to-Date**: When API response structure changes, update all corresponding fixture files.
 
 ## Debugging
 
@@ -880,13 +1048,15 @@ console.log('Current screen:', await element(by.id('screen-title')).getAttribute
 console.log('Storage:', this.storage);
 ```
 
-### 3. Slow Down Tests
+### 3. Verify Mocking Status
+
+If tests fail with unexpected data:
 
 ```typescript
-await device.launchApp({
-  newInstance: true,
-  launchArgs: { detoxPrintBusyIdleResources: 'YES' },
-});
+// Add to test
+console.log('E2E_MOCK enabled:', isE2EMockEnabled);
+console.log('Profile data:', profile);
+console.log('Mocked flag:', (profile as any)?.mocked);
 ```
 
 ### 4. Inspect Element Hierarchy
@@ -912,14 +1082,6 @@ detox test --configuration ios.sim.debug --cleanup false
 ```bash
 # Enable trace logging
 DETOX_LOGLEVEL=trace yarn detox:ios:test
-
-# Enable MSW logging
-# In server.ts:
-server.listen({
-  onUnhandledRequest: req => {
-    console.log('Unhandled request:', req.method, req.url);
-  },
-});
 ```
 
 ## Troubleshooting
@@ -936,7 +1098,7 @@ await waitFor(element(by.id('slow-element')))
   .toBeVisible()
   .withTimeout(30000); // 30 seconds
 
-// Or globally in .detoxrc.json
+// Or globally in .detoxrc.js
 {
   "testRunner": {
     "jest": {
@@ -948,7 +1110,7 @@ await waitFor(element(by.id('slow-element')))
 
 **Common Causes**:
 
-- Network requests taking too long (use MSW to mock)
+- Network requests taking too long (should be mocked with Metro approach)
 - Animations not completing (disable in test builds)
 - Detox waiting for app to be idle (disable synchronisation temporarily)
 
@@ -986,40 +1148,48 @@ await waitFor(element(by.id('slow-element')))
    element(by.label('Accessibility Label'));
    ```
 
-4. **Debug element tree**:
-   ```typescript
-   // Log all attributes
-   const attributes = await element(by.id('parent')).getAttributes();
-   console.log('Element tree:', JSON.stringify(attributes, null, 2));
-   ```
+### Mocking Not Working
 
-### Synchronisation Issues
-
-**Problem**: "Detox can't synchronise with the app" or "App is busy"
+**Problem**: Tests show "Not Mocked" or real API calls happening
 
 **Solution**:
 
-```typescript
-// Temporarily disable synchronisation
-await device.disableSynchronization();
-await element(by.id('element')).tap();
-await device.enableSynchronization();
-```
+1. **Verify Metro is running with E2E_MOCK=true**:
 
-**Common Causes**:
+   ```bash
+   # Kill existing Metro
+   killall node
 
-- Infinite animations (timers, loading spinners)
-- WebSockets keeping app "busy"
-- Long-running background tasks
+   # Start with mocking enabled
+   E2E_MOCK=true yarn start
+   ```
 
-**Permanent Fix**:
+2. **Check Babel plugin is installed**:
 
-```typescript
-// Disable animations in test builds
-if (__DEV__ && process.env.DETOX_ENABLED) {
-  UIManager.setLayoutAnimationEnabledExperimental?.(false);
-}
-```
+   ```bash
+   yarn list babel-plugin-transform-inline-environment-variables
+   ```
+
+3. **Verify babel.config.js has plugin**:
+
+   ```javascript
+   plugins: [
+     // ...
+     'transform-inline-environment-variables',
+   ];
+   ```
+
+4. **Rebuild app after config changes**:
+
+   ```bash
+   yarn detox:ios:build
+   ```
+
+5. **Check fixture files exist**:
+
+   ```bash
+   ls -la src/test-utils/fixtures/api/en/
+   ```
 
 ### Build Failures
 
@@ -1043,117 +1213,7 @@ cd android
 ./gradlew clean
 cd ..
 yarn detox:android:build
-
-# Android - Invalidate caches
-cd android
-./gradlew cleanBuildCache
-cd ..
 ```
-
-**Verify Configuration**:
-
-- Check `.detoxrc.json` binary paths match actual build output
-- Ensure Xcode scheme matches configuration name
-- Verify Android build type (debug/release) matches configuration
-
-### MSW Not Intercepting Requests
-
-**Problem**: API calls not being mocked, tests fail with network errors
-
-**Solution**:
-
-1. **Verify MSW is started**:
-
-   ```typescript
-   // In hooks.ts BeforeAll
-   BeforeAll(async () => {
-     startMockServer(); // Must be called!
-     await device.launchApp();
-   });
-   ```
-
-2. **Check handler URL matches exactly**:
-
-   ```typescript
-   // Handler URL must match API call exactly
-   http.get('https://api.example.com/user/profile', () => { ... })
-
-   // In app:
-   fetch('https://api.example.com/user/profile') // Must match!
-   ```
-
-3. **Enable unhandled request logging**:
-
-   ```typescript
-   server.listen({
-     onUnhandledRequest: req => {
-       console.warn('Unhandled request:', req.method, req.url);
-     },
-   });
-   ```
-
-4. **Check MSW version compatibility**:
-   ```bash
-   # Ensure MSW v2+ is installed
-   yarn list msw
-   ```
-
-### Simulator/Emulator Issues
-
-**Problem**: Simulator not responding or app not installing
-
-**Solution**:
-
-```bash
-# iOS - Reset specific simulator
-xcrun simctl list | grep "iPhone 15 Pro"  # Find UDID
-xcrun simctl erase <UDID>
-
-# iOS - Reset all simulators (WARNING: deletes all data)
-xcrun simctl erase all
-
-# iOS - Boot simulator manually
-xcrun simctl boot "iPhone 15 Pro"
-
-# Android - List emulators
-emulator -list-avds
-
-# Android - Cold boot emulator
-emulator -avd Pixel_7_API_35 -no-snapshot-load
-
-# Android - Wipe emulator data
-emulator -avd Pixel_7_API_35 -wipe-data
-```
-
-### Step Definition Not Found
-
-**Problem**: "Undefined. Implement with the following snippet:"
-
-**Solution**:
-
-1. **Check file naming**:
-
-   ```
-   HomeScreen.cucumber.tsx  ✓ Correct
-   HomeScreen.steps.tsx     ✗ Wrong (not loaded)
-   ```
-
-2. **Verify Cucumber require paths in package.json**:
-
-   ```json
-   {
-     "detox:ios:test": "... --require 'src/features/**/__tests__/*.cucumber.{ts,tsx}'"
-   }
-   ```
-
-3. **Ensure step definition is exported**:
-   ```typescript
-   import { Given, When, Then } from '@cucumber/cucumber';
-   // Steps are auto-registered, no need to export
-   Given('I am on the {string} screen', async (screenName: string) => {
-     // Implementation
-   });
-   ```
 
 ### Flaky Tests
 
@@ -1179,7 +1239,6 @@ emulator -avd Pixel_7_API_35 -wipe-data
    ```typescript
    // Ensure Before hook resets app state
    Before(async () => {
-     resetMockServer(); // Reset MSW handlers
      await device.reloadReactNative(); // Reset app state
    });
    ```
@@ -1194,18 +1253,10 @@ emulator -avd Pixel_7_API_35 -wipe-data
    });
    ```
 
-4. **Network Race Conditions**:
-   ```typescript
-   // Use MSW to return responses immediately
-   // Avoid relying on real network timing
-   ```
-
 ## Next Steps
 
-- See [Testing](./TESTING.md) for unit/integration testing
-- See [Contributing](./CONTRIBUTING.md) for test requirements
-- See [Development](./DEVELOPMENT.md) for running the app
-- See [CHEATSHEET](./CHEATSHEET.md) for quick command reference
+- See [ARCHITECTURE](./ARCHITECTURE.md) for project structure
+- See [CONTRIBUTING](./CONTRIBUTING.md) for test requirements
 - See [WORKFLOWS](./WORKFLOWS.md) for E2E debugging workflow
 
 ---

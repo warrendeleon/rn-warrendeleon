@@ -9,4 +9,3 @@ export * from './ProfileCard';
 export * from './SettingsGroup';
 export * from './SettingsItem';
 export * from './shared';
-export * from './TestErrorButton';

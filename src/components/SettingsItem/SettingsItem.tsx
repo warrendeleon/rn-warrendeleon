@@ -16,6 +16,8 @@ export type SettingsItemProps = {
   testID?: string;
   /** Optional accessibility hint for screen readers */
   accessibilityHint?: string;
+  /** Show chevron icon on the right (default: true) */
+  showChevron?: boolean;
 };
 
 /**
@@ -44,6 +46,7 @@ export const SettingsItem = React.memo<SettingsItemProps>(
     groupVariant = 'single',
     testID,
     accessibilityHint,
+    showChevron = true,
   }) => {
     const scheme = useAppColorScheme(); // "light" | "dark"
 
@@ -107,7 +110,7 @@ export const SettingsItem = React.memo<SettingsItemProps>(
               {endLabel}
             </Text>
           )}
-          <Icon as={ChevronRightIcon} color={chevronColor} size="lg" />
+          {showChevron && <Icon as={ChevronRightIcon} color={chevronColor} size="lg" />}
         </HStack>
       </Pressable>
     );

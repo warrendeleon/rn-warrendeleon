@@ -699,18 +699,18 @@ Impact:
 ```
 📝 docs(testing): add comprehensive E2E testing guide
 
-Added detailed guide covering Detox, Cucumber, and MSW integration.
+Added detailed guide covering Detox, Cucumber, and Metro runtime mocking.
 
 Contents:
 - Step-by-step setup instructions
 - Page Object Pattern examples
 - Gherkin scenario best practices
-- MSW API mocking patterns
+- Metro runtime mocking patterns for API responses
 - Comprehensive troubleshooting section
 
 Also added Mermaid diagrams to visualise:
 - Test execution flow
-- MSW request interception flow
+- Metro bundler mocking flow
 - Test file organisation structure
 ```
 

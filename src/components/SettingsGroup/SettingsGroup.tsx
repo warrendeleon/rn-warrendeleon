@@ -9,6 +9,7 @@ export type SettingsGroupItem = {
   startIconBgColor?: string;
   endLabel?: string;
   testID?: string;
+  showChevron?: boolean;
 };
 
 type SettingsGroupProps = {
@@ -35,6 +36,7 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({ items }) => {
           endLabel={item.endLabel}
           groupVariant={groupVariant}
           testID={item.testID}
+          showChevron={item.showChevron}
         />
       )}
     />

@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import '@testing-library/jest-native/extend-expect';
 
+// Enable test-only UI components for RNTL tests
+process.env.ENABLE_TEST_UI = 'true';
+
 // Mock NativeWind and react-native-css-interop
 jest.mock('react-native-css-interop', () => ({
   remapProps: jest.fn(),
