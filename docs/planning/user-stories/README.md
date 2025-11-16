@@ -1,18 +1,18 @@
 # React Native Portfolio App - Planning Hub
 
-**Last Updated**: 2025-11-16
-**Overall Progress**: 93% (79/85 tasks completed)
+**Last Updated**: 2025-01-16
+**Overall Progress**: 80% (79/99 tasks completed)
 
 ---
 
 ## 📊 Quick Stats
 
-| Metric               | Count        | Progress                                   |
-| -------------------- | ------------ | ------------------------------------------ |
-| **Epics**            | 10 total     | 5 completed, 5 in progress, 0 not started  |
-| **User Stories**     | 18 total     | 11 completed, 4 in progress, 3 not started |
-| **Tasks**            | 85 total     | 78 completed, 7 remaining                  |
-| **Estimated Effort** | ~73.75 hours | ~66 hours completed, ~7.75 hours remaining |
+| Metric               | Count        | Progress                                    |
+| -------------------- | ------------ | ------------------------------------------- |
+| **Epics**            | 11 total     | 5 completed, 6 in progress, 0 not started   |
+| **User Stories**     | 19 total     | 11 completed, 5 in progress, 3 not started  |
+| **Tasks**            | 99 total     | 79 completed, 20 remaining                  |
+| **Estimated Effort** | ~80.25 hours | ~66 hours completed, ~14.25 hours remaining |
 
 ---
 
@@ -30,35 +30,37 @@
 | [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing           | ✅ Completed   | 6/6 (100%)   | Medium   | CV PDF viewer with share functionality complete             |
 | [EPIC-009](./epics/EPIC-009-education-display-enhancement.md)       | Education Display          | ⏳ In Progress | 5/6 (83%)    | Medium   | Education screen complete, E2E tests remaining              |
 | [EPIC-010](./epics/EPIC-010-work-experience-display.md)             | Work Experience Display    | ⏳ In Progress | 6/8 (75%)    | High     | Redux + tests complete, screen tests and navigation pending |
+| [EPIC-011](./epics/EPIC-011-component-naming-clarity.md)            | Component Naming Clarity   | ⏳ In Progress | 1/13 (8%)    | Medium   | Renaming button components for purpose-based clarity        |
 
 ---
 
 ## 📖 User Stories Overview
 
-| Story ID                                                      | Title                              | Epic     | Status         | Tasks | Priority |
-| ------------------------------------------------------------- | ---------------------------------- | -------- | -------------- | ----- | -------- |
-| [US-001](./stories/US-001-smooth-responsive-interactions.md)  | Smooth & Responsive Interactions   | EPIC-001 | ✅ Completed   | 10/10 | High     |
-| [US-002](./stories/US-002-graceful-error-handling.md)         | Graceful Error Handling            | EPIC-002 | ⏳ In Progress | 3/4   | High     |
-| [US-003](./stories/US-003-inclusive-screen-reader-support.md) | Inclusive Screen Reader Support    | EPIC-003 | ⏳ In Progress | 3/4   | High     |
-| [US-004](./stories/US-004-comprehensive-test-coverage.md)     | Comprehensive Test Coverage        | EPIC-002 | ✅ Completed   | 6/6   | High     |
-| [US-006](./stories/US-006-data-migration-and-structure.md)    | Data Migration & Structure         | EPIC-005 | ✅ Completed   | 5/5   | High     |
-| [US-007](./stories/US-007-redux-data-layer.md)                | Redux Data Layer                   | EPIC-005 | ✅ Completed   | 9/9   | High     |
-| [US-008](./stories/US-008-splash-screen-with-loading.md)      | Splash Screen with Animated Logo   | EPIC-006 | ✅ Completed   | 8/8   | High     |
-| [US-009](./stories/US-009-internationalization.md)            | Internationalization (5 Languages) | EPIC-005 | ✅ Completed   | 5/5   | Medium   |
-| [US-010](./stories/US-010-data-layer-testing.md)              | Data Layer Testing (E2E)           | EPIC-005 | ⏳ In Progress | 4/4   | High     |
-| [US-012](./stories/US-012-api-layer-testing.md)               | API Layer Unit Testing             | EPIC-005 | ✅ Completed   | 5/5   | High     |
-| [US-011](./stories/US-011-splash-screen-testing.md)           | Splash Screen Testing              | EPIC-006 | ⏳ In Progress | 1/2   | Medium   |
-| [US-013](./stories/US-013-profile-card-home-screen.md)        | Display Profile Card on Home       | EPIC-007 | ✅ Completed   | 4/4   | Medium   |
-| [US-014](./stories/US-014-home-screen-button-groups.md)       | Home Screen Button Groups          | EPIC-007 | ✅ Completed   | 2/2   | Medium   |
-| [US-015](./stories/US-015-cv-pdf-viewer.md)                   | CV PDF Viewer                      | EPIC-008 | ✅ Completed   | 6/6   | Medium   |
-| [US-016](./stories/US-016-education-screen-svg-logos.md)      | Education Screen with SVG Logos    | EPIC-009 | ⏳ In Progress | 5/6   | Medium   |
-| [US-017](./stories/US-017-work-experience-screen-display.md)  | Work Experience Screen Display     | EPIC-010 | ⏳ In Progress | 2/5   | High     |
-| [US-018](./stories/US-018-work-experience-redux-state.md)     | Work Experience Redux State        | EPIC-010 | ✅ Completed   | 4/4   | High     |
-| [US-019](./stories/US-019-work-experience-navigation.md)      | Work Experience Navigation         | EPIC-010 | ⭕ Not Started | 0/3   | Medium   |
+| Story ID                                                                                  | Title                              | Epic     | Status         | Tasks | Priority |
+| ----------------------------------------------------------------------------------------- | ---------------------------------- | -------- | -------------- | ----- | -------- |
+| [US-001](./stories/US-001-smooth-responsive-interactions.md)                              | Smooth & Responsive Interactions   | EPIC-001 | ✅ Completed   | 10/10 | High     |
+| [US-002](./stories/US-002-graceful-error-handling.md)                                     | Graceful Error Handling            | EPIC-002 | ⏳ In Progress | 3/4   | High     |
+| [US-003](./stories/US-003-inclusive-screen-reader-support.md)                             | Inclusive Screen Reader Support    | EPIC-003 | ⏳ In Progress | 3/4   | High     |
+| [US-004](./stories/US-004-comprehensive-test-coverage.md)                                 | Comprehensive Test Coverage        | EPIC-002 | ✅ Completed   | 6/6   | High     |
+| [US-006](./stories/US-006-data-migration-and-structure.md)                                | Data Migration & Structure         | EPIC-005 | ✅ Completed   | 5/5   | High     |
+| [US-007](./stories/US-007-redux-data-layer.md)                                            | Redux Data Layer                   | EPIC-005 | ✅ Completed   | 9/9   | High     |
+| [US-008](./stories/US-008-splash-screen-with-loading.md)                                  | Splash Screen with Animated Logo   | EPIC-006 | ✅ Completed   | 8/8   | High     |
+| [US-009](./stories/US-009-internationalization.md)                                        | Internationalization (5 Languages) | EPIC-005 | ✅ Completed   | 5/5   | Medium   |
+| [US-010](./stories/US-010-data-layer-testing.md)                                          | Data Layer Testing (E2E)           | EPIC-005 | ⏳ In Progress | 4/4   | High     |
+| [US-012](./stories/US-012-api-layer-testing.md)                                           | API Layer Unit Testing             | EPIC-005 | ✅ Completed   | 5/5   | High     |
+| [US-011](./stories/US-011-splash-screen-testing.md)                                       | Splash Screen Testing              | EPIC-006 | ⏳ In Progress | 1/2   | Medium   |
+| [US-013](./stories/US-013-profile-card-home-screen.md)                                    | Display Profile Card on Home       | EPIC-007 | ✅ Completed   | 4/4   | Medium   |
+| [US-014](./stories/US-014-home-screen-button-groups.md)                                   | Home Screen Button Groups          | EPIC-007 | ✅ Completed   | 2/2   | Medium   |
+| [US-015](./stories/US-015-cv-pdf-viewer.md)                                               | CV PDF Viewer                      | EPIC-008 | ✅ Completed   | 6/6   | Medium   |
+| [US-016](./stories/US-016-education-screen-svg-logos.md)                                  | Education Screen with SVG Logos    | EPIC-009 | ⏳ In Progress | 5/6   | Medium   |
+| [US-017](./stories/US-017-work-experience-screen-display.md)                              | Work Experience Screen Display     | EPIC-010 | ⏳ In Progress | 2/5   | High     |
+| [US-018](./stories/US-018-work-experience-redux-state.md)                                 | Work Experience Redux State        | EPIC-010 | ✅ Completed   | 4/4   | High     |
+| [US-019](./stories/US-019-work-experience-navigation.md)                                  | Work Experience Navigation         | EPIC-010 | ⭕ Not Started | 0/3   | Medium   |
+| [US-020](./stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md) | Refactor Button Group Names        | EPIC-011 | ⏳ In Progress | 1/13  | High     |
 
 ---
 
-## ✅ Tasks Status (All 87 Tasks)
+## ✅ Tasks Status (All 99 Tasks)
 
 ### EPIC-001: Performance Optimization (10 tasks) ✅
 
@@ -196,9 +198,27 @@
 | [TASK-085](./tasks/TASK-085-work-experience-redux-slice.md)       | Implement Work Experience Redux Slice    | ✅ Completed   | 2h     | High     |
 | [TASK-086](./tasks/TASK-086-unit-tests-work-experience-redux.md)  | Unit Tests for Work Experience Redux     | ✅ Completed   | 2h     | Medium   |
 
+### EPIC-011: Component Naming Clarity (13 tasks) ⏳
+
+| Task ID                                                            | Title                            | Status         | Effort | Priority |
+| ------------------------------------------------------------------ | -------------------------------- | -------------- | ------ | -------- |
+| [TASK-087](./tasks/TASK-087-create-migration-plan-document.md)     | Create Migration Plan Document   | ⏳ In Progress | 0.5h   | High     |
+| [TASK-088](./tasks/TASK-088-create-settings-group-component.md)    | Create SettingsGroup Component   | ⭕ To Do       | 0.25h  | High     |
+| [TASK-089](./tasks/TASK-089-create-detail-list-group-component.md) | Create DetailListGroup Component | ⭕ To Do       | 0.25h  | High     |
+| [TASK-090](./tasks/TASK-090-create-picker-group-component.md)      | Create PickerGroup Component     | ⭕ To Do       | 0.25h  | High     |
+| [TASK-091](./tasks/TASK-091-create-settings-item-component.md)     | Create SettingsItem Component    | ⭕ To Do       | 0.25h  | High     |
+| [TASK-092](./tasks/TASK-092-create-picker-item-component.md)       | Create PickerItem Component      | ⭕ To Do       | 0.25h  | High     |
+| [TASK-093](./tasks/TASK-093-migrate-settings-screen.md)            | Migrate SettingsScreen           | ⭕ To Do       | 0.5h   | High     |
+| [TASK-094](./tasks/TASK-094-migrate-education-screen.md)           | Migrate EducationScreen          | ⭕ To Do       | 0.5h   | High     |
+| [TASK-095](./tasks/TASK-095-migrate-work-xp-screen.md)             | Migrate WorkXPScreen             | ⭕ To Do       | 0.5h   | High     |
+| [TASK-096](./tasks/TASK-096-migrate-language-screen.md)            | Migrate LanguageScreen           | ⭕ To Do       | 0.5h   | Medium   |
+| [TASK-097](./tasks/TASK-097-migrate-appearance-screen.md)          | Migrate AppearanceScreen         | ⭕ To Do       | 0.5h   | Medium   |
+| [TASK-098](./tasks/TASK-098-deprecate-old-components.md)           | Deprecate Old Components         | ⭕ To Do       | 0.5h   | Medium   |
+| [TASK-099](./tasks/TASK-099-remove-old-components.md)              | Remove Old Components            | ⭕ To Do       | 1.5h   | Low      |
+
 ---
 
-## 🎯 What's Next? (27 Remaining Tasks)
+## 🎯 What's Next? (20 Remaining Tasks)
 
 ### Critical Path - E2E Test Coverage (100% Goal)
 
