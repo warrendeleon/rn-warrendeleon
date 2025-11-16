@@ -19,9 +19,16 @@ import {
 type WorkXPScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'WorkXP'>;
 
 // Format date range for work experience
+// Dates come in "MMM YYYY" format (e.g., "Jan 2023") or "Present"
 const formatDateRange = (start: string, end: string, presentText: string): string => {
-  const startYear = new Date(start).getFullYear();
-  const endYear = end ? new Date(end).getFullYear() : presentText;
+  // Extract year from "MMM YYYY" format
+  const extractYear = (dateStr: string): string => {
+    const parts = dateStr.split(' ');
+    return parts.length === 2 ? parts[1]! : dateStr;
+  };
+
+  const startYear = extractYear(start);
+  const endYear = end === 'Present' ? presentText : extractYear(end);
   return `${startYear} - ${endYear}`;
 };
 
