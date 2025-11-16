@@ -2,10 +2,12 @@
 
 **User Story ID**: US-017
 **Epic**: [EPIC-010: Work Experience Display Enhancement](../epics/EPIC-010-work-experience-display.md)
-**Status**: Planning
+**Status**: ⏳ In Progress
 **Priority**: High
 **Estimated Effort**: 5-6 hours
+**Progress**: 2/5 tasks completed (40%)
 **Created**: 2025-11-15
+**Last Updated**: 2025-11-16
 
 ---
 
@@ -174,15 +176,15 @@ None identified. All prerequisites are met or in progress.
 
 ## Tasks
 
-| Task ID                                                            | Title                                    | Status   | Effort |
-| ------------------------------------------------------------------ | ---------------------------------------- | -------- | ------ |
-| [TASK-079](../tasks/TASK-079-work-experience-types.md)             | Define Work Experience TypeScript Types  | Planning | 0.5h   |
-| [TASK-080](../tasks/TASK-080-create-work-experience-screen.md)     | Create WorkXPScreen Component            | Planning | 2h     |
-| [TASK-081](../tasks/TASK-081-work-experience-navigation-setup.md)  | Set up Work Experience Navigation Routes | Planning | 1h     |
-| [TASK-082](../tasks/TASK-082-unit-tests-work-experience-screen.md) | Unit Tests for WorkXPScreen              | Planning | 2h     |
-| [TASK-083](../tasks/TASK-083-e2e-tests-work-experience-screen.md)  | E2E Tests for Work Experience Flow       | Planning | 2h     |
+| Task ID                                                            | Title                                    | Status         | Effort | Completed Date |
+| ------------------------------------------------------------------ | ---------------------------------------- | -------------- | ------ | -------------- |
+| [TASK-079](../tasks/TASK-079-work-experience-types.md)             | Define Work Experience TypeScript Types  | ✅ Completed   | 0.5h   | 2025-11-16     |
+| [TASK-080](../tasks/TASK-080-create-work-experience-screen.md)     | Create WorkXPScreen Component            | ✅ Completed   | 2h     | 2025-11-16     |
+| [TASK-081](../tasks/TASK-081-work-experience-navigation-setup.md)  | Set up Work Experience Navigation Routes | ⏳ In Progress | 1h     | -              |
+| [TASK-082](../tasks/TASK-082-unit-tests-work-experience-screen.md) | Unit Tests for WorkXPScreen              | ⭕ Not Started | 2h     | -              |
+| [TASK-083](../tasks/TASK-083-e2e-tests-work-experience-screen.md)  | E2E Tests for Work Experience Flow       | ⭕ Not Started | 2h     | -              |
 
-**Total Estimated Effort**: 7.5 hours
+**Total Estimated Effort**: 7.5 hours (2.5h completed, 1h in progress, 4h remaining)
 
 ---
 

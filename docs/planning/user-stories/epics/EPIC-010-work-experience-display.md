@@ -2,10 +2,12 @@
 
 **Epic ID**: EPIC-010
 **Epic Title**: Work Experience Display Enhancement
-**Status**: Planning
+**Status**: ⏳ In Progress
 **Priority**: High
+**Progress**: 5/8 tasks completed (62.5%)
 **Created**: 2025-11-15
-**Target Date**: TBD
+**Last Updated**: 2025-11-16
+**Target Date**: 2025-11-20
 
 ---
 
@@ -93,11 +95,11 @@ This gap prevents the app from serving as a complete portfolio showcase, particu
 
 ## User Stories
 
-| ID                                                            | Title                                     | Status   | Priority |
-| ------------------------------------------------------------- | ----------------------------------------- | -------- | -------- |
-| [US-017](../stories/US-017-work-experience-screen-display.md) | Work Experience Screen with Company Logos | Planning | High     |
-| [US-018](../stories/US-018-work-experience-redux-state.md)    | Work Experience Redux State Management    | Planning | High     |
-| [US-019](../stories/US-019-work-experience-navigation.md)     | Work Experience Navigation & Routing      | Planning | Medium   |
+| ID                                                            | Title                                     | Status         | Tasks | Priority |
+| ------------------------------------------------------------- | ----------------------------------------- | -------------- | ----- | -------- |
+| [US-017](../stories/US-017-work-experience-screen-display.md) | Work Experience Screen with Company Logos | ⏳ In Progress | 2/5   | High     |
+| [US-018](../stories/US-018-work-experience-redux-state.md)    | Work Experience Redux State Management    | ⏳ In Progress | 3/4   | High     |
+| [US-019](../stories/US-019-work-experience-navigation.md)     | Work Experience Navigation & Routing      | ⭕ Not Started | 0/3   | Medium   |
 
 ---
 
