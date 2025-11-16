@@ -37,13 +37,13 @@ jest.mock('@app/assets/svg/logos/education', () => ({
   },
 }));
 
-// Mock MenuButtonGroupSvg
+// Mock DetailListGroup
 jest.mock('@app/components', () => {
   const React = jest.requireActual('react');
   const RN = jest.requireActual('react-native');
 
   return {
-    MenuButtonGroupSvg: jest.fn(({ items, loading, error }) => {
+    DetailListGroup: jest.fn(({ items, loading, error }) => {
       if (loading) return React.createElement(RN.View, { testID: 'loading-state' });
       if (error)
         return React.createElement(

@@ -5,6 +5,11 @@ import { ChevronRightIcon } from '@gluestack-ui/themed';
 import { type GroupVariant, groupVariantRadius } from '@app/components/shared';
 import { useAppColorScheme } from '@app/hooks';
 
+/**
+ * @deprecated Use SettingsItem instead. This component will be removed.
+ * ButtonWithChevron has been renamed to SettingsItem for purpose-based clarity.
+ */
+
 type ButtonWithChevronProps = {
   label: string;
   onPress?: () => void;

@@ -4,6 +4,11 @@ import { HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { type GroupVariant, groupVariantRadius } from '@app/components/shared';
 import { useAppColorScheme } from '@app/hooks';
 
+/**
+ * @deprecated Use PickerItem instead. This component will be removed.
+ * SelectableListButton has been renamed to PickerItem for purpose-based clarity.
+ */
+
 type SelectableListButtonProps = {
   label: string;
   onPress?: () => void;
