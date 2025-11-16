@@ -5,7 +5,7 @@ import { GlobeIcon, MoonIcon, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { ChevronButtonGroup, type ChevronButtonGroupItem } from '@app/components';
+import { SettingsGroup, type SettingsGroupItem } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppSelector } from '@app/store';
@@ -47,7 +47,7 @@ export const SettingsScreen: React.FC = () => {
     navigation.navigate('Appearance');
   }, [navigation]);
 
-  const settingsItems: ChevronButtonGroupItem[] = useMemo(
+  const settingsItems: SettingsGroupItem[] = useMemo(
     () => [
       {
         label: t('settings.appearance'),
@@ -85,7 +85,7 @@ export const SettingsScreen: React.FC = () => {
         >
           {t('settings.general')}
         </Text>
-        <ChevronButtonGroup items={settingsItems} />
+        <SettingsGroup items={settingsItems} />
       </View>
     </ScrollView>
   );

@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import { Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 
-import { SelectableButtonGroup, type SelectableButtonGroupItem } from '@app/components';
+import { PickerGroup, type PickerGroupItem } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import { useAppDispatch, useAppSelector } from '@app/store';
 
@@ -33,7 +33,7 @@ export const AppearanceScreen: React.FC = () => {
     [dispatch, navigation]
   );
 
-  const themeItems: SelectableButtonGroupItem[] = useMemo(
+  const themeItems: PickerGroupItem[] = useMemo(
     () =>
       themes.map(theme => ({
         label: theme.label,
@@ -60,7 +60,7 @@ export const AppearanceScreen: React.FC = () => {
         >
           {t('appearance.appearance')}
         </Text>
-        <SelectableButtonGroup items={themeItems} />
+        <PickerGroup items={themeItems} />
       </View>
     </ScrollView>
   );

@@ -4,7 +4,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { MenuButtonGroupSvg, type MenuButtonGroupSvgItem } from '@app/components';
+import { DetailListGroup, type DetailListGroupItem } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppDispatch, useAppSelector } from '@app/store';
@@ -53,7 +53,7 @@ export const WorkXPScreen: React.FC = () => {
     [navigation]
   );
 
-  const workExperienceItems: MenuButtonGroupSvgItem[] = useMemo(() => {
+  const workExperienceItems: DetailListGroupItem[] = useMemo(() => {
     if (!workExperience) return [];
 
     return workExperience.map(item => {
@@ -89,7 +89,7 @@ export const WorkXPScreen: React.FC = () => {
       style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
       contentInsetAdjustmentBehavior="automatic"
     >
-      <MenuButtonGroupSvg
+      <DetailListGroup
         items={workExperienceItems}
         loading={loading}
         error={error ? t('workExperience.errorMessage') : undefined}
