@@ -41,5 +41,17 @@
     "message": "Ups, coś się popsuło. Spróbuj jeszcze raz.",
     "tryAgain": "Spróbuj ponownie",
     "goHome": "Wróć na główną"
+  },
+  "workExperience": {
+    "title": "Doświadczenie zawodowe",
+    "dateRange": "{{start}} - {{end}}",
+    "present": "Obecnie",
+    "errorMessage": "Nie udało się załadować doświadczenia zawodowego. Spróbuj ponownie.",
+    "empty": "Brak dostępnego doświadczenia zawodowego",
+    "accessibility": {
+      "itemLabel": "{{position}} w {{company}}, {{dates}}",
+      "clientsHint": "Dotknij, aby zobaczyć {{count}} klientów",
+      "detailsHint": "Dotknij, aby zobaczyć szczegóły pracy"
+    }
   }
 }

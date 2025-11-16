@@ -41,5 +41,17 @@
     "message": "Ha ocurrido un error inesperado. Por favor, inténtalo de nuevo.",
     "tryAgain": "Reintentar",
     "goHome": "Volver al inicio"
+  },
+  "workExperience": {
+    "title": "Experiencia laboral",
+    "dateRange": "{{start}} - {{end}}",
+    "present": "Actualidad",
+    "errorMessage": "No se pudo cargar la experiencia laboral. Inténtalo de nuevo.",
+    "empty": "No hay experiencia laboral disponible",
+    "accessibility": {
+      "itemLabel": "{{position}} en {{company}}, {{dates}}",
+      "clientsHint": "Toca para ver {{count}} clientes",
+      "detailsHint": "Toca para ver detalles del trabajo"
+    }
   }
 }

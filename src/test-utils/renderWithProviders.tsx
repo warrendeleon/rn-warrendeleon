@@ -9,7 +9,7 @@ import { render, type RenderAPI } from '@testing-library/react-native';
 import { educationReducer } from '@app/features/Education';
 import { profileReducer } from '@app/features/Profile';
 import { settingsReducer } from '@app/features/Settings';
-import { workXPReducer } from '@app/features/WorkXP';
+import { workExperienceReducer } from '@app/features/WorkExperience';
 import i18n from '@app/i18n';
 import type { RootState } from '@app/store';
 
@@ -24,7 +24,7 @@ export const renderWithProviders = (
   const rootReducer = combineReducers({
     settings: settingsReducer,
     profile: profileReducer,
-    workXP: workXPReducer,
+    workExperience: workExperienceReducer,
     education: educationReducer,
   });
 

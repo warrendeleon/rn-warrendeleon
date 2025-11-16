@@ -15,16 +15,16 @@ import reactotron from '@app/config/reactotron';
 import { educationReducer } from '@app/features/Education';
 import { profileReducer } from '@app/features/Profile';
 import { settingsReducer } from '@app/features/Settings/store';
-import { workXPReducer } from '@app/features/WorkXP';
+import { workExperienceReducer } from '@app/features/WorkExperience/store';
 
 /**
  * Root reducer combining all slices
- * Separates persisted (settings) from non-persisted (profile, workXP, education) state
+ * Separates persisted (settings) from non-persisted (profile, workXP, workExperience, education) state
  */
 const rootReducer = combineReducers({
   settings: settingsReducer,
   profile: profileReducer,
-  workXP: workXPReducer,
+  workExperience: workExperienceReducer,
   education: educationReducer,
   // Future: Add auth reducer here without persistence
   // auth: authReducer, // Will use EncryptedStorage separately

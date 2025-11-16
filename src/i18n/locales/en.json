@@ -41,5 +41,17 @@
     "message": "An unexpected error occurred. Please try again.",
     "tryAgain": "Try Again",
     "goHome": "Go Home"
+  },
+  "workExperience": {
+    "title": "Work Experience",
+    "dateRange": "{{start}} - {{end}}",
+    "present": "Present",
+    "errorMessage": "Failed to load work experience. Please try again.",
+    "empty": "No work experience available",
+    "accessibility": {
+      "itemLabel": "{{position}} at {{company}}, {{dates}}",
+      "clientsHint": "Tap to view {{count}} clients",
+      "detailsHint": "Tap to view job details"
+    }
   }
 }

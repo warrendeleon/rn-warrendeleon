@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { Logo } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
-import { fetchEducation, fetchProfile, fetchWorkXP, useAppDispatch } from '@app/store';
+import { fetchEducation, fetchProfile, fetchWorkExperience, useAppDispatch } from '@app/store';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -17,7 +17,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   useEffect(() => {
     // Fetch portfolio data from GitHub
     dispatch(fetchProfile());
-    dispatch(fetchWorkXP());
+    dispatch(fetchWorkExperience());
     dispatch(fetchEducation());
 
     // Show splash screen for 4.5 seconds (matches original implementation)

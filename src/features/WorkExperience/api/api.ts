@@ -8,7 +8,7 @@ import type { WorkExperience } from '@app/types/portfolio';
  * @param language - Language code (e.g., 'en', 'es', 'ca', 'pl', 'tl')
  * @returns Promise with work experience data array
  */
-export const fetchWorkXPData = async (
+export const fetchWorkExperienceData = async (
   language: string
 ): Promise<AxiosResponse<WorkExperience[]>> => {
   return GithubApiClient.get<WorkExperience[]>(`/${language}/workxp.json`);
