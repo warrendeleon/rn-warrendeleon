@@ -14,9 +14,17 @@ import { selectEducation, selectEducationError, selectEducationLoading } from '.
 type EducationScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Education'>;
 
 // Format date range
+// Dates come in various formats: "April 2021", "2014", etc.
 const formatDateRange = (start: string, end?: string): string => {
-  const startYear = new Date(start).getFullYear();
-  const endYear = end ? new Date(end).getFullYear() : 'Present';
+  // Extract year from string (handles "April 2021", "2014", "MMM YYYY")
+  const extractYear = (dateStr: string): string => {
+    const parts = dateStr.split(' ');
+    // If there are multiple parts, take the last one (the year)
+    return parts.length > 1 ? parts[parts.length - 1]! : dateStr;
+  };
+
+  const startYear = extractYear(start);
+  const endYear = end ? extractYear(end) : 'Present';
   return `${startYear} - ${endYear}`;
 };
 
