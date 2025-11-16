@@ -1,6 +1,7 @@
 import '@app/i18n';
 
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import BootSplash from 'react-native-bootsplash';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
@@ -9,13 +10,23 @@ import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { SplashScreen } from '@app/features';
+import { selectLanguage } from '@app/features/Settings/store';
 import { RootNavigator } from '@app/navigation';
-import { persistor, store } from '@app/store';
+import { persistor, store, useAppSelector } from '@app/store';
 
 import '../../global.css';
 
 const AppContent: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
+  const { i18n } = useTranslation();
+  const persistedLanguage = useAppSelector(selectLanguage);
+
+  // Sync i18next with persisted language preference after Redux rehydration
+  useEffect(() => {
+    if (persistedLanguage && i18n.language !== persistedLanguage) {
+      i18n.changeLanguage(persistedLanguage);
+    }
+  }, [persistedLanguage, i18n]);
 
   useEffect(() => {
     // Hide native splash screen with fade animation

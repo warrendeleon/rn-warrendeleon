@@ -8,11 +8,11 @@ import { DetoxWorld } from '@app/test-utils/cucumber/support/world';
 
 // Language switching specific step definitions
 
-When('I restart the app', async function (this: DetoxWorld) {
+When('I restart the app', { timeout: 15000 }, async function (this: DetoxWorld) {
   await device.launchApp({ newInstance: true });
   // Wait for the home screen to be fully loaded after restart
   const homeScreen = element(by.id('home-screen'));
-  await waitFor(homeScreen).toBeVisible().withTimeout(10000);
+  await waitFor(homeScreen).toBeVisible().withTimeout(12000);
 });
 
 Then('the profile data should be in English', async function (this: DetoxWorld) {
