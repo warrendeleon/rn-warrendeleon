@@ -1,7 +1,7 @@
 # React Native Portfolio App - Planning Hub
 
 **Last Updated**: 2025-11-16
-**Overall Progress**: 92% (78/85 tasks completed)
+**Overall Progress**: 93% (79/85 tasks completed)
 
 ---
 
@@ -18,18 +18,18 @@
 
 ## 🎯 Epics Overview
 
-| Epic ID                                                             | Title                      | Status         | Tasks        | Priority | Notes                                                        |
-| ------------------------------------------------------------------- | -------------------------- | -------------- | ------------ | -------- | ------------------------------------------------------------ |
-| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization   | ✅ Completed   | 10/10 (100%) | High     | All memoisation and optimisation tasks complete              |
-| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ⏳ In Progress | 9/10 (90%)   | High     | Error boundaries complete, E2E error state tests remaining   |
-| [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing                    |
-| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt   | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                            |
-| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 24/25 (96%)  | High     | Language & data E2E tests complete, 1 task remaining         |
-| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ⏳ In Progress | 9/10 (90%)   | High     | Implementation complete, E2E splash flow tests remaining     |
-| [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign    | ✅ Completed   | 4/4 (100%)   | Medium   | Button groups and ProfileCard complete                       |
-| [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing           | ✅ Completed   | 6/6 (100%)   | Medium   | CV PDF viewer with share functionality complete              |
-| [EPIC-009](./epics/EPIC-009-education-display-enhancement.md)       | Education Display          | ⏳ In Progress | 5/6 (83%)    | Medium   | Education screen complete, E2E tests remaining               |
-| [EPIC-010](./epics/EPIC-010-work-experience-display.md)             | Work Experience Display    | ⏳ In Progress | 5/8 (62.5%)  | High     | Screen + Redux done, tests and navigation drill-down pending |
+| Epic ID                                                             | Title                      | Status         | Tasks        | Priority | Notes                                                       |
+| ------------------------------------------------------------------- | -------------------------- | -------------- | ------------ | -------- | ----------------------------------------------------------- |
+| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization   | ✅ Completed   | 10/10 (100%) | High     | All memoisation and optimisation tasks complete             |
+| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability      | ⏳ In Progress | 9/10 (90%)   | High     | Error boundaries complete, E2E error state tests remaining  |
+| [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing                   |
+| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt   | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                           |
+| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer  | ⏳ In Progress | 24/25 (96%)  | High     | Language & data E2E tests complete, 1 task remaining        |
+| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation  | ⏳ In Progress | 9/10 (90%)   | High     | Implementation complete, E2E splash flow tests remaining    |
+| [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign    | ✅ Completed   | 4/4 (100%)   | Medium   | Button groups and ProfileCard complete                      |
+| [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing           | ✅ Completed   | 6/6 (100%)   | Medium   | CV PDF viewer with share functionality complete             |
+| [EPIC-009](./epics/EPIC-009-education-display-enhancement.md)       | Education Display          | ⏳ In Progress | 5/6 (83%)    | Medium   | Education screen complete, E2E tests remaining              |
+| [EPIC-010](./epics/EPIC-010-work-experience-display.md)             | Work Experience Display    | ⏳ In Progress | 6/8 (75%)    | High     | Redux + tests complete, screen tests and navigation pending |
 
 ---
 
@@ -53,7 +53,7 @@
 | [US-015](./stories/US-015-cv-pdf-viewer.md)                   | CV PDF Viewer                      | EPIC-008 | ✅ Completed   | 6/6   | Medium   |
 | [US-016](./stories/US-016-education-screen-svg-logos.md)      | Education Screen with SVG Logos    | EPIC-009 | ⏳ In Progress | 5/6   | Medium   |
 | [US-017](./stories/US-017-work-experience-screen-display.md)  | Work Experience Screen Display     | EPIC-010 | ⏳ In Progress | 2/5   | High     |
-| [US-018](./stories/US-018-work-experience-redux-state.md)     | Work Experience Redux State        | EPIC-010 | ⏳ In Progress | 3/4   | High     |
+| [US-018](./stories/US-018-work-experience-redux-state.md)     | Work Experience Redux State        | EPIC-010 | ✅ Completed   | 4/4   | High     |
 | [US-019](./stories/US-019-work-experience-navigation.md)      | Work Experience Navigation         | EPIC-010 | ⭕ Not Started | 0/3   | Medium   |
 
 ---
@@ -194,7 +194,7 @@
 | [TASK-083](./tasks/TASK-083-e2e-tests-work-experience-screen.md)  | E2E Tests for Work Experience Flow       | ⭕ Not Started | 2h     | Medium   |
 | [TASK-084](./tasks/TASK-084-work-experience-api-client.md)        | Create Work Experience API Client        | ✅ Completed   | 1.5h   | High     |
 | [TASK-085](./tasks/TASK-085-work-experience-redux-slice.md)       | Implement Work Experience Redux Slice    | ✅ Completed   | 2h     | High     |
-| [TASK-086](./tasks/TASK-086-unit-tests-work-experience-redux.md)  | Unit Tests for Work Experience Redux     | ⏳ In Progress | 2h     | Medium   |
+| [TASK-086](./tasks/TASK-086-unit-tests-work-experience-redux.md)  | Unit Tests for Work Experience Redux     | ✅ Completed   | 2h     | Medium   |
 
 ---
 
