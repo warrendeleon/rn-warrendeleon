@@ -1,7 +1,7 @@
 # React Native Portfolio App - Planning Hub
 
-**Last Updated**: 2025-11-16
-**Overall Progress**: 94% (93/99 tasks completed)
+**Last Updated**: 2025-01-16
+**Overall Progress**: 91% (93/102 tasks completed)
 
 ---
 
@@ -11,8 +11,8 @@
 | -------------------- | ------------ | ------------------------------------------- |
 | **Epics**            | 11 total     | 6 completed, 5 in progress, 0 not started   |
 | **User Stories**     | 19 total     | 12 completed, 5 in progress, 2 not started  |
-| **Tasks**            | 99 total     | 93 completed, 6 remaining                   |
-| **Estimated Effort** | ~80.25 hours | ~67 hours completed, ~13.25 hours remaining |
+| **Tasks**            | 102 total    | 93 completed, 9 remaining                   |
+| **Estimated Effort** | ~83.75 hours | ~67 hours completed, ~16.75 hours remaining |
 
 ---
 
@@ -200,39 +200,65 @@
 
 ### EPIC-011: Component Naming Clarity (13 tasks) ✅
 
-| Task ID                                                            | Title                            | Status       | Effort | Priority |
-| ------------------------------------------------------------------ | -------------------------------- | ------------ | ------ | -------- |
-| [TASK-087](./tasks/TASK-087-create-migration-plan-document.md)     | Create Migration Plan Document   | ✅ Completed | 0.5h   | High     |
-| [TASK-088](./tasks/TASK-088-create-settings-group-component.md)    | Create SettingsGroup Component   | ✅ Completed | 0.25h  | High     |
-| [TASK-089](./tasks/TASK-089-create-detail-list-group-component.md) | Create DetailListGroup Component | ✅ Completed | 0.25h  | High     |
-| [TASK-090](./tasks/TASK-090-create-picker-group-component.md)      | Create PickerGroup Component     | ✅ Completed | 0.25h  | High     |
-| [TASK-091](./tasks/TASK-091-create-settings-item-component.md)     | Create SettingsItem Component    | ✅ Completed | 0.25h  | High     |
-| [TASK-092](./tasks/TASK-092-create-picker-item-component.md)       | Create PickerItem Component      | ✅ Completed | 0.25h  | High     |
-| [TASK-093](./tasks/TASK-093-migrate-settings-screen.md)            | Migrate SettingsScreen           | ✅ Completed | 0.5h   | High     |
-| [TASK-094](./tasks/TASK-094-migrate-education-screen.md)           | Migrate EducationScreen          | ✅ Completed | 0.5h   | High     |
-| [TASK-095](./tasks/TASK-095-migrate-work-xp-screen.md)             | Migrate WorkXPScreen             | ✅ Completed | 0.5h   | High     |
-| [TASK-096](./tasks/TASK-096-migrate-language-screen.md)            | Migrate LanguageScreen           | ✅ Completed | 0.5h   | Medium   |
-| [TASK-097](./tasks/TASK-097-migrate-appearance-screen.md)          | Migrate AppearanceScreen         | ✅ Completed | 0.5h   | Medium   |
-| [TASK-098](./tasks/TASK-098-deprecate-old-components.md)           | Deprecate Old Components         | ✅ Completed | 0.5h   | Medium   |
-| [TASK-099](./tasks/TASK-099-remove-old-components.md)              | Remove Old Components            | ✅ Completed | 1.5h   | Low      |
+| Task ID                                                            | Title                                         | Status       | Effort | Priority |
+| ------------------------------------------------------------------ | --------------------------------------------- | ------------ | ------ | -------- |
+| [TASK-087](./tasks/TASK-087-create-migration-plan-document.md)     | Create Migration Plan Document                | ✅ Completed | 0.5h   | High     |
+| [TASK-088](./tasks/TASK-088-create-settings-group-component.md)    | Create SettingsGroup Component                | ✅ Completed | 0.25h  | High     |
+| [TASK-089](./tasks/TASK-089-create-detail-list-group-component.md) | Create DetailListGroup Component              | ✅ Completed | 0.25h  | High     |
+| [TASK-090](./tasks/TASK-090-create-picker-group-component.md)      | Create PickerGroup Component                  | ✅ Completed | 0.25h  | High     |
+| [TASK-091](./tasks/TASK-091-create-settings-item-component.md)     | Create SettingsItem Component                 | ✅ Completed | 0.25h  | High     |
+| [TASK-092](./tasks/TASK-092-create-picker-item-component.md)       | Create PickerItem Component                   | ✅ Completed | 0.25h  | High     |
+| [TASK-093](./tasks/TASK-093-migrate-settings-screen.md)            | Migrate SettingsScreen                        | ✅ Completed | 0.5h   | High     |
+| [TASK-094](./tasks/TASK-094-migrate-education-screen.md)           | Migrate EducationScreen                       | ✅ Completed | 0.5h   | High     |
+| [TASK-095](./tasks/TASK-095-migrate-work-xp-screen.md)             | Migrate WorkXPScreen                          | ✅ Completed | 0.5h   | High     |
+| [TASK-096](./tasks/TASK-096-migrate-language-screen.md)            | Migrate LanguageScreen                        | ✅ Completed | 0.5h   | Medium   |
+| [TASK-097](./tasks/TASK-097-migrate-appearance-screen.md)          | Migrate AppearanceScreen                      | ✅ Completed | 0.5h   | Medium   |
+| [TASK-098](./tasks/TASK-098-deprecate-old-components.md)           | Deprecate Old Components                      | ✅ Completed | 0.5h   | Medium   |
+| [TASK-099](./tasks/TASK-099-remove-old-components.md)              | Remove Old Components                         | ✅ Completed | 1.5h   | Low      |
+| [TASK-100](./tasks/TASK-100-fix-e2e-home-button-test-ids.md)       | Fix E2E Tests for Renamed Home Screen Buttons | 📋 To Do     | 2h     | High     |
+| [TASK-101](./tasks/TASK-101-fix-e2e-pdf-step-definitions.md)       | Fix PDF Viewing E2E Step Definitions          | 📋 To Do     | 0.5h   | High     |
+| [TASK-102](./tasks/TASK-102-fix-e2e-app-restart-timeout.md)        | Fix App Restart E2E Step Timeout              | 📋 To Do     | 1h     | High     |
 
 ---
 
-## 🎯 What's Next? (20 Remaining Tasks)
+## 🎯 What's Next? (9 Remaining Tasks)
+
+### 🚨 URGENT - E2E Test Failures (Fix First)
+
+**Current Status**: 16/27 E2E scenarios failing (59% passing)
+**Blocker**: Must fix existing E2E test failures before adding new tests
+
+**Fix Sequence**:
+
+1. **TASK-100**: Fix E2E Tests for Renamed Home Screen Buttons (2h) - **CRITICAL**
+   - 11 scenarios failing due to outdated button testIDs
+   - Update: `home-profile-data`, `home-workxp-data`, `home-education-data`
+
+2. **TASK-101**: Fix PDF Viewing E2E Step Definitions (0.5h) - **CRITICAL**
+   - 4 scenarios failing due to step mismatch ("HomeScreen" vs "Home screen")
+   - Quick fix: update step definitions
+
+3. **TASK-102**: Fix App Restart E2E Step Timeout (1h) - **HIGH**
+   - 1 scenario failing due to 5s timeout
+   - Investigate and increase timeout or optimize app restart
+
+**Total Effort**: 3.5 hours to fix all failing E2E tests
+
+---
 
 ### Critical Path - E2E Test Coverage (100% Goal)
 
-**Current E2E Coverage**: ~75% (Home, Settings, ErrorBoundary covered)
-**Target**: 100% project-level E2E coverage
+**Current E2E Coverage**: ~59% passing (11/27 scenarios, 16 failing)
+**Target**: 100% passing → then expand coverage to 100% project-level
 
-**Recommended Sequence**:
+**Recommended Sequence** (after fixes above):
 
 1. ✅ **TASK-054**: Mock GitHub API in E2E Tests (1h) - **COMPLETED**
    - MSW configured with all 5 languages
    - Local fixtures integrated
    - E2E hooks updated
 
-2. **TASK-061**: E2E Tests for Splash Screen Flow (2h) - **NEXT** - High Priority (EPIC-006)
+2. **TASK-061**: E2E Tests for Splash Screen Flow (2h) - High Priority (EPIC-006)
    - Test splash → data loading → transition
    - Requires TASK-054 complete
 
@@ -240,7 +266,7 @@
    - Test network errors, API failures, recovery
    - Requires TASK-054 complete
 
-**Total Effort**: 4 hours remaining for 100% E2E coverage
+**Total Effort**: 4 hours remaining for 100% E2E coverage (after fixing existing failures)
 
 ### Home Screen UI - ProfileCard Feature (EPIC-007)
 
