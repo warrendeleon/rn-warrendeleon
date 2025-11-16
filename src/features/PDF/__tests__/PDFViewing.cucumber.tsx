@@ -1,11 +1,16 @@
-import { Given, Then, When } from '@cucumber/cucumber';
+// Import common steps to make them available
+import '@app/test-utils/cucumber/step-definitions/common.steps';
+
+import { Then, When } from '@cucumber/cucumber';
 import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
 
-Given('I am on the HomeScreen', async () => {
-  await detoxExpect(element(by.text('Home'))).toBeVisible();
-});
+// PDF viewing specific step definitions
 
 When('I tap the My CV button', async () => {
+  // Wait for button to be visible (may require scrolling)
+  await waitFor(element(by.id('home-cv-button')))
+    .toBeVisible()
+    .withTimeout(5000);
   await element(by.id('home-cv-button')).tap();
 });
 
@@ -57,8 +62,4 @@ When('I tap the back button', async () => {
   } else {
     await device.pressBack();
   }
-});
-
-Then('I should return to the HomeScreen', async () => {
-  await detoxExpect(element(by.text('Home'))).toBeVisible();
 });
