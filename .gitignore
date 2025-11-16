@@ -127,6 +127,9 @@ artifacts/
 *.bak
 android/app/.cxx/
 
+# --- Cache files ---
+.last-update-check
+
 # --- Yarn Berry (Zero-Install) ---
 .yarn/*
 !.yarn/patches
