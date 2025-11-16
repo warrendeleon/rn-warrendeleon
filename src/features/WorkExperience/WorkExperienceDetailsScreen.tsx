@@ -9,7 +9,7 @@ import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppSelector } from '@app/store';
 
-import { selectWorkExperienceById } from './store/selectors';
+import { selectWorkExperienceOrClientById } from './store/selectors';
 
 type WorkExperienceDetailsScreenRouteProp = RouteProp<RootStackParamList, 'WorkExperienceDetails'>;
 
@@ -111,7 +111,7 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
 
   const { workExperienceId } = route.params;
   const workExperience = useAppSelector(
-    state => selectWorkExperienceById(state, workExperienceId),
+    state => selectWorkExperienceOrClientById(state, workExperienceId),
     (a, b) => a?.id === b?.id
   );
 

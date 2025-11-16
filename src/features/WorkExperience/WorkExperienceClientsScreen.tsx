@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useLayoutEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, View } from 'react-native';
 import type { RouteProp } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { DetailListGroup, type DetailListGroupItem } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
@@ -22,10 +24,13 @@ const formatDateRange = (start: string, end: string, presentText: string): strin
   return `${start} - ${endDate}`;
 };
 
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'WorkExperienceClients'>;
+
 export const WorkExperienceClientsScreen: React.FC<WorkExperienceClientsScreenProps> = ({
   route,
 }) => {
   const { t } = useTranslation();
+  const navigation = useNavigation<NavigationProp>();
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -33,6 +38,15 @@ export const WorkExperienceClientsScreen: React.FC<WorkExperienceClientsScreenPr
 
   const workExperience = useAppSelector(state => selectWorkExperienceById(state, workExperienceId));
   const clients = workExperience?.clients ?? [];
+
+  // Set navigation title to company name
+  useLayoutEffect(() => {
+    if (workExperience?.company) {
+      navigation.setOptions({
+        title: workExperience.company,
+      });
+    }
+  }, [navigation, workExperience?.company]);
 
   const clientItems: DetailListGroupItem[] = useMemo(() => {
     if (!clients || clients.length === 0) return [];
@@ -46,7 +60,10 @@ export const WorkExperienceClientsScreen: React.FC<WorkExperienceClientsScreenPr
         subtitle: `${client.company} • ${dateRange}`,
         logoUri: client.logo,
         testID: `work-experience-clients-item-${client.id}`,
-        showChevron: false,
+        showChevron: true,
+        onPress: () => {
+          navigation.navigate('WorkExperienceDetails', { workExperienceId: client.id });
+        },
         accessibilityLabel: t('workExperience.clients.accessibility.itemLabel', {
           position: client.position,
           company: client.company,
@@ -55,7 +72,7 @@ export const WorkExperienceClientsScreen: React.FC<WorkExperienceClientsScreenPr
         accessibilityHint: t('workExperience.clients.accessibility.itemHint'),
       };
     });
-  }, [t, clients]);
+  }, [t, clients, navigation]);
 
   return (
     <ScrollView

@@ -90,16 +90,12 @@ export const RootNavigator: React.FC = () => {
           <Stack.Screen
             name="WorkExperienceDetails"
             component={WorkExperienceDetailsScreen}
-            options={({ route }) => ({
-              title: route.params?.workExperienceId || t('home.workExperience'),
-            })}
+            options={{ title: '' }}
           />
           <Stack.Screen
             name="WorkExperienceClients"
             component={WorkExperienceClientsScreen}
-            options={({ route }) => ({
-              title: route.params?.workExperienceId || t('home.workExperience'),
-            })}
+            options={{ title: '' }}
           />
           <Stack.Screen name="WebView" component={WebViewScreen} options={{ title: 'GitHub' }} />
           <Stack.Screen name="PDF" component={PDFScreen} options={{ title: 'CV' }} />

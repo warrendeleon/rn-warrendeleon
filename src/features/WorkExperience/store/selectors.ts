@@ -52,3 +52,49 @@ export const selectWorkExperienceClientsById = createSelector(
     return workXP?.clients ?? [];
   }
 );
+
+/**
+ * Finds a work experience or client by ID
+ * First searches top-level work experiences, then searches within clients arrays
+ * Converts Client to WorkExperience-compatible format for display
+ */
+export const selectWorkExperienceOrClientById = createSelector(
+  selectWorkExperience,
+  (_state: RootState, id: string) => id,
+  (workExperience, id) => {
+    // First check if it's a work experience
+    const workXP = workExperience.find(item => item.id === id);
+    if (workXP) {
+      return workXP;
+    }
+
+    // If not found, search in clients arrays
+    for (const item of workExperience) {
+      if (item.clients) {
+        const client = item.clients.find(c => c.id === id);
+        if (client) {
+          // Convert Client to WorkExperience format
+          return {
+            id: client.id,
+            company: client.company,
+            logo: client.logo,
+            position: client.position,
+            start: client.start,
+            end: client.end,
+            programmingLanguages: client.programmingLanguages,
+            techStack: client.techStack,
+            unitTest: client.unitTest,
+            e2e: client.e2e,
+            devTools: client.devTools,
+            agileMethodology: client.agileMethodology,
+            description: client.description,
+            // Clients don't have sub-clients
+            clients: undefined,
+          };
+        }
+      }
+    }
+
+    return null;
+  }
+);
