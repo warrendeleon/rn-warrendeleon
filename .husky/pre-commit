@@ -1,2 +1,17 @@
+# Block .env file commits (TASK-114)
+if git diff --cached --name-only | grep -qE "^\.env\.(production|development|staging|local)$|^\.claude/.*\.env$"; then
+  echo ""
+  echo "❌ ERROR: Cannot commit .env files containing secrets!"
+  echo ""
+  echo "The following .env files are staged:"
+  git diff --cached --name-only | grep -E "^\.env\.(production|development|staging|local)$|^\.claude/.*\.env$"
+  echo ""
+  echo "Please remove these files from the staging area:"
+  echo "  git restore --staged <file>"
+  echo ""
+  echo "Note: .env.example files are allowed and can be committed."
+  exit 1
+fi
+
 yarn lint-staged
 echo "✅ Husky pre-commit passed!"
