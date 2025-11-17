@@ -12,7 +12,7 @@ import {
   LanguageScreen,
   MockStatusScreen,
   PDFScreen,
-  ProfileDataScreen,
+  ProfileScreen,
   SettingsScreen,
   WebViewScreen,
   WorkExperienceClientsScreen,
@@ -28,7 +28,7 @@ export type RootStackParamList = {
   Settings: undefined;
   Language: undefined;
   Appearance: undefined;
-  ProfileData: undefined;
+  Profile: undefined;
   WorkExperience: undefined;
   WorkExperienceDetails: { workExperienceId: string };
   WorkExperienceClients: { workExperienceId: string };
@@ -75,9 +75,9 @@ export const RootNavigator: React.FC = () => {
             options={{ title: t('appearance.title') }}
           />
           <Stack.Screen
-            name="ProfileData"
-            component={ProfileDataScreen}
-            options={{ title: t('home.cv') }}
+            name="Profile"
+            component={ProfileScreen}
+            options={{ title: t('home.profile') }}
           />
           <Stack.Screen
             name="Education"

@@ -27,8 +27,8 @@ export const handleSettingsPress = (navigation: HomeScreenNavigationProp): void 
   navigation.navigate('Settings');
 };
 
-export const handleProfileDataPress = (navigation: HomeScreenNavigationProp): void => {
-  navigation.navigate('ProfileData');
+export const handleProfilePress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('Profile');
 };
 
 export const handleWorkExperiencePress = (navigation: HomeScreenNavigationProp): void => {
@@ -59,8 +59,8 @@ export const HomeScreen: React.FC = () => {
   // Get profile data from Redux
   const profile = useAppSelector(selectProfile);
 
-  const handleProfilePress = useCallback(() => {
-    handleProfileDataPress(navigation);
+  const handleProfile = useCallback(() => {
+    handleProfilePress(navigation);
   }, [navigation]);
 
   const handleWorkPress = useCallback(() => {
@@ -183,7 +183,7 @@ export const HomeScreen: React.FC = () => {
             profilePicture={profile.profilePicture}
             name={profile.name}
             lastName={profile.lastName}
-            onPress={handleProfilePress}
+            onPress={handleProfile}
           />
         </View>
       )}

@@ -3,6 +3,7 @@
     "title": "Inicio",
     "env": "ENTORNO",
     "apiUrl": "URL_API",
+    "profile": "Perfil",
     "workExperience": "Experiencia laboral",
     "education": "Educación",
     "cv": "Mi CV",

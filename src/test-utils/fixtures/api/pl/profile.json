@@ -7,7 +7,7 @@
   "namePronunciationAudioTrack": "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/audio/warren.m4a?raw=true",
   "email": "hi@warrendeleon.com",
   "phone": "+447510084239",
-  "birthday": "11 Maja",
+  "birthday": "1990-05-11",
   "location": {
     "cityTown": "Dartford",
     "county": "Kent",
@@ -18,12 +18,18 @@
     }
   },
   "carousel": [
-    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-1.jpg?raw=true",
-    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-2.jpg?raw=true",
-    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-3.jpg?raw=true",
-    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-4.jpg?raw=true",
-    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-5.jpg?raw=true",
-    "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/img/profile-6.jpg?raw=true"
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-01.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-02.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-03.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-04.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-05.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-06.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-07.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-08.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-09.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-10.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-11.jpg?raw=true",
+    "https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/assets/img/profile-12.jpg?raw=true"
   ],
   "socials": {
     "facebook": "https://www.facebook.com/warren.deleon/",

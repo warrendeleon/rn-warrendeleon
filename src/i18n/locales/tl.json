@@ -3,6 +3,7 @@
     "title": "Home",
     "env": "KAPALIGIRAN",
     "apiUrl": "URL_NG_API",
+    "profile": "Profile",
     "workExperience": "Karanasan sa Trabaho",
     "education": "Edukasyon",
     "cv": "Aking CV",
