@@ -15,9 +15,9 @@ module.exports = {
   restoreMocks: true,
   moduleNameMapper: {
     '^@app/(.*)$': '<rootDir>/src/$1',
-    '\\.css$': '<rootDir>/__mocks__/styleMock.js',
-    '^react-dom$': '<rootDir>/__mocks__/react-dom.js',
-    '^react-dom/(.*)$': '<rootDir>/__mocks__/react-dom.js',
+    '\\.css$': '<rootDir>/src/test-utils/mocks/styleMock.js',
+    '^react-dom$': '<rootDir>/src/test-utils/mocks/react-dom.js',
+    '^react-dom/(.*)$': '<rootDir>/src/test-utils/mocks/react-dom.js',
   },
   testPathIgnorePatterns: [
     '/node_modules/',
