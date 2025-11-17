@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { Dimensions, Linking, ScrollView, StyleSheet } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
+import { Dimensions, Linking, ScrollView, StyleSheet, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Avatar,
@@ -14,9 +14,8 @@ import {
 } from '@gluestack-ui/themed';
 
 import { useAppColorScheme } from '@app/hooks';
-import { useAppDispatch, useAppSelector } from '@app/store';
+import { useAppSelector } from '@app/store';
 
-import { fetchProfile } from './store/actions';
 import { selectProfile, selectProfileError, selectProfileLoading } from './store/selectors';
 
 /**
@@ -154,14 +153,12 @@ const SocialIcon: React.FC<SocialIconProps> = ({ platform, url, onPress, isDark 
  * ProfileScreen - iOS 16 Contacts app design pattern
  */
 export const ProfileScreen: React.FC = () => {
-  const dispatch = useAppDispatch();
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
 
   const profile = useAppSelector(selectProfile);
   const loading = useAppSelector(selectProfileLoading);
   const error = useAppSelector(selectProfileError);
-  const language = useAppSelector(state => state.settings.language);
 
   const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('window');
   const CAROUSEL_HEIGHT = WINDOW_HEIGHT * 0.4;
@@ -170,10 +167,6 @@ export const ProfileScreen: React.FC = () => {
   const cardBgColor = isDark ? '$backgroundDark900' : '$white';
   const nameColor = isDark ? '$white' : '$black';
   const headlineColor = isDark ? '$textLight400' : '$textLight500';
-
-  useEffect(() => {
-    dispatch(fetchProfile());
-  }, [dispatch, language]);
 
   const handlePhonePress = useCallback(() => {
     if (profile?.phone) {
@@ -215,75 +208,64 @@ export const ProfileScreen: React.FC = () => {
   // Loading state
   if (loading) {
     return (
-      <ScrollView
-        testID="profile-screen"
-        style={[styles.container, { backgroundColor }]}
-        contentContainerStyle={styles.centeredContent}
-      >
-        <Text
-          testID="profile-loading"
-          color={nameColor}
-          fontSize="$md"
-          accessibilityRole="text"
-          accessibilityLabel="Loading profile data"
-        >
-          Loading...
-        </Text>
-      </ScrollView>
+      <View testID="profile-screen" style={[styles.container, { backgroundColor }]}>
+        <View style={styles.centeredContent}>
+          <Text
+            testID="profile-loading"
+            color={nameColor}
+            fontSize="$md"
+            accessibilityRole="text"
+            accessibilityLabel="Loading profile data"
+          >
+            Loading...
+          </Text>
+        </View>
+      </View>
     );
   }
 
   // Error state
   if (error) {
     return (
-      <ScrollView
-        testID="profile-screen"
-        style={[styles.container, { backgroundColor }]}
-        contentContainerStyle={styles.centeredContent}
-      >
-        <Text
-          testID="profile-error"
-          color="$error500"
-          fontSize="$md"
-          accessibilityRole="alert"
-          accessibilityLabel={`Error loading profile: ${error}`}
-        >
-          Error: {error}
-        </Text>
-      </ScrollView>
+      <View testID="profile-screen" style={[styles.container, { backgroundColor }]}>
+        <View style={styles.centeredContent}>
+          <Text
+            testID="profile-error"
+            color="$error500"
+            fontSize="$md"
+            accessibilityRole="alert"
+            accessibilityLabel={`Error loading profile: ${error}`}
+          >
+            Error: {error}
+          </Text>
+        </View>
+      </View>
     );
   }
 
   // Empty state
   if (!profile) {
     return (
-      <ScrollView
-        testID="profile-screen"
-        style={[styles.container, { backgroundColor }]}
-        contentContainerStyle={styles.centeredContent}
-      >
-        <Text
-          testID="profile-empty"
-          color={nameColor}
-          fontSize="$md"
-          accessibilityRole="text"
-          accessibilityLabel="No profile data available"
-        >
-          No profile data available
-        </Text>
-      </ScrollView>
+      <View testID="profile-screen" style={[styles.container, { backgroundColor }]}>
+        <View style={styles.centeredContent}>
+          <Text
+            testID="profile-empty"
+            color={nameColor}
+            fontSize="$md"
+            accessibilityRole="text"
+            accessibilityLabel="No profile data available"
+          >
+            No profile data available
+          </Text>
+        </View>
+      </View>
     );
   }
 
   return (
-    <ScrollView
-      testID="profile-screen"
-      style={[styles.container, { backgroundColor }]}
-      contentContainerStyle={styles.scrollContent}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* Header Section - Photo Carousel */}
-      <Box position="relative" h={CAROUSEL_HEIGHT} w={WINDOW_WIDTH} bg="$coolGray700">
+    <View testID="profile-screen" style={[styles.container, { backgroundColor }]}>
+      {/* Fixed Background Image */}
+      <View style={[styles.backgroundImageContainer, { height: CAROUSEL_HEIGHT }]}>
         {carouselImage ? (
           <Image
             source={{ uri: carouselImage }}
@@ -294,131 +276,151 @@ export const ProfileScreen: React.FC = () => {
             accessibilityLabel={`Profile photo of ${fullName}`}
           />
         ) : (
-          <Box flex={1} alignItems="center" justifyContent="center">
+          <Box flex={1} alignItems="center" justifyContent="center" bg="$coolGray700">
             <Avatar size="2xl" bg="$coolGray500" testID="profile-avatar-fallback">
               <MaterialCommunityIcons name="account" size={80} color="#9CA3AF" />
             </Avatar>
           </Box>
         )}
-      </Box>
+      </View>
 
-      {/* Main Content Card */}
-      <Box bg={cardBgColor} borderTopLeftRadius="$3xl" borderTopRightRadius="$3xl" mt={-20}>
-        {/* Profile Name Section */}
-        <VStack space="xs" alignItems="center" pt="$6" pb="$4" px="$4">
-          <Heading
-            color={nameColor}
-            size="2xl"
-            textAlign="center"
-            testID="profile-name"
-            accessibilityRole="header"
-            accessibilityLabel={fullName}
-          >
-            {fullName}
-          </Heading>
-          {profile.headline && (
-            <Text
-              color={headlineColor}
-              fontSize="$md"
+      {/* Scrollable Content */}
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Spacer to push content below background image */}
+        <View style={{ height: CAROUSEL_HEIGHT - 20 }} />
+
+        {/* Main Content Card */}
+        <Box bg={cardBgColor} borderTopLeftRadius="$3xl" borderTopRightRadius="$3xl">
+          {/* Profile Name Section */}
+          <VStack space="xs" alignItems="center" pt="$6" pb="$4" px="$4">
+            <Heading
+              color={nameColor}
+              size="2xl"
               textAlign="center"
-              testID="profile-headline"
-              accessibilityRole="text"
-              accessibilityLabel={`Headline: ${profile.headline}`}
-            >
-              {profile.headline}
-            </Text>
-          )}
-        </VStack>
-
-        <Divider my="$2" />
-
-        {/* Contact Information Section */}
-        <VStack py="$2">
-          <ContactRow
-            icon="phone"
-            label="phone"
-            value={profile.phone}
-            onPress={handlePhonePress}
-            testID="profile-phone"
-            accessibilityLabel={`Phone: ${profile.phone}`}
-            accessibilityHint="Double tap to call"
-          />
-          <ContactRow
-            icon="email"
-            label="email"
-            value={profile.email}
-            onPress={handleEmailPress}
-            testID="profile-email"
-            accessibilityLabel={`Email: ${profile.email}`}
-            accessibilityHint="Double tap to send email"
-          />
-          <ContactRow
-            icon="cake-variant"
-            label="birthday"
-            value={formattedBirthday}
-            testID="profile-birthday"
-            accessibilityLabel={`Birthday: ${formattedBirthday}`}
-          />
-        </VStack>
-
-        <Divider my="$2" />
-
-        {/* Social Media Section */}
-        {profile.socials && (
-          <VStack space="md" py="$4" px="$4">
-            <Text
-              color={headlineColor}
-              fontSize="$sm"
-              fontWeight="$semibold"
-              textTransform="uppercase"
-              testID="profile-social-header"
+              testID="profile-name"
               accessibilityRole="header"
+              accessibilityLabel={fullName}
             >
-              Social Media
-            </Text>
-            <HStack space="md" justifyContent="center" flexWrap="wrap">
-              {profile.socials.facebook && (
-                <SocialIcon
-                  platform="facebook"
-                  url={profile.socials.facebook}
-                  onPress={handleSocialPress}
-                  isDark={isDark}
-                />
-              )}
-              {profile.socials.twitter && (
-                <SocialIcon
-                  platform="twitter"
-                  url={profile.socials.twitter}
-                  onPress={handleSocialPress}
-                  isDark={isDark}
-                />
-              )}
-              {profile.socials.instagram && (
-                <SocialIcon
-                  platform="instagram"
-                  url={profile.socials.instagram}
-                  onPress={handleSocialPress}
-                  isDark={isDark}
-                />
-              )}
-              {profile.socials.linkedIn && (
-                <SocialIcon
-                  platform="linkedin"
-                  url={profile.socials.linkedIn}
-                  onPress={handleSocialPress}
-                  isDark={isDark}
-                />
-              )}
-            </HStack>
+              {fullName}
+            </Heading>
+            {profile.headline && (
+              <Text
+                color={headlineColor}
+                fontSize="$md"
+                textAlign="center"
+                testID="profile-headline"
+                accessibilityRole="text"
+                accessibilityLabel={`Headline: ${profile.headline}`}
+              >
+                {profile.headline}
+              </Text>
+            )}
           </VStack>
-        )}
-      </Box>
-    </ScrollView>
+
+          <Divider my="$2" />
+
+          {/* Contact Information Section */}
+          <VStack py="$2">
+            <ContactRow
+              icon="phone"
+              label="phone"
+              value={profile.phone}
+              onPress={handlePhonePress}
+              testID="profile-phone"
+              accessibilityLabel={`Phone: ${profile.phone}`}
+              accessibilityHint="Double tap to call"
+            />
+            <ContactRow
+              icon="email"
+              label="email"
+              value={profile.email}
+              onPress={handleEmailPress}
+              testID="profile-email"
+              accessibilityLabel={`Email: ${profile.email}`}
+              accessibilityHint="Double tap to send email"
+            />
+            <ContactRow
+              icon="cake-variant"
+              label="birthday"
+              value={formattedBirthday}
+              testID="profile-birthday"
+              accessibilityLabel={`Birthday: ${formattedBirthday}`}
+            />
+          </VStack>
+
+          <Divider my="$2" />
+
+          {/* Social Media Section */}
+          {profile.socials && (
+            <VStack space="md" py="$4" px="$4">
+              <Text
+                color={headlineColor}
+                fontSize="$sm"
+                fontWeight="$semibold"
+                textTransform="uppercase"
+                testID="profile-social-header"
+                accessibilityRole="header"
+              >
+                Social Media
+              </Text>
+              <HStack space="md" justifyContent="center" flexWrap="wrap">
+                {profile.socials.facebook && (
+                  <SocialIcon
+                    platform="facebook"
+                    url={profile.socials.facebook}
+                    onPress={handleSocialPress}
+                    isDark={isDark}
+                  />
+                )}
+                {profile.socials.twitter && (
+                  <SocialIcon
+                    platform="twitter"
+                    url={profile.socials.twitter}
+                    onPress={handleSocialPress}
+                    isDark={isDark}
+                  />
+                )}
+                {profile.socials.instagram && (
+                  <SocialIcon
+                    platform="instagram"
+                    url={profile.socials.instagram}
+                    onPress={handleSocialPress}
+                    isDark={isDark}
+                  />
+                )}
+                {profile.socials.linkedIn && (
+                  <SocialIcon
+                    platform="linkedin"
+                    url={profile.socials.linkedIn}
+                    onPress={handleSocialPress}
+                    isDark={isDark}
+                  />
+                )}
+              </HStack>
+            </VStack>
+          )}
+        </Box>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  backgroundImageContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    width: Dimensions.get('window').width,
+  },
+  scrollView: {
     flex: 1,
   },
   scrollContent: {
