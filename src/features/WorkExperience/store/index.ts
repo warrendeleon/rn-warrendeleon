@@ -13,5 +13,6 @@ export {
   selectWorkExperienceClientsById,
   selectWorkExperienceError,
   selectWorkExperienceLoading,
+  selectWorkExperienceOrClientById,
   selectWorkExperienceWithClients,
 } from './selectors';
