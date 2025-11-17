@@ -60,7 +60,8 @@
     "agileMethodology": "Metodología ágil",
     "accessibility": {
       "itemLabel": "{{position}} en {{company}}, {{dates}}",
-      "clientsHint": "Toca para ver {{count}} clientes",
+      "clientsHint_one": "Toca para ver {{count}} cliente",
+      "clientsHint_other": "Toca para ver {{count}} clientes",
       "detailsHint": "Toca para ver detalles del trabajo"
     },
     "clients": {
@@ -80,9 +81,9 @@
       "empty": "No hay datos de perfil disponibles"
     },
     "contact": {
-      "phone": "teléfono",
-      "email": "correo",
-      "birthday": "cumpleaños"
+      "phone": "Teléfono",
+      "email": "Correo",
+      "birthday": "Cumpleaños"
     },
     "social": {
       "header": "Redes Sociales",

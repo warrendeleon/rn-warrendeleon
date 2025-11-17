@@ -351,3 +351,12 @@ jest.mock('react-native-webview', () => {
     default: mockRN.View,
   };
 });
+
+// Initialize i18n for tests
+// Must be imported after all mocks to ensure react-native-localize mock is applied
+import i18n from './src/i18n';
+
+// Ensure i18n is initialized before tests run
+if (!i18n.isInitialized) {
+  throw new Error('i18n failed to initialize in test environment');
+}

@@ -60,7 +60,8 @@
     "agileMethodology": "Agile Methodology",
     "accessibility": {
       "itemLabel": "{{position}} sa {{company}}, {{dates}}",
-      "clientsHint": "Pindutin para makita ang {{count}} mga kliyente",
+      "clientsHint_one": "Pindutin para makita ang {{count}} kliyente",
+      "clientsHint_other": "Pindutin para makita ang {{count}} mga kliyente",
       "detailsHint": "Pindutin para makita ang detalye ng trabaho"
     },
     "clients": {
@@ -80,9 +81,9 @@
       "empty": "Walang available na datos ng profile"
     },
     "contact": {
-      "phone": "telepono",
-      "email": "email",
-      "birthday": "kaarawan"
+      "phone": "Telepono",
+      "email": "Email",
+      "birthday": "Kaarawan"
     },
     "social": {
       "header": "Social Media",

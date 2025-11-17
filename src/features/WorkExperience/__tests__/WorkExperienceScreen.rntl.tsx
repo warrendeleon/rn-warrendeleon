@@ -322,7 +322,9 @@ describe('WorkExperienceScreen', () => {
       );
 
       expect(screen.getByTestId('error-state')).toBeOnTheScreen();
-      expect(screen.getByText('workExperience.errorMessage')).toBeOnTheScreen();
+      expect(
+        screen.getByText('Failed to load work experience. Please try again.')
+      ).toBeOnTheScreen();
     });
 
     it('does not display empty state when error is present', () => {
@@ -368,7 +370,7 @@ describe('WorkExperienceScreen', () => {
       );
 
       expect(screen.getByTestId('work-experience-empty-state')).toBeOnTheScreen();
-      expect(screen.getByText('workExperience.empty')).toBeOnTheScreen();
+      expect(screen.getByText('No work experience available')).toBeOnTheScreen();
     });
 
     it('does not display empty state when loading', () => {
@@ -440,7 +442,9 @@ describe('WorkExperienceScreen', () => {
       );
 
       const item = screen.getByTestId('work-experience-item-work-1');
-      expect(item.props.accessibilityLabel).toBe('workExperience.accessibility.itemLabel');
+      expect(item.props.accessibilityLabel).toBe(
+        'Senior React Native Developer at Sky, Jan 2023 - Present'
+      );
     });
 
     it('formats date range with end date correctly', () => {
@@ -462,7 +466,9 @@ describe('WorkExperienceScreen', () => {
       );
 
       const item = screen.getByTestId('work-experience-item-work-3');
-      expect(item.props.accessibilityLabel).toBe('workExperience.accessibility.itemLabel');
+      expect(item.props.accessibilityLabel).toBe(
+        'Senior Software Engineer at Candide, Apr 2022 - Jul 2022'
+      );
     });
   });
 
@@ -624,8 +630,10 @@ describe('WorkExperienceScreen', () => {
       );
 
       const item = screen.getByTestId('work-experience-item-work-1');
-      expect(item.props.accessibilityLabel).toBe('workExperience.accessibility.itemLabel');
-      expect(item.props.accessibilityHint).toBe('workExperience.accessibility.detailsHint');
+      expect(item.props.accessibilityLabel).toBe(
+        'Senior React Native Developer at Sky, Jan 2023 - Present'
+      );
+      expect(item.props.accessibilityHint).toBe('Tap to view job details');
       expect(item.props.accessibilityRole).toBe('button');
     });
 
@@ -648,8 +656,10 @@ describe('WorkExperienceScreen', () => {
       );
 
       const item = screen.getByTestId('work-experience-item-work-2');
-      expect(item.props.accessibilityLabel).toBe('workExperience.accessibility.itemLabel');
-      expect(item.props.accessibilityHint).toBe('workExperience.accessibility.clientsHint');
+      expect(item.props.accessibilityLabel).toBe(
+        'Lead React Native Developer at xDesign, Sep 2021 - Apr 2022'
+      );
+      expect(item.props.accessibilityHint).toBe('Tap to view 2 clients');
       expect(item.props.accessibilityRole).toBe('button');
     });
 
@@ -677,7 +687,7 @@ describe('WorkExperienceScreen', () => {
       );
 
       const item = screen.getByTestId('work-experience-item-work-2');
-      expect(item.props.accessibilityHint).toBe('workExperience.accessibility.clientsHint');
+      expect(item.props.accessibilityHint).toBe('Tap to view 1 client');
     });
   });
 
@@ -751,7 +761,7 @@ describe('WorkExperienceScreen', () => {
         </Provider>
       );
 
-      const emptyText = screen.getByText('workExperience.empty');
+      const emptyText = screen.getByText('No work experience available');
       expect(emptyText.props.style).toMatchObject({
         color: '#FFFFFF',
       });
@@ -776,7 +786,7 @@ describe('WorkExperienceScreen', () => {
         </Provider>
       );
 
-      const emptyText = screen.getByText('workExperience.empty');
+      const emptyText = screen.getByText('No work experience available');
       expect(emptyText.props.style).toMatchObject({
         color: '#000000',
       });
@@ -958,7 +968,7 @@ describe('WorkExperienceScreen', () => {
       expect(screen.queryByTestId('work-experience-item-work-1-badge')).not.toBeOnTheScreen();
 
       const item = screen.getByTestId('work-experience-item-work-1');
-      expect(item.props.accessibilityHint).toBe('workExperience.accessibility.detailsHint');
+      expect(item.props.accessibilityHint).toBe('Tap to view job details');
     });
   });
 });
