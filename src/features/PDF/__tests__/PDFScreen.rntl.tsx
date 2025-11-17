@@ -1,6 +1,10 @@
 import * as ReactNavigation from '@react-navigation/native';
 import { render, screen } from '@testing-library/react-native';
 
+import { ALLOWED_PDF_DOMAINS } from '@app/config/constants';
+import { useAppColorScheme } from '@app/hooks';
+import { isUrlAllowed } from '@app/utils/urlValidator';
+
 import { PDFScreen } from '../PDFScreen';
 
 // Mock dependencies
@@ -31,7 +35,12 @@ jest.mock('@app/hooks', () => ({
   useAppColorScheme: jest.fn(() => 'light'),
 }));
 
+jest.mock('@app/utils/urlValidator', () => ({
+  isUrlAllowed: jest.fn(() => true), // Default to allowed
+}));
+
 describe('PDFScreen', () => {
+  const mockIsUrlAllowed = isUrlAllowed as jest.MockedFunction<typeof isUrlAllowed>;
   const mockRoute = {
     params: {
       uri: 'https://example.com/document.pdf',
@@ -45,6 +54,8 @@ describe('PDFScreen', () => {
     (ReactNavigation.useNavigation as jest.Mock).mockReturnValue({
       setOptions: jest.fn(),
     });
+    // Allow the test URL by default
+    mockIsUrlAllowed.mockReturnValue(true);
   });
 
   it('renders PDF component with correct URI', () => {
@@ -94,5 +105,213 @@ describe('PDFScreen', () => {
     expect(mockSetOptions).toHaveBeenCalled();
     const options = mockSetOptions.mock.calls[0][0];
     expect(options.headerRight).toBeDefined();
+  });
+});
+
+describe('PDFScreen - URL Validation', () => {
+  const mockIsUrlAllowed = isUrlAllowed as jest.MockedFunction<typeof isUrlAllowed>;
+  const mockUseAppColorScheme = useAppColorScheme as jest.MockedFunction<typeof useAppColorScheme>;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockUseAppColorScheme.mockReturnValue('light');
+    (ReactNavigation.useNavigation as jest.Mock).mockReturnValue({
+      setOptions: jest.fn(),
+    });
+  });
+
+  describe('URL Validation Logic', () => {
+    it('renders loading state initially while validating', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'https://warrendeleon.com/cv.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      const loading = screen.queryByTestId('pdf-loading');
+      const error = screen.queryByTestId('pdf-error');
+
+      expect(loading || error).toBeTruthy();
+    });
+
+    it('renders error state when URL is not allowed', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'https://evil.com/malware.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+      expect(screen.getByText('This PDF URL is not allowed for security reasons')).toBeTruthy();
+      expect(screen.getByText('https://evil.com/malware.pdf')).toBeTruthy();
+    });
+
+    it('renders PDF viewer when URL is allowed', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'https://warrendeleon.com/cv.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(true);
+
+      render(<PDFScreen />);
+
+      expect(screen.getByTestId('mock-pdf')).toBeTruthy();
+    });
+
+    it('validates URL against ALLOWED_PDF_DOMAINS', () => {
+      const testUri = 'https://warrendeleon.com/wp-content/uploads/2025/06/CV.pdf';
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: testUri },
+      });
+      mockIsUrlAllowed.mockReturnValue(true);
+
+      render(<PDFScreen />);
+
+      expect(mockIsUrlAllowed).toHaveBeenCalledWith(testUri, ALLOWED_PDF_DOMAINS);
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('loading state has proper accessibility props', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'https://warrendeleon.com/cv.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      const loading = screen.queryByTestId('pdf-loading');
+      if (loading) {
+        expect(loading.props.accessibilityRole).toBe('progressbar');
+        expect(loading.props.accessibilityLabel).toBe('Validating PDF URL');
+      }
+    });
+
+    it('error state has proper accessibility props', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'https://evil.com/malware.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      const errorContainer = screen.getByTestId('pdf-error');
+      expect(errorContainer.props.accessibilityRole).toBe('alert');
+      expect(errorContainer.props.accessibilityLabel).toBe(
+        'This PDF URL is not allowed for security reasons'
+      );
+    });
+  });
+
+  describe('Dark Mode Support', () => {
+    it('applies dark colors when dark mode is active', () => {
+      mockUseAppColorScheme.mockReturnValue('dark');
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'https://evil.com/malware.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
+      expect(errorText.props.style).toContainEqual(expect.objectContaining({ color: '#FF6B6B' }));
+    });
+
+    it('applies light colors when light mode is active', () => {
+      mockUseAppColorScheme.mockReturnValue('light');
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'https://evil.com/malware.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
+      expect(errorText.props.style).toContainEqual(expect.objectContaining({ color: '#D32F2F' }));
+    });
+  });
+
+  describe('Security Scenarios', () => {
+    it('blocks HTTP URLs', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'http://warrendeleon.com/cv.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+    });
+
+    it('blocks non-whitelisted domains', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'https://malicious.com/virus.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+    });
+
+    it('allows whitelisted domains with paths', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: {
+          uri: 'https://warrendeleon.com/wp-content/uploads/2025/06/CV_WARRENDELEON_2025.pdf',
+        },
+      });
+      mockIsUrlAllowed.mockReturnValue(true);
+
+      render(<PDFScreen />);
+
+      expect(screen.getByTestId('mock-pdf')).toBeTruthy();
+    });
+
+    it('allows subdomains of whitelisted domains', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'https://cdn.warrendeleon.com/documents/cv.pdf' },
+      });
+      mockIsUrlAllowed.mockReturnValue(true);
+
+      render(<PDFScreen />);
+
+      expect(screen.getByTestId('mock-pdf')).toBeTruthy();
+    });
+  });
+
+  describe('Edge Cases', () => {
+    it('handles empty URI gracefully', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: '' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+    });
+
+    it('handles malformed URLs', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'not a url' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+    });
+
+    it('handles javascript: protocol URLs', () => {
+      (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
+        params: { uri: 'javascript:alert(1)' },
+      });
+      mockIsUrlAllowed.mockReturnValue(false);
+
+      render(<PDFScreen />);
+
+      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+    });
   });
 });

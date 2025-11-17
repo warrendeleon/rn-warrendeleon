@@ -1,13 +1,15 @@
-import React, { useCallback, useState } from 'react';
-import { ActivityIndicator, Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import Pdf from 'react-native-pdf';
 import Share from 'react-native-share';
 import { type RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Share2 } from 'lucide-react-native';
 
+import { ALLOWED_PDF_DOMAINS } from '@app/config/constants';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { isUrlAllowed } from '@app/utils/urlValidator';
 
 type PDFScreenRouteProp = RouteProp<RootStackParamList, 'PDF'>;
 
@@ -15,7 +17,20 @@ export const PDFScreen = () => {
   const route = useRoute<PDFScreenRouteProp>();
   const navigation = useNavigation();
   const colorScheme = useAppColorScheme();
+  const isDark = colorScheme === 'dark';
+
+  const [isValidUrl, setIsValidUrl] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isSharing, setIsSharing] = useState(false);
+  const url = route.params.uri;
+
+  useEffect(() => {
+    if (isUrlAllowed(url, ALLOWED_PDF_DOMAINS)) {
+      setIsValidUrl(true);
+    } else {
+      setError('This PDF URL is not allowed for security reasons');
+    }
+  }, [url]);
 
   const handleShare = useCallback(async () => {
     try {
@@ -77,9 +92,40 @@ export const PDFScreen = () => {
     });
   }, [navigation, handleShare, colorScheme, isSharing]);
 
-  return (
-    <Pdf source={{ uri: route.params.uri, cache: true }} style={styles.pdf} trustAllCerts={false} />
-  );
+  // Show loading state while validating
+  if (!isValidUrl && !error) {
+    return (
+      <View
+        style={styles.centerContainer}
+        testID="pdf-loading"
+        accessibilityRole="progressbar"
+        accessibilityLabel="Validating PDF URL"
+      >
+        <ActivityIndicator size="large" color={isDark ? '#FFFFFF' : '#000000'} />
+        <Text style={[styles.messageText, { color: isDark ? '#FFFFFF' : '#000000' }]}>
+          Validating PDF URL...
+        </Text>
+      </View>
+    );
+  }
+
+  // Show error state if URL is not allowed
+  if (error) {
+    return (
+      <View
+        style={styles.centerContainer}
+        testID="pdf-error"
+        accessibilityRole="alert"
+        accessibilityLabel={error}
+      >
+        <Text style={[styles.errorText, { color: isDark ? '#FF6B6B' : '#D32F2F' }]}>{error}</Text>
+        <Text style={[styles.urlText, { color: isDark ? '#C9D1D9' : '#555555' }]}>{url}</Text>
+      </View>
+    );
+  }
+
+  // Render PDF only if URL is valid
+  return <Pdf source={{ uri: url, cache: true }} style={styles.pdf} trustAllCerts={false} />;
 };
 
 const styles = StyleSheet.create({
@@ -94,5 +140,27 @@ const styles = StyleSheet.create({
     width: 24,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  messageText: {
+    marginTop: 16,
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  errorText: {
+    fontSize: 18,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  urlText: {
+    fontSize: 14,
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
 });
