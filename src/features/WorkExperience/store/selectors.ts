@@ -62,6 +62,11 @@ export const selectWorkExperienceOrClientById = createSelector(
   selectWorkExperience,
   (_state: RootState, id: string) => id,
   (workExperience, id) => {
+    // Handle undefined or empty workExperience
+    if (!workExperience || workExperience.length === 0) {
+      return null;
+    }
+
     // First check if it's a work experience
     const workXP = workExperience.find(item => item.id === id);
     if (workXP) {
