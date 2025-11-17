@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dimensions, Linking, ScrollView, StyleSheet, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
@@ -153,6 +154,7 @@ const SocialIcon: React.FC<SocialIconProps> = ({ platform, url, onPress, isDark 
  * ProfileScreen - iOS 16 Contacts app design pattern
  */
 export const ProfileScreen: React.FC = () => {
+  const { t } = useTranslation();
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -215,9 +217,9 @@ export const ProfileScreen: React.FC = () => {
             color={nameColor}
             fontSize="$md"
             accessibilityRole="text"
-            accessibilityLabel="Loading profile data"
+            accessibilityLabel={t('profile.states.loading')}
           >
-            Loading...
+            {t('profile.states.loading')}
           </Text>
         </View>
       </View>
@@ -234,9 +236,9 @@ export const ProfileScreen: React.FC = () => {
             color="$error500"
             fontSize="$md"
             accessibilityRole="alert"
-            accessibilityLabel={`Error loading profile: ${error}`}
+            accessibilityLabel={t('profile.states.error', { error })}
           >
-            Error: {error}
+            {t('profile.states.error', { error })}
           </Text>
         </View>
       </View>
@@ -253,9 +255,9 @@ export const ProfileScreen: React.FC = () => {
             color={nameColor}
             fontSize="$md"
             accessibilityRole="text"
-            accessibilityLabel="No profile data available"
+            accessibilityLabel={t('profile.states.empty')}
           >
-            No profile data available
+            {t('profile.states.empty')}
           </Text>
         </View>
       </View>
@@ -327,28 +329,28 @@ export const ProfileScreen: React.FC = () => {
           <VStack py="$2">
             <ContactRow
               icon="phone"
-              label="phone"
+              label={t('profile.contact.phone')}
               value={profile.phone}
               onPress={handlePhonePress}
               testID="profile-phone"
-              accessibilityLabel={`Phone: ${profile.phone}`}
+              accessibilityLabel={`${t('profile.contact.phone')}: ${profile.phone}`}
               accessibilityHint="Double tap to call"
             />
             <ContactRow
               icon="email"
-              label="email"
+              label={t('profile.contact.email')}
               value={profile.email}
               onPress={handleEmailPress}
               testID="profile-email"
-              accessibilityLabel={`Email: ${profile.email}`}
+              accessibilityLabel={`${t('profile.contact.email')}: ${profile.email}`}
               accessibilityHint="Double tap to send email"
             />
             <ContactRow
               icon="cake-variant"
-              label="birthday"
+              label={t('profile.contact.birthday')}
               value={formattedBirthday}
               testID="profile-birthday"
-              accessibilityLabel={`Birthday: ${formattedBirthday}`}
+              accessibilityLabel={`${t('profile.contact.birthday')}: ${formattedBirthday}`}
             />
           </VStack>
 
@@ -365,7 +367,7 @@ export const ProfileScreen: React.FC = () => {
                 testID="profile-social-header"
                 accessibilityRole="header"
               >
-                Social Media
+                {t('profile.social.header')}
               </Text>
               <HStack space="md" justifyContent="center" flexWrap="wrap">
                 {profile.socials.facebook && (

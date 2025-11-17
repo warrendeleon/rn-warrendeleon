@@ -71,5 +71,27 @@
         "itemHint": "Tingnan ang detalye ng kliyente"
       }
     }
+  },
+  "profile": {
+    "title": "Profile",
+    "states": {
+      "loading": "Naglo-load...",
+      "error": "Error: {{error}}",
+      "empty": "Walang available na datos ng profile"
+    },
+    "contact": {
+      "phone": "telepono",
+      "email": "email",
+      "birthday": "kaarawan"
+    },
+    "social": {
+      "header": "Social Media",
+      "accessibility": {
+        "facebook": "Buksan ang facebook profile",
+        "twitter": "Buksan ang twitter profile",
+        "instagram": "Buksan ang instagram profile",
+        "linkedin": "Buksan ang linkedin profile"
+      }
+    }
   }
 }

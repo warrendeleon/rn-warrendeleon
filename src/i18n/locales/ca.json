@@ -71,5 +71,27 @@
         "itemHint": "Veure detalls del client"
       }
     }
+  },
+  "profile": {
+    "title": "Perfil",
+    "states": {
+      "loading": "Carregant...",
+      "error": "Error: {{error}}",
+      "empty": "No hi ha dades de perfil disponibles"
+    },
+    "contact": {
+      "phone": "telèfon",
+      "email": "correu",
+      "birthday": "aniversari"
+    },
+    "social": {
+      "header": "Xarxes Socials",
+      "accessibility": {
+        "facebook": "Obrir perfil de facebook",
+        "twitter": "Obrir perfil de twitter",
+        "instagram": "Obrir perfil d'instagram",
+        "linkedin": "Obrir perfil de linkedin"
+      }
+    }
   }
 }

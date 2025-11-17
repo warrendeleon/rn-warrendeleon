@@ -71,5 +71,27 @@
         "itemHint": "Ver detalles del cliente"
       }
     }
+  },
+  "profile": {
+    "title": "Perfil",
+    "states": {
+      "loading": "Cargando...",
+      "error": "Error: {{error}}",
+      "empty": "No hay datos de perfil disponibles"
+    },
+    "contact": {
+      "phone": "teléfono",
+      "email": "correo",
+      "birthday": "cumpleaños"
+    },
+    "social": {
+      "header": "Redes Sociales",
+      "accessibility": {
+        "facebook": "Abrir perfil de facebook",
+        "twitter": "Abrir perfil de twitter",
+        "instagram": "Abrir perfil de instagram",
+        "linkedin": "Abrir perfil de linkedin"
+      }
+    }
   }
 }

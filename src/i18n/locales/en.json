@@ -71,5 +71,27 @@
         "itemHint": "View client details"
       }
     }
+  },
+  "profile": {
+    "title": "Profile",
+    "states": {
+      "loading": "Loading...",
+      "error": "Error: {{error}}",
+      "empty": "No profile data available"
+    },
+    "contact": {
+      "phone": "phone",
+      "email": "email",
+      "birthday": "birthday"
+    },
+    "social": {
+      "header": "Social Media",
+      "accessibility": {
+        "facebook": "Open facebook profile",
+        "twitter": "Open twitter profile",
+        "instagram": "Open instagram profile",
+        "linkedin": "Open linkedin profile"
+      }
+    }
   }
 }
