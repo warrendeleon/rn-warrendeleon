@@ -1,5 +1,7 @@
 import React, { Component, type ReactNode } from 'react';
 
+import { logError } from '@app/utils/logger';
+
 import { FallbackUI } from './FallbackUI';
 
 interface Props {
@@ -22,8 +24,8 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    // Log to console in development (future: send to error monitoring service)
-    console.error('Error caught by ErrorBoundary:', error, errorInfo);
+    // Log to console in development only (production-safe)
+    logError('Error caught by ErrorBoundary', error, { errorInfo });
   }
 
   resetError = (): void => {

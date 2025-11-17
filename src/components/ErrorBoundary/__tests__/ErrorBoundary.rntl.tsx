@@ -78,18 +78,16 @@ describe('ErrorBoundary', () => {
   });
 
   describe('Component Did Catch', () => {
-    it('calls componentDidCatch and logs error', () => {
+    it('calls componentDidCatch and logs error in development', () => {
       const boundary = new ErrorBoundary({ children: null });
       const error = new Error('Test error');
       const errorInfo = { componentStack: 'test stack' };
 
       boundary.componentDidCatch(error, errorInfo);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'Error caught by ErrorBoundary:',
-        error,
-        errorInfo
-      );
+      expect(consoleErrorSpy).toHaveBeenCalledWith('[DEV] Error caught by ErrorBoundary', error, {
+        errorInfo,
+      });
     });
   });
 

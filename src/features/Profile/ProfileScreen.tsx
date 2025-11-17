@@ -16,6 +16,7 @@ import {
 
 import { useAppColorScheme } from '@app/hooks';
 import { useAppSelector } from '@app/store';
+import { logError } from '@app/utils/logger';
 
 import { selectProfile, selectProfileError, selectProfileLoading } from './store/selectors';
 
@@ -173,20 +174,20 @@ export const ProfileScreen: React.FC = () => {
   const handlePhonePress = useCallback(() => {
     if (profile?.phone) {
       const telUrl = `tel:${formatPhoneForTel(profile.phone)}`;
-      Linking.openURL(telUrl).catch(err => console.error('Failed to open phone dialer:', err));
+      Linking.openURL(telUrl).catch(err => logError('Failed to open phone dialer', err));
     }
   }, [profile?.phone]);
 
   const handleEmailPress = useCallback(() => {
     if (profile?.email) {
       const mailUrl = `mailto:${profile.email}`;
-      Linking.openURL(mailUrl).catch(err => console.error('Failed to open email client:', err));
+      Linking.openURL(mailUrl).catch(err => logError('Failed to open email client', err));
     }
   }, [profile?.email]);
 
   const handleSocialPress = useCallback((url: string) => {
     if (url) {
-      Linking.openURL(url).catch(err => console.error('Failed to open social media link:', err));
+      Linking.openURL(url).catch(err => logError('Failed to open social media link', err));
     }
   }, []);
 
