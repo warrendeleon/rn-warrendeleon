@@ -4,7 +4,7 @@
 **Title**: Add E2E Tests for Profile Navigation
 **Epic**: [EPIC-012: Profile Screen Implementation](../epics/EPIC-012-profile-screen-implementation.md)
 **User Story**: [US-021: Profile Screen UI Redesign](../stories/US-021-profile-screen-ui.md)
-**Status**: ✅ Completed
+**Status**: 📋 Not Started
 **Priority**: Medium
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon
@@ -20,11 +20,11 @@ Add Detox E2E tests for ProfileScreen navigation flow (Home → Profile → inte
 
 ## Acceptance Criteria
 
-- [x] E2E test: Navigate from Home to Profile
-- [x] E2E test: Profile displays correct data
-- [x] E2E test: Back navigation works
-- [x] All E2E tests passing
-- [x] Cucumber scenarios documented
+- [ ] E2E test: Navigate from Home to Profile
+- [ ] E2E test: Profile displays correct data
+- [ ] E2E test: Back navigation works
+- [ ] All E2E tests passing
+- [ ] Cucumber scenarios documented
 
 ---
 

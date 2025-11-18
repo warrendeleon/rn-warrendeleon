@@ -55,18 +55,10 @@ const styles = StyleSheet.create({
 import { styled } from '@gluestack-style/react';
 import Pdf from 'react-native-pdf';
 
-const StyledPDF = styled(
-  Pdf,
-  {
-    // Default styles (optional)
-    flex: 1,
-    bg: '$white',
-  },
-  {
-    componentName: 'StyledPDF',
-    // resolveProps can be added if needed for specific props
-  }
-);
+const StyledPDF = styled(Pdf, {
+  componentName: 'StyledPDF',
+  // resolveProps can be added if needed for specific props
+});
 ```
 
 **Step 2**: Update PDFScreen component

@@ -4,9 +4,9 @@
 **Epic Title**: Profile Screen Implementation
 **Status**: ⏳ In Progress
 **Priority**: Medium
-**Progress**: 0/4 tasks completed (0%)
+**Progress**: 3/4 tasks completed (75%)
 **Created**: 2025-01-17
-**Last Updated**: 2025-01-17
+**Last Updated**: 2025-11-18
 **Target Date**: 2025-01-18
 
 ---
@@ -99,18 +99,18 @@ This creates a poor user experience when visitors tap the ProfileCard on the Hom
 
 | ID                                               | Title                      | Status         | Tasks | Priority |
 | ------------------------------------------------ | -------------------------- | -------------- | ----- | -------- |
-| [US-021](../stories/US-021-profile-screen-ui.md) | Profile Screen UI Redesign | ⏳ In Progress | 0/4   | Medium   |
+| [US-021](../stories/US-021-profile-screen-ui.md) | Profile Screen UI Redesign | ⏳ In Progress | 3/4   | Medium   |
 
 ---
 
 ## Tasks
 
-| ID                                                                | Title                                      | Status      | Effort |
-| ----------------------------------------------------------------- | ------------------------------------------ | ----------- | ------ |
-| [TASK-105](../tasks/TASK-105-implement-profile-screen-ui.md)      | Implement ProfileScreen UI with sections   | Not Started | 2h     |
-| [TASK-106](../tasks/TASK-106-add-profile-i18n-translations.md)    | Add i18next translations (all 5 languages) | Not Started | 1h     |
-| [TASK-107](../tasks/TASK-107-write-profile-screen-tests.md)       | Write RNTL tests for ProfileScreen         | Not Started | 1.5h   |
-| [TASK-108](../tasks/TASK-108-add-profile-e2e-navigation-tests.md) | Add E2E tests for profile navigation       | Not Started | 1h     |
+| ID                                                                | Title                                      | Status         | Effort |
+| ----------------------------------------------------------------- | ------------------------------------------ | -------------- | ------ |
+| [TASK-105](../tasks/TASK-105-implement-profile-screen-ui.md)      | Implement ProfileScreen UI with sections   | ✅ Completed   | 2h     |
+| [TASK-106](../tasks/TASK-106-add-profile-i18n-translations.md)    | Add i18next translations (all 5 languages) | ✅ Completed   | 1.5h   |
+| [TASK-107](../tasks/TASK-107-write-profile-screen-tests.md)       | Write RNTL Tests for ProfileScreen         | ✅ Completed   | 1.5h   |
+| [TASK-108](../tasks/TASK-108-add-profile-e2e-navigation-tests.md) | Add E2E Tests for Profile Navigation       | 📋 Not Started | 1h     |
 
 **Total Effort**: 5.5 hours
 
@@ -197,16 +197,23 @@ Use MaterialCommunityIcons (consistent with existing screens):
 
 ## Progress Tracking
 
-**Overall Progress**: 0/4 tasks (0%)
+**Overall Progress**: 3/4 tasks (75%)
 
-**Next Steps**:
+**Completed**:
 
-1. ✅ Create EPIC-012 file
-2. Create US-021 user story file
-3. Create TASK-105, 106, 107, 108 task files
-4. Update README.md with ticket entries
-5. Commit ticket files
-6. Start implementation
+1. ✅ TASK-105: ProfileScreen UI implemented with iOS 16 Contacts design pattern
+2. ✅ TASK-106: i18n translations added for all 5 languages (en, es, ca, pl, tl)
+3. ✅ TASK-107: Comprehensive RNTL tests (471 lines, 100% coverage)
+
+**Pending**: 4. 📋 TASK-108: E2E navigation tests (Home → Profile flow) - NOT STARTED
+
+**Implementation Details**:
+
+- ProfileScreen.tsx: 447 lines with sections for personal info, contact, location, and social media
+- Full EAA compliance with accessibility props on all interactive elements
+- Dark mode support with theme-aware colours
+- Redux integration with loading/error/empty states
+- All tests passing with full coverage
 
 ---
 
@@ -224,6 +231,17 @@ Use MaterialCommunityIcons (consistent with existing screens):
 
 Renamed from ProfileDataScreen → ProfileScreen for cleaner naming (Data suffix unnecessary).
 
+**2025-11-18**: ProfileScreen mostly complete (75%) with:
+
+- ✅ iOS 16 Contacts-style UI design (carousel background, rounded card)
+- ✅ Contact info section (phone, email with mailto:/tel: links, birthday)
+- ✅ Social media icons (Facebook, Twitter, Instagram, LinkedIn)
+- ✅ Full i18n support for all 5 languages
+- ✅ 471 lines of RNTL tests achieving 100% coverage
+- ❌ E2E tests for navigation flow (TASK-108 not started)
+- ✅ Complete EAA compliance with accessibility props
+- ✅ Dark mode support
+
 ---
 
-**Last Updated**: 2025-01-17
+**Last Updated**: 2025-11-18

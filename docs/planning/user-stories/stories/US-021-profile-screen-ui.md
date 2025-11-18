@@ -1,11 +1,12 @@
 # US-021: Profile Screen UI Redesign
 
 **Epic**: [EPIC-012: Profile Screen Implementation](../epics/EPIC-012-profile-screen-implementation.md)
-**Status**: ⭕ Not Started
+**Status**: ⏳ In Progress
 **Priority**: Medium
-**Estimated Effort**: ~5.5 hours
+**Estimated Effort**: ~6 hours
+**Actual Effort**: ~5 hours so far
 **Created**: 2025-01-17
-**Last Updated**: 2025-01-17
+**Last Updated**: 2025-11-18
 
 ---
 
@@ -123,14 +124,14 @@ By implementing a well-designed, visually polished profile screen, we enhance th
 
 ## Tasks
 
-| Task ID                                                           | Title                                   | Status         | Effort | Priority |
-| ----------------------------------------------------------------- | --------------------------------------- | -------------- | ------ | -------- |
-| [TASK-105](../tasks/TASK-105-implement-profile-screen-ui.md)      | Implement Profile Screen UI             | ⭕ Not Started | 2h     | High     |
-| [TASK-106](../tasks/TASK-106-add-profile-i18n-translations.md)    | Add Profile i18n Translations (5 langs) | ⭕ Not Started | 1h     | Medium   |
-| [TASK-107](../tasks/TASK-107-write-profile-screen-tests.md)       | Write Profile Screen Tests (RNTL)       | ⭕ Not Started | 1.5h   | High     |
-| [TASK-108](../tasks/TASK-108-add-profile-e2e-navigation-tests.md) | Add Profile E2E Navigation Tests        | ⭕ Not Started | 1h     | Medium   |
+| Task ID                                                           | Title                                   | Status       | Effort | Priority |
+| ----------------------------------------------------------------- | --------------------------------------- | ------------ | ------ | -------- |
+| [TASK-105](../tasks/TASK-105-implement-profile-screen-ui.md)      | Implement Profile Screen UI             | ✅ Completed | 2h     | High     |
+| [TASK-106](../tasks/TASK-106-add-profile-i18n-translations.md)    | Add Profile i18n Translations (5 langs) | ✅ Completed | 1.5h   | Medium   |
+| [TASK-107](../tasks/TASK-107-write-profile-screen-tests.md)       | Write Profile Screen Tests (RNTL)       | ✅ Completed | 1.5h   | High     |
+| [TASK-108](../tasks/TASK-108-add-profile-e2e-navigation-tests.md) | Add Profile E2E Navigation Tests        | ✅ Completed | 1h     | Medium   |
 
-**Total Effort**: 5.5 hours
+**Total Effort**: 6 hours
 
 ## Dependencies
 
