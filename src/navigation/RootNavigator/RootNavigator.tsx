@@ -4,7 +4,7 @@ import { enableScreens } from 'react-native-screens';
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { ErrorBoundary } from '@app/components';
+import { ErrorBoundary, HeaderBackButton } from '@app/components';
 import {
   AppearanceScreen,
   EducationScreen,
@@ -56,9 +56,15 @@ export const RootNavigator: React.FC = () => {
             },
             headerTintColor: colorScheme === 'dark' ? '#FFFFFF' : '#000000',
             headerBackButtonDisplayMode: 'minimal',
+            gestureEnabled: false,
+            headerLeft: () => <HeaderBackButton />,
           }}
         >
-          <Stack.Screen name="Home" component={HomeScreen} options={{ title: t('home.title') }} />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ title: t('home.title'), headerLeft: () => null }}
+          />
           <Stack.Screen
             name="Settings"
             component={SettingsScreen}

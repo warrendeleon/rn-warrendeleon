@@ -2,6 +2,7 @@ export * from './ButtonGroup';
 export * from './ButtonGroupDivider';
 export * from './DetailListGroup';
 export * from './ErrorBoundary';
+export * from './HeaderBackButton';
 export * from './Logo';
 export * from './PickerGroup';
 export * from './PickerItem';

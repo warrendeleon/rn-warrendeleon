@@ -52,6 +52,14 @@ When('I wait for {int} seconds', async function (this: DetoxWorld, seconds: numb
   await new Promise(resolve => setTimeout(resolve, seconds * 1000));
 });
 
+When('I go back', async function (this: DetoxWorld) {
+  // Navigate back using custom header back button with testID
+  await waitFor(element(by.id('header-back-button')))
+    .toBeVisible()
+    .withTimeout(5000);
+  await element(by.id('header-back-button')).tap();
+});
+
 When(
   'I dismiss the React Native error screen',
   { timeout: 30000 },
