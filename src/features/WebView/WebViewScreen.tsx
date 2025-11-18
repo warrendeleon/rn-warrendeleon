@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
 import RNWebView from 'react-native-webview';
 import { Box, Spinner, Text } from '@gluestack-ui/themed';
 import { type RouteProp, useRoute } from '@react-navigation/native';
@@ -81,13 +80,16 @@ export const WebViewScreen = () => {
   if (!isValidUrl && !error) {
     return (
       <Box
-        style={styles.centerContainer}
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        p="$5"
         testID="webview-loading"
         accessibilityRole="progressbar"
         accessibilityLabel="Validating URL"
       >
         <Spinner size="large" color={isDark ? '$white' : '$black'} />
-        <Text style={[styles.messageText, { color: isDark ? '#FFFFFF' : '#000000' }]}>
+        <Text mt="$4" fontSize="$md" textAlign="center" color={isDark ? '$white' : '$black'}>
           Validating URL...
         </Text>
       </Box>
@@ -98,13 +100,31 @@ export const WebViewScreen = () => {
   if (error) {
     return (
       <Box
-        style={styles.centerContainer}
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        p="$5"
         testID="webview-error"
         accessibilityRole="alert"
         accessibilityLabel={error}
       >
-        <Text style={[styles.errorText, { color: isDark ? '#FF6B6B' : '#D32F2F' }]}>{error}</Text>
-        <Text style={[styles.urlText, { color: isDark ? '#C9D1D9' : '#555555' }]}>{url}</Text>
+        <Text
+          fontSize="$lg"
+          fontWeight="$semibold"
+          textAlign="center"
+          mb="$3"
+          color={isDark ? '$red400' : '$red600'}
+        >
+          {error}
+        </Text>
+        <Text
+          fontSize="$sm"
+          textAlign="center"
+          fontStyle="italic"
+          color={isDark ? '$coolGray300' : '$coolGray600'}
+        >
+          {url}
+        </Text>
       </Box>
     );
   }
@@ -121,28 +141,3 @@ export const WebViewScreen = () => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  centerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  messageText: {
-    marginTop: 16,
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  errorText: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: 12,
-  },
-  urlText: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontStyle: 'italic',
-  },
-});

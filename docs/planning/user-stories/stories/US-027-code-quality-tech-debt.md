@@ -250,7 +250,7 @@ And MockStatusScreen comments should reference Metro runtime mocking
 | [TASK-135](../tasks/TASK-135-implement-todo-handlers.md)    | Implement or Remove TODO Handlers    | 2h     | 🟡 Medium | 📋 Not Started |
 | [TASK-136](../tasks/TASK-136-remove-msw-devdependency.md)   | Remove MSW from devDependencies      | 0.5h   | 🟡 Medium | 📋 Not Started |
 | [TASK-137](../tasks/TASK-137-update-mockstatus-comments.md) | Update MockStatusScreen Comments     | 0.25h  | 🟡 Medium | 📋 Not Started |
-| [TASK-138](../tasks/TASK-138-standardize-gluestack-ui.md)   | Standardize on GlueStack UI Patterns | 3h     | 🟡 Medium | 📋 Not Started |
+| [TASK-138](../tasks/TASK-138-standardize-gluestack-ui.md)   | Standardize on GlueStack UI Patterns | 3h     | 🟡 Medium | ✅ Completed   |
 
 **Total Tasks**: 6
 **Total Effort**: 10.75 hours
