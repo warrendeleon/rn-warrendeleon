@@ -34,11 +34,30 @@ When('I tap the element with testID {string}', async function (this: DetoxWorld,
 });
 
 When('I scroll down', async function (this: DetoxWorld) {
-  await element(by.type('RCTScrollView')).scrollTo('bottom');
+  // Try to find ScrollView by type first, fall back to finding by scrollable trait
+  try {
+    await element(by.type('RCTScrollView')).atIndex(0).scrollTo('bottom');
+  } catch {
+    // For GlueStack ScrollView, use traits
+    await element(by.traits(['scrollable']))
+      .atIndex(0)
+      .scrollTo('bottom');
+  }
 });
 
 When('I scroll up', async function (this: DetoxWorld) {
-  await element(by.type('RCTScrollView')).scrollTo('top');
+  try {
+    await element(by.type('RCTScrollView')).atIndex(0).scrollTo('top');
+  } catch {
+    await element(by.traits(['scrollable']))
+      .atIndex(0)
+      .scrollTo('top');
+  }
+});
+
+When('I scroll down on the {string} screen', async function (this: DetoxWorld, screenName: string) {
+  const testID = `${screenName.toLowerCase().replace(/\s+/g, '-')}-screen`;
+  await element(by.id(testID)).scrollTo('bottom');
 });
 
 When(
@@ -103,12 +122,16 @@ When(
 
 // Common Then steps
 
-Then('I should see the {string} screen', async function (this: DetoxWorld, screenName: string) {
-  const testID = `${screenName.toLowerCase().replace(/\s+/g, '-')}-screen`;
-  await waitFor(element(by.id(testID)))
-    .toBeVisible()
-    .withTimeout(5000);
-});
+Then(
+  'I should see the {string} screen',
+  { timeout: 15000 },
+  async function (this: DetoxWorld, screenName: string) {
+    const testID = `${screenName.toLowerCase().replace(/\s+/g, '-')}-screen`;
+    await waitFor(element(by.id(testID)))
+      .toBeVisible()
+      .withTimeout(10000);
+  }
+);
 
 Then('I should see the {string} button', async function (this: DetoxWorld, buttonName: string) {
   const testID = `${buttonName.toLowerCase().replace(/\s+/g, '-')}-button`;

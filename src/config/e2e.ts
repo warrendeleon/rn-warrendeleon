@@ -1,7 +1,8 @@
 /**
  * E2E Configuration
- * Determines if E2E mocking is enabled based on build-time environment variable
- * process.env.E2E_MOCK is transformed at build time by babel-plugin-transform-inline-environment-variables
+ * Determines if E2E mocking is enabled based on react-native-config
  */
 
-export const isE2EMockEnabled = process.env.E2E_MOCK === 'true';
+import { E2E_MOCK } from './env';
+
+export const isE2EMockEnabled = E2E_MOCK === 'true';

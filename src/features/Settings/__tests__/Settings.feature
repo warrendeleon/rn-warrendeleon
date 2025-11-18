@@ -6,6 +6,11 @@ Feature: Settings Management
   Background:
     Given the app is launched
     And I am on the "Home" screen
+    # Reset language to English at start of each test to avoid test isolation issues
+    When I tap the "home-settings" button
+    And I tap the element with testID "settings-language-button"
+    And I tap the element with testID "language-option-en"
+    And I go back
 
   Scenario: Change appearance to Dark mode
     When I tap the "home-settings" button

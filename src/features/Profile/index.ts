@@ -1,4 +1,3 @@
-export { ProfileDataScreen } from './ProfileDataScreen';
 export { ProfileScreen } from './ProfileScreen';
 export type { ProfileState } from './store';
 export {

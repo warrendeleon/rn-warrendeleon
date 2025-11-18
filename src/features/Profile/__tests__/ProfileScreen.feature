@@ -30,12 +30,9 @@ Feature: Profile Screen Navigation and Interactions
     # Note: Cannot test actual email app opening in E2E
     # Test validates button is tappable and has proper accessibility
 
-  Scenario: Navigate to social media via WebView
+  Scenario: View profile birthday information
     When I tap the element with testID "profile-card"
     Then I should see the "Profile" screen
-    When I tap the element with testID "profile-social-linkedin"
-    Then I should see the "WebView" screen
-    # Note: Cannot test actual web page content rendering
-    # Test validates navigation and URL parameter passing
+    And I should see the element with testID "profile-birthday"
     When I go back
-    Then I should see the "Profile" screen
+    Then I should see the "Home" screen

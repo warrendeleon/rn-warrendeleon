@@ -268,7 +268,7 @@ export const ProfileScreen: React.FC = () => {
   }
 
   return (
-    <Box testID="profile-screen" style={[styles.container, { backgroundColor }]}>
+    <Box style={[styles.container, { backgroundColor }]}>
       {/* Fixed Background Image */}
       <Box
         style={[styles.backgroundImageContainer, { height: CAROUSEL_HEIGHT, width: WINDOW_WIDTH }]}
@@ -296,6 +296,7 @@ export const ProfileScreen: React.FC = () => {
         flex={1}
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
+        testID="profile-screen"
       >
         {/* Spacer to push content below background image */}
         <Box style={{ height: CAROUSEL_HEIGHT - 20 }} />

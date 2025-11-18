@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { CheckCircle, XCircle } from 'lucide-react-native';
 
+import { E2E_MOCK } from '@app/config/env.ts';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootState } from '@app/store';
 import { useAppSelector } from '@app/store';
@@ -68,7 +69,7 @@ export const MockStatusScreen: React.FC = () => {
           color={labelColor}
           accessibilityRole="header"
         >
-          API Mock Status
+          API Mock Status {E2E_MOCK}
         </Text>
         <Text mb="$6" fontSize="$sm" color={labelColor}>
           Verifies whether API responses are being intercepted and mocked by MSW during E2E tests.

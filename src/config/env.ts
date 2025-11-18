@@ -6,12 +6,14 @@ export type AppEnv = (typeof APP_ENV_VALUES)[number];
 export interface EnvConfig {
   APP_ENV: AppEnv;
   API_URL: string;
+  E2E_MOCK: string;
 }
 
 const validateEnv = (): EnvConfig => {
-  const { APP_ENV, API_URL } = Config as {
+  const { APP_ENV, API_URL, E2E_MOCK } = Config as {
     APP_ENV?: string;
     API_URL?: string;
+    E2E_MOCK?: string;
   };
 
   if (!APP_ENV) {
@@ -31,6 +33,7 @@ const validateEnv = (): EnvConfig => {
   return {
     APP_ENV: APP_ENV as AppEnv,
     API_URL,
+    E2E_MOCK: E2E_MOCK || 'false',
   };
 };
 
@@ -47,7 +50,7 @@ export const getEnv = (): EnvConfig => {
 export const env = getEnv();
 
 // Convenient named exports
-export const { APP_ENV, API_URL } = env;
+export const { APP_ENV, API_URL, E2E_MOCK } = env;
 
 // Optional default export for flexibility
 export default env;

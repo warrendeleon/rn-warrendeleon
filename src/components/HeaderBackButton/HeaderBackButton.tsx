@@ -23,7 +23,6 @@ export const HeaderBackButton: React.FC = React.memo(() => {
       accessibilityLabel="Go back"
       accessibilityHint="Returns to the previous screen"
       hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-      style={{ marginLeft: -8 }}
     >
       <MaterialCommunityIcons name="chevron-left" size={32} color={iconColor} />
     </Pressable>

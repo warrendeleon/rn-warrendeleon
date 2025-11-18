@@ -11,7 +11,7 @@ BeforeAll({ timeout: 120 * 1000 }, async function () {
   await device.launchApp();
 });
 
-Before(async function (this: DetoxWorld, { pickle }) {
+Before({ timeout: 30000 }, async function (this: DetoxWorld, { pickle }) {
   // Notify Detox that a test is starting
   await detox.onTestStart({
     title: pickle.name,

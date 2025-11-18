@@ -17,6 +17,13 @@ jest.mock('nativewind', () => ({
   cssInterop: jest.fn(),
 }));
 
+// Mock react-native-config
+jest.mock('react-native-config', () => ({
+  APP_ENV: 'development',
+  API_URL: 'https://raw.githubusercontent.com/warrendeleon/warrendeleon/main/api',
+  E2E_MOCK: 'false',
+}));
+
 // Mock react-native-worklets
 jest.mock('react-native-worklets', () => ({
   useWorklet: jest.fn(fn => fn),
