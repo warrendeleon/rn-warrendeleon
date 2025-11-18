@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dimensions, Linking, StyleSheet } from 'react-native';
+import { Linking, StyleSheet, useWindowDimensions } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Avatar,
@@ -164,7 +164,7 @@ export const ProfileScreen: React.FC = () => {
   const loading = useAppSelector(selectProfileLoading);
   const error = useAppSelector(selectProfileError);
 
-  const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('window');
+  const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = useWindowDimensions();
   const CAROUSEL_HEIGHT = WINDOW_HEIGHT * 0.4;
 
   const backgroundColor = isDark ? '#000000' : '#F2F2F7';
@@ -269,7 +269,9 @@ export const ProfileScreen: React.FC = () => {
   return (
     <Box testID="profile-screen" style={[styles.container, { backgroundColor }]}>
       {/* Fixed Background Image */}
-      <Box style={[styles.backgroundImageContainer, { height: CAROUSEL_HEIGHT }]}>
+      <Box
+        style={[styles.backgroundImageContainer, { height: CAROUSEL_HEIGHT, width: WINDOW_WIDTH }]}
+      >
         {carouselImage ? (
           <Image
             source={{ uri: carouselImage }}
@@ -422,7 +424,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    width: Dimensions.get('window').width,
   },
   centeredContent: {
     flex: 1,
