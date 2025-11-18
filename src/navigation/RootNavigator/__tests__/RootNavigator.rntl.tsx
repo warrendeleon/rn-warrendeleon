@@ -5,6 +5,19 @@ import { renderWithProviders } from '@app/test-utils/renderWithProviders';
 import { RootNavigator } from '../RootNavigator';
 
 describe('RootNavigator', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    // Suppress console.error during tests to avoid noise from React Navigation initialization
+    // These errors are expected as screens using navigation hooks (useRoute, useNavigation)
+    // are mounted during test setup before the navigator is fully initialized
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   it('renders without crashing', () => {
     expect(() => renderWithProviders(<RootNavigator />)).not.toThrow();
   });
