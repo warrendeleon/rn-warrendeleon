@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import Pdf from 'react-native-pdf';
 import Share from 'react-native-share';
+import { styled } from '@gluestack-style/react';
+import { Box, Pressable, Spinner, Text } from '@gluestack-ui/themed';
 import { type RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { Share2 } from 'lucide-react-native';
 
@@ -10,6 +12,9 @@ import { ALLOWED_PDF_DOMAINS } from '@app/config/constants';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { isUrlAllowed } from '@app/utils/urlValidator';
+
+// Wrap react-native-pdf with styled() for GlueStack UI consistency
+const StyledPDF = styled(Pdf, {}, { componentName: 'StyledPDF' });
 
 type PDFScreenRouteProp = RouteProp<RootStackParamList, 'PDF'>;
 
@@ -72,22 +77,26 @@ export const PDFScreen = () => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity
+        <Pressable
           testID="pdf-share-button"
           onPress={handleShare}
-          style={styles.shareButton}
-          activeOpacity={0.7}
+          ml="$1"
+          h="$6"
+          w="$6"
+          justifyContent="center"
+          alignItems="center"
           disabled={isSharing}
+          accessibilityRole="button"
+          accessibilityLabel="Share PDF"
+          accessibilityHint="Opens share dialog to share the PDF document"
+          accessibilityState={{ disabled: isSharing }}
         >
           {isSharing ? (
-            <ActivityIndicator
-              size="small"
-              color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'}
-            />
+            <Spinner size="small" color={colorScheme === 'dark' ? '$white' : '$black'} />
           ) : (
             <Share2 size={24} color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'} />
           )}
-        </TouchableOpacity>
+        </Pressable>
       ),
     });
   }, [navigation, handleShare, colorScheme, isSharing]);
@@ -95,72 +104,64 @@ export const PDFScreen = () => {
   // Show loading state while validating
   if (!isValidUrl && !error) {
     return (
-      <View
-        style={styles.centerContainer}
+      <Box
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        p="$5"
         testID="pdf-loading"
         accessibilityRole="progressbar"
         accessibilityLabel="Validating PDF URL"
       >
-        <ActivityIndicator size="large" color={isDark ? '#FFFFFF' : '#000000'} />
-        <Text style={[styles.messageText, { color: isDark ? '#FFFFFF' : '#000000' }]}>
+        <Spinner size="large" color={isDark ? '$white' : '$black'} />
+        <Text mt="$4" fontSize="$md" textAlign="center" color={isDark ? '$white' : '$black'}>
           Validating PDF URL...
         </Text>
-      </View>
+      </Box>
     );
   }
 
   // Show error state if URL is not allowed
   if (error) {
     return (
-      <View
-        style={styles.centerContainer}
+      <Box
+        flex={1}
+        justifyContent="center"
+        alignItems="center"
+        p="$5"
         testID="pdf-error"
         accessibilityRole="alert"
         accessibilityLabel={error}
       >
-        <Text style={[styles.errorText, { color: isDark ? '#FF6B6B' : '#D32F2F' }]}>{error}</Text>
-        <Text style={[styles.urlText, { color: isDark ? '#C9D1D9' : '#555555' }]}>{url}</Text>
-      </View>
+        <Text
+          fontSize="$lg"
+          fontWeight="$semibold"
+          textAlign="center"
+          mb="$3"
+          color={isDark ? '$error400' : '$error600'}
+        >
+          {error}
+        </Text>
+        <Text
+          fontSize="$sm"
+          textAlign="center"
+          fontStyle="italic"
+          color={isDark ? '$coolGray300' : '$coolGray600'}
+        >
+          {url}
+        </Text>
+      </Box>
     );
   }
 
   // Render PDF only if URL is valid
-  return <Pdf source={{ uri: url, cache: true }} style={styles.pdf} trustAllCerts={false} />;
+  return (
+    <StyledPDF
+      source={{ uri: url, cache: true }}
+      flex={1}
+      w="$full"
+      h="$full"
+      trustAllCerts={false}
+    />
+  );
 };
-
-const styles = StyleSheet.create({
-  pdf: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-  },
-  shareButton: {
-    marginLeft: 5,
-    height: 24,
-    width: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  centerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  messageText: {
-    marginTop: 16,
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  errorText: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: 12,
-  },
-  urlText: {
-    fontSize: 14,
-    textAlign: 'center',
-    fontStyle: 'italic',
-  },
-});
