@@ -416,6 +416,8 @@ export const ProfileScreen: React.FC = () => {
   );
 };
 
+// StyleSheet.create used for complex layout with absolute positioning and responsive design
+// Justification: Combines RN layout primitives (flex, position) with dynamic dimensions (useWindowDimensions)
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -163,3 +163,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+
+// StyleSheet.create used for platform-specific hairlineWidth dividers (line 149)
+// Justification: StyleSheet.hairlineWidth provides optimal 1px divider across platforms

@@ -76,6 +76,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   );
 };
 
+// StyleSheet.create used for core layout container and fixed dimensions
+// Justification: Pure RN View layout with no GlueStack equivalent needed
 const styles = StyleSheet.create({
   container: {
     flex: 1,
