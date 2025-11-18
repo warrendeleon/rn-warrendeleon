@@ -78,18 +78,6 @@ export const HomeScreen: React.FC = () => {
     handleCVPress(navigation);
   }, [navigation]);
 
-  const handleVideos = useCallback(() => {
-    // TODO: Add Videos handler
-  }, []);
-
-  const handleContact = useCallback(() => {
-    // TODO: Add Contact handler
-  }, []);
-
-  const handleBookMeeting = useCallback(() => {
-    // TODO: Add Meeting booking handler
-  }, []);
-
   const handleGitHub = useCallback(() => {
     handleGitHubPress(navigation);
   }, [navigation]);
@@ -117,35 +105,8 @@ export const HomeScreen: React.FC = () => {
         startIconBgColor: '#00BCD4',
         testID: 'home-cv-button',
       },
-      {
-        label: t('home.videos'),
-        onPress: handleVideos,
-        startIcon: createIconComponent('youtube'),
-        startIconBgColor: '#FF0000',
-        testID: 'home-videos-button',
-      },
     ],
-    [t, handleWorkPress, handleEducation, handleCV, handleVideos]
-  );
-
-  const contactItems: SettingsGroupItem[] = useMemo(
-    () => [
-      {
-        label: t('home.contactMe'),
-        onPress: handleContact,
-        startIcon: createIconComponent('message-text'),
-        startIconBgColor: '#34C759',
-        testID: 'home-contact-button',
-      },
-      {
-        label: t('home.bookMeeting'),
-        onPress: handleBookMeeting,
-        startIcon: createIconComponent('calendar'),
-        startIconBgColor: '#FF9500',
-        testID: 'home-book-meeting-button',
-      },
-    ],
-    [t, handleContact, handleBookMeeting]
+    [t, handleWorkPress, handleEducation, handleCV]
   );
 
   const settingsItems: SettingsGroupItem[] = useMemo(
@@ -202,22 +163,6 @@ export const HomeScreen: React.FC = () => {
           Work & Learning
         </Text>
         <SettingsGroup items={workLearningItems} />
-      </Box>
-
-      <Box mt="$6">
-        <Text
-          mb="$3"
-          pt="$1"
-          fontSize="$xs"
-          fontWeight="$semibold"
-          textTransform="uppercase"
-          lineHeight="$sm"
-          color="$coolGray500"
-          accessibilityRole="header"
-        >
-          Contact
-        </Text>
-        <SettingsGroup items={contactItems} />
       </Box>
 
       <Box mt="$6">
