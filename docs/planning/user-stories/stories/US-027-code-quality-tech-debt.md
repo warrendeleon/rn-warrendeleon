@@ -3,7 +3,7 @@
 **Story ID**: US-027
 **Title**: Code Quality & Technical Debt Cleanup
 **Epic**: [EPIC-014: Performance & Quality Phase 2](../epics/EPIC-014-performance-quality-phase-2.md)
-**Status**: ✅ Complete
+**Status**: ✅ Done
 **Priority**: 🟡 Medium
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon

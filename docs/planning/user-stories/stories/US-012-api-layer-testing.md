@@ -3,7 +3,7 @@
 **Story ID**: US-012
 **Title**: API Layer Unit Testing
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
-**Status**: Completed
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-11-15
 **Updated**: 2025-11-15

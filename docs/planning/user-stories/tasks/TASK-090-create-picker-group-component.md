@@ -4,7 +4,7 @@
 **Title**: Create PickerGroup Component (renamed from SelectableButtonGroup)
 **Epic**: [EPIC-011: Component Naming Clarity](../epics/EPIC-011-component-naming-clarity.md)
 **User Story**: [US-020: Refactor Button Group Component Names](../stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md)
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -51,11 +51,11 @@ Create new `PickerGroup` component as a renamed version of `SelectableButtonGrou
 
 ## Acceptance Criteria
 
-- [ ] `PickerGroup.tsx` created with exact same functionality as `SelectableButtonGroup`
-- [ ] All props/types renamed (`PickerGroupProps`, `PickerGroupItem`)
-- [ ] Test file created and all tests pass
-- [ ] TypeScript compilation passes (`yarn typecheck`)
-- [ ] Test coverage maintained (run `yarn test PickerGroup`)
+- [x] `PickerGroup.tsx` created with exact same functionality as `SelectableButtonGroup`
+- [x] All props/types renamed (`PickerGroupProps`, `PickerGroupItem`)
+- [x] Test file created and all tests pass
+- [x] TypeScript compilation passes (`yarn typecheck`)
+- [x] Test coverage maintained (run `yarn test PickerGroup`)
 
 ---
 

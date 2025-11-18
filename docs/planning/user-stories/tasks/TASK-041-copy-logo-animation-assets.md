@@ -4,7 +4,7 @@
 **Title**: Copy Logo Animation Assets
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-008-splash-screen-with-loading](../stories/US-008-splash-screen-with-loading.md)
-**Status**: Done
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -20,10 +20,10 @@ Copy black.json and white.json Lottie animations from old repo.
 
 ## Acceptance Criteria
 
-- [ ] src/assets/animations/logo/ folder created
-- [ ] black.json copied (dark theme)
-- [ ] white.json copied (light theme)
-- [ ] Animations validate
+- [x] src/assets/animations/logo/ folder created
+- [x] black.json copied (dark theme)
+- [x] white.json copied (light theme)
+- [x] Animations validate
 
 ---
 
@@ -43,9 +43,9 @@ Copy black.json and white.json Lottie animations from old repo.
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Tests passing
-- [ ] No regressions
+- [x] All acceptance criteria met
+- [x] Tests passing
+- [x] No regressions
 
 ---
 

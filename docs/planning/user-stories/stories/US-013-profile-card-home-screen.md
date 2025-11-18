@@ -3,7 +3,7 @@
 **Story ID**: US-013
 **Title**: Display User Profile Card on Home Screen
 **Epic**: [EPIC-007: Home Screen UI Redesign](../epics/EPIC-007-home-screen-redesign.md)
-**Status**: Completed
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-11-15
 **Updated**: 2025-11-15

@@ -1,6 +1,6 @@
 # EPIC-008: Document Viewing
 
-**Status**: ✅ Completed
+**Status**: ✅ Done
 **Priority**: Medium
 **Estimated Effort**: ~5.5 hours
 **Owner**: Portfolio App Team

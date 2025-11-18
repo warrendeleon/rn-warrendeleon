@@ -4,7 +4,7 @@
 **Title**: Create SplashScreen Component
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-008-splash-screen-with-loading](../stories/US-008-splash-screen-with-loading.md)
-**Status**: Done
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -20,13 +20,13 @@ Create SplashScreen component that dispatches data fetch actions and handles loa
 
 ## Acceptance Criteria
 
-- [ ] src/features/Splash/SplashScreen.tsx created
-- [ ] Dispatches getProfile, getWorkXP, getEducation
-- [ ] Shows Logo while loading
-- [ ] Handles error states
-- [ ] Navigates to Home on success
-- [ ] 4.5s minimum display time
-- [ ] Tests pass
+- [x] src/features/Splash/SplashScreen.tsx created
+- [x] Dispatches getProfile, getWorkXP, getEducation
+- [x] Shows Logo while loading
+- [x] Handles error states
+- [x] Navigates to Home on success
+- [x] 4.5s minimum display time
+- [x] Tests pass
 
 ---
 
@@ -46,9 +46,9 @@ Create SplashScreen component that dispatches data fetch actions and handles loa
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Tests passing
-- [ ] No regressions
+- [x] All acceptance criteria met
+- [x] Tests passing
+- [x] No regressions
 
 ---
 

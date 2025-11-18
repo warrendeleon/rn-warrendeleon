@@ -4,7 +4,7 @@
 **Title**: Optimize Splash Screen Data Loading
 **Epic**: [EPIC-014: Performance & Quality Phase 2](../epics/EPIC-014-performance-quality-phase-2.md)
 **User Story**: [US-024: Performance Optimization Phase 2](../stories/US-024-performance-optimization-phase-2.md)
-**Status**: ✅ Complete
+**Status**: ✅ Done
 **Priority**: 🟠 High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon
@@ -48,11 +48,11 @@ const loadAppData = async () => {
 
 ## Acceptance Criteria
 
-- [ ] Data loads in parallel with Promise.all
-- [ ] Minimum 1.5s splash duration enforced
-- [ ] Splash closes when data ready (not fixed 4.5s)
-- [ ] Faster perceived app launch
-- [ ] All tests passing
+- [x] Data loads in parallel with Promise.all
+- [x] Minimum 1.5s splash duration enforced
+- [x] Splash closes when data ready (not fixed 4.5s)
+- [x] Faster perceived app launch
+- [x] All tests passing
 
 ---
 

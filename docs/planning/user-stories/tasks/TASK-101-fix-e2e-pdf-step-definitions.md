@@ -4,7 +4,7 @@
 **Title**: Fix PDF viewing E2E step definition mismatches (HomeScreen vs Home screen)
 **Epic**: N/A
 **User Story**: N/A
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -67,11 +67,11 @@ Given I am on the "Home" screen
 
 ## Acceptance Criteria
 
-- [ ] PDF viewing feature file updated with correct step syntax
-- [ ] Step definition pattern consistent across all features
-- [ ] All 4 PDF viewing scenarios pass
-- [ ] No similar mismatches exist in other feature files
-- [ ] `yarn detox:ios:test` passes for PDF viewing tests
+- [x] PDF viewing feature file updated with correct step syntax
+- [x] Step definition pattern consistent across all features
+- [x] All 4 PDF viewing scenarios pass
+- [x] No similar mismatches exist in other feature files
+- [x] `yarn detox:ios:test` passes for PDF viewing tests
 
 ---
 

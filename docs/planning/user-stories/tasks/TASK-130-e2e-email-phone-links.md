@@ -3,7 +3,7 @@
 **Task ID**: TASK-130  
 **Epic**: [EPIC-015](../epics/EPIC-015-testing-compliance-expansion.md)  
 **User Story**: [US-026](../stories/US-026-e2e-test-expansion.md)  
-**Status**: ✅ Complete  
+**Status**: ✅ Done
 **Priority**: 🟡 Medium  
 **Effort**: 2 hours
 
@@ -13,9 +13,9 @@ E2E test for email/phone links (test existence and tappability, not actual app l
 
 ## Acceptance Criteria
 
-- [ ] Test email button exists and is tappable
-- [ ] Test phone button exists and is tappable
-- [ ] Document limitation (cannot test mailto:/tel: app launch)
-- [ ] All tests passing
+- [x] Test email button exists and is tappable
+- [x] Test phone button exists and is tappable
+- [x] Document limitation (cannot test mailto:/tel: app launch)
+- [x] All tests passing
 
 **Last Updated**: 2025-01-17

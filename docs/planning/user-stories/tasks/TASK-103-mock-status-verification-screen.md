@@ -4,7 +4,7 @@
 **Title**: Add mock status verification screen for E2E testing
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
 **User Story**: [US-010: Data Layer Testing](../stories/US-010-data-layer-testing.md)
-**Status**: ✅ Completed
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-01-16
 **Completed**: 2025-01-16

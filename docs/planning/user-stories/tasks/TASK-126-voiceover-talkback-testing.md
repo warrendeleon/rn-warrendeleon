@@ -4,7 +4,7 @@
 **Title**: VoiceOver/TalkBack Testing Documentation
 **Epic**: [EPIC-015: Testing & Compliance Expansion](../epics/EPIC-015-testing-compliance-expansion.md)
 **User Story**: [US-025: EAA Compliance Completion](../stories/US-025-eaa-compliance-completion.md)
-**Status**: ✅ Complete
+**Status**: 📋 To Do
 **Priority**: 🟠 High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon

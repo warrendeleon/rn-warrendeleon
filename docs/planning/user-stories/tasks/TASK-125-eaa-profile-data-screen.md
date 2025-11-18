@@ -4,7 +4,7 @@
 **Title**: Add EAA Props to ProfileDataScreen
 **Epic**: [EPIC-015: Testing & Compliance Expansion](../epics/EPIC-015-testing-compliance-expansion.md)
 **User Story**: [US-025: EAA Compliance Completion](../stories/US-025-eaa-compliance-completion.md)
-**Status**: ✅ Complete
+**Status**: ✅ Done
 **Priority**: 🟠 High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon
@@ -48,12 +48,12 @@ ProfileDataScreen missing accessibilityRole and labels for Text elements. Must a
 
 ## Acceptance Criteria
 
-- [ ] All Text elements have accessibilityRole="text"
-- [ ] Loading/Error/Data states have appropriate labels
-- [ ] JSON text has descriptive accessibilityLabel
-- [ ] `/eaa-audit` passes for ProfileDataScreen
-- [ ] VoiceOver testing passes
-- [ ] All tests passing
+- [x] All Text elements have accessibilityRole="text"
+- [x] Loading/Error/Data states have appropriate labels
+- [x] JSON text has descriptive accessibilityLabel
+- [x] `/eaa-audit` passes for ProfileDataScreen
+- [x] VoiceOver testing passes
+- [x] All tests passing
 
 ---
 

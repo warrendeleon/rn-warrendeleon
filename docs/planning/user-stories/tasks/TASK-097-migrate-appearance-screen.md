@@ -4,7 +4,7 @@
 **Title**: Migrate AppearanceScreen to use PickerGroup
 **Epic**: [EPIC-011: Component Naming Clarity](../epics/EPIC-011-component-naming-clarity.md)
 **User Story**: [US-020: Refactor Button Group Component Names](../stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md)
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -34,10 +34,10 @@ Migrate `AppearanceScreen` from using `SelectableButtonGroup` to using `PickerGr
 
 ## Acceptance Criteria
 
-- [ ] AppearanceScreen imports `PickerGroup` instead of `SelectableButtonGroup`
-- [ ] All functionality preserved (theme selection with checkmarks)
-- [ ] Tests updated and passing
-- [ ] `yarn validate` passes
+- [x] AppearanceScreen imports `PickerGroup` instead of `SelectableButtonGroup`
+- [x] All functionality preserved (theme selection with checkmarks)
+- [x] Tests updated and passing
+- [x] `yarn validate` passes
 
 ---
 

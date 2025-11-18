@@ -4,7 +4,7 @@
 **Title**: Add @deprecated Tags to Old Components
 **Epic**: [EPIC-011: Component Naming Clarity](../epics/EPIC-011-component-naming-clarity.md)
 **User Story**: [US-020: Refactor Button Group Component Names](../stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md)
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -49,10 +49,12 @@ export const ChevronButtonGroup = ...
 
 ## Acceptance Criteria
 
-- [ ] All 5 old components have `@deprecated` JSDoc tags
-- [ ] Deprecation messages include new component name
-- [ ] TypeScript shows deprecation warnings when importing old components
-- [ ] `yarn validate` still passes (deprecation is warning, not error)
+- [x] All 5 old components have `@deprecated` JSDoc tags
+- [x] Deprecation messages include new component name
+- [x] TypeScript shows deprecation warnings when importing old components
+- [x] `yarn validate` still passes (deprecation is warning, not error)
+
+**Note**: Old components have been fully removed (TASK-099), so deprecation step was incorporated into removal.
 
 ---
 

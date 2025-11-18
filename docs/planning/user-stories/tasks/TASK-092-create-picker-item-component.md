@@ -4,7 +4,7 @@
 **Title**: Create PickerItem Component (renamed from SelectableListButton)
 **Epic**: [EPIC-011: Component Naming Clarity](../epics/EPIC-011-component-naming-clarity.md)
 **User Story**: [US-020: Refactor Button Group Component Names](../stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md)
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -41,11 +41,11 @@ Create new `PickerItem` component as a renamed version of `SelectableListButton`
 
 ## Acceptance Criteria
 
-- [ ] `PickerItem.tsx` created with exact same functionality as `SelectableListButton`
-- [ ] All props/types renamed (`PickerItemProps`)
-- [ ] Test file created and all tests pass
-- [ ] TypeScript compilation passes
-- [ ] Update `PickerGroup` to use `PickerItem` internally
+- [x] `PickerItem.tsx` created with exact same functionality as `SelectableListButton`
+- [x] All props/types renamed (`PickerItemProps`)
+- [x] Test file created and all tests pass
+- [x] TypeScript compilation passes
+- [x] Update `PickerGroup` to use `PickerItem` internally
 
 ---
 

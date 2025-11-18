@@ -3,7 +3,7 @@
 **Story ID**: US-023
 **Title**: Test Coverage Completion
 **Epic**: [EPIC-013: Production Readiness - Security & Testing](../epics/EPIC-013-production-readiness.md)
-**Status**: 📋 Not Started
+**Status**: 📋 To Do
 **Priority**: 🔴 Critical
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon

@@ -4,7 +4,7 @@
 **Title**: Integrate ProfileCard in HomeScreen
 **User Story**: [US-013: Profile Card on Home Screen](../stories/US-013-profile-card-home-screen.md)
 **Epic**: [EPIC-007: Home Screen UI Redesign](../epics/EPIC-007-home-screen-redesign.md)
-**Status**: Not Started
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-11-15
 **Effort Estimate**: 0.5 hours
@@ -19,13 +19,13 @@ Integrate the ProfileCard component at the top of the HomeScreen, above the butt
 
 ## Acceptance Criteria
 
-- [ ] ProfileCard imported in HomeScreen
-- [ ] Positioned above the button groups
-- [ ] Data passed from Redux selectProfile selector
-- [ ] Navigation to ProfileData screen on press
-- [ ] Proper spacing (16px margin bottom)
-- [ ] Renders correctly in light/dark theme
-- [ ] No layout shifts or flicker on load
+- [x] ProfileCard imported in HomeScreen
+- [x] Positioned above the button groups
+- [x] Data passed from Redux selectProfile selector
+- [x] Navigation to ProfileData screen on press
+- [x] Proper spacing (16px margin bottom)
+- [x] Renders correctly in light/dark theme
+- [x] No layout shifts or flicker on load
 
 ---
 

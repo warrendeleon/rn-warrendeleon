@@ -2,7 +2,7 @@
 
 **User Story ID**: US-018
 **Epic**: [EPIC-010: Work Experience Display Enhancement](../epics/EPIC-010-work-experience-display.md)
-**Status**: ✅ Completed
+**Status**: ✅ Done
 **Priority**: High
 **Estimated Effort**: 4-5 hours
 **Progress**: 4/4 tasks completed (100%)

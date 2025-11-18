@@ -4,7 +4,7 @@
 **Title**: Add Unit Tests for ProfileCard Component
 **User Story**: [US-013: Profile Card on Home Screen](../stories/US-013-profile-card-home-screen.md)
 **Epic**: [EPIC-007: Home Screen UI Redesign](../epics/EPIC-007-home-screen-redesign.md)
-**Status**: Not Started
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-11-15
 **Effort Estimate**: 1 hour
@@ -19,16 +19,16 @@ Write comprehensive unit tests for the ProfileCard component using React Native 
 
 ## Acceptance Criteria
 
-- [ ] Test file created at `src/components/ProfileCard/__tests__/ProfileCard.rntl.tsx`
-- [ ] Tests render component without crashing
-- [ ] Tests verify avatar displays with correct source
-- [ ] Tests verify name and lastName displayed correctly
-- [ ] Tests verify "View Profile" subtitle rendered
-- [ ] Tests verify chevron icon present
-- [ ] Tests verify onPress handler called when pressed
-- [ ] Tests verify component renders in both light/dark themes
-- [ ] All tests passing
-- [ ] Test coverage meets or exceeds project threshold
+- [x] Test file created at `src/components/ProfileCard/__tests__/ProfileCard.rntl.tsx`
+- [x] Tests render component without crashing
+- [x] Tests verify avatar displays with correct source
+- [x] Tests verify name and lastName displayed correctly
+- [x] Tests verify "View Profile" subtitle rendered
+- [x] Tests verify chevron icon present
+- [x] Tests verify onPress handler called when pressed
+- [x] Tests verify component renders in both light/dark themes
+- [x] All tests passing
+- [x] Test coverage meets or exceeds project threshold
 
 ---
 

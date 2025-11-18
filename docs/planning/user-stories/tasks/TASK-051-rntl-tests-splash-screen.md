@@ -4,7 +4,7 @@
 **Title**: RNTL Tests for Splash Screen
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-010-testing-coverage](../stories/US-010-testing-coverage.md)
-**Status**: Done
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon

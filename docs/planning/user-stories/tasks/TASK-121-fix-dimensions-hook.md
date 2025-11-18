@@ -4,7 +4,7 @@
 **Title**: Replace Dimensions.get() with useWindowDimensions
 **Epic**: [EPIC-014: Performance & Quality Phase 2](../epics/EPIC-014-performance-quality-phase-2.md)
 **User Story**: [US-024: Performance Optimization Phase 2](../stories/US-024-performance-optimization-phase-2.md)
-**Status**: ✅ Complete
+**Status**: ✅ Done
 **Priority**: 🟠 High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon
@@ -49,11 +49,11 @@ export const ProfileScreen: React.FC = () => {
 
 ## Acceptance Criteria
 
-- [ ] Dimensions.get() replaced with useWindowDimensions
-- [ ] Layout updates correctly on device rotation
-- [ ] Tested in portrait and landscape modes
-- [ ] No layout issues
-- [ ] All tests passing
+- [x] Dimensions.get() replaced with useWindowDimensions
+- [x] Layout updates correctly on device rotation
+- [x] Tested in portrait and landscape modes
+- [x] No layout issues
+- [x] All tests passing
 
 ---
 

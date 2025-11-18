@@ -3,7 +3,7 @@
 **Story ID**: US-026
 **Title**: E2E Test Coverage Expansion
 **Epic**: [EPIC-015: Testing & Compliance Expansion](../epics/EPIC-015-testing-compliance-expansion.md)
-**Status**: ✅ Complete
+**Status**: ✅ Done
 **Priority**: 🟡 Medium
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon

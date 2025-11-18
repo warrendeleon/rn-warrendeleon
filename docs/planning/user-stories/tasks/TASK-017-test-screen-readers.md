@@ -4,7 +4,7 @@
 **Title**: Manual Testing with VoiceOver and TalkBack
 **Epic**: [EPIC-003: Accessibility & Compliance](../epics/EPIC-003-accessibility-compliance.md)
 **User Story**: [US-003: Inclusive Screen Reader Support](../stories/US-003-inclusive-screen-reader-support.md)
-**Status**: Not Started
+**Status**: 📋 To Do
 **Priority**: High
 **Created**: 2025-01-11
 **Assigned To**: Warren de Leon

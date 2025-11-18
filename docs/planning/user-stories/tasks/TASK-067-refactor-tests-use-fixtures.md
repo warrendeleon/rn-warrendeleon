@@ -4,7 +4,7 @@
 **Title**: Refactor All Tests to Use Centralized Test Fixtures
 **User Story**: New - Quality Improvement
 **Epic**: [EPIC-002: Quality & Reliability](../epics/EPIC-002-quality-reliability.md)
-**Status**: Not Started
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-11-15
 **Effort Estimate**: 2 hours
@@ -33,12 +33,12 @@ Refactor all test files across the project to use the centralized test fixtures 
 
 ## Acceptance Criteria
 
-- [ ] All test files import fixtures from `@app/test-utils`
-- [ ] No inline mock data that duplicates fixture structure
-- [ ] Tests use `mockProfile`, `mockEducation`, `mockWorkXP` consistently
-- [ ] All tests still pass after refactoring
-- [ ] Test code is shorter and more readable
-- [ ] Documentation updated with fixture usage guidelines
+- [x] All test files import fixtures from `@app/test-utils`
+- [x] No inline mock data that duplicates fixture structure
+- [x] Tests use `mockProfile`, `mockEducation`, `mockWorkXP` consistently
+- [x] All tests still pass after refactoring
+- [x] Test code is shorter and more readable
+- [x] Documentation updated with fixture usage guidelines
 
 ---
 

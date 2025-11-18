@@ -2,7 +2,7 @@
 
 **Epic ID**: EPIC-003
 **Title**: Accessibility & Compliance - Inclusive Screen Reader Support
-**Status**: In Progress
+**Status**: ⏳ In Progress
 **Priority**: High
 **Created**: 2025-01-11
 **Owner**: Warren de Leon
@@ -153,12 +153,12 @@ By implementing WCAG 2.1 Level AA compliance:
 
 ## Tasks
 
-| ID                                                                 | Task                               | Status      | Effort | Priority |
-| ------------------------------------------------------------------ | ---------------------------------- | ----------- | ------ | -------- |
-| [TASK-014](../tasks/TASK-014-accessibility-button-with-chevron.md) | Accessibility ButtonWithChevron    | Completed   | 0.5h   | High     |
-| [TASK-015](../tasks/TASK-015-accessibility-selectable-list.md)     | Accessibility SelectableListButton | Completed   | 0.5h   | High     |
-| [TASK-016](../tasks/TASK-016-accessibility-all-screens.md)         | Accessibility All Screens          | Completed   | 0.5h   | High     |
-| [TASK-017](../tasks/TASK-017-test-screen-readers.md)               | Test VoiceOver and TalkBack        | Not Started | 0.5h   | High     |
+| ID                                                                 | Task                               | Status    | Effort | Priority |
+| ------------------------------------------------------------------ | ---------------------------------- | --------- | ------ | -------- |
+| [TASK-014](../tasks/TASK-014-accessibility-button-with-chevron.md) | Accessibility ButtonWithChevron    | Completed | 0.5h   | High     |
+| [TASK-015](../tasks/TASK-015-accessibility-selectable-list.md)     | Accessibility SelectableListButton | Completed | 0.5h   | High     |
+| [TASK-016](../tasks/TASK-016-accessibility-all-screens.md)         | Accessibility All Screens          | Completed | 0.5h   | High     |
+| [TASK-017](../tasks/TASK-017-test-screen-readers.md)               | Test VoiceOver and TalkBack        | 📋 To Do  | 0.5h   | High     |
 
 **Total Tasks**: 4
 **Total Effort**: 2 hours

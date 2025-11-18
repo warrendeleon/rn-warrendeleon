@@ -4,7 +4,7 @@
 **Title**: Add Unit Tests for Redux Layer
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-007-redux-data-layer](../stories/US-007-redux-data-layer.md)
-**Status**: Done
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon

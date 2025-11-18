@@ -4,7 +4,7 @@
 **Title**: Configure iOS Info.plist for 5 Languages
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-009-internationalization](../stories/US-009-internationalization.md)
-**Status**: Done
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon

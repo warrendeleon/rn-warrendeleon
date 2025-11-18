@@ -2,7 +2,7 @@
 
 **Epic**: [EPIC-008: Document Viewing](../epics/EPIC-008-document-viewing.md)
 **User Story**: [US-015: CV PDF Viewer](../stories/US-015-cv-pdf-viewer.md)
-**Status**: ⭕ Not Started
+**Status**: ✅ Done
 **Priority**: Medium
 **Estimated Effort**: 1.5 hours
 **Created**: 2025-11-15

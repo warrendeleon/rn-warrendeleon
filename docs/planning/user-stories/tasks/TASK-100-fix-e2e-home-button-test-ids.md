@@ -4,7 +4,7 @@
 **Title**: Fix E2E tests for renamed Home screen buttons (profile-data, workxp-data, education-data)
 **Epic**: N/A
 **User Story**: N/A
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -66,13 +66,13 @@ From `src/features/Home/HomeScreen.tsx`:
 
 ## Acceptance Criteria
 
-- [ ] All E2E feature files updated with correct button testIDs
-- [ ] All E2E step definitions updated with correct Detox selectors
-- [ ] E2E tests referencing old buttons either:
+- [x] All E2E feature files updated with correct button testIDs
+- [x] All E2E step definitions updated with correct Detox selectors
+- [x] E2E tests referencing old buttons either:
   - Updated to use equivalent existing buttons, OR
   - Removed if functionality no longer exists
-- [ ] All affected E2E scenarios pass
-- [ ] `yarn detox:ios:test` passes with 0 failures for updated tests
+- [x] All affected E2E scenarios pass
+- [x] `yarn detox:ios:test` passes with 0 failures for updated tests
 
 ---
 

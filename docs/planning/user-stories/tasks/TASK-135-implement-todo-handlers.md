@@ -3,7 +3,7 @@
 **Task ID**: TASK-135  
 **Epic**: [EPIC-014](../epics/EPIC-014-performance-quality-phase-2.md)  
 **User Story**: [US-027](../stories/US-027-code-quality-tech-debt.md)  
-**Status**: ✅ Complete  
+**Status**: ✅ Done
 **Priority**: 🟡 Medium  
 **Effort**: 2 hours
 
@@ -13,10 +13,10 @@ HomeScreen has TODO comments for handlers that should be implemented or removed.
 
 ## Acceptance Criteria
 
-- [ ] Audit all TODO comments in HomeScreen
-- [ ] Decide: implement or remove for each TODO
-- [ ] Document decisions in commit message
-- [ ] No TODO comments remain (or all are properly tracked)
-- [ ] All tests passing
+- [x] Audit all TODO comments in HomeScreen
+- [x] Decide: implement or remove for each TODO
+- [x] Document decisions in commit message
+- [x] No TODO comments remain (or all are properly tracked)
+- [x] All tests passing
 
 **Last Updated**: 2025-01-17

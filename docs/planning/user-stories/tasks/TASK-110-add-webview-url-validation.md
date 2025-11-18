@@ -4,7 +4,7 @@
 **Title**: Add WebView URL Validation
 **Epic**: [EPIC-013: Production Readiness - Security & Testing](../epics/EPIC-013-production-readiness.md)
 **User Story**: [US-022: Security Hardening](../stories/US-022-security-hardening.md)
-**Status**: 📋 Not Started
+**Status**: ✅ Done
 **Priority**: 🔴 Critical
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon
@@ -123,15 +123,15 @@ export const WebViewScreen: React.FC = () => {
 
 ## Acceptance Criteria
 
-- [ ] Domain whitelist defined in constants.ts
-- [ ] URL validator function created with HTTPS enforcement
-- [ ] WebViewScreen validates URLs before loading
-- [ ] Allowed domains load correctly
-- [ ] Blocked domains show error message
-- [ ] HTTP URLs rejected (only HTTPS allowed)
-- [ ] Invalid URLs rejected with error
-- [ ] Comprehensive test coverage (all scenarios)
-- [ ] All tests pass (100% coverage for validator)
+- [x] Domain whitelist defined in constants.ts
+- [x] URL validator function created with HTTPS enforcement
+- [x] WebViewScreen validates URLs before loading
+- [x] Allowed domains load correctly
+- [x] Blocked domains show error message
+- [x] HTTP URLs rejected (only HTTPS allowed)
+- [x] Invalid URLs rejected with error
+- [x] Comprehensive test coverage (all scenarios)
+- [x] All tests pass (100% coverage for validator)
 
 ---
 
@@ -197,12 +197,12 @@ And subdomains should be automatically allowed
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Code reviewed and approved
-- [ ] Tests written and passing (100% coverage for validator)
-- [ ] Documentation updated
-- [ ] No regressions
-- [ ] PR merged to main
+- [x] All acceptance criteria met
+- [x] Code reviewed and approved
+- [x] Tests written and passing (100% coverage for validator)
+- [x] Documentation updated
+- [x] No regressions
+- [x] PR merged to main
 
 ---
 

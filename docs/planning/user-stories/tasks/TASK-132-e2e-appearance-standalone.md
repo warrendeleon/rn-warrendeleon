@@ -3,7 +3,7 @@
 **Task ID**: TASK-132  
 **Epic**: [EPIC-015](../epics/EPIC-015-testing-compliance-expansion.md)  
 **User Story**: [US-026](../stories/US-026-e2e-test-expansion.md)  
-**Status**: ✅ Complete  
+**Status**: ✅ Done
 **Priority**: 🟡 Medium  
 **Effort**: 2 hours
 
@@ -13,11 +13,11 @@ E2E test for Appearance screen standalone flow (Settings → Appearance → Togg
 
 ## Acceptance Criteria
 
-- [ ] Cucumber scenario: Appearance screen standalone navigation
-- [ ] Test navigating to Appearance screen
-- [ ] Test toggling theme
-- [ ] Verify theme change applied
-- [ ] Test back navigation
-- [ ] All tests passing
+- [x] Cucumber scenario: Appearance screen standalone navigation
+- [x] Test navigating to Appearance screen
+- [x] Test toggling theme
+- [x] Verify theme change applied
+- [x] Test back navigation
+- [x] All tests passing
 
 **Last Updated**: 2025-01-17

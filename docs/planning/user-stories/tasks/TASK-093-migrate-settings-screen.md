@@ -4,7 +4,7 @@
 **Title**: Migrate SettingsScreen to use SettingsGroup
 **Epic**: [EPIC-011: Component Naming Clarity](../epics/EPIC-011-component-naming-clarity.md)
 **User Story**: [US-020: Refactor Button Group Component Names](../stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md)
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -48,11 +48,11 @@ import { SettingsGroup } from '@app/components/SettingsGroup';
 
 ## Acceptance Criteria
 
-- [ ] SettingsScreen imports `SettingsGroup` instead of `ChevronButtonGroup`
-- [ ] All functionality preserved (no behaviour changes)
-- [ ] Tests updated and passing
-- [ ] `yarn validate` passes
-- [ ] Visual inspection: Settings screen looks identical
+- [x] SettingsScreen imports `SettingsGroup` instead of `ChevronButtonGroup`
+- [x] All functionality preserved (no behaviour changes)
+- [x] Tests updated and passing
+- [x] `yarn validate` passes
+- [x] Visual inspection: Settings screen looks identical
 
 ---
 

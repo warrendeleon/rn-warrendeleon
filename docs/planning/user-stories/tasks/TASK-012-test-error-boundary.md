@@ -4,7 +4,7 @@
 **Title**: Test ErrorBoundary
 **Epic**: [EPIC-002: Quality & Reliability](../epics/EPIC-002-quality-reliability.md)
 **User Story**: [US-002: Graceful Error Handling](../stories/US-002-graceful-error-handling.md)
-**Status**: Completed
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-11
 **Assigned To**: Warren de Leon

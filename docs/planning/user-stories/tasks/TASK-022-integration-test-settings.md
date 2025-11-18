@@ -4,7 +4,7 @@
 **Title**: Add Integration Tests for Settings Flow
 **Epic**: [EPIC-002: Quality & Reliability](../epics/EPIC-002-quality-reliability.md)
 **User Story**: [US-004: Comprehensive Test Coverage](../stories/US-004-comprehensive-test-coverage.md)
-**Status**: Completed
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-01-11
 **Assigned To**: Warren de Leon

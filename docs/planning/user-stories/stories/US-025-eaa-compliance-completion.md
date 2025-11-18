@@ -3,7 +3,7 @@
 **Story ID**: US-025
 **Title**: EAA Compliance Completion
 **Epic**: [EPIC-015: Testing & Compliance Expansion](../epics/EPIC-015-testing-compliance-expansion.md)
-**Status**: ✅ Complete
+**Status**: ✅ Done
 **Priority**: 🟠 High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon

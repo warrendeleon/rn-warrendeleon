@@ -2,7 +2,7 @@
 
 **Epic**: [EPIC-010: Work Experience Display Enhancement](../epics/EPIC-010-work-experience-display.md)
 **User Story**: [US-018: Work Experience Redux State Management](../stories/US-018-work-experience-redux-state.md)
-**Status**: ✅ Completed
+**Status**: ✅ Done
 **Priority**: High
 **Estimated Effort**: 1.5 hours
 **Created**: 2025-11-16

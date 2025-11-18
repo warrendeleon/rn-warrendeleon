@@ -1,7 +1,7 @@
 # US-015: CV PDF Viewer
 
 **Epic**: [EPIC-008: Document Viewing](../epics/EPIC-008-document-viewing.md)
-**Status**: ✅ Completed
+**Status**: ✅ Done
 **Priority**: Medium
 **Estimated Effort**: ~5.5 hours
 **Created**: 2025-11-15

@@ -4,7 +4,7 @@
 **Title**: Create SettingsItem Component (renamed from ButtonWithChevron)
 **Epic**: [EPIC-011: Component Naming Clarity](../epics/EPIC-011-component-naming-clarity.md)
 **User Story**: [US-020: Refactor Button Group Component Names](../stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md)
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -41,11 +41,11 @@ Create new `SettingsItem` component as a renamed version of `ButtonWithChevron`.
 
 ## Acceptance Criteria
 
-- [ ] `SettingsItem.tsx` created with exact same functionality as `ButtonWithChevron`
-- [ ] All props/types renamed (`SettingsItemProps`)
-- [ ] Test file created and all tests pass
-- [ ] TypeScript compilation passes
-- [ ] Update `SettingsGroup` to use `SettingsItem` internally
+- [x] `SettingsItem.tsx` created with exact same functionality as `ButtonWithChevron`
+- [x] All props/types renamed (`SettingsItemProps`)
+- [x] Test file created and all tests pass
+- [x] TypeScript compilation passes
+- [x] Update `SettingsGroup` to use `SettingsItem` internally
 
 ---
 

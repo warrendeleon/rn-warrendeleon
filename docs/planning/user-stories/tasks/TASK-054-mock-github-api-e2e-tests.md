@@ -4,7 +4,7 @@
 **Title**: Mock GitHub API in E2E Tests
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-010-testing-coverage](../stories/US-010-testing-coverage.md)
-**Status**: Done
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -45,9 +45,9 @@ Configure E2E tests to use local fixtures instead of fetching from GitHub.
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Tests passing
-- [ ] No regressions
+- [x] All acceptance criteria met
+- [x] Tests passing
+- [x] No regressions
 
 ---
 

@@ -4,7 +4,7 @@
 **Title**: Create SettingsGroup Component (renamed from ChevronButtonGroup)
 **Epic**: [EPIC-011: Component Naming Clarity](../epics/EPIC-011-component-naming-clarity.md)
 **User Story**: [US-020: Refactor Button Group Component Names](../stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md)
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -67,13 +67,13 @@ src/components/SettingsGroup/
 
 ## Acceptance Criteria
 
-- [ ] `SettingsGroup.tsx` created with exact same functionality as `ChevronButtonGroup`
-- [ ] All props/types renamed (`SettingsGroupProps`, `SettingsGroupItem`)
-- [ ] Test file created and all tests pass
-- [ ] Barrel export created (`index.ts`)
-- [ ] TypeScript compilation passes (`yarn typecheck`)
-- [ ] ESLint passes (`yarn lint`)
-- [ ] Test coverage maintained (run `yarn test SettingsGroup`)
+- [x] `SettingsGroup.tsx` created with exact same functionality as `ChevronButtonGroup`
+- [x] All props/types renamed (`SettingsGroupProps`, `SettingsGroupItem`)
+- [x] Test file created and all tests pass
+- [x] Barrel export created (`index.ts`)
+- [x] TypeScript compilation passes (`yarn typecheck`)
+- [x] ESLint passes (`yarn lint`)
+- [x] Test coverage maintained (run `yarn test SettingsGroup`)
 
 ---
 
@@ -101,12 +101,12 @@ And autocomplete shows correct props
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Code written and follows project conventions
-- [ ] Tests written and passing
-- [ ] TypeScript compiles
-- [ ] ESLint passes
-- [ ] No regressions introduced
+- [x] All acceptance criteria met
+- [x] Code written and follows project conventions
+- [x] Tests written and passing
+- [x] TypeScript compiles
+- [x] ESLint passes
+- [x] No regressions introduced
 
 ---
 

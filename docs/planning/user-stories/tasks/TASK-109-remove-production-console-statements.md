@@ -155,12 +155,12 @@ Then zero console.log/error/warn should exist in src/
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Code reviewed and approved
-- [ ] Tests written and passing
-- [ ] Sentry/Crashlytics configured and tested
-- [ ] No production console statements
-- [ ] PR merged to main
+- [x] All acceptance criteria met
+- [x] Code reviewed and approved
+- [x] Tests written and passing
+- [x] Sentry/Crashlytics configured and tested
+- [x] No production console statements
+- [x] PR merged to main
 
 ---
 

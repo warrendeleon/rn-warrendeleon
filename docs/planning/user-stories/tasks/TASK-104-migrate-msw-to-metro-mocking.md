@@ -4,7 +4,7 @@
 **Title**: Replace MSW with Metro bundler mocking for Detox E2E tests
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
 **User Story**: [US-010: Data Layer Testing](../stories/US-010-data-layer-testing.md)
-**Status**: ✅ Completed
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-16
 **Completed**: 2025-01-16

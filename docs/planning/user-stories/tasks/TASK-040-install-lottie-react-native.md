@@ -4,7 +4,7 @@
 **Title**: Install lottie-react-native
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-008-splash-screen-with-loading](../stories/US-008-splash-screen-with-loading.md)
-**Status**: Done
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -20,10 +20,10 @@ Install lottie-react-native for logo animations.
 
 ## Acceptance Criteria
 
-- [ ] yarn add lottie-react-native
-- [ ] iOS Pods installed
-- [ ] Android build succeeds
-- [ ] Test animation renders
+- [x] yarn add lottie-react-native
+- [x] iOS Pods installed
+- [x] Android build succeeds
+- [x] Test animation renders
 
 ---
 
@@ -43,9 +43,9 @@ Install lottie-react-native for logo animations.
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Tests passing
-- [ ] No regressions
+- [x] All acceptance criteria met
+- [x] Tests passing
+- [x] No regressions
 
 ---
 

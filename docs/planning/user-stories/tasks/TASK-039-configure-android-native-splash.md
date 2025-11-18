@@ -4,7 +4,7 @@
 **Title**: Configure Android Native Splash Screen
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-008-splash-screen-with-loading](../stories/US-008-splash-screen-with-loading.md)
-**Status**: Done
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -20,10 +20,10 @@ Configure Android native splash screen using react-native-bootsplash CLI.
 
 ## Acceptance Criteria
 
-- [ ] Run bootsplash generate command
-- [ ] AndroidManifest.xml updated
-- [ ] styles.xml configured
-- [ ] Android app shows native splash
+- [x] Run bootsplash generate command
+- [x] AndroidManifest.xml updated
+- [x] styles.xml configured
+- [x] Android app shows native splash
 
 ---
 
@@ -43,9 +43,9 @@ Configure Android native splash screen using react-native-bootsplash CLI.
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Tests passing
-- [ ] No regressions
+- [x] All acceptance criteria met
+- [x] Tests passing
+- [x] No regressions
 
 ---
 

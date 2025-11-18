@@ -3,7 +3,7 @@
 **Story ID**: US-007
 **Title**: Redux Data Layer with GitHub Fetching
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
-**Status**: Completed
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-12
 **Completed**: 2025-11-15

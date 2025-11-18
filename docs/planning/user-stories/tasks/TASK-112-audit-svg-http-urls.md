@@ -4,7 +4,7 @@
 **Title**: Audit SVG Files for HTTP URLs
 **Epic**: [EPIC-013: Production Readiness - Security & Testing](../epics/EPIC-013-production-readiness.md)
 **User Story**: [US-022: Security Hardening](../stories/US-022-security-hardening.md)
-**Status**: 📋 Not Started
+**Status**: ✅ Done
 **Priority**: 🟡 Medium
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon
@@ -34,10 +34,10 @@ find src/assets -name "*.svg" -exec sed -i '' 's/http:\/\//https:\/\//g' {} \;
 
 ## Acceptance Criteria
 
-- [ ] All SVG files audited
-- [ ] All http:// URLs replaced with https://
-- [ ] No http:// URLs remain in assets
-- [ ] Visual verification that SVGs still render correctly
+- [x] All SVG files audited
+- [x] All http:// URLs replaced with https://
+- [x] No http:// URLs remain in assets
+- [x] Visual verification that SVGs still render correctly
 
 ---
 

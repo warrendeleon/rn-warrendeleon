@@ -4,7 +4,7 @@
 **Title**: Write RNTL Tests for ProfileScreen
 **Epic**: [EPIC-012: Profile Screen Implementation](../epics/EPIC-012-profile-screen-implementation.md)
 **User Story**: [US-021: Profile Screen UI Redesign](../stories/US-021-profile-screen-ui.md)
-**Status**: ✅ Completed
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon

@@ -2,7 +2,7 @@
 
 **Epic**: [EPIC-010: Work Experience Display Enhancement](../epics/EPIC-010-work-experience-display.md)
 **User Story**: [US-017: Work Experience Screen with Company Logos](../stories/US-017-work-experience-screen-display.md)
-**Status**: ✅ Completed
+**Status**: ✅ Done
 **Priority**: High
 **Estimated Effort**: 2 hours
 **Created**: 2025-11-16

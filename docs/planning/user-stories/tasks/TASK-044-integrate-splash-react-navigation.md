@@ -4,7 +4,7 @@
 **Title**: Integrate Splash with React Navigation
 **Epic**: [EPIC-005: Multi-Language Portfolio App](../epics/EPIC-005-multi-language-portfolio-app.md)
 **User Story**: [US-008-splash-screen-with-loading](../stories/US-008-splash-screen-with-loading.md)
-**Status**: Done
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-12
 **Assigned To**: Warren de Leon
@@ -20,11 +20,11 @@ Add Splash screen to navigation stack and hide native splash when ready.
 
 ## Acceptance Criteria
 
-- [ ] Splash added to RootNavigator
-- [ ] Initial route set to Splash
-- [ ] Bootsplash.hide() called when ready
-- [ ] Navigation flow works: Splash → Home
-- [ ] Tests pass
+- [x] Splash added to RootNavigator
+- [x] Initial route set to Splash
+- [x] Bootsplash.hide() called when ready
+- [x] Navigation flow works: Splash → Home
+- [x] Tests pass
 
 ---
 
@@ -44,9 +44,9 @@ Add Splash screen to navigation stack and hide native splash when ready.
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Tests passing
-- [ ] No regressions
+- [x] All acceptance criteria met
+- [x] Tests passing
+- [x] No regressions
 
 ---
 

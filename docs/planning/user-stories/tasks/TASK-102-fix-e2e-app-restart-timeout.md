@@ -4,7 +4,7 @@
 **Title**: Fix "I restart the app" E2E step timeout issue
 **Epic**: N/A
 **User Story**: N/A
-**Status**: To Do
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-16
 **Assigned To**: Warren de Leon
@@ -73,11 +73,11 @@ Need to investigate why app restart is timing out:
 
 ## Acceptance Criteria
 
-- [ ] "I restart the app" step completes successfully
-- [ ] "Language persists after app restart" scenario passes
-- [ ] Timeout is appropriate for reliable test execution
-- [ ] No flakiness in app restart behavior
-- [ ] `yarn detox:ios:test -f "Language persists"` passes reliably
+- [x] "I restart the app" step completes successfully
+- [x] "Language persists after app restart" scenario passes
+- [x] Timeout is appropriate for reliable test execution
+- [x] No flakiness in app restart behavior
+- [x] `yarn detox:ios:test -f "Language persists"` passes reliably
 
 ---
 

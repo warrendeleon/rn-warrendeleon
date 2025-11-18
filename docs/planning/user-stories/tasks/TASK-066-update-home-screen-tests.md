@@ -4,7 +4,7 @@
 **Title**: Update HomeScreen Tests to Include ProfileCard
 **User Story**: [US-013: Profile Card on Home Screen](../stories/US-013-profile-card-home-screen.md)
 **Epic**: [EPIC-007: Home Screen UI Redesign](../epics/EPIC-007-home-screen-redesign.md)
-**Status**: Not Started
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-11-15
 **Effort Estimate**: 0.5 hours
@@ -19,13 +19,13 @@ Update the existing HomeScreen.rntl.tsx test file to include tests for the Profi
 
 ## Acceptance Criteria
 
-- [ ] Existing HomeScreen tests still pass
-- [ ] New test verifies ProfileCard renders
-- [ ] New test verifies ProfileCard displays correct Redux data
-- [ ] New test verifies pressing ProfileCard navigates to ProfileData
-- [ ] Test verifies ProfileCard positioned before button groups
-- [ ] All 7+ tests passing (5 existing + 2 new minimum)
-- [ ] No test regressions or failures
+- [x] Existing HomeScreen tests still pass
+- [x] New test verifies ProfileCard renders
+- [x] New test verifies ProfileCard displays correct Redux data
+- [x] New test verifies pressing ProfileCard navigates to ProfileData
+- [x] Test verifies ProfileCard positioned before button groups
+- [x] All 7+ tests passing (5 existing + 2 new minimum)
+- [x] No test regressions or failures
 
 ---
 

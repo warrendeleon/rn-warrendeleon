@@ -4,7 +4,7 @@
 **Title**: Remove Unused Dependencies
 **Epic**: [EPIC-004: Code Quality & Technical Debt](../epics/EPIC-004-code-quality-tech-debt.md)
 **User Story**: N/A (Technical task)
-**Status**: Completed
+**Status**: ✅ Done
 **Priority**: High
 **Created**: 2025-01-11
 **Assigned To**: Warren de Leon
@@ -76,8 +76,8 @@ yarn android   # Verify Android build
 - [x] prettier-plugin-tailwindcss configured
 - [x] jest.setup.ts updated (removed encrypted-storage mock)
 - [x] App functions identically (no regressions)
-- [ ] iOS build verification (pending)
-- [ ] Android build verification (pending)
+- [x] iOS build verification
+- [x] Android build verification
 
 **Note**: Pre-existing TypeScript errors found (unrelated to dependency removal) - requires separate task
 

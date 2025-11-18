@@ -4,7 +4,7 @@
 **Title**: Create ProfileCard Component
 **User Story**: [US-013: Profile Card on Home Screen](../stories/US-013-profile-card-home-screen.md)
 **Epic**: [EPIC-007: Home Screen UI Redesign](../epics/EPIC-007-home-screen-redesign.md)
-**Status**: Not Started
+**Status**: ✅ Done
 **Priority**: Medium
 **Created**: 2025-11-15
 **Effort Estimate**: 1.5 hours
@@ -19,17 +19,17 @@ Create a ProfileCard component that displays the user's avatar, name, and surnam
 
 ## Acceptance Criteria
 
-- [ ] Component created at `src/components/ProfileCard/ProfileCard.tsx`
-- [ ] Displays avatar image from profilePicture URL
-- [ ] Shows full name (name + lastName) with proper spacing
-- [ ] Includes subtitle text "View Profile" below name
-- [ ] Right-aligned chevron icon using MaterialCommunityIcons
-- [ ] Pressable with onPress handler prop
-- [ ] Responsive to light/dark theme
-- [ ] Uses SF Pro Text font
-- [ ] Matches iOS styling (rounded corners, shadows, padding)
-- [ ] TypeScript types defined for all props
-- [ ] Exported from components barrel file
+- [x] Component created at `src/components/ProfileCard/ProfileCard.tsx`
+- [x] Displays avatar image from profilePicture URL
+- [x] Shows full name (name + lastName) with proper spacing
+- [x] Includes subtitle text "View Profile" below name
+- [x] Right-aligned chevron icon using MaterialCommunityIcons
+- [x] Pressable with onPress handler prop
+- [x] Responsive to light/dark theme
+- [x] Uses SF Pro Text font
+- [x] Matches iOS styling (rounded corners, shadows, padding)
+- [x] TypeScript types defined for all props
+- [x] Exported from components barrel file
 
 ---
 

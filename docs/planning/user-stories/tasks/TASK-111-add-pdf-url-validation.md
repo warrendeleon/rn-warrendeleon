@@ -4,7 +4,7 @@
 **Title**: Add PDF URL Validation
 **Epic**: [EPIC-013: Production Readiness - Security & Testing](../epics/EPIC-013-production-readiness.md)
 **User Story**: [US-022: Security Hardening](../stories/US-022-security-hardening.md)
-**Status**: 📋 Not Started
+**Status**: ✅ Done
 **Priority**: 🟠 High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon
@@ -54,11 +54,11 @@ export const isPdfUrlValid = (url: string): boolean => {
 
 ## Acceptance Criteria
 
-- [ ] PDF URL validator function created
-- [ ] Only HTTPS URLs allowed
-- [ ] URLs must end with .pdf extension
-- [ ] Invalid URLs show error message
-- [ ] All tests pass (100% coverage)
+- [x] PDF URL validator function created
+- [x] Only HTTPS URLs allowed
+- [x] URLs must end with .pdf extension
+- [x] Invalid URLs show error message
+- [x] All tests pass (100% coverage)
 
 ---
 
