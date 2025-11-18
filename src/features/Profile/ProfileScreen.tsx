@@ -15,6 +15,7 @@ import {
   VStack,
 } from '@gluestack-ui/themed';
 
+import { CAROUSEL_HEIGHT_RATIO, TOUCH_TARGET_SIZE } from '@app/config/constants';
 import { useAppColorScheme } from '@app/hooks';
 import { useAppSelector } from '@app/store';
 import { logError } from '@app/utils/logger';
@@ -93,7 +94,7 @@ const ContactRow: React.FC<ContactRowProps> = ({
         accessibilityRole="button"
         accessibilityLabel={accessibilityLabel}
         accessibilityHint={accessibilityHint}
-        style={{ minHeight: 44 }}
+        style={{ minHeight: TOUCH_TARGET_SIZE.height }}
       >
         {content}
       </Pressable>
@@ -165,7 +166,7 @@ export const ProfileScreen: React.FC = () => {
   const error = useAppSelector(selectProfileError);
 
   const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = useWindowDimensions();
-  const CAROUSEL_HEIGHT = WINDOW_HEIGHT * 0.4;
+  const CAROUSEL_HEIGHT = WINDOW_HEIGHT * CAROUSEL_HEIGHT_RATIO;
 
   const backgroundColor = isDark ? '#000000' : '#F2F2F7';
   const cardBgColor = isDark ? '$backgroundDark900' : '$white';
@@ -434,8 +435,8 @@ const styles = StyleSheet.create({
   socialIcon: {
     width: 56,
     height: 56,
-    minWidth: 44,
-    minHeight: 44,
+    minWidth: TOUCH_TARGET_SIZE.width,
+    minHeight: TOUCH_TARGET_SIZE.height,
     alignItems: 'center',
     justifyContent: 'center',
   },
