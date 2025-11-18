@@ -1,6 +1,5 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
-import { Text } from '@gluestack-ui/themed';
+import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { CheckCircle, XCircle } from 'lucide-react-native';
 
 import { useAppColorScheme } from '@app/hooks';
@@ -46,7 +45,6 @@ export const MockStatusScreen: React.FC = () => {
   const isWorkExperienceMocked =
     Array.isArray(workExperienceData) && workExperienceData[0]?.mocked === true;
 
-  const bgColor = isDark ? '#000000' : '#F2F2F7';
   const cardBg = isDark ? '$backgroundDark900' : '$white';
   const textColor = isDark ? '$white' : '$black';
   const labelColor = isDark ? '$textDark400' : '$textLight500';
@@ -54,20 +52,25 @@ export const MockStatusScreen: React.FC = () => {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      className="flex-1 p-4"
-      style={{ backgroundColor: bgColor }}
+      flex={1}
+      p="$4"
+      bg={isDark ? '$black' : '$coolGray100'}
       testID="mock-status-screen"
       accessibilityLabel="Mock Status Screen"
     >
-      <View className="mt-2">
+      <Box mt="$2">
         <Text
-          className="mb-3 text-xs font-semibold uppercase leading-normal"
+          mb="$3"
+          fontSize="$xs"
+          fontWeight="$semibold"
+          textTransform="uppercase"
+          lineHeight="$sm"
           color={labelColor}
           accessibilityRole="header"
         >
           API Mock Status
         </Text>
-        <Text className="mb-6 text-sm" color={labelColor}>
+        <Text mb="$6" fontSize="$sm" color={labelColor}>
           Verifies whether API responses are being intercepted and mocked by MSW during E2E tests.
         </Text>
 
@@ -100,7 +103,7 @@ export const MockStatusScreen: React.FC = () => {
           textColor={textColor}
           testID="mock-status-work-experience"
         />
-      </View>
+      </Box>
     </ScrollView>
   );
 };
@@ -130,30 +133,35 @@ const MockStatusItem: React.FC<MockStatusItemProps> = ({
   const Icon = isMocked ? CheckCircle : XCircle;
 
   return (
-    <View
-      className="mb-4 flex-row items-center justify-between rounded-lg p-4"
-      style={{ backgroundColor: bgColor }}
+    <Box
+      mb="$4"
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="space-between"
+      borderRadius="$lg"
+      p="$4"
+      bg={bgColor}
       testID={testID}
       accessibilityRole="summary"
       accessibilityLabel={`${label}: ${status}`}
     >
-      <View className="flex-1">
-        <Text className="mb-1 text-base font-semibold" color={textColor}>
+      <Box flex={1}>
+        <Text mb="$1" fontSize="$md" fontWeight="$semibold" color={textColor}>
           {label}
         </Text>
         {!hasData && (
-          <Text className="text-xs" color="$amber600">
+          <Text fontSize="$xs" color="$amber600">
             No data loaded
           </Text>
         )}
-      </View>
+      </Box>
 
-      <View className="flex-row items-center gap-2">
-        <Text className="text-sm font-medium" color={statusColor} testID={`${testID}-status`}>
+      <Box flexDirection="row" alignItems="center" gap="$2">
+        <Text fontSize="$sm" fontWeight="$medium" color={statusColor} testID={`${testID}-status`}>
           {status}
         </Text>
         <Icon size={20} color={statusColor} testID={`${testID}-icon`} />
-      </View>
-    </View>
+      </Box>
+    </Box>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, View } from 'react-native';
-import { Text } from '@gluestack-ui/themed';
+import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 
 import { PickerGroup, type PickerGroupItem } from '@app/components';
@@ -50,21 +49,27 @@ export const LanguageScreen: React.FC = () => {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      className="flex-1 p-4"
-      style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
+      flex={1}
+      p="$4"
+      bg={isDark ? '$black' : '$coolGray100'}
       testID="language-screen"
       accessibilityLabel={t('language.title')}
     >
-      <View className="mt-2">
+      <Box mt="$2">
         <Text
-          className="mb-3 pt-1 text-xs font-semibold uppercase leading-normal"
+          mb="$3"
+          pt="$1"
+          fontSize="$xs"
+          fontWeight="$semibold"
+          textTransform="uppercase"
+          lineHeight="$sm"
           color="$coolGray500"
           accessibilityRole="header"
         >
           {t('language.languages')}
         </Text>
         <PickerGroup items={languageItems} />
-      </View>
+      </Box>
     </ScrollView>
   );
 };

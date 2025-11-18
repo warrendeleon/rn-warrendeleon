@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -62,18 +62,19 @@ export const EducationScreen: React.FC = () => {
   return (
     <ScrollView
       testID="education-screen"
-      className="flex-1 p-4"
-      style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
+      flex={1}
+      p="$4"
+      bg={isDark ? '$black' : '$coolGray100'}
       contentInsetAdjustmentBehavior="automatic"
     >
       <DetailListGroup items={educationItems} loading={loading} error={error || undefined} />
 
       {!loading && !error && educationItems.length === 0 && (
-        <View style={{ padding: 20, alignItems: 'center' }}>
-          <Text style={{ color: isDark ? '#FFFFFF' : '#000000', fontSize: 16 }}>
+        <Box p="$5" alignItems="center">
+          <Text color={isDark ? '$white' : '$black'} fontSize="$md">
             No education data available
           </Text>
-        </View>
+        </Box>
       )}
     </ScrollView>
   );

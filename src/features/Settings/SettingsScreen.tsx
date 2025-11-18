@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, View } from 'react-native';
-import { GlobeIcon, MoonIcon, Text } from '@gluestack-ui/themed';
+import { Box, GlobeIcon, MoonIcon, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Activity, ShieldAlert } from 'lucide-react-native';
@@ -113,33 +112,44 @@ export const SettingsScreen: React.FC = () => {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      className="flex-1 p-4"
-      style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
+      flex={1}
+      p="$4"
+      bg={isDark ? '$black' : '$coolGray100'}
       testID="settings-screen"
       accessibilityLabel={t('settings.title')}
     >
-      <View className="mt-2">
+      <Box mt="$2">
         <Text
-          className="mb-3 pt-1 text-xs font-semibold uppercase leading-normal"
+          mb="$3"
+          pt="$1"
+          fontSize="$xs"
+          fontWeight="$semibold"
+          textTransform="uppercase"
+          lineHeight="$sm"
           color="$coolGray500"
           accessibilityRole="header"
         >
           {t('settings.general')}
         </Text>
         <SettingsGroup items={settingsItems} />
-      </View>
+      </Box>
 
       {isTestUIEnabled && (
-        <View className="mt-6">
+        <Box mt="$6">
           <Text
-            className="mb-3 pt-1 text-xs font-semibold uppercase leading-normal"
+            mb="$3"
+            pt="$1"
+            fontSize="$xs"
+            fontWeight="$semibold"
+            textTransform="uppercase"
+            lineHeight="$sm"
             color="$coolGray500"
             accessibilityRole="header"
           >
             Testing
           </Text>
           <SettingsGroup items={testingItems} />
-        </View>
+        </Box>
       )}
     </ScrollView>
   );

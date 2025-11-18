@@ -712,9 +712,7 @@ describe('WorkExperienceScreen', () => {
       );
 
       const scrollView = screen.getByTestId('work-experience-screen');
-      expect(scrollView.props.style).toMatchObject({
-        backgroundColor: '#000000',
-      });
+      expect(scrollView.props.bg).toBe('$black');
     });
 
     it('renders with light theme background', () => {
@@ -737,9 +735,7 @@ describe('WorkExperienceScreen', () => {
       );
 
       const scrollView = screen.getByTestId('work-experience-screen');
-      expect(scrollView.props.style).toMatchObject({
-        backgroundColor: '#F2F2F7',
-      });
+      expect(scrollView.props.bg).toBe('$coolGray100');
     });
 
     it('applies dark mode to empty state text', () => {
@@ -762,9 +758,7 @@ describe('WorkExperienceScreen', () => {
       );
 
       const emptyText = screen.getByText('No work experience available');
-      expect(emptyText.props.style).toMatchObject({
-        color: '#FFFFFF',
-      });
+      expect(emptyText.props.color).toBe('$white');
     });
 
     it('applies light mode to empty state text', () => {
@@ -787,9 +781,7 @@ describe('WorkExperienceScreen', () => {
       );
 
       const emptyText = screen.getByText('No work experience available');
-      expect(emptyText.props.style).toMatchObject({
-        color: '#000000',
-      });
+      expect(emptyText.props.color).toBe('$black');
     });
   });
 

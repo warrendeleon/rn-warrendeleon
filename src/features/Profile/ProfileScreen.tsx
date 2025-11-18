@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dimensions, Linking, ScrollView, StyleSheet, View } from 'react-native';
+import { Dimensions, Linking, StyleSheet, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Avatar,
@@ -10,6 +10,7 @@ import {
   HStack,
   Image,
   Pressable,
+  ScrollView,
   Text,
   VStack,
 } from '@gluestack-ui/themed';
@@ -289,8 +290,8 @@ export const ProfileScreen: React.FC = () => {
 
       {/* Scrollable Content */}
       <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+        flex={1}
+        contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Spacer to push content below background image */}
@@ -422,12 +423,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: Dimensions.get('window').width,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
   },
   centeredContent: {
     flex: 1,

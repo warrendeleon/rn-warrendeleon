@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, Text, View } from 'react-native';
+import { Image, View } from 'react-native';
 import { SvgUri } from 'react-native-svg';
+import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import type { RouteProp } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 
@@ -126,29 +127,27 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
     return (
       <ScrollView
         testID="work-experience-details-screen"
-        style={styles.container}
+        bg={isDark ? '$black' : '$coolGray100'}
         contentInsetAdjustmentBehavior="automatic"
       >
-        <View
-          style={{
-            flex: 1,
-            padding: 20,
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: 300,
-          }}
+        <Box
+          flex={1}
+          p="$5"
+          alignItems="center"
+          justifyContent="center"
+          minHeight={300}
           testID="work-experience-details-not-found"
           accessible={true}
           accessibilityRole="alert"
           accessibilityLabel="Work experience not found"
         >
-          <Text style={[{ fontSize: 16, fontWeight: '500', marginBottom: 8 }, styles.textPrimary]}>
+          <Text fontSize="$md" fontWeight="$medium" mb="$2" color={isDark ? '$white' : '$black'}>
             {t('workExperience.notFound')}
           </Text>
-          <Text style={[{ fontSize: 14, textAlign: 'center' }, styles.textSecondary]}>
+          <Text fontSize="$sm" textAlign="center" color={isDark ? '$coolGray400' : '$coolGray600'}>
             {t('workExperience.notFoundMessage')}
           </Text>
-        </View>
+        </Box>
       </ScrollView>
     );
   }
@@ -156,8 +155,9 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
   return (
     <ScrollView
       testID="work-experience-details-screen"
-      className="flex-1 p-4"
-      style={styles.container}
+      flex={1}
+      p="$4"
+      bg={isDark ? '$black' : '$coolGray100'}
       contentInsetAdjustmentBehavior="automatic"
     >
       {/* Company Logo Card */}

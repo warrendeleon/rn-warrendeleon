@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, Text, View } from 'react-native';
+import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -86,8 +86,9 @@ export const WorkExperienceScreen: React.FC = () => {
   return (
     <ScrollView
       testID="work-experience-screen"
-      className="flex-1 p-4"
-      style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
+      flex={1}
+      p="$4"
+      bg={isDark ? '$black' : '$coolGray100'}
       contentInsetAdjustmentBehavior="automatic"
     >
       <DetailListGroup
@@ -97,11 +98,11 @@ export const WorkExperienceScreen: React.FC = () => {
       />
 
       {!loading && !error && workExperienceItems.length === 0 && (
-        <View style={{ padding: 20, alignItems: 'center' }} testID="work-experience-empty-state">
-          <Text style={{ color: isDark ? '#FFFFFF' : '#000000', fontSize: 16 }}>
+        <Box p="$5" alignItems="center" testID="work-experience-empty-state">
+          <Text color={isDark ? '$white' : '$black'} fontSize="$md">
             {t('workExperience.empty')}
           </Text>
-        </View>
+        </Box>
       )}
     </ScrollView>
   );
