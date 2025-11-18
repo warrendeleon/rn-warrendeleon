@@ -9,14 +9,14 @@ import { useAppSelector } from '@app/store';
 
 /**
  * Extended types for mocked data
- * MSW adds a `mocked: true` flag to responses during E2E tests
+ * Metro runtime mocking adds a `mocked: true` flag to responses during E2E tests
  */
 type MockedData<T> = T & { mocked?: boolean };
 
 /**
  * MockStatus Screen - Development/Testing Tool
  *
- * Displays whether API responses are being mocked by MSW during E2E tests.
+ * Displays whether API responses are being mocked by Metro runtime mocking during E2E tests.
  * Only accessible when ENABLE_TEST_UI=true.
  *
  * Shows mock status for:
@@ -29,7 +29,7 @@ export const MockStatusScreen: React.FC = () => {
   const isDark = colorScheme === 'dark';
 
   // Get data from Redux store with mocked flag support
-  // MSW adds 'mocked: true' to responses during E2E tests
+  // Metro runtime mocking adds 'mocked: true' to responses during E2E tests
   const profileData = useAppSelector((state: RootState) => state.profile.data) as MockedData<
     NonNullable<RootState['profile']['data']>
   > | null;
@@ -72,7 +72,8 @@ export const MockStatusScreen: React.FC = () => {
           API Mock Status {E2E_MOCK}
         </Text>
         <Text mb="$6" fontSize="$sm" color={labelColor}>
-          Verifies whether API responses are being intercepted and mocked by MSW during E2E tests.
+          Verifies whether API responses are being intercepted and mocked by Metro runtime mocking
+          during E2E tests.
         </Text>
 
         {/* Profile Status */}

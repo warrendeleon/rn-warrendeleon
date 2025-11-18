@@ -1,7 +1,7 @@
 Feature: Mock Status Verification
   As a developer
   I want to verify API mocking is working during E2E tests
-  So that I can confirm MSW is intercepting requests correctly
+  So that I can confirm Metro runtime mocking is intercepting requests correctly
 
   Background:
     Given the app is launched
