@@ -6,6 +6,12 @@ import { Logo } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import { fetchEducation, fetchProfile, fetchWorkExperience, useAppDispatch } from '@app/store';
 
+/**
+ * Minimum duration to show splash screen (in milliseconds)
+ * Ensures branding visibility even with fast network
+ */
+const SPLASH_MINIMUM_DURATION = 1500;
+
 interface SplashScreenProps {
   onComplete: () => void;
 }
@@ -16,18 +22,40 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch portfolio data from GitHub
-    dispatch(fetchProfile());
-    dispatch(fetchWorkExperience());
-    dispatch(fetchEducation());
+    let isMounted = true;
 
-    // Show splash screen for 4.5 seconds (matches original implementation)
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      onComplete();
-    }, 4500);
+    /**
+     * Load app data with optimized parallel fetching
+     * Uses Promise.all for concurrent API calls with minimum display duration
+     */
+    const loadAppData = async () => {
+      const startTime = Date.now();
 
-    return () => clearTimeout(timer);
+      // Fetch all portfolio data in parallel for optimal performance
+      await Promise.all([
+        dispatch(fetchProfile()),
+        dispatch(fetchEducation()),
+        dispatch(fetchWorkExperience()),
+      ]);
+
+      // Ensure minimum splash duration for branding visibility
+      const elapsed = Date.now() - startTime;
+      if (elapsed < SPLASH_MINIMUM_DURATION) {
+        await new Promise(resolve => setTimeout(resolve, SPLASH_MINIMUM_DURATION - elapsed));
+      }
+
+      // Only update state and call onComplete if component is still mounted
+      if (isMounted) {
+        setIsLoading(false);
+        onComplete();
+      }
+    };
+
+    loadAppData();
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, onComplete]);
 
   if (!isLoading) {

@@ -27,12 +27,12 @@ jest.mock('@app/hooks', () => ({
   useAppColorScheme: () => mockUseAppColorScheme(),
 }));
 
-// Mock Redux store
-const mockDispatch = jest.fn();
+// Mock Redux store with async dispatch
+const mockDispatch = jest.fn().mockResolvedValue(undefined);
 jest.mock('@app/store', () => ({
-  fetchProfile: jest.fn(),
-  fetchWorkExperience: jest.fn(),
-  fetchEducation: jest.fn(),
+  fetchProfile: jest.fn(() => ({ type: 'profile/fetchProfile' })),
+  fetchWorkExperience: jest.fn(() => ({ type: 'workExperience/fetchWorkExperience' })),
+  fetchEducation: jest.fn(() => ({ type: 'education/fetchEducation' })),
   useAppDispatch: () => mockDispatch,
 }));
 
@@ -103,37 +103,37 @@ describe('SplashScreen', () => {
     expect(mockDispatch).toHaveBeenCalledWith(fetchEducation());
   });
 
-  it('calls onComplete after 4.5 seconds', () => {
+  it('calls onComplete after 1.5 seconds', async () => {
     render(<SplashScreen onComplete={mockOnComplete} />);
 
     expect(mockOnComplete).not.toHaveBeenCalled();
 
-    act(() => {
-      jest.advanceTimersByTime(4500);
+    await act(async () => {
+      jest.advanceTimersByTime(1500);
     });
 
     expect(mockOnComplete).toHaveBeenCalledTimes(1);
   });
 
-  it('does not call onComplete before 4.5 seconds', () => {
+  it('does not call onComplete before 1.5 seconds', async () => {
     render(<SplashScreen onComplete={mockOnComplete} />);
 
-    act(() => {
-      jest.advanceTimersByTime(4000);
+    await act(async () => {
+      jest.advanceTimersByTime(1000);
     });
 
     expect(mockOnComplete).not.toHaveBeenCalled();
   });
 
-  it('returns null after loading is complete', () => {
+  it('returns null after loading is complete', async () => {
     const { queryByTestId, rerender } = render(<SplashScreen onComplete={mockOnComplete} />);
 
     // Initially, should render the splash screen
     expect(queryByTestId('logo')).toBeTruthy();
 
     // Advance timer
-    act(() => {
-      jest.advanceTimersByTime(4500);
+    await act(async () => {
+      jest.advanceTimersByTime(1500);
     });
 
     // Force re-render to check the new state
@@ -143,13 +143,13 @@ describe('SplashScreen', () => {
     expect(queryByTestId('logo')).toBeNull();
   });
 
-  it('clears timeout on unmount', () => {
+  it('clears timeout on unmount', async () => {
     const { unmount } = render(<SplashScreen onComplete={mockOnComplete} />);
 
     unmount();
 
-    act(() => {
-      jest.advanceTimersByTime(4500);
+    await act(async () => {
+      jest.advanceTimersByTime(1500);
     });
 
     // onComplete should not be called after unmount
