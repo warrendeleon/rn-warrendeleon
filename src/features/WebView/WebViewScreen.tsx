@@ -138,6 +138,8 @@ export const WebViewScreen = () => {
       injectedJavaScript={injectedJavaScript}
       style={{ backgroundColor: isDark ? '#000000' : '#FFFFFF' }}
       testID="webview-content"
+      accessible={true}
+      accessibilityLabel="Web content loaded"
     />
   );
 };
