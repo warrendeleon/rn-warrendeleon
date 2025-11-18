@@ -272,25 +272,25 @@
 
 | Task ID                                                   | Title                                             | Status         | Effort | Priority |
 | --------------------------------------------------------- | ------------------------------------------------- | -------------- | ------ | -------- |
-| [TASK-120](./tasks/TASK-120-add-react-memo-components.md) | Add React.memo to Pure Components                 | 📋 Not Started | 2h     | High     |
+| [TASK-120](./tasks/TASK-120-add-react-memo-components.md) | Add React.memo to Pure Components                 | ✅ Complete    | 2h     | High     |
 | [TASK-121](./tasks/TASK-121-fix-dimensions-hook.md)       | Replace Dimensions.get() with useWindowDimensions | ✅ Complete    | 1h     | High     |
 | [TASK-122](./tasks/TASK-122-optimize-splash-loading.md)   | Optimize Splash Screen Data Loading               | ✅ Complete    | 2h     | High     |
 | [TASK-123](./tasks/TASK-123-implement-rtk-query.md)       | Implement RTK Query for API Caching (OPTIONAL)    | 📋 Not Started | 8h     | Medium   |
 
 #### US-027: Code Quality & Tech Debt (10 tasks)
 
-| Task ID                                                              | Title                                             | Status         | Effort | Priority |
-| -------------------------------------------------------------------- | ------------------------------------------------- | -------------- | ------ | -------- |
-| [TASK-133](./tasks/TASK-133-standardize-error-handling.md)           | Standardize Error Handling Patterns               | ✅ Complete    | 3h     | Medium   |
-| [TASK-134](./tasks/TASK-134-replace-magic-numbers.md)                | Replace Magic Numbers with Constants              | ✅ Complete    | 2h     | Medium   |
-| [TASK-135](./tasks/TASK-135-implement-todo-handlers.md)              | Implement or Remove TODO Handlers                 | ✅ Complete    | 2h     | Medium   |
-| [TASK-136](./tasks/TASK-136-remove-msw-devdependency.md)             | Remove MSW from devDependencies                   | 📋 Not Started | 0.5h   | Medium   |
-| [TASK-137](./tasks/TASK-137-update-mockstatus-comments.md)           | Update MockStatusScreen Comments                  | 📋 Not Started | 0.25h  | Medium   |
-| [TASK-138](./tasks/TASK-138-standardize-gluestack-ui.md)             | Standardize GlueStack UI (ProfileData + WebView)  | ✅ Completed   | 3h     | Medium   |
-| [TASK-139](./tasks/TASK-139-replace-rn-primitives-with-gluestack.md) | Replace RN Primitives with GlueStack UI           | 📋 Not Started | 10h    | High     |
-| [TASK-140](./tasks/TASK-140-evaluate-scrollview-migration.md)        | Evaluate and Migrate to GlueStack ScrollView      | 📋 Not Started | 4h     | Medium   |
-| [TASK-141](./tasks/TASK-141-wrap-react-native-pdf-with-styled.md)    | Wrap react-native-pdf with styled()               | 📋 Not Started | 2h     | Low      |
-| [TASK-142](./tasks/TASK-142-document-stylesheet-justifications.md)   | Document StyleSheet.create() Usage Justifications | ✅ Complete    | 1h     | Low      |
+| Task ID                                                              | Title                                             | Status       | Effort | Priority |
+| -------------------------------------------------------------------- | ------------------------------------------------- | ------------ | ------ | -------- |
+| [TASK-133](./tasks/TASK-133-standardize-error-handling.md)           | Standardize Error Handling Patterns               | ✅ Complete  | 3h     | Medium   |
+| [TASK-134](./tasks/TASK-134-replace-magic-numbers.md)                | Replace Magic Numbers with Constants              | ✅ Complete  | 2h     | Medium   |
+| [TASK-135](./tasks/TASK-135-implement-todo-handlers.md)              | Implement or Remove TODO Handlers                 | ✅ Complete  | 2h     | Medium   |
+| [TASK-136](./tasks/TASK-136-remove-msw-devdependency.md)             | Remove MSW from devDependencies                   | ✅ Complete  | 0.5h   | Medium   |
+| [TASK-137](./tasks/TASK-137-update-mockstatus-comments.md)           | Update MockStatusScreen Comments                  | ✅ Complete  | 0.25h  | Medium   |
+| [TASK-138](./tasks/TASK-138-standardize-gluestack-ui.md)             | Standardize GlueStack UI (ProfileData + WebView)  | ✅ Completed | 3h     | Medium   |
+| [TASK-139](./tasks/TASK-139-replace-rn-primitives-with-gluestack.md) | Replace RN Primitives with GlueStack UI           | ✅ Complete  | 10h    | High     |
+| [TASK-140](./tasks/TASK-140-evaluate-scrollview-migration.md)        | Evaluate and Migrate to GlueStack ScrollView      | ✅ Complete  | 4h     | Medium   |
+| [TASK-141](./tasks/TASK-141-wrap-react-native-pdf-with-styled.md)    | Wrap react-native-pdf with styled()               | ✅ Complete  | 2h     | Low      |
+| [TASK-142](./tasks/TASK-142-document-stylesheet-justifications.md)   | Document StyleSheet.create() Usage Justifications | ✅ Complete  | 1h     | Low      |
 
 ### EPIC-015: Testing & Compliance Expansion (9 tasks) ✅
 
