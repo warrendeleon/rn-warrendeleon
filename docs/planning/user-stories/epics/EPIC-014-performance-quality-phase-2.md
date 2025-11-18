@@ -2,9 +2,9 @@
 
 **Epic ID**: EPIC-014
 **Epic Title**: Performance & Quality Phase 2
-**Status**: 📋 Not Started
+**Status**: ⏳ In Progress
 **Priority**: 🟠 High
-**Progress**: 6/11 tasks completed (55%)
+**Progress**: 13/14 tasks completed (93%)
 **Created**: 2025-01-17
 **Last Updated**: 2025-01-17
 **Target Date**: 2025-01-31 (2 weeks after EPIC-013)
@@ -79,8 +79,8 @@ Current performance and quality issues:
 
 | ID                                                              | Title                            | Priority  | Tasks | Status         |
 | --------------------------------------------------------------- | -------------------------------- | --------- | ----- | -------------- |
-| [US-024](../stories/US-024-performance-optimization-phase-2.md) | Performance Optimization Phase 2 | 🟠 High   | 4     | 📋 Not Started |
-| [US-027](../stories/US-027-code-quality-tech-debt.md)           | Code Quality & Tech Debt         | 🟡 Medium | 6     | 📋 Not Started |
+| [US-024](../stories/US-024-performance-optimization-phase-2.md) | Performance Optimization Phase 2 | 🟠 High   | 4     | ⏳ In Progress |
+| [US-027](../stories/US-027-code-quality-tech-debt.md)           | Code Quality & Tech Debt         | 🟡 Medium | 10    | ✅ Complete    |
 
 ---
 

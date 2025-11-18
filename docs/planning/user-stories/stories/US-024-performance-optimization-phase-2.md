@@ -3,7 +3,7 @@
 **Story ID**: US-024
 **Title**: Performance Optimization Phase 2
 **Epic**: [EPIC-014: Performance & Quality Phase 2](../epics/EPIC-014-performance-quality-phase-2.md)
-**Status**: 📋 Not Started
+**Status**: ⏳ In Progress
 **Priority**: 🟠 High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon
@@ -245,7 +245,7 @@ And not sequentially wait for each one
 
 | ID                                                         | Task                                              | Effort | Priority  | Status         |
 | ---------------------------------------------------------- | ------------------------------------------------- | ------ | --------- | -------------- |
-| [TASK-120](../tasks/TASK-120-add-react-memo-components.md) | Add React.memo to Pure Components                 | 2h     | 🟠 High   | 📋 Not Started |
+| [TASK-120](../tasks/TASK-120-add-react-memo-components.md) | Add React.memo to Pure Components                 | 2h     | 🟠 High   | ✅ Complete    |
 | [TASK-121](../tasks/TASK-121-fix-dimensions-hook.md)       | Replace Dimensions.get() with useWindowDimensions | 1h     | 🟠 High   | ✅ Complete    |
 | [TASK-122](../tasks/TASK-122-optimize-splash-loading.md)   | Optimise Splash Screen Data Loading               | 2h     | 🟠 High   | ✅ Complete    |
 | [TASK-123](../tasks/TASK-123-implement-rtk-query.md)       | Implement RTK Query for API Caching (OPTIONAL)    | 8h     | 🟡 Medium | 📋 Not Started |

@@ -3,7 +3,7 @@
 **Story ID**: US-025
 **Title**: EAA Compliance Completion
 **Epic**: [EPIC-015: Testing & Compliance Expansion](../epics/EPIC-015-testing-compliance-expansion.md)
-**Status**: 📋 Not Started
+**Status**: ✅ Complete
 **Priority**: 🟠 High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon
@@ -241,11 +241,11 @@ None - can start immediately
 
 ## Tasks
 
-| ID                                                          | Task                                     | Effort | Priority | Status         |
-| ----------------------------------------------------------- | ---------------------------------------- | ------ | -------- | -------------- |
-| [TASK-124](../tasks/TASK-124-eaa-webview-screen.md)         | Add EAA Props to WebViewScreen           | 2h     | 🟠 High  | ✅ Complete    |
-| [TASK-125](../tasks/TASK-125-eaa-profile-data-screen.md)    | Add EAA Props to ProfileDataScreen       | 1h     | 🟠 High  | ✅ Complete    |
-| [TASK-126](../tasks/TASK-126-voiceover-talkback-testing.md) | VoiceOver/TalkBack Testing Documentation | 2h     | 🟠 High  | 📋 Not Started |
+| ID                                                          | Task                                     | Effort | Priority | Status      |
+| ----------------------------------------------------------- | ---------------------------------------- | ------ | -------- | ----------- |
+| [TASK-124](../tasks/TASK-124-eaa-webview-screen.md)         | Add EAA Props to WebViewScreen           | 2h     | 🟠 High  | ✅ Complete |
+| [TASK-125](../tasks/TASK-125-eaa-profile-data-screen.md)    | Add EAA Props to ProfileDataScreen       | 1h     | 🟠 High  | ✅ Complete |
+| [TASK-126](../tasks/TASK-126-voiceover-talkback-testing.md) | VoiceOver/TalkBack Testing Documentation | 2h     | 🟠 High  | ✅ Complete |
 
 **Total Tasks**: 3
 **Total Effort**: 5 hours

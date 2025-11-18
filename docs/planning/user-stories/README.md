@@ -9,7 +9,7 @@
 
 | Metric               | Count      | Progress                                     |
 | -------------------- | ---------- | -------------------------------------------- |
-| **Epics**            | 15 total   | 12 completed, 2 in progress, 1 not started   |
+| **Epics**            | 15 total   | 13 completed, 1 in progress, 1 not started   |
 | **User Stories**     | 27 total   | 21 completed, 3 in progress, 3 not started   |
 | **Tasks**            | 148 total  | 128 completed, 0 in progress, 20 not started |
 | **Estimated Effort** | ~309 hours | ~260 hours completed, ~49 hours remaining    |
@@ -18,23 +18,23 @@
 
 ## 🎯 Epics Overview
 
-| Epic ID                                                             | Title                         | Status         | Tasks        | Priority | Notes                                                             |
-| ------------------------------------------------------------------- | ----------------------------- | -------------- | ------------ | -------- | ----------------------------------------------------------------- |
-| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization      | ✅ Complete    | 10/10 (100%) | High     | All memoisation and optimisation tasks complete                   |
-| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability         | ✅ Complete    | 10/10 (100%) | High     | Error boundaries and E2E error state tests complete               |
-| [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance    | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing                         |
-| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt      | ✅ Complete    | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                                 |
-| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer     | ⏳ In Progress | 24/27 (89%)  | High     | Language & data E2E tests complete, 3 tasks remaining             |
-| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation     | ✅ Complete    | 10/10 (100%) | High     | Implementation and E2E tests complete                             |
-| [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign       | ✅ Complete    | 4/4 (100%)   | Medium   | Button groups and ProfileCard complete                            |
-| [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing              | ✅ Complete    | 6/6 (100%)   | Medium   | CV PDF viewer with share functionality complete                   |
-| [EPIC-009](./epics/EPIC-009-education-display-enhancement.md)       | Education Display             | ✅ Complete    | 6/6 (100%)   | Medium   | Education screen and E2E tests complete                           |
-| [EPIC-010](./epics/EPIC-010-work-experience-display.md)             | Work Experience Display       | ✅ Complete    | 8/8 (100%)   | High     | Navigation, screen tests (unit + E2E) complete                    |
-| [EPIC-011](./epics/EPIC-011-component-naming-clarity.md)            | Component Naming Clarity      | ✅ Complete    | 16/16 (100%) | Medium   | All components renamed to purpose-based names - complete!         |
-| [EPIC-012](./epics/EPIC-012-profile-screen-implementation.md)       | Profile Screen Implementation | ⏳ In Progress | 3/4 (75%)    | Medium   | ProfileScreen UI, tests and i18n complete, E2E navigation pending |
-| [EPIC-013](./epics/EPIC-013-production-readiness.md)                | Production Readiness          | ✅ Complete    | 11/11 (100%) | Critical | Security hardening and test coverage complete                     |
-| [EPIC-014](./epics/EPIC-014-performance-quality-phase-2.md)         | Performance & Quality Phase 2 | ⏳ In Progress | 13/14 (93%)  | High     | Only TASK-123 (RTK Query) optional task remaining                 |
-| [EPIC-015](./epics/EPIC-015-testing-compliance-expansion.md)        | Testing & Compliance          | ✅ Complete    | 9/9 (100%)   | Medium   | E2E test expansion and EAA compliance complete                    |
+| Epic ID                                                             | Title                         | Status         | Tasks        | Priority | Notes                                                      |
+| ------------------------------------------------------------------- | ----------------------------- | -------------- | ------------ | -------- | ---------------------------------------------------------- |
+| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization      | ✅ Complete    | 10/10 (100%) | High     | All memoisation and optimisation tasks complete            |
+| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability         | ✅ Complete    | 10/10 (100%) | High     | Error boundaries and E2E error state tests complete        |
+| [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance    | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing                  |
+| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt      | ✅ Complete    | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                          |
+| [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer     | ⏳ In Progress | 24/27 (89%)  | High     | Language & data E2E tests complete, 3 tasks remaining      |
+| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation     | ✅ Complete    | 10/10 (100%) | High     | Implementation and E2E tests complete                      |
+| [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign       | ✅ Complete    | 4/4 (100%)   | Medium   | Button groups and ProfileCard complete                     |
+| [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing              | ✅ Complete    | 6/6 (100%)   | Medium   | CV PDF viewer with share functionality complete            |
+| [EPIC-009](./epics/EPIC-009-education-display-enhancement.md)       | Education Display             | ✅ Complete    | 6/6 (100%)   | Medium   | Education screen and E2E tests complete                    |
+| [EPIC-010](./epics/EPIC-010-work-experience-display.md)             | Work Experience Display       | ✅ Complete    | 8/8 (100%)   | High     | Navigation, screen tests (unit + E2E) complete             |
+| [EPIC-011](./epics/EPIC-011-component-naming-clarity.md)            | Component Naming Clarity      | ✅ Complete    | 16/16 (100%) | Medium   | All components renamed to purpose-based names - complete!  |
+| [EPIC-012](./epics/EPIC-012-profile-screen-implementation.md)       | Profile Screen Implementation | ✅ Complete    | 4/4 (100%)   | Medium   | ProfileScreen UI, tests, i18n, and E2E navigation complete |
+| [EPIC-013](./epics/EPIC-013-production-readiness.md)                | Production Readiness          | ✅ Complete    | 11/11 (100%) | Critical | Security hardening and test coverage complete              |
+| [EPIC-014](./epics/EPIC-014-performance-quality-phase-2.md)         | Performance & Quality Phase 2 | ⏳ In Progress | 13/14 (93%)  | High     | Only TASK-123 (RTK Query) optional task remaining          |
+| [EPIC-015](./epics/EPIC-015-testing-compliance-expansion.md)        | Testing & Compliance          | ✅ Complete    | 9/9 (100%)   | Medium   | E2E test expansion and EAA compliance complete             |
 
 ---
 

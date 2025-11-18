@@ -1,7 +1,7 @@
 # US-021: Profile Screen UI Redesign
 
 **Epic**: [EPIC-012: Profile Screen Implementation](../epics/EPIC-012-profile-screen-implementation.md)
-**Status**: ⏳ In Progress
+**Status**: ✅ Complete
 **Priority**: Medium
 **Estimated Effort**: ~6 hours
 **Actual Effort**: ~5 hours so far
