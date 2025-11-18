@@ -25,7 +25,7 @@ export interface DetailListGroupProps {
   error?: string;
 }
 
-export const DetailListGroup: React.FC<DetailListGroupProps> = ({ items, loading, error }) => {
+export const DetailListGroup = React.memo<DetailListGroupProps>(({ items, loading, error }) => {
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -95,7 +95,7 @@ export const DetailListGroup: React.FC<DetailListGroupProps> = ({ items, loading
       ))}
     </Box>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
