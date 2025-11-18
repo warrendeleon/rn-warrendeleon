@@ -4,7 +4,7 @@
 **Title**: Add EAA Props to ProfileDataScreen
 **Epic**: [EPIC-015: Testing & Compliance Expansion](../epics/EPIC-015-testing-compliance-expansion.md)
 **User Story**: [US-025: EAA Compliance Completion](../stories/US-025-eaa-compliance-completion.md)
-**Status**: 📋 Not Started
+**Status**: ✅ Complete
 **Priority**: 🟠 High
 **Created**: 2025-01-17
 **Assigned To**: Warren de Leon

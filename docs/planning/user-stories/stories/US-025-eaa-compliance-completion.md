@@ -243,8 +243,8 @@ None - can start immediately
 
 | ID                                                          | Task                                     | Effort | Priority | Status         |
 | ----------------------------------------------------------- | ---------------------------------------- | ------ | -------- | -------------- |
-| [TASK-124](../tasks/TASK-124-eaa-webview-screen.md)         | Add EAA Props to WebViewScreen           | 2h     | 🟠 High  | 📋 Not Started |
-| [TASK-125](../tasks/TASK-125-eaa-profile-data-screen.md)    | Add EAA Props to ProfileDataScreen       | 1h     | 🟠 High  | 📋 Not Started |
+| [TASK-124](../tasks/TASK-124-eaa-webview-screen.md)         | Add EAA Props to WebViewScreen           | 2h     | 🟠 High  | ✅ Complete    |
+| [TASK-125](../tasks/TASK-125-eaa-profile-data-screen.md)    | Add EAA Props to ProfileDataScreen       | 1h     | 🟠 High  | ✅ Complete    |
 | [TASK-126](../tasks/TASK-126-voiceover-talkback-testing.md) | VoiceOver/TalkBack Testing Documentation | 2h     | 🟠 High  | 📋 Not Started |
 
 **Total Tasks**: 3
