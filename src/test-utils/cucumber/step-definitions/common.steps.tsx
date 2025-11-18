@@ -5,7 +5,7 @@ import { DetoxWorld } from '../support/world';
 
 // Common Given steps
 
-Given('the app is launched', async function (this: DetoxWorld) {
+Given('the app is launched', { timeout: 60000 }, async function (this: DetoxWorld) {
   await device.launchApp({ newInstance: true });
 });
 
