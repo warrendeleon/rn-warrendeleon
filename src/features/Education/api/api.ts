@@ -21,8 +21,16 @@ const educationFixtures: Record<string, Education[]> = {
 
 /**
  * Fetch education data from GitHub for a specific language
+ *
+ * Error Handling Strategy:
+ * - Network errors (timeout, connection refused) propagate to caller
+ * - HTTP errors (404, 500, etc.) propagate via Axios error with response details
+ * - Errors are caught and handled in Redux async thunks
+ * - Default error message provided when error.message is unavailable
+ *
  * @param language - Language code (e.g., 'en', 'es', 'ca', 'pl', 'tl')
  * @returns Promise with education data array
+ * @throws {AxiosError} When network request fails or HTTP error occurs
  */
 export const fetchEducationData = async (language: string): Promise<AxiosResponse<Education[]>> => {
   // E2E mocking: Return fixture data when E2E_MOCK=true
