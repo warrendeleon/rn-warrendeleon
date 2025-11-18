@@ -1,7 +1,7 @@
 # React Native Portfolio App - Planning Hub
 
-**Last Updated**: 2025-01-18
-**Overall Progress**: 82% (122/148 tasks completed)
+**Last Updated**: 2025-11-18
+**Overall Progress**: 86% (128/148 tasks completed)
 
 ---
 
@@ -9,10 +9,10 @@
 
 | Metric               | Count      | Progress                                     |
 | -------------------- | ---------- | -------------------------------------------- |
-| **Epics**            | 15 total   | 10 completed, 2 in progress, 3 not started   |
-| **User Stories**     | 27 total   | 15 completed, 3 in progress, 9 not started   |
-| **Tasks**            | 148 total  | 122 completed, 0 in progress, 26 not started |
-| **Estimated Effort** | ~309 hours | ~222 hours completed, ~87 hours remaining    |
+| **Epics**            | 15 total   | 12 completed, 2 in progress, 1 not started   |
+| **User Stories**     | 27 total   | 21 completed, 3 in progress, 3 not started   |
+| **Tasks**            | 148 total  | 128 completed, 0 in progress, 20 not started |
+| **Estimated Effort** | ~309 hours | ~260 hours completed, ~49 hours remaining    |
 
 ---
 
@@ -20,21 +20,21 @@
 
 | Epic ID                                                             | Title                         | Status         | Tasks        | Priority | Notes                                                             |
 | ------------------------------------------------------------------- | ----------------------------- | -------------- | ------------ | -------- | ----------------------------------------------------------------- |
-| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization      | ✅ Completed   | 10/10 (100%) | High     | All memoisation and optimisation tasks complete                   |
-| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability         | ✅ Completed   | 10/10 (100%) | High     | Error boundaries and E2E error state tests complete               |
+| [EPIC-001](./epics/EPIC-001-performance-optimization.md)            | Performance Optimization      | ✅ Complete    | 10/10 (100%) | High     | All memoisation and optimisation tasks complete                   |
+| [EPIC-002](./epics/EPIC-002-quality-reliability.md)                 | Quality & Reliability         | ✅ Complete    | 10/10 (100%) | High     | Error boundaries and E2E error state tests complete               |
 | [EPIC-003](./epics/EPIC-003-accessibility-compliance.md)            | Accessibility & Compliance    | ⏳ In Progress | 3/4 (75%)    | High     | Pending manual VoiceOver/TalkBack testing                         |
-| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt      | ✅ Completed   | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                                 |
+| [EPIC-004](./epics/EPIC-004-code-quality-tech-debt.md)              | Code Quality & Tech Debt      | ✅ Complete    | 3/3 (100%)   | Medium   | Dependencies cleaned, types added                                 |
 | [EPIC-005](./epics/EPIC-005-multi-language-portfolio-data-layer.md) | Multi-Language Data Layer     | ⏳ In Progress | 24/27 (89%)  | High     | Language & data E2E tests complete, 3 tasks remaining             |
-| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation     | ✅ Completed   | 10/10 (100%) | High     | Implementation and E2E tests complete                             |
-| [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign       | ✅ Completed   | 4/4 (100%)   | Medium   | Button groups and ProfileCard complete                            |
-| [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing              | ✅ Completed   | 6/6 (100%)   | Medium   | CV PDF viewer with share functionality complete                   |
-| [EPIC-009](./epics/EPIC-009-education-display-enhancement.md)       | Education Display             | ✅ Completed   | 6/6 (100%)   | Medium   | Education screen and E2E tests complete                           |
-| [EPIC-010](./epics/EPIC-010-work-experience-display.md)             | Work Experience Display       | ✅ Completed   | 8/8 (100%)   | High     | Navigation, screen tests (unit + E2E) complete                    |
-| [EPIC-011](./epics/EPIC-011-component-naming-clarity.md)            | Component Naming Clarity      | ✅ Completed   | 16/16 (100%) | Medium   | All components renamed to purpose-based names - complete!         |
+| [EPIC-006](./epics/EPIC-006-splash-screen-loading-animation.md)     | Splash Screen & Animation     | ✅ Complete    | 10/10 (100%) | High     | Implementation and E2E tests complete                             |
+| [EPIC-007](./epics/EPIC-007-home-screen-redesign.md)                | Home Screen UI Redesign       | ✅ Complete    | 4/4 (100%)   | Medium   | Button groups and ProfileCard complete                            |
+| [EPIC-008](./epics/EPIC-008-document-viewing.md)                    | Document Viewing              | ✅ Complete    | 6/6 (100%)   | Medium   | CV PDF viewer with share functionality complete                   |
+| [EPIC-009](./epics/EPIC-009-education-display-enhancement.md)       | Education Display             | ✅ Complete    | 6/6 (100%)   | Medium   | Education screen and E2E tests complete                           |
+| [EPIC-010](./epics/EPIC-010-work-experience-display.md)             | Work Experience Display       | ✅ Complete    | 8/8 (100%)   | High     | Navigation, screen tests (unit + E2E) complete                    |
+| [EPIC-011](./epics/EPIC-011-component-naming-clarity.md)            | Component Naming Clarity      | ✅ Complete    | 16/16 (100%) | Medium   | All components renamed to purpose-based names - complete!         |
 | [EPIC-012](./epics/EPIC-012-profile-screen-implementation.md)       | Profile Screen Implementation | ⏳ In Progress | 3/4 (75%)    | Medium   | ProfileScreen UI, tests and i18n complete, E2E navigation pending |
-| [EPIC-013](./epics/EPIC-013-production-readiness.md)                | Production Readiness          | ✅ Completed   | 11/11 (100%) | Critical | Security hardening and test coverage complete                     |
-| [EPIC-014](./epics/EPIC-014-performance-quality-phase-2.md)         | Performance & Quality Phase 2 | ⏳ In Progress | 6/11 (55%)   | High     | React.memo, GlueStack UI migration, responsive layouts, tech debt |
-| [EPIC-015](./epics/EPIC-015-testing-compliance-expansion.md)        | Testing & Compliance          | ✅ Completed   | 9/9 (100%)   | Medium   | E2E test expansion and EAA compliance complete                    |
+| [EPIC-013](./epics/EPIC-013-production-readiness.md)                | Production Readiness          | ✅ Complete    | 11/11 (100%) | Critical | Security hardening and test coverage complete                     |
+| [EPIC-014](./epics/EPIC-014-performance-quality-phase-2.md)         | Performance & Quality Phase 2 | ⏳ In Progress | 13/14 (93%)  | High     | Only TASK-123 (RTK Query) optional task remaining                 |
+| [EPIC-015](./epics/EPIC-015-testing-compliance-expansion.md)        | Testing & Compliance          | ✅ Complete    | 9/9 (100%)   | Medium   | E2E test expansion and EAA compliance complete                    |
 
 ---
 
@@ -42,32 +42,32 @@
 
 | Story ID                                                                                  | Title                              | Epic     | Status         | Tasks | Priority |
 | ----------------------------------------------------------------------------------------- | ---------------------------------- | -------- | -------------- | ----- | -------- |
-| [US-001](./stories/US-001-smooth-responsive-interactions.md)                              | Smooth & Responsive Interactions   | EPIC-001 | ✅ Completed   | 10/10 | High     |
+| [US-001](./stories/US-001-smooth-responsive-interactions.md)                              | Smooth & Responsive Interactions   | EPIC-001 | ✅ Complete    | 10/10 | High     |
 | [US-002](./stories/US-002-graceful-error-handling.md)                                     | Graceful Error Handling            | EPIC-002 | ⏳ In Progress | 3/4   | High     |
 | [US-003](./stories/US-003-inclusive-screen-reader-support.md)                             | Inclusive Screen Reader Support    | EPIC-003 | ⏳ In Progress | 3/4   | High     |
-| [US-004](./stories/US-004-comprehensive-test-coverage.md)                                 | Comprehensive Test Coverage        | EPIC-002 | ✅ Completed   | 6/6   | High     |
-| [US-006](./stories/US-006-data-migration-and-structure.md)                                | Data Migration & Structure         | EPIC-005 | ✅ Completed   | 5/5   | High     |
-| [US-007](./stories/US-007-redux-data-layer.md)                                            | Redux Data Layer                   | EPIC-005 | ✅ Completed   | 9/9   | High     |
-| [US-008](./stories/US-008-splash-screen-with-loading.md)                                  | Splash Screen with Animated Logo   | EPIC-006 | ✅ Completed   | 8/8   | High     |
-| [US-009](./stories/US-009-internationalization.md)                                        | Internationalization (5 Languages) | EPIC-005 | ✅ Completed   | 5/5   | Medium   |
+| [US-004](./stories/US-004-comprehensive-test-coverage.md)                                 | Comprehensive Test Coverage        | EPIC-002 | ✅ Complete    | 6/6   | High     |
+| [US-006](./stories/US-006-data-migration-and-structure.md)                                | Data Migration & Structure         | EPIC-005 | ✅ Complete    | 5/5   | High     |
+| [US-007](./stories/US-007-redux-data-layer.md)                                            | Redux Data Layer                   | EPIC-005 | ✅ Complete    | 9/9   | High     |
+| [US-008](./stories/US-008-splash-screen-with-loading.md)                                  | Splash Screen with Animated Logo   | EPIC-006 | ✅ Complete    | 8/8   | High     |
+| [US-009](./stories/US-009-internationalization.md)                                        | Internationalization (5 Languages) | EPIC-005 | ✅ Complete    | 5/5   | Medium   |
 | [US-010](./stories/US-010-data-layer-testing.md)                                          | Data Layer Testing (E2E)           | EPIC-005 | ⏳ In Progress | 4/4   | High     |
-| [US-012](./stories/US-012-api-layer-testing.md)                                           | API Layer Unit Testing             | EPIC-005 | ✅ Completed   | 5/5   | High     |
+| [US-012](./stories/US-012-api-layer-testing.md)                                           | API Layer Unit Testing             | EPIC-005 | ✅ Complete    | 5/5   | High     |
 | [US-011](./stories/US-011-splash-screen-testing.md)                                       | Splash Screen Testing              | EPIC-006 | ⏳ In Progress | 1/2   | Medium   |
-| [US-013](./stories/US-013-profile-card-home-screen.md)                                    | Display Profile Card on Home       | EPIC-007 | ✅ Completed   | 4/4   | Medium   |
-| [US-014](./stories/US-014-home-screen-button-groups.md)                                   | Home Screen Button Groups          | EPIC-007 | ✅ Completed   | 2/2   | Medium   |
-| [US-015](./stories/US-015-cv-pdf-viewer.md)                                               | CV PDF Viewer                      | EPIC-008 | ✅ Completed   | 6/6   | Medium   |
+| [US-013](./stories/US-013-profile-card-home-screen.md)                                    | Display Profile Card on Home       | EPIC-007 | ✅ Complete    | 4/4   | Medium   |
+| [US-014](./stories/US-014-home-screen-button-groups.md)                                   | Home Screen Button Groups          | EPIC-007 | ✅ Complete    | 2/2   | Medium   |
+| [US-015](./stories/US-015-cv-pdf-viewer.md)                                               | CV PDF Viewer                      | EPIC-008 | ✅ Complete    | 6/6   | Medium   |
 | [US-016](./stories/US-016-education-screen-svg-logos.md)                                  | Education Screen with SVG Logos    | EPIC-009 | ⏳ In Progress | 5/6   | Medium   |
 | [US-017](./stories/US-017-work-experience-screen-display.md)                              | Work Experience Screen Display     | EPIC-010 | ⏳ In Progress | 3/5   | High     |
-| [US-018](./stories/US-018-work-experience-redux-state.md)                                 | Work Experience Redux State        | EPIC-010 | ✅ Completed   | 4/4   | High     |
+| [US-018](./stories/US-018-work-experience-redux-state.md)                                 | Work Experience Redux State        | EPIC-010 | ✅ Complete    | 4/4   | High     |
 | [US-019](./stories/US-019-work-experience-navigation.md)                                  | Work Experience Navigation         | EPIC-010 | ⏳ In Progress | 1/3   | Medium   |
-| [US-020](./stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md) | Refactor Button Group Names        | EPIC-011 | ✅ Completed   | 13/13 | High     |
-| [US-021](./stories/US-021-profile-screen-ui.md)                                           | Profile Screen UI Redesign         | EPIC-012 | ✅ Completed   | 2/2   | Medium   |
-| [US-022](./stories/US-022-security-hardening.md)                                          | Security Hardening                 | EPIC-013 | ✅ Completed   | 6/6   | Critical |
-| [US-023](./stories/US-023-test-coverage-completion.md)                                    | Test Coverage Completion           | EPIC-013 | ✅ Completed   | 5/5   | Critical |
-| [US-024](./stories/US-024-performance-optimization-phase-2.md)                            | Performance Optimization Phase 2   | EPIC-014 | ⏳ In Progress | 2/4   | High     |
-| [US-025](./stories/US-025-eaa-compliance-completion.md)                                   | EAA Compliance Completion          | EPIC-015 | ✅ Completed   | 3/3   | High     |
-| [US-026](./stories/US-026-e2e-test-expansion.md)                                          | E2E Test Coverage Expansion        | EPIC-015 | ✅ Completed   | 6/6   | Medium   |
-| [US-027](./stories/US-027-code-quality-tech-debt.md)                                      | Code Quality & Tech Debt           | EPIC-014 | ⏳ In Progress | 5/7   | Medium   |
+| [US-020](./stories/US-020-refactor-button-group-component-names-purpose-based-clarity.md) | Refactor Button Group Names        | EPIC-011 | ✅ Complete    | 13/13 | High     |
+| [US-021](./stories/US-021-profile-screen-ui.md)                                           | Profile Screen UI Redesign         | EPIC-012 | ✅ Complete    | 2/2   | Medium   |
+| [US-022](./stories/US-022-security-hardening.md)                                          | Security Hardening                 | EPIC-013 | ✅ Complete    | 6/6   | Critical |
+| [US-023](./stories/US-023-test-coverage-completion.md)                                    | Test Coverage Completion           | EPIC-013 | ✅ Complete    | 5/5   | Critical |
+| [US-024](./stories/US-024-performance-optimization-phase-2.md)                            | Performance Optimization Phase 2   | EPIC-014 | ⏳ In Progress | 3/4   | High     |
+| [US-025](./stories/US-025-eaa-compliance-completion.md)                                   | EAA Compliance Completion          | EPIC-015 | ✅ Complete    | 3/3   | High     |
+| [US-026](./stories/US-026-e2e-test-expansion.md)                                          | E2E Test Coverage Expansion        | EPIC-015 | ✅ Complete    | 6/6   | Medium   |
+| [US-027](./stories/US-027-code-quality-tech-debt.md)                                      | Code Quality & Tech Debt           | EPIC-014 | ✅ Complete    | 10/10 | Medium   |
 
 ---
 
@@ -75,196 +75,196 @@
 
 ### EPIC-001: Performance Optimization (10 tasks) ✅
 
-| Task ID                                                       | Title                           | Status       | Effort | Priority |
-| ------------------------------------------------------------- | ------------------------------- | ------------ | ------ | -------- |
-| [TASK-001](./tasks/TASK-001-memo-button-with-chevron.md)      | React.memo ButtonWithChevron    | ✅ Completed | 0.5h   | High     |
-| [TASK-002](./tasks/TASK-002-memo-selectable-list-button.md)   | React.memo SelectableListButton | ✅ Completed | 0.5h   | High     |
-| [TASK-003](./tasks/TASK-003-memo-button-group-divider.md)     | React.memo ButtonGroupDivider   | ✅ Completed | 0.5h   | High     |
-| [TASK-004](./tasks/TASK-004-usememo-settings-screen.md)       | useMemo SettingsScreen          | ✅ Completed | 0.75h  | High     |
-| [TASK-005](./tasks/TASK-005-usememo-language-screen.md)       | useMemo LanguageScreen          | ✅ Completed | 0.5h   | High     |
-| [TASK-006](./tasks/TASK-006-usememo-appearance-screen.md)     | useMemo AppearanceScreen        | ✅ Completed | 0.5h   | High     |
-| [TASK-007](./tasks/TASK-007-usecallback-settings-screen.md)   | useCallback SettingsScreen      | ✅ Completed | 0.5h   | High     |
-| [TASK-008](./tasks/TASK-008-usecallback-language-screen.md)   | useCallback LanguageScreen      | ✅ Completed | 0.5h   | High     |
-| [TASK-009](./tasks/TASK-009-usecallback-appearance-screen.md) | useCallback AppearanceScreen    | ✅ Completed | 0.5h   | High     |
-| [TASK-010](./tasks/TASK-010-optimize-redux-selectors.md)      | Optimise Redux Selectors        | ✅ Completed | 1h     | Medium   |
+| Task ID                                                       | Title                           | Status      | Effort | Priority |
+| ------------------------------------------------------------- | ------------------------------- | ----------- | ------ | -------- |
+| [TASK-001](./tasks/TASK-001-memo-button-with-chevron.md)      | React.memo ButtonWithChevron    | ✅ Complete | 0.5h   | High     |
+| [TASK-002](./tasks/TASK-002-memo-selectable-list-button.md)   | React.memo SelectableListButton | ✅ Complete | 0.5h   | High     |
+| [TASK-003](./tasks/TASK-003-memo-button-group-divider.md)     | React.memo ButtonGroupDivider   | ✅ Complete | 0.5h   | High     |
+| [TASK-004](./tasks/TASK-004-usememo-settings-screen.md)       | useMemo SettingsScreen          | ✅ Complete | 0.75h  | High     |
+| [TASK-005](./tasks/TASK-005-usememo-language-screen.md)       | useMemo LanguageScreen          | ✅ Complete | 0.5h   | High     |
+| [TASK-006](./tasks/TASK-006-usememo-appearance-screen.md)     | useMemo AppearanceScreen        | ✅ Complete | 0.5h   | High     |
+| [TASK-007](./tasks/TASK-007-usecallback-settings-screen.md)   | useCallback SettingsScreen      | ✅ Complete | 0.5h   | High     |
+| [TASK-008](./tasks/TASK-008-usecallback-language-screen.md)   | useCallback LanguageScreen      | ✅ Complete | 0.5h   | High     |
+| [TASK-009](./tasks/TASK-009-usecallback-appearance-screen.md) | useCallback AppearanceScreen    | ✅ Complete | 0.5h   | High     |
+| [TASK-010](./tasks/TASK-010-optimize-redux-selectors.md)      | Optimise Redux Selectors        | ✅ Complete | 1h     | Medium   |
 
 ### EPIC-002: Quality & Reliability (10 tasks) ⏳
 
-| Task ID                                                          | Title                                    | Status       | Effort | Priority |
-| ---------------------------------------------------------------- | ---------------------------------------- | ------------ | ------ | -------- |
-| [TASK-011](./tasks/TASK-011-create-error-boundary.md)            | Create ErrorBoundary Component           | ✅ Completed | 1h     | High     |
-| [TASK-012](./tasks/TASK-012-test-error-boundary.md)              | Test ErrorBoundary                       | ✅ Completed | 0.5h   | High     |
-| [TASK-013](./tasks/TASK-013-integrate-error-boundary.md)         | Integrate ErrorBoundary                  | ✅ Completed | 0.5h   | High     |
-| [TASK-018](./tasks/TASK-018-test-chevron-button-group.md)        | Test ChevronButtonGroup                  | ✅ Completed | 1h     | Medium   |
-| [TASK-019](./tasks/TASK-019-test-selectable-button-group.md)     | Test SelectableButtonGroup               | ✅ Completed | 1h     | Medium   |
-| [TASK-020](./tasks/TASK-020-test-button-with-chevron.md)         | Complete ButtonWithChevron Test Coverage | ✅ Completed | 0.5h   | Medium   |
-| [TASK-021](./tasks/TASK-021-test-use-app-color-scheme.md)        | Add Tests for useAppColorScheme Hook     | ✅ Completed | 1h     | Medium   |
-| [TASK-022](./tasks/TASK-022-integration-test-settings.md)        | Integration Tests Settings Flow          | ✅ Completed | 0.5h   | Medium   |
-| [TASK-055](./tasks/TASK-055-exclude-test-utils-from-coverage.md) | Exclude Test Utils from Jest Coverage    | ✅ Completed | 0.25h  | Medium   |
-| [TASK-062](./tasks/TASK-062-e2e-tests-error-states.md)           | E2E Tests for Error States/Recovery      | ✅ Completed | 2h     | High     |
+| Task ID                                                          | Title                                    | Status      | Effort | Priority |
+| ---------------------------------------------------------------- | ---------------------------------------- | ----------- | ------ | -------- |
+| [TASK-011](./tasks/TASK-011-create-error-boundary.md)            | Create ErrorBoundary Component           | ✅ Complete | 1h     | High     |
+| [TASK-012](./tasks/TASK-012-test-error-boundary.md)              | Test ErrorBoundary                       | ✅ Complete | 0.5h   | High     |
+| [TASK-013](./tasks/TASK-013-integrate-error-boundary.md)         | Integrate ErrorBoundary                  | ✅ Complete | 0.5h   | High     |
+| [TASK-018](./tasks/TASK-018-test-chevron-button-group.md)        | Test ChevronButtonGroup                  | ✅ Complete | 1h     | Medium   |
+| [TASK-019](./tasks/TASK-019-test-selectable-button-group.md)     | Test SelectableButtonGroup               | ✅ Complete | 1h     | Medium   |
+| [TASK-020](./tasks/TASK-020-test-button-with-chevron.md)         | Complete ButtonWithChevron Test Coverage | ✅ Complete | 0.5h   | Medium   |
+| [TASK-021](./tasks/TASK-021-test-use-app-color-scheme.md)        | Add Tests for useAppColorScheme Hook     | ✅ Complete | 1h     | Medium   |
+| [TASK-022](./tasks/TASK-022-integration-test-settings.md)        | Integration Tests Settings Flow          | ✅ Complete | 0.5h   | Medium   |
+| [TASK-055](./tasks/TASK-055-exclude-test-utils-from-coverage.md) | Exclude Test Utils from Jest Coverage    | ✅ Complete | 0.25h  | Medium   |
+| [TASK-062](./tasks/TASK-062-e2e-tests-error-states.md)           | E2E Tests for Error States/Recovery      | ✅ Complete | 2h     | High     |
 
 ### EPIC-003: Accessibility & Compliance (4 tasks) ⏳
 
 | Task ID                                                           | Title                                      | Status         | Effort | Priority |
 | ----------------------------------------------------------------- | ------------------------------------------ | -------------- | ------ | -------- |
-| [TASK-014](./tasks/TASK-014-accessibility-button-with-chevron.md) | Accessibility ButtonWithChevron            | ✅ Completed   | 0.5h   | High     |
-| [TASK-015](./tasks/TASK-015-accessibility-selectable-list.md)     | Accessibility SelectableListButton         | ✅ Completed   | 0.5h   | High     |
-| [TASK-016](./tasks/TASK-016-accessibility-all-screens.md)         | Accessibility All Screens                  | ✅ Completed   | 0.5h   | High     |
+| [TASK-014](./tasks/TASK-014-accessibility-button-with-chevron.md) | Accessibility ButtonWithChevron            | ✅ Complete    | 0.5h   | High     |
+| [TASK-015](./tasks/TASK-015-accessibility-selectable-list.md)     | Accessibility SelectableListButton         | ✅ Complete    | 0.5h   | High     |
+| [TASK-016](./tasks/TASK-016-accessibility-all-screens.md)         | Accessibility All Screens                  | ✅ Complete    | 0.5h   | High     |
 | [TASK-017](./tasks/TASK-017-test-screen-readers.md)               | Manual Testing with VoiceOver and TalkBack | ⭕ Not Started | 0.5h   | High     |
 
 ### EPIC-004: Code Quality & Technical Debt (3 tasks) ✅
 
-| Task ID                                                       | Title                                       | Status       | Effort | Priority |
-| ------------------------------------------------------------- | ------------------------------------------- | ------------ | ------ | -------- |
-| [TASK-023](./tasks/TASK-023-remove-unused-dependencies.md)    | Remove Unused Dependencies                  | ✅ Completed | 0.25h  | High     |
-| [TASK-024](./tasks/TASK-024-add-missing-types.md)             | Add Missing @types/node                     | ✅ Completed | 0.25h  | High     |
-| [TASK-025](./tasks/TASK-025-standardise-component-imports.md) | Standardise Component Imports to @app Alias | ✅ Completed | 0.25h  | Low      |
+| Task ID                                                       | Title                                       | Status      | Effort | Priority |
+| ------------------------------------------------------------- | ------------------------------------------- | ----------- | ------ | -------- |
+| [TASK-023](./tasks/TASK-023-remove-unused-dependencies.md)    | Remove Unused Dependencies                  | ✅ Complete | 0.25h  | High     |
+| [TASK-024](./tasks/TASK-024-add-missing-types.md)             | Add Missing @types/node                     | ✅ Complete | 0.25h  | High     |
+| [TASK-025](./tasks/TASK-025-standardise-component-imports.md) | Standardise Component Imports to @app Alias | ✅ Complete | 0.25h  | Low      |
 
 ### EPIC-005: Multi-Language Portfolio Data Layer (27 tasks) ⏳
 
-| Task ID                                                             | Title                                         | Status       | Effort | Priority |
-| ------------------------------------------------------------------- | --------------------------------------------- | ------------ | ------ | -------- |
-| [TASK-026](./tasks/TASK-026-copy-english-spanish-data.md)           | Copy English/Spanish Data from Old Repo       | ✅ Done      | 0.5h   | High     |
-| [TASK-027](./tasks/TASK-027-translate-catalan-data.md)              | Translate Profile Data to Catalan             | ✅ Done      | 1h     | High     |
-| [TASK-028](./tasks/TASK-028-translate-polish-data.md)               | Translate Profile Data to Polish              | ✅ Done      | 1h     | High     |
-| [TASK-029](./tasks/TASK-029-translate-tagalog-data.md)              | Translate Profile Data to Tagalog             | ✅ Done      | 1h     | High     |
-| [TASK-030](./tasks/TASK-030-create-typescript-types.md)             | Create TypeScript Types for Profile Data      | ✅ Done      | 1h     | High     |
-| [TASK-031](./tasks/TASK-031-setup-axios-github-api-client.md)       | Set Up Axios GitHub API Client                | ✅ Done      | 1h     | High     |
-| [TASK-032](./tasks/TASK-032-create-profile-redux-slice.md)          | Create Profile Redux Slice                    | ✅ Done      | 1.5h   | High     |
-| [TASK-033](./tasks/TASK-033-create-workxp-redux-slice.md)           | Create WorkXP Redux Slice                     | ✅ Done      | 1h     | High     |
-| [TASK-034](./tasks/TASK-034-create-education-redux-slice.md)        | Create Education Redux Slice                  | ✅ Done      | 1h     | High     |
-| [TASK-035](./tasks/TASK-035-configure-redux-persist.md)             | Configure Redux-Persist                       | ✅ Done      | 0.5h   | High     |
-| [TASK-036](./tasks/TASK-036-unit-tests-redux-layer.md)              | Add Unit Tests for Redux Layer                | ✅ Done      | 2h     | High     |
-| [TASK-045](./tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n Locale Files (ca, pl, tl)      | ✅ Done      | 2h     | Medium   |
-| [TASK-046](./tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n Config for 5 Languages            | ✅ Done      | 0.5h   | Medium   |
-| [TASK-047](./tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist for 5 Languages      | ✅ Done      | 0.5h   | Medium   |
-| [TASK-048](./tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml for 5 Languages | ✅ Done      | 1h     | Medium   |
-| [TASK-049](./tasks/TASK-049-update-language-selector-ui.md)         | Update Language Selector UI                   | ✅ Done      | 1h     | Medium   |
-| [TASK-050](./tasks/TASK-050-rntl-tests-redux-data-layer.md)         | RNTL Tests for Redux Data Layer               | ✅ Done      | 2h     | High     |
-| [TASK-052](./tasks/TASK-052-e2e-tests-language-switching.md)        | E2E Tests for Language Switching              | ✅ Done      | 1.5h   | High     |
-| [TASK-053](./tasks/TASK-053-e2e-tests-data-loading-persistence.md)  | E2E Tests for Data Loading & Persistence      | ✅ Done      | 2h     | High     |
-| [TASK-054](./tasks/TASK-054-mock-github-api-e2e-tests.md)           | Mock GitHub API in E2E Tests                  | ✅ Done      | 1h     | High     |
-| [TASK-056](./tasks/TASK-056-install-axios-mock-adapter.md)          | Install axios-mock-adapter                    | ✅ Done      | 0.25h  | High     |
-| [TASK-057](./tasks/TASK-057-api-tests-profile.md)                   | Create API Tests for Profile Feature          | ✅ Done      | 1h     | High     |
-| [TASK-058](./tasks/TASK-058-api-tests-education.md)                 | Create API Tests for Education Feature        | ✅ Done      | 1h     | High     |
-| [TASK-059](./tasks/TASK-059-api-tests-workxp.md)                    | Create API Tests for WorkXP Feature           | ✅ Done      | 1h     | High     |
-| [TASK-060](./tasks/TASK-060-document-api-testing-standard.md)       | Document API Testing Standard                 | ✅ Done      | 0.75h  | Medium   |
-| [TASK-103](./tasks/TASK-103-mock-status-verification-screen.md)     | Mock Status Verification Screen               | ✅ Completed | 2h     | Medium   |
-| [TASK-104](./tasks/TASK-104-migrate-msw-to-metro-mocking.md)        | Migrate MSW to Metro Mocking for E2E Tests    | ✅ Completed | 3h     | High     |
+| Task ID                                                             | Title                                         | Status      | Effort | Priority |
+| ------------------------------------------------------------------- | --------------------------------------------- | ----------- | ------ | -------- |
+| [TASK-026](./tasks/TASK-026-copy-english-spanish-data.md)           | Copy English/Spanish Data from Old Repo       | ✅ Complete | 0.5h   | High     |
+| [TASK-027](./tasks/TASK-027-translate-catalan-data.md)              | Translate Profile Data to Catalan             | ✅ Complete | 1h     | High     |
+| [TASK-028](./tasks/TASK-028-translate-polish-data.md)               | Translate Profile Data to Polish              | ✅ Complete | 1h     | High     |
+| [TASK-029](./tasks/TASK-029-translate-tagalog-data.md)              | Translate Profile Data to Tagalog             | ✅ Complete | 1h     | High     |
+| [TASK-030](./tasks/TASK-030-create-typescript-types.md)             | Create TypeScript Types for Profile Data      | ✅ Complete | 1h     | High     |
+| [TASK-031](./tasks/TASK-031-setup-axios-github-api-client.md)       | Set Up Axios GitHub API Client                | ✅ Complete | 1h     | High     |
+| [TASK-032](./tasks/TASK-032-create-profile-redux-slice.md)          | Create Profile Redux Slice                    | ✅ Complete | 1.5h   | High     |
+| [TASK-033](./tasks/TASK-033-create-workxp-redux-slice.md)           | Create WorkXP Redux Slice                     | ✅ Complete | 1h     | High     |
+| [TASK-034](./tasks/TASK-034-create-education-redux-slice.md)        | Create Education Redux Slice                  | ✅ Complete | 1h     | High     |
+| [TASK-035](./tasks/TASK-035-configure-redux-persist.md)             | Configure Redux-Persist                       | ✅ Complete | 0.5h   | High     |
+| [TASK-036](./tasks/TASK-036-unit-tests-redux-layer.md)              | Add Unit Tests for Redux Layer                | ✅ Complete | 2h     | High     |
+| [TASK-045](./tasks/TASK-045-translate-i18n-locale-files.md)         | Translate i18n Locale Files (ca, pl, tl)      | ✅ Complete | 2h     | Medium   |
+| [TASK-046](./tasks/TASK-046-update-i18n-config-5-languages.md)      | Update i18n Config for 5 Languages            | ✅ Complete | 0.5h   | Medium   |
+| [TASK-047](./tasks/TASK-047-configure-ios-info-plist-languages.md)  | Configure iOS Info.plist for 5 Languages      | ✅ Complete | 0.5h   | Medium   |
+| [TASK-048](./tasks/TASK-048-configure-android-strings-languages.md) | Configure Android strings.xml for 5 Languages | ✅ Complete | 1h     | Medium   |
+| [TASK-049](./tasks/TASK-049-update-language-selector-ui.md)         | Update Language Selector UI                   | ✅ Complete | 1h     | Medium   |
+| [TASK-050](./tasks/TASK-050-rntl-tests-redux-data-layer.md)         | RNTL Tests for Redux Data Layer               | ✅ Complete | 2h     | High     |
+| [TASK-052](./tasks/TASK-052-e2e-tests-language-switching.md)        | E2E Tests for Language Switching              | ✅ Complete | 1.5h   | High     |
+| [TASK-053](./tasks/TASK-053-e2e-tests-data-loading-persistence.md)  | E2E Tests for Data Loading & Persistence      | ✅ Complete | 2h     | High     |
+| [TASK-054](./tasks/TASK-054-mock-github-api-e2e-tests.md)           | Mock GitHub API in E2E Tests                  | ✅ Complete | 1h     | High     |
+| [TASK-056](./tasks/TASK-056-install-axios-mock-adapter.md)          | Install axios-mock-adapter                    | ✅ Complete | 0.25h  | High     |
+| [TASK-057](./tasks/TASK-057-api-tests-profile.md)                   | Create API Tests for Profile Feature          | ✅ Complete | 1h     | High     |
+| [TASK-058](./tasks/TASK-058-api-tests-education.md)                 | Create API Tests for Education Feature        | ✅ Complete | 1h     | High     |
+| [TASK-059](./tasks/TASK-059-api-tests-workxp.md)                    | Create API Tests for WorkXP Feature           | ✅ Complete | 1h     | High     |
+| [TASK-060](./tasks/TASK-060-document-api-testing-standard.md)       | Document API Testing Standard                 | ✅ Complete | 0.75h  | Medium   |
+| [TASK-103](./tasks/TASK-103-mock-status-verification-screen.md)     | Mock Status Verification Screen               | ✅ Complete | 2h     | Medium   |
+| [TASK-104](./tasks/TASK-104-migrate-msw-to-metro-mocking.md)        | Migrate MSW to Metro Mocking for E2E Tests    | ✅ Complete | 3h     | High     |
 
 ### EPIC-006: Splash Screen with Loading Animation (10 tasks) ⏳
 
-| Task ID                                                           | Title                                  | Status       | Effort | Priority |
-| ----------------------------------------------------------------- | -------------------------------------- | ------------ | ------ | -------- |
-| [TASK-037](./tasks/TASK-037-install-react-native-bootsplash.md)   | Install react-native-bootsplash        | ✅ Done      | 0.5h   | High     |
-| [TASK-038](./tasks/TASK-038-configure-ios-native-splash.md)       | Configure iOS Native Splash Screen     | ✅ Done      | 1h     | High     |
-| [TASK-039](./tasks/TASK-039-configure-android-native-splash.md)   | Configure Android Native Splash Screen | ✅ Done      | 1h     | High     |
-| [TASK-040](./tasks/TASK-040-install-lottie-react-native.md)       | Install lottie-react-native            | ✅ Done      | 0.5h   | High     |
-| [TASK-041](./tasks/TASK-041-copy-logo-animation-assets.md)        | Copy Logo Animation Assets             | ✅ Done      | 0.5h   | Medium   |
-| [TASK-042](./tasks/TASK-042-create-logo-component.md)             | Create Logo Component                  | ✅ Done      | 1h     | High     |
-| [TASK-043](./tasks/TASK-043-create-splashscreen-component.md)     | Create SplashScreen Component          | ✅ Done      | 2h     | High     |
-| [TASK-044](./tasks/TASK-044-integrate-splash-react-navigation.md) | Integrate Splash with React Navigation | ✅ Done      | 1h     | High     |
-| [TASK-051](./tasks/TASK-051-rntl-tests-splash-screen.md)          | RNTL Tests for Splash Screen           | ✅ Done      | 1.5h   | High     |
-| [TASK-061](./tasks/TASK-061-e2e-tests-splash-screen-flow.md)      | E2E Tests for Splash Screen Flow       | ✅ Completed | 2h     | High     |
+| Task ID                                                           | Title                                  | Status      | Effort | Priority |
+| ----------------------------------------------------------------- | -------------------------------------- | ----------- | ------ | -------- |
+| [TASK-037](./tasks/TASK-037-install-react-native-bootsplash.md)   | Install react-native-bootsplash        | ✅ Complete | 0.5h   | High     |
+| [TASK-038](./tasks/TASK-038-configure-ios-native-splash.md)       | Configure iOS Native Splash Screen     | ✅ Complete | 1h     | High     |
+| [TASK-039](./tasks/TASK-039-configure-android-native-splash.md)   | Configure Android Native Splash Screen | ✅ Complete | 1h     | High     |
+| [TASK-040](./tasks/TASK-040-install-lottie-react-native.md)       | Install lottie-react-native            | ✅ Complete | 0.5h   | High     |
+| [TASK-041](./tasks/TASK-041-copy-logo-animation-assets.md)        | Copy Logo Animation Assets             | ✅ Complete | 0.5h   | Medium   |
+| [TASK-042](./tasks/TASK-042-create-logo-component.md)             | Create Logo Component                  | ✅ Complete | 1h     | High     |
+| [TASK-043](./tasks/TASK-043-create-splashscreen-component.md)     | Create SplashScreen Component          | ✅ Complete | 2h     | High     |
+| [TASK-044](./tasks/TASK-044-integrate-splash-react-navigation.md) | Integrate Splash with React Navigation | ✅ Complete | 1h     | High     |
+| [TASK-051](./tasks/TASK-051-rntl-tests-splash-screen.md)          | RNTL Tests for Splash Screen           | ✅ Complete | 1.5h   | High     |
+| [TASK-061](./tasks/TASK-061-e2e-tests-splash-screen-flow.md)      | E2E Tests for Splash Screen Flow       | ✅ Complete | 2h     | High     |
 
 ### EPIC-007: Home Screen UI Redesign (4 tasks) ✅
 
-| Task ID                                                     | Title                         | Status       | Effort | Priority |
-| ----------------------------------------------------------- | ----------------------------- | ------------ | ------ | -------- |
-| [TASK-063](./tasks/TASK-063-create-profile-card.md)         | Create ProfileCard Component  | ✅ Completed | 1.5h   | Medium   |
-| [TASK-064](./tasks/TASK-064-integrate-profile-card-home.md) | Integrate ProfileCard in Home | ✅ Completed | 0.5h   | Medium   |
-| [TASK-065](./tasks/TASK-065-test-profile-card.md)           | Unit Tests for ProfileCard    | ✅ Completed | 1h     | Medium   |
-| [TASK-066](./tasks/TASK-066-update-home-screen-tests.md)    | Update HomeScreen Tests       | ✅ Completed | 0.5h   | Medium   |
+| Task ID                                                     | Title                         | Status      | Effort | Priority |
+| ----------------------------------------------------------- | ----------------------------- | ----------- | ------ | -------- |
+| [TASK-063](./tasks/TASK-063-create-profile-card.md)         | Create ProfileCard Component  | ✅ Complete | 1.5h   | Medium   |
+| [TASK-064](./tasks/TASK-064-integrate-profile-card-home.md) | Integrate ProfileCard in Home | ✅ Complete | 0.5h   | Medium   |
+| [TASK-065](./tasks/TASK-065-test-profile-card.md)           | Unit Tests for ProfileCard    | ✅ Complete | 1h     | Medium   |
+| [TASK-066](./tasks/TASK-066-update-home-screen-tests.md)    | Update HomeScreen Tests       | ✅ Complete | 0.5h   | Medium   |
 
 ### EPIC-008: Document Viewing (6 tasks) ✅
 
-| Task ID                                                  | Title                                 | Status       | Effort | Priority |
-| -------------------------------------------------------- | ------------------------------------- | ------------ | ------ | -------- |
-| [TASK-067](./tasks/TASK-067-install-react-native-pdf.md) | Install react-native-pdf Dependencies | ✅ Completed | 0.5h   | High     |
-| [TASK-068](./tasks/TASK-068-create-pdf-screen.md)        | Create PDFScreen Component            | ✅ Completed | 1h     | High     |
-| [TASK-069](./tasks/TASK-069-add-pdf-navigation-route.md) | Add PDF Route to Navigation           | ✅ Completed | 0.5h   | High     |
-| [TASK-070](./tasks/TASK-070-add-pdf-share-button.md)     | Add Share Button to PDF Header        | ✅ Completed | 1h     | Medium   |
-| [TASK-071](./tasks/TASK-071-unit-tests-pdf-screen.md)    | Unit Tests for PDFScreen              | ✅ Completed | 1h     | Medium   |
-| [TASK-072](./tasks/TASK-072-e2e-tests-pdf-viewer.md)     | E2E Tests for PDF Viewer Flow         | ✅ Completed | 1.5h   | Medium   |
+| Task ID                                                  | Title                                 | Status      | Effort | Priority |
+| -------------------------------------------------------- | ------------------------------------- | ----------- | ------ | -------- |
+| [TASK-067](./tasks/TASK-067-install-react-native-pdf.md) | Install react-native-pdf Dependencies | ✅ Complete | 0.5h   | High     |
+| [TASK-068](./tasks/TASK-068-create-pdf-screen.md)        | Create PDFScreen Component            | ✅ Complete | 1h     | High     |
+| [TASK-069](./tasks/TASK-069-add-pdf-navigation-route.md) | Add PDF Route to Navigation           | ✅ Complete | 0.5h   | High     |
+| [TASK-070](./tasks/TASK-070-add-pdf-share-button.md)     | Add Share Button to PDF Header        | ✅ Complete | 1h     | Medium   |
+| [TASK-071](./tasks/TASK-071-unit-tests-pdf-screen.md)    | Unit Tests for PDFScreen              | ✅ Complete | 1h     | Medium   |
+| [TASK-072](./tasks/TASK-072-e2e-tests-pdf-viewer.md)     | E2E Tests for PDF Viewer Flow         | ✅ Complete | 1.5h   | Medium   |
 
 ### EPIC-009: Education Display Enhancement (6 tasks) ⏳
 
-| Task ID                                                      | Title                               | Status       | Effort | Priority |
-| ------------------------------------------------------------ | ----------------------------------- | ------------ | ------ | -------- |
-| [TASK-073](./tasks/TASK-073-download-svg-logo-assets.md)     | Download and Add SVG Logo Assets    | ✅ Completed | 0.75h  | High     |
-| [TASK-074](./tasks/TASK-074-create-menu-button-group-svg.md) | Create MenuButtonGroupSvg Component | ✅ Completed | 1.5h   | High     |
-| [TASK-075](./tasks/TASK-075-update-education-data-screen.md) | Update EducationDataScreen UI       | ✅ Completed | 1.25h  | High     |
-| [TASK-076](./tasks/TASK-076-add-certificate-navigation.md)   | Add Certificate WebView Navigation  | ✅ Completed | 0.5h   | Medium   |
-| [TASK-077](./tasks/TASK-077-unit-tests-education-screen.md)  | Unit Tests for Education Screen     | ✅ Completed | 2h     | Medium   |
-| [TASK-078](./tasks/TASK-078-e2e-tests-education-screen.md)   | E2E Tests for Education Screen Flow | ✅ Completed | 1.5h   | Medium   |
+| Task ID                                                      | Title                               | Status      | Effort | Priority |
+| ------------------------------------------------------------ | ----------------------------------- | ----------- | ------ | -------- |
+| [TASK-073](./tasks/TASK-073-download-svg-logo-assets.md)     | Download and Add SVG Logo Assets    | ✅ Complete | 0.75h  | High     |
+| [TASK-074](./tasks/TASK-074-create-menu-button-group-svg.md) | Create MenuButtonGroupSvg Component | ✅ Complete | 1.5h   | High     |
+| [TASK-075](./tasks/TASK-075-update-education-data-screen.md) | Update EducationDataScreen UI       | ✅ Complete | 1.25h  | High     |
+| [TASK-076](./tasks/TASK-076-add-certificate-navigation.md)   | Add Certificate WebView Navigation  | ✅ Complete | 0.5h   | Medium   |
+| [TASK-077](./tasks/TASK-077-unit-tests-education-screen.md)  | Unit Tests for Education Screen     | ✅ Complete | 2h     | Medium   |
+| [TASK-078](./tasks/TASK-078-e2e-tests-education-screen.md)   | E2E Tests for Education Screen Flow | ✅ Complete | 1.5h   | Medium   |
 
 ### EPIC-010: Work Experience Display Enhancement (8 tasks) ✅
 
-| Task ID                                                           | Title                                    | Status       | Effort | Priority |
-| ----------------------------------------------------------------- | ---------------------------------------- | ------------ | ------ | -------- |
-| [TASK-079](./tasks/TASK-079-work-experience-types.md)             | Define Work Experience TypeScript Types  | ✅ Completed | 0.5h   | High     |
-| [TASK-080](./tasks/TASK-080-create-work-experience-screen.md)     | Create WorkXPScreen Component            | ✅ Completed | 2h     | High     |
-| [TASK-081](./tasks/TASK-081-work-experience-navigation-setup.md)  | Set up Work Experience Navigation Routes | ✅ Completed | 1h     | High     |
-| [TASK-082](./tasks/TASK-082-unit-tests-work-experience-screen.md) | Unit Tests for WorkXPScreen              | ✅ Completed | 2h     | Medium   |
-| [TASK-083](./tasks/TASK-083-e2e-tests-work-experience-screen.md)  | E2E Tests for Work Experience Flow       | ✅ Completed | 2h     | Medium   |
-| [TASK-084](./tasks/TASK-084-work-experience-api-client.md)        | Create Work Experience API Client        | ✅ Completed | 1.5h   | High     |
-| [TASK-085](./tasks/TASK-085-work-experience-redux-slice.md)       | Implement Work Experience Redux Slice    | ✅ Completed | 2h     | High     |
-| [TASK-086](./tasks/TASK-086-unit-tests-work-experience-redux.md)  | Unit Tests for Work Experience Redux     | ✅ Completed | 2h     | Medium   |
+| Task ID                                                           | Title                                    | Status      | Effort | Priority |
+| ----------------------------------------------------------------- | ---------------------------------------- | ----------- | ------ | -------- |
+| [TASK-079](./tasks/TASK-079-work-experience-types.md)             | Define Work Experience TypeScript Types  | ✅ Complete | 0.5h   | High     |
+| [TASK-080](./tasks/TASK-080-create-work-experience-screen.md)     | Create WorkXPScreen Component            | ✅ Complete | 2h     | High     |
+| [TASK-081](./tasks/TASK-081-work-experience-navigation-setup.md)  | Set up Work Experience Navigation Routes | ✅ Complete | 1h     | High     |
+| [TASK-082](./tasks/TASK-082-unit-tests-work-experience-screen.md) | Unit Tests for WorkXPScreen              | ✅ Complete | 2h     | Medium   |
+| [TASK-083](./tasks/TASK-083-e2e-tests-work-experience-screen.md)  | E2E Tests for Work Experience Flow       | ✅ Complete | 2h     | Medium   |
+| [TASK-084](./tasks/TASK-084-work-experience-api-client.md)        | Create Work Experience API Client        | ✅ Complete | 1.5h   | High     |
+| [TASK-085](./tasks/TASK-085-work-experience-redux-slice.md)       | Implement Work Experience Redux Slice    | ✅ Complete | 2h     | High     |
+| [TASK-086](./tasks/TASK-086-unit-tests-work-experience-redux.md)  | Unit Tests for Work Experience Redux     | ✅ Complete | 2h     | Medium   |
 
 ### EPIC-011: Component Naming Clarity (13 tasks) ✅
 
-| Task ID                                                            | Title                                         | Status       | Effort | Priority |
-| ------------------------------------------------------------------ | --------------------------------------------- | ------------ | ------ | -------- |
-| [TASK-087](./tasks/TASK-087-create-migration-plan-document.md)     | Create Migration Plan Document                | ✅ Completed | 0.5h   | High     |
-| [TASK-088](./tasks/TASK-088-create-settings-group-component.md)    | Create SettingsGroup Component                | ✅ Completed | 0.25h  | High     |
-| [TASK-089](./tasks/TASK-089-create-detail-list-group-component.md) | Create DetailListGroup Component              | ✅ Completed | 0.25h  | High     |
-| [TASK-090](./tasks/TASK-090-create-picker-group-component.md)      | Create PickerGroup Component                  | ✅ Completed | 0.25h  | High     |
-| [TASK-091](./tasks/TASK-091-create-settings-item-component.md)     | Create SettingsItem Component                 | ✅ Completed | 0.25h  | High     |
-| [TASK-092](./tasks/TASK-092-create-picker-item-component.md)       | Create PickerItem Component                   | ✅ Completed | 0.25h  | High     |
-| [TASK-093](./tasks/TASK-093-migrate-settings-screen.md)            | Migrate SettingsScreen                        | ✅ Completed | 0.5h   | High     |
-| [TASK-094](./tasks/TASK-094-migrate-education-screen.md)           | Migrate EducationScreen                       | ✅ Completed | 0.5h   | High     |
-| [TASK-095](./tasks/TASK-095-migrate-work-xp-screen.md)             | Migrate WorkXPScreen                          | ✅ Completed | 0.5h   | High     |
-| [TASK-096](./tasks/TASK-096-migrate-language-screen.md)            | Migrate LanguageScreen                        | ✅ Completed | 0.5h   | Medium   |
-| [TASK-097](./tasks/TASK-097-migrate-appearance-screen.md)          | Migrate AppearanceScreen                      | ✅ Completed | 0.5h   | Medium   |
-| [TASK-098](./tasks/TASK-098-deprecate-old-components.md)           | Deprecate Old Components                      | ✅ Completed | 0.5h   | Medium   |
-| [TASK-099](./tasks/TASK-099-remove-old-components.md)              | Remove Old Components                         | ✅ Completed | 1.5h   | Low      |
-| [TASK-100](./tasks/TASK-100-fix-e2e-home-button-test-ids.md)       | Fix E2E Tests for Renamed Home Screen Buttons | ✅ Completed | 2h     | High     |
-| [TASK-101](./tasks/TASK-101-fix-e2e-pdf-step-definitions.md)       | Fix PDF Viewing E2E Step Definitions          | ✅ Completed | 0.5h   | High     |
-| [TASK-102](./tasks/TASK-102-fix-e2e-app-restart-timeout.md)        | Fix App Restart E2E Step Timeout              | ✅ Completed | 1h     | High     |
-| [TASK-103](./tasks/TASK-103-mock-status-verification-screen.md)    | Mock Status Verification Screen               | ✅ Completed | 2h     | Medium   |
-| [TASK-104](./tasks/TASK-104-migrate-msw-to-metro-mocking.md)       | Migrate MSW to Metro Mocking for E2E Tests    | ✅ Completed | 3h     | High     |
+| Task ID                                                            | Title                                         | Status      | Effort | Priority |
+| ------------------------------------------------------------------ | --------------------------------------------- | ----------- | ------ | -------- |
+| [TASK-087](./tasks/TASK-087-create-migration-plan-document.md)     | Create Migration Plan Document                | ✅ Complete | 0.5h   | High     |
+| [TASK-088](./tasks/TASK-088-create-settings-group-component.md)    | Create SettingsGroup Component                | ✅ Complete | 0.25h  | High     |
+| [TASK-089](./tasks/TASK-089-create-detail-list-group-component.md) | Create DetailListGroup Component              | ✅ Complete | 0.25h  | High     |
+| [TASK-090](./tasks/TASK-090-create-picker-group-component.md)      | Create PickerGroup Component                  | ✅ Complete | 0.25h  | High     |
+| [TASK-091](./tasks/TASK-091-create-settings-item-component.md)     | Create SettingsItem Component                 | ✅ Complete | 0.25h  | High     |
+| [TASK-092](./tasks/TASK-092-create-picker-item-component.md)       | Create PickerItem Component                   | ✅ Complete | 0.25h  | High     |
+| [TASK-093](./tasks/TASK-093-migrate-settings-screen.md)            | Migrate SettingsScreen                        | ✅ Complete | 0.5h   | High     |
+| [TASK-094](./tasks/TASK-094-migrate-education-screen.md)           | Migrate EducationScreen                       | ✅ Complete | 0.5h   | High     |
+| [TASK-095](./tasks/TASK-095-migrate-work-xp-screen.md)             | Migrate WorkXPScreen                          | ✅ Complete | 0.5h   | High     |
+| [TASK-096](./tasks/TASK-096-migrate-language-screen.md)            | Migrate LanguageScreen                        | ✅ Complete | 0.5h   | Medium   |
+| [TASK-097](./tasks/TASK-097-migrate-appearance-screen.md)          | Migrate AppearanceScreen                      | ✅ Complete | 0.5h   | Medium   |
+| [TASK-098](./tasks/TASK-098-deprecate-old-components.md)           | Deprecate Old Components                      | ✅ Complete | 0.5h   | Medium   |
+| [TASK-099](./tasks/TASK-099-remove-old-components.md)              | Remove Old Components                         | ✅ Complete | 1.5h   | Low      |
+| [TASK-100](./tasks/TASK-100-fix-e2e-home-button-test-ids.md)       | Fix E2E Tests for Renamed Home Screen Buttons | ✅ Complete | 2h     | High     |
+| [TASK-101](./tasks/TASK-101-fix-e2e-pdf-step-definitions.md)       | Fix PDF Viewing E2E Step Definitions          | ✅ Complete | 0.5h   | High     |
+| [TASK-102](./tasks/TASK-102-fix-e2e-app-restart-timeout.md)        | Fix App Restart E2E Step Timeout              | ✅ Complete | 1h     | High     |
+| [TASK-103](./tasks/TASK-103-mock-status-verification-screen.md)    | Mock Status Verification Screen               | ✅ Complete | 2h     | Medium   |
+| [TASK-104](./tasks/TASK-104-migrate-msw-to-metro-mocking.md)       | Migrate MSW to Metro Mocking for E2E Tests    | ✅ Complete | 3h     | High     |
 
 ### EPIC-012: Profile Screen Implementation (4 tasks) ⏳
 
-| Task ID                                                          | Title                                      | Status       | Effort | Priority |
-| ---------------------------------------------------------------- | ------------------------------------------ | ------------ | ------ | -------- |
-| [TASK-105](./tasks/TASK-105-implement-profile-screen-ui.md)      | Implement ProfileScreen UI with sections   | ✅ Completed | 2h     | High     |
-| [TASK-106](./tasks/TASK-106-add-profile-i18n-translations.md)    | Add i18next translations (all 5 languages) | ✅ Completed | 1.5h   | Medium   |
-| [TASK-107](./tasks/TASK-107-write-profile-screen-tests.md)       | Write RNTL Tests for ProfileScreen         | ✅ Completed | 1.5h   | High     |
-| [TASK-108](./tasks/TASK-108-add-profile-e2e-navigation-tests.md) | Add E2E Tests for Profile Navigation       | ✅ Completed | 1h     | Medium   |
+| Task ID                                                          | Title                                      | Status      | Effort | Priority |
+| ---------------------------------------------------------------- | ------------------------------------------ | ----------- | ------ | -------- |
+| [TASK-105](./tasks/TASK-105-implement-profile-screen-ui.md)      | Implement ProfileScreen UI with sections   | ✅ Complete | 2h     | High     |
+| [TASK-106](./tasks/TASK-106-add-profile-i18n-translations.md)    | Add i18next translations (all 5 languages) | ✅ Complete | 1.5h   | Medium   |
+| [TASK-107](./tasks/TASK-107-write-profile-screen-tests.md)       | Write RNTL Tests for ProfileScreen         | ✅ Complete | 1.5h   | High     |
+| [TASK-108](./tasks/TASK-108-add-profile-e2e-navigation-tests.md) | Add E2E Tests for Profile Navigation       | ✅ Complete | 1h     | Medium   |
 
 ### EPIC-013: Production Readiness - Security & Testing (11 tasks) 📋
 
 #### US-022: Security Hardening (6 tasks)
 
-| Task ID                                                              | Title                                | Status       | Effort | Priority |
-| -------------------------------------------------------------------- | ------------------------------------ | ------------ | ------ | -------- |
-| [TASK-109](./tasks/TASK-109-remove-production-console-statements.md) | Remove Production Console Statements | ✅ Completed | 3h     | Critical |
-| [TASK-110](./tasks/TASK-110-add-webview-url-validation.md)           | Add WebView URL Validation           | ✅ Completed | 2h     | Critical |
-| [TASK-111](./tasks/TASK-111-add-pdf-url-validation.md)               | Add PDF URL Validation               | ✅ Completed | 1h     | High     |
-| [TASK-112](./tasks/TASK-112-audit-svg-http-urls.md)                  | Audit SVG Files for HTTP URLs        | ✅ Completed | 1h     | Medium   |
-| [TASK-113](./tasks/TASK-113-verify-env-gitignore.md)                 | Verify .env in .gitignore            | ✅ Completed | 0.5h   | Medium   |
-| [TASK-114](./tasks/TASK-114-add-env-precommit-hook.md)               | Add .env Pre-commit Hook             | ✅ Completed | 0.5h   | Medium   |
+| Task ID                                                              | Title                                | Status      | Effort | Priority |
+| -------------------------------------------------------------------- | ------------------------------------ | ----------- | ------ | -------- |
+| [TASK-109](./tasks/TASK-109-remove-production-console-statements.md) | Remove Production Console Statements | ✅ Complete | 3h     | Critical |
+| [TASK-110](./tasks/TASK-110-add-webview-url-validation.md)           | Add WebView URL Validation           | ✅ Complete | 2h     | Critical |
+| [TASK-111](./tasks/TASK-111-add-pdf-url-validation.md)               | Add PDF URL Validation               | ✅ Complete | 1h     | High     |
+| [TASK-112](./tasks/TASK-112-audit-svg-http-urls.md)                  | Audit SVG Files for HTTP URLs        | ✅ Complete | 1h     | Medium   |
+| [TASK-113](./tasks/TASK-113-verify-env-gitignore.md)                 | Verify .env in .gitignore            | ✅ Complete | 0.5h   | Medium   |
+| [TASK-114](./tasks/TASK-114-add-env-precommit-hook.md)               | Add .env Pre-commit Hook             | ✅ Complete | 0.5h   | Medium   |
 
 #### US-023: Test Coverage Completion (5 tasks)
 
-| Task ID                                                               | Title                                 | Status       | Effort | Priority |
-| --------------------------------------------------------------------- | ------------------------------------- | ------------ | ------ | -------- |
-| [TASK-115](./tasks/TASK-115-test-select-work-experience-or-client.md) | Test selectWorkExperienceOrClientById | ✅ Completed | 2h     | High     |
-| [TASK-116](./tasks/TASK-116-test-e2e-mocking-logic.md)                | Test E2E Mocking Logic in API Files   | ✅ Completed | 4h     | High     |
-| [TASK-117](./tasks/TASK-117-test-github-api-client.md)                | Create GithubApiClient Tests          | ✅ Completed | 1h     | High     |
-| [TASK-118](./tasks/TASK-118-export-missing-selectors.md)              | Export Missing Redux Selectors        | ✅ Completed | 0.5h   | Medium   |
-| [TASK-119](./tasks/TASK-119-remove-msw-dead-code.md)                  | Remove MSW from devDependencies       | ✅ Completed | 1h     | Medium   |
+| Task ID                                                               | Title                                 | Status      | Effort | Priority |
+| --------------------------------------------------------------------- | ------------------------------------- | ----------- | ------ | -------- |
+| [TASK-115](./tasks/TASK-115-test-select-work-experience-or-client.md) | Test selectWorkExperienceOrClientById | ✅ Complete | 2h     | High     |
+| [TASK-116](./tasks/TASK-116-test-e2e-mocking-logic.md)                | Test E2E Mocking Logic in API Files   | ✅ Complete | 4h     | High     |
+| [TASK-117](./tasks/TASK-117-test-github-api-client.md)                | Create GithubApiClient Tests          | ✅ Complete | 1h     | High     |
+| [TASK-118](./tasks/TASK-118-export-missing-selectors.md)              | Export Missing Redux Selectors        | ✅ Complete | 0.5h   | Medium   |
+| [TASK-119](./tasks/TASK-119-remove-msw-dead-code.md)                  | Remove MSW from devDependencies       | ✅ Complete | 1h     | Medium   |
 
 ### EPIC-014: Performance & Quality Phase 2 (10 tasks) 📋
 
@@ -279,18 +279,18 @@
 
 #### US-027: Code Quality & Tech Debt (10 tasks)
 
-| Task ID                                                              | Title                                             | Status       | Effort | Priority |
-| -------------------------------------------------------------------- | ------------------------------------------------- | ------------ | ------ | -------- |
-| [TASK-133](./tasks/TASK-133-standardize-error-handling.md)           | Standardize Error Handling Patterns               | ✅ Complete  | 3h     | Medium   |
-| [TASK-134](./tasks/TASK-134-replace-magic-numbers.md)                | Replace Magic Numbers with Constants              | ✅ Complete  | 2h     | Medium   |
-| [TASK-135](./tasks/TASK-135-implement-todo-handlers.md)              | Implement or Remove TODO Handlers                 | ✅ Complete  | 2h     | Medium   |
-| [TASK-136](./tasks/TASK-136-remove-msw-devdependency.md)             | Remove MSW from devDependencies                   | ✅ Complete  | 0.5h   | Medium   |
-| [TASK-137](./tasks/TASK-137-update-mockstatus-comments.md)           | Update MockStatusScreen Comments                  | ✅ Complete  | 0.25h  | Medium   |
-| [TASK-138](./tasks/TASK-138-standardize-gluestack-ui.md)             | Standardize GlueStack UI (ProfileData + WebView)  | ✅ Completed | 3h     | Medium   |
-| [TASK-139](./tasks/TASK-139-replace-rn-primitives-with-gluestack.md) | Replace RN Primitives with GlueStack UI           | ✅ Complete  | 10h    | High     |
-| [TASK-140](./tasks/TASK-140-evaluate-scrollview-migration.md)        | Evaluate and Migrate to GlueStack ScrollView      | ✅ Complete  | 4h     | Medium   |
-| [TASK-141](./tasks/TASK-141-wrap-react-native-pdf-with-styled.md)    | Wrap react-native-pdf with styled()               | ✅ Complete  | 2h     | Low      |
-| [TASK-142](./tasks/TASK-142-document-stylesheet-justifications.md)   | Document StyleSheet.create() Usage Justifications | ✅ Complete  | 1h     | Low      |
+| Task ID                                                              | Title                                             | Status      | Effort | Priority |
+| -------------------------------------------------------------------- | ------------------------------------------------- | ----------- | ------ | -------- |
+| [TASK-133](./tasks/TASK-133-standardize-error-handling.md)           | Standardize Error Handling Patterns               | ✅ Complete | 3h     | Medium   |
+| [TASK-134](./tasks/TASK-134-replace-magic-numbers.md)                | Replace Magic Numbers with Constants              | ✅ Complete | 2h     | Medium   |
+| [TASK-135](./tasks/TASK-135-implement-todo-handlers.md)              | Implement or Remove TODO Handlers                 | ✅ Complete | 2h     | Medium   |
+| [TASK-136](./tasks/TASK-136-remove-msw-devdependency.md)             | Remove MSW from devDependencies                   | ✅ Complete | 0.5h   | Medium   |
+| [TASK-137](./tasks/TASK-137-update-mockstatus-comments.md)           | Update MockStatusScreen Comments                  | ✅ Complete | 0.25h  | Medium   |
+| [TASK-138](./tasks/TASK-138-standardize-gluestack-ui.md)             | Standardize GlueStack UI (ProfileData + WebView)  | ✅ Complete | 3h     | Medium   |
+| [TASK-139](./tasks/TASK-139-replace-rn-primitives-with-gluestack.md) | Replace RN Primitives with GlueStack UI           | ✅ Complete | 10h    | High     |
+| [TASK-140](./tasks/TASK-140-evaluate-scrollview-migration.md)        | Evaluate and Migrate to GlueStack ScrollView      | ✅ Complete | 4h     | Medium   |
+| [TASK-141](./tasks/TASK-141-wrap-react-native-pdf-with-styled.md)    | Wrap react-native-pdf with styled()               | ✅ Complete | 2h     | Low      |
+| [TASK-142](./tasks/TASK-142-document-stylesheet-justifications.md)   | Document StyleSheet.create() Usage Justifications | ✅ Complete | 1h     | Low      |
 
 ### EPIC-015: Testing & Compliance Expansion (9 tasks) ✅
 
