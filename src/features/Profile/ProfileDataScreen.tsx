@@ -26,16 +26,29 @@ export const ProfileDataScreen: React.FC = () => {
       flex={1}
       p="$4"
       bg={isDark ? '$black' : '$coolGray100'}
+      accessibilityLabel="Profile data screen"
     >
       <Box>
         {loading && (
-          <Text testID="profile-loading" color={isDark ? '$white' : '$black'} fontSize="$md">
+          <Text
+            testID="profile-loading"
+            color={isDark ? '$white' : '$black'}
+            fontSize="$md"
+            accessibilityRole="text"
+            accessibilityLabel="Loading profile data"
+          >
             Loading...
           </Text>
         )}
 
         {error && (
-          <Text testID="profile-error" color="$error600" fontSize="$md">
+          <Text
+            testID="profile-error"
+            color="$error600"
+            fontSize="$md"
+            accessibilityRole="alert"
+            accessibilityLabel={`Error loading profile: ${error}`}
+          >
             Error: {error}
           </Text>
         )}
@@ -46,13 +59,20 @@ export const ProfileDataScreen: React.FC = () => {
             color={isDark ? '$white' : '$black'}
             fontSize="$xs"
             fontFamily="$mono"
+            accessibilityRole="text"
+            accessibilityLabel="Profile data in JSON format"
           >
             {JSON.stringify(profile, null, 2)}
           </Text>
         )}
 
         {!loading && !error && !profile && (
-          <Text color={isDark ? '$white' : '$black'} fontSize="$md">
+          <Text
+            color={isDark ? '$white' : '$black'}
+            fontSize="$md"
+            accessibilityRole="text"
+            accessibilityLabel="No profile data loaded"
+          >
             No profile data loaded
           </Text>
         )}
