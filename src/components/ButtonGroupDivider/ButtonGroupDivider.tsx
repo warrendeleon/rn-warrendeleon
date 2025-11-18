@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Box } from '@gluestack-ui/themed';
 
 import { useAppColorScheme } from '@app/hooks';
 
@@ -22,12 +22,10 @@ export const ButtonGroupDivider: React.FC = React.memo(() => {
   const dividerColor = getDividerColor(isDark);
 
   return (
-    <View
-      style={{
-        height: 0.5,
-        backgroundColor: dividerColor,
-        marginLeft: 64, // Aligns with button text: padding (16px) + icon (36px) + spacing (12px)
-      }}
+    <Box
+      h={0.5}
+      bg={dividerColor}
+      ml={64} // Aligns with button text: padding (16px) + icon (36px) + spacing (12px)
     />
   );
 });

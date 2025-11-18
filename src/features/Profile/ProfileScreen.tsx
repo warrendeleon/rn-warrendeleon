@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dimensions, Linking, StyleSheet, View } from 'react-native';
+import { Dimensions, Linking, StyleSheet } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Avatar,
@@ -212,8 +212,8 @@ export const ProfileScreen: React.FC = () => {
   // Loading state
   if (loading) {
     return (
-      <View testID="profile-screen" style={[styles.container, { backgroundColor }]}>
-        <View style={styles.centeredContent}>
+      <Box testID="profile-screen" style={[styles.container, { backgroundColor }]}>
+        <Box style={styles.centeredContent}>
           <Text
             testID="profile-loading"
             color={nameColor}
@@ -223,16 +223,16 @@ export const ProfileScreen: React.FC = () => {
           >
             {t('profile.states.loading')}
           </Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
     );
   }
 
   // Error state
   if (error) {
     return (
-      <View testID="profile-screen" style={[styles.container, { backgroundColor }]}>
-        <View style={styles.centeredContent}>
+      <Box testID="profile-screen" style={[styles.container, { backgroundColor }]}>
+        <Box style={styles.centeredContent}>
           <Text
             testID="profile-error"
             color="$error500"
@@ -242,16 +242,16 @@ export const ProfileScreen: React.FC = () => {
           >
             {t('profile.states.error', { error })}
           </Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
     );
   }
 
   // Empty state
   if (!profile) {
     return (
-      <View testID="profile-screen" style={[styles.container, { backgroundColor }]}>
-        <View style={styles.centeredContent}>
+      <Box testID="profile-screen" style={[styles.container, { backgroundColor }]}>
+        <Box style={styles.centeredContent}>
           <Text
             testID="profile-empty"
             color={nameColor}
@@ -261,15 +261,15 @@ export const ProfileScreen: React.FC = () => {
           >
             {t('profile.states.empty')}
           </Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
     );
   }
 
   return (
-    <View testID="profile-screen" style={[styles.container, { backgroundColor }]}>
+    <Box testID="profile-screen" style={[styles.container, { backgroundColor }]}>
       {/* Fixed Background Image */}
-      <View style={[styles.backgroundImageContainer, { height: CAROUSEL_HEIGHT }]}>
+      <Box style={[styles.backgroundImageContainer, { height: CAROUSEL_HEIGHT }]}>
         {carouselImage ? (
           <Image
             source={{ uri: carouselImage }}
@@ -286,7 +286,7 @@ export const ProfileScreen: React.FC = () => {
             </Avatar>
           </Box>
         )}
-      </View>
+      </Box>
 
       {/* Scrollable Content */}
       <ScrollView
@@ -295,7 +295,7 @@ export const ProfileScreen: React.FC = () => {
         showsVerticalScrollIndicator={false}
       >
         {/* Spacer to push content below background image */}
-        <View style={{ height: CAROUSEL_HEIGHT - 20 }} />
+        <Box style={{ height: CAROUSEL_HEIGHT - 20 }} />
 
         {/* Main Content Card */}
         <Box bg={cardBgColor} borderTopLeftRadius="$3xl" borderTopRightRadius="$3xl">
@@ -409,7 +409,7 @@ export const ProfileScreen: React.FC = () => {
           )}
         </Box>
       </ScrollView>
-    </View>
+    </Box>
   );
 };
 

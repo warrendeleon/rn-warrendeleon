@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import RNWebView from 'react-native-webview';
+import { Box, Spinner, Text } from '@gluestack-ui/themed';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 
 import { ALLOWED_WEBVIEW_DOMAINS } from '@app/config/constants';
@@ -79,24 +80,24 @@ export const WebViewScreen = () => {
   // Show loading state while validating
   if (!isValidUrl && !error) {
     return (
-      <View
+      <Box
         style={styles.centerContainer}
         testID="webview-loading"
         accessibilityRole="progressbar"
         accessibilityLabel="Validating URL"
       >
-        <ActivityIndicator size="large" color={isDark ? '#FFFFFF' : '#000000'} />
+        <Spinner size="large" color={isDark ? '$white' : '$black'} />
         <Text style={[styles.messageText, { color: isDark ? '#FFFFFF' : '#000000' }]}>
           Validating URL...
         </Text>
-      </View>
+      </Box>
     );
   }
 
   // Show error state if URL is not allowed
   if (error) {
     return (
-      <View
+      <Box
         style={styles.centerContainer}
         testID="webview-error"
         accessibilityRole="alert"
@@ -104,7 +105,7 @@ export const WebViewScreen = () => {
       >
         <Text style={[styles.errorText, { color: isDark ? '#FF6B6B' : '#D32F2F' }]}>{error}</Text>
         <Text style={[styles.urlText, { color: isDark ? '#C9D1D9' : '#555555' }]}>{url}</Text>
-      </View>
+      </Box>
     );
   }
 

@@ -37,7 +37,9 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
     accessible={true}
     collapsable={false}
     focusable={true}
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -49,7 +51,6 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
         "alignItems": "center",
         "flexDirection": "row",
         "minHeight": 60,
-        "opacity": 1,
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       }
@@ -167,8 +168,10 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
     }
     accessible={true}
     collapsable={false}
-    focusable={false}
+    focusable={true}
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -180,7 +183,6 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
         "alignItems": "center",
         "flexDirection": "row",
         "minHeight": 60,
-        "opacity": 1,
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       }

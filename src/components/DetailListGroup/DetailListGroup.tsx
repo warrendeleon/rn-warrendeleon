@@ -1,6 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SvgUri } from 'react-native-svg';
+import { Box, Pressable, Spinner, Text } from '@gluestack-ui/themed';
 import { ChevronRight } from 'lucide-react-native';
 
 import { useAppColorScheme } from '@app/hooks';
@@ -30,74 +31,69 @@ export const DetailListGroup: React.FC<DetailListGroupProps> = ({ items, loading
 
   if (loading) {
     return (
-      <View style={[styles.container, { backgroundColor: isDark ? '#1C1C1E' : '#FFFFFF' }]}>
-        <ActivityIndicator
-          testID="activity-indicator"
-          size="large"
-          color={isDark ? '#FFFFFF' : '#000000'}
-        />
-      </View>
+      <Box style={[styles.container, { backgroundColor: isDark ? '#1C1C1E' : '#FFFFFF' }]}>
+        <Spinner testID="activity-indicator" size="large" color={isDark ? '$white' : '$black'} />
+      </Box>
     );
   }
 
   if (error) {
     return (
-      <View style={[styles.container, { backgroundColor: isDark ? '#1C1C1E' : '#FFFFFF' }]}>
+      <Box style={[styles.container, { backgroundColor: isDark ? '#1C1C1E' : '#FFFFFF' }]}>
         <Text style={[styles.errorText, { color: '#FF3B30' }]}>{error}</Text>
-      </View>
+      </Box>
     );
   }
 
   return (
-    <View style={[styles.buttonGroup, { backgroundColor: isDark ? '#1C1C1E' : '#FFFFFF' }]}>
+    <Box style={[styles.buttonGroup, { backgroundColor: isDark ? '#1C1C1E' : '#FFFFFF' }]}>
       {items.map((item, index) => (
         <React.Fragment key={item.id}>
-          <TouchableOpacity
+          <Pressable
             testID={item.testID}
             style={styles.button}
             onPress={item.onPress}
-            activeOpacity={item.onPress ? 0.7 : 1}
             disabled={!item.onPress}
             accessibilityRole={item.onPress ? 'button' : undefined}
             accessibilityLabel={item.accessibilityLabel || item.label}
             accessibilityHint={item.accessibilityHint}
           >
-            <View
+            <Box
               style={[styles.logoContainer, { backgroundColor: isDark ? '#FFFFFF' : '#F2F2F7' }]}
             >
               {item.logoUri && <SvgUri uri={item.logoUri} width={40} height={40} />}
-            </View>
+            </Box>
 
-            <View style={styles.contentContainer}>
+            <Box style={styles.contentContainer}>
               <Text style={[styles.label, { color: isDark ? '#FFFFFF' : '#000000' }]}>
                 {item.label}
               </Text>
               {item.subtitle && (
                 <Text style={[styles.subtitle, { color: '#8E8E93' }]}>{item.subtitle}</Text>
               )}
-            </View>
+            </Box>
 
-            <View style={styles.trailingAccessories}>
+            <Box style={styles.trailingAccessories}>
               {item.badge && (
-                <View style={[styles.badge, { backgroundColor: isDark ? '#2C2C2E' : '#E5E5EA' }]}>
+                <Box style={[styles.badge, { backgroundColor: isDark ? '#2C2C2E' : '#E5E5EA' }]}>
                   <Text style={[styles.badgeText, { color: isDark ? '#FFFFFF' : '#000000' }]}>
                     {item.badge}
                   </Text>
-                </View>
+                </Box>
               )}
 
               {(item.showChevron ?? true) && item.onPress && (
                 <ChevronRight size={20} color="#8E8E93" />
               )}
-            </View>
-          </TouchableOpacity>
+            </Box>
+          </Pressable>
 
           {index < items.length - 1 && (
-            <View style={[styles.divider, { backgroundColor: isDark ? '#3A3A3C' : '#C6C6C8' }]} />
+            <Box style={[styles.divider, { backgroundColor: isDark ? '#3A3A3C' : '#C6C6C8' }]} />
           )}
         </React.Fragment>
       ))}
-    </View>
+    </Box>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { View } from 'react-native';
+import { Box } from '@gluestack-ui/themed';
 
 import { ButtonGroupDivider, getButtonGroupVariant, type GroupVariant } from '@app/components';
 
@@ -26,7 +26,7 @@ export const ButtonGroup = <T extends ButtonGroupItem>({
   renderItem,
 }: ButtonGroupProps<T>) => {
   return (
-    <View>
+    <Box>
       {items.map((item, index) => {
         const groupVariant = getButtonGroupVariant(index, items.length);
         const isLastItem = index === items.length - 1;
@@ -38,6 +38,6 @@ export const ButtonGroup = <T extends ButtonGroupItem>({
           </Fragment>
         );
       })}
-    </View>
+    </Box>
   );
 };

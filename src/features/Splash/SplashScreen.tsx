@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Box } from '@gluestack-ui/themed';
 
 import { Logo } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
@@ -34,7 +35,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   }
 
   return (
-    <View
+    <Box
       testID="splash-screen"
       accessibilityLabel="Loading splash screen"
       style={[
@@ -43,7 +44,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
       ]}
     >
       <Logo testID="splash-logo" darkMode={colorScheme === 'dark'} style={styles.logo} />
-    </View>
+    </Box>
   );
 };
 

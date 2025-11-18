@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 
 import { useAppColorScheme } from '@app/hooks';
 import { useAppDispatch, useAppSelector } from '@app/store';
@@ -23,21 +23,19 @@ export const ProfileDataScreen: React.FC = () => {
   return (
     <ScrollView
       testID="profile-data-screen"
-      className="flex-1 p-4"
-      style={{ backgroundColor: isDark ? '#000000' : '#F2F2F7' }}
+      flex={1}
+      p="$4"
+      bg={isDark ? '$black' : '$coolGray100'}
     >
-      <View>
+      <Box>
         {loading && (
-          <Text
-            testID="profile-loading"
-            style={{ color: isDark ? '#FFFFFF' : '#000000', fontSize: 16 }}
-          >
+          <Text testID="profile-loading" color={isDark ? '$white' : '$black'} fontSize="$md">
             Loading...
           </Text>
         )}
 
         {error && (
-          <Text testID="profile-error" style={{ color: '#FF3B30', fontSize: 16 }}>
+          <Text testID="profile-error" color="$error600" fontSize="$md">
             Error: {error}
           </Text>
         )}
@@ -45,18 +43,20 @@ export const ProfileDataScreen: React.FC = () => {
         {profile && (
           <Text
             testID="profile-data-json"
-            style={{ color: isDark ? '#FFFFFF' : '#000000', fontSize: 12, fontFamily: 'Courier' }}
+            color={isDark ? '$white' : '$black'}
+            fontSize="$xs"
+            fontFamily="$mono"
           >
             {JSON.stringify(profile, null, 2)}
           </Text>
         )}
 
         {!loading && !error && !profile && (
-          <Text style={{ color: isDark ? '#FFFFFF' : '#000000', fontSize: 16 }}>
+          <Text color={isDark ? '$white' : '$black'} fontSize="$md">
             No profile data loaded
           </Text>
         )}
-      </View>
+      </Box>
     </ScrollView>
   );
 };

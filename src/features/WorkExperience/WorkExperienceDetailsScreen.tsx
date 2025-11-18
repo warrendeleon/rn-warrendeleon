@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, View } from 'react-native';
+import { Image } from 'react-native';
 import { SvgUri } from 'react-native-svg';
 import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import type { RouteProp } from '@react-navigation/native';
@@ -61,7 +61,7 @@ const TechSectionComponent: React.FC<{
   }
 
   return (
-    <View
+    <Box
       testID={`work-experience-details-section-${title.toLowerCase()}`}
       accessible={true}
       accessibilityRole="header"
@@ -74,12 +74,12 @@ const TechSectionComponent: React.FC<{
         {title}
       </Text>
 
-      <View
+      <Box
         style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}
         testID={`work-experience-details-tags-${title.toLowerCase()}`}
       >
         {items.map((item, index) => (
-          <View
+          <Box
             key={`${title}-${index}-${item}`}
             style={[
               {
@@ -97,10 +97,10 @@ const TechSectionComponent: React.FC<{
             <Text style={[{ fontSize: 12, fontWeight: '500', color: styles.tagText.color }]}>
               {item}
             </Text>
-          </View>
+          </Box>
         ))}
-      </View>
-    </View>
+      </Box>
+    </Box>
   );
 };
 
@@ -162,7 +162,7 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
     >
       {/* Company Logo Card */}
       {workExperience.logo && (
-        <View
+        <Box
           style={[
             {
               marginBottom: 20,
@@ -196,11 +196,11 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
               accessibilityLabel={`${workExperience.company} logo`}
             />
           )}
-        </View>
+        </Box>
       )}
 
       {/* Company and Position Card */}
-      <View
+      <Box
         style={[
           {
             marginBottom: 20,
@@ -242,11 +242,11 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
         >
           {dateRange}
         </Text>
-      </View>
+      </Box>
 
       {/* Description Card */}
       {workExperience.description && (
-        <View
+        <Box
           style={[
             {
               marginBottom: 20,
@@ -273,7 +273,7 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
           >
             {workExperience.description}
           </Text>
-        </View>
+        </Box>
       )}
 
       {/* Tech Stack Card */}
@@ -283,7 +283,7 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
         workExperience.e2e ||
         workExperience.devTools ||
         workExperience.agileMethodology) && (
-        <View
+        <Box
           style={[
             {
               marginBottom: 20,
@@ -332,7 +332,7 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
             items={workExperience.agileMethodology}
             isDark={isDark}
           />
-        </View>
+        </Box>
       )}
     </ScrollView>
   );
