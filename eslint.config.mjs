@@ -25,6 +25,9 @@ export default [
       // E2E config files
       '.detoxrc.js',
       '.cucumber.js',
+      // Storybook auto-generated files
+      '.rnstorybook/storybook.requires.ts',
+      '.rnstorybook/stories/**',
       // NOTE: no '__tests__/**' here so tests are linted
     ],
   },
@@ -35,6 +38,9 @@ export default [
     languageOptions: {
       globals: {
         __DEV__: 'readonly',
+        // React Native globals
+        require: 'readonly',
+        process: 'readonly',
         // Detox globals
         device: 'readonly',
         element: 'readonly',
@@ -79,6 +85,13 @@ export default [
     rules: {
       'no-restricted-imports': 'off',
       'import/no-relative-parent-imports': 'off',
+    },
+  },
+  // 👇 JS files: allow require() since it's valid in React Native
+  {
+    files: ['**/*.js'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
 ];

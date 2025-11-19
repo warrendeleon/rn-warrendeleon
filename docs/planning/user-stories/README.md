@@ -1,6 +1,6 @@
 # React Native Portfolio App - Planning Hub
 
-**Progress**: 93% (144/155 tasks) | **Remaining**: 11 tasks (~30.5h)
+**Progress**: 97% (151/155 tasks) | **Remaining**: 4 tasks (~12.5h)
 
 ---
 
@@ -246,34 +246,27 @@
 
 \*Note: TASK-131 and TASK-132 already covered by existing Settings.feature tests.
 
-### EPIC-016: Storybook Re-integration (7 tasks) 📋
+### EPIC-016: Storybook Re-integration (7 tasks) ✅
 
-| Task ID                                                        | Title                          | Status   | Effort | Priority |
-| -------------------------------------------------------------- | ------------------------------ | -------- | ------ | -------- |
-| [TASK-143](./tasks/TASK-143-install-storybook-core.md)         | Install Storybook Core         | 📋 To Do | 3h     | High     |
-| [TASK-144](./tasks/TASK-144-configure-storybook-metro.md)      | Configure Storybook Metro      | 📋 To Do | 2h     | High     |
-| [TASK-145](./tasks/TASK-145-install-storybook-addons.md)       | Install Storybook Addons       | 📋 To Do | 2h     | High     |
-| [TASK-146](./tasks/TASK-146-configure-storybook-toggle.md)     | Configure Storybook Dev Toggle | 📋 To Do | 1h     | Medium   |
-| [TASK-147](./tasks/TASK-147-create-component-stories.md)       | Create Component Stories       | 📋 To Do | 6h     | High     |
-| [TASK-148](./tasks/TASK-148-test-storybook-stories.md)         | Test Storybook Stories         | 📋 To Do | 3h     | Medium   |
-| [TASK-149](./tasks/TASK-149-update-documentation-storybook.md) | Update Documentation           | 📋 To Do | 1h     | Medium   |
+| Task ID                                                        | Title                          | Status  | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------ | ------- | ------ | -------- |
+| [TASK-143](./tasks/TASK-143-install-storybook-core.md)         | Install Storybook Core         | ✅ Done | 3h     | High     |
+| [TASK-144](./tasks/TASK-144-configure-storybook-metro.md)      | Configure Storybook Metro      | ✅ Done | 2h     | High     |
+| [TASK-145](./tasks/TASK-145-install-storybook-addons.md)       | Install Storybook Addons       | ✅ Done | 2h     | High     |
+| [TASK-146](./tasks/TASK-146-configure-storybook-toggle.md)     | Configure Storybook Dev Toggle | ✅ Done | 1h     | Medium   |
+| [TASK-147](./tasks/TASK-147-create-component-stories.md)       | Create Component Stories       | ✅ Done | 6h     | High     |
+| [TASK-148](./tasks/TASK-148-test-storybook-stories.md)         | Test Storybook Stories         | ✅ Done | 3h     | Medium   |
+| [TASK-149](./tasks/TASK-149-update-documentation-storybook.md) | Update Documentation           | ✅ Done | 1h     | Medium   |
 
 ---
 
-## 📋 Remaining Tasks (11)
+## 📋 Remaining Tasks (4)
 
-| Task ID  | Title                               | Effort | Notes                          |
-| -------- | ----------------------------------- | ------ | ------------------------------ |
-| TASK-017 | Manual VoiceOver/TalkBack Testing   | 0.5h   | Requires physical device       |
-| TASK-062 | E2E Tests for Error States/Recovery | 2h     | Automatable with Detox         |
-| TASK-123 | Implement RTK Query (Optional)      | 8h     | Can defer indefinitely         |
-| TASK-126 | VoiceOver/TalkBack Testing Docs     | 2h     | EAA testing procedures         |
-| TASK-143 | Install Storybook Core              | 3h     | Storybook v10.0.7 + deps       |
-| TASK-144 | Configure Storybook Metro           | 2h     | Metro wrapper + entry point    |
-| TASK-145 | Install Storybook Addons            | 2h     | Controls, Actions, Notes, etc. |
-| TASK-146 | Configure Storybook Dev Toggle      | 1h     | Dev menu toggle                |
-| TASK-147 | Create Component Stories            | 6h     | All 12 components              |
-| TASK-148 | Test Storybook Stories              | 3h     | Jest story tests               |
-| TASK-149 | Update Documentation                | 1h     | README + CLAUDE.md updates     |
+| Task ID  | Title                               | Effort | Notes                    |
+| -------- | ----------------------------------- | ------ | ------------------------ |
+| TASK-017 | Manual VoiceOver/TalkBack Testing   | 0.5h   | Requires physical device |
+| TASK-062 | E2E Tests for Error States/Recovery | 2h     | Automatable with Detox   |
+| TASK-123 | Implement RTK Query (Optional)      | 8h     | Can defer indefinitely   |
+| TASK-126 | VoiceOver/TalkBack Testing Docs     | 2h     | EAA testing procedures   |
 
 **Legend**: ✅ Done | ⏳ In Progress | 📋 To Do

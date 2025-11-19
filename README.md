@@ -10,6 +10,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/gluestack--ui-1.1.x-8B5CF6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/nativewind-4.x-38BDF8?style=for-the-badge&logo=tailwindcss" />
+  <img src="https://img.shields.io/badge/storybook-10.x-FF4785?style=for-the-badge&logo=storybook" />
   <img src="https://img.shields.io/badge/coverage-85%25-success?style=for-the-badge" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
@@ -25,6 +26,7 @@ A modern React Native application built with TypeScript, featuring a **feature-f
 - 🏗️ Feature-first architecture for better code organisation
 - 🌍 Full internationalisation (English & Spanish)
 - 🎨 Modern UI with GlueStack UI + NativeWind (Tailwind for React Native)
+- 📚 Storybook for isolated component development and documentation
 - 🧪 Comprehensive testing (Jest + React Native Testing Library + Detox E2E)
 - 📦 Redux Toolkit for state management
 - 🎯 85%+ test coverage
@@ -55,6 +57,7 @@ yarn android
 
 - **React Native** 0.82.1 with TypeScript 5.8.3
 - **UI Framework:** GlueStack UI + NativeWind
+- **Component Development:** Storybook 10
 - **State Management:** Redux Toolkit with Redux Persist
 - **Navigation:** React Navigation 7 (Native Stack)
 - **Internationalisation:** i18next + react-i18next
@@ -121,6 +124,11 @@ yarn start:reset        # Start Metro with cache reset
 yarn ios                # Run iOS app (Debug)
 yarn android            # Run Android app (Debug)
 
+# Storybook
+yarn storybook:ios      # Run Storybook on iOS
+yarn storybook:android  # Run Storybook on Android
+yarn storybook-generate # Regenerate story requirements
+
 # Testing
 yarn test               # Run unit tests
 yarn test:watch         # Run tests in watch mode
@@ -144,10 +152,11 @@ yarn validate           # Run typecheck, lint, and tests
 
 ```
 warrendeleon/
+├── .rnstorybook/         # Storybook configuration
 ├── docs/                  # Documentation
 ├── src/
 │   ├── app/              # App entry point
-│   ├── components/       # Shared components
+│   ├── components/       # Shared components (with .stories.tsx files)
 │   ├── features/         # Feature modules (screens, components, tests)
 │   ├── navigation/       # Navigation setup
 │   ├── i18n/             # Internationalisation

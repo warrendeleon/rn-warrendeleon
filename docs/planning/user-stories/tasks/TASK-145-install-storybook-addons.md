@@ -4,7 +4,7 @@
 **Title**: Install Storybook Addons
 **Epic**: [EPIC-016: Storybook Re-integration](../epics/EPIC-016-storybook-reintegration.md)
 **User Story**: [US-028: Storybook Setup and Stories](../stories/US-028-storybook-setup-and-stories.md)
-**Status**: 📋 To Do
+**Status**: ✅ Done
 **Priority**: High
 **Effort**: 2h
 **Created**: 2025-11-18

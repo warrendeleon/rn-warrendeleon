@@ -19,4 +19,14 @@ import { name as appName } from './app.json';
 // This warning comes from Gluestack UI's internal SafeAreaView component that we don't use
 LogBox.ignoreLogs(['SafeAreaView has been deprecated']);
 
-AppRegistry.registerComponent(appName, () => App);
+// Toggle Storybook via STORYBOOK environment variable
+// Run with: STORYBOOK=true yarn ios
+const SHOW_STORYBOOK = process.env.STORYBOOK === 'true';
+
+let AppEntryPoint = App;
+
+if (SHOW_STORYBOOK && __DEV__) {
+  AppEntryPoint = require('./.rnstorybook').default;
+}
+
+AppRegistry.registerComponent(appName, () => AppEntryPoint);

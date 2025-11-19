@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable no-undef */
 const { Formatter } = require('@cucumber/cucumber');
 const chalk = require('chalk');

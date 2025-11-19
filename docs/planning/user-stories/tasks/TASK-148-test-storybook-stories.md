@@ -4,7 +4,7 @@
 **Title**: Test Storybook Stories with Jest
 **Epic**: [EPIC-016: Storybook Re-integration](../epics/EPIC-016-storybook-reintegration.md)
 **User Story**: [US-028: Storybook Setup and Stories](../stories/US-028-storybook-setup-and-stories.md)
-**Status**: 📋 To Do
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 3h
 **Created**: 2025-11-18
@@ -321,22 +321,22 @@ expect(mockOnPress).toHaveBeenCalled();
 
 ## Acceptance Criteria
 
-- [ ] Story testing infrastructure set up
-- [ ] All 12 components have story tests
-- [ ] Story tests pass without errors
-- [ ] Tests use composeStories for decorator support
-- [ ] Coverage reports include story tests
-- [ ] Full validation passes (`yarn validate`)
+- [x] Story testing infrastructure set up
+- [x] All 12 components have story tests
+- [x] Story tests pass without errors
+- [x] Tests use composeStories for decorator support
+- [x] Coverage reports include story tests
+- [x] Full validation passes (`yarn validate`)
 
 ---
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] All story tests pass
-- [ ] No regressions in existing tests
-- [ ] Coverage maintained
-- [ ] Ready for TASK-149 (documentation)
+- [x] All acceptance criteria met
+- [x] All story tests pass
+- [x] No regressions in existing tests
+- [x] Coverage maintained
+- [x] Ready for TASK-149 (documentation)
 
 ---
 

@@ -4,7 +4,7 @@
 **Title**: Configure Storybook Dev Toggle
 **Epic**: [EPIC-016: Storybook Re-integration](../epics/EPIC-016-storybook-reintegration.md)
 **User Story**: [US-028: Storybook Setup and Stories](../stories/US-028-storybook-setup-and-stories.md)
-**Status**: 📋 To Do
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 1h
 **Created**: 2025-11-18

@@ -4,7 +4,7 @@
 **Title**: Install Storybook Core Dependencies
 **Epic**: [EPIC-016: Storybook Re-integration](../epics/EPIC-016-storybook-reintegration.md)
 **User Story**: [US-028: Storybook Setup and Stories](../stories/US-028-storybook-setup-and-stories.md)
-**Status**: 📋 To Do
+**Status**: ✅ Done
 **Priority**: High
 **Effort**: 3h
 **Created**: 2025-11-18
@@ -358,11 +358,11 @@ Before marking this task complete, verify ALL of the following:
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] TypeScript and lint validation passes
-- [ ] iOS pods installed successfully
-- [ ] No peer dependency warnings
-- [ ] Ready for TASK-144 (Metro configuration)
+- [x] All acceptance criteria met
+- [x] TypeScript and lint validation passes
+- [x] iOS pods installed successfully
+- [x] No peer dependency warnings
+- [x] Ready for TASK-144 (Metro configuration)
 
 ---
 
