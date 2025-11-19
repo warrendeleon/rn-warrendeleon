@@ -58,10 +58,13 @@
     "e2e": "Testing de punta a punta",
     "devTools": "Eines de desenvolupament",
     "agileMethodology": "Metodologia àgil",
+    "keyResponsibilities": "Responsabilitats clau",
     "accessibility": {
       "itemLabel": "{{position}} a {{company}}, {{dates}}",
       "clientsHint_one": "Toca per veure {{count}} client",
       "clientsHint_other": "Toca per veure {{count}} clients",
+      "positionsHint_one": "Toca per veure {{count}} posició",
+      "positionsHint_other": "Toca per veure {{count}} posicions",
       "detailsHint": "Toca per veure detalls de la feina"
     },
     "clients": {
@@ -70,6 +73,13 @@
       "accessibility": {
         "itemLabel": "{{position}} a {{company}}, {{dates}}",
         "itemHint": "Veure detalls del client"
+      }
+    },
+    "positions": {
+      "empty": "No hi ha posicions disponibles",
+      "accessibility": {
+        "itemLabel": "{{position}}, {{dates}}",
+        "itemHint": "Veure detalls de la posició"
       }
     }
   },

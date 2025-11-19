@@ -58,10 +58,13 @@
     "e2e": "End-to-End Testing",
     "devTools": "Mga Gamit sa Pag-develop",
     "agileMethodology": "Agile Methodology",
+    "keyResponsibilities": "Mga Pangunahing Responsibilidad",
     "accessibility": {
       "itemLabel": "{{position}} sa {{company}}, {{dates}}",
       "clientsHint_one": "Pindutin para makita ang {{count}} kliyente",
       "clientsHint_other": "Pindutin para makita ang {{count}} mga kliyente",
+      "positionsHint_one": "Pindutin para makita ang {{count}} posisyon",
+      "positionsHint_other": "Pindutin para makita ang {{count}} mga posisyon",
       "detailsHint": "Pindutin para makita ang detalye ng trabaho"
     },
     "clients": {
@@ -70,6 +73,13 @@
       "accessibility": {
         "itemLabel": "{{position}} sa {{company}}, {{dates}}",
         "itemHint": "Tingnan ang detalye ng kliyente"
+      }
+    },
+    "positions": {
+      "empty": "Walang available na mga posisyon",
+      "accessibility": {
+        "itemLabel": "{{position}}, {{dates}}",
+        "itemHint": "Tingnan ang detalye ng posisyon"
       }
     }
   },

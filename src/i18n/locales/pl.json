@@ -58,10 +58,13 @@
     "e2e": "Testy end-to-end",
     "devTools": "Narzędzia programistyczne",
     "agileMethodology": "Metodologia Agile",
+    "keyResponsibilities": "Kluczowe obowiązki",
     "accessibility": {
       "itemLabel": "{{position}} w {{company}}, {{dates}}",
       "clientsHint_one": "Dotknij, aby zobaczyć {{count}} klienta",
       "clientsHint_other": "Dotknij, aby zobaczyć {{count}} klientów",
+      "positionsHint_one": "Dotknij, aby zobaczyć {{count}} stanowisko",
+      "positionsHint_other": "Dotknij, aby zobaczyć {{count}} stanowisk",
       "detailsHint": "Dotknij, aby zobaczyć szczegóły pracy"
     },
     "clients": {
@@ -70,6 +73,13 @@
       "accessibility": {
         "itemLabel": "{{position}} w {{company}}, {{dates}}",
         "itemHint": "Zobacz szczegóły klienta"
+      }
+    },
+    "positions": {
+      "empty": "Brak dostępnych stanowisk",
+      "accessibility": {
+        "itemLabel": "{{position}}, {{dates}}",
+        "itemHint": "Zobacz szczegóły stanowiska"
       }
     }
   },

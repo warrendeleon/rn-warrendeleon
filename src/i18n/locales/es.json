@@ -58,10 +58,13 @@
     "e2e": "Testing de extremo a extremo",
     "devTools": "Herramientas de desarrollo",
     "agileMethodology": "Metodología ágil",
+    "keyResponsibilities": "Responsabilidades clave",
     "accessibility": {
       "itemLabel": "{{position}} en {{company}}, {{dates}}",
       "clientsHint_one": "Toca para ver {{count}} cliente",
       "clientsHint_other": "Toca para ver {{count}} clientes",
+      "positionsHint_one": "Toca para ver {{count}} puesto",
+      "positionsHint_other": "Toca para ver {{count}} puestos",
       "detailsHint": "Toca para ver detalles del trabajo"
     },
     "clients": {
@@ -70,6 +73,13 @@
       "accessibility": {
         "itemLabel": "{{position}} en {{company}}, {{dates}}",
         "itemHint": "Ver detalles del cliente"
+      }
+    },
+    "positions": {
+      "empty": "No hay puestos disponibles",
+      "accessibility": {
+        "itemLabel": "{{position}}, {{dates}}",
+        "itemHint": "Ver detalles del puesto"
       }
     }
   },

@@ -58,10 +58,13 @@
     "e2e": "End-to-End Testing",
     "devTools": "Development Tools",
     "agileMethodology": "Agile Methodology",
+    "keyResponsibilities": "Key Responsibilities",
     "accessibility": {
       "itemLabel": "{{position}} at {{company}}, {{dates}}",
       "clientsHint_one": "Tap to view {{count}} client",
       "clientsHint_other": "Tap to view {{count}} clients",
+      "positionsHint_one": "Tap to view {{count}} position",
+      "positionsHint_other": "Tap to view {{count}} positions",
       "detailsHint": "Tap to view job details"
     },
     "clients": {
@@ -70,6 +73,13 @@
       "accessibility": {
         "itemLabel": "{{position}} at {{company}}, {{dates}}",
         "itemHint": "View client details"
+      }
+    },
+    "positions": {
+      "empty": "No positions available",
+      "accessibility": {
+        "itemLabel": "{{position}}, {{dates}}",
+        "itemHint": "View position details"
       }
     }
   },
