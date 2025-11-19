@@ -1,6 +1,6 @@
 # TASK-158: Create Environment Config Schema
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Effort**: 1h
 **Epic**: [EPIC-018](../epics/EPIC-018-zod-schema-validation.md)

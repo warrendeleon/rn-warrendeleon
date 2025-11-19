@@ -1,6 +1,6 @@
 # TASK-163: Add Tests for Zod Schemas
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: Medium
 **Effort**: 1h
 **Epic**: [EPIC-018](../epics/EPIC-018-zod-schema-validation.md)

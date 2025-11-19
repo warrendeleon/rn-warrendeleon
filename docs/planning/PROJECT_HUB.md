@@ -270,18 +270,18 @@
 | [TASK-155](./tasks/TASK-155-test-header-back-button.md)      | Unit Tests for HeaderBackButton Component  | 📋 To Do | 0.75h  | Medium   |
 | [TASK-156](./tasks/TASK-156-test-mock-status-screen.md)      | RNTL Tests for MockStatusScreen            | 📋 To Do | 1h     | Low      |
 
-### EPIC-018: Zod Schema Validation (8 tasks) 📋
+### EPIC-018: Zod Schema Validation (8 tasks) ⏳
 
-| Task ID                                                       | Title                               | Status   | Effort | Priority |
-| ------------------------------------------------------------- | ----------------------------------- | -------- | ------ | -------- |
-| [TASK-157](./tasks/TASK-157-install-configure-zod.md)         | Install and Configure Zod           | 📋 To Do | 0.5h   | High     |
-| [TASK-158](./tasks/TASK-158-create-env-schema.md)             | Create Environment Config Schema    | 📋 To Do | 1h     | High     |
-| [TASK-159](./tasks/TASK-159-create-profile-schema.md)         | Create Profile Schema               | 📋 To Do | 1.5h   | High     |
-| [TASK-160](./tasks/TASK-160-create-education-schema.md)       | Create Education Schema             | 📋 To Do | 1h     | High     |
-| [TASK-161](./tasks/TASK-161-create-work-experience-schema.md) | Create Work Experience Schema       | 📋 To Do | 1h     | High     |
-| [TASK-162](./tasks/TASK-162-integrate-api-validation.md)      | Integrate Validation into API Layer | 📋 To Do | 1.5h   | High     |
-| [TASK-163](./tasks/TASK-163-test-zod-schemas.md)              | Add Tests for Zod Schemas           | 📋 To Do | 1h     | Medium   |
-| [TASK-164](./tasks/TASK-164-update-zod-documentation.md)      | Update Documentation                | 📋 To Do | 0.5h   | Low      |
+| Task ID                                                       | Title                               | Status         | Effort | Priority |
+| ------------------------------------------------------------- | ----------------------------------- | -------------- | ------ | -------- |
+| [TASK-157](./tasks/TASK-157-install-configure-zod.md)         | Install and Configure Zod           | ⏳ In Progress | 0.5h   | High     |
+| [TASK-158](./tasks/TASK-158-create-env-schema.md)             | Create Environment Config Schema    | ⏳ In Progress | 1h     | High     |
+| [TASK-159](./tasks/TASK-159-create-profile-schema.md)         | Create Profile Schema               | ⏳ In Progress | 1.5h   | High     |
+| [TASK-160](./tasks/TASK-160-create-education-schema.md)       | Create Education Schema             | ⏳ In Progress | 1h     | High     |
+| [TASK-161](./tasks/TASK-161-create-work-experience-schema.md) | Create Work Experience Schema       | ⏳ In Progress | 1h     | High     |
+| [TASK-162](./tasks/TASK-162-integrate-api-validation.md)      | Integrate Validation into API Layer | ⏳ In Progress | 1.5h   | High     |
+| [TASK-163](./tasks/TASK-163-test-zod-schemas.md)              | Add Tests for Zod Schemas           | ⏳ In Progress | 1h     | Medium   |
+| [TASK-164](./tasks/TASK-164-update-zod-documentation.md)      | Update Documentation                | ⏳ In Progress | 0.5h   | Low      |
 
 ### EPIC-019: Work Experience Multi-Position Support (8 tasks) ✅
 
@@ -298,7 +298,7 @@
 
 ---
 
-## 📋 Remaining Tasks (19)
+## 📋 Remaining Tasks (11)
 
 | Task ID  | Title                                  | Effort | Notes                      |
 | -------- | -------------------------------------- | ------ | -------------------------- |
@@ -313,13 +313,5 @@
 | TASK-154 | Unit Tests for ButtonGroup Component   | 0.75h  | Coverage improvement       |
 | TASK-155 | Unit Tests for HeaderBackButton        | 0.75h  | Coverage improvement       |
 | TASK-156 | RNTL Tests for MockStatusScreen        | 1h     | Coverage improvement (low) |
-| TASK-157 | Install and Configure Zod              | 0.5h   | Zod validation             |
-| TASK-158 | Create Environment Config Schema       | 1h     | Zod validation             |
-| TASK-159 | Create Profile Schema                  | 1.5h   | Zod validation             |
-| TASK-160 | Create Education Schema                | 1h     | Zod validation             |
-| TASK-161 | Create Work Experience Schema          | 1h     | Zod validation             |
-| TASK-162 | Integrate Validation into API Layer    | 1.5h   | Zod validation             |
-| TASK-163 | Add Tests for Zod Schemas              | 1h     | Zod validation             |
-| TASK-164 | Update Documentation                   | 0.5h   | Zod validation             |
 
 **Legend**: ✅ Done | ⏳ In Progress | 📋 To Do
