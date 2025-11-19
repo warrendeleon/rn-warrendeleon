@@ -104,15 +104,15 @@ const ResponsibilitiesSection: React.FC<{ items: string[] }> = ({ items }) => (
 
 ## Acceptance Criteria
 
-- [ ] Update selector usage to handle position data
-- [ ] Show responsibilities section for manager roles
-- [ ] Show tech sections for developer roles
-- [ ] Hide tech sections when no tech data present
-- [ ] Create `ResponsibilitiesSection` component
-- [ ] Use `useMemo` for computed values
-- [ ] Maintain EAA accessibility compliance
-- [ ] Add `testID` props for E2E testing
-- [ ] No TypeScript or ESLint errors
+- [x] Update selector usage to handle position data
+- [x] Show responsibilities section for manager roles
+- [x] Show tech sections for developer roles
+- [x] Hide tech sections when no tech data present
+- [x] Create `ResponsibilitiesSection` component
+- [x] Use `useMemo` for computed values
+- [x] Maintain EAA accessibility compliance
+- [x] Add `testID` props for E2E testing
+- [x] No TypeScript or ESLint errors
 
 ## i18n
 

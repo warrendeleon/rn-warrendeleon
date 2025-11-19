@@ -58,13 +58,13 @@ export interface WorkExperience {
 
 ## Acceptance Criteria
 
-- [ ] Create `Position` interface with all required fields
-- [ ] Add optional `responsibilities` field for manager roles
-- [ ] Update `WorkExperience` to use `positions` array
-- [ ] Remove deprecated single `position`, `start`, `end`, `description` fields from WorkExperience
-- [ ] Export `Position` type from portfolio.ts
-- [ ] No TypeScript errors with `yarn typecheck`
-- [ ] Update any type guards or utility functions that reference old structure
+- [x] Create `Position` interface with all required fields
+- [x] Add optional `responsibilities` field for manager roles
+- [x] Update `WorkExperience` to use `positions` array
+- [x] Remove deprecated single `position`, `start`, `end`, `description` fields from WorkExperience
+- [x] Export `Position` type from portfolio.ts
+- [x] No TypeScript errors with `yarn typecheck`
+- [x] Update any type guards or utility functions that reference old structure
 
 ## Implementation Notes
 

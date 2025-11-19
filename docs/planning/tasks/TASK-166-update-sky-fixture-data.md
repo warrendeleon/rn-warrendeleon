@@ -34,15 +34,15 @@ Update all work experience fixture files (5 languages) to use the new `positions
 
 ## Acceptance Criteria
 
-- [ ] Update `src/test-utils/fixtures/api/en/workxp.json` with positions array
-- [ ] Update `src/test-utils/fixtures/api/es/workxp.json` (Spanish translations)
-- [ ] Update `src/test-utils/fixtures/api/ca/workxp.json` (Catalan translations)
-- [ ] Update `src/test-utils/fixtures/api/pl/workxp.json` (Polish translations)
-- [ ] Update `src/test-utils/fixtures/api/tl/workxp.json` (Tagalog translations)
-- [ ] All other work experience entries migrated to `positions` array format
-- [ ] JSON files are valid (no syntax errors)
-- [ ] Each position has unique UUID
-- [ ] Dates are consistent across languages
+- [x] Update `src/test-utils/fixtures/api/en/workxp.json` with positions array
+- [x] Update `src/test-utils/fixtures/api/es/workxp.json` (Spanish translations)
+- [x] Update `src/test-utils/fixtures/api/ca/workxp.json` (Catalan translations)
+- [x] Update `src/test-utils/fixtures/api/pl/workxp.json` (Polish translations)
+- [x] Update `src/test-utils/fixtures/api/tl/workxp.json` (Tagalog translations)
+- [x] All other work experience entries migrated to `positions` array format
+- [x] JSON files are valid (no syntax errors)
+- [x] Each position has unique UUID
+- [x] Dates are consistent across languages
 
 ## Data Migration
 

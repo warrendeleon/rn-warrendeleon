@@ -61,17 +61,17 @@ export default React.memo(WorkExperiencePositionsScreen);
 
 ## Acceptance Criteria
 
-- [ ] Create `WorkExperiencePositionsScreen.tsx` in WorkExperience feature
-- [ ] Use `DetailListGroup` component for list display
-- [ ] Fetch positions from Redux using appropriate selector
-- [ ] Sort positions by date (most recent first)
-- [ ] Navigate to details screen on item tap
-- [ ] Add EAA accessibility props to all interactive elements
-- [ ] Use `React.memo` for component optimisation
-- [ ] Use `useMemo` for items array
-- [ ] Use `useCallback` for event handlers
-- [ ] Add `testID` props for E2E testing
-- [ ] No TypeScript or ESLint errors
+- [x] Create `WorkExperiencePositionsScreen.tsx` in WorkExperience feature
+- [x] Use `DetailListGroup` component for list display
+- [x] Fetch positions from Redux using appropriate selector
+- [x] Sort positions by date (most recent first)
+- [x] Navigate to details screen on item tap
+- [x] Add EAA accessibility props to all interactive elements
+- [x] Use `React.memo` for component optimisation
+- [x] Use `useMemo` for items array
+- [x] Use `useCallback` for event handlers
+- [x] Add `testID` props for E2E testing
+- [x] No TypeScript or ESLint errors
 
 ## Navigation Setup
 

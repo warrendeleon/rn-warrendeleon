@@ -57,13 +57,13 @@ Ensure these testIDs exist in components:
 
 ## Acceptance Criteria
 
-- [ ] Add new scenarios to `WorkExperienceFlow.feature`
-- [ ] Implement step definitions for new scenarios
-- [ ] Update existing tests for new data structure
-- [ ] All E2E tests pass with `yarn detox:ios:test`
-- [ ] Tests cover happy path navigation
-- [ ] Tests verify role-specific content display
-- [ ] No flaky tests
+- [x] Add new scenarios to `WorkExperienceFlow.feature`
+- [x] Implement step definitions for new scenarios
+- [x] Update existing tests for new data structure
+- [x] All E2E tests pass with `yarn detox:ios:test`
+- [x] Tests cover happy path navigation
+- [x] Tests verify role-specific content display
+- [x] No flaky tests
 
 ## Files to Modify
 

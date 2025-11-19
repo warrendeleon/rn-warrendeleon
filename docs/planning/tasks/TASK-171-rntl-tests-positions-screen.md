@@ -76,11 +76,11 @@ const mockWorkExperience = {
 
 ## Acceptance Criteria
 
-- [ ] All test cases pass with `yarn test`
-- [ ] Coverage threshold met for new screen
-- [ ] Tests follow existing patterns in codebase
-- [ ] No flaky tests
-- [ ] Proper mocking of navigation and Redux state
+- [x] All test cases pass with `yarn test`
+- [x] Coverage threshold met for new screen
+- [x] Tests follow existing patterns in codebase
+- [x] No flaky tests
+- [x] Proper mocking of navigation and Redux state
 
 ## Test File Location
 

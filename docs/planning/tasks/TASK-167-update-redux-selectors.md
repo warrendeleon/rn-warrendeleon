@@ -37,14 +37,14 @@ Needs updating to also search through `positions` arrays and return position dat
 
 ## Acceptance Criteria
 
-- [ ] Create `selectWorkExperienceCompanyDates` selector
-- [ ] Create `selectLatestPosition` selector
-- [ ] Create `selectPositionById` selector
-- [ ] Update `selectWorkExperienceOrClientById` to search positions
-- [ ] All selectors use `createSelector` for memoisation
-- [ ] All selectors have proper TypeScript return types
-- [ ] No TypeScript errors with `yarn typecheck`
-- [ ] Existing selector tests still pass
+- [x] Create `selectWorkExperienceCompanyDates` selector
+- [x] Create `selectLatestPosition` selector
+- [x] Create `selectPositionById` selector
+- [x] Update `selectWorkExperienceOrClientById` to search positions
+- [x] All selectors use `createSelector` for memoisation
+- [x] All selectors have proper TypeScript return types
+- [x] No TypeScript errors with `yarn typecheck`
+- [x] Existing selector tests still pass
 
 ## Implementation Notes
 

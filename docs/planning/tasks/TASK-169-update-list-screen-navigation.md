@@ -70,16 +70,16 @@ Returns formatted date range: `${earliestStart} - ${latestEnd}`
 
 ## Acceptance Criteria
 
-- [ ] Update navigation logic to handle three scenarios (clients, positions, single)
-- [ ] Display latest position title in subtitle
-- [ ] Display company date range (full tenure)
-- [ ] Show badge for position count when > 1
-- [ ] Show badge for client count (existing behaviour)
-- [ ] Use `useCallback` for navigation handlers
-- [ ] Use `useMemo` for computed list items
-- [ ] Maintain EAA accessibility compliance
-- [ ] No TypeScript or ESLint errors
-- [ ] Existing E2E tests don't break (may need updates)
+- [x] Update navigation logic to handle three scenarios (clients, positions, single)
+- [x] Display latest position title in subtitle
+- [x] Display company date range (full tenure)
+- [x] Show badge for position count when > 1
+- [x] Show badge for client count (existing behaviour)
+- [x] Use `useCallback` for navigation handlers
+- [x] Use `useMemo` for computed list items
+- [x] Maintain EAA accessibility compliance
+- [x] No TypeScript or ESLint errors
+- [x] Existing E2E tests don't break (may need updates)
 
 ## Files to Modify
 
