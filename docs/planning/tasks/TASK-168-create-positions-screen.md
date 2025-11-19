@@ -1,6 +1,6 @@
 # TASK-168: Create WorkExperiencePositionsScreen
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: High
 **Effort**: 2h
 **Epic**: [EPIC-019](../epics/EPIC-019-work-experience-multi-position.md)
