@@ -620,6 +620,105 @@ import { GroupVariant, getButtonGroupVariant } from '@app/components/shared';
 
 ---
 
+## Additional Technical Decisions
+
+### Yarn Berry (3.6.4)
+
+**Decision:** Use Yarn Berry over npm or pnpm.
+
+**Why:**
+
+- Zero-installs with PnP (Plug'n'Play)
+- Better monorepo support
+- Improved dependency resolution
+- Built-in workspace support
+- Faster installs with caching
+
+### Node.js 22.x
+
+**Decision:** Use Node.js 22 LTS.
+
+**Why:**
+
+- Latest LTS version for stability
+- Performance improvements
+- Better ESM support
+- Required by some React Native 0.82 tooling
+
+### React Navigation 7
+
+**Decision:** Use React Navigation over alternatives.
+
+**Why:**
+
+- De facto standard for React Native
+- Excellent TypeScript support
+- Native stack navigator for performance
+- Active maintenance and community
+- Comprehensive documentation
+
+### Detox for E2E Testing
+
+**Decision:** Use Detox over Appium or Maestro.
+
+**Why:**
+
+- First-party React Native support
+- Grey-box testing (synchronisation with app)
+- Native driver (no WebDriver overhead)
+- Works with Cucumber for BDD
+- Battle-tested at Wix
+
+### Hermes JavaScript Engine
+
+**Decision:** Enable Hermes over JavaScriptCore.
+
+**Why:**
+
+- 50-70% faster startup time
+- 30-50% lower memory usage
+- Optimised garbage collection
+- Bytecode precompilation
+- Default in React Native 0.82
+
+### 85% Coverage Threshold
+
+**Decision:** Set global coverage threshold at 85%.
+
+**Why:**
+
+- Industry standard for production apps
+- Balance between quality and velocity
+- 100% on business logic (Redux, utilities)
+- Lower for UI components (harder to test exhaustively)
+- Prevents coverage from degrading over time
+
+### Storybook v10
+
+**Decision:** Use Storybook 10 for component development.
+
+**Why:**
+
+- React Native 0.82 compatibility
+- On-device rendering for accurate behaviour
+- Interactive controls for prop testing
+- Documentation with notes addon
+- Industry standard for component libraries
+
+### Reactotron over Flipper
+
+**Decision:** Use Reactotron for primary Redux debugging.
+
+**Why:**
+
+- Purpose-built for React Native
+- Superior Redux timeline visualisation
+- State snapshot and diff tools
+- Lower resource usage than Flipper
+- Works well alongside Flipper for other debugging
+
+---
+
 ## Best Practices
 
 ### Adding a New Feature

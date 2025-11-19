@@ -74,44 +74,43 @@ Comprehensive guides are available in the `/docs` folder. Here's how to navigate
 ### 📋 Project Information
 
 - **[Changelog](CHANGELOG.md)** - Version history and release notes
-- **[Git Commit Guide](docs/GIT_COMMIT_GUIDE.md)** - Commit message format and gitmoji conventions
-- **[Contributing](docs/CONTRIBUTING.md)** - Code standards and PR process
 
 ### 📖 How to Use This Documentation
 
 **New to the project?** Follow this onboarding path:
 
-1. **[Development Guide](docs/DEVELOPMENT.md)** - Set up your environment, install dependencies, and run the app
-2. **[Architecture](docs/ARCHITECTURE.md)** - Understand the project structure and feature-first organisation
-3. **[Git Commit Guide](docs/GIT_COMMIT_GUIDE.md)** - Learn our commit message format with gitmoji
-4. **[Contributing](docs/CONTRIBUTING.md)** - Code standards and PR process
+1. **[Development Guide](docs/readme/DEVELOPMENT.md)** - Set up your environment, install dependencies, and run the app
+2. **[Architecture](docs/readme/ARCHITECTURE.md)** - Understand the project structure and feature-first organisation
+3. **[Cheatsheet](docs/readme/CHEATSHEET.md)** - Quick reference for commands and patterns
 
 **Working on specific features?**
 
-- 🎨 **UI & Components** → [Architecture Guide](docs/ARCHITECTURE.md#component-patterns)
-- 🧪 **Unit Testing** → [Testing Guide](docs/TESTING.md)
-- 🎭 **E2E Testing** → [E2E Testing Guide](docs/E2E_TESTING.md)
-- 🌍 **Translations** → [Internationalisation Guide](docs/I18N.md)
-- 📦 **State Management** → [State Management Guide](docs/STATE_MANAGEMENT.md)
+- 🎨 **UI & Components** → [Architecture Guide](docs/readme/ARCHITECTURE.md#component-patterns)
+- 🧪 **Unit Testing** → [Testing Guide](docs/readme/TESTING.md)
+- 🎭 **E2E Testing** → [E2E Testing Guide](docs/readme/E2E_TESTING.md)
+- 🌍 **Translations** → [Internationalisation Guide](docs/readme/I18N.md)
+- 📦 **State Management** → [State Management Guide](docs/readme/STATE_MANAGEMENT.md)
 
 **Need quick help?**
 
-- ⚡ **Quick Commands** → [Cheatsheet](docs/CHEATSHEET.md) _(coming soon)_
-- 🔄 **Common Workflows** → [Workflows Guide](docs/WORKFLOWS.md) _(coming soon)_
+- ⚡ **Quick Commands** → [Cheatsheet](docs/readme/CHEATSHEET.md)
+- 🔄 **Common Workflows** → [Workflows Guide](docs/readme/WORKFLOWS.md)
 
 ### 📚 Core Documentation
 
-- **[Architecture](docs/ARCHITECTURE.md)** - Project structure, feature-first organisation, and design decisions
-- **[Development](docs/DEVELOPMENT.md)** - Setup guide, running the app, debugging, and troubleshooting
-- **[Testing](docs/TESTING.md)** - Unit and integration testing with Jest and React Native Testing Library
-- **[E2E Testing](docs/E2E_TESTING.md)** - End-to-end testing with Detox, Cucumber, and MSW
+- **[Architecture](docs/readme/ARCHITECTURE.md)** - Project structure, feature-first organisation, and design decisions
+- **[Development](docs/readme/DEVELOPMENT.md)** - Setup guide, running the app, debugging, and troubleshooting
+- **[Testing](docs/readme/TESTING.md)** - Unit and integration testing with Jest and React Native Testing Library
+- **[E2E Testing](docs/readme/E2E_TESTING.md)** - End-to-end testing with Detox, Cucumber, and MSW
 
 ### 🛠️ Feature-Specific Guides
 
-- **[Internationalisation](docs/I18N.md)** - i18n setup, adding translations, and language management
-- **[State Management](docs/STATE_MANAGEMENT.md)** - Redux Toolkit usage, creating features, and best practices
-- **[Git Commit Guide](docs/GIT_COMMIT_GUIDE.md)** - Commit message format and gitmoji conventions
-- **[Contributing](docs/CONTRIBUTING.md)** - Code style and PR process
+- **[Internationalisation](docs/readme/I18N.md)** - i18n setup, adding translations, and language management
+- **[State Management](docs/readme/STATE_MANAGEMENT.md)** - Redux Toolkit usage, creating features, and best practices
+- **[Storybook](docs/readme/STORYBOOK.md)** - Component development and documentation
+- **[Accessibility](docs/readme/ACCESSIBILITY.md)** - EAA compliance and WCAG 2.1 guidelines
+- **[Performance](docs/readme/PERFORMANCE.md)** - Optimisation patterns and profiling
+- **[Security](docs/readme/SECURITY.md)** - Security best practices
 
 ---
 
@@ -144,7 +143,7 @@ yarn typecheck          # Run TypeScript type check
 yarn validate           # Run typecheck, lint, and tests
 ```
 
-> **Note:** See [Cheatsheet](docs/CHEATSHEET.md) for a complete command reference _(coming soon)_.
+> **Note:** See [Cheatsheet](docs/readme/CHEATSHEET.md) for a complete command reference.
 
 ---
 
@@ -166,7 +165,7 @@ warrendeleon/
 └── android/              # Android native code
 ```
 
-See [Architecture Guide](docs/ARCHITECTURE.md#project-structure) for detailed structure explanation.
+See [Architecture Guide](docs/readme/ARCHITECTURE.md#project-structure) for detailed structure explanation.
 
 ---
 
@@ -176,29 +175,18 @@ See [Architecture Guide](docs/ARCHITECTURE.md#project-structure) for detailed st
 | -------------- | ------- |
 | Node.js        | 22.x    |
 | Yarn           | 3.6.4   |
-| Xcode          | 26.0+   |
+| Xcode          | 16.0+   |
 | Android Studio | 2023.1+ |
 | Java (JDK)     | 17      |
 | CocoaPods      | 1.16+   |
 
-See [Development Guide](docs/DEVELOPMENT.md#prerequisites) for detailed setup instructions.
+See [Development Guide](docs/readme/DEVELOPMENT.md#prerequisites) for detailed setup instructions.
 
 ---
 
 ## License
 
 MIT
-
----
-
-## Contributing
-
-Contributions are welcome! See [Contributing Guide](docs/CONTRIBUTING.md) for details on:
-
-- Code style and conventions
-- Commit message format (gitmoji)
-- PR process and requirements
-- Testing standards
 
 ---
 

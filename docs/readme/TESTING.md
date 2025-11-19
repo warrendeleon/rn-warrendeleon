@@ -817,7 +817,6 @@ module.exports = {
 ## Next Steps
 
 - **[E2E Testing](./E2E_TESTING.md)** - End-to-end testing with Detox
-- **[Contributing](./CONTRIBUTING.md)** - Code quality standards
 - **[Architecture](./ARCHITECTURE.md)** - Project structure and patterns
 - **[Workflows](./WORKFLOWS.md)** - Common testing workflows
 - **[Cheatsheet](./CHEATSHEET.md)** - Quick testing reference

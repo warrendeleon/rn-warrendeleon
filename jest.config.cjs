@@ -18,6 +18,7 @@ module.exports = {
     '\\.css$': '<rootDir>/src/test-utils/mocks/styleMock.js',
     '^react-dom$': '<rootDir>/src/test-utils/mocks/react-dom.js',
     '^react-dom/(.*)$': '<rootDir>/src/test-utils/mocks/react-dom.js',
+    '^axios$': '<rootDir>/src/test-utils/mocks/axios.ts',
   },
   testPathIgnorePatterns: [
     '/node_modules/',

@@ -155,7 +155,7 @@ const rootReducer = combineReducers({
 
 ### Step 6: Add Tests
 
-Create `src/features/MyFeature/__tests__/MyFeatureScreen.test.tsx`:
+Create `src/features/MyFeature/__tests__/MyFeatureScreen.rntl.tsx`:
 
 ```typescript
 import { renderWithProviders } from '@app/test-utils';
@@ -177,7 +177,7 @@ describe('MyFeatureScreen', () => {
 Run tests:
 
 ```bash
-yarn test MyFeatureScreen.test.tsx
+yarn test MyFeatureScreen.rntl.tsx
 ```
 
 ### Step 7: Add Barrel Exports
@@ -573,7 +573,7 @@ Workflow for comprehensive test coverage.
 ### Unit Tests for Components
 
 ```typescript
-// MyComponent.test.tsx
+// MyComponent.rntl.tsx
 import { renderWithProviders } from '@app/test-utils';
 import { fireEvent } from '@testing-library/react-native';
 import { MyComponent } from '../MyComponent';
@@ -1001,7 +1001,7 @@ lsof -ti:8081 | xargs kill
 - **[Development](./DEVELOPMENT.md)** - Setup & environment guide
 - **[Testing](./TESTING.md)** - Unit testing guide
 - **[E2E Testing](./E2E_TESTING.md)** - End-to-end testing guide
-- **[Contributing](./CONTRIBUTING.md)** - Code standards & conventions
+- **[Architecture](./ARCHITECTURE.md)** - Project structure and patterns
 
 ---
 

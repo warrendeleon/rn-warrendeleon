@@ -25,7 +25,7 @@ This document covers setting up your development environment and running the app
 | -------------- | ------- | ------------------------------ |
 | Node.js        | 22.x    | JavaScript runtime             |
 | Yarn           | 3.6.4   | Package manager (via Corepack) |
-| Xcode          | 26.0+   | iOS development (macOS only)   |
+| Xcode          | 16.0+   | iOS development (macOS only)   |
 | Android Studio | 2023.1+ | Android development            |
 | Java (JDK)     | 17      | Android build tools            |
 | CocoaPods      | 1.16+   | iOS dependency management      |
@@ -792,7 +792,6 @@ adb logcat | grep ReactNative           # View Android logs
 - **[Architecture](./ARCHITECTURE.md)** - Understand project structure and patterns
 - **[Testing](./TESTING.md)** - Learn about unit and integration testing
 - **[E2E Testing](./E2E_TESTING.md)** - End-to-end testing with Detox
-- **[Contributing](./CONTRIBUTING.md)** - Code standards and conventions
 - **[Cheatsheet](./CHEATSHEET.md)** - Quick command reference
 - **[Workflows](./WORKFLOWS.md)** - Common development workflows
 

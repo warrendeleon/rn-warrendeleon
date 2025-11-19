@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Coloured icon backgrounds with rounded squares
 - Minimal navigation (chevron-only back button)
 - Accessibility labels across all screens and components
+- Storybook integration for isolated component development and documentation
 
 #### Error Handling
 
@@ -98,6 +99,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Node.js 22.12
 - GlueStack UI v1.1.73
 - NativeWind v4.2.1 (Tailwind CSS for React Native)
+- Storybook v10.0.7 for React Native
 - React Navigation v7.1.19
 - Redux Toolkit v2.10.1
 - i18next v25.6.0 + react-i18next v16.2.4

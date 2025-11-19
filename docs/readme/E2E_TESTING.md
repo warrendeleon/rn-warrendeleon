@@ -1256,7 +1256,7 @@ yarn detox:android:build
 ## Next Steps
 
 - See [ARCHITECTURE](./ARCHITECTURE.md) for project structure
-- See [CONTRIBUTING](./CONTRIBUTING.md) for test requirements
+- See [Testing Guide](./TESTING.md) for test requirements
 - See [WORKFLOWS](./WORKFLOWS.md) for E2E debugging workflow
 
 ---

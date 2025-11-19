@@ -48,7 +48,7 @@ yarn ios:pods                   # Install iOS dependencies (cd ios && pod instal
 yarn test                       # Run all unit tests
 yarn test:watch                 # Run tests in watch mode
 yarn test:coverage              # Run tests with coverage report
-yarn test path/to/file.test.ts  # Run specific test file
+yarn test path/to/file.rntl.tsx # Run specific test file
 yarn test -t "test name"        # Run specific test by name
 yarn test -u                    # Update snapshots
 
@@ -137,7 +137,7 @@ src/features/MyFeature/
 ├── MyFeatureScreen.tsx              # Main screen component
 ├── components/                      # Feature-specific components
 │   ├── MyComponent.tsx
-│   └── __tests__/MyComponent.test.tsx
+│   └── __tests__/MyComponent.rntl.tsx
 ├── __tests__/                       # Feature tests
 │   ├── MyFeatureScreen.feature      # E2E scenarios (Gherkin)
 │   └── MyFeatureScreen.cucumber.tsx # E2E step definitions
@@ -157,7 +157,7 @@ src/features/MyFeature/
 MyComponent.tsx                 # PascalCase for components
 
 # Tests
-MyComponent.test.tsx            # Unit/integration tests
+MyComponent.rntl.tsx            # Unit/integration tests (React Native Testing Library)
 MyFeature.feature               # E2E Gherkin scenarios
 MyFeature.cucumber.tsx          # E2E step definitions
 
@@ -628,7 +628,30 @@ Before committing:
 - Detail 2
 ```
 
-**Complete gitmoji reference**: [gitmoji.dev](https://gitmoji.dev)
+### Gitmoji Quick Reference
+
+| Emoji | Code                     | Type     | Use When                          |
+| ----- | ------------------------ | -------- | --------------------------------- |
+| ✨    | `:sparkles:`             | feat     | New features, screens, components |
+| 🐛    | `:bug:`                  | fix      | Standard bug fixes                |
+| 🚑    | `:ambulance:`            | hotfix   | Critical production fixes         |
+| ♻️    | `:recycle:`              | refactor | Code restructuring                |
+| ⚡    | `:zap:`                  | perf     | Performance optimisations         |
+| 💄    | `:lipstick:`             | ui       | UI and styling changes            |
+| ♿    | `:wheelchair:`           | a11y     | Accessibility improvements        |
+| ✅    | `:white_check_mark:`     | test     | Adding or updating tests          |
+| 📝    | `:memo:`                 | docs     | Documentation changes             |
+| 🌐    | `:globe_with_meridians:` | i18n     | Translations, locale changes      |
+| 🔧    | `:wrench:`               | chore    | Config file changes               |
+| ➕    | `:heavy_plus_sign:`      | deps     | Add dependency                    |
+| ⬆️    | `:arrow_up:`             | deps     | Upgrade dependency                |
+| 🔒    | `:lock:`                 | security | Security fixes                    |
+| 💥    | `:boom:`                 | breaking | Breaking changes                  |
+| 🏷️    | `:label:`                | types    | TypeScript types/interfaces       |
+| 🔥    | `:fire:`                 | remove   | Removing code or files            |
+| 🎉    | `:tada:`                 | init     | Initial project setup             |
+
+**Full list**: [gitmoji.dev](https://gitmoji.dev)
 
 **Common examples:**
 
@@ -705,8 +728,11 @@ const apiUrl = Config.API_URL;
 - 🎭 [E2E Testing](./E2E_TESTING.md) - End-to-end testing
 - 🌍 [i18n](./I18N.md) - Internationalisation
 - 📦 [State Management](./STATE_MANAGEMENT.md) - Redux Toolkit
-- 📝 [Contributing](./CONTRIBUTING.md) - Code standards
-- 🔄 [Workflows](./WORKFLOWS.md) - Common workflows _(coming soon)_
+- ♿ [Accessibility](./ACCESSIBILITY.md) - EAA compliance
+- ⚡ [Performance](./PERFORMANCE.md) - Optimisation patterns
+- 🔒 [Security](./SECURITY.md) - Security best practices
+- 📚 [Storybook](./STORYBOOK.md) - Component development
+- 🔄 [Workflows](./WORKFLOWS.md) - Common workflows
 
 ---
 

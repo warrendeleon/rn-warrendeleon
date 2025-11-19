@@ -1739,9 +1739,9 @@ This is expected behaviour in development. To preserve state:
 - See [Testing](./TESTING.md) for testing Redux code
 - See [I18N](./I18N.md) for integrating Redux with i18next
 - See [Architecture](./ARCHITECTURE.md) for project structure
-- See [Contributing](./CONTRIBUTING.md) for code standards
-- See [CHEATSHEET](./CHEATSHEET.md) for quick command reference
-- See [WORKFLOWS](./WORKFLOWS.md) for Redux workflows
+- See [Performance](./PERFORMANCE.md) for Redux optimisation patterns
+- See [Cheatsheet](./CHEATSHEET.md) for quick command reference
+- See [Workflows](./WORKFLOWS.md) for Redux workflows
 
 ---
 
