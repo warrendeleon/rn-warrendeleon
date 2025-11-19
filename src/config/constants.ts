@@ -48,6 +48,9 @@ export const ALLOWED_WEBVIEW_DOMAINS = [
   // Developer platforms
   'github.com',
   'www.github.com',
+
+  // Certificate providers
+  'udemy-certificate.s3.amazonaws.com',
 ] as const;
 
 /**
