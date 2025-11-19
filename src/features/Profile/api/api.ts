@@ -2,6 +2,7 @@ import type { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { isE2EMockEnabled } from '@app/config/e2e';
 import { GithubApiClient } from '@app/httpClients';
+import { ProfileSchema } from '@app/schemas';
 import profileCA from '@app/test-utils/fixtures/api/ca/profile.json';
 import profileEN from '@app/test-utils/fixtures/api/en/profile.json';
 import profileES from '@app/test-utils/fixtures/api/es/profile.json';
@@ -50,5 +51,13 @@ export const fetchProfileData = async (language: string): Promise<AxiosResponse<
     });
   }
 
-  return GithubApiClient.get<Profile>(`/${language}/profile.json`);
+  const response = await GithubApiClient.get<unknown>(`/${language}/profile.json`);
+
+  // Validate response data with Zod schema
+  const validatedData = ProfileSchema.parse(response.data);
+
+  return {
+    ...response,
+    data: validatedData,
+  };
 };

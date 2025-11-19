@@ -2,6 +2,7 @@ import type { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { isE2EMockEnabled } from '@app/config/e2e';
 import { GithubApiClient } from '@app/httpClients';
+import { WorkExperienceSchema } from '@app/schemas';
 import workxpCA from '@app/test-utils/fixtures/api/ca/workxp.json';
 import workxpEN from '@app/test-utils/fixtures/api/en/workxp.json';
 import workxpES from '@app/test-utils/fixtures/api/es/workxp.json';
@@ -52,5 +53,13 @@ export const fetchWorkExperienceData = async (
     });
   }
 
-  return GithubApiClient.get<WorkExperience[]>(`/${language}/workxp.json`);
+  const response = await GithubApiClient.get<unknown>(`/${language}/workxp.json`);
+
+  // Validate response data with Zod schema
+  const validatedData = WorkExperienceSchema.parse(response.data);
+
+  return {
+    ...response,
+    data: validatedData,
+  };
 };

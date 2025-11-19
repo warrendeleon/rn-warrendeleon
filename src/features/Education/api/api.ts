@@ -2,6 +2,7 @@ import type { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { isE2EMockEnabled } from '@app/config/e2e';
 import { GithubApiClient } from '@app/httpClients';
+import { EducationSchema } from '@app/schemas';
 import educationCA from '@app/test-utils/fixtures/api/ca/education.json';
 import educationEN from '@app/test-utils/fixtures/api/en/education.json';
 import educationES from '@app/test-utils/fixtures/api/es/education.json';
@@ -50,5 +51,13 @@ export const fetchEducationData = async (language: string): Promise<AxiosRespons
     });
   }
 
-  return GithubApiClient.get<Education[]>(`/${language}/education.json`);
+  const response = await GithubApiClient.get<unknown>(`/${language}/education.json`);
+
+  // Validate response data with Zod schema
+  const validatedData = EducationSchema.parse(response.data);
+
+  return {
+    ...response,
+    data: validatedData,
+  };
 };

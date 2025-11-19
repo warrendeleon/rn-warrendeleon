@@ -1,37 +1,36 @@
 import Config from 'react-native-config';
 
-export const APP_ENV_VALUES = ['development', 'production'] as const;
-export type AppEnv = (typeof APP_ENV_VALUES)[number];
+import { APP_ENV_VALUES, type AppEnv, type EnvConfig, EnvSchema } from '@app/schemas';
 
-export interface EnvConfig {
-  APP_ENV: AppEnv;
-  API_URL: string;
-}
+// Re-export types and constants for backward compatibility
+export { APP_ENV_VALUES };
+export type { AppEnv, EnvConfig };
 
+/**
+ * Validate environment configuration using Zod schema
+ *
+ * This function validates all environment variables at app startup.
+ * If any variable is missing or invalid, it throws an error with
+ * a detailed message explaining what's wrong.
+ */
 const validateEnv = (): EnvConfig => {
-  const { APP_ENV, API_URL } = Config as {
-    APP_ENV?: string;
-    API_URL?: string;
-  };
+  // Parse and validate environment variables
+  // This throws ZodError if validation fails
+  const result = EnvSchema.safeParse(Config);
 
-  if (!APP_ENV) {
-    throw new Error('APP_ENV is not defined');
-  }
+  if (!result.success) {
+    // Format error messages for readability
+    const errorMessages = result.error.issues
+      .map(issue => `  - ${String(issue.path.join('.'))}: ${issue.message}`)
+      .join('\n');
 
-  if (!APP_ENV_VALUES.includes(APP_ENV as AppEnv)) {
     throw new Error(
-      `APP_ENV must be one of ${APP_ENV_VALUES.join(', ')} but received "${APP_ENV}"`
+      `Environment validation failed:\n${errorMessages}\n\n` +
+        'Check your .env file has all required variables.'
     );
   }
 
-  if (!API_URL) {
-    throw new Error('API_URL is not defined');
-  }
-
-  return {
-    APP_ENV: APP_ENV as AppEnv,
-    API_URL,
-  };
+  return result.data;
 };
 
 let cachedEnv: EnvConfig | null = null;

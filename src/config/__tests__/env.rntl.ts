@@ -30,7 +30,8 @@ describe('env.ts', () => {
       API_URL: 'https://api-dev.example.com',
     }));
 
-    expect(() => loadEnv()).toThrow('APP_ENV is not defined');
+    expect(() => loadEnv()).toThrow('Environment validation failed');
+    expect(() => loadEnv()).toThrow('APP_ENV');
   });
 
   it('throws if APP_ENV has an invalid value', () => {
@@ -39,9 +40,8 @@ describe('env.ts', () => {
       API_URL: 'https://api-dev.example.com',
     }));
 
-    expect(() => loadEnv()).toThrow(
-      'APP_ENV must be one of development, production but received "staging"'
-    );
+    expect(() => loadEnv()).toThrow('Environment validation failed');
+    expect(() => loadEnv()).toThrow('APP_ENV must be one of: development, production');
   });
 
   it('throws if API_URL is missing', () => {
@@ -50,7 +50,8 @@ describe('env.ts', () => {
       API_URL: undefined,
     }));
 
-    expect(() => loadEnv()).toThrow('API_URL is not defined');
+    expect(() => loadEnv()).toThrow('Environment validation failed');
+    expect(() => loadEnv()).toThrow('API_URL');
   });
 
   it('reuses cached env on subsequent getEnv() calls', () => {
