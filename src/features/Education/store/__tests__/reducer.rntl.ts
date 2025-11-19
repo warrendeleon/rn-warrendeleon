@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import axios from 'axios';
 
 import educationFixture from '@app/test-utils/fixtures/api/en/education.json';
 
+import { fetchEducationData } from '../../api/api';
 import { fetchEducation } from '../actions';
 import { clearEducation, educationReducer, type EducationState } from '../reducer';
 
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+jest.mock('../../api/api');
+const mockedFetchEducationData = fetchEducationData as jest.MockedFunction<
+  typeof fetchEducationData
+>;
 
 describe('educationReducer', () => {
   const initialState: EducationState = {
@@ -61,7 +63,13 @@ describe('educationReducer', () => {
     });
 
     it('sets education data when fetchEducation is fulfilled', async () => {
-      mockedAxios.get = jest.fn().mockResolvedValue({ data: educationFixture });
+      mockedFetchEducationData.mockResolvedValue({
+        data: educationFixture,
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config: {} as never,
+      });
 
       await store.dispatch(fetchEducation());
 
@@ -73,7 +81,7 @@ describe('educationReducer', () => {
 
     it('sets error when fetchEducation is rejected with error message', async () => {
       const errorMessage = 'Network error';
-      mockedAxios.get = jest.fn().mockRejectedValue(new Error(errorMessage));
+      mockedFetchEducationData.mockRejectedValue(new Error(errorMessage));
 
       await store.dispatch(fetchEducation());
 
@@ -84,7 +92,7 @@ describe('educationReducer', () => {
     });
 
     it('sets default error message when fetchEducation is rejected without message', async () => {
-      mockedAxios.get = jest.fn().mockRejectedValue({});
+      mockedFetchEducationData.mockRejectedValue(new Error());
 
       await store.dispatch(fetchEducation());
 

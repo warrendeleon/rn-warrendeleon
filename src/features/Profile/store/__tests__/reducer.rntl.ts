@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import axios from 'axios';
 
 import profileFixture from '@app/test-utils/fixtures/api/en/profile.json';
 
+import { fetchProfileData } from '../../api/api';
 import { fetchProfile } from '../actions';
 import { clearProfile, profileReducer, type ProfileState } from '../reducer';
 
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+jest.mock('../../api/api');
+const mockedFetchProfileData = fetchProfileData as jest.MockedFunction<typeof fetchProfileData>;
 
 describe('profileReducer', () => {
   const initialState: ProfileState = {
@@ -61,7 +61,13 @@ describe('profileReducer', () => {
     });
 
     it('sets profile data when fetchProfile is fulfilled', async () => {
-      mockedAxios.get = jest.fn().mockResolvedValue({ data: profileFixture });
+      mockedFetchProfileData.mockResolvedValue({
+        data: profileFixture,
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config: {} as never,
+      });
 
       await store.dispatch(fetchProfile());
 
@@ -73,7 +79,7 @@ describe('profileReducer', () => {
 
     it('sets error when fetchProfile is rejected with error message', async () => {
       const errorMessage = 'Network error';
-      mockedAxios.get = jest.fn().mockRejectedValue(new Error(errorMessage));
+      mockedFetchProfileData.mockRejectedValue(new Error(errorMessage));
 
       await store.dispatch(fetchProfile());
 
@@ -84,7 +90,7 @@ describe('profileReducer', () => {
     });
 
     it('sets default error message when fetchProfile is rejected without message', async () => {
-      mockedAxios.get = jest.fn().mockRejectedValue({});
+      mockedFetchProfileData.mockRejectedValue(new Error());
 
       await store.dispatch(fetchProfile());
 
