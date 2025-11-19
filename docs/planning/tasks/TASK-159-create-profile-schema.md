@@ -1,6 +1,6 @@
 # TASK-159: Create Profile Schema
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: High
 **Effort**: 1.5h
 **Epic**: [EPIC-018](../epics/EPIC-018-zod-schema-validation.md)
@@ -187,10 +187,10 @@ TASK-159"
 
 ## Verification Checklist
 
-- [ ] `src/schemas/profile.schema.ts` exists
-- [ ] Schema exported from `src/schemas/index.ts`
-- [ ] `yarn typecheck` passes
-- [ ] Schema validates sample profile data correctly
+- [x] `src/schemas/profile.schema.ts` exists
+- [x] Schema exported from `src/schemas/index.ts`
+- [x] `yarn typecheck` passes
+- [x] Schema validates sample profile data correctly
 
 ---
 

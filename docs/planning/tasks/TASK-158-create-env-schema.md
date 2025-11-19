@@ -1,6 +1,6 @@
 # TASK-158: Create Environment Config Schema
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: High
 **Effort**: 1h
 **Epic**: [EPIC-018](../epics/EPIC-018-zod-schema-validation.md)
@@ -332,13 +332,13 @@ TASK-158"
 
 ## Verification Checklist
 
-- [ ] `src/schemas/env.schema.ts` exists with EnvSchema
-- [ ] `src/schemas/index.ts` exports the schema and types
-- [ ] `src/config/env.ts` uses EnvSchema.safeParse()
-- [ ] `yarn typecheck` passes
-- [ ] `yarn test` passes
-- [ ] App runs without errors
-- [ ] Error messages are clear when env vars missing
+- [x] `src/schemas/env.schema.ts` exists with EnvSchema
+- [x] `src/schemas/index.ts` exports the schema and types
+- [x] `src/config/env.ts` uses EnvSchema.safeParse()
+- [x] `yarn typecheck` passes
+- [x] `yarn test` passes
+- [x] App runs without errors
+- [x] Error messages are clear when env vars missing
 
 ---
 
