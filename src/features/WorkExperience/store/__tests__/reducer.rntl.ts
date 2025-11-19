@@ -18,10 +18,15 @@ describe('workExperienceReducer', () => {
         {
           id: '1',
           company: 'Test Company',
-          position: 'Developer',
-          start: '2020-01-01',
-          end: '2021-01-01',
-          description: 'Test',
+          positions: [
+            {
+              id: 'pos-1',
+              title: 'Developer',
+              start: '2020-01-01',
+              end: '2021-01-01',
+              description: 'Test',
+            },
+          ],
         },
       ],
       loading: false,
@@ -49,10 +54,15 @@ describe('workExperienceReducer', () => {
         {
           id: '1',
           company: 'Test Company',
-          position: 'Developer',
-          start: '2020-01-01',
-          end: '2021-01-01',
-          description: 'Test',
+          positions: [
+            {
+              id: 'pos-1',
+              title: 'Developer',
+              start: '2020-01-01',
+              end: '2021-01-01',
+              description: 'Test',
+            },
+          ],
         },
       ];
 

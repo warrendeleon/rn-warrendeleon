@@ -17,6 +17,7 @@ import {
   WebViewScreen,
   WorkExperienceClientsScreen,
   WorkExperienceDetailsScreen,
+  WorkExperiencePositionsScreen,
   WorkExperienceScreen,
 } from '@app/features';
 import { useAppColorScheme } from '@app/hooks';
@@ -32,6 +33,7 @@ export type RootStackParamList = {
   WorkExperience: undefined;
   WorkExperienceDetails: { workExperienceId: string };
   WorkExperienceClients: { workExperienceId: string };
+  WorkExperiencePositions: { workExperienceId: string };
   Education: undefined;
   WebView: { uri: string };
   PDF: { uri: string; title?: string };
@@ -103,6 +105,11 @@ export const RootNavigator: React.FC = () => {
           <Stack.Screen
             name="WorkExperienceClients"
             component={WorkExperienceClientsScreen}
+            options={{ title: '' }}
+          />
+          <Stack.Screen
+            name="WorkExperiencePositions"
+            component={WorkExperiencePositionsScreen}
             options={{ title: '' }}
           />
           <Stack.Screen name="WebView" component={WebViewScreen} options={{ title: 'GitHub' }} />

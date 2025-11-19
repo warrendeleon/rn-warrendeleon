@@ -17,10 +17,15 @@ describe('WorkExperience selectors', () => {
     {
       id: '1',
       company: 'Company A',
-      position: 'Developer',
-      start: '2020-01-01',
-      end: '2021-01-01',
-      description: 'Test A',
+      positions: [
+        {
+          id: 'pos-1',
+          title: 'Developer',
+          start: '2020-01-01',
+          end: '2021-01-01',
+          description: 'Test A',
+        },
+      ],
       clients: [
         {
           id: 'c1',
@@ -41,18 +46,28 @@ describe('WorkExperience selectors', () => {
     {
       id: '2',
       company: 'Company B',
-      position: 'Senior Developer',
-      start: '2021-01-01',
-      end: '2022-01-01',
-      description: 'Test B',
+      positions: [
+        {
+          id: 'pos-2',
+          title: 'Senior Developer',
+          start: '2021-01-01',
+          end: '2022-01-01',
+          description: 'Test B',
+        },
+      ],
     },
     {
       id: '3',
       company: 'Company A',
-      position: 'Lead Developer',
-      start: '2022-01-01',
-      end: 'Present',
-      description: 'Test C',
+      positions: [
+        {
+          id: 'pos-3',
+          title: 'Lead Developer',
+          start: '2022-01-01',
+          end: 'Present',
+          description: 'Test C',
+        },
+      ],
     },
   ];
 
@@ -190,48 +205,44 @@ describe('WorkExperience selectors', () => {
   });
 
   describe('selectWorkExperienceOrClientById', () => {
-    describe('Work Experience Matching', () => {
-      it('returns work experience when ID matches top-level entry', () => {
-        const result = selectWorkExperienceOrClientById(mockState, '1');
+    describe('Position Matching', () => {
+      it('returns position when ID matches a position entry', () => {
+        const result = selectWorkExperienceOrClientById(mockState, 'pos-1');
         expect(result).not.toBeNull();
-        expect(result?.id).toBe('1');
-        expect(result?.company).toBe('Company A');
-        expect(result?.position).toBe('Developer');
-        expect(result?.clients).toBeDefined();
+        expect(result?.id).toBe('pos-1');
+        expect(result?.title).toBe('Developer');
+        expect(result?.start).toBe('2020-01-01');
       });
 
-      it('returns work experience with all properties intact', () => {
-        const result = selectWorkExperienceOrClientById(mockState, '2');
+      it('returns position with all properties intact', () => {
+        const result = selectWorkExperienceOrClientById(mockState, 'pos-2');
         expect(result).not.toBeNull();
-        expect(result?.id).toBe('2');
-        expect(result?.company).toBe('Company B');
-        expect(result?.position).toBe('Senior Developer');
+        expect(result?.id).toBe('pos-2');
+        expect(result?.title).toBe('Senior Developer');
         expect(result?.start).toBe('2021-01-01');
         expect(result?.end).toBe('2022-01-01');
         expect(result?.description).toBe('Test B');
       });
 
-      it('prioritizes work experience over client when IDs could overlap', () => {
-        // First checks work experience, then clients
-        const result = selectWorkExperienceOrClientById(mockState, '1');
-        expect(result?.company).toBe('Company A'); // Work experience, not client
-        expect(result?.clients).toBeDefined(); // Work experience have clients property
+      it('prioritizes position over client when IDs could overlap', () => {
+        // First checks positions, then clients
+        const result = selectWorkExperienceOrClientById(mockState, 'pos-1');
+        expect(result?.title).toBe('Developer');
+        expect(result?.description).toBe('Test A');
       });
     });
 
     describe('Client Matching and Conversion', () => {
-      it('returns client converted to work experience format when client ID matches', () => {
+      it('returns client converted to position format when client ID matches', () => {
         const result = selectWorkExperienceOrClientById(mockState, 'c1');
         expect(result).not.toBeNull();
         expect(result?.id).toBe('c1');
-        expect(result?.company).toBe('Client 1');
-        expect(result?.position).toBe('Developer');
+        expect(result?.title).toBe('Developer');
       });
 
       it('converts client with all required properties', () => {
         const result = selectWorkExperienceOrClientById(mockState, 'c1');
         expect(result).not.toBeNull();
-        expect(result?.logo).toBe('https://example.com/client1.svg');
         expect(result?.start).toBe('2020-01-01');
         expect(result?.end).toBe('2021-01-01');
         expect(result?.programmingLanguages).toEqual(['TypeScript']);
@@ -241,10 +252,11 @@ describe('WorkExperience selectors', () => {
         expect(result?.description).toBe('Client work');
       });
 
-      it('sets clients property to undefined for converted client entries', () => {
+      it('client conversion does not include sub-clients', () => {
         const result = selectWorkExperienceOrClientById(mockState, 'c1');
         expect(result).not.toBeNull();
-        expect(result?.clients).toBeUndefined(); // Clients don't have sub-clients
+        // Position type doesn't have clients property
+        expect(result?.id).toBe('c1');
       });
 
       it('searches through all work experience entries for client match', () => {
@@ -258,10 +270,15 @@ describe('WorkExperience selectors', () => {
               {
                 id: '4',
                 company: 'Company C',
-                position: 'Manager',
-                start: '2023-01-01',
-                end: 'Present',
-                description: 'Test D',
+                positions: [
+                  {
+                    id: 'pos-4',
+                    title: 'Manager',
+                    start: '2023-01-01',
+                    end: 'Present',
+                    description: 'Test D',
+                  },
+                ],
                 clients: [
                   {
                     id: 'c2',
@@ -286,7 +303,7 @@ describe('WorkExperience selectors', () => {
         const result = selectWorkExperienceOrClientById(stateWithMultipleClients, 'c2');
         expect(result).not.toBeNull();
         expect(result?.id).toBe('c2');
-        expect(result?.company).toBe('Client 2');
+        expect(result?.title).toBe('Tech Lead');
       });
     });
 
@@ -313,10 +330,15 @@ describe('WorkExperience selectors', () => {
               {
                 id: '100',
                 company: 'Company No Clients',
-                position: 'Developer',
-                start: '2020-01-01',
-                end: '2021-01-01',
-                description: 'No clients here',
+                positions: [
+                  {
+                    id: 'pos-100',
+                    title: 'Developer',
+                    start: '2020-01-01',
+                    end: '2021-01-01',
+                    description: 'No clients here',
+                  },
+                ],
               },
             ],
             loading: false,
@@ -337,10 +359,15 @@ describe('WorkExperience selectors', () => {
               {
                 id: '5',
                 company: 'Company D',
-                position: 'Developer',
-                start: '2020-01-01',
-                end: '2021-01-01',
-                description: 'Test',
+                positions: [
+                  {
+                    id: 'pos-5',
+                    title: 'Developer',
+                    start: '2020-01-01',
+                    end: '2021-01-01',
+                    description: 'Test',
+                  },
+                ],
                 clients: undefined,
               },
             ],
@@ -360,10 +387,15 @@ describe('WorkExperience selectors', () => {
               {
                 id: '6',
                 company: 'Company E',
-                position: 'Developer',
-                start: '2020-01-01',
-                end: '2021-01-01',
-                description: 'Test',
+                positions: [
+                  {
+                    id: 'pos-6',
+                    title: 'Developer',
+                    start: '2020-01-01',
+                    end: '2021-01-01',
+                    description: 'Test',
+                  },
+                ],
                 clients: [],
               },
             ],
@@ -383,15 +415,15 @@ describe('WorkExperience selectors', () => {
 
     describe('Memoization', () => {
       it('returns same reference when called with same state and ID', () => {
-        const result1 = selectWorkExperienceOrClientById(mockState, '1');
-        const result2 = selectWorkExperienceOrClientById(mockState, '1');
+        const result1 = selectWorkExperienceOrClientById(mockState, 'pos-1');
+        const result2 = selectWorkExperienceOrClientById(mockState, 'pos-1');
         // Memoization ensures same reference for same inputs
         expect(result1).toBe(result2);
       });
 
       it('returns different reference for different IDs', () => {
-        const result1 = selectWorkExperienceOrClientById(mockState, '1');
-        const result2 = selectWorkExperienceOrClientById(mockState, '2');
+        const result1 = selectWorkExperienceOrClientById(mockState, 'pos-1');
+        const result2 = selectWorkExperienceOrClientById(mockState, 'pos-2');
         expect(result1).not.toBe(result2);
       });
     });

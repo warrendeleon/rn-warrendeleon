@@ -10,7 +10,7 @@ import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppSelector } from '@app/store';
 
-import { selectWorkExperienceOrClientById } from './store/selectors';
+import { selectCompanyInfoByPositionId, selectWorkExperienceOrClientById } from './store/selectors';
 
 type WorkExperienceDetailsScreenRouteProp = RouteProp<RootStackParamList, 'WorkExperienceDetails'>;
 
@@ -62,21 +62,21 @@ const TechSectionComponent: React.FC<{
 
   return (
     <Box
-      testID={`work-experience-details-section-${title.toLowerCase()}`}
+      testID={`work-experience-details-section-${title.toLowerCase().replace(/\s+/g, '-')}`}
       accessible={true}
       accessibilityRole="header"
       accessibilityLabel={`${title} section`}
     >
       <Text
         style={[{ fontSize: 14, fontWeight: '600', marginBottom: 12 }, styles.textPrimary]}
-        testID={`work-experience-details-section-title-${title.toLowerCase()}`}
+        testID={`work-experience-details-section-title-${title.toLowerCase().replace(/\s+/g, '-')}`}
       >
         {title}
       </Text>
 
       <Box
         style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}
-        testID={`work-experience-details-tags-${title.toLowerCase()}`}
+        testID={`work-experience-details-tags-${title.toLowerCase().replace(/\s+/g, '-')}`}
       >
         {items.map((item, index) => (
           <Box
@@ -89,7 +89,7 @@ const TechSectionComponent: React.FC<{
                 backgroundColor: styles.tagBackground.backgroundColor,
               },
             ]}
-            testID={`work-experience-details-tag-${title.toLowerCase()}-${index}`}
+            testID={`work-experience-details-tag-${title.toLowerCase().replace(/\s+/g, '-')}-${index}`}
             accessible={true}
             accessibilityRole="text"
             accessibilityLabel={item}
@@ -104,6 +104,52 @@ const TechSectionComponent: React.FC<{
   );
 };
 
+const ResponsibilitiesSectionComponent: React.FC<{
+  items: string[];
+  isDark: boolean;
+}> = ({ items, isDark }) => {
+  const { t } = useTranslation();
+  const styles = getWorkExperienceDetailsStyles(isDark ? 'dark' : 'light');
+
+  if (!items || items.length === 0) {
+    return null;
+  }
+
+  return (
+    <Box
+      testID="work-experience-details-responsibilities-section"
+      accessible={true}
+      accessibilityRole="list"
+      accessibilityLabel={t('workExperience.keyResponsibilities')}
+    >
+      <Text
+        style={[{ fontSize: 14, fontWeight: '600', marginBottom: 12 }, styles.textPrimary]}
+        testID="work-experience-details-responsibilities-title"
+      >
+        {t('workExperience.keyResponsibilities')}
+      </Text>
+
+      {items.map((item, index) => (
+        <Box
+          key={`responsibility-${index}`}
+          style={{ flexDirection: 'row', marginBottom: 12, paddingRight: 8 }}
+          testID={`work-experience-details-responsibility-${index}`}
+          accessible={true}
+          accessibilityRole="text"
+        >
+          <Text style={[{ fontSize: 14, marginRight: 8 }, styles.textPrimary]}>•</Text>
+          <Text
+            style={[{ fontSize: 14, lineHeight: 20, flex: 1 }, styles.textSecondary]}
+            accessibilityLabel={item}
+          >
+            {item}
+          </Text>
+        </Box>
+      ))}
+    </Box>
+  );
+};
+
 export const WorkExperienceDetailsScreen: React.FC = () => {
   const { t } = useTranslation();
   const route = useRoute<WorkExperienceDetailsScreenRouteProp>();
@@ -111,19 +157,43 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
   const isDark = colorScheme === 'dark';
 
   const { workExperienceId } = route.params;
-  const workExperience = useAppSelector(
+
+  // Get position data
+  const position = useAppSelector(
     state => selectWorkExperienceOrClientById(state, workExperienceId),
     (a, b) => a?.id === b?.id
   );
 
+  // Get company info (name and logo)
+  const companyInfo = useAppSelector(state =>
+    selectCompanyInfoByPositionId(state, workExperienceId)
+  );
+
   const styles = getWorkExperienceDetailsStyles(isDark ? 'dark' : 'light');
+
   const dateRange = useMemo(() => {
-    if (!workExperience) return '';
-    return formatDateRange(workExperience.start, workExperience.end, t('workExperience.present'));
-  }, [workExperience, t]);
+    if (!position) return '';
+    return formatDateRange(position.start, position.end, t('workExperience.present'));
+  }, [position, t]);
+
+  // Check if this is a technical role (has tech stack) or manager role (has responsibilities)
+  const hasTechContent = useMemo(() => {
+    return (
+      position?.programmingLanguages?.length ||
+      position?.techStack?.length ||
+      position?.unitTest?.length ||
+      position?.e2e?.length ||
+      position?.devTools?.length ||
+      position?.agileMethodology?.length
+    );
+  }, [position]);
+
+  const hasResponsibilities = useMemo(() => {
+    return position?.responsibilities && position.responsibilities.length > 0;
+  }, [position]);
 
   // Show not found state
-  if (!workExperience) {
+  if (!position) {
     return (
       <ScrollView
         testID="work-experience-details-screen"
@@ -161,7 +231,7 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
       contentInsetAdjustmentBehavior="automatic"
     >
       {/* Company Logo Card */}
-      {workExperience.logo && (
+      {companyInfo?.logo && (
         <Box
           style={[
             {
@@ -176,24 +246,24 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
           ]}
           testID="work-experience-details-logo-card"
         >
-          {workExperience.logo.endsWith('.svg') ? (
+          {companyInfo.logo.endsWith('.svg') ? (
             <SvgUri
-              uri={workExperience.logo}
+              uri={companyInfo.logo}
               width={100}
               height={100}
               testID="work-experience-details-logo-svg"
               accessible={true}
               accessibilityRole="image"
-              accessibilityLabel={`${workExperience.company} logo`}
+              accessibilityLabel={`${companyInfo.company} logo`}
             />
           ) : (
             <Image
-              source={{ uri: workExperience.logo }}
+              source={{ uri: companyInfo.logo }}
               style={{ width: 100, height: 100, resizeMode: 'contain' }}
               testID="work-experience-details-logo-image"
               accessible={true}
               accessibilityRole="image"
-              accessibilityLabel={`${workExperience.company} logo`}
+              accessibilityLabel={`${companyInfo.company} logo`}
             />
           )}
         </Box>
@@ -213,24 +283,26 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
         accessible={true}
         accessibilityRole="header"
       >
-        <Text
-          style={[{ fontSize: 24, fontWeight: '700', marginBottom: 8 }, styles.textPrimary]}
-          testID="work-experience-details-company-name"
-          accessible={true}
-          accessibilityRole="header"
-          accessibilityLabel={workExperience.company}
-        >
-          {workExperience.company}
-        </Text>
+        {companyInfo?.company && (
+          <Text
+            style={[{ fontSize: 24, fontWeight: '700', marginBottom: 8 }, styles.textPrimary]}
+            testID="work-experience-details-company-name"
+            accessible={true}
+            accessibilityRole="header"
+            accessibilityLabel={companyInfo.company}
+          >
+            {companyInfo.company}
+          </Text>
+        )}
 
         <Text
           style={[{ fontSize: 16, fontWeight: '600', marginBottom: 8 }, styles.textPrimary]}
           testID="work-experience-details-position"
           accessible={true}
           accessibilityRole="text"
-          accessibilityLabel={`Position: ${workExperience.position}`}
+          accessibilityLabel={`Position: ${position.title}`}
         >
-          {workExperience.position}
+          {position.title}
         </Text>
 
         <Text
@@ -245,7 +317,7 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
       </Box>
 
       {/* Description Card */}
-      {workExperience.description && (
+      {position.description && (
         <Box
           style={[
             {
@@ -269,20 +341,35 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
             style={[{ fontSize: 14, lineHeight: 20 }, styles.textSecondary]}
             testID="work-experience-details-description-text"
             accessible={true}
-            accessibilityLabel={workExperience.description}
+            accessibilityLabel={position.description}
           >
-            {workExperience.description}
+            {position.description}
           </Text>
         </Box>
       )}
 
-      {/* Tech Stack Card */}
-      {(workExperience.programmingLanguages ||
-        workExperience.techStack ||
-        workExperience.unitTest ||
-        workExperience.e2e ||
-        workExperience.devTools ||
-        workExperience.agileMethodology) && (
+      {/* Responsibilities Card (for manager roles) */}
+      {hasResponsibilities && (
+        <Box
+          style={[
+            {
+              marginBottom: 20,
+              borderRadius: 12,
+              padding: 16,
+            },
+            styles.cardBackground,
+          ]}
+          testID="work-experience-details-responsibilities-card"
+        >
+          <ResponsibilitiesSectionComponent
+            items={position.responsibilities ?? []}
+            isDark={isDark}
+          />
+        </Box>
+      )}
+
+      {/* Tech Stack Card (for developer roles) */}
+      {hasTechContent && (
         <Box
           style={[
             {
@@ -299,37 +386,37 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
         >
           <TechSectionComponent
             title={t('workExperience.programmingLanguages')}
-            items={workExperience.programmingLanguages}
+            items={position.programmingLanguages}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.techStack')}
-            items={workExperience.techStack}
+            items={position.techStack}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.unitTest')}
-            items={workExperience.unitTest}
+            items={position.unitTest}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.e2e')}
-            items={workExperience.e2e}
+            items={position.e2e}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.devTools')}
-            items={workExperience.devTools}
+            items={position.devTools}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.agileMethodology')}
-            items={workExperience.agileMethodology}
+            items={position.agileMethodology}
             isDark={isDark}
           />
         </Box>

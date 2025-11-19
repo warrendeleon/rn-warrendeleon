@@ -85,31 +85,41 @@ describe('WorkExperienceScreen', () => {
       id: 'work-1',
       company: 'Sky',
       logo: 'https://example.com/sky.svg',
-      position: 'Senior React Native Developer',
-      start: 'Jan 2023',
-      end: 'Present',
-      programmingLanguages: ['TypeScript'],
-      techStack: ['React Native', 'Redux'],
-      unitTest: ['RNTL'],
-      e2e: ['Detox'],
-      devTools: ['Xcode'],
-      agileMethodology: ['Scrum'],
-      description: 'Working on eSIM features',
+      positions: [
+        {
+          id: 'pos-1',
+          title: 'Senior React Native Developer',
+          start: 'Jan 2023',
+          end: 'Present',
+          programmingLanguages: ['TypeScript'],
+          techStack: ['React Native', 'Redux'],
+          unitTest: ['RNTL'],
+          e2e: ['Detox'],
+          devTools: ['Xcode'],
+          agileMethodology: ['Scrum'],
+          description: 'Working on eSIM features',
+        },
+      ],
     },
     {
       id: 'work-2',
       company: 'xDesign',
       logo: 'https://example.com/xdesign.svg',
-      position: 'Lead React Native Developer',
-      start: 'Sep 2021',
-      end: 'Apr 2022',
-      programmingLanguages: ['TypeScript'],
-      techStack: ['React Native'],
-      unitTest: ['RNTL'],
-      e2e: ['Detox'],
-      devTools: ['Xcode'],
-      agileMethodology: ['Scrum'],
-      description: 'Leading React Native projects',
+      positions: [
+        {
+          id: 'pos-2',
+          title: 'Lead React Native Developer',
+          start: 'Sep 2021',
+          end: 'Apr 2022',
+          programmingLanguages: ['TypeScript'],
+          techStack: ['React Native'],
+          unitTest: ['RNTL'],
+          e2e: ['Detox'],
+          devTools: ['Xcode'],
+          agileMethodology: ['Scrum'],
+          description: 'Leading React Native projects',
+        },
+      ],
       clients: [
         {
           id: 'client-1',
@@ -145,16 +155,21 @@ describe('WorkExperienceScreen', () => {
       id: 'work-3',
       company: 'Candide',
       logo: 'https://example.com/candide.svg',
-      position: 'Senior Software Engineer',
-      start: 'Apr 2022',
-      end: 'Jul 2022',
-      programmingLanguages: ['TypeScript'],
-      techStack: ['React Native'],
-      unitTest: ['RNTL'],
-      e2e: ['Detox'],
-      devTools: ['Xcode'],
-      agileMethodology: ['Kanban'],
-      description: 'Developing new apps',
+      positions: [
+        {
+          id: 'pos-3',
+          title: 'Senior Software Engineer',
+          start: 'Apr 2022',
+          end: 'Jul 2022',
+          programmingLanguages: ['TypeScript'],
+          techStack: ['React Native'],
+          unitTest: ['RNTL'],
+          e2e: ['Detox'],
+          devTools: ['Xcode'],
+          agileMethodology: ['Kanban'],
+          description: 'Developing new apps',
+        },
+      ],
     },
   ];
 
@@ -570,8 +585,9 @@ describe('WorkExperienceScreen', () => {
       fireEvent.press(itemWithoutClients);
 
       await waitFor(() => {
+        // Navigation uses position ID for single-position work experience
         expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
-          workExperienceId: 'work-1',
+          workExperienceId: 'pos-1',
         });
       });
     });
@@ -603,8 +619,9 @@ describe('WorkExperienceScreen', () => {
       fireEvent.press(itemWithEmptyClients);
 
       await waitFor(() => {
+        // Navigation uses position ID for single-position work experience
         expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
-          workExperienceId: 'work-1',
+          workExperienceId: 'pos-1',
         });
       });
     });
@@ -881,16 +898,7 @@ describe('WorkExperienceScreen', () => {
           id: mockWorkExperienceData[0]!.id,
           company: mockWorkExperienceData[0]!.company,
           logo: mockWorkExperienceData[0]!.logo,
-          position: mockWorkExperienceData[0]!.position,
-          start: mockWorkExperienceData[0]!.start,
-          end: mockWorkExperienceData[0]!.end,
-          programmingLanguages: mockWorkExperienceData[0]!.programmingLanguages,
-          techStack: mockWorkExperienceData[0]!.techStack,
-          unitTest: mockWorkExperienceData[0]!.unitTest,
-          e2e: mockWorkExperienceData[0]!.e2e,
-          devTools: mockWorkExperienceData[0]!.devTools,
-          agileMethodology: mockWorkExperienceData[0]!.agileMethodology,
-          description: mockWorkExperienceData[0]!.description,
+          positions: mockWorkExperienceData[0]!.positions,
           clients: undefined,
         },
       ];
@@ -915,8 +923,9 @@ describe('WorkExperienceScreen', () => {
       const item = screen.getByTestId('work-experience-item-work-1');
       fireEvent.press(item);
 
+      // Navigation uses position ID for single-position work experience
       expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
-        workExperienceId: 'work-1',
+        workExperienceId: 'pos-1',
       });
     });
 
@@ -926,16 +935,7 @@ describe('WorkExperienceScreen', () => {
           id: mockWorkExperienceData[0]!.id,
           company: mockWorkExperienceData[0]!.company,
           logo: mockWorkExperienceData[0]!.logo,
-          position: mockWorkExperienceData[0]!.position,
-          start: mockWorkExperienceData[0]!.start,
-          end: mockWorkExperienceData[0]!.end,
-          programmingLanguages: mockWorkExperienceData[0]!.programmingLanguages,
-          techStack: mockWorkExperienceData[0]!.techStack,
-          unitTest: mockWorkExperienceData[0]!.unitTest,
-          e2e: mockWorkExperienceData[0]!.e2e,
-          devTools: mockWorkExperienceData[0]!.devTools,
-          agileMethodology: mockWorkExperienceData[0]!.agileMethodology,
-          description: mockWorkExperienceData[0]!.description,
+          positions: mockWorkExperienceData[0]!.positions,
           clients: [],
         },
       ];

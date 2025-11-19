@@ -7,6 +7,7 @@ export { fetchWorkExperience } from './actions';
 
 // Selectors
 export {
+  selectCompanyInfoByPositionId,
   selectWorkExperience,
   selectWorkExperienceByCompany,
   selectWorkExperienceById,

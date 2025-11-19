@@ -70,22 +70,34 @@ export interface Client {
 }
 
 /**
- * Work experience entry
+ * Position within a company
+ * Supports both developer roles (with tech stack) and manager roles (with responsibilities)
  */
-export interface WorkExperience {
+export interface Position {
   id: string;
-  company: string;
-  logo?: string;
-  position: string;
+  title: string;
   start: string;
   end: string;
+  description: string;
+  // Technical fields (for developer roles)
   programmingLanguages?: string[];
   techStack?: string[];
   unitTest?: string[];
   e2e?: string[];
   devTools?: string[];
   agileMethodology?: string[];
-  description: string;
+  // Management fields (for manager roles)
+  responsibilities?: string[];
+}
+
+/**
+ * Work experience entry
+ */
+export interface WorkExperience {
+  id: string;
+  company: string;
+  logo?: string;
+  positions: Position[];
   clients?: Client[];
 }
 

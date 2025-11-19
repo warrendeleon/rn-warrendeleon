@@ -127,10 +127,14 @@ describe('WorkExperience API - E2E Mocking Logic', () => {
       // Verify fixture data exists and has correct structure
       expect(Array.isArray(workxpEN)).toBe(true);
       expect(workxpEN.length).toBeGreaterThan(0);
-      expect(workxpEN[0]).toHaveProperty('company');
-      expect(workxpEN[0]).toHaveProperty('position');
-      expect(workxpEN[0]).toHaveProperty('start');
-      expect(workxpEN[0]).toHaveProperty('end');
+      const firstItem = workxpEN[0]!;
+      expect(firstItem).toHaveProperty('company');
+      expect(firstItem).toHaveProperty('positions');
+      expect(Array.isArray(firstItem.positions)).toBe(true);
+      const firstPosition = firstItem.positions[0]!;
+      expect(firstPosition).toHaveProperty('title');
+      expect(firstPosition).toHaveProperty('start');
+      expect(firstPosition).toHaveProperty('end');
     });
   });
 });
