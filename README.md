@@ -61,6 +61,7 @@ yarn android
 - **State Management:** Redux Toolkit with Redux Persist
 - **Navigation:** React Navigation 7 (Native Stack)
 - **Internationalisation:** i18next + react-i18next
+- **Data Validation:** Zod (runtime schema validation)
 - **Testing:** Jest + React Native Testing Library + Detox
 - **Code Quality:** ESLint 9 + Prettier + Husky
 - **Package Manager:** Yarn 3.6.4 (Berry)
@@ -159,6 +160,7 @@ warrendeleon/
 │   ├── features/         # Feature modules (screens, components, tests)
 │   ├── navigation/       # Navigation setup
 │   ├── i18n/             # Internationalisation
+│   ├── schemas/          # Zod validation schemas
 │   ├── store/            # Redux store
 │   └── test-utils/       # Testing utilities
 ├── ios/                  # iOS native code

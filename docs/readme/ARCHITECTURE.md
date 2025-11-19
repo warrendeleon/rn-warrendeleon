@@ -342,6 +342,15 @@ Located in `src/config/`:
 - **Reactotron:** `reactotron.ts` - Redux debugging (dev only)
 - **GlueStack UI:** Theme configuration
 
+### Schemas
+
+Located in `src/schemas/`:
+
+- **Zod Schemas:** Runtime validation for API responses and environment variables
+- **EnvSchema:** Environment variable validation
+- **ProfileSchema, EducationSchema, WorkExperienceSchema:** API data validation
+- See `src/schemas/README.md` for usage patterns
+
 ---
 
 ## Path Aliases
