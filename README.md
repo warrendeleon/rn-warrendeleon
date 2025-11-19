@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/gluestack--ui-1.1.x-8B5CF6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/nativewind-4.x-38BDF8?style=for-the-badge&logo=tailwindcss" />
   <img src="https://img.shields.io/badge/storybook-10.x-FF4785?style=for-the-badge&logo=storybook" />
-  <img src="https://img.shields.io/badge/coverage-85%25-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/coverage-75%25-yellow?style=for-the-badge" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
 
@@ -29,7 +29,7 @@ A modern React Native application built with TypeScript, featuring a **feature-f
 - 📚 Storybook for isolated component development and documentation
 - 🧪 Comprehensive testing (Jest + React Native Testing Library + Detox E2E)
 - 📦 Redux Toolkit for state management
-- 🎯 85%+ test coverage
+- 🎯 75%+ test coverage (100% store, 92% components, 77% screens)
 
 ---
 

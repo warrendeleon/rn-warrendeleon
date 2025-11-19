@@ -1,10 +1,10 @@
 # React Native Portfolio App - Planning Hub
 
-**Progress**: 97% (151/155 tasks) | **Remaining**: 4 tasks (~12.5h)
+**Progress**: 93% (151/162 tasks) | **Remaining**: 11 tasks (~19.5h)
 
 ---
 
-## ✅ Tasks Status (All 155 Tasks)
+## ✅ Tasks Status (All 162 Tasks)
 
 ### EPIC-001: Performance Optimization (10 tasks) ✅
 
@@ -258,15 +258,34 @@
 | [TASK-148](./tasks/TASK-148-test-storybook-stories.md)         | Test Storybook Stories         | ✅ Done | 3h     | Medium   |
 | [TASK-149](./tasks/TASK-149-update-documentation-storybook.md) | Update Documentation           | ✅ Done | 1h     | Medium   |
 
+### EPIC-017: Test Coverage Improvements (7 tasks) 📋
+
+| Task ID                                                      | Title                                      | Status   | Effort | Priority |
+| ------------------------------------------------------------ | ------------------------------------------ | -------- | ------ | -------- |
+| [TASK-150](./tasks/TASK-150-test-work-experience-details.md) | RNTL Tests for WorkExperienceDetailsScreen | 📋 To Do | 1.5h   | High     |
+| [TASK-151](./tasks/TASK-151-test-work-experience-clients.md) | RNTL Tests for WorkExperienceClientsScreen | 📋 To Do | 1h     | High     |
+| [TASK-152](./tasks/TASK-152-test-async-thunk-actions.md)     | Explicit Async Thunk Action Tests          | 📋 To Do | 1.5h   | High     |
+| [TASK-153](./tasks/TASK-153-test-logger-utility.md)          | RNTL Tests for Logger Utility              | 📋 To Do | 0.5h   | Medium   |
+| [TASK-154](./tasks/TASK-154-test-button-group-component.md)  | Unit Tests for ButtonGroup Component       | 📋 To Do | 0.75h  | Medium   |
+| [TASK-155](./tasks/TASK-155-test-header-back-button.md)      | Unit Tests for HeaderBackButton Component  | 📋 To Do | 0.75h  | Medium   |
+| [TASK-156](./tasks/TASK-156-test-mock-status-screen.md)      | RNTL Tests for MockStatusScreen            | 📋 To Do | 1h     | Low      |
+
 ---
 
-## 📋 Remaining Tasks (4)
+## 📋 Remaining Tasks (11)
 
-| Task ID  | Title                               | Effort | Notes                    |
-| -------- | ----------------------------------- | ------ | ------------------------ |
-| TASK-017 | Manual VoiceOver/TalkBack Testing   | 0.5h   | Requires physical device |
-| TASK-062 | E2E Tests for Error States/Recovery | 2h     | Automatable with Detox   |
-| TASK-123 | Implement RTK Query (Optional)      | 8h     | Can defer indefinitely   |
-| TASK-126 | VoiceOver/TalkBack Testing Docs     | 2h     | EAA testing procedures   |
+| Task ID  | Title                                  | Effort | Notes                      |
+| -------- | -------------------------------------- | ------ | -------------------------- |
+| TASK-017 | Manual VoiceOver/TalkBack Testing      | 0.5h   | Requires physical device   |
+| TASK-062 | E2E Tests for Error States/Recovery    | 2h     | Automatable with Detox     |
+| TASK-123 | Implement RTK Query (Optional)         | 8h     | Can defer indefinitely     |
+| TASK-126 | VoiceOver/TalkBack Testing Docs        | 2h     | EAA testing procedures     |
+| TASK-150 | RNTL Tests WorkExperienceDetailsScreen | 1.5h   | Coverage improvement       |
+| TASK-151 | RNTL Tests WorkExperienceClientsScreen | 1h     | Coverage improvement       |
+| TASK-152 | Explicit Async Thunk Action Tests      | 1.5h   | Coverage improvement       |
+| TASK-153 | RNTL Tests for Logger Utility          | 0.5h   | Coverage improvement       |
+| TASK-154 | Unit Tests for ButtonGroup Component   | 0.75h  | Coverage improvement       |
+| TASK-155 | Unit Tests for HeaderBackButton        | 0.75h  | Coverage improvement       |
+| TASK-156 | RNTL Tests for MockStatusScreen        | 1h     | Coverage improvement (low) |
 
 **Legend**: ✅ Done | ⏳ In Progress | 📋 To Do
