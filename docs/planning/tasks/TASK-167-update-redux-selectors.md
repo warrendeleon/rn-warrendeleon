@@ -1,6 +1,6 @@
 # TASK-167: Update Redux Selectors for Multi-Position
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Effort**: 1.5h
 **Epic**: [EPIC-019](../epics/EPIC-019-work-experience-multi-position.md)

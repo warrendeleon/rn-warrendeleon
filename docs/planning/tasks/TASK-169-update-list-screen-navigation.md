@@ -1,6 +1,6 @@
 # TASK-169: Update List Screen Navigation Logic
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Effort**: 1h
 **Epic**: [EPIC-019](../epics/EPIC-019-work-experience-multi-position.md)

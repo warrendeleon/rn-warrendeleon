@@ -283,18 +283,18 @@
 | [TASK-163](./tasks/TASK-163-test-zod-schemas.md)              | Add Tests for Zod Schemas           | 📋 To Do | 1h     | Medium   |
 | [TASK-164](./tasks/TASK-164-update-zod-documentation.md)      | Update Documentation                | 📋 To Do | 0.5h   | Low      |
 
-### EPIC-019: Work Experience Multi-Position Support (8 tasks) 📋
+### EPIC-019: Work Experience Multi-Position Support (8 tasks) ⏳
 
-| Task ID                                                        | Title                                            | Status   | Effort | Priority |
-| -------------------------------------------------------------- | ------------------------------------------------ | -------- | ------ | -------- |
-| [TASK-165](./tasks/TASK-165-update-work-experience-types.md)   | Update WorkExperience TypeScript Types           | 📋 To Do | 1h     | High     |
-| [TASK-166](./tasks/TASK-166-update-sky-fixture-data.md)        | Update Sky Fixture Data (All Languages)          | 📋 To Do | 2h     | High     |
-| [TASK-167](./tasks/TASK-167-update-redux-selectors.md)         | Update Redux Selectors for Multi-Position        | 📋 To Do | 1.5h   | High     |
-| [TASK-168](./tasks/TASK-168-create-positions-screen.md)        | Create WorkExperiencePositionsScreen             | 📋 To Do | 2h     | High     |
-| [TASK-169](./tasks/TASK-169-update-list-screen-navigation.md)  | Update List Screen Navigation Logic              | 📋 To Do | 1h     | High     |
-| [TASK-170](./tasks/TASK-170-update-details-screen-sections.md) | Update Details Screen for Role-Specific Sections | 📋 To Do | 1.5h   | High     |
-| [TASK-171](./tasks/TASK-171-rntl-tests-positions-screen.md)    | RNTL Tests for WorkExperiencePositionsScreen     | 📋 To Do | 1h     | High     |
-| [TASK-172](./tasks/TASK-172-update-e2e-work-experience.md)     | Update E2E Tests for Work Experience Flow        | 📋 To Do | 2h     | High     |
+| Task ID                                                        | Title                                            | Status         | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------------------------ | -------------- | ------ | -------- |
+| [TASK-165](./tasks/TASK-165-update-work-experience-types.md)   | Update WorkExperience TypeScript Types           | ⏳ In Progress | 1h     | High     |
+| [TASK-166](./tasks/TASK-166-update-sky-fixture-data.md)        | Update Sky Fixture Data (All Languages)          | ⏳ In Progress | 2h     | High     |
+| [TASK-167](./tasks/TASK-167-update-redux-selectors.md)         | Update Redux Selectors for Multi-Position        | ⏳ In Progress | 1.5h   | High     |
+| [TASK-168](./tasks/TASK-168-create-positions-screen.md)        | Create WorkExperiencePositionsScreen             | ⏳ In Progress | 2h     | High     |
+| [TASK-169](./tasks/TASK-169-update-list-screen-navigation.md)  | Update List Screen Navigation Logic              | ⏳ In Progress | 1h     | High     |
+| [TASK-170](./tasks/TASK-170-update-details-screen-sections.md) | Update Details Screen for Role-Specific Sections | ⏳ In Progress | 1.5h   | High     |
+| [TASK-171](./tasks/TASK-171-rntl-tests-positions-screen.md)    | RNTL Tests for WorkExperiencePositionsScreen     | ⏳ In Progress | 1h     | High     |
+| [TASK-172](./tasks/TASK-172-update-e2e-work-experience.md)     | Update E2E Tests for Work Experience Flow        | ⏳ In Progress | 2h     | High     |
 
 ---
 
