@@ -1,6 +1,6 @@
 # TASK-173: Standardise Date Formats to ISO 8601
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Effort**: 2h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)

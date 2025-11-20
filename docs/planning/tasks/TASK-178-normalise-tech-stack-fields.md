@@ -1,6 +1,6 @@
 # TASK-178: Normalise Technology Stack Fields
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: Medium
 **Effort**: 2h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)

@@ -1,6 +1,6 @@
 # TASK-175: Add Explicit Nulls for Optional Fields
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: Medium
 **Effort**: 1.5h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)

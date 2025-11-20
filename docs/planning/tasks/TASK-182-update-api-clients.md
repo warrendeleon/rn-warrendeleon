@@ -1,6 +1,6 @@
 # TASK-182: Update API Client Functions
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Effort**: 1.5h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)
