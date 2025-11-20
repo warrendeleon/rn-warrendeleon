@@ -23,18 +23,18 @@
 
 ### EPIC-002: Quality & Reliability (10 tasks) ⏳
 
-| Task ID                                                          | Title                                    | Status   | Effort | Priority |
-| ---------------------------------------------------------------- | ---------------------------------------- | -------- | ------ | -------- |
-| [TASK-011](./tasks/TASK-011-create-error-boundary.md)            | Create ErrorBoundary Component           | ✅ Done  | 1h     | High     |
-| [TASK-012](./tasks/TASK-012-test-error-boundary.md)              | Test ErrorBoundary                       | ✅ Done  | 0.5h   | High     |
-| [TASK-013](./tasks/TASK-013-integrate-error-boundary.md)         | Integrate ErrorBoundary                  | ✅ Done  | 0.5h   | High     |
-| [TASK-018](./tasks/TASK-018-test-chevron-button-group.md)        | Test ChevronButtonGroup                  | ✅ Done  | 1h     | Medium   |
-| [TASK-019](./tasks/TASK-019-test-selectable-button-group.md)     | Test SelectableButtonGroup               | ✅ Done  | 1h     | Medium   |
-| [TASK-020](./tasks/TASK-020-test-button-with-chevron.md)         | Complete ButtonWithChevron Test Coverage | ✅ Done  | 0.5h   | Medium   |
-| [TASK-021](./tasks/TASK-021-test-use-app-color-scheme.md)        | Add Tests for useAppColorScheme Hook     | ✅ Done  | 1h     | Medium   |
-| [TASK-022](./tasks/TASK-022-integration-test-settings.md)        | Integration Tests Settings Flow          | ✅ Done  | 0.5h   | Medium   |
-| [TASK-055](./tasks/TASK-055-exclude-test-utils-from-coverage.md) | Exclude Test Utils from Jest Coverage    | ✅ Done  | 0.25h  | Medium   |
-| [TASK-062](./tasks/TASK-062-e2e-tests-error-states.md)           | E2E Tests for Error States/Recovery      | 📋 To Do | 2h     | High     |
+| Task ID                                                          | Title                                    | Status         | Effort | Priority |
+| ---------------------------------------------------------------- | ---------------------------------------- | -------------- | ------ | -------- |
+| [TASK-011](./tasks/TASK-011-create-error-boundary.md)            | Create ErrorBoundary Component           | ✅ Done        | 1h     | High     |
+| [TASK-012](./tasks/TASK-012-test-error-boundary.md)              | Test ErrorBoundary                       | ✅ Done        | 0.5h   | High     |
+| [TASK-013](./tasks/TASK-013-integrate-error-boundary.md)         | Integrate ErrorBoundary                  | ✅ Done        | 0.5h   | High     |
+| [TASK-018](./tasks/TASK-018-test-chevron-button-group.md)        | Test ChevronButtonGroup                  | ✅ Done        | 1h     | Medium   |
+| [TASK-019](./tasks/TASK-019-test-selectable-button-group.md)     | Test SelectableButtonGroup               | ✅ Done        | 1h     | Medium   |
+| [TASK-020](./tasks/TASK-020-test-button-with-chevron.md)         | Complete ButtonWithChevron Test Coverage | ✅ Done        | 0.5h   | Medium   |
+| [TASK-021](./tasks/TASK-021-test-use-app-color-scheme.md)        | Add Tests for useAppColorScheme Hook     | ✅ Done        | 1h     | Medium   |
+| [TASK-022](./tasks/TASK-022-integration-test-settings.md)        | Integration Tests Settings Flow          | ✅ Done        | 0.5h   | Medium   |
+| [TASK-055](./tasks/TASK-055-exclude-test-utils-from-coverage.md) | Exclude Test Utils from Jest Coverage    | ✅ Done        | 0.25h  | Medium   |
+| [TASK-062](./tasks/TASK-062-e2e-tests-error-states.md)           | E2E Tests for Error States/Recovery      | ⏳ In Progress | 2h     | High     |
 
 ### EPIC-003: Accessibility & Compliance (4 tasks) ⏳
 

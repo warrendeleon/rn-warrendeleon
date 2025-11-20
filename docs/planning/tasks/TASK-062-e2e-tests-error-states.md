@@ -4,7 +4,7 @@
 **Title**: E2E Tests for Error States and Recovery
 **Epic**: [EPIC-002: Quality & Reliability](../epics/EPIC-002-quality-reliability.md)
 **User Story**: [US-002: Graceful Error Handling](../stories/US-002-graceful-error-handling.md)
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Created**: 2025-11-15
 **Assigned To**: Warren de Leon
