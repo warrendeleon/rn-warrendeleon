@@ -17,9 +17,9 @@ Install the Zod library into the project and set up the basic folder structure f
 
 Before starting, make sure you have:
 
-- [ ] Terminal/command line access
-- [ ] The project cloned and dependencies installed (`yarn install` completed)
-- [ ] Node.js installed (check with `node --version`)
+- [x] Terminal/command line access
+- [x] The project cloned and dependencies installed (`yarn install` completed)
+- [x] Node.js installed (check with `node --version`)
 
 ---
 

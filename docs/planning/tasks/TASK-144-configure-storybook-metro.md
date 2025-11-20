@@ -316,35 +316,35 @@ stories: [
 
 ## Verification Checklist
 
-- [ ] `metro.config.js` uses `withStorybook` wrapper
-- [ ] `.rnstorybook/index.tsx` exports StorybookUIRoot
-- [ ] `.rnstorybook/preview.ts` has GluestackUIProvider decorator
-- [ ] `index.js` has Storybook toggle (currently set to `false`)
-- [ ] `storybook-generate` script added to package.json
-- [ ] `storybook.requires.ts` generated
-- [ ] Storybook UI launches successfully on iOS (tested with toggle)
-- [ ] App mode works normally with toggle set to `false`
+- [x] `metro.config.js` uses `withStorybook` wrapper
+- [x] `.rnstorybook/index.tsx` exports StorybookUIRoot
+- [x] `.rnstorybook/preview.ts` has GluestackUIProvider decorator
+- [x] `index.js` has Storybook toggle (currently set to `false`)
+- [x] `storybook-generate` script added to package.json
+- [x] `storybook.requires.ts` generated
+- [x] Storybook UI launches successfully on iOS (tested with toggle)
+- [x] App mode works normally with toggle set to `false`
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] Metro config properly wraps with `withStorybook`
-- [ ] Storybook entry point configured correctly
-- [ ] Global decorators set up (GluestackUIProvider)
-- [ ] Toggle mechanism working in index.js
-- [ ] Story generator script configured
-- [ ] Storybook launches without errors
+- [x] Metro config properly wraps with `withStorybook`
+- [x] Storybook entry point configured correctly
+- [x] Global decorators set up (GluestackUIProvider)
+- [x] Toggle mechanism working in index.js
+- [x] Story generator script configured
+- [x] Storybook launches without errors
 
 ---
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] TypeScript compilation passes
-- [ ] Storybook UI visible when enabled
-- [ ] Normal app mode works when disabled
-- [ ] Ready for TASK-145 (addons installation)
+- [x] All acceptance criteria met
+- [x] TypeScript compilation passes
+- [x] Storybook UI visible when enabled
+- [x] Normal app mode works when disabled
+- [x] Ready for TASK-145 (addons installation)
 
 ---
 

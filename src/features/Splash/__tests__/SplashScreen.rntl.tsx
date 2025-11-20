@@ -1,9 +1,14 @@
 import React from 'react';
-import { act, render } from '@testing-library/react-native';
+import { act, fireEvent, render } from '@testing-library/react-native';
 
 import { fetchEducation, fetchProfile, fetchWorkExperience } from '@app/store';
 
 import { SplashScreen } from '../SplashScreen';
+
+// Mock config functions
+jest.mock('@app/config', () => ({
+  incrementRetryAttempts: jest.fn(),
+}));
 
 // Mock Logo component
 jest.mock('@app/components', () => {
@@ -27,13 +32,19 @@ jest.mock('@app/hooks', () => ({
   useAppColorScheme: () => mockUseAppColorScheme(),
 }));
 
-// Mock Redux store with async dispatch
-const mockDispatch = jest.fn().mockResolvedValue(undefined);
+// Mock Redux store with async dispatch and selectors
+const mockDispatch = jest.fn();
+const mockUseAppSelector = jest.fn();
+
 jest.mock('@app/store', () => ({
   fetchProfile: jest.fn(() => ({ type: 'profile/fetchProfile' })),
   fetchWorkExperience: jest.fn(() => ({ type: 'workExperience/fetchWorkExperience' })),
   fetchEducation: jest.fn(() => ({ type: 'education/fetchEducation' })),
   useAppDispatch: () => mockDispatch,
+  useAppSelector: (selector: unknown) => mockUseAppSelector(selector),
+  selectProfileError: jest.fn(),
+  selectEducationError: jest.fn(),
+  selectWorkExperienceError: jest.fn(),
 }));
 
 describe('SplashScreen', () => {
@@ -42,6 +53,17 @@ describe('SplashScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseAppColorScheme.mockReturnValue('light');
+
+    // Mock error selectors to return no errors by default
+    mockUseAppSelector.mockReturnValue(null);
+
+    // Mock dispatch to return successful thunk results
+    mockDispatch.mockResolvedValue({
+      type: 'mockAction/fulfilled',
+      payload: {},
+      meta: { requestStatus: 'fulfilled' },
+    });
+
     jest.useFakeTimers();
   });
 
@@ -154,5 +176,79 @@ describe('SplashScreen', () => {
 
     // onComplete should not be called after unmount
     expect(mockOnComplete).not.toHaveBeenCalled();
+  });
+
+  describe('Error Handling', () => {
+    it('displays error UI when fetch fails', async () => {
+      // Mock dispatch to return rejected thunk result
+      mockDispatch.mockResolvedValue({
+        type: 'mockAction/rejected',
+        error: { message: 'Network error' },
+        meta: { requestStatus: 'rejected' },
+      });
+
+      const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+
+      await act(async () => {
+        jest.runAllTimers();
+      });
+
+      expect(getByTestId('splash-error-screen')).toBeTruthy();
+      expect(getByTestId('splash-retry-button')).toBeTruthy();
+    });
+
+    it('does not call onComplete when fetch fails', async () => {
+      // Mock dispatch to return rejected thunk result
+      mockDispatch.mockResolvedValue({
+        type: 'mockAction/rejected',
+        error: { message: 'Network error' },
+        meta: { requestStatus: 'rejected' },
+      });
+
+      render(<SplashScreen onComplete={mockOnComplete} />);
+
+      await act(async () => {
+        jest.runAllTimers();
+      });
+
+      expect(mockOnComplete).not.toHaveBeenCalled();
+    });
+
+    it('retries data fetch when retry button is pressed', async () => {
+      // Mock dispatch to return rejected thunk result first
+      mockDispatch.mockResolvedValueOnce({
+        type: 'mockAction/rejected',
+        error: { message: 'Network error' },
+        meta: { requestStatus: 'rejected' },
+      });
+
+      const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+
+      await act(async () => {
+        jest.runAllTimers();
+      });
+
+      expect(getByTestId('splash-error-screen')).toBeTruthy();
+
+      // Reset mock to return success
+      mockDispatch.mockResolvedValue({
+        type: 'mockAction/fulfilled',
+        payload: {},
+        meta: { requestStatus: 'fulfilled' },
+      });
+
+      // Press retry button
+      const retryButton = getByTestId('splash-retry-button');
+      await act(async () => {
+        fireEvent.press(retryButton);
+      });
+
+      await act(async () => {
+        jest.runAllTimers();
+      });
+
+      // Should dispatch all three fetches again
+      expect(mockDispatch).toHaveBeenCalledTimes(6); // 3 initial + 3 retry
+    });
   });
 });

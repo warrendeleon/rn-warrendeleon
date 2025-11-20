@@ -246,12 +246,12 @@ Scenario: Appearance screen standalone navigation
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Code reviewed and approved
-- [ ] All E2E tests written and passing
-- [ ] Tests passing in CI/CD
-- [ ] Documentation updated
-- [ ] No flaky tests
+- [x] All acceptance criteria met
+- [x] Code reviewed and approved
+- [x] All E2E tests written and passing
+- [x] Tests passing in CI/CD
+- [x] Documentation updated
+- [x] No flaky tests
 
 ---
 

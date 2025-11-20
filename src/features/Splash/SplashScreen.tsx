@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { Box } from '@gluestack-ui/themed';
+import { Box, Button, ButtonText, Heading, Text } from '@gluestack-ui/themed';
 
 import { Logo } from '@app/components';
+import { incrementRetryAttempts } from '@app/config';
 import { useAppColorScheme } from '@app/hooks';
-import { fetchEducation, fetchProfile, fetchWorkExperience, useAppDispatch } from '@app/store';
+import {
+  fetchEducation,
+  fetchProfile,
+  fetchWorkExperience,
+  selectEducationError,
+  selectProfileError,
+  selectWorkExperienceError,
+  useAppDispatch,
+  useAppSelector,
+} from '@app/store';
 
 /**
  * Minimum duration to show splash screen (in milliseconds)
@@ -17,26 +28,43 @@ interface SplashScreenProps {
 }
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const colorScheme = useAppColorScheme();
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true;
+  // Get error states from Redux
+  const profileError = useAppSelector(selectProfileError);
+  const educationError = useAppSelector(selectEducationError);
+  const workExperienceError = useAppSelector(selectWorkExperienceError);
 
-    /**
-     * Load app data with optimized parallel fetching
-     * Uses Promise.all for concurrent API calls with minimum display duration
-     */
-    const loadAppData = async () => {
-      const startTime = Date.now();
+  // Combine all errors
+  const combinedError = profileError || educationError || workExperienceError;
 
+  /**
+   * Load app data with optimized parallel fetching
+   * Returns true if loading succeeded, false if error occurred
+   */
+  const loadAppData = async (): Promise<boolean> => {
+    const startTime = Date.now();
+
+    try {
       // Fetch all portfolio data in parallel for optimal performance
-      await Promise.all([
+      const results = await Promise.all([
         dispatch(fetchProfile()),
         dispatch(fetchEducation()),
         dispatch(fetchWorkExperience()),
       ]);
+
+      // Check if any fetch was rejected
+      const hasRejection = results.some(result => result.meta.requestStatus === 'rejected');
+
+      if (hasRejection) {
+        setHasError(true);
+        setIsLoading(false);
+        return false;
+      }
 
       // Ensure minimum splash duration for branding visibility
       const elapsed = Date.now() - startTime;
@@ -44,19 +72,90 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
         await new Promise(resolve => setTimeout(resolve, SPLASH_MINIMUM_DURATION - elapsed));
       }
 
-      // Only update state and call onComplete if component is still mounted
-      if (isMounted) {
-        setIsLoading(false);
+      setIsLoading(false);
+      return true;
+    } catch {
+      setHasError(true);
+      setIsLoading(false);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = async (): Promise<void> => {
+      const success = await loadAppData();
+      if (!isMounted) return;
+      if (success) {
         onComplete();
       }
     };
 
-    loadAppData();
+    fetchData();
 
     return () => {
       isMounted = false;
     };
-  }, [dispatch, onComplete]);
+  }, []);
+
+  /**
+   * Handle retry button press
+   */
+  const handleRetry = async (): Promise<void> => {
+    incrementRetryAttempts();
+    setHasError(false);
+    setIsLoading(true);
+    const success = await loadAppData();
+    if (success) {
+      onComplete();
+    }
+  };
+
+  // Show error UI if data loading failed
+  if (hasError) {
+    return (
+      <Box
+        testID="splash-error-screen"
+        accessibilityLabel="Error loading data screen"
+        style={[
+          styles.container,
+          { backgroundColor: colorScheme === 'dark' ? '#000000' : '#FFFFFF' },
+        ]}
+      >
+        <Heading
+          size="xl"
+          mb="$4"
+          textAlign="center"
+          color={colorScheme === 'dark' ? '$white' : '$black'}
+        >
+          {t('error.title')}
+        </Heading>
+
+        <Text
+          size="md"
+          mb="$8"
+          textAlign="center"
+          color={colorScheme === 'dark' ? '$textLight400' : '$textLight500'}
+          px="$6"
+        >
+          {__DEV__ && combinedError ? combinedError : t('error.loadingFailed')}
+        </Text>
+
+        <Box w="$full" maxWidth={300} px="$6">
+          <Button
+            onPress={handleRetry}
+            testID="splash-retry-button"
+            accessibilityRole="button"
+            accessibilityLabel={t('error.tryAgain')}
+            accessibilityHint="Attempts to load data again"
+          >
+            <ButtonText>{t('error.tryAgain')}</ButtonText>
+          </Button>
+        </Box>
+      </Box>
+    );
+  }
 
   if (!isLoading) {
     return null;

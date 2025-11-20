@@ -41,7 +41,8 @@
     "title": "Algo salió mal",
     "message": "Ha ocurrido un error inesperado. Por favor, inténtalo de nuevo.",
     "tryAgain": "Reintentar",
-    "goHome": "Volver al inicio"
+    "goHome": "Volver al inicio",
+    "loadingFailed": "No se pudo cargar los datos. Comprueba tu conexión e inténtalo de nuevo."
   },
   "workExperience": {
     "title": "Experiencia laboral",

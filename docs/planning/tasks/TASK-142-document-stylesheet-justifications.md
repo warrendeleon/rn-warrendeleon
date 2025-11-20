@@ -109,11 +109,11 @@ Add to CLAUDE.md or react-patterns.md:
 
 **StyleSheet.create() Checklist** (for future code reviews):
 
-- [ ] Is this component using GlueStack UI? → Use inline props instead
-- [ ] Is this a pure RN component? → StyleSheet.create OK
-- [ ] Uses platform-specific values? → StyleSheet.create OK
-- [ ] Complex calculations? → StyleSheet.create OK
-- [ ] Can this be converted to `styled()` wrapper? → Consider refactoring
+- [x] Is this component using GlueStack UI? → Use inline props instead
+- [x] Is this a pure RN component? → StyleSheet.create OK
+- [x] Uses platform-specific values? → StyleSheet.create OK
+- [x] Complex calculations? → StyleSheet.create OK
+- [x] Can this be converted to `styled()` wrapper? → Consider refactoring
 
 ## Acceptance Criteria
 

@@ -15,7 +15,7 @@ Create unit tests for all Zod schemas to ensure they validate correctly and prod
 
 ## Prerequisites
 
-- [ ] TASK-159 through TASK-161 completed (all schemas exist)
+- [x] TASK-159 through TASK-161 completed (all schemas exist)
 
 ---
 

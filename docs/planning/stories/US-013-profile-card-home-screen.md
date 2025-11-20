@@ -31,14 +31,14 @@ The component should follow iOS design patterns, matching the existing ChevronBu
 
 ## Acceptance Criteria
 
-- [ ] ProfileCard component created with avatar, name, and chevron
-- [ ] Component displays data from Redux profile slice
-- [ ] Component placed at top of HomeScreen above button groups
-- [ ] Pressing the card navigates to Profile Data screen
-- [ ] Component follows iOS styling (rounded, white/dark background)
-- [ ] Component is responsive to light/dark theme
-- [ ] Unit tests written for ProfileCard component
-- [ ] HomeScreen tests updated for ProfileCard integration
+- [x] ProfileCard component created with avatar, name, and chevron
+- [x] Component displays data from Redux profile slice
+- [x] Component placed at top of HomeScreen above button groups
+- [x] Pressing the card navigates to Profile Data screen
+- [x] Component follows iOS styling (rounded, white/dark background)
+- [x] Component is responsive to light/dark theme
+- [x] Unit tests written for ProfileCard component
+- [x] HomeScreen tests updated for ProfileCard integration
 
 ---
 

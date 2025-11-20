@@ -190,23 +190,23 @@ Reuse **MenuButtonGroupSvg** from EPIC-009:
 
 ### Must Have
 
-- ✅ Work experience screen displays all positions in reverse chronological order
-- ✅ Each item shows company logo, position title, employment dates
-- ✅ Client count badge displays for multi-client positions
-- ✅ Tapping item navigates to appropriate screen (details or clients)
-- ✅ Loading state shows while fetching data
-- ✅ Error state handles API failures gracefully
-- ✅ Dark mode fully supported
-- ✅ All text is internationalised (i18next)
-- ✅ Zero accessibility violations (WCAG 2.1 AA)
-- ✅ 100% test coverage on business logic
+- [x] Work experience screen displays all positions in reverse chronological order
+- [x] Each item shows company logo, position title, employment dates
+- [x] Client count badge displays for multi-client positions
+- [x] Tapping item navigates to appropriate screen (details or clients)
+- [x] Loading state shows while fetching data
+- [x] Error state handles API failures gracefully
+- [x] Dark mode fully supported
+- [x] All text is internationalised (i18next)
+- [x] Zero accessibility violations (WCAG 2.1 AA)
+- [x] 100% test coverage on business logic
 
 ### Should Have
 
-- ✅ Company logos render from remote SVG URLs
-- ✅ Dynamic screen header shows company name
-- ✅ Smooth navigation transitions
-- ✅ Memoized selectors prevent re-renders
+- [x] Company logos render from remote SVG URLs
+- [x] Dynamic screen header shows company name
+- [x] Smooth navigation transitions
+- [x] Memoized selectors prevent re-renders
 
 ### Could Have
 

@@ -136,26 +136,26 @@ These issues create maintenance overhead, inconsistency, and make the codebase h
 
 ### Functional
 
-- [ ] Error handling standardized across Profile/Education/WorkExperience
-- [ ] All magic numbers replaced with named constants
-- [ ] HomeScreen TODO handlers implemented or removed (decision documented)
-- [ ] MSW removed from package.json devDependencies
-- [ ] MockStatusScreen comments updated (no MSW references)
-- [ ] ProfileDataScreen/WebViewScreen use GlueStack UI (no StyleSheet.create)
+- [x] Error handling standardized across Profile/Education/WorkExperience
+- [x] All magic numbers replaced with named constants
+- [x] HomeScreen TODO handlers implemented or removed (decision documented)
+- [x] MSW removed from package.json devDependencies
+- [x] MockStatusScreen comments updated (no MSW references)
+- [x] ProfileDataScreen/WebViewScreen use GlueStack UI (no StyleSheet.create)
 
 ### Coverage
 
-- [ ] All refactored code has tests
-- [ ] No regressions in existing functionality
-- [ ] Test coverage maintained at 85%+
+- [x] All refactored code has tests
+- [x] No regressions in existing functionality
+- [x] Test coverage maintained at 85%+
 
 ### Technical
 
-- [ ] `yarn validate` passes (0 errors, 0 failures)
-- [ ] All code follows GlueStack UI + NativeWind patterns
-- [ ] Constants defined in appropriate files
-- [ ] Error handling documented in code comments
-- [ ] No dead code or confusing comments
+- [x] `yarn validate` passes (0 errors, 0 failures)
+- [x] All code follows GlueStack UI + NativeWind patterns
+- [x] Constants defined in appropriate files
+- [x] Error handling documented in code comments
+- [x] No dead code or confusing comments
 
 ---
 
@@ -218,12 +218,12 @@ And MockStatusScreen comments should reference Metro runtime mocking
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Code reviewed and approved
-- [ ] Tests written and passing
-- [ ] Documentation updated
-- [ ] No regressions
-- [ ] `yarn validate` passes
+- [x] All acceptance criteria met
+- [x] Code reviewed and approved
+- [x] Tests written and passing
+- [x] Documentation updated
+- [x] No regressions
+- [x] `yarn validate` passes
 
 ---
 

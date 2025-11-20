@@ -274,33 +274,33 @@ Alert.alert('Restart Required', 'Please manually restart the app (Cmd+R or shake
 
 ## Verification Checklist
 
-- [ ] `StorybookToggle` service created
-- [ ] `index.js` updated to check toggle on startup
-- [ ] Toggle button component created (if using runtime toggle)
-- [ ] Toggle enables Storybook on restart
-- [ ] Toggle disables Storybook on restart
-- [ ] Button only appears in **DEV** mode
-- [ ] Accessibility props on toggle button
+- [x] `StorybookToggle` service created
+- [x] `index.js` updated to check toggle on startup
+- [x] Toggle button component created (if using runtime toggle)
+- [x] Toggle enables Storybook on restart
+- [x] Toggle disables Storybook on restart
+- [x] Button only appears in **DEV** mode
+- [x] Accessibility props on toggle button
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] Development toggle mechanism implemented
-- [ ] Can switch to Storybook without code changes
-- [ ] Can switch back to main app
-- [ ] Toggle only available in development builds
-- [ ] Clear user feedback about restart requirement
+- [x] Development toggle mechanism implemented
+- [x] Can switch to Storybook without code changes
+- [x] Can switch back to main app
+- [x] Toggle only available in development builds
+- [x] Clear user feedback about restart requirement
 
 ---
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Toggle tested in both directions
-- [ ] No production code affected
-- [ ] Documentation clear on usage
-- [ ] Ready for TASK-147 (create stories)
+- [x] All acceptance criteria met
+- [x] Toggle tested in both directions
+- [x] No production code affected
+- [x] Documentation clear on usage
+- [x] Ready for TASK-147 (create stories)
 
 ---
 

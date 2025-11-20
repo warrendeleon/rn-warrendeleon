@@ -334,14 +334,14 @@ cd ios && pod install && cd ..
 
 Before marking this task complete, verify ALL of the following:
 
-- [ ] `storybook@^10.0.0` installed in devDependencies
-- [ ] `@storybook/react-native@^10.0.7` installed in devDependencies
-- [ ] `@gorhom/bottom-sheet@^5.0.0` installed in dependencies
-- [ ] `.rnstorybook/` directory exists with main.ts, preview.ts, index.tsx
-- [ ] `yarn typecheck` passes with no Storybook-related errors
-- [ ] `yarn lint` passes with no Storybook-related errors
-- [ ] iOS pods installed successfully
-- [ ] No peer dependency warnings for Storybook packages
+- [x] `storybook@^10.0.0` installed in devDependencies
+- [x] `@storybook/react-native@^10.0.7` installed in devDependencies
+- [x] `@gorhom/bottom-sheet@^5.0.0` installed in dependencies
+- [x] `.rnstorybook/` directory exists with main.ts, preview.ts, index.tsx
+- [x] `yarn typecheck` passes with no Storybook-related errors
+- [x] `yarn lint` passes with no Storybook-related errors
+- [x] iOS pods installed successfully
+- [x] No peer dependency warnings for Storybook packages
 
 ---
 

@@ -57,13 +57,13 @@ Transform the Education screen from a basic JSON data display into a professiona
 
 ## Success Criteria
 
-- ✅ EducationDataScreen displays education entries with SVG logos
-- ✅ MenuButtonGroupSvg component created and tested
-- ✅ All 25+ SVG logo assets added to project
-- ✅ Tapping entries with certificates navigates to WebView
-- ✅ Loading and error states match app design standards
-- ✅ Dark mode fully supported
-- ✅ All tests passing (unit + E2E)
+- [x] EducationDataScreen displays education entries with SVG logos
+- [x] MenuButtonGroupSvg component created and tested
+- [x] All 25+ SVG logo assets added to project
+- [x] Tapping entries with certificates navigates to WebView
+- [x] Loading and error states match app design standards
+- [x] Dark mode fully supported
+- [x] All tests passing (unit + E2E)
 
 ## Dependencies
 

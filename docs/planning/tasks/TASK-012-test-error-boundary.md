@@ -35,7 +35,7 @@ Write comprehensive unit tests for ErrorBoundary component to ensure it catches 
 - [x] 100% coverage on ErrorBoundary class logic ✅
 - [x] All ErrorBoundary tests pass (6/6) ✅
 - [x] Console errors mocked to avoid test noise ✅
-- [ ] FallbackUI UI testing deferred to E2E tests (Detox)
+- [x] FallbackUI UI testing deferred to E2E tests (Detox)
 
 ---
 

@@ -41,7 +41,8 @@
     "title": "Something Went Wrong",
     "message": "An unexpected error occurred. Please try again.",
     "tryAgain": "Try Again",
-    "goHome": "Go Home"
+    "goHome": "Go Home",
+    "loadingFailed": "Unable to load data. Please check your connection and try again."
   },
   "workExperience": {
     "title": "Work Experience",

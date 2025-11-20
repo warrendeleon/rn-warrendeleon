@@ -142,28 +142,28 @@ The project targets 60%+ coverage (up from 36.72%), focusing on business logic a
 
 ### Functional
 
-- [ ] Overall coverage increased from 36.72% to 60%+
-- [ ] ChevronButtonGroup: 0% → 100% coverage
-- [ ] SelectableButtonGroup: 0% → 100% coverage
-- [ ] ButtonWithChevron: 45% → 100% coverage
-- [ ] useAppColorScheme: 0% → 100% coverage
-- [ ] Settings integration: New integration test suite
+- [x] Overall coverage increased from 36.72% to 60%+
+- [x] ChevronButtonGroup: 0% → 100% coverage
+- [x] SelectableButtonGroup: 0% → 100% coverage
+- [x] ButtonWithChevron: 45% → 100% coverage
+- [x] useAppColorScheme: 0% → 100% coverage
+- [x] Settings integration: New integration test suite
 
 ### Coverage
 
-- [ ] All tests follow Testing Library principles
-- [ ] Tests use meaningful assertions (not just snapshot)
-- [ ] Edge cases and error paths covered
-- [ ] Tests are readable and well-organised
-- [ ] Shared test utilities used consistently
+- [x] All tests follow Testing Library principles
+- [x] Tests use meaningful assertions (not just snapshot)
+- [x] Edge cases and error paths covered
+- [x] Tests are readable and well-organised
+- [x] Shared test utilities used consistently
 
 ### Technical
 
-- [ ] All new tests pass (zero flaky tests)
-- [ ] Tests run in < 10 seconds
-- [ ] Coverage reports accurate
-- [ ] No regressions in existing functionality
-- [ ] No regressions introduced
+- [x] All new tests pass (zero flaky tests)
+- [x] Tests run in < 10 seconds
+- [x] Coverage reports accurate
+- [x] No regressions in existing functionality
+- [x] No regressions introduced
 
 ---
 
@@ -224,13 +224,13 @@ And Redux state should reflect the change
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Code reviewed and approved
-- [ ] Tests written and passing
-- [ ] Documentation updated (CONTRIBUTING.md)
-- [ ] No regressions
-- [ ] Deployed to staging
-- [ ] Product owner approval
+- [x] All acceptance criteria met
+- [x] Code reviewed and approved
+- [x] Tests written and passing
+- [x] Documentation updated (CONTRIBUTING.md)
+- [x] No regressions
+- [x] Deployed to staging
+- [x] Product owner approval
 
 ---
 

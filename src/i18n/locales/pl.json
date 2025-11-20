@@ -41,7 +41,8 @@
     "title": "Coś poszło nie tak",
     "message": "Ups, coś się popsuło. Spróbuj jeszcze raz.",
     "tryAgain": "Spróbuj ponownie",
-    "goHome": "Wróć na główną"
+    "goHome": "Wróć na główną",
+    "loadingFailed": "Nie udało się załadować danych. Sprawdź połączenie i spróbuj ponownie."
   },
   "workExperience": {
     "title": "Doświadczenie zawodowe",

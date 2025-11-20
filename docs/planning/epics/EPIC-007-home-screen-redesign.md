@@ -35,14 +35,14 @@ A well-designed Home screen is the first thing users see when opening the app. I
 
 ## Success Criteria
 
-- [ ] Home screen uses button groups for organised navigation
-- [ ] Profile card displayed at top with avatar and name
-- [ ] All buttons use vector icons with appropriate colours
-- [ ] SF Pro Text font applied throughout
-- [ ] Responsive to light/dark theme changes
-- [ ] Smooth navigation to all linked screens
-- [ ] All components have unit test coverage
-- [ ] Matches iOS design patterns and feels native
+- [x] Home screen uses button groups for organised navigation
+- [x] Profile card displayed at top with avatar and name
+- [x] All buttons use vector icons with appropriate colours
+- [x] SF Pro Text font applied throughout
+- [x] Responsive to light/dark theme changes
+- [x] Smooth navigation to all linked screens
+- [x] All components have unit test coverage
+- [x] Matches iOS design patterns and feels native
 
 ---
 

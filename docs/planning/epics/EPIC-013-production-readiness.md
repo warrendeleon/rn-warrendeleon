@@ -133,17 +133,17 @@ These issues prevent confident production deployment and could lead to security 
 
 ## Acceptance Criteria
 
-- [ ] Zero console.\* statements in src/ (except **DEV** conditionals)
-- [ ] WebView only accepts whitelisted domains
-- [ ] PDF viewer only accepts valid PDF URLs
-- [ ] All SVG files use https:// URLs
-- [ ] .env files cannot be committed (verified + hook added)
-- [ ] `selectWorkExperienceOrClientById` has 100% test coverage
-- [ ] E2E mocking logic tested for all 3 API files (Profile, Education, WorkExperience)
-- [ ] GithubApiClient configuration fully tested
-- [ ] All WorkExperience selectors exported from store/index.ts
-- [ ] MSW removed from devDependencies
-- [ ] `yarn validate` passes (0 errors, 0 failures)
+- [x] Zero console.\* statements in src/ (except **DEV** conditionals)
+- [x] WebView only accepts whitelisted domains
+- [x] PDF viewer only accepts valid PDF URLs
+- [x] All SVG files use https:// URLs
+- [x] .env files cannot be committed (verified + hook added)
+- [x] `selectWorkExperienceOrClientById` has 100% test coverage
+- [x] E2E mocking logic tested for all 3 API files (Profile, Education, WorkExperience)
+- [x] GithubApiClient configuration fully tested
+- [x] All WorkExperience selectors exported from store/index.ts
+- [x] MSW removed from devDependencies
+- [x] `yarn validate` passes (0 errors, 0 failures)
 
 ---
 

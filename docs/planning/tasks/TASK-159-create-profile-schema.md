@@ -15,8 +15,8 @@ Create a Zod schema for the Profile API response. This ensures all profile data 
 
 ## Prerequisites
 
-- [ ] TASK-157 completed (Zod installed)
-- [ ] TASK-158 completed (understand schema pattern)
+- [x] TASK-157 completed (Zod installed)
+- [x] TASK-158 completed (understand schema pattern)
 
 ---
 

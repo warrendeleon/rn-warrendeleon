@@ -210,13 +210,13 @@ By implementing native splash screen with animation:
 
 This epic is complete when:
 
-1. ✅ Native Splash Screens: Working on both iOS and Android with platform-appropriate behaviour
-2. ✅ Logo Animation: Lottie animation renders correctly in light and dark themes
-3. ✅ Loading Orchestration: All data fetches dispatched, loading states handled, navigation triggered
-4. ✅ Error Handling: Graceful error recovery with retry option
-5. ✅ All Tests Pass: RNTL coverage for SplashScreen and Logo components
-6. ✅ No Regressions: Existing functionality unchanged
-7. ✅ Performance: Smooth animation on low-end devices, no ANR/freezing
+1. [x] Native Splash Screens: Working on both iOS and Android with platform-appropriate behaviour
+2. [x] Logo Animation: Lottie animation renders correctly in light and dark themes
+3. [x] Loading Orchestration: All data fetches dispatched, loading states handled, navigation triggered
+4. [x] Error Handling: Graceful error recovery with retry option
+5. [x] All Tests Pass: RNTL coverage for SplashScreen and Logo components
+6. [x] No Regressions: Existing functionality unchanged
+7. [x] Performance: Smooth animation on low-end devices, no ANR/freezing
 
 ---
 

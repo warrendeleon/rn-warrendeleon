@@ -41,7 +41,8 @@
     "title": "May Nangyaring Mali",
     "message": "May nangyaring error. Subukan mo ulit.",
     "tryAgain": "Subukan Mo Ulit",
-    "goHome": "Bumalik sa Home"
+    "goHome": "Bumalik sa Home",
+    "loadingFailed": "Hindi ma-load ang data. Tignan ang iyong connection at subukan mo ulit."
   },
   "workExperience": {
     "title": "Karanasan sa Trabaho",

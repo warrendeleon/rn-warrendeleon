@@ -15,8 +15,8 @@ Create a Zod schema for Education API responses. Education data is an array of e
 
 ## Prerequisites
 
-- [ ] TASK-157 completed (Zod installed)
-- [ ] TASK-159 completed (Profile schema pattern)
+- [x] TASK-157 completed (Zod installed)
+- [x] TASK-159 completed (Profile schema pattern)
 
 ---
 

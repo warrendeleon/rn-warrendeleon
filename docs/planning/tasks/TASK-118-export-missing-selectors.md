@@ -36,7 +36,7 @@ export {
 ## Acceptance Criteria
 
 - [x] All WorkExperience selectors exported from store/index.ts
-- [ ] Exports tested in selector tests
+- [x] Exports tested in selector tests
 - [x] Consistent with Profile/Education exports
 - [x] All tests passing
 

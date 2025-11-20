@@ -15,28 +15,28 @@ Create comprehensive RNTL unit tests for the new `WorkExperiencePositionsScreen`
 
 ### Rendering
 
-- [ ] Renders list of positions for a company
-- [ ] Shows position title for each item
-- [ ] Shows date range for each item
-- [ ] Positions sorted by date (most recent first)
-- [ ] Shows company logo in header
+- [x] Renders list of positions for a company
+- [x] Shows position title for each item
+- [x] Shows date range for each item
+- [x] Positions sorted by date (most recent first)
+- [x] Shows company logo in header
 
 ### Navigation
 
-- [ ] Navigates to details screen on position tap
-- [ ] Passes correct position ID to details screen
+- [x] Navigates to details screen on position tap
+- [x] Passes correct position ID to details screen
 
 ### Edge Cases
 
-- [ ] Handles empty positions array gracefully
-- [ ] Handles missing work experience data
+- [x] Handles empty positions array gracefully
+- [x] Handles missing work experience data
 
 ### Accessibility
 
-- [ ] All items have correct accessibilityRole
-- [ ] All items have accessibilityLabel
-- [ ] All items have accessibilityHint
-- [ ] Touch targets meet 44×44 minimum
+- [x] All items have correct accessibilityRole
+- [x] All items have accessibilityLabel
+- [x] All items have accessibilityHint
+- [x] Touch targets meet 44×44 minimum
 
 ## Test Setup
 

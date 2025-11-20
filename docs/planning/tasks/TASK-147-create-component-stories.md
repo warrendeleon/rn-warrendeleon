@@ -366,46 +366,46 @@ yarn storybook-generate
 
 ## Verification Checklist
 
-- [ ] Logo.stories.tsx created with 4+ variants
-- [ ] ProfileCard.stories.tsx created with loading/error states
-- [ ] SettingsGroup.stories.tsx created
-- [ ] SettingsItem.stories.tsx created
-- [ ] DetailListGroup.stories.tsx created
-- [ ] PickerGroup.stories.tsx created
-- [ ] PickerItem.stories.tsx created
-- [ ] ButtonGroup.stories.tsx created
-- [ ] ButtonGroupDivider.stories.tsx created
-- [ ] HeaderBackButton.stories.tsx created
-- [ ] ErrorBoundary.stories.tsx created
-- [ ] FallbackUI.stories.tsx created
-- [ ] All stories render without errors
-- [ ] Controls work for all applicable props
-- [ ] Actions log correctly
-- [ ] Notes display component documentation
-- [ ] TypeScript compilation passes
-- [ ] Lint passes
+- [x] Logo.stories.tsx created with 4+ variants
+- [x] ProfileCard.stories.tsx created with loading/error states
+- [x] SettingsGroup.stories.tsx created
+- [x] SettingsItem.stories.tsx created
+- [x] DetailListGroup.stories.tsx created
+- [x] PickerGroup.stories.tsx created
+- [x] PickerItem.stories.tsx created
+- [x] ButtonGroup.stories.tsx created
+- [x] ButtonGroupDivider.stories.tsx created
+- [x] HeaderBackButton.stories.tsx created
+- [x] ErrorBoundary.stories.tsx created
+- [x] FallbackUI.stories.tsx created
+- [x] All stories render without errors
+- [x] Controls work for all applicable props
+- [x] Actions log correctly
+- [x] Notes display component documentation
+- [x] TypeScript compilation passes
+- [x] Lint passes
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] All 12 components have story files
-- [ ] Each story demonstrates all props and variants
-- [ ] Controls addon configured for all editable props
-- [ ] Actions addon configured for all callbacks
-- [ ] Notes include usage and accessibility info
-- [ ] Stories render correctly in Storybook
+- [x] All 12 components have story files
+- [x] Each story demonstrates all props and variants
+- [x] Controls addon configured for all editable props
+- [x] Actions addon configured for all callbacks
+- [x] Notes include usage and accessibility info
+- [x] Stories render correctly in Storybook
 
 ---
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] All 12 story files created and working
-- [ ] Story requirements generated
-- [ ] All stories tested in Storybook UI
-- [ ] TypeScript and lint pass
-- [ ] Ready for TASK-148 (story tests)
+- [x] All acceptance criteria met
+- [x] All 12 story files created and working
+- [x] Story requirements generated
+- [x] All stories tested in Storybook UI
+- [x] TypeScript and lint pass
+- [x] Ready for TASK-148 (story tests)
 
 ---
 

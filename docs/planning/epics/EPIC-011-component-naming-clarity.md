@@ -184,13 +184,13 @@ By renaming to purpose-based names:
 
 This epic is complete when:
 
-1. ✅ All new components created with purpose-based names
-2. ✅ All 5 screens migrated to new components (Settings, Education, WorkXP, Language, Appearance)
-3. ✅ All tests updated and passing with new component names
-4. ✅ Old components removed from codebase entirely
-5. ✅ No references to old component names in imports or tests
-6. ✅ `yarn validate` passes (typecheck + lint + test)
-7. ✅ Migration plan document created and committed
+1. [x] All new components created with purpose-based names
+2. [x] All 5 screens migrated to new components (Settings, Education, WorkXP, Language, Appearance)
+3. [x] All tests updated and passing with new component names
+4. [x] Old components removed from codebase entirely
+5. [x] No references to old component names in imports or tests
+6. [x] `yarn validate` passes (typecheck + lint + test)
+7. [x] Migration plan document created and committed
 
 ---
 

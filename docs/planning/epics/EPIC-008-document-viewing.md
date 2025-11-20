@@ -54,12 +54,12 @@ Enable users to view PDF documents within the app, starting with the CV/resume. 
 
 ## Success Criteria
 
-- ✅ PDF renders correctly on iOS and Android
-- ✅ Share button works with native sharing
-- ✅ Loading states show during PDF download
-- ✅ Error handling for network failures
-- ✅ Dark mode background matches app theme
-- ✅ All tests passing (unit + E2E)
+- [x] PDF renders correctly on iOS and Android
+- [x] Share button works with native sharing
+- [x] Loading states show during PDF download
+- [x] Error handling for network failures
+- [x] Dark mode background matches app theme
+- [x] All tests passing (unit + E2E)
 
 ## Dependencies
 

@@ -19,8 +19,8 @@ Replace the manual environment variable validation in `src/config/env.ts` with a
 
 ## Prerequisites
 
-- [ ] TASK-157 completed (Zod installed)
-- [ ] Understanding of current env.ts file
+- [x] TASK-157 completed (Zod installed)
+- [x] Understanding of current env.ts file
 
 ---
 

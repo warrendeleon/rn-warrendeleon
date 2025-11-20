@@ -15,7 +15,7 @@ Add Zod validation to API fetch functions so data is validated before being stor
 
 ## Prerequisites
 
-- [ ] TASK-159, TASK-160, TASK-161 completed (all schemas exist)
+- [x] TASK-159, TASK-160, TASK-161 completed (all schemas exist)
 
 ---
 

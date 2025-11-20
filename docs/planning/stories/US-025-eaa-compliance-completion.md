@@ -134,24 +134,24 @@ Most screens are already EAA compliant (ProfileScreen, SettingsScreen, LanguageS
 
 ### Functional
 
-- [ ] WebViewScreen has accessibilityRole, accessibilityLabel for all interactive elements
-- [ ] ProfileDataScreen has accessibilityRole, accessibilityLabel for all Text elements
-- [ ] Loading states announced to screen readers
-- [ ] Error states have accessibilityRole="alert"
+- [x] WebViewScreen has accessibilityRole, accessibilityLabel for all interactive elements
+- [x] ProfileDataScreen has accessibilityRole, accessibilityLabel for all Text elements
+- [x] Loading states announced to screen readers
+- [x] Error states have accessibilityRole="alert"
 
 ### Coverage
 
-- [ ] VoiceOver testing procedure documented (iOS)
-- [ ] TalkBack testing procedure documented (Android)
-- [ ] Manual testing checklist includes all WCAG 2.1 Level AA criteria
-- [ ] All screens pass manual VoiceOver/TalkBack testing
+- [x] VoiceOver testing procedure documented (iOS)
+- [x] TalkBack testing procedure documented (Android)
+- [x] Manual testing checklist includes all WCAG 2.1 Level AA criteria
+- [x] All screens pass manual VoiceOver/TalkBack testing
 
 ### Technical
 
-- [ ] `/eaa-audit` command passes with 0 violations
-- [ ] Color contrast meets 4.5:1 for text, 3:1 for UI
-- [ ] Touch targets minimum 44×44 (iOS) / 48×48 (Android)
-- [ ] All tests pass (100% coverage maintained)
+- [x] `/eaa-audit` command passes with 0 violations
+- [x] Color contrast meets 4.5:1 for text, 3:1 for UI
+- [x] Touch targets minimum 44×44 (iOS) / 48×48 (Android)
+- [x] All tests pass (100% coverage maintained)
 
 ---
 
@@ -216,13 +216,13 @@ And verify color contrast requirements met
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] Code reviewed and approved
-- [ ] Tests written and passing
-- [ ] Manual VoiceOver/TalkBack testing completed
-- [ ] No accessibility violations
-- [ ] Documentation updated
-- [ ] `/eaa-audit` passes with 0 violations
+- [x] All acceptance criteria met
+- [x] Code reviewed and approved
+- [x] Tests written and passing
+- [x] Manual VoiceOver/TalkBack testing completed
+- [x] No accessibility violations
+- [x] Documentation updated
+- [x] `/eaa-audit` passes with 0 violations
 
 ---
 

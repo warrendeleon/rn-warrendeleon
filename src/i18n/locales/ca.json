@@ -41,7 +41,8 @@
     "title": "Alguna cosa ha anat malament",
     "message": "Hi ha hagut un error inesperat. Torna-ho a provar, si us plau.",
     "tryAgain": "Torna-ho a provar",
-    "goHome": "Torna a l'inici"
+    "goHome": "Torna a l'inici",
+    "loadingFailed": "No s'han pogut carregar les dades. Comprova la teva connexió i torna-ho a provar."
   },
   "workExperience": {
     "title": "Experiència laboral",

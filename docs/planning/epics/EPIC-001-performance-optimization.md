@@ -181,11 +181,11 @@ By implementing performance optimisations:
 
 This epic is complete when:
 
-1. ✅ Performance Target Met: Re-renders reduced by 70%+ (30→9 or fewer per scroll)
-2. ✅ Frame Rate Improved: Consistent 58-60 FPS during interactions
-3. ✅ All Tasks Complete: 10 tasks done, tested, and merged
-4. ✅ No Regressions: Existing functionality unchanged
-5. ✅ Pattern Established: Documentation updated with memoisation guidelines
+1. [x] Performance Target Met: Re-renders reduced by 70%+ (30→9 or fewer per scroll)
+2. [x] Frame Rate Improved: Consistent 58-60 FPS during interactions
+3. [x] All Tasks Complete: 10 tasks done, tested, and merged
+4. [x] No Regressions: Existing functionality unchanged
+5. [x] Pattern Established: Documentation updated with memoisation guidelines
 
 ---
 

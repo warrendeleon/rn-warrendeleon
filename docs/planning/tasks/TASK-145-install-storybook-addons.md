@@ -290,52 +290,52 @@ export const Primary: Story = {
 
 ### Packages Installed
 
-- [ ] `@storybook/addon-ondevice-controls` in devDependencies
-- [ ] `@react-native-community/slider` in dependencies
-- [ ] `@react-native-community/datetimepicker` in dependencies
-- [ ] `@storybook/addon-ondevice-actions` in devDependencies
-- [ ] `@storybook/addon-actions` in devDependencies
-- [ ] `@storybook/addon-ondevice-backgrounds` in devDependencies
-- [ ] `@storybook/addon-ondevice-notes` in devDependencies
+- [x] `@storybook/addon-ondevice-controls` in devDependencies
+- [x] `@react-native-community/slider` in dependencies
+- [x] `@react-native-community/datetimepicker` in dependencies
+- [x] `@storybook/addon-ondevice-actions` in devDependencies
+- [x] `@storybook/addon-actions` in devDependencies
+- [x] `@storybook/addon-ondevice-backgrounds` in devDependencies
+- [x] `@storybook/addon-ondevice-notes` in devDependencies
 
 ### Configuration
 
-- [ ] All four addons listed in `.rnstorybook/main.ts`
-- [ ] Backgrounds configured in `preview.ts` parameters
+- [x] All four addons listed in `.rnstorybook/main.ts`
+- [x] Backgrounds configured in `preview.ts` parameters
 
 ### Native Modules
 
-- [ ] `RNCSlider` pod installed (check Podfile.lock)
-- [ ] `RNDateTimePicker` pod installed (check Podfile.lock)
+- [x] `RNCSlider` pod installed (check Podfile.lock)
+- [x] `RNDateTimePicker` pod installed (check Podfile.lock)
 
 ### Testing
 
-- [ ] Storybook launches without crashes
-- [ ] All four addon tabs visible in Storybook UI
-- [ ] Background colours can be switched
-- [ ] TypeScript compilation passes
-- [ ] Lint passes
+- [x] Storybook launches without crashes
+- [x] All four addon tabs visible in Storybook UI
+- [x] Background colours can be switched
+- [x] TypeScript compilation passes
+- [x] Lint passes
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] All four addons installed and configured
-- [ ] Native dependencies for Controls installed (slider, datetimepicker)
-- [ ] iOS Pods installed without errors
-- [ ] Addons visible in Storybook UI
-- [ ] TypeScript compilation passes
-- [ ] Lint passes
+- [x] All four addons installed and configured
+- [x] Native dependencies for Controls installed (slider, datetimepicker)
+- [x] iOS Pods installed without errors
+- [x] Addons visible in Storybook UI
+- [x] TypeScript compilation passes
+- [x] Lint passes
 
 ---
 
 ## Definition of Done
 
-- [ ] All acceptance criteria met
-- [ ] All verification checklist items complete
-- [ ] App rebuilds successfully with new native modules
-- [ ] Addons functional in Storybook
-- [ ] Ready for TASK-146 (dev toggle) or TASK-147 (stories)
+- [x] All acceptance criteria met
+- [x] All verification checklist items complete
+- [x] App rebuilds successfully with new native modules
+- [x] Addons functional in Storybook
+- [x] Ready for TASK-146 (dev toggle) or TASK-147 (stories)
 
 ---
 

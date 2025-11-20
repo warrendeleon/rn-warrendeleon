@@ -15,8 +15,8 @@ Create a Zod schema for Work Experience API responses. This is the most complex 
 
 ## Prerequisites
 
-- [ ] TASK-157 completed (Zod installed)
-- [ ] TASK-160 completed (Education schema pattern)
+- [x] TASK-157 completed (Zod installed)
+- [x] TASK-160 completed (Education schema pattern)
 
 ---
 

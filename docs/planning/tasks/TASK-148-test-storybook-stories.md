@@ -298,24 +298,24 @@ expect(mockOnPress).toHaveBeenCalled();
 
 ## Verification Checklist
 
-- [ ] `@storybook/test` installed
-- [ ] Jest config updated for story tests
-- [ ] Story test utility created
-- [ ] Logo.stories.test.tsx created
-- [ ] ProfileCard.stories.test.tsx created
-- [ ] SettingsGroup.stories.test.tsx created
-- [ ] SettingsItem.stories.test.tsx created
-- [ ] DetailListGroup.stories.test.tsx created
-- [ ] PickerGroup.stories.test.tsx created
-- [ ] PickerItem.stories.test.tsx created
-- [ ] ButtonGroup.stories.test.tsx created
-- [ ] ButtonGroupDivider.stories.test.tsx created
-- [ ] HeaderBackButton.stories.test.tsx created
-- [ ] ErrorBoundary.stories.test.tsx created
-- [ ] FallbackUI.stories.test.tsx created
-- [ ] All story tests pass
-- [ ] Coverage maintained/improved
-- [ ] Full test suite passes (`yarn test`)
+- [x] `@storybook/test` installed
+- [x] Jest config updated for story tests
+- [x] Story test utility created
+- [x] Logo.stories.test.tsx created
+- [x] ProfileCard.stories.test.tsx created
+- [x] SettingsGroup.stories.test.tsx created
+- [x] SettingsItem.stories.test.tsx created
+- [x] DetailListGroup.stories.test.tsx created
+- [x] PickerGroup.stories.test.tsx created
+- [x] PickerItem.stories.test.tsx created
+- [x] ButtonGroup.stories.test.tsx created
+- [x] ButtonGroupDivider.stories.test.tsx created
+- [x] HeaderBackButton.stories.test.tsx created
+- [x] ErrorBoundary.stories.test.tsx created
+- [x] FallbackUI.stories.test.tsx created
+- [x] All story tests pass
+- [x] Coverage maintained/improved
+- [x] Full test suite passes (`yarn test`)
 
 ---
 
