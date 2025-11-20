@@ -1,10 +1,10 @@
 # React Native Portfolio App - Planning Hub
 
-**Progress**: 94% (167/178 tasks) | **Remaining**: 11 tasks (~19.5h)
+**Progress**: 87% (167/192 tasks) | **Remaining**: 25 tasks (~43.5h)
 
 ---
 
-## ✅ Tasks Status (All 170 Tasks)
+## ✅ Tasks Status (All 192 Tasks)
 
 ### EPIC-001: Performance Optimization (10 tasks) ✅
 
@@ -296,22 +296,77 @@
 | [TASK-171](./tasks/TASK-171-rntl-tests-positions-screen.md)    | RNTL Tests for WorkExperiencePositionsScreen     | ✅ Done | 1h     | High     |
 | [TASK-172](./tasks/TASK-172-update-e2e-work-experience.md)     | Update E2E Tests for Work Experience Flow        | ✅ Done | 2h     | High     |
 
+### EPIC-020: Fixture Data Structure Improvements (14 tasks) 📋
+
+#### US-028: Data Format Standardisation (4 tasks)
+
+| Task ID                                                  | Title                                  | Status   | Effort | Priority |
+| -------------------------------------------------------- | -------------------------------------- | -------- | ------ | -------- |
+| [TASK-173](./tasks/TASK-173-standardise-date-formats.md) | Standardise Date Formats to ISO 8601   | 📋 To Do | 2h     | High     |
+| [TASK-174](./tasks/TASK-174-add-education-uuids.md)      | Add UUIDs to Education Entries         | 📋 To Do | 1h     | High     |
+| [TASK-175](./tasks/TASK-175-add-explicit-nulls.md)       | Add Explicit Nulls for Optional Fields | 📋 To Do | 1.5h   | Medium   |
+| [TASK-176](./tasks/TASK-176-rename-ambiguous-fields.md)  | Rename Ambiguous Field Names           | 📋 To Do | 1h     | Medium   |
+
+#### US-029: Structure Normalisation (2 tasks)
+
+| Task ID                                                     | Title                                    | Status   | Effort | Priority |
+| ----------------------------------------------------------- | ---------------------------------------- | -------- | ------ | -------- |
+| [TASK-177](./tasks/TASK-177-flatten-clients-structure.md)   | Flatten Clients Structure into Positions | 📋 To Do | 3h     | High     |
+| [TASK-178](./tasks/TASK-178-normalise-tech-stack-fields.md) | Normalise Technology Stack Fields        | 📋 To Do | 2h     | Medium   |
+
+#### US-030: Type System Updates (2 tasks)
+
+| Task ID                                                 | Title                                     | Status   | Effort | Priority |
+| ------------------------------------------------------- | ----------------------------------------- | -------- | ------ | -------- |
+| [TASK-179](./tasks/TASK-179-update-typescript-types.md) | Update TypeScript Types for New Structure | 📋 To Do | 2h     | High     |
+| [TASK-180](./tasks/TASK-180-update-zod-schemas.md)      | Update Zod Schemas for New Structure      | 📋 To Do | 2h     | High     |
+
+#### US-031: Codebase Integration (3 tasks)
+
+| Task ID                                                | Title                                    | Status   | Effort | Priority |
+| ------------------------------------------------------ | ---------------------------------------- | -------- | ------ | -------- |
+| [TASK-181](./tasks/TASK-181-update-redux-selectors.md) | Update Redux Selectors for New Structure | 📋 To Do | 2h     | High     |
+| [TASK-182](./tasks/TASK-182-update-api-clients.md)     | Update API Client Functions              | 📋 To Do | 1.5h   | High     |
+| [TASK-183](./tasks/TASK-183-update-ui-components.md)   | Update UI Components for New Field Names | 📋 To Do | 2h     | High     |
+
+#### US-032: Testing & Validation (3 tasks)
+
+| Task ID                                                  | Title                                    | Status   | Effort | Priority |
+| -------------------------------------------------------- | ---------------------------------------- | -------- | ------ | -------- |
+| [TASK-184](./tasks/TASK-184-update-unit-tests.md)        | Update Unit Tests for New Data Structure | 📋 To Do | 2h     | High     |
+| [TASK-185](./tasks/TASK-185-update-e2e-tests.md)         | Update E2E Tests for New Data Structure  | 📋 To Do | 1.5h   | Medium   |
+| [TASK-186](./tasks/TASK-186-validate-locale-variants.md) | Validate All Locale Variants             | 📋 To Do | 1h     | High     |
+
 ---
 
-## 📋 Remaining Tasks (11)
+## 📋 Remaining Tasks (25)
 
-| Task ID  | Title                                  | Effort | Notes                      |
-| -------- | -------------------------------------- | ------ | -------------------------- |
-| TASK-017 | Manual VoiceOver/TalkBack Testing      | 0.5h   | Requires physical device   |
-| TASK-062 | E2E Tests for Error States/Recovery    | 2h     | Automatable with Detox     |
-| TASK-123 | Implement RTK Query (Optional)         | 8h     | Can defer indefinitely     |
-| TASK-126 | VoiceOver/TalkBack Testing Docs        | 2h     | EAA testing procedures     |
-| TASK-150 | RNTL Tests WorkExperienceDetailsScreen | 1.5h   | Coverage improvement       |
-| TASK-151 | RNTL Tests WorkExperienceClientsScreen | 1h     | Coverage improvement       |
-| TASK-152 | Explicit Async Thunk Action Tests      | 1.5h   | Coverage improvement       |
-| TASK-153 | RNTL Tests for Logger Utility          | 0.5h   | Coverage improvement       |
-| TASK-154 | Unit Tests for ButtonGroup Component   | 0.75h  | Coverage improvement       |
-| TASK-155 | Unit Tests for HeaderBackButton        | 0.75h  | Coverage improvement       |
-| TASK-156 | RNTL Tests for MockStatusScreen        | 1h     | Coverage improvement (low) |
+| Task ID  | Title                                     | Effort | Notes                          |
+| -------- | ----------------------------------------- | ------ | ------------------------------ |
+| TASK-017 | Manual VoiceOver/TalkBack Testing         | 0.5h   | Requires physical device       |
+| TASK-062 | E2E Tests for Error States/Recovery       | 2h     | Automatable with Detox         |
+| TASK-123 | Implement RTK Query (Optional)            | 8h     | Can defer indefinitely         |
+| TASK-126 | VoiceOver/TalkBack Testing Docs           | 2h     | EAA testing procedures         |
+| TASK-150 | RNTL Tests WorkExperienceDetailsScreen    | 1.5h   | Coverage improvement           |
+| TASK-151 | RNTL Tests WorkExperienceClientsScreen    | 1h     | Coverage improvement           |
+| TASK-152 | Explicit Async Thunk Action Tests         | 1.5h   | Coverage improvement           |
+| TASK-153 | RNTL Tests for Logger Utility             | 0.5h   | Coverage improvement           |
+| TASK-154 | Unit Tests for ButtonGroup Component      | 0.75h  | Coverage improvement           |
+| TASK-155 | Unit Tests for HeaderBackButton           | 0.75h  | Coverage improvement           |
+| TASK-156 | RNTL Tests for MockStatusScreen           | 1h     | Coverage improvement (low)     |
+| TASK-173 | Standardise Date Formats to ISO 8601      | 2h     | EPIC-020: Data structure       |
+| TASK-174 | Add UUIDs to Education Entries            | 1h     | EPIC-020: Data structure       |
+| TASK-175 | Add Explicit Nulls for Optional Fields    | 1.5h   | EPIC-020: Data structure       |
+| TASK-176 | Rename Ambiguous Field Names              | 1h     | EPIC-020: Data structure       |
+| TASK-177 | Flatten Clients Structure into Positions  | 3h     | EPIC-020: Data structure       |
+| TASK-178 | Normalise Technology Stack Fields         | 2h     | EPIC-020: Data structure       |
+| TASK-179 | Update TypeScript Types for New Structure | 2h     | EPIC-020: Type system          |
+| TASK-180 | Update Zod Schemas for New Structure      | 2h     | EPIC-020: Type system          |
+| TASK-181 | Update Redux Selectors for New Structure  | 2h     | EPIC-020: Codebase integration |
+| TASK-182 | Update API Client Functions               | 1.5h   | EPIC-020: Codebase integration |
+| TASK-183 | Update UI Components for New Field Names  | 2h     | EPIC-020: Codebase integration |
+| TASK-184 | Update Unit Tests for New Data Structure  | 2h     | EPIC-020: Testing              |
+| TASK-185 | Update E2E Tests for New Data Structure   | 1.5h   | EPIC-020: Testing              |
+| TASK-186 | Validate All Locale Variants              | 1h     | EPIC-020: Final validation     |
 
 **Legend**: ✅ Done | ⏳ In Progress | 📋 To Do
