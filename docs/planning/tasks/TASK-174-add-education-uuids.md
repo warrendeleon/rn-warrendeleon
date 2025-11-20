@@ -1,6 +1,6 @@
 # TASK-174: Add UUIDs to Education Entries
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Completed
 **Priority**: High
 **Effort**: 1h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)
@@ -160,11 +160,11 @@ grep '"id":' src/test-utils/fixtures/api/es/education.json
 
 ## Acceptance Criteria
 
-- [ ] All 6 education entries have unique UUIDs
-- [ ] UUIDs are valid UUID v4 format
-- [ ] Same education entry has same UUID across all 5 locales
-- [ ] `id` is the first field in each entry (for consistency)
-- [ ] UUIDs are lowercase (standard convention)
+- [x] All 6 education entries have unique UUIDs
+- [x] UUIDs are valid UUID v4 format
+- [x] Same education entry has same UUID across all 5 locales
+- [x] `id` is the first field in each entry (for consistency)
+- [x] UUIDs are lowercase (standard convention)
 
 ---
 

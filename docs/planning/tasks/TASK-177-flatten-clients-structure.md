@@ -1,6 +1,6 @@
 # TASK-177: Flatten Clients Structure into Positions
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Completed
 **Priority**: High
 **Effort**: 3h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)
@@ -228,15 +228,15 @@ grep -r '"client":' src/test-utils/fixtures/api/*/workxp.json
 
 ## Acceptance Criteria
 
-- [ ] `clients` array removed from xDesign entry
-- [ ] Two client positions added to xDesign positions array
-- [ ] Each position has a `client` object with name and logo
-- [ ] Position IDs preserved from original client IDs
-- [ ] Fanduel end date corrected to "2022-04"
-- [ ] All tech stack data migrated to technologies object
-- [ ] Original generic xDesign position removed
-- [ ] All 5 locale variants updated consistently
-- [ ] Chronological order maintained (Fanduel first, then Zonal)
+- [x] `clients` array removed from xDesign entry
+- [x] Two client positions added to xDesign positions array
+- [x] Each position has a `client` object with name and logo
+- [x] Position IDs preserved from original client IDs
+- [x] Fanduel end date corrected to "2022-04"
+- [x] All tech stack data migrated to technologies object
+- [x] Original generic xDesign position removed
+- [x] All 5 locale variants updated consistently
+- [x] Chronological order maintained (Fanduel first, then Zonal)
 
 ---
 

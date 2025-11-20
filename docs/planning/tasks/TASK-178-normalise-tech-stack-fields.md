@@ -1,6 +1,6 @@
 # TASK-178: Normalise Technology Stack Fields
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Completed
 **Priority**: Medium
 **Effort**: 2h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)
@@ -242,13 +242,13 @@ Source: `agileMethodology`
 
 ## Acceptance Criteria
 
-- [ ] All old tech fields removed (`programmingLanguages`, `techStack`, etc.)
-- [ ] All positions have `technologies` field (object or null)
-- [ ] Manager roles have `technologies: null`
-- [ ] CI tools extracted from devTools into separate `ci` field
-- [ ] Technology names standardised (TypeScript, Xcode, etc.)
-- [ ] Missing categories use `null` not empty arrays
-- [ ] All 5 locale variants updated consistently
+- [x] All old tech fields removed (`programmingLanguages`, `techStack`, etc.)
+- [x] All positions have `technologies` field (object or null)
+- [x] Manager roles have `technologies: null`
+- [x] CI tools extracted from devTools into separate `ci` field
+- [x] Technology names standardised (TypeScript, Xcode, etc.)
+- [x] Missing categories use `null` not empty arrays
+- [x] All 5 locale variants updated consistently
 
 ---
 

@@ -1,6 +1,6 @@
 # TASK-176: Rename Ambiguous Field Names
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Completed
 **Priority**: Medium
 **Effort**: 1h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)
@@ -135,11 +135,11 @@ grep -r '"galleryImages":' src/test-utils/fixtures/api/*/profile.json
 
 ## Acceptance Criteria
 
-- [ ] `location` renamed to `institution` in all education files
-- [ ] `certificate` renamed to `certificateUrl` in all education files
-- [ ] `carousel` renamed to `galleryImages` in all profile files
-- [ ] No occurrences of old field names remain
-- [ ] All 5 locale variants updated consistently
+- [x] `location` renamed to `institution` in all education files
+- [x] `certificate` renamed to `certificateUrl` in all education files
+- [x] `carousel` renamed to `galleryImages` in all profile files
+- [x] No occurrences of old field names remain
+- [x] All 5 locale variants updated consistently
 
 ---
 

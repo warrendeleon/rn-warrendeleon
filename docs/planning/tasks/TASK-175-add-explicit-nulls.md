@@ -1,6 +1,6 @@
 # TASK-175: Add Explicit Nulls for Optional Fields
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Completed
 **Priority**: Medium
 **Effort**: 1.5h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)
@@ -249,14 +249,14 @@ data.forEach((item, i) => {
 
 ## Acceptance Criteria
 
-- [ ] All education entries have `endDate` field (value or null)
-- [ ] All education entries have `certificateUrl` field (value or null)
-- [ ] All position entries have `endDate` field (value or null)
-- [ ] All position entries have `responsibilities` field (array or null)
-- [ ] All position entries have `technologies` field (object or null)
-- [ ] All position entries have `client` field (object or null)
-- [ ] Field order is consistent across all entries
-- [ ] All 5 locale variants updated consistently
+- [x] All education entries have `endDate` field (value or null)
+- [x] All education entries have `certificateUrl` field (value or null)
+- [x] All position entries have `endDate` field (value or null)
+- [x] All position entries have `responsibilities` field (array or null)
+- [x] All position entries have `technologies` field (object or null)
+- [x] All position entries have `client` field (object or null)
+- [x] Field order is consistent across all entries
+- [x] All 5 locale variants updated consistently
 
 ---
 

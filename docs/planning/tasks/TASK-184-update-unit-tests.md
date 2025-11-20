@@ -1,6 +1,6 @@
 # TASK-184: Update Unit Tests for New Data Structure
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Completed
 **Priority**: High
 **Effort**: 2h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)
@@ -305,13 +305,13 @@ All test files in:
 
 ## Acceptance Criteria
 
-- [ ] All mock data updated to new structure
-- [ ] Schema tests validate new field names
-- [ ] Redux tests use new selectors and field names
-- [ ] Component tests updated for new data shape
-- [ ] Snapshot tests regenerated and reviewed
-- [ ] No test failures
-- [ ] Coverage thresholds maintained (85%)
+- [x] All mock data updated to new structure
+- [x] Schema tests validate new field names
+- [x] Redux tests use new selectors and field names
+- [x] Component tests updated for new data shape
+- [x] Snapshot tests regenerated and reviewed
+- [x] No test failures
+- [x] Coverage thresholds maintained (85%)
 
 ---
 

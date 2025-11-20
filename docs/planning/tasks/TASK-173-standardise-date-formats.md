@@ -1,6 +1,6 @@
 # TASK-173: Standardise Date Formats to ISO 8601
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Completed
 **Priority**: High
 **Effort**: 2h
 **Epic**: [EPIC-020](../epics/EPIC-020-fixture-data-structure-improvements.md)
@@ -226,13 +226,13 @@ grep -r '"Present"' src/test-utils/fixtures/api/
 
 ## Acceptance Criteria
 
-- [ ] All `start` fields renamed to `startDate`
-- [ ] All `end` fields renamed to `endDate`
-- [ ] All dates in YYYY-MM format
-- [ ] "Present" values converted to `null`
-- [ ] Year-only dates have appropriate month (-01 for start, -12 for end)
-- [ ] All 5 locale variants updated consistently
-- [ ] No remaining old date format strings in fixtures
+- [x] All `start` fields renamed to `startDate`
+- [x] All `end` fields renamed to `endDate`
+- [x] All dates in YYYY-MM format
+- [x] "Present" values converted to `null`
+- [x] Year-only dates have appropriate month (-01 for start, -12 for end)
+- [x] All 5 locale variants updated consistently
+- [x] No remaining old date format strings in fixtures
 
 ---
 
