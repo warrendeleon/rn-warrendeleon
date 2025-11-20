@@ -1,6 +1,6 @@
 # TASK-154: Unit Tests for ButtonGroup Component
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 0.75h
 **Epic**: [EPIC-017](../epics/EPIC-017-test-coverage-improvements.md)
@@ -19,14 +19,14 @@ Add proper unit tests for the `ButtonGroup` component. Currently only has story 
 
 ## Acceptance Criteria
 
-- [ ] Test renders children correctly
-- [ ] Test single item layout
-- [ ] Test multiple items layout
-- [ ] Test spacing between items
-- [ ] Test dark/light theme support
-- [ ] Test accessibility container role
-- [ ] All tests pass with `yarn test`
-- [ ] Coverage threshold met
+- [x] Test renders children correctly
+- [x] Test single item layout
+- [x] Test multiple items layout
+- [x] Test spacing between items
+- [x] Test dark/light theme support
+- [x] Test accessibility container role
+- [x] All tests pass with `yarn test`
+- [x] Coverage threshold met
 
 ## Implementation Notes
 

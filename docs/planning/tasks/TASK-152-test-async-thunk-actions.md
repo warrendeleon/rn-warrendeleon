@@ -1,6 +1,6 @@
 # TASK-152: Explicit Async Thunk Action Tests
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: High
 **Effort**: 1.5h
 **Epic**: [EPIC-017](../epics/EPIC-017-test-coverage-improvements.md)
@@ -19,14 +19,14 @@ Add explicit unit tests for async thunk actions (`fetchProfile`, `fetchEducation
 
 ## Acceptance Criteria
 
-- [ ] Test `fetchProfile` action dispatch and payload
-- [ ] Test `fetchEducation` action dispatch and payload
-- [ ] Test `fetchWorkExperience` action dispatch and payload
-- [ ] Test pending/fulfilled/rejected action types
-- [ ] Test error message extraction
-- [ ] Test language parameter passing
-- [ ] All tests pass with `yarn test`
-- [ ] Coverage threshold met
+- [x] Test `fetchProfile` action dispatch and payload
+- [x] Test `fetchEducation` action dispatch and payload
+- [x] Test `fetchWorkExperience` action dispatch and payload
+- [x] Test pending/fulfilled/rejected action types
+- [x] Test error message extraction
+- [x] Test language parameter passing
+- [x] All tests pass with `yarn test`
+- [x] Coverage threshold met
 
 ## Implementation Notes
 

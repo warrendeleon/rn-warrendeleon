@@ -131,7 +131,8 @@ const MockStatusItem: React.FC<MockStatusItemProps> = ({
   testID,
 }) => {
   const status = isMocked ? 'Mocked' : 'Not Mocked';
-  const statusColor = isMocked ? '$green600' : '$red600';
+  const statusColorToken = isMocked ? '$green600' : '$red600';
+  const iconColor = isMocked ? '#16a34a' : '#dc2626'; // green-600, red-600
   const Icon = isMocked ? CheckCircle : XCircle;
 
   return (
@@ -159,10 +160,15 @@ const MockStatusItem: React.FC<MockStatusItemProps> = ({
       </Box>
 
       <Box flexDirection="row" alignItems="center" gap="$2">
-        <Text fontSize="$sm" fontWeight="$medium" color={statusColor} testID={`${testID}-status`}>
+        <Text
+          fontSize="$sm"
+          fontWeight="$medium"
+          color={statusColorToken}
+          testID={`${testID}-status`}
+        >
           {status}
         </Text>
-        <Icon size={20} color={statusColor} testID={`${testID}-icon`} />
+        <Icon size={20} color={iconColor} testID={`${testID}-icon`} />
       </Box>
     </Box>
   );

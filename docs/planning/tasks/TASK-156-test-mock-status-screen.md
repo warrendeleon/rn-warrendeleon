@@ -1,6 +1,6 @@
 # TASK-156: RNTL Tests for MockStatusScreen
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Low
 **Effort**: 1h
 **Epic**: [EPIC-017](../epics/EPIC-017-test-coverage-improvements.md)
@@ -19,14 +19,14 @@ Create RNTL unit tests for `MockStatusScreen.tsx`. This is a development/testing
 
 ## Acceptance Criteria
 
-- [ ] Test renders mock status items
-- [ ] Test displays "Mocked" status when data has mocked flag
-- [ ] Test displays "Not Mocked" status when data lacks mocked flag
-- [ ] Test loading state for each data type
-- [ ] Test dark/light theme support
-- [ ] Test accessibility props
-- [ ] All tests pass with `yarn test`
-- [ ] Coverage threshold met
+- [x] Test renders mock status items
+- [x] Test displays "Mocked" status when data has mocked flag
+- [x] Test displays "Not Mocked" status when data lacks mocked flag
+- [x] Test loading state for each data type
+- [x] Test dark/light theme support
+- [x] Test accessibility props
+- [x] All tests pass with `yarn test`
+- [x] Coverage threshold met
 
 ## Implementation Notes
 

@@ -1,6 +1,6 @@
 # TASK-153: RNTL Tests for Logger Utility
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 0.5h
 **Epic**: [EPIC-017](../epics/EPIC-017-test-coverage-improvements.md)
@@ -19,13 +19,13 @@ Create unit tests for the `logger.ts` utility. Test that logging functions work 
 
 ## Acceptance Criteria
 
-- [ ] Test `logError()` logs in dev mode
-- [ ] Test `logWarning()` logs in dev mode
-- [ ] Test `logDebug()` logs in dev mode
-- [ ] Test functions are silent when `__DEV__` is false
-- [ ] Test correct console methods are called
-- [ ] All tests pass with `yarn test`
-- [ ] Coverage threshold met
+- [x] Test `logError()` logs in dev mode
+- [x] Test `logWarning()` logs in dev mode
+- [x] Test `logDebug()` logs in dev mode
+- [x] Test functions are silent when `__DEV__` is false
+- [x] Test correct console methods are called
+- [x] All tests pass with `yarn test`
+- [x] Coverage threshold met
 
 ## Implementation Notes
 

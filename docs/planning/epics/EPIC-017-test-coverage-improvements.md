@@ -1,8 +1,9 @@
 # EPIC-017: Test Coverage Improvements
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: High
-**Estimated Effort**: 7h
+**Estimated Effort**: 7.5h
+**Actual Effort**: 7.5h
 **Target Coverage**: 85%+
 
 ---
@@ -44,11 +45,11 @@ Improve test coverage from current 75% to 85%+ by addressing identified gaps in 
 
 ## Acceptance Criteria
 
-- [ ] All new tests pass with `yarn test`
-- [ ] Overall coverage reaches 85%+
-- [ ] No new ESLint or TypeScript errors
-- [ ] Tests follow existing patterns and conventions
-- [ ] E2E tests remain passing
+- [x] All new tests pass with `yarn test`
+- [x] Overall coverage reaches 85%+
+- [x] No new ESLint or TypeScript errors
+- [x] Tests follow existing patterns and conventions
+- [x] E2E tests remain passing
 
 ## Technical Notes
 

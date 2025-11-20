@@ -45,9 +45,9 @@ describe('SplashScreen', () => {
     jest.useFakeTimers();
   });
 
-  afterEach(() => {
-    act(() => {
-      jest.runOnlyPendingTimers();
+  afterEach(async () => {
+    await act(async () => {
+      jest.runAllTimers();
     });
     jest.useRealTimers();
   });

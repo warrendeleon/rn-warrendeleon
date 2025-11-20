@@ -1,6 +1,6 @@
 # TASK-155: Unit Tests for HeaderBackButton Component
 
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 0.75h
 **Epic**: [EPIC-017](../epics/EPIC-017-test-coverage-improvements.md)
@@ -19,15 +19,15 @@ Add proper unit tests for the `HeaderBackButton` component. Currently only has s
 
 ## Acceptance Criteria
 
-- [ ] Test renders back icon correctly
-- [ ] Test onPress handler is called
-- [ ] Test disabled state
-- [ ] Test accessibility role (button)
-- [ ] Test accessibility label
-- [ ] Test dark/light theme support
-- [ ] Test touch target size (44x44 minimum for EAA)
-- [ ] All tests pass with `yarn test`
-- [ ] Coverage threshold met
+- [x] Test renders back icon correctly
+- [x] Test onPress handler is called
+- [x] Test disabled state
+- [x] Test accessibility role (button)
+- [x] Test accessibility label
+- [x] Test dark/light theme support
+- [x] Test touch target size (44x44 minimum for EAA)
+- [x] All tests pass with `yarn test`
+- [x] Coverage threshold met
 
 ## Implementation Notes
 
