@@ -8,12 +8,12 @@ export { fetchWorkExperience } from './actions';
 // Selectors
 export {
   selectCompanyInfoByPositionId,
+  selectPositionById,
   selectWorkExperience,
   selectWorkExperienceByCompany,
   selectWorkExperienceById,
-  selectWorkExperienceClientsById,
   selectWorkExperienceError,
   selectWorkExperienceLoading,
-  selectWorkExperienceOrClientById,
+  selectWorkExperiencePositionsWithClientsById,
   selectWorkExperienceWithClients,
 } from './selectors';

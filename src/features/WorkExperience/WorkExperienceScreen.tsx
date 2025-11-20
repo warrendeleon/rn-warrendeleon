@@ -9,6 +9,7 @@ import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppDispatch, useAppSelector } from '@app/store';
 import type { Position, WorkExperience } from '@app/types/portfolio';
+import { formatDateRange } from '@app/utils/dateFormatter';
 
 import { fetchWorkExperience } from './store/actions';
 import {
@@ -22,43 +23,28 @@ type WorkExperienceScreenNavigationProp = NativeStackNavigationProp<
   'WorkExperience'
 >;
 
-// Format date range for work experience
-const formatDateRange = (start: string, end: string, presentText: string): string => {
-  const endDate = end === 'Present' ? presentText : end;
-  return `${start} - ${endDate}`;
-};
-
 // Get the latest position (first in array, assuming sorted by date desc)
 const getLatestPosition = (positions: Position[]): Position | null => {
   if (!positions || positions.length === 0) return null;
   return positions[0] ?? null;
 };
 
-// Get company date range (earliest start to latest end)
-const getCompanyDateRange = (positions: Position[]): { start: string; end: string } => {
-  if (!positions || positions.length === 0) {
-    return { start: '', end: '' };
-  }
-
-  // Positions are sorted newest first, so last item has earliest start
-  const lastPosition = positions[positions.length - 1];
-  const firstPosition = positions[0];
-  const earliestStart = lastPosition?.start ?? '';
-  const latestEnd = firstPosition?.end ?? '';
-
-  return { start: earliestStart, end: latestEnd };
-};
-
 // Determine navigation type based on work experience content
 type NavigationType = 'clients' | 'positions' | 'details';
 
 const getNavigationType = (item: WorkExperience): NavigationType => {
-  if (item.clients && item.clients.length > 0) {
+  const positionCount = item.positions?.length ?? 0;
+  const clientCount = item.positions?.filter(pos => pos.client != null).length ?? 0;
+
+  // Only go to clients screen if 2+ positions with clients
+  if (clientCount > 1) {
     return 'clients';
   }
-  if (item.positions && item.positions.length > 1) {
+  // Only go to positions screen if 2+ positions (without multiple clients)
+  if (positionCount > 1) {
     return 'positions';
   }
+  // Single position (with or without client) - go directly to details
   return 'details';
 };
 
@@ -105,21 +91,21 @@ export const WorkExperienceScreen: React.FC = () => {
     if (!workExperience) return [];
 
     return workExperience.map(item => {
-      const clientCount = item.clients?.length ?? 0;
+      // Count positions that have client references
+      const clientCount = item.positions?.filter(pos => pos.client != null).length ?? 0;
       const positionCount = item.positions?.length ?? 0;
-      const hasClients = clientCount > 0;
-      const hasMultiplePositions = positionCount > 1;
 
-      // Get latest position and company date range
+      // Get latest position and its date range
       const latestPosition = getLatestPosition(item.positions);
-      const { start, end } = getCompanyDateRange(item.positions);
+      const start = latestPosition?.startDate ?? '';
+      const end = latestPosition?.endDate ?? null;
       const dateRange = formatDateRange(start, end, t('workExperience.present'));
 
-      // Determine badge: clients count takes priority, then positions count
+      // Determine badge: only show if 2+ clients or 2+ positions
       let badge: string | undefined;
-      if (hasClients) {
+      if (clientCount > 1) {
         badge = clientCount.toString();
-      } else if (hasMultiplePositions) {
+      } else if (positionCount > 1) {
         badge = positionCount.toString();
       }
 
@@ -139,11 +125,12 @@ export const WorkExperienceScreen: React.FC = () => {
           company: item.company,
           dates: dateRange,
         }),
-        accessibilityHint: hasClients
-          ? t('workExperience.accessibility.clientsHint', { count: clientCount })
-          : hasMultiplePositions
-            ? t('workExperience.accessibility.positionsHint', { count: positionCount })
-            : t('workExperience.accessibility.detailsHint'),
+        accessibilityHint:
+          clientCount > 1
+            ? t('workExperience.accessibility.clientsHint', { count: clientCount })
+            : positionCount > 1
+              ? t('workExperience.accessibility.positionsHint', { count: positionCount })
+              : t('workExperience.accessibility.detailsHint'),
       };
     });
   }, [t, workExperience, handleWorkExperiencePress]);

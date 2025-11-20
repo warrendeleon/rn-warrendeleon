@@ -30,7 +30,7 @@ const mockProfile: Profile = {
       longitude: 0.24678,
     },
   },
-  carousel: [
+  galleryImages: [
     'https://example.com/profile-01.jpg',
     'https://example.com/profile-02.jpg',
     'https://example.com/profile-03.jpg',
@@ -100,7 +100,7 @@ describe('ProfileScreen', () => {
     it('displays avatar fallback when no carousel and no profile picture', () => {
       const profileWithoutImages = {
         ...mockProfile,
-        carousel: [],
+        galleryImages: [],
         profilePicture: undefined,
       } as unknown as Profile;
       const { getByTestId, queryByTestId } = renderProfileScreen({
@@ -444,7 +444,7 @@ describe('ProfileScreen', () => {
       const profileWithoutPicture = {
         ...mockProfile,
         profilePicture: undefined,
-        carousel: [],
+        galleryImages: [],
       } as unknown as Profile;
       const { getByTestId, queryByTestId } = renderProfileScreen({
         data: profileWithoutPicture,
@@ -457,7 +457,7 @@ describe('ProfileScreen', () => {
     });
 
     it('uses profilePicture as fallback when carousel is empty', () => {
-      const profileWithEmptyCarousel = { ...mockProfile, carousel: [] };
+      const profileWithEmptyCarousel = { ...mockProfile, galleryImages: [] };
       const { getByTestId } = renderProfileScreen({
         data: profileWithEmptyCarousel,
         loading: false,

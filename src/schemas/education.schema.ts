@@ -7,21 +7,29 @@
 import { z } from 'zod';
 
 /**
+ * Date format validator - accepts both YYYY and YYYY-MM formats
+ */
+const dateSchema = z
+  .string()
+  .refine(val => /^\d{4}(-\d{2})?$/.test(val), 'Must be YYYY or YYYY-MM format');
+
+/**
  * Single education entry schema
- * Note: Education entries don't have an id field in the data
  */
 export const EducationItemSchema = z.object({
-  location: z.string().min(1, 'Institution/Location is required'),
+  id: z.string().uuid('Must be valid UUID'),
+
+  institution: z.string().min(1, 'Institution is required'),
 
   title: z.string().min(1, 'Title is required'),
 
   logo: z.string().url('Logo must be a valid URL'),
 
-  start: z.string().min(1, 'Start date is required'),
+  startDate: dateSchema,
 
-  end: z.string().optional(),
+  endDate: dateSchema.nullable(),
 
-  certificate: z.string().url('Certificate must be a valid URL').optional(),
+  certificateUrl: z.string().url('Certificate must be a valid URL').nullable(),
 });
 
 /**

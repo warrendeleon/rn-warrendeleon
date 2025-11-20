@@ -62,7 +62,7 @@ export const ProfileSchema = z.object({
 
   location: LocationSchema,
 
-  carousel: z.array(z.string().url('Carousel image must be a valid URL')),
+  galleryImages: z.array(z.string().url('Gallery image must be a valid URL')),
 
   socials: SocialsSchema,
 });

@@ -57,6 +57,7 @@
     "unitTest": "Testing unitari",
     "e2e": "Testing de punta a punta",
     "devTools": "Eines de desenvolupament",
+    "cicd": "CI/CD",
     "agileMethodology": "Metodologia àgil",
     "keyResponsibilities": "Responsabilitats clau",
     "accessibility": {

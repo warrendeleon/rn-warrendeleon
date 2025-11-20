@@ -57,6 +57,7 @@
     "unitTest": "Testing unitario",
     "e2e": "Testing de extremo a extremo",
     "devTools": "Herramientas de desarrollo",
+    "cicd": "CI/CD",
     "agileMethodology": "Metodología ágil",
     "keyResponsibilities": "Responsabilidades clave",
     "accessibility": {

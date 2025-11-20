@@ -54,7 +54,7 @@ export {
   clearEducation,
   fetchEducation,
   selectEducation,
-  selectEducationByLocation,
+  selectEducationByInstitution,
   selectEducationError,
   selectEducationLoading,
   selectEducationWithCertificates,

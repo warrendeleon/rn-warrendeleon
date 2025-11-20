@@ -23,6 +23,19 @@ module.exports = {
       },
     ],
     'react-native-worklets/plugin',
+    [
+      'module:react-native-dotenv',
+      {
+        envName: 'NODE_ENV',
+        moduleName: '@env',
+        path: `.env.${process.env.NODE_ENV || 'development'}`,
+        blocklist: null,
+        allowlist: null,
+        safe: false,
+        allowUndefined: true,
+        verbose: false,
+      },
+    ],
     'transform-inline-environment-variables',
   ],
 };

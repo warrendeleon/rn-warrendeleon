@@ -57,6 +57,7 @@
     "unitTest": "Unit Testing",
     "e2e": "End-to-End Testing",
     "devTools": "Mga Gamit sa Pag-develop",
+    "cicd": "CI/CD",
     "agileMethodology": "Agile Methodology",
     "keyResponsibilities": "Mga Pangunahing Responsibilidad",
     "accessibility": {

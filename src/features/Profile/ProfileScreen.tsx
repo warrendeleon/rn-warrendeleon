@@ -194,8 +194,8 @@ export const ProfileScreen: React.FC = () => {
   }, []);
 
   const carouselImage = useMemo(() => {
-    if (profile?.carousel && profile.carousel.length > 0) {
-      return profile.carousel[0];
+    if (profile?.galleryImages && profile.galleryImages.length > 0) {
+      return profile.galleryImages[0];
     }
     return profile?.profilePicture;
   }, [profile]);

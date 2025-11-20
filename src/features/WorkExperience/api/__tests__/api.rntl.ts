@@ -133,8 +133,8 @@ describe('WorkExperience API - E2E Mocking Logic', () => {
       expect(Array.isArray(firstItem.positions)).toBe(true);
       const firstPosition = firstItem.positions[0]!;
       expect(firstPosition).toHaveProperty('title');
-      expect(firstPosition).toHaveProperty('start');
-      expect(firstPosition).toHaveProperty('end');
+      expect(firstPosition).toHaveProperty('startDate');
+      expect(firstPosition).toHaveProperty('endDate');
     });
   });
 });

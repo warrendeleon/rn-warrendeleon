@@ -35,10 +35,14 @@ export {
 
 // Work Experience schema
 export {
-  type Client,
-  ClientSchema,
+  type ClientReference,
+  ClientReferenceSchema,
   type Position,
   PositionSchema,
+  type Technologies,
+  TechnologiesSchema,
+  type TestingConfig,
+  TestingConfigSchema,
   type WorkExperience,
   WorkExperienceItemSchema,
   type WorkExperienceList,

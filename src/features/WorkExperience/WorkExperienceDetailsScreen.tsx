@@ -9,15 +9,11 @@ import { useRoute } from '@react-navigation/native';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppSelector } from '@app/store';
+import { formatDateRange } from '@app/utils/dateFormatter';
 
-import { selectCompanyInfoByPositionId, selectWorkExperienceOrClientById } from './store/selectors';
+import { selectCompanyInfoByPositionId, selectPositionById } from './store/selectors';
 
 type WorkExperienceDetailsScreenRouteProp = RouteProp<RootStackParamList, 'WorkExperienceDetails'>;
-
-const formatDateRange = (start: string, end: string, presentText: string): string => {
-  const endDate = end === 'Present' ? presentText : end;
-  return `${start} - ${endDate}`;
-};
 
 /**
  * Pure helper that computes themed styles for work experience details
@@ -160,7 +156,7 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
 
   // Get position data
   const position = useAppSelector(
-    state => selectWorkExperienceOrClientById(state, workExperienceId),
+    state => selectPositionById(state, workExperienceId),
     (a, b) => a?.id === b?.id
   );
 
@@ -173,18 +169,19 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
 
   const dateRange = useMemo(() => {
     if (!position) return '';
-    return formatDateRange(position.start, position.end, t('workExperience.present'));
+    return formatDateRange(position.startDate, position.endDate, t('workExperience.present'));
   }, [position, t]);
 
   // Check if this is a technical role (has tech stack) or manager role (has responsibilities)
   const hasTechContent = useMemo(() => {
     return (
-      position?.programmingLanguages?.length ||
-      position?.techStack?.length ||
-      position?.unitTest?.length ||
-      position?.e2e?.length ||
-      position?.devTools?.length ||
-      position?.agileMethodology?.length
+      position?.technologies?.languages?.length ||
+      position?.technologies?.frameworks?.length ||
+      position?.technologies?.testing?.unit?.length ||
+      position?.technologies?.testing?.e2e?.length ||
+      position?.technologies?.tools?.length ||
+      position?.technologies?.ci?.length ||
+      position?.technologies?.methodology?.length
     );
   }, [position]);
 
@@ -386,37 +383,43 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
         >
           <TechSectionComponent
             title={t('workExperience.programmingLanguages')}
-            items={position.programmingLanguages}
+            items={position.technologies?.languages}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.techStack')}
-            items={position.techStack}
+            items={position.technologies?.frameworks}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.unitTest')}
-            items={position.unitTest}
+            items={position.technologies?.testing?.unit ?? undefined}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.e2e')}
-            items={position.e2e}
+            items={position.technologies?.testing?.e2e ?? undefined}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.devTools')}
-            items={position.devTools}
+            items={position.technologies?.tools ?? undefined}
+            isDark={isDark}
+          />
+
+          <TechSectionComponent
+            title={t('workExperience.cicd')}
+            items={position.technologies?.ci ?? undefined}
             isDark={isDark}
           />
 
           <TechSectionComponent
             title={t('workExperience.agileMethodology')}
-            items={position.agileMethodology}
+            items={position.technologies?.methodology}
             isDark={isDark}
           />
         </Box>

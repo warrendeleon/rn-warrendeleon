@@ -2,50 +2,66 @@
  * Work Experience Data Schema
  *
  * Validates work experience history from GitHub API.
- * Includes nested Position and Client objects.
+ * Includes nested Position, Technologies, and Client Reference objects.
  */
 
 import { z } from 'zod';
 
 /**
- * Position schema (for multiple roles at same company)
- * Developer roles have tech fields, manager roles have responsibilities
+ * Date format validator - accepts both YYYY and YYYY-MM formats
  */
-export const PositionSchema = z.object({
-  id: z.string().min(1, 'Position ID is required'),
-  title: z.string().min(1, 'Position title is required'),
-  start: z.string().min(1, 'Start date is required'),
-  end: z.string().min(1, 'End date is required'),
-  description: z.string().min(1, 'Description is required'),
-  // Technical fields (for developer roles)
-  programmingLanguages: z.array(z.string()).optional(),
-  techStack: z.array(z.string()).optional(),
-  unitTest: z.array(z.string()).optional(),
-  e2e: z.array(z.string()).optional(),
-  devTools: z.array(z.string()).optional(),
-  agileMethodology: z.array(z.string()).optional(),
-  // Management fields (for manager roles)
-  responsibilities: z.array(z.string()).optional(),
+const dateSchema = z
+  .string()
+  .refine(val => /^\d{4}(-\d{2})?$/.test(val), 'Must be YYYY or YYYY-MM format');
+
+/**
+ * Testing framework configuration schema
+ */
+export const TestingConfigSchema = z.object({
+  unit: z.array(z.string()).nullable(),
+  e2e: z.array(z.string()).nullable(),
 });
 
 /**
- * Client schema (for contract work)
+ * Technology stack schema
  */
-export const ClientSchema = z.object({
-  id: z.string().min(1, 'Client ID is required'),
-  company: z.string().min(1, 'Company name is required'),
-  logo: z.string().url('Logo must be a valid URL'),
-  start: z.string().min(1, 'Start date is required'),
-  end: z.string().min(1, 'End date is required'),
-  type: z.string().min(1, 'Type is required'),
-  position: z.string().min(1, 'Position is required'),
-  programmingLanguages: z.array(z.string()),
-  techStack: z.array(z.string()),
-  unitTest: z.array(z.string()).optional(),
-  e2e: z.array(z.string()).optional(),
-  devTools: z.array(z.string()),
-  agileMethodology: z.array(z.string()),
+export const TechnologiesSchema = z.object({
+  languages: z.array(z.string()),
+  frameworks: z.array(z.string()),
+  testing: TestingConfigSchema.nullable(),
+  tools: z.array(z.string()),
+  ci: z.array(z.string()).nullable(),
+  methodology: z.array(z.string()),
+});
+
+/**
+ * Client reference schema (for contract positions)
+ */
+export const ClientReferenceSchema = z.object({
+  name: z.string().min(1, 'Client name is required'),
+  logo: z.string().url('Client logo must be a valid URL'),
+});
+
+/**
+ * Position schema (for multiple roles at same company)
+ * Developer roles have technologies, manager roles have responsibilities
+ */
+export const PositionSchema = z.object({
+  id: z.string().min(1, 'Position ID is required'),
+
+  title: z.string().min(1, 'Position title is required'),
+
+  startDate: dateSchema,
+
+  endDate: dateSchema.nullable(),
+
   description: z.string().min(1, 'Description is required'),
+
+  responsibilities: z.array(z.string()).nullable(),
+
+  technologies: TechnologiesSchema.nullable(),
+
+  client: ClientReferenceSchema.nullish(),
 });
 
 /**
@@ -53,10 +69,12 @@ export const ClientSchema = z.object({
  */
 export const WorkExperienceItemSchema = z.object({
   id: z.string().min(1, 'Work experience ID is required'),
+
   company: z.string().min(1, 'Company name is required'),
-  logo: z.string().url('Logo must be a valid URL').optional(),
+
+  logo: z.string().url('Company logo must be a valid URL').optional(),
+
   positions: z.array(PositionSchema).min(1, 'At least one position is required'),
-  clients: z.array(ClientSchema).optional(),
 });
 
 /**
@@ -67,7 +85,9 @@ export const WorkExperienceSchema = z.array(WorkExperienceItemSchema);
 /**
  * TypeScript types
  */
+export type TestingConfig = z.infer<typeof TestingConfigSchema>;
+export type Technologies = z.infer<typeof TechnologiesSchema>;
+export type ClientReference = z.infer<typeof ClientReferenceSchema>;
 export type Position = z.infer<typeof PositionSchema>;
-export type Client = z.infer<typeof ClientSchema>;
 export type WorkExperience = z.infer<typeof WorkExperienceItemSchema>;
 export type WorkExperienceList = z.infer<typeof WorkExperienceSchema>;

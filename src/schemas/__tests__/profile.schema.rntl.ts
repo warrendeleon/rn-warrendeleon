@@ -28,7 +28,7 @@ describe('ProfileSchema', () => {
           longitude: 0.24678,
         },
       },
-      carousel: ['https://example.com/1.jpg', 'https://example.com/2.jpg'],
+      galleryImages: ['https://example.com/1.jpg', 'https://example.com/2.jpg'],
       socials: {
         facebook: 'https://facebook.com/test',
         twitter: 'https://twitter.com/test',
@@ -81,10 +81,10 @@ describe('ProfileSchema', () => {
     expect(result.success).toBe(true);
   });
 
-  it('validates carousel with multiple images', () => {
+  it('validates galleryImages with multiple images', () => {
     const result = ProfileSchema.safeParse(profileFixture);
     if (result.success) {
-      expect(result.data.carousel.length).toBeGreaterThan(0);
+      expect(result.data.galleryImages.length).toBeGreaterThan(0);
     }
   });
 });

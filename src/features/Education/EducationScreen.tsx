@@ -7,17 +7,12 @@ import { DetailListGroup, type DetailListGroupItem } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppDispatch, useAppSelector } from '@app/store';
+import { formatDate } from '@app/utils/dateFormatter';
 
 import { fetchEducation } from './store/actions';
 import { selectEducation, selectEducationError, selectEducationLoading } from './store/selectors';
 
 type EducationScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Education'>;
-
-// Format date range
-const formatDateRange = (start: string, end?: string): string => {
-  const endDate = end || 'Present';
-  return `${start} - ${endDate}`;
-};
 
 export const EducationScreen: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -48,15 +43,22 @@ export const EducationScreen: React.FC = () => {
   const educationItems: DetailListGroupItem[] = useMemo(() => {
     if (!education) return [];
 
-    return education.map(item => ({
-      id: `${item.location}-${item.title}`,
-      label: item.title,
-      subtitle: `${item.location} • ${formatDateRange(item.start, item.end)}`,
-      logoUri: item.logo,
-      onPress: item.certificate ? () => handleEducationPress(item.certificate) : undefined,
-      testID: `education-item-${item.location.toLowerCase().replace(/\s+/g, '-')}`,
-      showChevron: !!item.certificate,
-    }));
+    return education.map(item => {
+      // Format dates using the date formatter
+      const formattedStart = formatDate(item.startDate);
+      const formattedEnd = item.endDate ? formatDate(item.endDate) : null;
+      const dateRange = formattedEnd ? `${formattedStart} - ${formattedEnd}` : formattedStart;
+
+      return {
+        id: `${item.institution}-${item.title}`,
+        label: item.title,
+        subtitle: `${item.institution} • ${dateRange}`,
+        logoUri: item.logo,
+        onPress: item.certificateUrl ? () => handleEducationPress(item.certificateUrl!) : undefined,
+        testID: `education-item-${item.institution.toLowerCase().replace(/\s+/g, '-')}`,
+        showChevron: !!item.certificateUrl,
+      };
+    });
   }, [education, handleEducationPress]);
 
   return (

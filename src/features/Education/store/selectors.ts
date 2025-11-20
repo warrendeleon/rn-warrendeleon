@@ -22,11 +22,11 @@ export const selectEducationError = createSelector(selectEducationState, state =
  * Derived selectors for specific education data
  */
 export const selectEducationWithCertificates = createSelector(selectEducation, education =>
-  education.filter(item => item.certificate)
+  education.filter(item => item.certificateUrl)
 );
 
-export const selectEducationByLocation = createSelector(
+export const selectEducationByInstitution = createSelector(
   selectEducation,
-  (_state: RootState, location: string) => location,
-  (education, location) => education.filter(item => item.location === location)
+  (_state: RootState, institution: string) => institution,
+  (education, institution) => education.filter(item => item.institution === institution)
 );

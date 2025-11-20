@@ -9,20 +9,18 @@ import { DetailListGroup, type DetailListGroupItem } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppSelector } from '@app/store';
+import { formatDateRange } from '@app/utils/dateFormatter';
 
-import { selectWorkExperienceById } from './store/selectors';
+import {
+  selectWorkExperienceById,
+  selectWorkExperiencePositionsWithClientsById,
+} from './store/selectors';
 
 type WorkExperienceClientsScreenRouteProp = RouteProp<RootStackParamList, 'WorkExperienceClients'>;
 
 interface WorkExperienceClientsScreenProps {
   route: WorkExperienceClientsScreenRouteProp;
 }
-
-// Format date range for clients
-const formatDateRange = (start: string, end: string, presentText: string): string => {
-  const endDate = end === 'Present' ? presentText : end;
-  return `${start} - ${endDate}`;
-};
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'WorkExperienceClients'>;
 
@@ -37,7 +35,9 @@ export const WorkExperienceClientsScreen: React.FC<WorkExperienceClientsScreenPr
   const { workExperienceId } = route.params;
 
   const workExperience = useAppSelector(state => selectWorkExperienceById(state, workExperienceId));
-  const clients = workExperience?.clients ?? [];
+  const clientPositions = useAppSelector(state =>
+    selectWorkExperiencePositionsWithClientsById(state, workExperienceId)
+  );
 
   // Set navigation title to company name
   useLayoutEffect(() => {
@@ -49,30 +49,36 @@ export const WorkExperienceClientsScreen: React.FC<WorkExperienceClientsScreenPr
   }, [navigation, workExperience?.company]);
 
   const clientItems: DetailListGroupItem[] = useMemo(() => {
-    if (!clients || clients.length === 0) return [];
+    if (!clientPositions || clientPositions.length === 0) return [];
 
-    return clients.map(client => {
-      const dateRange = formatDateRange(client.start, client.end, t('workExperience.present'));
+    return clientPositions.map(position => {
+      // Position has a client reference
+      const client = position.client!;
+      const dateRange = formatDateRange(
+        position.startDate,
+        position.endDate,
+        t('workExperience.present')
+      );
 
       return {
-        id: client.id,
-        label: client.position,
-        subtitle: `${client.company} • ${dateRange}`,
+        id: position.id,
+        label: position.title,
+        subtitle: `${client.name} • ${dateRange}`,
         logoUri: client.logo,
-        testID: `work-experience-clients-item-${client.id}`,
+        testID: `work-experience-clients-item-${position.id}`,
         showChevron: true,
         onPress: () => {
-          navigation.navigate('WorkExperienceDetails', { workExperienceId: client.id });
+          navigation.navigate('WorkExperienceDetails', { workExperienceId: position.id });
         },
         accessibilityLabel: t('workExperience.clients.accessibility.itemLabel', {
-          position: client.position,
-          company: client.company,
+          position: position.title,
+          company: client.name,
           dates: dateRange,
         }),
         accessibilityHint: t('workExperience.clients.accessibility.itemHint'),
       };
     });
-  }, [t, clients, navigation]);
+  }, [t, clientPositions, navigation]);
 
   return (
     <ScrollView

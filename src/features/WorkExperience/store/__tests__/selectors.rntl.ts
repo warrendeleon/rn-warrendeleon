@@ -2,13 +2,14 @@ import type { RootState } from '@app/store';
 import type { WorkExperience } from '@app/types/portfolio';
 
 import {
+  selectCompanyInfoByPositionId,
+  selectPositionById,
   selectWorkExperience,
   selectWorkExperienceByCompany,
   selectWorkExperienceById,
-  selectWorkExperienceClientsById,
   selectWorkExperienceError,
   selectWorkExperienceLoading,
-  selectWorkExperienceOrClientById,
+  selectWorkExperiencePositionsWithClientsById,
   selectWorkExperienceWithClients,
 } from '../selectors';
 
@@ -21,25 +22,25 @@ describe('WorkExperience selectors', () => {
         {
           id: 'pos-1',
           title: 'Developer',
-          start: '2020-01-01',
-          end: '2021-01-01',
+          startDate: '2020-01',
+          endDate: '2021-01',
           description: 'Test A',
-        },
-      ],
-      clients: [
-        {
-          id: 'c1',
-          company: 'Client 1',
-          logo: 'https://example.com/client1.svg',
-          position: 'Developer',
-          start: '2020-01-01',
-          end: '2021-01-01',
-          type: 'contract',
-          programmingLanguages: ['TypeScript'],
-          techStack: ['React Native'],
-          devTools: ['VS Code'],
-          agileMethodology: ['Scrum'],
-          description: 'Client work',
+          responsibilities: null,
+          technologies: {
+            languages: ['TypeScript'],
+            frameworks: ['React Native'],
+            testing: {
+              unit: ['Jest'],
+              e2e: null,
+            },
+            tools: ['VS Code'],
+            ci: null,
+            methodology: ['Scrum'],
+          },
+          client: {
+            name: 'Client 1',
+            logo: 'https://example.com/client1.svg',
+          },
         },
       ],
     },
@@ -50,9 +51,12 @@ describe('WorkExperience selectors', () => {
         {
           id: 'pos-2',
           title: 'Senior Developer',
-          start: '2021-01-01',
-          end: '2022-01-01',
+          startDate: '2021-01',
+          endDate: '2022-01',
           description: 'Test B',
+          responsibilities: null,
+          technologies: null,
+          client: null,
         },
       ],
     },
@@ -63,9 +67,12 @@ describe('WorkExperience selectors', () => {
         {
           id: 'pos-3',
           title: 'Lead Developer',
-          start: '2022-01-01',
-          end: 'Present',
+          startDate: '2022-01',
+          endDate: null,
           description: 'Test C',
+          responsibilities: ['Team Leadership', 'Technical Direction'],
+          technologies: null,
+          client: null,
         },
       ],
     },
@@ -128,25 +135,25 @@ describe('WorkExperience selectors', () => {
   });
 
   describe('selectWorkExperienceWithClients', () => {
-    it('should select only work experience with clients', () => {
+    it('should select only work experience with positions that have clients', () => {
       const result = selectWorkExperienceWithClients(mockState);
       expect(result).toHaveLength(1);
       expect(result[0]!.id).toBe('1');
-      expect(result[0]!.clients).toBeDefined();
-      expect(result[0]!.clients?.length).toBeGreaterThan(0);
+      const positionsWithClients = result[0]!.positions.filter(pos => pos.client !== null);
+      expect(positionsWithClients.length).toBeGreaterThan(0);
     });
 
-    it('should return empty array when no work experience has clients', () => {
+    it('should return empty array when no positions have clients', () => {
       const noClientsState = {
         ...mockState,
         workExperience: {
-          data: mockWorkExperience.filter(item => !item.clients),
+          data: mockWorkExperience.filter(item => !item.positions.some(pos => pos.client !== null)),
           loading: false,
           error: null,
         },
       };
       const result = selectWorkExperienceWithClients(noClientsState);
-      expect(result).toEqual([]); // Should return empty array since none have clients
+      expect(result).toEqual([]);
     });
   });
 
@@ -177,7 +184,7 @@ describe('WorkExperience selectors', () => {
     it('returns the matching work experience entry', () => {
       const result = selectWorkExperienceById(mockState, '1');
       expect(result?.company).toBe('Company A');
-      expect(result?.clients).toHaveLength(1);
+      expect(result?.positions).toHaveLength(1);
     });
 
     it('returns null when id does not exist', () => {
@@ -186,130 +193,60 @@ describe('WorkExperience selectors', () => {
     });
   });
 
-  describe('selectWorkExperienceClientsById', () => {
-    it('returns clients for the matching work experience entry', () => {
-      const result = selectWorkExperienceClientsById(mockState, '1');
+  describe('selectWorkExperiencePositionsWithClientsById', () => {
+    it('returns positions with clients for the matching work experience entry', () => {
+      const result = selectWorkExperiencePositionsWithClientsById(mockState, '1');
       expect(result).toHaveLength(1);
-      expect(result[0]!.company).toBe('Client 1');
+      expect(result[0]!.client?.name).toBe('Client 1');
     });
 
-    it('returns empty array when no clients exist', () => {
-      const result = selectWorkExperienceClientsById(mockState, '2');
+    it('returns empty array when no positions have clients', () => {
+      const result = selectWorkExperiencePositionsWithClientsById(mockState, '2');
       expect(result).toEqual([]);
     });
 
     it('returns empty array when id is unknown', () => {
-      const result = selectWorkExperienceClientsById(mockState, 'unknown');
+      const result = selectWorkExperiencePositionsWithClientsById(mockState, 'unknown');
       expect(result).toEqual([]);
     });
   });
 
-  describe('selectWorkExperienceOrClientById', () => {
+  describe('selectPositionById', () => {
     describe('Position Matching', () => {
       it('returns position when ID matches a position entry', () => {
-        const result = selectWorkExperienceOrClientById(mockState, 'pos-1');
+        const result = selectPositionById(mockState, 'pos-1');
         expect(result).not.toBeNull();
         expect(result?.id).toBe('pos-1');
         expect(result?.title).toBe('Developer');
-        expect(result?.start).toBe('2020-01-01');
+        expect(result?.startDate).toBe('2020-01');
       });
 
       it('returns position with all properties intact', () => {
-        const result = selectWorkExperienceOrClientById(mockState, 'pos-2');
+        const result = selectPositionById(mockState, 'pos-2');
         expect(result).not.toBeNull();
         expect(result?.id).toBe('pos-2');
         expect(result?.title).toBe('Senior Developer');
-        expect(result?.start).toBe('2021-01-01');
-        expect(result?.end).toBe('2022-01-01');
+        expect(result?.startDate).toBe('2021-01');
+        expect(result?.endDate).toBe('2022-01');
         expect(result?.description).toBe('Test B');
       });
 
-      it('prioritizes position over client when IDs could overlap', () => {
-        // First checks positions, then clients
-        const result = selectWorkExperienceOrClientById(mockState, 'pos-1');
-        expect(result?.title).toBe('Developer');
-        expect(result?.description).toBe('Test A');
-      });
-    });
-
-    describe('Client Matching and Conversion', () => {
-      it('returns client converted to position format when client ID matches', () => {
-        const result = selectWorkExperienceOrClientById(mockState, 'c1');
-        expect(result).not.toBeNull();
-        expect(result?.id).toBe('c1');
-        expect(result?.title).toBe('Developer');
+      it('returns position with client reference', () => {
+        const result = selectPositionById(mockState, 'pos-1');
+        expect(result?.client).not.toBeNull();
+        expect(result?.client?.name).toBe('Client 1');
+        expect(result?.client?.logo).toBe('https://example.com/client1.svg');
       });
 
-      it('converts client with all required properties', () => {
-        const result = selectWorkExperienceOrClientById(mockState, 'c1');
-        expect(result).not.toBeNull();
-        expect(result?.start).toBe('2020-01-01');
-        expect(result?.end).toBe('2021-01-01');
-        expect(result?.programmingLanguages).toEqual(['TypeScript']);
-        expect(result?.techStack).toEqual(['React Native']);
-        expect(result?.devTools).toEqual(['VS Code']);
-        expect(result?.agileMethodology).toEqual(['Scrum']);
-        expect(result?.description).toBe('Client work');
-      });
-
-      it('client conversion does not include sub-clients', () => {
-        const result = selectWorkExperienceOrClientById(mockState, 'c1');
-        expect(result).not.toBeNull();
-        // Position type doesn't have clients property
-        expect(result?.id).toBe('c1');
-      });
-
-      it('searches through all work experience entries for client match', () => {
-        // Create state with client in second work experience entry
-        const stateWithMultipleClients: RootState = {
-          ...mockState,
-          workExperience: {
-            ...mockState.workExperience,
-            data: [
-              ...mockWorkExperience,
-              {
-                id: '4',
-                company: 'Company C',
-                positions: [
-                  {
-                    id: 'pos-4',
-                    title: 'Manager',
-                    start: '2023-01-01',
-                    end: 'Present',
-                    description: 'Test D',
-                  },
-                ],
-                clients: [
-                  {
-                    id: 'c2',
-                    company: 'Client 2',
-                    logo: 'https://example.com/client2.svg',
-                    position: 'Tech Lead',
-                    start: '2023-01-01',
-                    end: 'Present',
-                    type: 'contract',
-                    programmingLanguages: ['JavaScript'],
-                    techStack: ['React'],
-                    devTools: ['VSCode'],
-                    agileMethodology: ['Kanban'],
-                    description: 'Client 2 work',
-                  },
-                ],
-              },
-            ],
-          },
-        };
-
-        const result = selectWorkExperienceOrClientById(stateWithMultipleClients, 'c2');
-        expect(result).not.toBeNull();
-        expect(result?.id).toBe('c2');
-        expect(result?.title).toBe('Tech Lead');
+      it('returns position without client', () => {
+        const result = selectPositionById(mockState, 'pos-2');
+        expect(result?.client).toBeNull();
       });
     });
 
     describe('Not Found Cases', () => {
-      it('returns null when ID does not match any work experience or client', () => {
-        const result = selectWorkExperienceOrClientById(mockState, 'nonexistent');
+      it('returns null when ID does not match any position', () => {
+        const result = selectPositionById(mockState, 'nonexistent');
         expect(result).toBeNull();
       });
 
@@ -318,114 +255,52 @@ describe('WorkExperience selectors', () => {
           ...mockState,
           workExperience: { data: [], loading: false, error: null },
         };
-        const result = selectWorkExperienceOrClientById(emptyState, '1');
-        expect(result).toBeNull();
-      });
-
-      it('returns null when work experience has no clients and ID does not match', () => {
-        const noClientsState: RootState = {
-          ...mockState,
-          workExperience: {
-            data: [
-              {
-                id: '100',
-                company: 'Company No Clients',
-                positions: [
-                  {
-                    id: 'pos-100',
-                    title: 'Developer',
-                    start: '2020-01-01',
-                    end: '2021-01-01',
-                    description: 'No clients here',
-                  },
-                ],
-              },
-            ],
-            loading: false,
-            error: null,
-          },
-        };
-        const result = selectWorkExperienceOrClientById(noClientsState, 'c1');
-        expect(result).toBeNull();
-      });
-    });
-
-    describe('Edge Cases', () => {
-      it('handles undefined clients array gracefully', () => {
-        const stateWithUndefinedClients: RootState = {
-          ...mockState,
-          workExperience: {
-            data: [
-              {
-                id: '5',
-                company: 'Company D',
-                positions: [
-                  {
-                    id: 'pos-5',
-                    title: 'Developer',
-                    start: '2020-01-01',
-                    end: '2021-01-01',
-                    description: 'Test',
-                  },
-                ],
-                clients: undefined,
-              },
-            ],
-            loading: false,
-            error: null,
-          },
-        };
-        const result = selectWorkExperienceOrClientById(stateWithUndefinedClients, 'c1');
-        expect(result).toBeNull();
-      });
-
-      it('handles empty clients array', () => {
-        const stateWithEmptyClients: RootState = {
-          ...mockState,
-          workExperience: {
-            data: [
-              {
-                id: '6',
-                company: 'Company E',
-                positions: [
-                  {
-                    id: 'pos-6',
-                    title: 'Developer',
-                    start: '2020-01-01',
-                    end: '2021-01-01',
-                    description: 'Test',
-                  },
-                ],
-                clients: [],
-              },
-            ],
-            loading: false,
-            error: null,
-          },
-        };
-        const result = selectWorkExperienceOrClientById(stateWithEmptyClients, 'c1');
-        expect(result).toBeNull();
-      });
-
-      it('handles empty string ID', () => {
-        const result = selectWorkExperienceOrClientById(mockState, '');
+        const result = selectPositionById(emptyState, 'pos-1');
         expect(result).toBeNull();
       });
     });
 
     describe('Memoization', () => {
       it('returns same reference when called with same state and ID', () => {
-        const result1 = selectWorkExperienceOrClientById(mockState, 'pos-1');
-        const result2 = selectWorkExperienceOrClientById(mockState, 'pos-1');
-        // Memoization ensures same reference for same inputs
+        const result1 = selectPositionById(mockState, 'pos-1');
+        const result2 = selectPositionById(mockState, 'pos-1');
         expect(result1).toBe(result2);
       });
 
       it('returns different reference for different IDs', () => {
-        const result1 = selectWorkExperienceOrClientById(mockState, 'pos-1');
-        const result2 = selectWorkExperienceOrClientById(mockState, 'pos-2');
+        const result1 = selectPositionById(mockState, 'pos-1');
+        const result2 = selectPositionById(mockState, 'pos-2');
         expect(result1).not.toBe(result2);
       });
+    });
+  });
+
+  describe('selectCompanyInfoByPositionId', () => {
+    it('returns company info when position has no client', () => {
+      const result = selectCompanyInfoByPositionId(mockState, 'pos-2');
+      expect(result).not.toBeNull();
+      expect(result?.company).toBe('Company B');
+    });
+
+    it('returns client info when position has client', () => {
+      const result = selectCompanyInfoByPositionId(mockState, 'pos-1');
+      expect(result).not.toBeNull();
+      expect(result?.company).toBe('Client 1');
+      expect(result?.logo).toBe('https://example.com/client1.svg');
+    });
+
+    it('returns null when position ID does not exist', () => {
+      const result = selectCompanyInfoByPositionId(mockState, 'nonexistent');
+      expect(result).toBeNull();
+    });
+
+    it('returns null when data is empty', () => {
+      const emptyState: RootState = {
+        ...mockState,
+        workExperience: { data: [], loading: false, error: null },
+      };
+      const result = selectCompanyInfoByPositionId(emptyState, 'pos-1');
+      expect(result).toBeNull();
     });
   });
 });

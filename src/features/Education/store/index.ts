@@ -8,7 +8,7 @@ export { fetchEducation } from './actions';
 // Selectors
 export {
   selectEducation,
-  selectEducationByLocation,
+  selectEducationByInstitution,
   selectEducationError,
   selectEducationLoading,
   selectEducationWithCertificates,

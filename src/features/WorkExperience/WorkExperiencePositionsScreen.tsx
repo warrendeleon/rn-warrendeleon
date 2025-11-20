@@ -9,6 +9,7 @@ import { DetailListGroup, type DetailListGroupItem } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppSelector } from '@app/store';
+import { formatDateRange } from '@app/utils/dateFormatter';
 
 import { selectWorkExperienceById } from './store/selectors';
 
@@ -20,12 +21,6 @@ type WorkExperiencePositionsScreenRouteProp = RouteProp<
 interface WorkExperiencePositionsScreenProps {
   route: WorkExperiencePositionsScreenRouteProp;
 }
-
-// Format date range for positions
-const formatDateRange = (start: string, end: string, presentText: string): string => {
-  const endDate = end === 'Present' ? presentText : end;
-  return `${start} - ${endDate}`;
-};
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'WorkExperiencePositions'>;
 
@@ -62,7 +57,11 @@ const WorkExperiencePositionsScreenComponent: React.FC<WorkExperiencePositionsSc
     if (!positions || positions.length === 0) return [];
 
     return positions.map(position => {
-      const dateRange = formatDateRange(position.start, position.end, t('workExperience.present'));
+      const dateRange = formatDateRange(
+        position.startDate,
+        position.endDate,
+        t('workExperience.present')
+      );
 
       return {
         id: position.id,

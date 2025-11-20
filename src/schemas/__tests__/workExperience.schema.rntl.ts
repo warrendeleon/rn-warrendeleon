@@ -1,7 +1,7 @@
 import workxpFixture from '@app/test-utils/fixtures/api/en/workxp.json';
 
 import {
-  ClientSchema,
+  ClientReferenceSchema,
   PositionSchema,
   WorkExperienceItemSchema,
   WorkExperienceSchema,
@@ -22,12 +22,13 @@ describe('WorkExperienceSchema', () => {
     }
   });
 
-  it('validates work experience with clients', () => {
+  it('validates work experience with client references in positions', () => {
     const result = WorkExperienceSchema.safeParse(workxpFixture);
     if (result.success) {
-      // xDesign has clients
+      // xDesign has positions with client references
       const xdesign = result.data.find(exp => exp.company === 'xDesign');
-      expect(xdesign?.clients?.length).toBeGreaterThan(0);
+      const positionsWithClients = xdesign?.positions.filter(pos => pos.client !== null);
+      expect(positionsWithClients?.length).toBeGreaterThan(0);
     }
   });
 });
@@ -37,15 +38,22 @@ describe('PositionSchema', () => {
     const validPosition = {
       id: 'pos-1',
       title: 'Senior React Native Engineer',
-      start: 'Jan 2023',
-      end: 'Oct 2023',
+      startDate: '2023-01',
+      endDate: '2023-10',
       description: 'Developed mobile apps',
-      programmingLanguages: ['TypeScript'],
-      techStack: ['React Native', 'Redux'],
-      unitTest: ['RNTL'],
-      e2e: ['Detox'],
-      devTools: ['VS Code', 'Git'],
-      agileMethodology: ['Scrum'],
+      responsibilities: null,
+      technologies: {
+        languages: ['TypeScript'],
+        frameworks: ['React Native', 'Redux'],
+        testing: {
+          unit: ['RNTL'],
+          e2e: ['Detox'],
+        },
+        tools: ['VS Code', 'Git'],
+        ci: null,
+        methodology: ['Scrum'],
+      },
+      client: null,
     };
 
     const result = PositionSchema.safeParse(validPosition);
@@ -56,10 +64,12 @@ describe('PositionSchema', () => {
     const validPosition = {
       id: 'pos-2',
       title: 'Software Engineering Manager',
-      start: 'Oct 2023',
-      end: 'Dec 2025',
+      startDate: '2023-10',
+      endDate: '2025-12',
       description: 'Led engineering teams',
       responsibilities: ['People Leadership', 'Technical Direction'],
+      technologies: null,
+      client: null,
     };
 
     const result = PositionSchema.safeParse(validPosition);
@@ -76,53 +86,33 @@ describe('PositionSchema', () => {
   });
 });
 
-describe('ClientSchema', () => {
-  it('validates client with all required fields', () => {
-    const validClient = {
-      id: 'client-1',
-      company: 'FanDuel',
+describe('ClientReferenceSchema', () => {
+  it('validates client reference with all required fields', () => {
+    const validClientRef = {
+      name: 'FanDuel',
       logo: 'https://example.com/logo.svg',
-      start: 'Jan 2022',
-      end: 'Present',
-      type: 'contract',
-      position: 'Lead Developer',
-      programmingLanguages: ['TypeScript'],
-      techStack: ['React Native'],
-      devTools: ['WebStorm', 'Git'],
-      agileMethodology: ['SCRUM'],
-      description: 'Led development team',
     };
 
-    const result = ClientSchema.safeParse(validClient);
+    const result = ClientReferenceSchema.safeParse(validClientRef);
     expect(result.success).toBe(true);
   });
 
-  it('rejects client with missing required fields', () => {
+  it('rejects client reference with missing required fields', () => {
     const invalid = {
-      company: 'Test Company',
+      name: 'Test Company',
     };
 
-    const result = ClientSchema.safeParse(invalid);
+    const result = ClientReferenceSchema.safeParse(invalid);
     expect(result.success).toBe(false);
   });
 
-  it('rejects client with invalid logo URL', () => {
+  it('rejects client reference with invalid logo URL', () => {
     const invalid = {
-      id: 'client-1',
-      company: 'Test Company',
+      name: 'Test Company',
       logo: 'not-a-url',
-      start: 'Jan 2022',
-      end: 'Present',
-      type: 'contract',
-      position: 'Developer',
-      programmingLanguages: ['TypeScript'],
-      techStack: ['React Native'],
-      devTools: ['VS Code'],
-      agileMethodology: ['Scrum'],
-      description: 'Test description',
     };
 
-    const result = ClientSchema.safeParse(invalid);
+    const result = ClientReferenceSchema.safeParse(invalid);
     expect(result.success).toBe(false);
   });
 });
@@ -137,9 +127,12 @@ describe('WorkExperienceItemSchema', () => {
         {
           id: 'pos-1',
           title: 'Developer',
-          start: '2020',
-          end: '2021',
+          startDate: '2020',
+          endDate: '2021',
           description: 'Developed apps',
+          responsibilities: null,
+          technologies: null,
+          client: null,
         },
       ],
     };
@@ -167,9 +160,12 @@ describe('WorkExperienceItemSchema', () => {
         {
           id: 'pos-1',
           title: 'Developer',
-          start: '2020',
-          end: '2021',
+          startDate: '2020',
+          endDate: '2021',
           description: 'Developed apps',
+          responsibilities: null,
+          technologies: null,
+          client: null,
         },
       ],
     };

@@ -128,8 +128,8 @@ describe('Education API - E2E Mocking Logic', () => {
       expect(Array.isArray(educationEN)).toBe(true);
       expect(educationEN.length).toBeGreaterThan(0);
       expect(educationEN[0]).toHaveProperty('title');
-      expect(educationEN[0]).toHaveProperty('location');
-      expect(educationEN[0]).toHaveProperty('start');
+      expect(educationEN[0]).toHaveProperty('institution');
+      expect(educationEN[0]).toHaveProperty('startDate');
     });
   });
 });

@@ -45,49 +45,51 @@ export interface Profile {
   phone: string;
   birthday: string;
   location: Location;
-  carousel: string[];
+  galleryImages: string[];
   socials: Socials;
 }
 
 /**
- * Client information for contract work
+ * Testing framework configuration
  */
-export interface Client {
-  id: string;
-  company: string;
+export interface TestingConfig {
+  unit: string[] | null;
+  e2e: string[] | null;
+}
+
+/**
+ * Technology stack for a position
+ */
+export interface Technologies {
+  languages: string[];
+  frameworks: string[];
+  testing: TestingConfig | null;
+  tools: string[];
+  ci: string[] | null;
+  methodology: string[];
+}
+
+/**
+ * Client reference for contract positions
+ */
+export interface ClientReference {
+  name: string;
   logo: string;
-  start: string;
-  end: string;
-  type: string;
-  position: string;
-  programmingLanguages: string[];
-  techStack: string[];
-  unitTest?: string[];
-  e2e?: string[];
-  devTools: string[];
-  agileMethodology: string[];
-  description: string;
 }
 
 /**
  * Position within a company
- * Supports both developer roles (with tech stack) and manager roles (with responsibilities)
+ * Supports both developer roles (with technologies) and manager roles (with responsibilities)
  */
 export interface Position {
   id: string;
   title: string;
-  start: string;
-  end: string;
+  startDate: string;
+  endDate: string | null;
   description: string;
-  // Technical fields (for developer roles)
-  programmingLanguages?: string[];
-  techStack?: string[];
-  unitTest?: string[];
-  e2e?: string[];
-  devTools?: string[];
-  agileMethodology?: string[];
-  // Management fields (for manager roles)
-  responsibilities?: string[];
+  responsibilities: string[] | null;
+  technologies: Technologies | null;
+  client?: ClientReference | null;
 }
 
 /**
@@ -98,17 +100,17 @@ export interface WorkExperience {
   company: string;
   logo?: string;
   positions: Position[];
-  clients?: Client[];
 }
 
 /**
  * Education entry
  */
 export interface Education {
-  location: string;
+  id: string;
+  institution: string;
   title: string;
   logo: string;
-  start: string;
-  end?: string;
-  certificate?: string;
+  startDate: string;
+  endDate: string | null;
+  certificateUrl: string | null;
 }

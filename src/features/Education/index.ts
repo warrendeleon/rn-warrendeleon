@@ -5,7 +5,7 @@ export {
   educationReducer,
   fetchEducation,
   selectEducation,
-  selectEducationByLocation,
+  selectEducationByInstitution,
   selectEducationError,
   selectEducationLoading,
   selectEducationWithCertificates,

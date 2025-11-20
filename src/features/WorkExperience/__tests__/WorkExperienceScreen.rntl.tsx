@@ -89,15 +89,22 @@ describe('WorkExperienceScreen', () => {
         {
           id: 'pos-1',
           title: 'Senior React Native Developer',
-          start: 'Jan 2023',
-          end: 'Present',
-          programmingLanguages: ['TypeScript'],
-          techStack: ['React Native', 'Redux'],
-          unitTest: ['RNTL'],
-          e2e: ['Detox'],
-          devTools: ['Xcode'],
-          agileMethodology: ['Scrum'],
+          startDate: 'Jan 2023',
+          endDate: null,
           description: 'Working on eSIM features',
+          responsibilities: null,
+          technologies: {
+            languages: ['TypeScript'],
+            frameworks: ['React Native', 'Redux'],
+            testing: {
+              unit: ['RNTL'],
+              e2e: ['Detox'],
+            },
+            tools: ['Xcode'],
+            ci: null,
+            methodology: ['Scrum'],
+          },
+          client: null,
         },
       ],
     },
@@ -109,45 +116,45 @@ describe('WorkExperienceScreen', () => {
         {
           id: 'pos-2',
           title: 'Lead React Native Developer',
-          start: 'Sep 2021',
-          end: 'Apr 2022',
-          programmingLanguages: ['TypeScript'],
-          techStack: ['React Native'],
-          unitTest: ['RNTL'],
-          e2e: ['Detox'],
-          devTools: ['Xcode'],
-          agileMethodology: ['Scrum'],
-          description: 'Leading React Native projects',
-        },
-      ],
-      clients: [
-        {
-          id: 'client-1',
-          company: 'FanDuel',
-          logo: 'https://example.com/fanduel.svg',
-          position: 'Lead Developer',
-          start: 'Jan 2022',
-          end: 'Present',
-          type: 'contract',
-          programmingLanguages: ['TypeScript'],
-          techStack: ['React Native'],
-          devTools: ['Xcode'],
-          agileMethodology: ['Scrum'],
+          startDate: 'Jan 2022',
+          endDate: null,
           description: 'Leading FanDuel team',
+          responsibilities: null,
+          technologies: {
+            languages: ['TypeScript'],
+            frameworks: ['React Native'],
+            testing: {
+              unit: ['RNTL'],
+              e2e: ['Detox'],
+            },
+            tools: ['Xcode'],
+            ci: null,
+            methodology: ['Scrum'],
+          },
+          client: {
+            name: 'FanDuel',
+            logo: 'https://example.com/fanduel.svg',
+          },
         },
         {
-          id: 'client-2',
-          company: 'Zonal',
-          logo: 'https://example.com/zonal.svg',
-          position: 'Senior Developer',
-          start: 'Sep 2021',
-          end: 'Dec 2021',
-          type: 'contract',
-          programmingLanguages: ['TypeScript'],
-          techStack: ['React Native'],
-          devTools: ['Xcode'],
-          agileMethodology: ['Scrum'],
+          id: 'pos-3',
+          title: 'Senior Developer',
+          startDate: 'Sep 2021',
+          endDate: 'Dec 2021',
           description: 'POS development',
+          responsibilities: null,
+          technologies: {
+            languages: ['TypeScript'],
+            frameworks: ['React Native'],
+            testing: null,
+            tools: ['Xcode'],
+            ci: null,
+            methodology: ['Scrum'],
+          },
+          client: {
+            name: 'Zonal',
+            logo: 'https://example.com/zonal.svg',
+          },
         },
       ],
     },
@@ -157,17 +164,24 @@ describe('WorkExperienceScreen', () => {
       logo: 'https://example.com/candide.svg',
       positions: [
         {
-          id: 'pos-3',
+          id: 'pos-4',
           title: 'Senior Software Engineer',
-          start: 'Apr 2022',
-          end: 'Jul 2022',
-          programmingLanguages: ['TypeScript'],
-          techStack: ['React Native'],
-          unitTest: ['RNTL'],
-          e2e: ['Detox'],
-          devTools: ['Xcode'],
-          agileMethodology: ['Kanban'],
+          startDate: 'Apr 2022',
+          endDate: 'Jul 2022',
           description: 'Developing new apps',
+          responsibilities: null,
+          technologies: {
+            languages: ['TypeScript'],
+            frameworks: ['React Native'],
+            testing: {
+              unit: ['RNTL'],
+              e2e: ['Detox'],
+            },
+            tools: ['Xcode'],
+            ci: null,
+            methodology: ['Kanban'],
+          },
+          client: null,
         },
       ],
     },
@@ -435,13 +449,7 @@ describe('WorkExperienceScreen', () => {
     it('formats date range with "Present" correctly', () => {
       const store = mockStore({
         workExperience: {
-          data: [
-            {
-              ...mockWorkExperienceData[0],
-              start: 'Jan 2023',
-              end: 'Present',
-            },
-          ],
+          data: [mockWorkExperienceData[0]],
           loading: false,
           error: null,
         },
@@ -592,15 +600,10 @@ describe('WorkExperienceScreen', () => {
       });
     });
 
-    it('navigates to WorkExperienceDetails when item has empty clients array', async () => {
+    it('navigates to WorkExperienceDetails when item has positions without clients', async () => {
       const store = mockStore({
         workExperience: {
-          data: [
-            {
-              ...mockWorkExperienceData[0],
-              clients: [],
-            },
-          ],
+          data: [mockWorkExperienceData[0]],
           loading: false,
           error: null,
         },
@@ -615,8 +618,8 @@ describe('WorkExperienceScreen', () => {
         </Provider>
       );
 
-      const itemWithEmptyClients = screen.getByTestId('work-experience-item-work-1');
-      fireEvent.press(itemWithEmptyClients);
+      const itemWithoutClients = screen.getByTestId('work-experience-item-work-1');
+      fireEvent.press(itemWithoutClients);
 
       await waitFor(() => {
         // Navigation uses position ID for single-position work experience
@@ -674,21 +677,21 @@ describe('WorkExperienceScreen', () => {
 
       const item = screen.getByTestId('work-experience-item-work-2');
       expect(item.props.accessibilityLabel).toBe(
-        'Lead React Native Developer at xDesign, Sep 2021 - Apr 2022'
+        'Lead React Native Developer at xDesign, Jan 2022 - Present'
       );
       expect(item.props.accessibilityHint).toBe('Tap to view 2 clients');
       expect(item.props.accessibilityRole).toBe('button');
     });
 
     it('has correct accessibility hint for single client', () => {
+      const workExpWithSingleClient: WorkExperience = {
+        ...mockWorkExperienceData[1]!,
+        positions: [mockWorkExperienceData[1]!.positions[0]!],
+      };
+
       const store = mockStore({
         workExperience: {
-          data: [
-            {
-              ...mockWorkExperienceData[1],
-              clients: [mockWorkExperienceData[1]?.clients?.[0]],
-            },
-          ],
+          data: [workExpWithSingleClient],
           loading: false,
           error: null,
         },
@@ -704,7 +707,8 @@ describe('WorkExperienceScreen', () => {
       );
 
       const item = screen.getByTestId('work-experience-item-work-2');
-      expect(item.props.accessibilityHint).toBe('Tap to view 1 client');
+      // Single client goes directly to details screen (not clients screen)
+      expect(item.props.accessibilityHint).toBe('Tap to view job details');
     });
   });
 
@@ -892,20 +896,10 @@ describe('WorkExperienceScreen', () => {
       expect(screen.getByTestId('items-container-empty')).toBeOnTheScreen();
     });
 
-    it('handles undefined clients array correctly', () => {
-      const dataWithUndefinedClients: WorkExperience[] = [
-        {
-          id: mockWorkExperienceData[0]!.id,
-          company: mockWorkExperienceData[0]!.company,
-          logo: mockWorkExperienceData[0]!.logo,
-          positions: mockWorkExperienceData[0]!.positions,
-          clients: undefined,
-        },
-      ];
-
+    it('handles positions without clients correctly', () => {
       const store = mockStore({
         workExperience: {
-          data: dataWithUndefinedClients,
+          data: [mockWorkExperienceData[0]],
           loading: false,
           error: null,
         },
@@ -929,20 +923,10 @@ describe('WorkExperienceScreen', () => {
       });
     });
 
-    it('handles item with zero clients correctly', () => {
-      const dataWithZeroClients: WorkExperience[] = [
-        {
-          id: mockWorkExperienceData[0]!.id,
-          company: mockWorkExperienceData[0]!.company,
-          logo: mockWorkExperienceData[0]!.logo,
-          positions: mockWorkExperienceData[0]!.positions,
-          clients: [],
-        },
-      ];
-
+    it('handles item with positions without clients correctly', () => {
       const store = mockStore({
         workExperience: {
-          data: dataWithZeroClients,
+          data: [mockWorkExperienceData[0]],
           loading: false,
           error: null,
         },

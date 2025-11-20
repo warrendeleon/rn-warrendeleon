@@ -70,19 +70,22 @@ jest.mock('@app/components', () => {
 describe('EducationScreen', () => {
   const mockEducationData: Education[] = [
     {
-      location: 'University A',
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      institution: 'University A',
       title: 'Computer Science Degree',
       logo: 'university-a.svg',
-      start: '2010-09-01',
-      end: '2014-06-30',
-      certificate: 'https://example.com/cert1.pdf',
+      startDate: '2010-09',
+      endDate: '2014-06',
+      certificateUrl: 'https://example.com/cert1.pdf',
     },
     {
-      location: 'Online Course B',
+      id: '123e4567-e89b-12d3-a456-426614174001',
+      institution: 'Online Course B',
       title: 'React Native Course',
       logo: 'udemy.svg',
-      start: '2020-01-01',
-      end: '2020-03-31',
+      startDate: '2020-01',
+      endDate: '2020-03',
+      certificateUrl: null,
     },
   ];
 

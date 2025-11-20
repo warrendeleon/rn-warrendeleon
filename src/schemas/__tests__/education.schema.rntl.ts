@@ -10,11 +10,13 @@ describe('EducationSchema', () => {
 
   it('validates single education item with certificate', () => {
     const validEducation = {
-      location: 'Udemy',
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      institution: 'Udemy',
       title: 'CircleCI: The complete introduction',
       logo: 'https://example.com/logo.svg',
-      start: 'April 2021',
-      certificate: 'https://example.com/certificate.jpg',
+      startDate: '2021-04',
+      endDate: null,
+      certificateUrl: 'https://example.com/certificate.jpg',
     };
 
     const result = EducationItemSchema.safeParse(validEducation);
@@ -23,11 +25,13 @@ describe('EducationSchema', () => {
 
   it('validates single education item without certificate', () => {
     const validEducation = {
-      location: 'University',
+      id: '123e4567-e89b-12d3-a456-426614174001',
+      institution: 'University',
       title: 'Computer Science',
       logo: 'https://example.com/logo.svg',
-      start: '2014',
-      end: '2016',
+      startDate: '2014',
+      endDate: '2016',
+      certificateUrl: null,
     };
 
     const result = EducationItemSchema.safeParse(validEducation);

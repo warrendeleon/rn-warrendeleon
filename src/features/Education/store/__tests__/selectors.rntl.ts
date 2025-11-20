@@ -3,7 +3,7 @@ import educationFixture from '@app/test-utils/fixtures/api/en/education.json';
 
 import {
   selectEducation,
-  selectEducationByLocation,
+  selectEducationByInstitution,
   selectEducationError,
   selectEducationLoading,
   selectEducationWithCertificates,
@@ -74,16 +74,15 @@ describe('Education selectors', () => {
       const withCertificates = selectEducationWithCertificates(state);
       expect(withCertificates.length).toBeGreaterThan(0);
       withCertificates.forEach(item => {
-        expect(item.certificate).toBeDefined();
+        expect(item.certificateUrl).toBeDefined();
       });
     });
 
     it('returns empty array when no education has certificates', () => {
-      const dataWithoutCertificates = educationFixture.map(item => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { certificate, ...rest } = item;
-        return rest;
-      });
+      const dataWithoutCertificates = educationFixture.map(item => ({
+        ...item,
+        certificateUrl: null,
+      }));
 
       const state = {
         education: { data: dataWithoutCertificates, loading: false, error: null },
@@ -101,25 +100,25 @@ describe('Education selectors', () => {
     });
   });
 
-  describe('selectEducationByLocation', () => {
-    it('returns education filtered by location', () => {
+  describe('selectEducationByInstitution', () => {
+    it('returns education filtered by institution', () => {
       const state = {
         education: { data: educationFixture, loading: false, error: null },
       } as unknown as RootState;
 
-      const stucomEducation = selectEducationByLocation(state, "Stucom Centre d'Estudis");
+      const stucomEducation = selectEducationByInstitution(state, "Stucom Centre d'Estudis");
       expect(stucomEducation.length).toBeGreaterThan(0);
       stucomEducation.forEach(item => {
-        expect(item.location).toBe("Stucom Centre d'Estudis");
+        expect(item.institution).toBe("Stucom Centre d'Estudis");
       });
     });
 
-    it('returns empty array when location not found', () => {
+    it('returns empty array when institution not found', () => {
       const state = {
         education: { data: educationFixture, loading: false, error: null },
       } as unknown as RootState;
 
-      const education = selectEducationByLocation(state, 'NonExistentLocation');
+      const education = selectEducationByInstitution(state, 'NonExistentInstitution');
       expect(education).toEqual([]);
     });
 
@@ -128,7 +127,7 @@ describe('Education selectors', () => {
         education: { data: [], loading: false, error: null },
       } as unknown as RootState;
 
-      const education = selectEducationByLocation(state, 'Udemy');
+      const education = selectEducationByInstitution(state, 'Udemy');
       expect(education).toEqual([]);
     });
   });
