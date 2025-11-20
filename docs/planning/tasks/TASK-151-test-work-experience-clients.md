@@ -1,6 +1,6 @@
 # TASK-151: RNTL Tests for WorkExperienceClientsScreen
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Effort**: 1h
 **Epic**: [EPIC-017](../epics/EPIC-017-test-coverage-improvements.md)

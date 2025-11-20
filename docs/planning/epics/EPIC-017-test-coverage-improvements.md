@@ -1,6 +1,6 @@
 # EPIC-017: Test Coverage Improvements
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Estimated Effort**: 7h
 **Target Coverage**: 85%+

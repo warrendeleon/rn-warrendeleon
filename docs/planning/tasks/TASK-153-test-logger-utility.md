@@ -1,6 +1,6 @@
 # TASK-153: RNTL Tests for Logger Utility
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: Medium
 **Effort**: 0.5h
 **Epic**: [EPIC-017](../epics/EPIC-017-test-coverage-improvements.md)

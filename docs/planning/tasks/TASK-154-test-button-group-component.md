@@ -1,6 +1,6 @@
 # TASK-154: Unit Tests for ButtonGroup Component
 
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: Medium
 **Effort**: 0.75h
 **Epic**: [EPIC-017](../epics/EPIC-017-test-coverage-improvements.md)

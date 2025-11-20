@@ -258,17 +258,17 @@
 | [TASK-148](./tasks/TASK-148-test-storybook-stories.md)         | Test Storybook Stories         | ✅ Done | 3h     | Medium   |
 | [TASK-149](./tasks/TASK-149-update-documentation-storybook.md) | Update Documentation           | ✅ Done | 1h     | Medium   |
 
-### EPIC-017: Test Coverage Improvements (7 tasks) 📋
+### EPIC-017: Test Coverage Improvements (7 tasks) ⏳
 
-| Task ID                                                      | Title                                      | Status   | Effort | Priority |
-| ------------------------------------------------------------ | ------------------------------------------ | -------- | ------ | -------- |
-| [TASK-150](./tasks/TASK-150-test-work-experience-details.md) | RNTL Tests for WorkExperienceDetailsScreen | 📋 To Do | 1.5h   | High     |
-| [TASK-151](./tasks/TASK-151-test-work-experience-clients.md) | RNTL Tests for WorkExperienceClientsScreen | 📋 To Do | 1h     | High     |
-| [TASK-152](./tasks/TASK-152-test-async-thunk-actions.md)     | Explicit Async Thunk Action Tests          | 📋 To Do | 1.5h   | High     |
-| [TASK-153](./tasks/TASK-153-test-logger-utility.md)          | RNTL Tests for Logger Utility              | 📋 To Do | 0.5h   | Medium   |
-| [TASK-154](./tasks/TASK-154-test-button-group-component.md)  | Unit Tests for ButtonGroup Component       | 📋 To Do | 0.75h  | Medium   |
-| [TASK-155](./tasks/TASK-155-test-header-back-button.md)      | Unit Tests for HeaderBackButton Component  | 📋 To Do | 0.75h  | Medium   |
-| [TASK-156](./tasks/TASK-156-test-mock-status-screen.md)      | RNTL Tests for MockStatusScreen            | 📋 To Do | 1h     | Low      |
+| Task ID                                                      | Title                                      | Status         | Effort | Priority |
+| ------------------------------------------------------------ | ------------------------------------------ | -------------- | ------ | -------- |
+| [TASK-150](./tasks/TASK-150-test-work-experience-details.md) | RNTL Tests for WorkExperienceDetailsScreen | ⏳ In Progress | 1.5h   | High     |
+| [TASK-151](./tasks/TASK-151-test-work-experience-clients.md) | RNTL Tests for WorkExperienceClientsScreen | ⏳ In Progress | 1h     | High     |
+| [TASK-152](./tasks/TASK-152-test-async-thunk-actions.md)     | Explicit Async Thunk Action Tests          | ⏳ In Progress | 1.5h   | High     |
+| [TASK-153](./tasks/TASK-153-test-logger-utility.md)          | RNTL Tests for Logger Utility              | ⏳ In Progress | 0.5h   | Medium   |
+| [TASK-154](./tasks/TASK-154-test-button-group-component.md)  | Unit Tests for ButtonGroup Component       | ⏳ In Progress | 0.75h  | Medium   |
+| [TASK-155](./tasks/TASK-155-test-header-back-button.md)      | Unit Tests for HeaderBackButton Component  | ⏳ In Progress | 0.75h  | Medium   |
+| [TASK-156](./tasks/TASK-156-test-mock-status-screen.md)      | RNTL Tests for MockStatusScreen            | ⏳ In Progress | 1h     | Low      |
 
 ### EPIC-018: Zod Schema Validation (8 tasks) ✅
 
