@@ -1,10 +1,17 @@
 # React Native Portfolio App - Planning Hub
 
-**Progress**: 98% (188/192 tasks) | **Remaining**: 4 tasks (~12h)
+**Progress**: 56% (182/327 tasks) | **Remaining**: 145 tasks
+
+**Total Tasks**: 327 tasks (TASK-001 through TASK-327)
 
 ---
 
-## ✅ Tasks Status (All 192 Tasks)
+## ✅ Tasks Status (All 327 Tasks)
+
+**Status Breakdown**:
+
+- **Original App Tasks**: TASK-001 through TASK-186 (186 tasks) - **182 done, 4 remaining**
+- **Supabase Backend Integration**: TASK-187 through TASK-327 (141 tasks) - **0 done, 141 remaining**
 
 ### EPIC-001: Performance Optimization (10 tasks) ✅
 
@@ -339,13 +346,319 @@
 
 ---
 
-## 📋 Remaining Tasks (4)
+## 🔒 Supabase Backend Integration Tasks
 
-| Task ID  | Title                               | Effort | Notes                    |
-| -------- | ----------------------------------- | ------ | ------------------------ |
-| TASK-017 | Manual VoiceOver/TalkBack Testing   | 0.5h   | Requires physical device |
-| TASK-062 | E2E Tests for Error States/Recovery | 2h     | Automatable with Detox   |
-| TASK-123 | Implement RTK Query (Optional)      | 8h     | Can defer indefinitely   |
-| TASK-126 | VoiceOver/TalkBack Testing Docs     | 2h     | EAA testing procedures   |
+### EPIC-021: Registration & Profile Setup (26 tasks) 📋 To Do
+
+#### US-033: Email/Password Registration (17 tasks)
+
+| Task ID                                                           | Title                              | Status   | Effort | Priority |
+| ----------------------------------------------------------------- | ---------------------------------- | -------- | ------ | -------- |
+| [TASK-187](./tasks/TASK-187-supabase-setup-security-config.md)    | Complete Supabase Setup + Security | 📋 To Do | 4h     | Critical |
+| [TASK-188](./tasks/TASK-188-linkedin-developer-app-setup.md)      | Create LinkedIn Developer App      | 📋 To Do | 2h     | Critical |
+| [TASK-189](./tasks/TASK-189-android-security-hardening.md)        | Android Security Hardening         | 📋 To Do | 1.5h   | High     |
+| [TASK-190](./tasks/TASK-190-ios-security-hardening.md)            | iOS Security Hardening             | 📋 To Do | 1h     | High     |
+| [TASK-191](./tasks/TASK-191-three-tier-storage-implementation.md) | 3-Tier Storage Implementation      | 📋 To Do | 3h     | Critical |
+| [TASK-192](./tasks/TASK-192-supabase-auth-rest-api-client.md)     | Supabase Auth REST API Client      | 📋 To Do | 4h     | Critical |
+| [TASK-193](./tasks/TASK-193-certificate-pinning.md)               | Certificate Pinning (Optional)     | 📋 To Do | 2h     | Medium   |
+| [TASK-194](./tasks/TASK-194-response-validation-zod.md)           | Response Validation with Zod       | 📋 To Do | 2h     | High     |
+| [TASK-195](./tasks/TASK-195-input-validation-yup.md)              | Input Validation with Yup          | 📋 To Do | 2h     | High     |
+| [TASK-196](./tasks/TASK-196-redux-auth-slice.md)                  | Redux Auth Slice                   | 📋 To Do | 3h     | Critical |
+| [TASK-197](./tasks/TASK-197-profile-picture-picker.md)            | Profile Picture Picker Component   | 📋 To Do | 3h     | High     |
+| [TASK-198](./tasks/TASK-198-supabase-storage-api-client.md)       | Supabase Storage API Client        | 📋 To Do | 2h     | High     |
+| [TASK-199](./tasks/TASK-199-registration-screen-ui.md)            | Registration Screen UI             | 📋 To Do | 4h     | Critical |
+| [TASK-200](./tasks/TASK-200-email-verification-screen.md)         | Email Verification Screen          | 📋 To Do | 2h     | High     |
+| [TASK-201](./tasks/TASK-201-data-masking-logs.md)                 | Data Masking in Logs Utility       | 📋 To Do | 1h     | High     |
+| [TASK-202](./tasks/TASK-202-registration-rntl-tests.md)           | Registration RNTL Tests            | 📋 To Do | 3h     | High     |
+| [TASK-203](./tasks/TASK-203-registration-e2e-tests.md)            | Registration E2E Tests             | 📋 To Do | 4h     | High     |
+
+#### US-034: LinkedIn OAuth Registration (5 tasks)
+
+| Task ID                                                   | Title                              | Status   | Effort | Priority |
+| --------------------------------------------------------- | ---------------------------------- | -------- | ------ | -------- |
+| [TASK-204](./tasks/TASK-204-linkedin-oauth-button.md)     | LinkedIn OAuth Button Component    | 📋 To Do | 1.5h   | Medium   |
+| [TASK-205](./tasks/TASK-205-linkedin-oauth-flow.md)       | LinkedIn OAuth Flow Implementation | 📋 To Do | 3h     | High     |
+| [TASK-206](./tasks/TASK-206-initials-avatar-component.md) | Initials Avatar Component          | 📋 To Do | 2h     | Medium   |
+| [TASK-207](./tasks/TASK-207-linkedin-oauth-rntl-tests.md) | LinkedIn OAuth RNTL Tests          | 📋 To Do | 2h     | Medium   |
+| [TASK-208](./tasks/TASK-208-linkedin-oauth-e2e-tests.md)  | LinkedIn OAuth E2E Tests           | 📋 To Do | 2h     | Medium   |
+
+#### US-035: Biometric Security Setup (4 tasks)
+
+| Task ID                                                        | Title                          | Status   | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------ | -------- | ------ | -------- |
+| [TASK-209](./tasks/TASK-209-biometric-capability-detection.md) | Biometric Capability Detection | 📋 To Do | 1.5h   | High     |
+| [TASK-210](./tasks/TASK-210-biometric-setup-screen.md)         | BiometricSetupScreen UI        | 📋 To Do | 3h     | High     |
+| [TASK-211](./tasks/TASK-211-pin-setup-screen.md)               | 6-Digit PIN Setup Screen       | 📋 To Do | 2.5h   | High     |
+| [TASK-212](./tasks/TASK-212-biometric-setup-e2e-tests.md)      | Biometric Setup E2E Tests      | 📋 To Do | 2h     | Medium   |
+
+### EPIC-022: Login & Session Management (19 tasks) 📋 To Do
+
+#### US-036: Email/Password Login (4 tasks)
+
+| Task ID                                               | Title                     | Status   | Effort | Priority |
+| ----------------------------------------------------- | ------------------------- | -------- | ------ | -------- |
+| [TASK-213](./tasks/TASK-213-login-ui-form.md)         | Login UI Form             | 📋 To Do | 3h     | Critical |
+| [TASK-214](./tasks/TASK-214-login-api-integration.md) | Login API Integration     | 📋 To Do | 3h     | Critical |
+| [TASK-215](./tasks/TASK-215-login-rntl-tests.md)      | Login RNTL Tests          | 📋 To Do | 2h     | High     |
+| [TASK-216](./tasks/TASK-216-login-e2e-tests.md)       | Login E2E Tests           | 📋 To Do | 3h     | High     |
+| [TASK-217](./tasks/TASK-217-forgot-password-flow.md)  | Forgot Password Flow Link | 📋 To Do | 0.5h   | Medium   |
+
+#### US-037: Magic Link Login (5 tasks)
+
+| Task ID                                               | Title                      | Status   | Effort | Priority |
+| ----------------------------------------------------- | -------------------------- | -------- | ------ | -------- |
+| [TASK-218](./tasks/TASK-218-magic-link-ui.md)         | Magic Link UI Tab          | 📋 To Do | 2h     | Medium   |
+| [TASK-219](./tasks/TASK-219-magic-link-api.md)        | Magic Link API Integration | 📋 To Do | 2h     | High     |
+| [TASK-220](./tasks/TASK-220-magic-link-rntl-tests.md) | Magic Link RNTL Tests      | 📋 To Do | 1.5h   | Medium   |
+| [TASK-221](./tasks/TASK-221-magic-link-e2e-tests.md)  | Magic Link E2E Tests       | 📋 To Do | 2h     | Medium   |
+
+#### US-038: Session Management (5 tasks)
+
+| Task ID                                                       | Title                             | Status   | Effort | Priority |
+| ------------------------------------------------------------- | --------------------------------- | -------- | ------ | -------- |
+| [TASK-222](./tasks/TASK-222-token-refresh-interceptor.md)     | Token Refresh Interceptor (Axios) | 📋 To Do | 3h     | Critical |
+| [TASK-223](./tasks/TASK-223-inactivity-timeout.md)            | Inactivity Timeout (5 min)        | 📋 To Do | 2h     | High     |
+| [TASK-224](./tasks/TASK-224-app-state-listener.md)            | App State Listener                | 📋 To Do | 2h     | High     |
+| [TASK-225](./tasks/TASK-225-session-expiry-detection.md)      | Session Expiry Detection          | 📋 To Do | 2h     | High     |
+| [TASK-226](./tasks/TASK-226-session-management-rntl-tests.md) | Session Management RNTL Tests     | 📋 To Do | 2.5h   | High     |
+
+#### US-039: Biometric Re-Authentication (5 tasks)
+
+| Task ID                                                      | Title                         | Status   | Effort | Priority |
+| ------------------------------------------------------------ | ----------------------------- | -------- | ------ | -------- |
+| [TASK-227](./tasks/TASK-227-biometric-prompt-screen.md)      | Biometric Prompt Screen       | 📋 To Do | 2.5h   | High     |
+| [TASK-228](./tasks/TASK-228-pin-prompt-screen.md)            | PIN Prompt Screen             | 📋 To Do | 2h     | Medium   |
+| [TASK-229](./tasks/TASK-229-app-state-reauth-integration.md) | App State Re-Auth Integration | 📋 To Do | 2h     | High     |
+| [TASK-230](./tasks/TASK-230-biometric-reauth-rntl-tests.md)  | Biometric Re-Auth RNTL Tests  | 📋 To Do | 2h     | Medium   |
+| [TASK-231](./tasks/TASK-231-biometric-reauth-e2e-tests.md)   | Biometric Re-Auth E2E Tests   | 📋 To Do | 2.5h   | Medium   |
+
+### EPIC-023: Security Settings (20 tasks) 📋 To Do
+
+#### US-040: Change PIN (6 tasks)
+
+| Task ID                                               | Title                 | Status   | Effort | Priority |
+| ----------------------------------------------------- | --------------------- | -------- | ------ | -------- |
+| [TASK-232](./tasks/TASK-232-change-pin-screen-ui.md)  | ChangePINScreen UI    | 📋 To Do | 2h     | Critical |
+| [TASK-233](./tasks/TASK-233-pin-validation-logic.md)  | PIN Validation Logic  | 📋 To Do | 1.5h   | Critical |
+| [TASK-234](./tasks/TASK-234-bcrypt-integration.md)    | bcrypt Integration    | 📋 To Do | 1.5h   | Critical |
+| [TASK-235](./tasks/TASK-235-rate-limiting.md)         | Rate Limiting         | 📋 To Do | 1h     | Critical |
+| [TASK-236](./tasks/TASK-236-change-pin-rntl-tests.md) | Change PIN RNTL Tests | 📋 To Do | 2h     | High     |
+| [TASK-237](./tasks/TASK-237-change-pin-e2e-tests.md)  | Change PIN E2E Tests  | 📋 To Do | 1h     | High     |
+
+#### US-041: Biometric Toggle (5 tasks)
+
+| Task ID                                                     | Title                       | Status   | Effort | Priority |
+| ----------------------------------------------------------- | --------------------------- | -------- | ------ | -------- |
+| [TASK-238](./tasks/TASK-238-biometric-toggle-screen-ui.md)  | BiometricToggleScreen UI    | 📋 To Do | 1.5h   | High     |
+| [TASK-239](./tasks/TASK-239-biometric-capability-check.md)  | Biometric Capability Check  | 📋 To Do | 1.5h   | High     |
+| [TASK-240](./tasks/TASK-240-biometric-enable-disable.md)    | Biometric Enable/Disable    | 📋 To Do | 2h     | High     |
+| [TASK-241](./tasks/TASK-241-biometric-toggle-rntl-tests.md) | Biometric Toggle RNTL Tests | 📋 To Do | 1.5h   | High     |
+| [TASK-242](./tasks/TASK-242-biometric-toggle-e2e-tests.md)  | Biometric Toggle E2E Tests  | 📋 To Do | 0.5h   | High     |
+
+#### US-042: Update Profile Picture (5 tasks)
+
+| Task ID                                                    | Title                      | Status   | Effort | Priority |
+| ---------------------------------------------------------- | -------------------------- | -------- | ------ | -------- |
+| [TASK-243](./tasks/TASK-243-update-profile-picture-ui.md)  | UpdateProfilePictureScreen | 📋 To Do | 1.5h   | High     |
+| [TASK-244](./tasks/TASK-244-image-picker-integration.md)   | Image Picker Integration   | 📋 To Do | 1.5h   | High     |
+| [TASK-245](./tasks/TASK-245-image-processing.md)           | Image Processing           | 📋 To Do | 1.5h   | High     |
+| [TASK-246](./tasks/TASK-246-supabase-storage-upload.md)    | Supabase Storage Upload    | 📋 To Do | 2h     | High     |
+| [TASK-247](./tasks/TASK-247-profile-picture-rntl-tests.md) | Profile Picture RNTL Tests | 📋 To Do | 1h     | High     |
+
+#### US-043: Root/Jailbreak Detection (4 tasks)
+
+| Task ID                                                   | Title                          | Status   | Effort | Priority |
+| --------------------------------------------------------- | ------------------------------ | -------- | ------ | -------- |
+| [TASK-248](./tasks/TASK-248-root-detection-service.md)    | Root Detection Service         | 📋 To Do | 1.5h   | Critical |
+| [TASK-249](./tasks/TASK-249-security-warning-modal.md)    | SecurityWarningModal Component | 📋 To Do | 1.5h   | High     |
+| [TASK-250](./tasks/TASK-250-security-status-indicator.md) | SecurityStatusIndicator        | 📋 To Do | 1h     | High     |
+| [TASK-251](./tasks/TASK-251-root-detection-rntl-tests.md) | Root Detection RNTL Tests      | 📋 To Do | 1h     | High     |
+
+### EPIC-024: Password Recovery (10 tasks) 📋 To Do
+
+#### US-044: Forgot Password Request (5 tasks)
+
+| Task ID                                                     | Title                             | Status   | Effort | Priority |
+| ----------------------------------------------------------- | --------------------------------- | -------- | ------ | -------- |
+| [TASK-252](./tasks/TASK-252-forgot-password-screen-ui.md)   | ForgotPasswordScreen UI           | 📋 To Do | 1.5h   | High     |
+| [TASK-253](./tasks/TASK-253-rate-limiter-implementation.md) | Rate Limiter Implementation       | 📋 To Do | 1.5h   | Critical |
+| [TASK-254](./tasks/TASK-254-supabase-recovery-api.md)       | Supabase Recovery API Integration | 📋 To Do | 2h     | High     |
+| [TASK-255](./tasks/TASK-255-forgot-password-rntl-tests.md)  | Forgot Password RNTL Tests        | 📋 To Do | 1.5h   | High     |
+| [TASK-256](./tasks/TASK-256-forgot-password-e2e-tests.md)   | Forgot Password E2E Tests         | 📋 To Do | 0.5h   | High     |
+
+#### US-045: Reset Password with Token (5 tasks)
+
+| Task ID                                                     | Title                       | Status   | Effort | Priority |
+| ----------------------------------------------------------- | --------------------------- | -------- | ------ | -------- |
+| [TASK-257](./tasks/TASK-257-reset-password-screen-ui.md)    | ResetPasswordScreen UI      | 📋 To Do | 1.5h   | High     |
+| [TASK-258](./tasks/TASK-258-deep-link-handler.md)           | Deep Link Handler           | 📋 To Do | 1.5h   | High     |
+| [TASK-259](./tasks/TASK-259-password-validation.md)         | Password Validation         | 📋 To Do | 1h     | High     |
+| [TASK-260](./tasks/TASK-260-supabase-password-reset-api.md) | Supabase Password Reset API | 📋 To Do | 1.5h   | High     |
+| [TASK-261](./tasks/TASK-261-reset-password-rntl-tests.md)   | Reset Password RNTL Tests   | 📋 To Do | 1h     | High     |
+
+### EPIC-025: Chat (21 tasks) 📋 To Do
+
+#### US-046: Send and Receive Messages (6 tasks)
+
+| Task ID                                                        | Title                          | Status   | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------ | -------- | ------ | -------- |
+| [TASK-262](./tasks/TASK-262-chat-screen-ui.md)                 | ChatScreen UI                  | 📋 To Do | 2.5h   | High     |
+| [TASK-263](./tasks/TASK-263-message-bubble-component.md)       | MessageBubble Component        | 📋 To Do | 1.5h   | High     |
+| [TASK-264](./tasks/TASK-264-message-input-component.md)        | MessageInput Component         | 📋 To Do | 1.5h   | High     |
+| [TASK-265](./tasks/TASK-265-supabase-realtime-subscription.md) | Supabase Realtime Subscription | 📋 To Do | 2.5h   | High     |
+| [TASK-266](./tasks/TASK-266-send-message-api.md)               | Send Message API               | 📋 To Do | 2h     | High     |
+| [TASK-267](./tasks/TASK-267-chat-rntl-tests.md)                | Chat RNTL Tests                | 📋 To Do | 2h     | High     |
+
+#### US-047: Message History with Pagination (5 tasks)
+
+| Task ID                                                | Title                 | Status   | Effort | Priority |
+| ------------------------------------------------------ | --------------------- | -------- | ------ | -------- |
+| [TASK-268](./tasks/TASK-268-pagination-logic.md)       | Pagination Logic      | 📋 To Do | 2h     | High     |
+| [TASK-269](./tasks/TASK-269-message-list-component.md) | MessageList Component | 📋 To Do | 2h     | High     |
+| [TASK-270](./tasks/TASK-270-loading-states.md)         | Loading States        | 📋 To Do | 1.5h   | Medium   |
+| [TASK-271](./tasks/TASK-271-empty-state-component.md)  | EmptyState Component  | 📋 To Do | 1h     | Medium   |
+| [TASK-272](./tasks/TASK-272-pagination-rntl-tests.md)  | Pagination RNTL Tests | 📋 To Do | 1h     | High     |
+
+#### US-048: Typing Indicators and Read Receipts (5 tasks)
+
+| Task ID                                                     | Title                     | Status   | Effort | Priority |
+| ----------------------------------------------------------- | ------------------------- | -------- | ------ | -------- |
+| [TASK-273](./tasks/TASK-273-typing-indicator-component.md)  | TypingIndicator Component | 📋 To Do | 2h     | High     |
+| [TASK-274](./tasks/TASK-274-typing-status-service.md)       | Typing Status Service     | 📋 To Do | 1.5h   | High     |
+| [TASK-275](./tasks/TASK-275-read-receipt-component.md)      | ReadReceipt Component     | 📋 To Do | 1h     | Medium   |
+| [TASK-276](./tasks/TASK-276-mark-messages-read-api.md)      | Mark Messages as Read API | 📋 To Do | 1h     | High     |
+| [TASK-277](./tasks/TASK-277-typing-indicator-rntl-tests.md) | Typing Indicator Tests    | 📋 To Do | 1.5h   | High     |
+
+#### US-049: Image/File Attachments (5 tasks)
+
+| Task ID                                                     | Title                      | Status   | Effort | Priority |
+| ----------------------------------------------------------- | -------------------------- | -------- | ------ | -------- |
+| [TASK-278](./tasks/TASK-278-attachment-picker-component.md) | AttachmentPicker Component | 📋 To Do | 1.5h   | High     |
+| [TASK-279](./tasks/TASK-279-image-processing.md)            | Image Processing           | 📋 To Do | 1.5h   | High     |
+| [TASK-280](./tasks/TASK-280-supabase-storage-upload.md)     | Supabase Storage Upload    | 📋 To Do | 1.5h   | High     |
+| [TASK-281](./tasks/TASK-281-attachment-message-bubble.md)   | AttachmentMessageBubble    | 📋 To Do | 1h     | Medium   |
+| [TASK-282](./tasks/TASK-282-attachment-rntl-tests.md)       | Attachment RNTL Tests      | 📋 To Do | 0.5h   | Medium   |
+
+### EPIC-026: Push Notifications (14 tasks) 📋 To Do
+
+#### US-050: FCM Setup and Permission Handling (5 tasks)
+
+| Task ID                                              | Title                        | Status   | Effort | Priority |
+| ---------------------------------------------------- | ---------------------------- | -------- | ------ | -------- |
+| [TASK-283](./tasks/TASK-283-fcm-service-setup.md)    | FCM Service Setup            | 📋 To Do | 2h     | High     |
+| [TASK-284](./tasks/TASK-284-permission-handling.md)  | Permission Handling          | 📋 To Do | 1.5h   | High     |
+| [TASK-285](./tasks/TASK-285-save-token-supabase.md)  | Save Token to Supabase       | 📋 To Do | 1.5h   | High     |
+| [TASK-286](./tasks/TASK-286-notification-banner.md)  | NotificationBanner Component | 📋 To Do | 1h     | Medium   |
+| [TASK-287](./tasks/TASK-287-fcm-setup-rntl-tests.md) | FCM Setup RNTL Tests         | 📋 To Do | 1h     | High     |
+
+#### US-051: Chat Message Notifications (5 tasks)
+
+| Task ID                                                       | Title                         | Status   | Effort | Priority |
+| ------------------------------------------------------------- | ----------------------------- | -------- | ------ | -------- |
+| [TASK-288](./tasks/TASK-288-supabase-edge-function-chat.md)   | Supabase Edge Function (Chat) | 📋 To Do | 2h     | High     |
+| [TASK-289](./tasks/TASK-289-notification-handler-chat.md)     | Notification Handler (Chat)   | 📋 To Do | 1.5h   | High     |
+| [TASK-290](./tasks/TASK-290-deep-link-navigation-chat.md)     | Deep Link Navigation (Chat)   | 📋 To Do | 1.5h   | High     |
+| [TASK-291](./tasks/TASK-291-notification-preferences.md)      | Notification Preferences      | 📋 To Do | 1h     | Medium   |
+| [TASK-292](./tasks/TASK-292-chat-notifications-rntl-tests.md) | Chat Notifications RNTL Tests | 📋 To Do | 0.5h   | High     |
+
+#### US-052: Security Alert Notifications (4 tasks)
+
+| Task ID                                                           | Title                             | Status   | Effort | Priority |
+| ----------------------------------------------------------------- | --------------------------------- | -------- | ------ | -------- |
+| [TASK-293](./tasks/TASK-293-supabase-edge-function-security.md)   | Supabase Edge Function (Security) | 📋 To Do | 1.5h   | Critical |
+| [TASK-294](./tasks/TASK-294-notification-handler-security.md)     | Notification Handler (Security)   | 📋 To Do | 1h     | Critical |
+| [TASK-295](./tasks/TASK-295-deep-link-navigation-security.md)     | Deep Link Navigation (Security)   | 📋 To Do | 1h     | High     |
+| [TASK-296](./tasks/TASK-296-security-notifications-rntl-tests.md) | Security Notifications RNTL Tests | 📋 To Do | 1h     | High     |
+
+### EPIC-027: Data Migration (6 tasks) 📋 To Do
+
+#### US-053: Portfolio Data Migration Script (6 tasks)
+
+| Task ID                                              | Title                | Status   | Effort | Priority |
+| ---------------------------------------------------- | -------------------- | -------- | ------ | -------- |
+| [TASK-297](./tasks/TASK-297-migration-script.md)     | Migration Script     | 📋 To Do | 4h     | Critical |
+| [TASK-298](./tasks/TASK-298-data-validation.md)      | Data Validation      | 📋 To Do | 2h     | Critical |
+| [TASK-299](./tasks/TASK-299-verification-logic.md)   | Verification Logic   | 📋 To Do | 2h     | High     |
+| [TASK-300](./tasks/TASK-300-rollback-script.md)      | Rollback Script      | 📋 To Do | 1.5h   | Critical |
+| [TASK-301](./tasks/TASK-301-execute-migration.md)    | Execute Migration    | 📋 To Do | 1h     | Critical |
+| [TASK-302](./tasks/TASK-302-verify-data-accuracy.md) | Verify Data Accuracy | 📋 To Do | 1h     | High     |
+
+### EPIC-028: Form Validation Standards (15 tasks) 📋 To Do
+
+#### US-054: Validation Schema Library (5 tasks)
+
+| Task ID                                                      | Title                        | Status   | Effort | Priority |
+| ------------------------------------------------------------ | ---------------------------- | -------- | ------ | -------- |
+| [TASK-303](./tasks/TASK-303-shared-validation-schemas.md)    | Shared Validation Schemas    | 📋 To Do | 3h     | High     |
+| [TASK-304](./tasks/TASK-304-composite-form-schemas.md)       | Composite Form Schemas       | 📋 To Do | 2h     | High     |
+| [TASK-305](./tasks/TASK-305-yup-schema-unit-tests.md)        | Yup Schema Unit Tests        | 📋 To Do | 2h     | High     |
+| [TASK-306](./tasks/TASK-306-document-validation-rules.md)    | Document Validation Rules    | 📋 To Do | 1h     | Medium   |
+| [TASK-307](./tasks/TASK-307-validation-schema-rntl-tests.md) | Validation Schema RNTL Tests | 📋 To Do | 1h     | High     |
+
+#### US-055: Real-Time Field Validation (5 tasks)
+
+| Task ID                                                        | Title                           | Status   | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------- | -------- | ------ | -------- |
+| [TASK-308](./tasks/TASK-308-use-field-validation-hook.md)      | useFieldValidation Hook         | 📋 To Do | 1.5h   | High     |
+| [TASK-309](./tasks/TASK-309-password-strength-indicator.md)    | PasswordStrengthIndicator       | 📋 To Do | 2h     | High     |
+| [TASK-310](./tasks/TASK-310-validated-text-input.md)           | ValidatedTextInput Component    | 📋 To Do | 2h     | High     |
+| [TASK-311](./tasks/TASK-311-realtime-validation-examples.md)   | Real-Time Validation Examples   | 📋 To Do | 1h     | Medium   |
+| [TASK-312](./tasks/TASK-312-realtime-validation-rntl-tests.md) | Real-Time Validation RNTL Tests | 📋 To Do | 1h     | High     |
+
+#### US-056: Accessible Error Messages (5 tasks)
+
+| Task ID                                                        | Title                          | Status   | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------ | -------- | ------ | -------- |
+| [TASK-313](./tasks/TASK-313-error-message-component.md)        | ErrorMessage Component         | 📋 To Do | 2h     | High     |
+| [TASK-314](./tasks/TASK-314-accessible-error-announcements.md) | Accessible Error Announcements | 📋 To Do | 1.5h   | High     |
+| [TASK-315](./tasks/TASK-315-error-message-styling.md)          | Error Message Styling          | 📋 To Do | 1.5h   | Medium   |
+| [TASK-316](./tasks/TASK-316-animated-error-transitions.md)     | Animated Error Transitions     | 📋 To Do | 1h     | Medium   |
+| [TASK-317](./tasks/TASK-317-accessible-error-rntl-tests.md)    | Accessible Error RNTL Tests    | 📋 To Do | 1.5h   | High     |
+
+### EPIC-029: Security Audit (10 tasks) 📋 To Do
+
+#### US-057: OWASP Mobile Top 10 Compliance Audit (5 tasks)
+
+| Task ID                                                     | Title                       | Status   | Effort | Priority |
+| ----------------------------------------------------------- | --------------------------- | -------- | ------ | -------- |
+| [TASK-318](./tasks/TASK-318-static-analysis-setup.md)       | Static Analysis Setup       | 📋 To Do | 2h     | Critical |
+| [TASK-319](./tasks/TASK-319-owasp-m1-m5-audit.md)           | OWASP M1-M5 Audit           | 📋 To Do | 2.5h   | Critical |
+| [TASK-320](./tasks/TASK-320-owasp-m6-m10-audit.md)          | OWASP M6-M10 Audit          | 📋 To Do | 2.5h   | Critical |
+| [TASK-321](./tasks/TASK-321-vulnerability-documentation.md) | Vulnerability Documentation | 📋 To Do | 1.5h   | High     |
+| [TASK-322](./tasks/TASK-322-remediation-plan.md)            | Remediation Plan            | 📋 To Do | 1h     | High     |
+
+#### US-058: Penetration Testing (5 tasks)
+
+| Task ID                                                  | Title                    | Status   | Effort | Priority |
+| -------------------------------------------------------- | ------------------------ | -------- | ------ | -------- |
+| [TASK-323](./tasks/TASK-323-dynamic-analysis-setup.md)   | Dynamic Analysis Setup   | 📋 To Do | 2h     | Critical |
+| [TASK-324](./tasks/TASK-324-authentication-testing.md)   | Authentication Testing   | 📋 To Do | 2h     | Critical |
+| [TASK-325](./tasks/TASK-325-data-storage-testing.md)     | Data Storage Testing     | 📋 To Do | 2h     | Critical |
+| [TASK-326](./tasks/TASK-326-network-security-testing.md) | Network Security Testing | 📋 To Do | 2h     | Critical |
+| [TASK-327](./tasks/TASK-327-penetration-test-report.md)  | Penetration Test Report  | 📋 To Do | 1.5h   | High     |
+
+---
+
+## 📋 Outstanding Tasks (4)
+
+These are the only incomplete tasks from the original app planning (TASK-001 through TASK-186):
+
+| Task ID                                                    | Title                               | Status   | Effort | Epic/US           |
+| ---------------------------------------------------------- | ----------------------------------- | -------- | ------ | ----------------- |
+| [TASK-017](./tasks/TASK-017-test-screen-readers.md)        | Manual VoiceOver/TalkBack Testing   | 📋 To Do | 0.5h   | EPIC-003 (US-003) |
+| [TASK-062](./tasks/TASK-062-e2e-tests-error-states.md)     | E2E Tests for Error States/Recovery | 📋 To Do | 2h     | EPIC-002          |
+| [TASK-123](./tasks/TASK-123-implement-rtk-query.md)        | Implement RTK Query (Optional)      | 📋 To Do | 8h     | EPIC-014 (US-024) |
+| [TASK-126](./tasks/TASK-126-voiceover-talkback-testing.md) | VoiceOver/TalkBack Testing Docs     | 📋 To Do | 2h     | EPIC-015 (US-025) |
+
+**Notes**:
+
+- TASK-017 & TASK-126 require physical device testing
+- TASK-062 is automatable with Detox
+- TASK-123 is optional and can be deferred
 
 **Legend**: ✅ Done | ⏳ In Progress | 📋 To Do
+
+---
+
+**Last Updated**: 2025-11-21
+**Project**: Warren DeLeon Portfolio Mobile App
