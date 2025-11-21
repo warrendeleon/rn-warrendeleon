@@ -2,7 +2,7 @@
 
 **Epic ID**: EPIC-021
 **Title**: Registration & Profile Setup - Supabase Integration with 3-Tier Security
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: Critical
 **Created**: 2025-11-21
 **Owner**: Warren de Leon

@@ -3,7 +3,7 @@
 **Story ID**: US-033
 **Title**: Email/Password Registration with Required Profile Picture
 **Epic**: [EPIC-021: Registration & Profile Setup](../epics/EPIC-021-registration-profile-setup.md)
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: Critical
 **Created**: 2025-11-21
 **Assigned To**: Warren de Leon
