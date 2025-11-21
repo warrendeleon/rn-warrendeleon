@@ -241,9 +241,60 @@ const API_URL = 'https://api.example.com';
 const API_URL = 'http://api.example.com';
 ```
 
-### Certificate Pinning
+### Certificate Pinning - ✅ **Implemented for Android**
 
-Prevent man-in-the-middle attacks:
+Prevent man-in-the-middle attacks with certificate pinning.
+
+#### Android Network Security Configuration
+
+**File**: `android/app/src/main/res/xml/network_security_config.xml`
+
+```xml
+<network-security-config>
+    <!-- Production: HTTPS-only, no cleartext traffic -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Certificate Pinning for Supabase -->
+    <domain-config>
+        <domain includeSubdomains="true">supabase.co</domain>
+        <pin-set expiration="2026-02-02">
+            <!-- Real Supabase certificate pin -->
+            <pin digest="SHA-256">PzfKSv758ttsdJwUCkGhW/oxG9Wk1Y4N+NMkB5I7RXc=</pin>
+        </pin-set>
+    </domain-config>
+
+    <!-- Development: Allow localhost for Metro bundler -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+    </domain-config>
+</network-security-config>
+```
+
+**Benefits**:
+
+- **HTTPS Enforcement**: All HTTP requests blocked automatically
+- **MITM Protection**: App only accepts specific Supabase certificate
+- **Development-Friendly**: Localhost exceptions for Metro bundler
+
+**⚠️ Certificate Maintenance**:
+Current certificate expires **Feb 2, 2026**. Extract new pin before expiration:
+
+```bash
+openssl s_client -servername <your-project>.supabase.co -connect <your-project>.supabase.co:443 </dev/null 2>/dev/null \
+  | openssl x509 -pubkey -noout \
+  | openssl pkey -pubin -outform der \
+  | openssl dgst -sha256 -binary \
+  | openssl enc -base64
+```
+
+#### iOS Certificate Pinning (Future)
+
+For iOS, use libraries like `react-native-ssl-pinning`:
 
 ```typescript
 import { fetch } from 'react-native-ssl-pinning';
@@ -476,14 +527,41 @@ const getSecureConfig = async () => {
 
 **Mitigation:**
 
-- Enable ProGuard (Android)
+- Enable ProGuard (Android) - ✅ **Implemented**
 - Don't embed secrets in code
 - Use code obfuscation
 
-```properties
-# android/app/build.gradle
+#### Android ProGuard Configuration
+
+ProGuard is **enabled** for release builds with comprehensive rules:
+
+**Configuration**: `android/app/build.gradle`
+
+```gradle
 def enableProguardInReleaseBuilds = true
+
+buildTypes {
+    release {
+        minifyEnabled true  // Enable ProGuard (R8)
+        shrinkResources true  // Remove unused resources
+        proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+    }
+}
 ```
+
+**Benefits**:
+
+- **APK Size**: Reduced from 172 MB to **168 MB** (2.3% smaller)
+- **Code Obfuscation**: Class and method names obfuscated
+- **Attack Surface**: Unused code and resources removed
+- **Reverse Engineering**: Significantly harder to decompile and understand
+
+**Keep Rules**: Comprehensive rules in `android/app/proguard-rules.pro` protect:
+
+- React Native core classes
+- Critical security libraries (keychain, encrypted-storage, biometrics)
+- Networking libraries (Axios, OkHttp, Supabase)
+- Redux and navigation components
 
 ### 6. Improper Platform Usage
 

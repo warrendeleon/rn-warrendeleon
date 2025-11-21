@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Production: HTTPS-only, no cleartext traffic -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Trust system CA certificates -->
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Certificate Pinning for Supabase (Optional but Recommended) -->
+    <!-- IMPORTANT: Update pins before they expire - Current expiration: Feb 2, 2026 -->
+    <!-- Certificate issued by: Google Trust Services WE1 -->
+    <domain-config>
+        <domain includeSubdomains="true">supabase.co</domain>
+        <pin-set expiration="2026-02-02">
+            <!-- Primary: Supabase wildcard certificate (*.supabase.co) -->
+            <!-- Extracted: 2025-11-21 from rgsvcwaxzfzqcvtyfcwk.supabase.co -->
+            <pin digest="SHA-256">PzfKSv758ttsdJwUCkGhW/oxG9Wk1Y4N+NMkB5I7RXc=</pin>
+            <!-- Backup: Add intermediate CA pin before production deployment -->
+            <!-- TODO: Extract Google Trust Services WE1 intermediate CA pin -->
+            <!-- <pin digest="SHA-256">BACKUP_PIN_HERE</pin> -->
+        </pin-set>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+
+    <!-- Development: Allow localhost for React Native Metro -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain> <!-- Android emulator -->
+        <domain includeSubdomains="true">10.0.3.2</domain> <!-- Genymotion emulator -->
+    </domain-config>
+</network-security-config>
