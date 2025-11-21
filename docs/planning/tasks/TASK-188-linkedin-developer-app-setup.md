@@ -4,7 +4,7 @@
 **Title**: Create LinkedIn Developer App for OAuth Authentication
 **User Story**: [US-033](../stories/US-033-email-password-registration.md) - Email/Password Registration
 **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md) - Registration & Profile Setup
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: Critical
 **Effort**: 2 hours
 **Owner**: Warren de Leon
