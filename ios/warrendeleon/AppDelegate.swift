@@ -3,6 +3,7 @@ import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
 import RNBootSplash
+import TrustKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
+    // Configure TrustKit for SSL certificate pinning
+    let trustKitConfig: [String: Any] = [
+      kTSKSwizzleNetworkDelegates: true,
+      kTSKPinnedDomains: [
+        "rgsvcwaxzfzqcvtyfcwk.supabase.co": [
+          kTSKIncludeSubdomains: true,
+          kTSKEnforcePinning: true,
+          kTSKPublicKeyHashes: [
+            "PzfKSv758ttsdJwUCkGhW/oxG9Wk1Y4N+NMkB5I7RXc=",  // Primary pin (leaf certificate)
+            "kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4="   // Backup pin (intermediate certificate)
+          ]
+        ]
+      ]
+    ]
+    TrustKit.initSharedInstance(withConfiguration: trustKitConfig)
+
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
     delegate.dependencyProvider = RCTAppDependencyProvider()

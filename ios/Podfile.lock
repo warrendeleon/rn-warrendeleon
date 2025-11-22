@@ -3077,6 +3077,7 @@ PODS:
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
+  - TrustKit (3.0.7)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -3173,12 +3174,14 @@ DEPENDENCIES:
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - RNWorklets (from `../node_modules/react-native-worklets`)
   - SocketRocket (~> 0.7.1)
+  - TrustKit (~> 3.0)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - lottie-ios
     - SocketRocket
+    - TrustKit
 
 EXTERNAL SOURCES:
   boost:
@@ -3461,8 +3464,9 @@ SPEC CHECKSUMS:
   RNVectorIcons: 96c832d9134dfee90ce0be7a1e0bf4c1e41a8d11
   RNWorklets: 526c9d68eba711efafabe23638814a76656d6640
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
+  TrustKit: 1050f3ce0595f8ed775f1237b7f590e3a4f93e91
   Yoga: 526f25666395d30c297d53154398ffd249eaf9e1
 
-PODFILE CHECKSUM: 34264ccce72c712c353bbbd97cb51acb1fca33dc
+PODFILE CHECKSUM: c39136a6e9cd416b0c767a83f4bf2dd51f055fb0
 
 COCOAPODS: 1.16.2

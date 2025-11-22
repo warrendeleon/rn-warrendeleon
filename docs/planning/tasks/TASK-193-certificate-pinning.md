@@ -1,14 +1,15 @@
 # TASK-193: Certificate Pinning (Optional)
 
 **Task ID**: TASK-193
-**Title**: Certificate Pinning for Supabase API (Optional Security Hardening)
+**Title**: Certificate Pinning for Supabase API (iOS)
 **User Story**: [US-033](../stories/US-033-email-password-registration.md) - Email/Password Registration
 **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md) - Registration & Profile Setup
-**Status**: 📋 To Do
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 2 hours
 **Owner**: Warren de Leon
 **Created**: 2025-11-21
+**Completed**: 2025-11-22 (implemented as part of TASK-190)
 
 ---
 
@@ -260,6 +261,18 @@ docs/readme/
 
 **Estimated Time**: 2 hours (documentation only for MVP)
 
-**Actual Time**: _To be tracked_
+**Actual Time**: Completed as part of TASK-190 (45 minutes for iOS implementation)
 
-**Last Updated**: 2025-11-21
+**Completion Notes**:
+
+- **iOS**: Certificate pinning implemented using TrustKit 3.0.7 (TASK-190)
+- **Android**: Certificate pinning implemented using network_security_config.xml (TASK-189, backup pin added 2025-11-22)
+- Extracted and configured Supabase certificate pins (primary + backup) for both platforms
+- iOS: TrustKit configured in AppDelegate.swift with enforcement enabled
+- Android: network_security_config.xml configured with both pins and HTTPS enforcement
+- Both platforms use the same pins:
+  - Primary (leaf): PzfKSv758ttsdJwUCkGhW/oxG9Wk1Y4N+NMkB5I7RXc=
+  - Backup (intermediate): kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4=
+- Physical device testing pending (requires production build on real devices)
+
+**Last Updated**: 2025-11-22

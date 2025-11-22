@@ -419,10 +419,10 @@ Feature: Email/Password Registration
 | [TASK-187](../tasks/TASK-187-supabase-setup-security-config.md)    | Complete Supabase Setup + Security | 4h     | Critical | ✅ Done  |
 | [TASK-188](../tasks/TASK-188-linkedin-developer-app-setup.md)      | Create LinkedIn Developer App      | 2h     | Critical | ✅ Done  |
 | [TASK-189](../tasks/TASK-189-android-security-hardening.md)        | Android Security Hardening         | 1.5h   | High     | ✅ Done  |
-| [TASK-190](../tasks/TASK-190-ios-security-hardening.md)            | iOS Security Hardening             | 1h     | High     | 📋 To Do |
+| [TASK-190](../tasks/TASK-190-ios-security-hardening.md)            | iOS Security Hardening             | 1h     | High     | ✅ Done  |
 | [TASK-191](../tasks/TASK-191-three-tier-storage-implementation.md) | 3-Tier Storage Implementation      | 3h     | Critical | 📋 To Do |
 | [TASK-192](../tasks/TASK-192-supabase-auth-rest-api-client.md)     | Supabase Auth REST API Client      | 4h     | Critical | 📋 To Do |
-| [TASK-193](../tasks/TASK-193-certificate-pinning.md)               | Certificate Pinning (Optional)     | 2h     | Medium   | 📋 To Do |
+| [TASK-193](../tasks/TASK-193-certificate-pinning.md)               | Certificate Pinning (iOS)          | 2h     | Medium   | ✅ Done  |
 | [TASK-194](../tasks/TASK-194-response-validation-zod.md)           | Response Validation with Zod       | 2h     | High     | 📋 To Do |
 | [TASK-195](../tasks/TASK-195-input-validation-yup.md)              | Input Validation with Yup          | 2h     | High     | 📋 To Do |
 | [TASK-196](../tasks/TASK-196-redux-auth-slice.md)                  | Redux Auth Slice                   | 3h     | Critical | 📋 To Do |

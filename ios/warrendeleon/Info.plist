@@ -28,11 +28,38 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<!-- Default: Enforce ATS for all domains -->
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
+		<!-- Allow local networking for React Native Metro (development) -->
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
+		<!-- Exception: Allow localhost for React Native Metro bundler -->
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
+	<!-- URL Schemes for Deep Linking (OAuth, email verification) -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.warrendeleon.portfolio</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>warrendeleonapp</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
 	<key>RCTNewArchEnabled</key>

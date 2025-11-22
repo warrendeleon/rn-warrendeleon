@@ -26,6 +26,9 @@ target 'warrendeleon' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  # Certificate Pinning for SSL/TLS security
+  pod 'TrustKit', '~> 3.0'
+
   # Detox for E2E testing
   pod 'RCT-Folly', :podspec => "#{$RN_ROOT}/third-party-podspecs/RCT-Folly.podspec"
 

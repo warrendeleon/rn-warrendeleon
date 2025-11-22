@@ -14,12 +14,12 @@
     <domain-config>
         <domain includeSubdomains="true">supabase.co</domain>
         <pin-set expiration="2026-02-02">
-            <!-- Primary: Supabase wildcard certificate (*.supabase.co) -->
+            <!-- Primary: Supabase wildcard certificate (*.supabase.co) - Leaf certificate -->
             <!-- Extracted: 2025-11-21 from rgsvcwaxzfzqcvtyfcwk.supabase.co -->
             <pin digest="SHA-256">PzfKSv758ttsdJwUCkGhW/oxG9Wk1Y4N+NMkB5I7RXc=</pin>
-            <!-- Backup: Add intermediate CA pin before production deployment -->
-            <!-- TODO: Extract Google Trust Services WE1 intermediate CA pin -->
-            <!-- <pin digest="SHA-256">BACKUP_PIN_HERE</pin> -->
+            <!-- Backup: Intermediate CA pin (Google Trust Services WE1) -->
+            <!-- Extracted: 2025-11-22 from rgsvcwaxzfzqcvtyfcwk.supabase.co -->
+            <pin digest="SHA-256">kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4=</pin>
         </pin-set>
         <trust-anchors>
             <certificates src="system" />
