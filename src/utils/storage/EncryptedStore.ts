@@ -2,7 +2,7 @@
  * EncryptedStore - Tier 2 Storage (Encrypted Storage)
  *
  * Use for:
- * - User PII (email, name, phone, birthday, address)
+ * - User PII (email, first name, last name, phone number, birthday, address)
  * - Profile picture URL
  * - Sensitive preferences
  *
@@ -16,8 +16,9 @@ import EncryptedStorage from 'react-native-encrypted-storage';
  */
 export enum EncryptedStoreKey {
   USER_EMAIL = 'userEmail',
-  USER_FULL_NAME = 'userFullName',
-  USER_PHONE = 'userPhone',
+  USER_FIRST_NAME = 'userFirstName',
+  USER_LAST_NAME = 'userLastName',
+  USER_PHONE_NUMBER = 'userPhoneNumber',
   PROFILE_PICTURE_URL = 'profilePictureURL',
   AUTH_PROVIDER = 'authProvider',
 }

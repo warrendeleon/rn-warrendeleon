@@ -115,20 +115,25 @@ describe('EncryptedStore', () => {
 
       const items = [
         { key: EncryptedStoreKey.USER_EMAIL, value: 'test@example.com' },
-        { key: EncryptedStoreKey.USER_FULL_NAME, value: 'John Doe' },
+        { key: EncryptedStoreKey.USER_FIRST_NAME, value: 'John' },
+        { key: EncryptedStoreKey.USER_LAST_NAME, value: 'Doe' },
       ];
 
       const result = await EncryptedStore.setMultiple(items);
 
       expect(result).toBe(true);
-      expect(EncryptedStorage.setItem).toHaveBeenCalledTimes(2);
+      expect(EncryptedStorage.setItem).toHaveBeenCalledTimes(3);
       expect(EncryptedStorage.setItem).toHaveBeenCalledWith(
         EncryptedStoreKey.USER_EMAIL,
         'test@example.com'
       );
       expect(EncryptedStorage.setItem).toHaveBeenCalledWith(
-        EncryptedStoreKey.USER_FULL_NAME,
-        'John Doe'
+        EncryptedStoreKey.USER_FIRST_NAME,
+        'John'
+      );
+      expect(EncryptedStorage.setItem).toHaveBeenCalledWith(
+        EncryptedStoreKey.USER_LAST_NAME,
+        'Doe'
       );
     });
 
@@ -139,7 +144,7 @@ describe('EncryptedStore', () => {
 
       const items = [
         { key: EncryptedStoreKey.USER_EMAIL, value: 'test@example.com' },
-        { key: EncryptedStoreKey.USER_FULL_NAME, value: 'John Doe' },
+        { key: EncryptedStoreKey.USER_FIRST_NAME, value: 'John' },
       ];
 
       const result = await EncryptedStore.setMultiple(items);
@@ -152,16 +157,22 @@ describe('EncryptedStore', () => {
     it('should retrieve multiple values at once', async () => {
       (EncryptedStorage.getItem as jest.Mock)
         .mockResolvedValueOnce('test@example.com')
-        .mockResolvedValueOnce('John Doe');
+        .mockResolvedValueOnce('John')
+        .mockResolvedValueOnce('Doe');
 
-      const keys = [EncryptedStoreKey.USER_EMAIL, EncryptedStoreKey.USER_FULL_NAME];
+      const keys = [
+        EncryptedStoreKey.USER_EMAIL,
+        EncryptedStoreKey.USER_FIRST_NAME,
+        EncryptedStoreKey.USER_LAST_NAME,
+      ];
       const values = await EncryptedStore.getMultiple(keys);
 
       expect(values).toEqual({
         [EncryptedStoreKey.USER_EMAIL]: 'test@example.com',
-        [EncryptedStoreKey.USER_FULL_NAME]: 'John Doe',
+        [EncryptedStoreKey.USER_FIRST_NAME]: 'John',
+        [EncryptedStoreKey.USER_LAST_NAME]: 'Doe',
       });
-      expect(EncryptedStorage.getItem).toHaveBeenCalledTimes(2);
+      expect(EncryptedStorage.getItem).toHaveBeenCalledTimes(3);
     });
 
     it('should handle null values in batch retrieval', async () => {
@@ -169,12 +180,12 @@ describe('EncryptedStore', () => {
         .mockResolvedValueOnce('test@example.com')
         .mockResolvedValueOnce(null);
 
-      const keys = [EncryptedStoreKey.USER_EMAIL, EncryptedStoreKey.USER_FULL_NAME];
+      const keys = [EncryptedStoreKey.USER_EMAIL, EncryptedStoreKey.USER_FIRST_NAME];
       const values = await EncryptedStore.getMultiple(keys);
 
       expect(values).toEqual({
         [EncryptedStoreKey.USER_EMAIL]: 'test@example.com',
-        [EncryptedStoreKey.USER_FULL_NAME]: null,
+        [EncryptedStoreKey.USER_FIRST_NAME]: null,
       });
     });
 
