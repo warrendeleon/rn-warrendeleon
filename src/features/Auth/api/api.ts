@@ -16,6 +16,7 @@ import {
 } from '@app/schemas';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage/EncryptedStore';
 import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
+import { validateResponse } from '@app/utils/validation/validateResponse';
 
 /**
  * Supabase Auth Client (REST API, No SDK)
@@ -132,8 +133,12 @@ class SupabaseAuthClientClass {
     try {
       const { data } = await this.axiosInstance.post('/auth/v1/signup', request);
 
-      // Validate response with Zod
-      const validatedData = SupabaseSignUpResponseSchema.parse(data);
+      // Validate response with context
+      const validatedData = validateResponse(
+        SupabaseSignUpResponseSchema,
+        data,
+        'Supabase Auth signUp'
+      );
 
       // Store tokens if session exists
       if (validatedData.session) {
@@ -163,8 +168,12 @@ class SupabaseAuthClientClass {
     try {
       const { data } = await this.axiosInstance.post('/auth/v1/token?grant_type=password', request);
 
-      // Validate response with Zod
-      const validatedData = SupabaseSignInResponseSchema.parse(data);
+      // Validate response with context
+      const validatedData = validateResponse(
+        SupabaseSignInResponseSchema,
+        data,
+        'Supabase Auth signIn'
+      );
 
       // Store session
       await this.storeSession(validatedData);
@@ -197,8 +206,12 @@ class SupabaseAuthClientClass {
         refresh_token: refreshToken,
       });
 
-      // Validate response with Zod
-      const validatedData = SupabaseRefreshTokenResponseSchema.parse(data);
+      // Validate response with context
+      const validatedData = validateResponse(
+        SupabaseRefreshTokenResponseSchema,
+        data,
+        'Supabase Auth refreshSession'
+      );
 
       // Store new session
       await this.storeSession(validatedData);
@@ -249,8 +262,12 @@ class SupabaseAuthClientClass {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
 
-      // Validate response with Zod
-      const validatedData = SupabaseUserSchema.parse(data);
+      // Validate response with context
+      const validatedData = validateResponse(
+        SupabaseUserSchema,
+        data,
+        'Supabase Auth getCurrentUser'
+      );
 
       return validatedData;
     } catch {

@@ -78,3 +78,17 @@ export {
   SupabaseUserMetadataSchema,
   SupabaseUserSchema,
 } from './supabase.auth.schema';
+
+// Supabase Storage schema
+export {
+  type SupabaseFileObject,
+  SupabaseFileObjectSchema,
+  type SupabasePublicURL,
+  SupabasePublicURLSchema,
+  type SupabaseUpdateProfileRequest,
+  SupabaseUpdateProfileRequestSchema,
+  type SupabaseUploadResponse,
+  SupabaseUploadResponseSchema,
+  type SupabaseUserProfile,
+  SupabaseUserProfileSchema,
+} from './supabase.storage.schema';
