@@ -94,4 +94,24 @@ export default [
       '@typescript-eslint/no-require-imports': 'off',
     },
   },
+  // 👇 CJS files: Node.js CommonJS modules with proper globals
+  {
+    files: ['**/*.cjs'],
+    languageOptions: {
+      globals: {
+        global: 'readonly',
+        require: 'readonly',
+        module: 'readonly',
+        exports: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        process: 'readonly',
+      },
+      sourceType: 'commonjs',
+    },
+    rules: {
+      // CommonJS modules use require() by design - this is the correct syntax for .cjs files
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
 ];

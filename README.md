@@ -102,6 +102,7 @@ Comprehensive guides are available in the `/docs` folder. Here's how to navigate
 - **[Architecture](docs/readme/ARCHITECTURE.md)** - Project structure, feature-first organisation, and design decisions
 - **[Development](docs/readme/DEVELOPMENT.md)** - Setup guide, running the app, debugging, and troubleshooting
 - **[Testing](docs/readme/TESTING.md)** - Unit and integration testing with Jest and React Native Testing Library
+- **[MSW Testing Guide](docs/readme/MSW_TESTING_GUIDE.md)** - Advanced Redux integration testing with Mock Service Worker
 - **[E2E Testing](docs/readme/E2E_TESTING.md)** - End-to-end testing with Detox, Cucumber, and MSW
 
 ### 🛠️ Feature-Specific Guides

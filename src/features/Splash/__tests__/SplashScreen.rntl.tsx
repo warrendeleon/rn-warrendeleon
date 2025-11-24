@@ -1,7 +1,7 @@
 import React from 'react';
-import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
+import { act, fireEvent, waitFor } from '@testing-library/react-native';
 
-import { fetchEducation, fetchProfile, fetchWorkExperience } from '@app/store';
+import { errorHandlers, renderWithProviders, server } from '@app/test-utils';
 
 import { SplashScreen } from '../SplashScreen';
 
@@ -32,38 +32,12 @@ jest.mock('@app/hooks', () => ({
   useAppColorScheme: () => mockUseAppColorScheme(),
 }));
 
-// Mock Redux store with async dispatch and selectors
-const mockDispatch = jest.fn();
-const mockUseAppSelector = jest.fn();
-
-jest.mock('@app/store', () => ({
-  fetchProfile: jest.fn(() => ({ type: 'profile/fetchProfile' })),
-  fetchWorkExperience: jest.fn(() => ({ type: 'workExperience/fetchWorkExperience' })),
-  fetchEducation: jest.fn(() => ({ type: 'education/fetchEducation' })),
-  useAppDispatch: () => mockDispatch,
-  useAppSelector: (selector: unknown) => mockUseAppSelector(selector),
-  selectProfileError: jest.fn(),
-  selectEducationError: jest.fn(),
-  selectWorkExperienceError: jest.fn(),
-}));
-
 describe('SplashScreen', () => {
   const mockOnComplete = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseAppColorScheme.mockReturnValue('light');
-
-    // Mock error selectors to return no errors by default
-    mockUseAppSelector.mockReturnValue(null);
-
-    // Mock dispatch to return successful thunk results
-    mockDispatch.mockResolvedValue({
-      type: 'mockAction/fulfilled',
-      payload: {},
-      meta: { requestStatus: 'fulfilled' },
-    });
-
     jest.useFakeTimers();
   });
 
@@ -75,83 +49,59 @@ describe('SplashScreen', () => {
   });
 
   it('renders Logo component', async () => {
-    const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+    const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalled();
+      expect(getByTestId('logo')).toBeTruthy();
     });
-
-    expect(getByTestId('logo')).toBeTruthy();
   });
 
-  it('renders with dark mode when color scheme is dark', async () => {
+  it('renders with dark mode when colour scheme is dark', async () => {
     mockUseAppColorScheme.mockReturnValue('dark');
 
-    const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+    const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalled();
+      expect(getByTestId('logo')).toBeTruthy();
     });
 
-    expect(getByTestId('logo')).toBeTruthy();
     expect(getByTestId('logo-mode')).toHaveTextContent('dark');
   });
 
-  it('renders with light mode when color scheme is light', async () => {
+  it('renders with light mode when colour scheme is light', async () => {
     mockUseAppColorScheme.mockReturnValue('light');
 
-    const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+    const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalled();
+      expect(getByTestId('logo')).toBeTruthy();
     });
 
-    expect(getByTestId('logo')).toBeTruthy();
     expect(getByTestId('logo-mode')).toHaveTextContent('light');
   });
 
-  it('dispatches fetchProfile on mount', async () => {
-    render(<SplashScreen onComplete={mockOnComplete} />);
-
-    await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith(fetchProfile());
-    });
-  });
-
-  it('dispatches fetchWorkExperience on mount', async () => {
-    render(<SplashScreen onComplete={mockOnComplete} />);
-
-    await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith(fetchWorkExperience());
-    });
-  });
-
-  it('dispatches fetchEducation on mount', async () => {
-    render(<SplashScreen onComplete={mockOnComplete} />);
-
-    await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledWith(fetchEducation());
-    });
-  });
-
   it('dispatches all three fetch actions on mount', async () => {
-    render(<SplashScreen onComplete={mockOnComplete} />);
+    const { store } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
-    await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalledTimes(3);
-    });
+    await waitFor(
+      () => {
+        const state = store.getState();
+        expect(state.profile.loading).toBe(false);
+        expect(state.education.loading).toBe(false);
+        expect(state.workExperience.loading).toBe(false);
+      },
+      { timeout: 3000 }
+    );
 
-    expect(mockDispatch).toHaveBeenCalledWith(fetchProfile());
-    expect(mockDispatch).toHaveBeenCalledWith(fetchWorkExperience());
-    expect(mockDispatch).toHaveBeenCalledWith(fetchEducation());
+    // Verify data was loaded successfully
+    const state = store.getState();
+    expect(state.profile.data).toBeDefined();
+    expect(state.education.data).toBeDefined();
+    expect(state.workExperience.data).toBeDefined();
   });
 
   it('calls onComplete after 1.5 seconds', async () => {
-    render(<SplashScreen onComplete={mockOnComplete} />);
-
-    await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalled();
-    });
+    renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     expect(mockOnComplete).not.toHaveBeenCalled();
 
@@ -159,15 +109,13 @@ describe('SplashScreen', () => {
       jest.advanceTimersByTime(1500);
     });
 
-    expect(mockOnComplete).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockOnComplete).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('does not call onComplete before 1.5 seconds', async () => {
-    render(<SplashScreen onComplete={mockOnComplete} />);
-
-    await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalled();
-    });
+    renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     await act(async () => {
       jest.advanceTimersByTime(1000);
@@ -177,14 +125,14 @@ describe('SplashScreen', () => {
   });
 
   it('returns null after loading is complete', async () => {
-    const { queryByTestId, rerender } = render(<SplashScreen onComplete={mockOnComplete} />);
-
-    await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalled();
-    });
+    const { queryByTestId, rerender } = renderWithProviders(
+      <SplashScreen onComplete={mockOnComplete} />
+    );
 
     // Initially, should render the splash screen
-    expect(queryByTestId('logo')).toBeTruthy();
+    await waitFor(() => {
+      expect(queryByTestId('logo')).toBeTruthy();
+    });
 
     // Advance timer
     await act(async () => {
@@ -199,11 +147,7 @@ describe('SplashScreen', () => {
   });
 
   it('clears timeout on unmount', async () => {
-    const { unmount } = render(<SplashScreen onComplete={mockOnComplete} />);
-
-    await waitFor(() => {
-      expect(mockDispatch).toHaveBeenCalled();
-    });
+    const { unmount } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     unmount();
 
@@ -216,72 +160,59 @@ describe('SplashScreen', () => {
   });
 
   describe('Error Handling', () => {
-    it('displays error UI when fetch fails', async () => {
-      // Mock dispatch to return rejected thunk result
-      mockDispatch.mockResolvedValue({
-        type: 'mockAction/rejected',
-        error: { message: 'Network error' },
-        meta: { requestStatus: 'rejected' },
-      });
+    beforeEach(() => {
+      // Use error handlers for these tests
+      server.use(...errorHandlers);
+    });
 
-      const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+    it('displays error UI when fetch fails', async () => {
+      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await act(async () => {
         jest.runAllTimers();
       });
 
-      await waitFor(() => {
-        expect(getByTestId('splash-error-screen')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('splash-error-screen')).toBeTruthy();
+        },
+        { timeout: 3000 }
+      );
 
       expect(getByTestId('splash-retry-button')).toBeTruthy();
     });
 
     it('does not call onComplete when fetch fails', async () => {
-      // Mock dispatch to return rejected thunk result
-      mockDispatch.mockResolvedValue({
-        type: 'mockAction/rejected',
-        error: { message: 'Network error' },
-        meta: { requestStatus: 'rejected' },
-      });
-
-      render(<SplashScreen onComplete={mockOnComplete} />);
+      renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await act(async () => {
         jest.runAllTimers();
       });
 
-      await waitFor(() => {
-        expect(mockDispatch).toHaveBeenCalled();
-      });
-
-      expect(mockOnComplete).not.toHaveBeenCalled();
+      await waitFor(
+        () => {
+          expect(mockOnComplete).not.toHaveBeenCalled();
+        },
+        { timeout: 3000 }
+      );
     });
 
     it('retries data fetch when retry button is pressed', async () => {
-      // Mock dispatch to return rejected thunk result first
-      mockDispatch.mockResolvedValueOnce({
-        type: 'mockAction/rejected',
-        error: { message: 'Network error' },
-        meta: { requestStatus: 'rejected' },
-      });
-
-      const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await act(async () => {
         jest.runAllTimers();
       });
 
-      await waitFor(() => {
-        expect(getByTestId('splash-error-screen')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('splash-error-screen')).toBeTruthy();
+        },
+        { timeout: 3000 }
+      );
 
-      // Reset mock to return success
-      mockDispatch.mockResolvedValue({
-        type: 'mockAction/fulfilled',
-        payload: {},
-        meta: { requestStatus: 'fulfilled' },
-      });
+      // Reset to success handlers
+      server.resetHandlers();
 
       // Press retry button
       const retryButton = getByTestId('splash-retry-button');
@@ -293,11 +224,12 @@ describe('SplashScreen', () => {
         jest.runAllTimers();
       });
 
-      await waitFor(() => {
-        expect(mockDispatch).toHaveBeenCalledTimes(6);
-      });
-
-      // Should dispatch all three fetches again (3 initial + 3 retry)
+      await waitFor(
+        () => {
+          expect(mockOnComplete).toHaveBeenCalledTimes(1);
+        },
+        { timeout: 3000 }
+      );
     });
   });
 });

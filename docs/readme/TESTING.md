@@ -243,6 +243,8 @@ describe('Button interactions', () => {
 
 ### Testing with Redux
 
+**For advanced Redux testing patterns with MSW (Mock Service Worker)**, see the **[MSW Testing Guide](./MSW_TESTING_GUIDE.md)**.
+
 ```typescript
 import { renderWithProviders } from '@app/test-utils';
 import { settingsSliceActions } from '../store';
@@ -816,6 +818,7 @@ module.exports = {
 
 ## Next Steps
 
+- **[MSW Testing Guide](./MSW_TESTING_GUIDE.md)** - Advanced Redux testing with Mock Service Worker
 - **[E2E Testing](./E2E_TESTING.md)** - End-to-end testing with Detox
 - **[Architecture](./ARCHITECTURE.md)** - Project structure and patterns
 - **[Workflows](./WORKFLOWS.md)** - Common testing workflows
