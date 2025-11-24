@@ -29,6 +29,8 @@ jest.mock('react-native-config', () => ({
   APP_ENV: 'development',
   API_URL: 'https://raw.githubusercontent.com/warrendeleon/warrendeleon/main/api',
   E2E_MOCK: 'false',
+  SUPABASE_URL: 'https://test.supabase.co',
+  SUPABASE_ANON_KEY: 'test-anon-key',
 }));
 
 // Mock react-native-worklets
@@ -365,6 +367,27 @@ jest.mock('react-native-webview', () => {
     default: mockRN.View,
   };
 });
+
+// Mock react-native-encrypted-storage
+jest.mock('react-native-encrypted-storage', () => ({
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+}));
+
+// Mock react-native-keychain
+jest.mock('react-native-keychain', () => ({
+  ACCESSIBLE: {
+    WHEN_UNLOCKED_THIS_DEVICE_ONLY: 'WhenUnlockedThisDeviceOnly',
+  },
+  ACCESS_CONTROL: {
+    BIOMETRY_ANY_OR_DEVICE_PASSCODE: 'BiometryAnyOrDevicePasscode',
+  },
+  setGenericPassword: jest.fn(),
+  getGenericPassword: jest.fn(),
+  resetGenericPassword: jest.fn(),
+}));
 
 // Initialize i18n for tests
 // Must be imported after all mocks to ensure react-native-localize mock is applied

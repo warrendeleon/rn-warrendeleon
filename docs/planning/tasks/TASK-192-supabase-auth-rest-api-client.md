@@ -4,7 +4,7 @@
 **Title**: Supabase Auth REST API Client (Custom REST API, No SDK)
 **User Story**: [US-033](../stories/US-033-email-password-registration.md) - Email/Password Registration
 **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md) - Registration & Profile Setup
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Critical
 **Effort**: 4 hours
 **Owner**: Warren de Leon
@@ -55,16 +55,16 @@ Build Supabase Auth REST API client:
 
 ## Acceptance Criteria
 
-- [ ] **Axios installed** and configured with Supabase base URL
-- [ ] **Zod schemas** created for all request/response types
-- [ ] **SupabaseAuthClient** class with all auth methods
-- [ ] **Automatic token refresh** via Axios interceptors
-- [ ] **SecureStore integration** for token persistence
-- [ ] **Error handling** with user-friendly messages
-- [ ] **TypeScript types** for all methods
-- [ ] **100% unit test coverage** (RNTL with mocked Axios)
-- [ ] **No Supabase SDK** used for auth (Axios only)
-- [ ] **Environment variables** used for Supabase URL and anon key
+- [x] **Axios installed** and configured with Supabase base URL
+- [x] **Zod schemas** created for all request/response types
+- [x] **SupabaseAuthClient** class with all auth methods
+- [x] **Automatic token refresh** via Axios interceptors
+- [x] **SecureStore integration** for token persistence
+- [x] **Error handling** with user-friendly messages
+- [x] **TypeScript types** for all methods
+- [x] **100% unit test coverage** (22/22 tests with MSW)
+- [x] **No Supabase SDK** used for auth (Axios only)
+- [x] **Environment variables** used for Supabase URL and anon key
 
 ---
 
@@ -683,12 +683,12 @@ yarn test src/api/supabase
 
 ## Security Checklist
 
-- [ ] **Tokens NEVER logged** (even in error messages)
-- [ ] **Tokens stored in SecureStore** (not AsyncStorage, not Redux)
-- [ ] **Automatic token refresh** handles 401 errors
-- [ ] **Response validation** with Zod prevents malformed data
-- [ ] **Error messages** user-friendly (no technical details exposed)
-- [ ] **Environment variables** used for Supabase URL and anon key
+- [x] **Tokens NEVER logged** (even in error messages)
+- [x] **Tokens stored in SecureStore** (not AsyncStorage, not Redux)
+- [x] **Automatic token refresh** handles 401 errors
+- [x] **Response validation** with Zod prevents malformed data
+- [x] **Error messages** user-friendly (no technical details exposed)
+- [x] **Environment variables** used for Supabase URL and anon key
 
 ---
 

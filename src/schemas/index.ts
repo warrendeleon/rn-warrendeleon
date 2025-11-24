@@ -48,3 +48,33 @@ export {
   type WorkExperienceList,
   WorkExperienceSchema,
 } from './workExperience.schema';
+
+// Supabase Auth schema
+export {
+  type SupabaseAppMetadata,
+  SupabaseAppMetadataSchema,
+  type SupabaseErrorResponse,
+  SupabaseErrorResponseSchema,
+  type SupabaseIdentity,
+  type SupabaseIdentityData,
+  SupabaseIdentityDataSchema,
+  SupabaseIdentitySchema,
+  type SupabaseRefreshTokenRequest,
+  SupabaseRefreshTokenRequestSchema,
+  type SupabaseRefreshTokenResponse,
+  SupabaseRefreshTokenResponseSchema,
+  type SupabaseSession,
+  SupabaseSessionSchema,
+  type SupabaseSignInRequest,
+  SupabaseSignInRequestSchema,
+  type SupabaseSignInResponse,
+  SupabaseSignInResponseSchema,
+  type SupabaseSignUpRequest,
+  SupabaseSignUpRequestSchema,
+  type SupabaseSignUpResponse,
+  SupabaseSignUpResponseSchema,
+  type SupabaseUser,
+  type SupabaseUserMetadata,
+  SupabaseUserMetadataSchema,
+  SupabaseUserSchema,
+} from './supabase.auth.schema';
