@@ -9,9 +9,13 @@
 
 ## Acceptance Criteria
 
-- [ ] Test form validation (invalid email, weak password, mismatch)
+- [ ] Test form validation (invalid firstName, invalid lastName, invalid email, weak password, mismatch, invalid phone)
+- [ ] Test firstName validation (too short, contains numbers/special chars)
+- [ ] Test lastName validation (too short, contains numbers/special chars)
+- [ ] Test phone number validation (invalid format, missing country code, E.164 validation)
+- [ ] Test country code selector interaction
 - [ ] Test profile picture selection
-- [ ] Test successful registration flow
+- [ ] Test successful registration flow with all fields
 - [ ] Test error handling (API failures)
 - [ ] Test navigation to EmailVerification
 - [ ] Test accessibility props present

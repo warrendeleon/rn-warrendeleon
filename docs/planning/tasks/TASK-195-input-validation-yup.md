@@ -62,7 +62,12 @@ yarn add yup
 
 # React Hook Form resolver for Yup
 yarn add @hookform/resolvers
+
+# Phone number validation library (for advanced validation - see note below)
+yarn add libphonenumber-js
 ```
+
+**Note**: For basic E.164 format validation, the regex in the schema is sufficient. For advanced country-specific validation (checking if a UK number is valid UK format, etc.), integrate `libphonenumber-js` in TASK-199 (Registration UI) with the country code selector.
 
 ### Registration Form Schema
 
@@ -76,11 +81,36 @@ import * as yup from 'yup';
  */
 
 export const registrationSchema = yup.object({
+  firstName: yup
+    .string()
+    .required('First name is required')
+    .min(2, 'First name must be at least 2 characters')
+    .max(50, 'First name is too long')
+    .matches(/^[a-zA-Z\s'-]+$/, 'First name cannot contain numbers or special characters')
+    .trim(),
+
+  lastName: yup
+    .string()
+    .required('Last name is required')
+    .min(2, 'Last name must be at least 2 characters')
+    .max(50, 'Last name is too long')
+    .matches(/^[a-zA-Z\s'-]+$/, 'Last name cannot contain numbers or special characters')
+    .trim(),
+
   email: yup
     .string()
     .required('Email is required')
     .email('Please enter a valid email address')
     .lowercase()
+    .trim(),
+
+  phoneNumber: yup
+    .string()
+    .required('Mobile number is required')
+    .matches(
+      /^\+[1-9]\d{1,14}$/,
+      'Please enter a valid mobile number with country code (E.164 format)'
+    )
     .trim(),
 
   password: yup
@@ -96,14 +126,6 @@ export const registrationSchema = yup.object({
     .string()
     .required('Please confirm your password')
     .oneOf([yup.ref('password')], 'Passwords must match'),
-
-  fullName: yup
-    .string()
-    .required('Full name is required')
-    .min(2, 'Name must be at least 2 characters')
-    .max(100, 'Name is too long')
-    .matches(/^[a-zA-Z\s'-]+$/, 'Name contains invalid characters')
-    .trim(),
 
   acceptTerms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
 });

@@ -607,10 +607,14 @@ yarn detox:ios:test --record-videos failing
 
 - [ ] All scenarios pass on iOS simulator (iPhone 15 Pro)
 - [ ] All scenarios pass on Android emulator (Pixel 7 API 34)
-- [ ] Email/password registration flow tested end-to-end
-- [ ] Form validation errors tested (email, password, profile picture)
+- [ ] Email/password registration flow tested end-to-end with firstName, lastName, phoneNumber
+- [ ] Form validation errors tested (firstName, lastName, email, password, phoneNumber, profile picture)
+- [ ] First name validation tested (too short, contains numbers/special chars)
+- [ ] Last name validation tested (too short, contains numbers/special chars)
+- [ ] Phone number validation tested (invalid format, E.164 validation with country code)
+- [ ] Country code selector tested (selection, search, flag display)
 - [ ] Profile picture upload tested (selection, cropping, upload)
-- [ ] LinkedIn OAuth registration tested
+- [ ] LinkedIn OAuth registration tested (with automatic firstName/lastName extraction)
 - [ ] Network error scenarios tested (duplicate email, timeout)
 - [ ] Email verification navigation tested
 - [ ] Tokens stored in Keychain verified (via authenticated state check)

@@ -8,7 +8,7 @@
 
 ## Objective
 
-Build registration screen with email/password/name fields, profile picture picker, form validation (Yup + React Hook Form), submit to Supabase Auth, navigate to email verification.
+Build registration screen with email/password/first name/last name/phone number fields, country code selector, profile picture picker, form validation (Yup + React Hook Form), submit to Supabase Auth, navigate to email verification.
 
 ## Implementation
 
@@ -50,6 +50,32 @@ export const RegistrationScreen = ({ navigation }) => {
         testID="profile-picture-picker"
       />
 
+      <FormControl isInvalid={!!errors.firstName}>
+        <Controller
+          control={control}
+          name="firstName"
+          render={({ field }) => (
+            <Input>
+              <InputField {...field} placeholder="First Name" testID="first-name-input" />
+            </Input>
+          )}
+        />
+        {errors.firstName && <FormControlErrorText>{errors.firstName.message}</FormControlErrorText>}
+      </FormControl>
+
+      <FormControl isInvalid={!!errors.lastName}>
+        <Controller
+          control={control}
+          name="lastName"
+          render={({ field }) => (
+            <Input>
+              <InputField {...field} placeholder="Last Name" testID="last-name-input" />
+            </Input>
+          )}
+        />
+        {errors.lastName && <FormControlErrorText>{errors.lastName.message}</FormControlErrorText>}
+      </FormControl>
+
       <FormControl isInvalid={!!errors.email}>
         <Controller
           control={control}
@@ -61,6 +87,26 @@ export const RegistrationScreen = ({ navigation }) => {
           )}
         />
         {errors.email && <FormControlErrorText>{errors.email.message}</FormControlErrorText>}
+      </FormControl>
+
+      <FormControl isInvalid={!!errors.phoneNumber}>
+        <HStack space="sm">
+          <CountryCodeSelector
+            selectedCountryCode={countryCode}
+            onCountryCodeChange={setCountryCode}
+            testID="country-code-selector"
+          />
+          <Controller
+            control={control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <Input flex={1}>
+                <InputField {...field} placeholder="Mobile Number" keyboardType="phone-pad" testID="phone-number-input" />
+              </Input>
+            )}
+          />
+        </HStack>
+        {errors.phoneNumber && <FormControlErrorText>{errors.phoneNumber.message}</FormControlErrorText>}
       </FormControl>
 
       <FormControl isInvalid={!!errors.password}>
@@ -76,6 +122,19 @@ export const RegistrationScreen = ({ navigation }) => {
         {errors.password && <FormControlErrorText>{errors.password.message}</FormControlErrorText>}
       </FormControl>
 
+      <FormControl isInvalid={!!errors.confirmPassword}>
+        <Controller
+          control={control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <Input>
+              <InputField {...field} placeholder="Confirm Password" secureTextEntry testID="confirm-password-input" />
+            </Input>
+          )}
+        />
+        {errors.confirmPassword && <FormControlErrorText>{errors.confirmPassword.message}</FormControlErrorText>}
+      </FormControl>
+
       <Button onPress={handleSubmit(onSubmit)} isDisabled={isSubmitting || !profilePicture} testID="register-button">
         <ButtonText>Register</ButtonText>
       </Button>
@@ -86,7 +145,9 @@ export const RegistrationScreen = ({ navigation }) => {
 
 ## Acceptance Criteria
 
-- [ ] Email, password, confirm password, full name fields
+- [ ] First name, last name, email, phone number, password, confirm password fields
+- [ ] Country code selector with flag and search (using react-native-phone-number-input or equivalent)
+- [ ] Phone number validation with libphonenumber-js for E.164 format
 - [ ] Profile picture picker (required)
 - [ ] Real-time validation on blur
 - [ ] Error messages below fields
@@ -95,5 +156,14 @@ export const RegistrationScreen = ({ navigation }) => {
 - [ ] Navigate to EmailVerification on success
 - [ ] EAA compliance (labels, hints, touch targets)
 - [ ] 100% RNTL coverage
+
+## Additional Notes
+
+**Country Code Selector Implementation**:
+
+- Use `react-native-phone-number-input` (recommended) or `react-native-country-picker-modal` for country selector
+- Integrate `libphonenumber-js` for validation based on selected country
+- Format phone number to E.164 format before submitting (+447412345678)
+- Store in Supabase metadata as `phoneNumber`
 
 **Estimated Time**: 4 hours | **Last Updated**: 2025-11-21

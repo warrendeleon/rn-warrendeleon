@@ -14,8 +14,8 @@
 ## User Story
 
 **As a** new user wanting to create an account,
-**I want** to register using my email and password with a required profile picture,
-**So that** I can access the application securely with a personalized profile from day one.
+**I want** to register using my email, password, first name, last name, and mobile number with a required profile picture,
+**So that** I can access the application securely with a complete personalized profile from day one.
 
 ---
 
@@ -176,9 +176,14 @@ Currently, the app has no authentication system and uses static GitHub-hosted JS
 
 ### Functional
 
-- [ ] User can register with email and password
+- [ ] User can register with email, password, first name, last name, and mobile number
 - [ ] Email validation prevents invalid formats
 - [ ] Password validation enforces 8+ characters, uppercase, lowercase, number
+- [ ] First name validation enforces 2+ characters, no numbers/special chars
+- [ ] Last name validation enforces 2+ characters, no numbers/special chars
+- [ ] Mobile number validation enforces E.164 format with country code (+44, +1, etc.)
+- [ ] Country code selector allows choosing from all countries
+- [ ] Phone number is validated against selected country format
 - [ ] Profile picture upload is REQUIRED (cannot skip)
 - [ ] User can take photo with camera OR select from library
 - [ ] Image crops to square (1:1 aspect ratio) with drag handles
@@ -331,6 +336,61 @@ And my email is verified in Supabase
 And I am redirected to biometric setup screen
 ```
 
+### Scenario 9: First Name Validation
+
+```gherkin
+Given I am on the registration screen
+When I enter first name "A"
+Then I see error "First name must be at least 2 characters"
+When I enter first name "John123"
+Then I see error "First name cannot contain numbers"
+When I enter first name "John@"
+Then I see error "First name cannot contain special characters"
+When I enter first name "John"
+Then I see no validation error for first name
+```
+
+### Scenario 10: Last Name Validation
+
+```gherkin
+Given I am on the registration screen
+When I enter last name "D"
+Then I see error "Last name must be at least 2 characters"
+When I enter last name "Doe456"
+Then I see error "Last name cannot contain numbers"
+When I enter last name "Doe#"
+Then I see error "Last name cannot contain special characters"
+When I enter last name "Doe"
+Then I see no validation error for last name
+```
+
+### Scenario 11: Phone Number Validation
+
+```gherkin
+Given I am on the registration screen
+And I select country code "+44" (UK)
+When I enter phone number "123"
+Then I see error "Please enter a valid UK mobile number"
+When I enter phone number "abcd"
+Then I see error "Phone number must contain only digits"
+When I enter phone number "7412345678"
+Then I see no validation error for phone number
+And the full number is formatted as "+447412345678"
+```
+
+### Scenario 12: Country Code Selector
+
+```gherkin
+Given I am on the registration screen
+When I tap the country code selector
+Then I see a list of all countries with flags
+When I search for "United Kingdom"
+Then I see only UK in the results
+When I select UK (+44)
+Then the country code selector shows "+44" with UK flag
+And the phone input placeholder updates to UK format
+```
+
 ### E2E Testing (Detox + Cucumber)
 
 ```gherkin
@@ -340,9 +400,13 @@ Feature: Email/Password Registration
   Scenario: Complete registration with camera photo
     Given I launch the app
     When I tap "Register"
+    And I enter first name "John"
+    And I enter last name "Doe"
     And I enter email "test@example.com"
     And I enter password "Test123456"
     And I confirm password "Test123456"
+    And I select country code "+44"
+    And I enter phone number "7412345678"
     And I tap "Take Photo"
     And I take a photo
     And I confirm the crop
