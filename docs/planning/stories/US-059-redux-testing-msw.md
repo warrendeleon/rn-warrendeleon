@@ -3,7 +3,7 @@
 **Story ID**: US-059
 **Title**: Redux Testing Infrastructure with Mock Service Worker
 **Epic**: [EPIC-030](../epics/EPIC-030-testing-infrastructure.md) - Testing Infrastructure & Quality Improvements
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Effort**: 8 hours
 **Owner**: Warren de Leon
@@ -42,9 +42,9 @@ The official Redux team recommendation (Mark Erikson) is to mock at the HTTP lay
 
 ## Tasks
 
-| Task ID                                                           | Title                            | Status   | Effort | Priority |
-| ----------------------------------------------------------------- | -------------------------------- | -------- | ------ | -------- |
-| [TASK-328](../tasks/TASK-328-msw-redux-testing-infrastructure.md) | MSW Redux Testing Infrastructure | 📋 To Do | 8h     | High     |
+| Task ID                                                           | Title                            | Status         | Effort | Priority |
+| ----------------------------------------------------------------- | -------------------------------- | -------------- | ------ | -------- |
+| [TASK-328](../tasks/TASK-328-msw-redux-testing-infrastructure.md) | MSW Redux Testing Infrastructure | ⏳ In Progress | 8h     | High     |
 
 **Total Effort**: 8 hours
 

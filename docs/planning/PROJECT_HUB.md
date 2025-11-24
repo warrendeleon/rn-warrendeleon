@@ -641,9 +641,9 @@
 
 #### US-059: Redux Testing Infrastructure with MSW (1 task)
 
-| Task ID                                                          | Title                            | Status   | Effort | Priority |
-| ---------------------------------------------------------------- | -------------------------------- | -------- | ------ | -------- |
-| [TASK-328](./tasks/TASK-328-msw-redux-testing-infrastructure.md) | MSW Redux Testing Infrastructure | 📋 To Do | 8h     | High     |
+| Task ID                                                          | Title                            | Status         | Effort | Priority |
+| ---------------------------------------------------------------- | -------------------------------- | -------------- | ------ | -------- |
+| [TASK-328](./tasks/TASK-328-msw-redux-testing-infrastructure.md) | MSW Redux Testing Infrastructure | ⏳ In Progress | 8h     | High     |
 
 ---
 

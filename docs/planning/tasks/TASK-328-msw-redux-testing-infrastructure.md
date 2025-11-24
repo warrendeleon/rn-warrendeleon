@@ -4,7 +4,7 @@
 **Title**: Mock Service Worker (MSW) Redux Testing Infrastructure
 **User Story**: [US-059](../stories/US-059-redux-testing-msw.md) - Redux Testing Infrastructure with MSW
 **Epic**: [EPIC-030](../epics/EPIC-030-testing-infrastructure.md) - Testing Infrastructure & Quality Improvements
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: High
 **Effort**: 8 hours
 **Owner**: Warren de Leon

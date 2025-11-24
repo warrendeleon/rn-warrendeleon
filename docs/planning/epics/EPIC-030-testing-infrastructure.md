@@ -112,9 +112,9 @@ By implementing modern testing patterns:
 
 ## Tasks Breakdown
 
-| Task ID                                                           | Title                            | Status   | Effort | Priority |
-| ----------------------------------------------------------------- | -------------------------------- | -------- | ------ | -------- |
-| [TASK-328](../tasks/TASK-328-msw-redux-testing-infrastructure.md) | MSW Redux Testing Infrastructure | 📋 To Do | 8h     | High     |
+| Task ID                                                           | Title                            | Status         | Effort | Priority |
+| ----------------------------------------------------------------- | -------------------------------- | -------------- | ------ | -------- |
+| [TASK-328](../tasks/TASK-328-msw-redux-testing-infrastructure.md) | MSW Redux Testing Infrastructure | ⏳ In Progress | 8h     | High     |
 
 **Total Effort**: 8 hours
 
