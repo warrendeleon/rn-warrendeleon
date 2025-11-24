@@ -98,6 +98,58 @@ describe('authReducer', () => {
       expect(state.user?.lastName).toBe('de Leon');
       expect(state.user?.profilePicture).toBeNull();
     });
+
+    it('updates only lastName when provided', () => {
+      const authenticatedState: AuthState = {
+        ...initialState,
+        isAuthenticated: true,
+        user: {
+          id: 'user-123',
+          email: 'test@example.com',
+          firstName: 'Warren',
+          lastName: 'de Leon',
+          profilePicture: null,
+          authProvider: 'email',
+        },
+      };
+
+      const state = authReducer(
+        authenticatedState,
+        updateUserProfile({
+          lastName: 'Smith',
+        })
+      );
+
+      expect(state.user?.lastName).toBe('Smith');
+      expect(state.user?.firstName).toBe('Warren');
+      expect(state.user?.profilePicture).toBeNull();
+    });
+
+    it('updates only profilePicture when provided', () => {
+      const authenticatedState: AuthState = {
+        ...initialState,
+        isAuthenticated: true,
+        user: {
+          id: 'user-123',
+          email: 'test@example.com',
+          firstName: 'Warren',
+          lastName: 'de Leon',
+          profilePicture: null,
+          authProvider: 'email',
+        },
+      };
+
+      const state = authReducer(
+        authenticatedState,
+        updateUserProfile({
+          profilePicture: 'https://example.com/pic.jpg',
+        })
+      );
+
+      expect(state.user?.profilePicture).toBe('https://example.com/pic.jpg');
+      expect(state.user?.firstName).toBe('Warren');
+      expect(state.user?.lastName).toBe('de Leon');
+    });
   });
 
   describe('setBiometricEnabled', () => {
