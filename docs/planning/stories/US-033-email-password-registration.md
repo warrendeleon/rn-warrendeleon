@@ -14,8 +14,8 @@
 ## User Story
 
 **As a** new user wanting to create an account,
-**I want** to register using my email, password, first name, last name, and mobile number with a required profile picture,
-**So that** I can access the application securely with a complete personalized profile from day one.
+**I want** to register using my email, password, first name, last name, and mobile number,
+**So that** I can access the application securely and add my profile picture later after verification.
 
 ---
 
@@ -25,7 +25,7 @@ Currently, the app has no authentication system and uses static GitHub-hosted JS
 
 **Key Decision**: Custom REST API approach instead of Supabase SDK to maintain full control over authentication flow, reduce bundle size, and follow our security-first architecture. This allows us to implement 3-tier storage (Keychain for tokens, Encrypted Storage for PII, AsyncStorage for preferences) and comply with SECURITY.md standards.
 
-**Profile Picture Requirement**: Unlike optional profile pictures in most apps, we require users to upload or take a photo during registration. This ensures every user has a professional appearance and increases engagement. Users can choose from camera or photo library, with automatic square cropping and optimization.
+**Profile Picture Decision (Updated 2025-11-24)**: Profile picture upload moved to **post-registration** (after email verification + login). This prevents bot spam, reduces attack surface, improves conversion rate, and ensures only verified users can upload images. Users can add profile picture via Profile Settings (US-042) after login.
 
 **Related Epic**: See [EPIC-021](../epics/EPIC-021-registration-profile-setup.md) for complete business impact, success metrics, and technical architecture.
 
@@ -69,18 +69,20 @@ Currently, the app has no authentication system and uses static GitHub-hosted JS
 **Effort Estimate**: 40 hours (includes Supabase setup, security hardening, UI, testing)
 **Actual Effort**: _To be tracked_
 
-**Breakdown**:
+**Breakdown** (Updated 2025-11-24):
 
 - Supabase setup + security: 8h
 - Storage implementation: 3h
 - Auth REST API client: 4h
 - Response/input validation: 4h
 - Redux integration: 3h
-- Profile picture picker: 3h
-- Registration UI: 4h
+- Registration UI: 4h (no profile picture)
 - Email verification: 2h
 - Testing (RNTL + E2E): 7h
 - Data masking + security utilities: 2h
+- Security enhancements (TASK-329-332): 10.5h
+- ~~Profile picture picker: 3h~~ (moved to US-042)
+- ~~Storage upload: 2h~~ (moved to US-042)
 
 ---
 
@@ -177,23 +179,18 @@ Currently, the app has no authentication system and uses static GitHub-hosted JS
 ### Functional
 
 - [ ] User can register with email, password, first name, last name, and mobile number
-- [ ] Email validation prevents invalid formats
-- [ ] Password validation enforces 8+ characters, uppercase, lowercase, number
-- [ ] First name validation enforces 2+ characters, no numbers/special chars
-- [ ] Last name validation enforces 2+ characters, no numbers/special chars
-- [ ] Mobile number validation enforces E.164 format with country code (+44, +1, etc.)
+- [x] Email validation prevents invalid formats (disposable emails blocked) ✅ TASK-195
+- [x] Password validation enforces 8-128 characters, uppercase, lowercase, number, special char ✅ TASK-195
+- [x] Password cannot contain personal info (name, email) ✅ TASK-195
+- [x] First name validation enforces 2-50 characters, no numbers/special chars/emojis ✅ TASK-195
+- [x] Last name validation enforces 2-50 characters, no numbers/special chars/emojis ✅ TASK-195
+- [x] Mobile number validation enforces E.164 format with country code (+44, +1, etc.) ✅ TASK-195
 - [ ] Country code selector allows choosing from all countries
-- [ ] Phone number is validated against selected country format
-- [ ] Profile picture upload is REQUIRED (cannot skip)
-- [ ] User can take photo with camera OR select from library
-- [ ] Image crops to square (1:1 aspect ratio) with drag handles
-- [ ] Image resizes to 800×800px automatically
-- [ ] Image compresses to 80% JPEG quality
-- [ ] EXIF metadata stripped from uploaded images
-- [ ] Image uploads to Supabase Storage bucket
+- [x] Phone number is validated against selected country format (libphonenumber-js) ✅ TASK-195
+- [ ] ~~Profile picture upload~~ (DEFERRED to post-login via US-042)
 - [ ] Email verification link sent after successful registration
 - [ ] Deep link from email opens verification screen
-- [ ] Successful verification redirects to biometric setup
+- [ ] Successful verification redirects to login screen
 - [ ] Tokens stored in Keychain (NEVER AsyncStorage)
 - [ ] User PII stored in Encrypted Storage
 - [ ] Redux state updated with user data
@@ -203,7 +200,7 @@ Currently, the app has no authentication system and uses static GitHub-hosted JS
 - [ ] Passwords NEVER logged (even masked)
 - [ ] Tokens NEVER stored in Redux
 - [ ] All API responses validated with Zod schemas
-- [ ] All user inputs validated with Yup schemas
+- [x] All user inputs validated with Yup schemas ✅ TASK-195
 - [ ] HTTPS-only communication (Supabase enforces)
 - [ ] Certificate pinning configured (optional but recommended)
 - [ ] ProGuard enabled for Android
@@ -214,8 +211,8 @@ Currently, the app has no authentication system and uses static GitHub-hosted JS
 ### UI/UX
 
 - [ ] Registration screen uses GlueStack UI + NativeWind
-- [ ] Form uses React Hook Form + Yup
-- [ ] Inline validation with clear error messages
+- [x] Form uses React Hook Form + Yup (schemas ready) ✅ TASK-195
+- [x] Inline validation with clear error messages (Yup error messages) ✅ TASK-195
 - [ ] Loading spinner during registration
 - [ ] Success confirmation before email verification
 - [ ] Profile picture preview before upload
@@ -289,43 +286,7 @@ Then I see error "Passwords must match"
 And the Register button is disabled
 ```
 
-### Scenario 5: Required Profile Picture
-
-```gherkin
-Given I entered valid email and password
-When I tap "Register" without uploading picture
-Then I see error "Profile picture is required"
-And registration does not proceed
-```
-
-### Scenario 6: Profile Picture Upload - Camera
-
-```gherkin
-Given I am on the registration screen
-When I tap "Take Photo"
-And I take a photo with camera
-And I adjust the square crop
-And I tap "Confirm"
-Then the image is resized to 800×800
-And the image is compressed to 80% quality
-And EXIF metadata is stripped
-And the image is uploaded to Supabase Storage
-And I see the profile picture preview
-```
-
-### Scenario 7: Profile Picture Upload - Library
-
-```gherkin
-Given I am on the registration screen
-When I tap "Choose from Library"
-And I select a photo
-And I adjust the square crop
-And I tap "Confirm"
-Then the image is processed and uploaded
-And I see the profile picture preview
-```
-
-### Scenario 8: Email Verification
+### Scenario 5: Email Verification
 
 ```gherkin
 Given I completed registration
@@ -336,7 +297,7 @@ And my email is verified in Supabase
 And I am redirected to biometric setup screen
 ```
 
-### Scenario 9: First Name Validation
+### Scenario 6: First Name Validation
 
 ```gherkin
 Given I am on the registration screen
@@ -350,7 +311,7 @@ When I enter first name "John"
 Then I see no validation error for first name
 ```
 
-### Scenario 10: Last Name Validation
+### Scenario 7: Last Name Validation
 
 ```gherkin
 Given I am on the registration screen
@@ -364,7 +325,7 @@ When I enter last name "Doe"
 Then I see no validation error for last name
 ```
 
-### Scenario 11: Phone Number Validation
+### Scenario 8: Phone Number Validation
 
 ```gherkin
 Given I am on the registration screen
@@ -378,7 +339,7 @@ Then I see no validation error for phone number
 And the full number is formatted as "+447412345678"
 ```
 
-### Scenario 12: Country Code Selector
+### Scenario 9: Country Code Selector
 
 ```gherkin
 Given I am on the registration screen
@@ -397,19 +358,16 @@ And the phone input placeholder updates to UK format
 Feature: Email/Password Registration
 
   @registration @critical
-  Scenario: Complete registration with camera photo
+  Scenario: Complete registration
     Given I launch the app
     When I tap "Register"
     And I enter first name "John"
     And I enter last name "Doe"
     And I enter email "test@example.com"
-    And I enter password "Test123456"
-    And I confirm password "Test123456"
+    And I enter password "Test123456!"
+    And I confirm password "Test123456!"
     And I select country code "+44"
     And I enter phone number "7412345678"
-    And I tap "Take Photo"
-    And I take a photo
-    And I confirm the crop
     And I tap "Register"
     Then I see "Check your email for verification link"
 
@@ -488,18 +446,22 @@ Feature: Email/Password Registration
 | [TASK-192](../tasks/TASK-192-supabase-auth-rest-api-client.md)     | Supabase Auth REST API Client      | 4h     | Critical | ✅ Done  |
 | [TASK-193](../tasks/TASK-193-certificate-pinning.md)               | Certificate Pinning (iOS)          | 2h     | Medium   | ✅ Done  |
 | [TASK-194](../tasks/TASK-194-response-validation-zod.md)           | Response Validation with Zod       | 2h     | High     | ✅ Done  |
-| [TASK-195](../tasks/TASK-195-input-validation-yup.md)              | Input Validation with Yup          | 2h     | High     | 📋 To Do |
+| [TASK-195](../tasks/TASK-195-input-validation-yup.md)              | Input Validation with Yup          | 2h     | High     | ✅ Done  |
 | [TASK-196](../tasks/TASK-196-redux-auth-slice.md)                  | Redux Auth Slice                   | 3h     | Critical | ✅ Done  |
-| [TASK-197](../tasks/TASK-197-profile-picture-picker.md)            | Profile Picture Picker Component   | 3h     | High     | 📋 To Do |
-| [TASK-198](../tasks/TASK-198-supabase-storage-api-client.md)       | Supabase Storage API Client        | 2h     | High     | 📋 To Do |
+| [TASK-197](../tasks/TASK-197-profile-picture-picker.md)            | Profile Picture Picker (Deferred)  | 3h     | Medium   | 📋 To Do |
+| [TASK-198](../tasks/TASK-198-supabase-storage-api-client.md)       | Storage API Client (Deferred)      | 2h     | Medium   | 📋 To Do |
 | [TASK-199](../tasks/TASK-199-registration-screen-ui.md)            | Registration Screen UI             | 4h     | Critical | 📋 To Do |
 | [TASK-200](../tasks/TASK-200-email-verification-screen.md)         | Email Verification Screen          | 2h     | High     | 📋 To Do |
 | [TASK-201](../tasks/TASK-201-data-masking-logs.md)                 | Data Masking in Logs Utility       | 1h     | High     | 📋 To Do |
 | [TASK-202](../tasks/TASK-202-registration-rntl-tests.md)           | Registration RNTL Tests            | 3h     | High     | 📋 To Do |
 | [TASK-203](../tasks/TASK-203-registration-e2e-tests.md)            | Registration E2E Tests             | 4h     | High     | 📋 To Do |
+| [TASK-329](../tasks/TASK-329-expand-common-password-list.md)       | Expand Common Password List        | 1.5h   | Medium   | 📋 To Do |
+| [TASK-330](../tasks/TASK-330-unicode-normalization-names.md)       | Unicode Normalization for Names    | 1h     | Medium   | 📋 To Do |
+| [TASK-331](../tasks/TASK-331-token-code-validation-schemas.md)     | Token & Code Validation Schemas    | 2h     | High     | 📋 To Do |
+| [TASK-332](../tasks/TASK-332-advanced-security-features.md)        | Advanced Security Features         | 6h     | Low      | 📋 To Do |
 
-**Total Tasks**: 17
-**Total Effort**: 43.5 hours
+**Total Tasks**: 21
+**Total Effort**: 54 hours
 
 ---
 
@@ -537,16 +499,7 @@ Redux integration for authentication:
 
 **Validation**: Redux state management working, no sensitive data logged
 
-### Phase 3: Profile Picture (Day 5) - 5h
-
-Image upload functionality:
-
-- **TASK-197**: Camera/library picker with square crop
-- **TASK-198**: Supabase Storage API client for uploads
-
-**Validation**: Images crop, resize, compress, upload successfully
-
-### Phase 4: UI Implementation (Day 6-7) - 6h
+### Phase 3: UI Implementation (Day 5-6) - 6h
 
 User-facing screens:
 
@@ -555,7 +508,7 @@ User-facing screens:
 
 **Validation**: UI functional, forms validate, email verification works
 
-### Phase 5: Testing (Day 8-9) - 7h
+### Phase 4: Testing (Day 7-8) - 7h
 
 Comprehensive test coverage:
 
@@ -569,8 +522,10 @@ Comprehensive test coverage:
 ## Timeline & Dates
 
 **Start Date**: TBD
-**Estimated Duration**: 9 working days (43.5h / 5h per day)
+**Estimated Duration**: 8 working days (47.5h / 6h per day, excluding deferred TASK-197/198)
 **Completed Date**: _Not yet completed_
+
+**Note**: Profile picture tasks (TASK-197/198) moved to US-042 (post-login). This reduces registration scope while improving security and UX.
 
 ---
 

@@ -8,7 +8,9 @@
 
 ## Objective
 
-Build registration screen with email/password/first name/last name/phone number fields, country code selector, profile picture picker, form validation (Yup + React Hook Form), submit to Supabase Auth, navigate to email verification.
+Build registration screen with email/password/first name/last name/phone number fields, country code selector, form validation (Yup + React Hook Form), submit to Supabase Auth, navigate to email verification.
+
+**Note**: Profile picture upload moved to post-registration (TASK-197/198 deferred to US-042). Users can upload profile picture after email verification + login.
 
 ## Implementation
 
@@ -20,8 +22,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { VStack, FormControl, Input, Button } from '@gluestack-ui/themed';
 import { registrationSchema } from '@app/features/Auth/validation/registrationSchema';
-import { ProfilePicturePicker } from '@app/features/Auth/components/ProfilePicturePicker';
-import { supabaseStorageClient } from '@app/features/Auth/api/storage';
 import { useAppDispatch } from '@app/store/hooks';
 import { register } from '@app/features/Auth';
 
@@ -31,14 +31,9 @@ export const RegistrationScreen = ({ navigation }) => {
     resolver: yupResolver(registrationSchema),
   });
 
-  const [profilePicture, setProfilePicture] = React.useState<string | null>(null);
-
   const onSubmit = async (data) => {
-    // Upload profile picture
-    const pictureUrl = await supabaseStorageClient.uploadProfilePicture(profilePicture);
-
-    // Register user
-    await dispatch(register({ ...data, profilePicture: pictureUrl })).unwrap();
+    // Register user (no profile picture during registration)
+    await dispatch(register(data)).unwrap();
 
     // Navigate to email verification
     navigation.navigate('EmailVerification');
@@ -46,10 +41,6 @@ export const RegistrationScreen = ({ navigation }) => {
 
   return (
     <VStack space="lg" className="p-6">
-      <ProfilePicturePicker
-        onImageSelected={setProfilePicture}
-        testID="profile-picture-picker"
-      />
 
       <FormControl isInvalid={!!errors.firstName}>
         <Controller

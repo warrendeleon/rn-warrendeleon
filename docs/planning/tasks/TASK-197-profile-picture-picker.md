@@ -1,13 +1,32 @@
 # TASK-197: Profile Picture Picker Component
 
 **Task ID**: TASK-197
-**Title**: Profile Picture Picker Component (Camera + Library + Square Crop)
-**User Story**: [US-033](../stories/US-033-email-password-registration.md)
-**Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md)
-**Status**: 📋 To Do
-**Priority**: High
+**Title**: Profile Picture Picker Component (Moved to Post-Login)
+**User Story**: [US-042](../stories/US-042-update-profile-picture.md) - Update Profile Picture (Post-Login)
+**Epic**: [EPIC-023](../epics/EPIC-023-security-settings.md) - Security Settings
+**Status**: 📋 To Do (Deferred to post-registration)
+**Priority**: Medium (no longer blocks registration)
 **Effort**: 3 hours
 **Created**: 2025-11-21
+**Updated**: 2025-11-24
+
+---
+
+## ⚠️ Status Update (2025-11-24)
+
+**Decision**: Profile picture upload moved to **post-registration** (after email verification + login).
+
+**Rationale**:
+
+- ✅ Prevents bot spam (unverified accounts can't upload)
+- ✅ Reduces attack surface during registration
+- ✅ Faster registration flow (higher conversion)
+- ✅ Better UX (users can upload quality photo later)
+- ✅ Lower storage costs (no fake/abandoned account pictures)
+
+**New Location**: This task is now part of **US-042: Update Profile Picture** (TASK-243-246 already exist for this feature).
+
+**Impact**: TASK-199 (Registration Screen UI) no longer depends on this task.
 
 ---
 
