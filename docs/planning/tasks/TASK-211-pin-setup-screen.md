@@ -3,6 +3,18 @@
 **ID**: TASK-211 | **US**: [US-035](../stories/US-035-biometric-security-setup.md) | **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md)
 **Status**: 📋 To Do | **Priority**: High | **Effort**: 2.5h | **Created**: 2025-11-21
 
+## File Structure
+
+```
+src/features/Auth/
+└── screens/
+    ├── PINSetupScreen.tsx
+    └── __tests__/
+        └── PINSetupScreen.rntl.tsx
+```
+
+**Note**: Screen co-located with Auth feature following feature-first architecture (established in TASK-196).
+
 ---
 
 ## Context & Background

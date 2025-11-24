@@ -5,6 +5,23 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Auth/
+├── store/
+│   ├── biometricSlice.ts           # Biometric state, actions, thunks
+│   ├── index.ts                    # Export biometric alongside auth
+│   └── __tests__/
+│       └── biometricSlice.test.ts
+└── utils/
+    └── biometric.ts                # Biometric capability functions (TASK-239)
+```
+
+**Note**: Biometric state is Auth-specific functionality, so the Redux slice is co-located with the Auth feature following feature-first architecture (established in TASK-196). The biometric slice is kept separate from authSlice for clarity, but could be merged into authSlice in the future if needed.
+
+---
+
 ## Task Description
 
 Integrate biometric enable/disable logic with Redux store for state management. Create Redux slice for biometric settings, implement thunks for enable/disable operations, persist biometric state, and integrate with login flow.
@@ -29,16 +46,16 @@ Integrate biometric enable/disable logic with Redux store for state management. 
 ### Redux Slice
 
 ```typescript
-// src/store/slices/biometricSlice.ts
+// src/features/Auth/store/biometricSlice.ts
 
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import {
-  checkBiometric Capability,
+  checkBiometricCapability,
   enableBiometric,
   disableBiometric,
   authenticateWithBiometric,
-} from '../../services/biometric/biometricService';
-import { BiometricType, BiometricCapability } from '../../types/biometric';
+} from '../utils/biometric';
+import { BiometricType, BiometricCapability } from '../types';
 
 /**
  * Biometric state interface
@@ -137,7 +154,7 @@ const biometricSlice = createSlice({
     /**
      * Reset biometric state
      */
-    resetBiometricState: (state) => {
+    resetBiometricState: state => {
       state.isEnabled = false;
       state.isAvailable = false;
       state.biometricType = null;
@@ -149,25 +166,28 @@ const biometricSlice = createSlice({
     /**
      * Clear biometric error
      */
-    clearBiometricError: (state) => {
+    clearBiometricError: state => {
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     // Check capability
     builder
-      .addCase(checkBiometricCapabilityThunk.pending, (state) => {
+      .addCase(checkBiometricCapabilityThunk.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(checkBiometricCapabilityThunk.fulfilled, (state, action: PayloadAction<BiometricCapability>) => {
-        state.isLoading = false;
-        state.isAvailable = action.payload.available;
-        state.biometricType = action.payload.biometricType;
-        state.isEnabled = action.payload.isCurrentlyEnabled;
-        state.lastCheckTime = Date.now();
-        state.error = action.payload.error || null;
-      })
+      .addCase(
+        checkBiometricCapabilityThunk.fulfilled,
+        (state, action: PayloadAction<BiometricCapability>) => {
+          state.isLoading = false;
+          state.isAvailable = action.payload.available;
+          state.biometricType = action.payload.biometricType;
+          state.isEnabled = action.payload.isCurrentlyEnabled;
+          state.lastCheckTime = Date.now();
+          state.error = action.payload.error || null;
+        }
+      )
       .addCase(checkBiometricCapabilityThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
@@ -175,11 +195,11 @@ const biometricSlice = createSlice({
 
     // Enable biometric
     builder
-      .addCase(enableBiometricThunk.pending, (state) => {
+      .addCase(enableBiometricThunk.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(enableBiometricThunk.fulfilled, (state) => {
+      .addCase(enableBiometricThunk.fulfilled, state => {
         state.isLoading = false;
         state.isEnabled = true;
         state.error = null;
@@ -192,11 +212,11 @@ const biometricSlice = createSlice({
 
     // Disable biometric
     builder
-      .addCase(disableBiometricThunk.pending, (state) => {
+      .addCase(disableBiometricThunk.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(disableBiometricThunk.fulfilled, (state) => {
+      .addCase(disableBiometricThunk.fulfilled, state => {
         state.isLoading = false;
         state.isEnabled = false;
         state.error = null;
@@ -208,11 +228,11 @@ const biometricSlice = createSlice({
 
     // Authenticate
     builder
-      .addCase(authenticateWithBiometricThunk.pending, (state) => {
+      .addCase(authenticateWithBiometricThunk.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(authenticateWithBiometricThunk.fulfilled, (state) => {
+      .addCase(authenticateWithBiometricThunk.fulfilled, state => {
         state.isLoading = false;
         state.error = null;
       })
@@ -231,14 +251,46 @@ export default biometricSlice.reducer;
  * Selectors
  */
 export const selectBiometric = (state: { biometric: BiometricState }) => state.biometric;
-export const selectIsBiometricEnabled = (state: { biometric: BiometricState }) => state.biometric.isEnabled;
-export const selectIsBiometricAvailable = (state: { biometric: BiometricState }) => state.biometric.isAvailable;
-export const selectBiometricType = (state: { biometric: BiometricState }) => state.biometric.biometricType;
-export const selectBiometricLoading = (state: { biometric: BiometricState }) => state.biometric.isLoading;
+export const selectIsBiometricEnabled = (state: { biometric: BiometricState }) =>
+  state.biometric.isEnabled;
+export const selectIsBiometricAvailable = (state: { biometric: BiometricState }) =>
+  state.biometric.isAvailable;
+export const selectBiometricType = (state: { biometric: BiometricState }) =>
+  state.biometric.biometricType;
+export const selectBiometricLoading = (state: { biometric: BiometricState }) =>
+  state.biometric.isLoading;
 export const selectBiometricError = (state: { biometric: BiometricState }) => state.biometric.error;
 ```
 
-### Store Configuration
+### Auth Feature Store Exports
+
+```typescript
+// src/features/Auth/store/index.ts (update)
+
+// Auth slice exports
+export { default as authReducer } from './reducer';
+export * from './actions';
+export * from './selectors';
+
+// Biometric slice exports (NEW)
+export { default as biometricReducer } from './biometricSlice';
+export {
+  checkBiometricCapabilityThunk,
+  enableBiometricThunk,
+  disableBiometricThunk,
+  authenticateWithBiometricThunk,
+  resetBiometricState,
+  clearBiometricError,
+  selectBiometric,
+  selectIsBiometricEnabled,
+  selectIsBiometricAvailable,
+  selectBiometricType,
+  selectBiometricLoading,
+  selectBiometricError,
+} from './biometricSlice';
+```
+
+### Root Store Configuration
 
 ```typescript
 // src/store/index.ts (update)
@@ -257,18 +309,17 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers } from 'redux';
 
-import authReducer from './slices/authSlice';
-import biometricReducer from './slices/biometricSlice'; // NEW
+import { authReducer, biometricReducer } from '@app/features/Auth/store';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  biometric: biometricReducer, // NEW
+  biometric: biometricReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['auth', 'biometric'], // Persist biometric state
+  whitelist: ['auth', 'biometric'], // Persist both auth and biometric state
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -292,7 +343,7 @@ export type AppDispatch = typeof store.dispatch;
 ### Integration with Login Flow
 
 ```typescript
-// src/screens/auth/LoginScreen.tsx (updated)
+// src/features/Auth/screens/LoginScreen.tsx (updated)
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -301,8 +352,8 @@ import {
   authenticateWithBiometricThunk,
   selectIsBiometricEnabled,
   selectIsBiometricAvailable,
-} from '../../store/slices/biometricSlice';
-import { loginWithPINThunk } from '../../store/slices/authSlice';
+} from '@app/features/Auth/store';
+import { loginWithPINThunk } from '@app/features/Auth/store';
 
 export const LoginScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -358,7 +409,7 @@ export const LoginScreen: React.FC = () => {
 ### Unit Tests
 
 ```typescript
-// src/store/slices/__tests__/biometricSlice.test.ts
+// src/features/Auth/store/__tests__/biometricSlice.test.ts
 
 import biometricReducer, {
   checkBiometricCapabilityThunk,
@@ -368,11 +419,11 @@ import biometricReducer, {
   resetBiometricState,
   clearBiometricError,
 } from '../biometricSlice';
-import * as biometricService from '../../../services/biometric/biometricService';
+import * as biometricUtils from '../../utils/biometric';
 
-jest.mock('../../../services/biometric/biometricService');
+jest.mock('../../utils/biometric');
 
-const mockBiometricService = biometricService as jest.Mocked<typeof biometricService>;
+const mockBiometric = biometricUtils as jest.Mocked<typeof biometricUtils>;
 
 describe('biometricSlice', () => {
   const initialState = {
@@ -419,7 +470,7 @@ describe('biometricSlice', () => {
         isCurrentlyEnabled: true,
       };
 
-      mockBiometricService.checkBiometricCapability.mockResolvedValue(capability);
+      mockBiometric.checkBiometricCapability.mockResolvedValue(capability);
 
       const action = await checkBiometricCapabilityThunk()(jest.fn(), jest.fn(), undefined);
 
@@ -459,7 +510,7 @@ describe('biometricSlice', () => {
 
   describe('enableBiometricThunk', () => {
     it('should handle successful enable', async () => {
-      mockBiometricService.enableBiometric.mockResolvedValue();
+      mockBiometric.enableBiometric.mockResolvedValue();
 
       const action = await enableBiometricThunk()(jest.fn(), jest.fn(), undefined);
 
@@ -493,7 +544,7 @@ describe('biometricSlice', () => {
 
   describe('disableBiometricThunk', () => {
     it('should handle successful disable', async () => {
-      mockBiometricService.disableBiometric.mockResolvedValue();
+      mockBiometric.disableBiometric.mockResolvedValue();
 
       const action = await disableBiometricThunk()(jest.fn(), jest.fn(), undefined);
 
@@ -514,7 +565,7 @@ describe('biometricSlice', () => {
 
   describe('authenticateWithBiometricThunk', () => {
     it('should handle successful authentication', async () => {
-      mockBiometricService.authenticateWithBiometric.mockResolvedValue(true);
+      mockBiometric.authenticateWithBiometric.mockResolvedValue(true);
 
       const action = await authenticateWithBiometricThunk()(jest.fn(), jest.fn(), undefined);
 
@@ -522,7 +573,7 @@ describe('biometricSlice', () => {
     });
 
     it('should handle authentication failure', async () => {
-      mockBiometricService.authenticateWithBiometric.mockResolvedValue(false);
+      mockBiometric.authenticateWithBiometric.mockResolvedValue(false);
 
       const action = await authenticateWithBiometricThunk()(jest.fn(), jest.fn(), undefined);
 
@@ -538,7 +589,7 @@ describe('biometricSlice', () => {
 
 - Redux Toolkit
 - Redux Persist
-- Biometric service (TASK-239)
+- Biometric utility functions (TASK-239)
 
 ---
 

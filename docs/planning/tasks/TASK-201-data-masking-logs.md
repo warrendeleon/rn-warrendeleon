@@ -22,6 +22,18 @@ export const maskSensitiveData = (data: any): any => {
 };
 ```
 
+## File Structure
+
+```
+src/utils/
+└── logging/
+    ├── maskSensitiveData.ts
+    └── __tests__/
+        └── maskSensitiveData.test.ts
+```
+
+**Note**: This is a generic utility used across all features, so it's correctly centralized in `/src/utils/` (not feature-specific).
+
 ## Acceptance Criteria
 
 - [ ] Mask tokens (JWT format)

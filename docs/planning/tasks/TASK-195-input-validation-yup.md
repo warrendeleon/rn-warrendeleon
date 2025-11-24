@@ -71,7 +71,7 @@ yarn add libphonenumber-js
 
 ### Registration Form Schema
 
-Create `/Users/warrendeleon/Developer/warrendeleon/src/validation/schemas/registrationSchema.ts`:
+Create `src/features/Auth/validation/registrationSchema.ts`:
 
 ```typescript
 import * as yup from 'yup';
@@ -135,7 +135,7 @@ export type RegistrationFormData = yup.InferType<typeof registrationSchema>;
 
 ### Login Form Schema
 
-Create `/Users/warrendeleon/Developer/warrendeleon/src/validation/schemas/loginSchema.ts`:
+Create `src/features/Auth/validation/loginSchema.ts`:
 
 ```typescript
 import * as yup from 'yup';
@@ -158,7 +158,7 @@ export type LoginFormData = yup.InferType<typeof loginSchema>;
 
 ### Custom Validation Rules
 
-Create `/Users/warrendeleon/Developer/warrendeleon/src/validation/customRules.ts`:
+Create `src/features/Auth/validation/customRules.ts`:
 
 ```typescript
 import * as yup from 'yup';
@@ -240,7 +240,7 @@ Example usage in Registration Screen:
 ```typescript
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { registrationSchema, RegistrationFormData } from '@/validation/schemas/registrationSchema';
+import { registrationSchema, RegistrationFormData } from '@app/features/Auth/validation/registrationSchema';
 
 const RegistrationScreen = () => {
   const {
@@ -304,25 +304,28 @@ const RegistrationScreen = () => {
 ## Files Created
 
 ```
-src/validation/
-├── schemas/
-│   ├── registrationSchema.ts        # Created
-│   ├── loginSchema.ts                # Created
-│   ├── passwordRecoverySchema.ts    # Created
-│   └── profileUpdateSchema.ts       # Created
-├── customRules.ts                    # Created
-└── __tests__/
-    └── schemas.test.ts               # Created
+src/features/Auth/
+└── validation/
+    ├── registrationSchema.ts        # Created
+    ├── loginSchema.ts                # Created
+    ├── passwordRecoverySchema.ts    # Created
+    ├── profileUpdateSchema.ts       # Created
+    ├── customRules.ts                # Created
+    └── __tests__/
+        ├── registrationSchema.test.ts  # Created
+        └── loginSchema.test.ts         # Created
 ```
+
+**Note**: Validation schemas are co-located with the Auth feature following feature-first architecture (established in TASK-196).
 
 ---
 
 ## Tests
 
-Create `/Users/warrendeleon/Developer/warrendeleon/src/validation/__tests__/registrationSchema.test.ts`:
+Create `src/features/Auth/validation/__tests__/registrationSchema.test.ts`:
 
 ```typescript
-import { registrationSchema } from '../schemas/registrationSchema';
+import { registrationSchema } from '../registrationSchema';
 
 describe('registrationSchema', () => {
   it('should validate correct registration data', async () => {

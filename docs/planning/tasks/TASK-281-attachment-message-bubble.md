@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── components/
+    ├── AttachmentMessageBubble.tsx
+    └── __tests__/
+        └── AttachmentMessageBubble.test.tsx
+```
+
+**Note**: AttachmentMessageBubble is a Chat-specific component, co-located within the Chat feature for displaying image/file attachments in message bubbles.
+
+---
+
 ## Task Description
 
 Create AttachmentMessageBubble component to display image and file attachments in messages. Support image preview, file download, loading states, error states, and tap-to-view functionality.
@@ -13,7 +27,7 @@ Create AttachmentMessageBubble component to display image and file attachments i
 
 ## Acceptance Criteria
 
-- [ ] AttachmentMessageBubble component created in `src/components/chat/AttachmentMessageBubble.tsx`
+- [ ] AttachmentMessageBubble component created in `src/features/Chat/components/AttachmentMessageBubble.tsx`
 - [ ] Display image attachments with preview
 - [ ] Display file attachments with icon and name
 - [ ] Support loading states during upload
@@ -30,7 +44,7 @@ Create AttachmentMessageBubble component to display image and file attachments i
 ### AttachmentMessageBubble Component
 
 ```typescript
-// src/components/chat/AttachmentMessageBubble.tsx
+// src/features/Chat/components/AttachmentMessageBubble.tsx
 
 import React, { useState } from 'react';
 import { Pressable, Image, StyleSheet } from 'react-native';
@@ -308,7 +322,7 @@ const styles = StyleSheet.create({
 ### Unit Tests
 
 ```typescript
-// src/components/chat/__tests__/AttachmentMessageBubble.test.tsx
+// src/features/Chat/components/__tests__/AttachmentMessageBubble.test.tsx
 
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';

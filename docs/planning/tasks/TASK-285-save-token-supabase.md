@@ -35,7 +35,7 @@ import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
 import { Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import { getAccessToken } from '../../utils/storage/secureStorage';
+import { SecureStore } from '@app/utils/storage/SecureStore';
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY!;
@@ -89,7 +89,7 @@ const getDeviceInfo = async () => {
  */
 export const saveTokenToSupabase = async (fcmToken: string): Promise<FCMToken> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -138,7 +138,7 @@ export const updateTokenInSupabase = async (
   newToken: string
 ): Promise<FCMToken> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -193,7 +193,7 @@ export const updateTokenInSupabase = async (
  */
 export const deleteTokenFromSupabase = async (fcmToken: string): Promise<void> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -233,7 +233,7 @@ export const deleteTokenFromSupabase = async (fcmToken: string): Promise<void> =
  */
 export const deleteAllDeviceTokens = async (): Promise<void> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -270,7 +270,7 @@ export const deleteAllDeviceTokens = async (): Promise<void> => {
  */
 export const updateTokenLastUsed = async (fcmToken: string): Promise<void> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -303,7 +303,7 @@ export const updateTokenLastUsed = async (fcmToken: string): Promise<void> => {
  */
 export const getUserTokens = async (): Promise<FCMToken[]> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -438,22 +438,20 @@ import {
   deleteAllDeviceTokens,
   getUserTokens,
 } from '../tokenService';
-import * as secureStorage from '../../../utils/storage/secureStorage';
+import { SecureStore } from '@app/utils/storage/SecureStore';
 
 jest.mock('axios');
 jest.mock('react-native-device-info');
-jest.mock('../../../utils/storage/secureStorage');
+jest.mock('@app/utils/storage/SecureStore');
 
 const mockAxios = axios as jest.Mocked<typeof axios>;
 const mockDeviceInfo = DeviceInfo as jest.Mocked<typeof DeviceInfo>;
-const mockGetAccessToken = secureStorage.getAccessToken as jest.MockedFunction<
-  typeof secureStorage.getAccessToken
->;
+const mockSecureStore = SecureStore as jest.Mocked<typeof SecureStore>;
 
 describe('tokenService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockGetAccessToken.mockResolvedValue('mock-access-token');
+    mockSecureStore.get.mockResolvedValue('mock-access-token');
 
     mockDeviceInfo.getUniqueId.mockResolvedValue('device-123');
     mockDeviceInfo.getModel.mockReturnValue('iPhone 12');
@@ -499,7 +497,7 @@ describe('tokenService', () => {
     });
 
     it('should throw error when not authenticated', async () => {
-      mockGetAccessToken.mockResolvedValue(null);
+      mockSecureStore.get.mockResolvedValue(null);
 
       await expect(saveTokenToSupabase('fcm-token-123')).rejects.toThrow('Not authenticated');
     });
@@ -662,7 +660,7 @@ describe('tokenService', () => {
 - Axios (HTTP client)
 - Zod (runtime validation)
 - react-native-device-info (device information)
-- secureStorage utility (access token retrieval)
+- SecureStore utility (access token retrieval from TASK-196)
 
 ---
 

@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/utils/
+└── validation/
+    ├── passwordValidation.ts
+    └── __tests__/
+        └── passwordValidation.test.ts
+```
+
+**Note**: Password validation is a **correctly centralized** generic validation utility. It's used by multiple features (registration in TASK-195, reset password in TASK-257, change password in TASK-232), making it a cross-cutting concern that belongs in `/src/utils/validation/`.
+
+---
+
 ## Task Description
 
 Create a comprehensive password validation utility that enforces strong password requirements. Validate minimum length, character variety (uppercase, lowercase, numbers, special characters), and provide detailed feedback for password strength.

@@ -1,5 +1,19 @@
 # TASK-219: Magic Link API Integration
 
+## File Structure
+
+```
+src/features/Auth/
+├── api/
+│   └── api.ts              # Add sendMagicLink + verifyMagicLink methods
+└── store/
+    └── actions.ts          # Add magicLinkLogin action
+```
+
+**Note**: Magic Link API methods co-located with Auth feature API following feature-first architecture (established in TASK-196).
+
+# TASK-219: Magic Link API Integration (Original Content)
+
 **ID**: TASK-219 | **Title**: Integrate Supabase Magic Link API and Deep Link Handler
 **User Story**: [US-037](../stories/US-037-magic-link-login.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
 **Status**: 📋 To Do | **Priority**: High | **Effort**: 2h

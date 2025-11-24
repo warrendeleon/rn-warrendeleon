@@ -66,7 +66,7 @@ Build BiometricSetupScreen with:
 
 ### Phase 1: Screen Component Structure (45 minutes)
 
-**File**: `src/screens/auth/BiometricSetupScreen.tsx`
+**File**: `src/features/Auth/screens/BiometricSetupScreen.tsx`
 
 ```typescript
 import React, { useState } from 'react';

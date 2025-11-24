@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+├── api/
+│   └── storage.ts
+└── hooks/
+    └── useFileUpload.ts
+```
+
+**Note**: Storage upload service is Chat-specific, co-located within the Chat feature. Uses custom REST API (NO Supabase SDK) for file uploads.
+
+---
+
 ## Task Description
 
 Create service to upload attachments to Supabase Storage using custom REST API. Support upload progress tracking, error handling, retry logic, and generating public URLs for uploaded files.
@@ -13,7 +27,7 @@ Create service to upload attachments to Supabase Storage using custom REST API. 
 
 ## Acceptance Criteria
 
-- [ ] Storage upload service created in `src/services/chat/storageService.ts`
+- [ ] Storage upload service created in `src/features/Chat/api/storage.ts`
 - [ ] Upload images to Supabase Storage
 - [ ] Upload files to Supabase Storage
 - [ ] Track upload progress
@@ -30,11 +44,11 @@ Create service to upload attachments to Supabase Storage using custom REST API. 
 ### Storage Upload Service
 
 ```typescript
-// src/services/chat/storageService.ts
+// src/features/Chat/api/storage.ts
 
 import axios, { AxiosError, AxiosProgressEvent } from 'axios';
 import { z } from 'zod';
-import { getAccessToken } from '../../utils/storage/secureStorage';
+import { SecureStore } from '@app/utils/storage/SecureStore';
 import RNFS from 'react-native-fs';
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
@@ -118,7 +132,7 @@ export const uploadFile = async (
   try {
     const { onProgress, maxRetries = 3 } = options;
 
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -223,7 +237,7 @@ export const uploadFileWithRetry = async (
  */
 export const deleteFile = async (filePath: string): Promise<void> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -267,7 +281,7 @@ export const getPublicUrl = (filePath: string): string => {
 ### Usage Hook
 
 ```typescript
-// src/hooks/chat/useFileUpload.ts
+// src/features/Chat/hooks/useFileUpload.ts
 
 import { useState, useCallback } from 'react';
 import {
@@ -275,7 +289,7 @@ import {
   generateStorageFilePath,
   UploadProgress,
   UploadResult,
-} from '../../services/chat/storageService';
+} from '../api/storage';
 
 export interface UseFileUploadReturn {
   uploadFile: (
@@ -345,7 +359,7 @@ export const useFileUpload = (): UseFileUploadReturn => {
 ### Unit Tests
 
 ```typescript
-// src/services/chat/__tests__/storageService.test.ts
+// src/features/Chat/api/__tests__/storage.test.ts
 
 import axios from 'axios';
 import RNFS from 'react-native-fs';
@@ -355,23 +369,21 @@ import {
   uploadFileWithRetry,
   deleteFile,
   getPublicUrl,
-} from '../storageService';
-import * as secureStorage from '../../../utils/storage/secureStorage';
+} from '../storage';
+import { SecureStore } from '@app/utils/storage/SecureStore';
 
 jest.mock('axios');
 jest.mock('react-native-fs');
-jest.mock('../../../utils/storage/secureStorage');
+jest.mock('@app/utils/storage/SecureStore');
 
 const mockAxios = axios as jest.Mocked<typeof axios>;
 const mockRNFS = RNFS as jest.Mocked<typeof RNFS>;
-const mockGetAccessToken = secureStorage.getAccessToken as jest.MockedFunction<
-  typeof secureStorage.getAccessToken
->;
+const mockSecureStore = SecureStore as jest.Mocked<typeof SecureStore>;
 
 describe('storageService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockGetAccessToken.mockResolvedValue('mock-access-token');
+    mockSecureStore.get.mockResolvedValue('mock-access-token');
   });
 
   describe('generateStorageFilePath', () => {
@@ -461,7 +473,7 @@ describe('storageService', () => {
     });
 
     it('should throw error when not authenticated', async () => {
-      mockGetAccessToken.mockResolvedValue(null);
+      mockSecureStore.get.mockResolvedValue(null);
 
       await expect(
         uploadFile('file://photo.jpg', 'path/to/file.jpg', 'image/jpeg')
@@ -506,7 +518,7 @@ describe('storageService', () => {
     });
 
     it('should not retry on authentication error', async () => {
-      mockGetAccessToken.mockResolvedValue(null);
+      mockSecureStore.get.mockResolvedValue(null);
 
       await expect(
         uploadFileWithRetry('file://photo.jpg', 'path/to/file.jpg', 'image/jpeg')
@@ -560,7 +572,7 @@ describe('storageService', () => {
 - Axios (HTTP client)
 - react-native-fs (file system access)
 - Zod (runtime validation)
-- secureStorage utility (access token retrieval)
+- SecureStore utility (access token retrieval from TASK-196)
 
 ---
 

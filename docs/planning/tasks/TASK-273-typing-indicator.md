@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── components/
+    ├── TypingIndicator.tsx
+    └── __tests__/
+        └── TypingIndicator.test.tsx
+```
+
+**Note**: TypingIndicator is a Chat-specific component, co-located within the Chat feature for displaying real-time typing status.
+
+---
+
 ## Task Description
 
 Create a TypingIndicator component to display when other users are typing. Support animated dots, multiple users typing, and proper accessibility. Integrate with Supabase Realtime for live typing status updates.
@@ -13,7 +27,7 @@ Create a TypingIndicator component to display when other users are typing. Suppo
 
 ## Acceptance Criteria
 
-- [ ] TypingIndicator component created in `src/components/chat/TypingIndicator.tsx`
+- [ ] TypingIndicator component created in `src/features/Chat/components/TypingIndicator.tsx`
 - [ ] Animated typing dots (3 dots bouncing animation)
 - [ ] Display user name(s) typing
 - [ ] Support multiple users typing ("John and 2 others are typing...")
@@ -28,7 +42,7 @@ Create a TypingIndicator component to display when other users are typing. Suppo
 ### TypingIndicator Component
 
 ```typescript
-// src/components/chat/TypingIndicator.tsx
+// src/features/Chat/components/TypingIndicator.tsx
 
 import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet } from 'react-native';
@@ -262,7 +276,7 @@ export const TypingIndicatorContainer: React.FC<{
 ### Unit Tests
 
 ```typescript
-// src/components/chat/__tests__/TypingIndicator.test.tsx
+// src/features/Chat/components/__tests__/TypingIndicator.test.tsx
 
 import React from 'react';
 import { render } from '@testing-library/react-native';

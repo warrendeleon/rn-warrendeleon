@@ -5,6 +5,21 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── components/
+    ├── ReadReceipt.tsx
+    ├── AnimatedReadReceipt.tsx     # Optional enhancement
+    └── __tests__/
+        └── ReadReceipt.test.tsx
+```
+
+**Note**: ReadReceipt is a Chat-specific component, co-located within the Chat feature for displaying message status indicators.
+
+---
+
 ## Task Description
 
 Create a ReadReceipt component to display message read status. Support different states (sending, sent, delivered, read) with appropriate icons and colours. Integrate with message status updates from Supabase.
@@ -13,7 +28,7 @@ Create a ReadReceipt component to display message read status. Support different
 
 ## Acceptance Criteria
 
-- [ ] ReadReceipt component created in `src/components/chat/ReadReceipt.tsx`
+- [ ] ReadReceipt component created in `src/features/Chat/components/ReadReceipt.tsx`
 - [ ] Display status icons (sending, sent, delivered, read)
 - [ ] Different colours for each status
 - [ ] Support single and double check marks
@@ -28,7 +43,7 @@ Create a ReadReceipt component to display message read status. Support different
 ### ReadReceipt Component
 
 ```typescript
-// src/components/chat/ReadReceipt.tsx
+// src/features/Chat/components/ReadReceipt.tsx
 
 import React from 'react';
 import { Box, CheckIcon, ClockIcon } from '@gluestack-ui/themed';
@@ -204,7 +219,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({
 ### Animated ReadReceipt (Optional Enhancement)
 
 ```typescript
-// src/components/chat/AnimatedReadReceipt.tsx
+// src/features/Chat/components/AnimatedReadReceipt.tsx
 
 import React, { useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
@@ -250,7 +265,7 @@ export const AnimatedReadReceipt: React.FC<ReadReceiptProps> = (props) => {
 ### Unit Tests
 
 ```typescript
-// src/components/chat/__tests__/ReadReceipt.test.tsx
+// src/features/Chat/components/__tests__/ReadReceipt.test.tsx
 
 import React from 'react';
 import { render } from '@testing-library/react-native';

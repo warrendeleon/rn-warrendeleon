@@ -5,6 +5,22 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Auth/
+├── api/
+│   ├── passwordReset.ts             # Password recovery API client
+│   └── __tests__/
+│       └── passwordReset.test.ts
+└── utils/
+    └── rateLimiter.ts               # TASK-253 (imported by this API)
+```
+
+**Note**: Password recovery API is Auth-specific functionality, co-located with the Auth feature following feature-first architecture (established in TASK-196).
+
+---
+
 ## Task Description
 
 Integrate Supabase Auth REST API for password recovery. Send recovery email with magic link, handle rate limiting, and provide clear user feedback. Use custom REST API (NO Supabase SDK) for authentication operations.
@@ -13,7 +29,7 @@ Integrate Supabase Auth REST API for password recovery. Send recovery email with
 
 ## Acceptance Criteria
 
-- [ ] Password reset service created in `src/services/auth/passwordResetService.ts`
+- [ ] Password reset API client created in `src/features/Auth/api/passwordReset.ts`
 - [ ] Custom REST API integration for password recovery
 - [ ] Send recovery email via Supabase Auth API
 - [ ] Integrate rate limiting (3 requests per hour)
@@ -29,11 +45,11 @@ Integrate Supabase Auth REST API for password recovery. Send recovery email with
 ### Password Reset Service
 
 ```typescript
-// src/services/auth/passwordResetService.ts
+// src/features/Auth/api/passwordReset.ts
 
 import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
-import { checkPasswordResetRateLimit, recordPasswordResetRequest } from './rateLimiterService';
+import { checkPasswordResetRateLimit, recordPasswordResetRequest } from '../utils/rateLimiter';
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
@@ -269,7 +285,7 @@ export const getPasswordResetConfig = () => {
 ### Unit Tests
 
 ```typescript
-// src/services/auth/__tests__/passwordResetService.test.ts
+// src/features/Auth/api/__tests__/passwordReset.test.ts
 
 import axios, { AxiosError } from 'axios';
 import {
@@ -277,14 +293,14 @@ import {
   verifyPasswordResetToken,
   resetPasswordWithToken,
   getPasswordResetConfig,
-} from '../passwordResetService';
-import * as rateLimiterService from '../rateLimiterService';
+} from '../passwordReset';
+import * as rateLimiter from '../../utils/rateLimiter';
 
 jest.mock('axios');
-jest.mock('../rateLimiterService');
+jest.mock('../../utils/rateLimiter');
 
 const mockAxios = axios as jest.Mocked<typeof axios>;
-const mockRateLimiter = rateLimiterService as jest.Mocked<typeof rateLimiterService>;
+const mockRateLimiter = rateLimiter as jest.Mocked<typeof rateLimiter>;
 
 describe('passwordResetService', () => {
   const testEmail = 'user@example.com';

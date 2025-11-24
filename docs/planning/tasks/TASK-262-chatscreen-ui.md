@@ -5,6 +5,30 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+├── screens/
+│   ├── ChatScreen.tsx
+│   └── __tests__/
+│       └── ChatScreen.rntl.tsx
+├── components/
+│   ├── MessageBubble.tsx          # TASK-263
+│   ├── MessageInput.tsx            # TASK-264
+│   └── EmptyState.tsx              # TASK-271
+├── hooks/
+│   ├── useMessages.ts
+│   └── useRealtimeSubscription.ts
+└── api/
+    ├── chat.ts                     # TASK-266
+    └── realtime.ts                 # TASK-265
+```
+
+**Note**: Chat screen is Chat-specific, co-located with Chat feature. All chat-related components, hooks, and API clients are kept together for maintainability.
+
+---
+
 ## Task Description
 
 Create the ChatScreen component with message list, input field, send button, and real-time message display. Integrate FlatList for efficient rendering, pull-to-refresh for loading older messages, and optimistic UI updates for sent messages.
@@ -13,7 +37,7 @@ Create the ChatScreen component with message list, input field, send button, and
 
 ## Acceptance Criteria
 
-- [ ] ChatScreen component created in `src/screens/chat/ChatScreen.tsx`
+- [ ] ChatScreen component created in `src/features/Chat/screens/ChatScreen.tsx`
 - [ ] FlatList for message rendering (inverted for chat layout)
 - [ ] MessageBubble component integration
 - [ ] MessageInput component integration
@@ -32,7 +56,7 @@ Create the ChatScreen component with message list, input field, send button, and
 ### ChatScreen Component
 
 ```typescript
-// src/screens/chat/ChatScreen.tsx
+// src/features/Chat/screens/ChatScreen.tsx
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
@@ -51,12 +75,12 @@ import {
   Spinner,
   HStack,
 } from '@gluestack-ui/themed';
-import { MessageBubble } from '../../components/chat/MessageBubble';
-import { MessageInput } from '../../components/chat/MessageInput';
-import { EmptyState } from '../../components/chat/EmptyState';
-import { useMessages } from '../../hooks/chat/useMessages';
-import { useRealtimeSubscription } from '../../hooks/chat/useRealtimeSubscription';
-import type { Message } from '../../types/chat';
+import { MessageBubble } from '../components/MessageBubble';
+import { MessageInput } from '../components/MessageInput';
+import { EmptyState } from '../components/EmptyState';
+import { useMessages } from '../hooks/useMessages';
+import { useRealtimeSubscription } from '../hooks/useRealtimeSubscription';
+import type { Message } from '@app/types/chat';
 
 type ChatRouteParams = {
   conversationId: string;
@@ -251,11 +275,11 @@ export const ChatScreen: React.FC = () => {
 ### Custom Hook: useMessages
 
 ```typescript
-// src/hooks/chat/useMessages.ts
+// src/features/Chat/hooks/useMessages.ts
 
 import { useState, useEffect, useCallback } from 'react';
-import { fetchMessages, sendMessageToConversation } from '../../services/chat/chatService';
-import type { Message } from '../../types/chat';
+import { fetchMessages, sendMessageToConversation } from '../api/chat';
+import type { Message } from '@app/types/chat';
 
 const PAGE_SIZE = 20;
 
@@ -377,14 +401,14 @@ export const useMessages = (conversationId: string) => {
 ### Unit Tests
 
 ```typescript
-// src/screens/chat/__tests__/ChatScreen.test.tsx
+// src/features/Chat/screens/__tests__/ChatScreen.rntl.tsx
 
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { ChatScreen } from '../ChatScreen';
-import * as chatService from '../../../services/chat/chatService';
+import * as chatService from '../../api/chat';
 
-jest.mock('../../../services/chat/chatService');
+jest.mock('../../api/chat');
 jest.mock('@react-navigation/native', () => ({
   useRoute: () => ({
     params: {

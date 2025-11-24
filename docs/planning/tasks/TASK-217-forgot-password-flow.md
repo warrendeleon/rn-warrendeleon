@@ -5,6 +5,22 @@
 **Status**: 📋 To Do | **Priority**: Medium | **Effort**: 2h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
+## File Structure
+
+```
+src/features/Auth/
+├── screens/
+│   ├── ForgotPasswordScreen.tsx
+│   └── __tests__/
+│       └── ForgotPasswordScreen.rntl.tsx
+├── api/
+│   └── api.ts              # Add forgotPassword method
+└── validation/
+    └── forgotPasswordSchema.ts
+```
+
+**Note**: Screen and API method co-located with Auth feature following feature-first architecture (established in TASK-196).
+
 ---
 
 ## Context & Background

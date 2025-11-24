@@ -12,17 +12,18 @@ Build registration screen with email/password/first name/last name/phone number 
 
 ## Implementation
 
-`src/screens/auth/RegistrationScreen.tsx`:
+`src/features/Auth/screens/RegistrationScreen.tsx`:
 
 ```typescript
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { VStack, FormControl, Input, Button } from '@gluestack-ui/themed';
-import { registrationSchema } from '@/validation/schemas/registrationSchema';
-import { ProfilePicturePicker } from '@/components/auth/ProfilePicturePicker';
-import { useAppDispatch } from '@/redux/hooks';
-import { register } from '@/redux/slices/authSlice';
+import { registrationSchema } from '@app/features/Auth/validation/registrationSchema';
+import { ProfilePicturePicker } from '@app/features/Auth/components/ProfilePicturePicker';
+import { supabaseStorageClient } from '@app/features/Auth/api/storage';
+import { useAppDispatch } from '@app/store/hooks';
+import { register } from '@app/features/Auth';
 
 export const RegistrationScreen = ({ navigation }) => {
   const dispatch = useAppDispatch();
@@ -142,6 +143,18 @@ export const RegistrationScreen = ({ navigation }) => {
   );
 };
 ```
+
+## File Structure
+
+```
+src/features/Auth/
+└── screens/
+    ├── RegistrationScreen.tsx
+    └── __tests__/
+        └── RegistrationScreen.rntl.tsx
+```
+
+**Note**: Screen co-located with Auth feature following feature-first architecture (established in TASK-196).
 
 ## Acceptance Criteria
 

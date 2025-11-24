@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── components/
+    ├── MessageBubble.tsx
+    └── __tests__/
+        └── MessageBubble.test.tsx
+```
+
+**Note**: MessageBubble is a Chat-specific component, co-located with the Chat feature.
+
+---
+
 ## Task Description
 
 Create a MessageBubble component to display individual chat messages. Support sent/received styling, message status indicators (sending, sent, delivered, read, failed), timestamps, and accessibility features.
@@ -13,7 +27,7 @@ Create a MessageBubble component to display individual chat messages. Support se
 
 ## Acceptance Criteria
 
-- [ ] MessageBubble component created in `src/components/chat/MessageBubble.tsx`
+- [ ] MessageBubble component created in `src/features/Chat/components/MessageBubble.tsx`
 - [ ] Different styling for sent vs received messages
 - [ ] Message status indicators (sending, sent, delivered, read, failed)
 - [ ] Timestamp display
@@ -29,7 +43,7 @@ Create a MessageBubble component to display individual chat messages. Support se
 ### MessageBubble Component
 
 ```typescript
-// src/components/chat/MessageBubble.tsx
+// src/features/Chat/components/MessageBubble.tsx
 
 import React from 'react';
 import { StyleSheet } from 'react-native';
@@ -43,7 +57,7 @@ import {
   AvatarFallbackText,
 } from '@gluestack-ui/themed';
 import { format } from 'date-fns';
-import type { Message } from '../../types/chat';
+import type { Message } from '@app/types/chat';
 
 export interface MessageBubbleProps {
   message: Message;
@@ -194,7 +208,7 @@ const styles = StyleSheet.create({
 ### Message Type Definition
 
 ```typescript
-// src/types/chat.ts
+// src/types/chat.ts (Shared type definition)
 
 export interface Message {
   id: string;
@@ -227,12 +241,12 @@ export interface MessageAttachment {
 ### Unit Tests
 
 ```typescript
-// src/components/chat/__tests__/MessageBubble.test.tsx
+// src/features/Chat/components/__tests__/MessageBubble.test.tsx
 
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { MessageBubble } from '../MessageBubble';
-import type { Message } from '../../../types/chat';
+import type { Message } from '@app/types/chat';
 
 describe('MessageBubble', () => {
   const baseMock Message: Message = {

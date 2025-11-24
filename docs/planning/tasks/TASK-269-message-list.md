@@ -5,6 +5,24 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+├── components/
+│   ├── MessageList.tsx
+│   ├── MessageBubble.tsx          # TASK-263
+│   ├── EmptyState.tsx              # TASK-271
+│   └── __tests__/
+│       └── MessageList.test.tsx
+└── utils/
+    └── dateUtils.ts                # Date formatting utilities (Chat-specific)
+```
+
+**Note**: MessageList is a Chat-specific component, co-located within the Chat feature. Date utility functions are Chat-specific (message date grouping format).
+
+---
+
 ## Task Description
 
 Create an optimised MessageList component using FlatList for rendering chat messages efficiently. Support pagination, pull-to-refresh, loading states, empty states, and proper performance optimisation with React.memo and list item recycling.
@@ -13,7 +31,7 @@ Create an optimised MessageList component using FlatList for rendering chat mess
 
 ## Acceptance Criteria
 
-- [ ] MessageList component created in `src/components/chat/MessageList.tsx`
+- [ ] MessageList component created in `src/features/Chat/components/MessageList.tsx`
 - [ ] FlatList implementation with inverted list (newest at bottom)
 - [ ] Pagination support (load more on scroll to top)
 - [ ] Pull-to-refresh functionality
@@ -31,7 +49,7 @@ Create an optimised MessageList component using FlatList for rendering chat mess
 ### MessageList Component
 
 ```typescript
-// src/components/chat/MessageList.tsx
+// src/features/Chat/components/MessageList.tsx
 
 import React, { useCallback, useMemo } from 'react';
 import {
@@ -49,7 +67,7 @@ import {
 } from '@gluestack-ui/themed';
 import { MessageBubble } from './MessageBubble';
 import { EmptyState } from './EmptyState';
-import { formatMessageDate, isSameDay } from '../../utils/dateUtils';
+import { formatMessageDate, isSameDay } from '../utils/dateUtils';
 
 export interface Message {
   id: string;
@@ -334,7 +352,7 @@ const styles = StyleSheet.create({
 ### Date Utility Functions
 
 ```typescript
-// src/utils/dateUtils.ts
+// src/features/Chat/utils/dateUtils.ts
 
 /**
  * Format message date for display
@@ -408,7 +426,7 @@ export const formatMessageTime = (date: Date): string => {
 ### Unit Tests
 
 ```typescript
-// src/components/chat/__tests__/MessageList.test.tsx
+// src/features/Chat/components/__tests__/MessageList.test.tsx
 
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';

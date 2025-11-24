@@ -5,6 +5,20 @@
 **Status**: 📋 To Do | **Priority**: Medium | **Effort**: 2h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
+## File Structure
+
+```
+src/features/Auth/
+├── screens/
+│   └── LoginScreen.tsx     # Add Magic Link tab
+└── components/
+    ├── MagicLinkTab.tsx    # Magic Link tab component
+    └── __tests__/
+        └── MagicLinkTab.rntl.tsx
+```
+
+**Note**: Magic Link UI co-located with Auth feature following feature-first architecture (established in TASK-196).
+
 ---
 
 ## Context & Background

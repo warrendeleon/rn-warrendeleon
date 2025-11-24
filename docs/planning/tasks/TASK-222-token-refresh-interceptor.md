@@ -26,6 +26,19 @@ API request → 401 error (token expired)
 
 ---
 
+## File Structure
+
+```
+src/config/
+└── axios/
+    ├── client.ts           # Axios instance configuration
+    ├── interceptors.ts     # Auth interceptor (this task)
+    └── __tests__/
+        └── interceptors.test.ts
+```
+
+**Note**: Axios interceptor is a cross-cutting concern used by all features, so it's correctly centralized in `/src/config/axios/` (not feature-specific).
+
 ## Objective
 
 Build Axios response interceptor that:
@@ -42,14 +55,14 @@ Build Axios response interceptor that:
 
 ### Axios Interceptor
 
-**File**: `src/api/interceptors/authInterceptor.ts`
+**File**: `src/config/axios/interceptors.ts`
 
 ```typescript
 import axios from 'axios';
-import * as Keychain from 'react-native-keychain';
-import { refreshAccessToken } from '../auth/refresh';
-import { store } from '../../store';
-import { clearAuth } from '../../store/auth/authSlice';
+import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
+import { SupabaseAuthClient } from '@app/features/Auth/api/api';
+import { store } from '@app/store';
+import { logout } from '@app/features/Auth';
 
 axios.interceptors.response.use(
   response => response,

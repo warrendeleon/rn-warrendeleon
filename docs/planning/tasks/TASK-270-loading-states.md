@@ -5,6 +5,23 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── components/
+    ├── LoadingIndicator.tsx
+    ├── MessageLoadingPlaceholder.tsx
+    ├── SendingMessageIndicator.tsx
+    ├── ErrorBanner.tsx
+    └── __tests__/
+        └── LoadingStates.test.tsx
+```
+
+**Note**: All loading state components are Chat-specific UI components, co-located within the Chat feature.
+
+---
+
 ## Task Description
 
 Create comprehensive loading state components for chat functionality. Support initial load, pagination load, sending message, and error states. Provide visual feedback for all async operations with proper accessibility support.
@@ -13,7 +30,7 @@ Create comprehensive loading state components for chat functionality. Support in
 
 ## Acceptance Criteria
 
-- [ ] LoadingIndicator component created in `src/components/chat/LoadingIndicator.tsx`
+- [ ] LoadingIndicator component created in `src/features/Chat/components/LoadingIndicator.tsx`
 - [ ] MessageLoadingPlaceholder component created (skeleton loader)
 - [ ] SendingMessageIndicator component created
 - [ ] ErrorBanner component created
@@ -28,7 +45,7 @@ Create comprehensive loading state components for chat functionality. Support in
 ### LoadingIndicator Component
 
 ```typescript
-// src/components/chat/LoadingIndicator.tsx
+// src/features/Chat/components/LoadingIndicator.tsx
 
 import React from 'react';
 import { Box, Spinner, Text, VStack } from '@gluestack-ui/themed';
@@ -80,7 +97,7 @@ export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
 ### MessageLoadingPlaceholder (Skeleton Loader)
 
 ```typescript
-// src/components/chat/MessageLoadingPlaceholder.tsx
+// src/features/Chat/components/MessageLoadingPlaceholder.tsx
 
 import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet } from 'react-native';
@@ -238,7 +255,7 @@ const styles = StyleSheet.create({
 ### SendingMessageIndicator
 
 ```typescript
-// src/components/chat/SendingMessageIndicator.tsx
+// src/features/Chat/components/SendingMessageIndicator.tsx
 
 import React from 'react';
 import { Box, HStack, Spinner, Text } from '@gluestack-ui/themed';
@@ -283,7 +300,7 @@ export const SendingMessageIndicator: React.FC<SendingMessageIndicatorProps> =
 ### ErrorBanner Component
 
 ```typescript
-// src/components/chat/ErrorBanner.tsx
+// src/features/Chat/components/ErrorBanner.tsx
 
 import React from 'react';
 import {
@@ -433,7 +450,7 @@ export const ChatScreen = () => {
 ### Unit Tests
 
 ```typescript
-// src/components/chat/__tests__/LoadingStates.test.tsx
+// src/features/Chat/components/__tests__/LoadingStates.test.tsx
 
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';

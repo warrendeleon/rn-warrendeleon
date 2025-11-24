@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── utils/
+    ├── pagination.ts
+    └── __tests__/
+        └── pagination.test.ts
+```
+
+**Note**: Pagination logic is Chat-specific (message history pagination), co-located with Chat feature utilities.
+
+---
+
 ## Task Description
 
 Implement pagination logic for chat message history. Support cursor-based pagination for efficient loading of older messages, calculate page boundaries, handle edge cases (first/last page), and optimize for performance.
@@ -13,7 +27,7 @@ Implement pagination logic for chat message history. Support cursor-based pagina
 
 ## Acceptance Criteria
 
-- [ ] Pagination utility created in `src/utils/chat/paginationUtils.ts`
+- [ ] Pagination utility created in `src/features/Chat/utils/pagination.ts`
 - [ ] Cursor-based pagination implementation
 - [ ] Calculate offset/limit for API calls
 - [ ] Handle first page (no previous messages)
@@ -28,7 +42,7 @@ Implement pagination logic for chat message history. Support cursor-based pagina
 ### Pagination Utility
 
 ```typescript
-// src/utils/chat/paginationUtils.ts
+// src/features/Chat/utils/pagination.ts
 
 export interface PaginationConfig {
   pageSize: number;
@@ -188,7 +202,7 @@ export const isAtEnd = (state: PaginationState): boolean => {
 ### Unit Tests
 
 ```typescript
-// src/utils/chat/__tests__/paginationUtils.test.ts
+// src/features/Chat/utils/__tests__/pagination.test.ts
 
 import {
   createInitialPaginationState,
@@ -202,9 +216,9 @@ import {
   isAtBeginning,
   isAtEnd,
   DEFAULT_PAGE_SIZE,
-} from '../paginationUtils';
+} from '../pagination';
 
-describe('paginationUtils', () => {
+describe('pagination', () => {
   describe('createInitialPaginationState', () => {
     it('should create initial state with default page size', () => {
       const state = createInitialPaginationState();

@@ -1,5 +1,19 @@
 # TASK-228: PINPromptScreen
 
+## File Structure
+
+```
+src/features/Auth/
+└── screens/
+    ├── PINPromptScreen.tsx
+    └── __tests__/
+        └── PINPromptScreen.rntl.tsx
+```
+
+**Note**: Screen co-located with Auth feature following feature-first architecture (established in TASK-196).
+
+# TASK-228: PINPromptScreen (Original Content)
+
 **ID**: TASK-228 | **Title**: Build PINPromptScreen for PIN Fallback Re-Authentication
 **User Story**: [US-039](../stories/US-039-biometric-reauth.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
 **Status**: 📋 To Do | **Priority**: High | **Effort**: 2.5h

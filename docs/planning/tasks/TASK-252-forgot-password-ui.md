@@ -5,6 +5,24 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Auth/
+├── screens/
+│   ├── ForgotPasswordScreen.tsx
+│   └── __tests__/
+│       └── ForgotPasswordScreen.rntl.tsx
+├── api/
+│   └── passwordReset.ts             # TASK-254 (imported by this screen)
+└── validation/
+    └── forgotPasswordSchema.ts      # Email validation schema
+```
+
+**Note**: Password recovery is Auth-specific functionality, so screens and API are co-located with the Auth feature following feature-first architecture (established in TASK-196).
+
+---
+
 ## Task Description
 
 Create the ForgotPasswordScreen component with email input, rate limiting feedback, and success/error messaging. Integrate React Hook Form with Yup validation for email format validation.
@@ -13,7 +31,7 @@ Create the ForgotPasswordScreen component with email input, rate limiting feedba
 
 ## Acceptance Criteria
 
-- [ ] ForgotPasswordScreen component created in `src/screens/auth/ForgotPasswordScreen.tsx`
+- [ ] ForgotPasswordScreen component created in `src/features/Auth/screens/ForgotPasswordScreen.tsx`
 - [ ] Email input field with validation
 - [ ] "Send Recovery Email" button
 - [ ] Rate limiting feedback (3 requests per hour)
@@ -31,7 +49,7 @@ Create the ForgotPasswordScreen component with email input, rate limiting feedba
 ### Component Structure
 
 ```typescript
-// src/screens/auth/ForgotPasswordScreen.tsx
+// src/features/Auth/screens/ForgotPasswordScreen.tsx
 
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -51,8 +69,8 @@ import {
   Spinner,
   MailIcon,
 } from '@gluestack-ui/themed';
-import { ErrorMessage } from '../../components/forms/ErrorMessage';
-import { requestPasswordReset } from '../../services/auth/passwordResetService';
+import { ErrorMessage } from '@app/components/forms/ErrorMessage';
+import { requestPasswordReset } from '@app/features/Auth/api/passwordReset';
 
 const forgotPasswordSchema = yup.object({
   email: yup
@@ -290,14 +308,14 @@ export const ForgotPasswordScreen: React.FC = () => {
 ### Unit Tests
 
 ```typescript
-// src/screens/auth/__tests__/ForgotPasswordScreen.test.tsx
+// src/features/Auth/screens/__tests__/ForgotPasswordScreen.rntl.tsx
 
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { ForgotPasswordScreen } from '../ForgotPasswordScreen';
-import * as passwordResetService from '../../../services/auth/passwordResetService';
+import * as passwordResetService from '../../api/passwordReset';
 
-jest.mock('../../../services/auth/passwordResetService');
+jest.mock('../../api/passwordReset');
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ goBack: jest.fn() }),
 }));

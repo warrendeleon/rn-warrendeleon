@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── components/
+    ├── EmptyState.tsx
+    └── __tests__/
+        └── EmptyState.test.tsx
+```
+
+**Note**: EmptyState is a Chat-specific component, co-located within the Chat feature. While reusable, it's designed for chat-specific empty states.
+
+---
+
 ## Task Description
 
 Create a reusable EmptyState component for displaying empty conversations and other empty states throughout the app. Support custom icon, title, description, and optional action button.
@@ -13,7 +27,7 @@ Create a reusable EmptyState component for displaying empty conversations and ot
 
 ## Acceptance Criteria
 
-- [ ] EmptyState component created in `src/components/chat/EmptyState.tsx`
+- [ ] EmptyState component created in `src/features/Chat/components/EmptyState.tsx`
 - [ ] Display custom icon
 - [ ] Display title and description
 - [ ] Optional action button
@@ -28,7 +42,7 @@ Create a reusable EmptyState component for displaying empty conversations and ot
 ### EmptyState Component
 
 ```typescript
-// src/components/chat/EmptyState.tsx
+// src/features/Chat/components/EmptyState.tsx
 
 import React from 'react';
 import {
@@ -129,7 +143,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 ### Unit Tests
 
 ```typescript
-// src/components/chat/__tests__/EmptyState.test.tsx
+// src/features/Chat/components/__tests__/EmptyState.test.tsx
 
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';

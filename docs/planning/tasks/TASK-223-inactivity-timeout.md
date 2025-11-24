@@ -5,6 +5,21 @@
 **Status**: 📋 To Do | **Priority**: High | **Effort**: 2.5h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
+## File Structure
+
+```
+src/features/Auth/
+├── hooks/
+│   ├── useInactivityTimeout.ts
+│   └── __tests__/
+│       └── useInactivityTimeout.test.ts
+└── store/
+    └── middleware/
+        └── inactivityMiddleware.ts
+```
+
+**Note**: Inactivity timeout is Auth-specific functionality, co-located with Auth feature following feature-first architecture (established in TASK-196).
+
 ---
 
 ## Context & Background

@@ -14,11 +14,11 @@ Build Supabase Storage client for uploading/deleting profile pictures to `profil
 
 ## Implementation
 
-`src/api/supabase/storage.client.ts`:
+`src/features/Auth/api/storage.ts`:
 
 ```typescript
-import { supabase } from './client';
-import { SecureStore, SecureStoreKey } from '@/utils/storage/SecureStore';
+import { supabase } from '@app/config/supabase';
+import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
 
 export class SupabaseStorageClient {
   async uploadProfilePicture(fileUri: string): Promise<string> {
@@ -48,6 +48,22 @@ export class SupabaseStorageClient {
 
 export const supabaseStorageClient = new SupabaseStorageClient();
 ```
+
+## File Structure
+
+```
+src/features/Auth/
+└── api/
+    ├── api.ts              # Auth API client (TASK-192)
+    ├── storage.ts          # Storage API client (this task)
+    ├── schemas.ts          # Zod schemas (TASK-194)
+    └── __tests__/
+        ├── api.rntl.ts
+        ├── storage.rntl.ts
+        └── schemas.rntl.ts
+```
+
+**Note**: Storage client co-located with Auth feature API following feature-first architecture (established in TASK-196).
 
 ## Acceptance Criteria
 

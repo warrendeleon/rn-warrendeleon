@@ -5,6 +5,24 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+├── api/
+│   ├── realtime.ts
+│   └── __tests__/
+│       └── realtime.test.ts
+└── hooks/
+    ├── useRealtimeSubscription.ts
+    └── __tests__/
+        └── useRealtimeSubscription.test.ts
+```
+
+**Note**: Realtime subscription is Chat-specific, co-located with Chat feature API clients. This is the **ONLY place** where Supabase SDK is used (NO custom REST API for WebSocket/Realtime functionality).
+
+---
+
 ## Task Description
 
 Integrate Supabase Realtime for live message updates. Subscribe to conversation changes, handle new messages, update message status (delivered/read), and manage connection state. This is the ONLY place where Supabase SDK is allowed (NOT custom REST API).
@@ -13,7 +31,7 @@ Integrate Supabase Realtime for live message updates. Subscribe to conversation 
 
 ## Acceptance Criteria
 
-- [ ] Realtime service created in `src/services/chat/realtimeService.ts`
+- [ ] Realtime service created in `src/features/Chat/api/realtime.ts`
 - [ ] Subscribe to conversation messages using Supabase SDK
 - [ ] Receive new messages in real-time
 - [ ] Handle connection state (connected, disconnected, error)
@@ -29,7 +47,7 @@ Integrate Supabase Realtime for live message updates. Subscribe to conversation 
 ### Supabase Realtime Service
 
 ```typescript
-// src/services/chat/realtimeService.ts
+// src/features/Chat/api/realtime.ts
 
 import { createClient, RealtimeChannel } from '@supabase/supabase-js';
 import type { Message } from '../../types/chat';
@@ -211,14 +229,11 @@ export const getConnectionStatus = (): RealtimeConnectionStatus => {
 ### React Hook: useRealtimeSubscription
 
 ```typescript
-// src/hooks/chat/useRealtimeSubscription.ts
+// src/features/Chat/hooks/useRealtimeSubscription.ts
 
 import { useEffect, useState } from 'react';
-import {
-  subscribeToConversation,
-  RealtimeConnectionStatus,
-} from '../../services/chat/realtimeService';
-import type { Message } from '../../types/chat';
+import { subscribeToConversation, RealtimeConnectionStatus } from '../api/realtime';
+import type { Message } from '@app/types/chat';
 
 export const useRealtimeSubscription = (
   conversationId: string,
@@ -260,11 +275,11 @@ export const useRealtimeSubscription = (
 ### Unit Tests
 
 ```typescript
-// src/services/chat/__tests__/realtimeService.test.ts
+// src/features/Chat/api/__tests__/realtime.test.ts
 
 import { createClient } from '@supabase/supabase-js';
-import { subscribeToConversation } from '../realtimeService';
-import type { Message } from '../../../types/chat';
+import { subscribeToConversation } from '../realtime';
+import type { Message } from '@app/types/chat';
 
 jest.mock('@supabase/supabase-js');
 
@@ -461,13 +476,13 @@ describe('realtimeService', () => {
 ### Integration Tests
 
 ```typescript
-// src/hooks/chat/__tests__/useRealtimeSubscription.test.ts
+// src/features/Chat/hooks/__tests__/useRealtimeSubscription.test.ts
 
 import { renderHook } from '@testing-library/react-hooks';
 import { useRealtimeSubscription } from '../useRealtimeSubscription';
-import * as realtimeService from '../../../services/chat/realtimeService';
+import * as realtimeService from '../../api/realtime';
 
-jest.mock('../../../services/chat/realtimeService');
+jest.mock('../../api/realtime');
 
 const mockRealtimeService = realtimeService as jest.Mocked<typeof realtimeService>;
 

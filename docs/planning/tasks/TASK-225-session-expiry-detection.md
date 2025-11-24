@@ -1,5 +1,22 @@
 # TASK-225: Session Expiry Detection
 
+## File Structure
+
+```
+src/features/Auth/
+├── utils/
+│   ├── sessionManager.ts
+│   └── __tests__/
+│       └── sessionManager.test.ts
+└── store/
+    └── middleware/
+        └── sessionExpiryMiddleware.ts
+```
+
+**Note**: Session expiry detection is Auth-specific functionality, co-located with Auth feature following feature-first architecture (established in TASK-196).
+
+# TASK-225: Session Expiry Detection (Original Content)
+
 **ID**: TASK-225 | **Title**: Check Refresh Token Expiry on App Launch
 **User Story**: [US-038](../stories/US-038-session-management.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
 **Status**: 📋 To Do | **Priority**: Medium | **Effort**: 1.5h

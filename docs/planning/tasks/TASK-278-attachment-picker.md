@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── components/
+    ├── AttachmentPicker.tsx
+    └── __tests__/
+        └── AttachmentPicker.test.tsx
+```
+
+**Note**: AttachmentPicker is a Chat-specific component, co-located within the Chat feature for selecting image/file attachments in messages.
+
+---
+
 ## Task Description
 
 Create an AttachmentPicker component to allow users to select images or files from their device. Support camera capture, photo library selection, and file picker. Handle permissions and provide user-friendly error messages.
@@ -13,7 +27,7 @@ Create an AttachmentPicker component to allow users to select images or files fr
 
 ## Acceptance Criteria
 
-- [ ] AttachmentPicker component created in `src/components/chat/AttachmentPicker.tsx`
+- [ ] AttachmentPicker component created in `src/features/Chat/components/AttachmentPicker.tsx`
 - [ ] Support camera capture
 - [ ] Support photo library selection
 - [ ] Support file picker (documents)
@@ -29,7 +43,7 @@ Create an AttachmentPicker component to allow users to select images or files fr
 ### AttachmentPicker Component
 
 ```typescript
-// src/components/chat/AttachmentPicker.tsx
+// src/features/Chat/components/AttachmentPicker.tsx
 
 import React, { useState } from 'react';
 import {
@@ -501,7 +515,7 @@ export const AttachmentPicker: React.FC<AttachmentPickerProps> = ({
 ### Unit Tests
 
 ```typescript
-// src/components/chat/__tests__/AttachmentPicker.test.tsx
+// src/features/Chat/components/__tests__/AttachmentPicker.test.tsx
 
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';

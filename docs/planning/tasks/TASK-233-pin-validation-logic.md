@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Auth/
+└── utils/
+    ├── pinValidation.ts
+    └── __tests__/
+        └── pinValidation.test.ts
+```
+
+**Note**: PIN validation is Auth-specific functionality (used only for Auth PIN features), so it's co-located with the Auth feature following feature-first architecture (established in TASK-196).
+
+---
+
 ## Task Description
 
 Create a comprehensive PIN validation utility that checks for weak/common PIN patterns, sequential digits, repeated digits, and common number sequences. The validator must provide detailed feedback for why a PIN is rejected to help users create secure PINs.
@@ -13,7 +27,7 @@ Create a comprehensive PIN validation utility that checks for weak/common PIN pa
 
 ## Acceptance Criteria
 
-- [ ] `validatePIN` utility created in `src/utils/pinValidation.ts`
+- [ ] `validatePIN` utility created in `src/features/Auth/utils/pinValidation.ts`
 - [ ] Detects sequential patterns (123456, 654321)
 - [ ] Detects repeated digits (111111, 000000)
 - [ ] Detects common PINs (birthdays like 010190, keyboard patterns like 159753)
@@ -30,7 +44,7 @@ Create a comprehensive PIN validation utility that checks for weak/common PIN pa
 ### Validation Utility
 
 ```typescript
-// src/utils/pinValidation.ts
+// src/features/Auth/utils/pinValidation.ts
 
 export interface PINValidationResult {
   isValid: boolean;
@@ -277,7 +291,7 @@ export const generateSecurePIN = (): string => {
 ### Unit Tests
 
 ```typescript
-// src/utils/__tests__/pinValidation.test.ts
+// src/features/Auth/utils/__tests__/pinValidation.test.ts
 
 import { validatePIN, generateSecurePIN } from '../pinValidation';
 
@@ -427,7 +441,7 @@ The validation utility is designed to integrate seamlessly with Yup schemas used
 ```typescript
 // Example usage in ChangePINScreen schema
 import * as yup from 'yup';
-import { validatePIN } from '../../utils/pinValidation';
+import { validatePIN } from '../utils/pinValidation';
 
 const changePINSchema = yup.object({
   newPIN: yup

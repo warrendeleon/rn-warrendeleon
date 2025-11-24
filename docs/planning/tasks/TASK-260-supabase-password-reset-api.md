@@ -5,6 +5,26 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Auth/
+└── api/
+    ├── passwordReset.ts             # Extended with token reset functionality
+    └── __tests__/
+        └── passwordReset.extended.test.ts
+```
+
+```
+src/utils/
+└── storage/
+    └── SecureStore.ts               # Existing from TASK-196 (Keychain wrapper)
+```
+
+**Note**: Password reset API is Auth-specific, co-located in `/src/features/Auth/api/`. Token storage uses the existing `SecureStore` utility from TASK-196, which is correctly centralized in `/src/utils/storage/` as a generic storage wrapper.
+
+---
+
 ## Task Description
 
 Integrate Supabase Auth REST API for resetting password with recovery token. Verify token validity, update password, handle errors, and manage session tokens after successful reset. Use custom REST API (NO Supabase SDK) for authentication operations.
@@ -13,7 +33,7 @@ Integrate Supabase Auth REST API for resetting password with recovery token. Ver
 
 ## Acceptance Criteria
 
-- [ ] Password reset API integration in `passwordResetService.ts` (extends TASK-254)
+- [ ] Password reset API integration in `passwordReset.ts` (extends TASK-254)
 - [ ] Verify recovery token before showing reset form
 - [ ] Update password with recovery token
 - [ ] Return new access and refresh tokens after reset
@@ -30,11 +50,11 @@ Integrate Supabase Auth REST API for resetting password with recovery token. Ver
 ### Extended Password Reset Service
 
 ```typescript
-// src/services/auth/passwordResetService.ts (additions to TASK-254)
+// src/features/Auth/api/passwordReset.ts (additions to TASK-254)
 
 import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
-import { storeAccessToken, storeRefreshToken } from '../storage/keychainService';
+import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
 
 // Zod schema for password reset success response
 const PasswordResetSuccessSchema = z.object({
@@ -155,9 +175,9 @@ export const resetPasswordWithToken = async (token: string, newPassword: string)
       throw new Error('Received invalid response from server');
     }
 
-    // Step 4: Store new tokens in Keychain (Tier 1 - Hardware-backed)
-    await storeAccessToken(parsedResponse.access_token);
-    await storeRefreshToken(parsedResponse.refresh_token);
+    // Step 4: Store new tokens in SecureStore (Tier 1 - Hardware-backed Keychain)
+    await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, parsedResponse.access_token);
+    await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, parsedResponse.refresh_token);
 
     console.log('Password reset successfully, new tokens stored');
   } catch (error) {
@@ -267,89 +287,33 @@ export const getPasswordResetTokenMetadata = async (
 
 ---
 
-### Keychain Service Integration
+### SecureStore Integration
+
+**Note**: SecureStore is the existing Keychain wrapper from TASK-196. Token storage implementation already exists in `/src/utils/storage/SecureStore.ts`.
 
 ```typescript
-// src/services/storage/keychainService.ts (relevant methods)
+// src/utils/storage/SecureStore.ts (existing implementation)
 
 import * as Keychain from 'react-native-keychain';
 
-const ACCESS_TOKEN_SERVICE = 'auth_access_token';
-const REFRESH_TOKEN_SERVICE = 'auth_refresh_token';
+export enum SecureStoreKey {
+  ACCESS_TOKEN = 'ACCESS_TOKEN',
+  REFRESH_TOKEN = 'REFRESH_TOKEN',
+  USER_ID = 'USER_ID',
+  // ... other keys
+}
 
-/**
- * Store access token in Keychain (Tier 1 - Hardware-backed)
- */
-export const storeAccessToken = async (token: string): Promise<void> => {
-  try {
-    await Keychain.setGenericPassword('access_token', token, {
-      service: ACCESS_TOKEN_SERVICE,
-      accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
-      securityLevel: Keychain.SECURITY_LEVEL.SECURE_HARDWARE,
-    });
-    console.log('Access token stored in Keychain');
-  } catch (error) {
-    console.error('Failed to store access token:', error);
-    throw error;
+export class SecureStore {
+  static async set(key: SecureStoreKey, value: string): Promise<void> {
+    // Hardware-backed Keychain storage
+    // Implementation already exists from TASK-196
   }
-};
 
-/**
- * Store refresh token in Keychain (Tier 1 - Hardware-backed)
- */
-export const storeRefreshToken = async (token: string): Promise<void> => {
-  try {
-    await Keychain.setGenericPassword('refresh_token', token, {
-      service: REFRESH_TOKEN_SERVICE,
-      accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
-      securityLevel: Keychain.SECURITY_LEVEL.SECURE_HARDWARE,
-    });
-    console.log('Refresh token stored in Keychain');
-  } catch (error) {
-    console.error('Failed to store refresh token:', error);
-    throw error;
+  static async get(key: SecureStoreKey): Promise<string | null> {
+    // Retrieve from Keychain
+    // Implementation already exists from TASK-196
   }
-};
-
-/**
- * Retrieve access token from Keychain
- */
-export const getAccessToken = async (): Promise<string | null> => {
-  try {
-    const credentials = await Keychain.getGenericPassword({
-      service: ACCESS_TOKEN_SERVICE,
-    });
-
-    if (credentials) {
-      return credentials.password;
-    }
-
-    return null;
-  } catch (error) {
-    console.error('Failed to retrieve access token:', error);
-    return null;
-  }
-};
-
-/**
- * Retrieve refresh token from Keychain
- */
-export const getRefreshToken = async (): Promise<string | null> => {
-  try {
-    const credentials = await Keychain.getGenericPassword({
-      service: REFRESH_TOKEN_SERVICE,
-    });
-
-    if (credentials) {
-      return credentials.password;
-    }
-
-    return null;
-  } catch (error) {
-    console.error('Failed to retrieve refresh token:', error);
-    return null;
-  }
-};
+}
 ```
 
 ---
@@ -359,21 +323,21 @@ export const getRefreshToken = async (): Promise<string | null> => {
 ### Unit Tests
 
 ```typescript
-// src/services/auth/__tests__/passwordResetService.extended.test.ts
+// src/features/Auth/api/__tests__/passwordReset.extended.test.ts
 
 import axios, { AxiosError } from 'axios';
 import {
   verifyPasswordResetToken,
   resetPasswordWithToken,
   getPasswordResetTokenMetadata,
-} from '../passwordResetService';
-import * as keychainService from '../../storage/keychainService';
+} from '../passwordReset';
+import { SecureStore } from '@app/utils/storage/SecureStore';
 
 jest.mock('axios');
-jest.mock('../../storage/keychainService');
+jest.mock('@app/utils/storage/SecureStore');
 
 const mockAxios = axios as jest.Mocked<typeof axios>;
-const mockKeychain = keychainService as jest.Mocked<typeof keychainService>;
+const mockSecureStore = SecureStore as jest.Mocked<typeof SecureStore>;
 
 describe('passwordResetService (Extended)', () => {
   const testToken = 'recovery_token_12345';
@@ -466,8 +430,7 @@ describe('passwordResetService (Extended)', () => {
     };
 
     beforeEach(() => {
-      mockKeychain.storeAccessToken.mockResolvedValue();
-      mockKeychain.storeRefreshToken.mockResolvedValue();
+      mockSecureStore.set.mockResolvedValue();
     });
 
     it('should reset password and store new tokens', async () => {
@@ -488,8 +451,8 @@ describe('passwordResetService (Extended)', () => {
         })
       );
 
-      expect(mockKeychain.storeAccessToken).toHaveBeenCalledWith('new_access_token_123');
-      expect(mockKeychain.storeRefreshToken).toHaveBeenCalledWith('new_refresh_token_456');
+      expect(mockSecureStore.set).toHaveBeenCalledWith(expect.any(String), 'new_access_token_123');
+      expect(mockSecureStore.set).toHaveBeenCalledWith(expect.any(String), 'new_refresh_token_456');
     });
 
     it('should throw error for empty token', async () => {
@@ -521,7 +484,7 @@ describe('passwordResetService (Extended)', () => {
         'Invalid or expired reset token'
       );
 
-      expect(mockKeychain.storeAccessToken).not.toHaveBeenCalled();
+      expect(mockSecureStore.set).not.toHaveBeenCalled();
     });
 
     it('should handle token already used (403)', async () => {
@@ -604,16 +567,16 @@ describe('passwordResetService (Extended)', () => {
         'Received invalid response from server'
       );
 
-      expect(mockKeychain.storeAccessToken).not.toHaveBeenCalled();
+      expect(mockSecureStore.set).not.toHaveBeenCalled();
     });
 
-    it('should handle keychain storage failure', async () => {
+    it('should handle SecureStore storage failure', async () => {
       mockAxios.put.mockResolvedValue({
         status: 200,
         data: mockTokenResponse,
       });
 
-      mockKeychain.storeAccessToken.mockRejectedValue(new Error('Keychain error'));
+      mockSecureStore.set.mockRejectedValue(new Error('SecureStore error'));
 
       await expect(resetPasswordWithToken(testToken, testPassword)).rejects.toThrow();
     });
@@ -660,9 +623,8 @@ describe('passwordResetService (Extended)', () => {
 
 - axios (already in project)
 - zod (runtime validation)
-- react-native-keychain (Tier 1 storage)
-- Password reset service (TASK-254)
-- Keychain service (TASK-234)
+- SecureStore utility (existing from TASK-196)
+- Password reset API (TASK-254)
 
 ---
 
@@ -671,7 +633,7 @@ describe('passwordResetService (Extended)', () => {
 - [ ] Password reset API integration complete
 - [ ] Token verification working
 - [ ] Password update working
-- [ ] New tokens stored in Keychain
+- [ ] New tokens stored in SecureStore (Keychain)
 - [ ] All error cases handled
 - [ ] All unit tests passing
 - [ ] 100% code coverage

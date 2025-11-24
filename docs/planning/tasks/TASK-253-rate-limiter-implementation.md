@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Auth/
+└── utils/
+    ├── rateLimiter.ts
+    └── __tests__/
+        └── rateLimiter.test.ts
+```
+
+**Note**: Rate limiting is Auth-specific functionality (currently used only for password reset requests), so it's co-located with the Auth feature following feature-first architecture (established in TASK-196). If rate limiting is needed by other features in the future, it can be refactored to a centralized utility.
+
+---
+
 ## Task Description
 
 Implement a rate limiting service to prevent abuse of password reset requests. Limit users to 3 password reset requests per hour using AsyncStorage to track request timestamps and IP-based throttling.
@@ -13,7 +27,7 @@ Implement a rate limiting service to prevent abuse of password reset requests. L
 
 ## Acceptance Criteria
 
-- [ ] Rate limiter service created in `src/services/auth/rateLimiterService.ts`
+- [ ] Rate limiter utility created in `src/features/Auth/utils/rateLimiter.ts`
 - [ ] Track password reset requests per email address
 - [ ] Maximum 3 requests per hour per email
 - [ ] Store request timestamps in AsyncStorage
@@ -30,7 +44,7 @@ Implement a rate limiting service to prevent abuse of password reset requests. L
 ### Rate Limiter Service
 
 ```typescript
-// src/services/auth/rateLimiterService.ts
+// src/features/Auth/utils/rateLimiter.ts
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -232,7 +246,7 @@ export const getRateLimitStatus = async (
 ### Unit Tests
 
 ```typescript
-// src/services/auth/__tests__/rateLimiterService.test.ts
+// src/features/Auth/utils/__tests__/rateLimiter.test.ts
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -241,7 +255,7 @@ import {
   clearPasswordResetRateLimit,
   clearAllRateLimits,
   getRateLimitStatus,
-} from '../rateLimiterService';
+} from '../rateLimiter';
 
 jest.mock('@react-native-async-storage/async-storage');
 

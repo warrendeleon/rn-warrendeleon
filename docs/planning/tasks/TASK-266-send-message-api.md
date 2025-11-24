@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── api/
+    ├── chat.ts
+    └── __tests__/
+        └── chat.test.ts
+```
+
+**Note**: Chat API service is Chat-specific, co-located with Chat feature. Uses custom REST API (NO Supabase SDK).
+
+---
+
 ## Task Description
 
 Integrate Supabase REST API for sending messages and fetching message history with pagination. Use custom REST API (NO Supabase SDK) for all database operations. Handle message status updates and error cases.
@@ -13,7 +27,7 @@ Integrate Supabase REST API for sending messages and fetching message history wi
 
 ## Acceptance Criteria
 
-- [ ] Chat service created in `src/services/chat/chatService.ts`
+- [ ] Chat service created in `src/features/Chat/api/chat.ts`
 - [ ] Send message via custom REST API
 - [ ] Fetch messages with pagination
 - [ ] Update message status (delivered, read)
@@ -28,12 +42,12 @@ Integrate Supabase REST API for sending messages and fetching message history wi
 ### Chat Service
 
 ```typescript
-// src/services/chat/chatService.ts
+// src/features/Chat/api/chat.ts
 
 import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
-import { getAccessToken } from '../storage/keychainService';
-import type { Message } from '../../types/chat';
+import { getAccessToken } from '@app/utils/storage/SecureStore';
+import type { Message } from '@app/types/chat';
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
@@ -340,7 +354,7 @@ export const deleteMessage = async (messageId: string): Promise<void> => {
 ### Unit Tests
 
 ```typescript
-// src/services/chat/__tests__/chatService.test.ts
+// src/features/Chat/api/__tests__/chat.test.ts
 
 import axios, { AxiosError } from 'axios';
 import {
@@ -349,14 +363,14 @@ import {
   updateMessageStatus,
   markConversationAsRead,
   deleteMessage,
-} from '../chatService';
-import * as keychainService from '../../storage/keychainService';
+} from '../chat';
+import * as SecureStore from '@app/utils/storage/SecureStore';
 
 jest.mock('axios');
-jest.mock('../../storage/keychainService');
+jest.mock('@app/utils/storage/SecureStore');
 
 const mockAxios = axios as jest.Mocked<typeof axios>;
-const mockKeychain = keychainService as jest.Mocked<typeof keychainService>;
+const mockSecureStore = SecureStore as jest.Mocked<typeof SecureStore>;
 
 describe('chatService', () => {
   const mockAccessToken = 'access_token_123';
@@ -364,7 +378,7 @@ describe('chatService', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    mockKeychain.getAccessToken.mockResolvedValue(mockAccessToken);
+    mockSecureStore.getAccessToken.mockResolvedValue(mockAccessToken);
   });
 
   describe('fetchMessages', () => {
@@ -424,7 +438,7 @@ describe('chatService', () => {
     });
 
     it('should throw error when not authenticated', async () => {
-      mockKeychain.getAccessToken.mockResolvedValue(null);
+      mockSecureStore.getAccessToken.mockResolvedValue(null);
 
       await expect(fetchMessages(mockConversationId)).rejects.toThrow('Not authenticated');
     });
@@ -597,7 +611,7 @@ describe('chatService', () => {
 
 - axios (already in project)
 - zod (runtime validation)
-- Keychain service (TASK-234)
+- SecureStore utility (existing from TASK-196)
 - Environment variables: `SUPABASE_URL`, `SUPABASE_ANON_KEY`
 
 ---

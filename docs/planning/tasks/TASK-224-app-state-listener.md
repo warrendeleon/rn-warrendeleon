@@ -1,5 +1,18 @@
 # TASK-224: App State Listener
 
+## File Structure
+
+```
+src/hooks/
+├── useAppState.ts          # Generic AppState listener hook
+└── __tests__/
+    └── useAppState.test.ts
+```
+
+**Note**: AppState listener is a generic utility used across multiple features (Auth, Analytics, etc.), so it's correctly centralized in `/src/hooks/` (not feature-specific).
+
+---
+
 **ID**: TASK-224 | **Title**: Implement App State Listener for Background/Foreground Detection
 **User Story**: [US-038](../stories/US-038-session-management.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
 **Status**: 📋 To Do | **Priority**: High | **Effort**: 3h

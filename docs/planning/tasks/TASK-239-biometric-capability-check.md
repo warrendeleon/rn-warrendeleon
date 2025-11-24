@@ -5,6 +5,21 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Auth/
+├── utils/
+│   ├── biometric.ts
+│   └── __tests__/
+│       └── biometric.test.ts
+└── types.ts                        # BiometricType, BiometricCapability interfaces
+```
+
+**Note**: Biometric authentication is Auth-specific functionality (used only for Auth login/setup), so it's co-located with the Auth feature following feature-first architecture (established in TASK-196).
+
+---
+
 ## Task Description
 
 Implement biometric capability checking using `react-native-biometrics` to detect if biometric authentication is available, identify the biometric type (Face ID, Touch ID, Fingerprint), check enrollment status, and return detailed capability information.
@@ -38,7 +53,7 @@ cd ios && pod install
 ### Type Definitions
 
 ```typescript
-// src/types/biometric.ts
+// src/features/Auth/types.ts (add to existing types)
 
 export type BiometricType = 'FaceID' | 'TouchID' | 'Fingerprint' | null;
 
@@ -50,14 +65,14 @@ export interface BiometricCapability {
 }
 ```
 
-### Biometric Service
+### Biometric Utility
 
 ```typescript
-// src/services/biometric/biometricService.ts
+// src/features/Auth/utils/biometric.ts
 
 import ReactNativeBiometrics, { BiometryTypes } from 'react-native-biometrics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { BiometricType, BiometricCapability } from '../../types/biometric';
+import { BiometricType, BiometricCapability } from '../types';
 
 const rnBiometrics = new ReactNativeBiometrics();
 
@@ -285,7 +300,7 @@ export const authenticateWithBiometric = async (): Promise<boolean> => {
 ### Unit Tests
 
 ```typescript
-// src/services/biometric/__tests__/biometricService.test.ts
+// src/features/Auth/utils/__tests__/biometric.test.ts
 
 import ReactNativeBiometrics, { BiometryTypes } from 'react-native-biometrics';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -295,7 +310,7 @@ import {
   enableBiometric,
   disableBiometric,
   authenticateWithBiometric,
-} from '../biometricService';
+} from '../biometric';
 
 // Mock dependencies
 jest.mock('react-native-biometrics');
@@ -306,7 +321,7 @@ const mockReactNativeBiometrics = ReactNativeBiometrics as jest.MockedClass<
 >;
 const mockAsyncStorage = AsyncStorage as jest.Mocked<typeof AsyncStorage>;
 
-describe('biometricService', () => {
+describe('biometric utils', () => {
   let mockBiometrics: any;
 
   beforeEach(() => {

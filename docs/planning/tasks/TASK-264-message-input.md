@@ -5,6 +5,20 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+└── components/
+    ├── MessageInput.tsx
+    └── __tests__/
+        └── MessageInput.test.tsx
+```
+
+**Note**: MessageInput is a Chat-specific component, co-located with the Chat feature.
+
+---
+
 ## Task Description
 
 Create a MessageInput component with text input, send button, and attachment button (future). Auto-expand text input, disable send when empty, and handle keyboard submission.
@@ -13,7 +27,7 @@ Create a MessageInput component with text input, send button, and attachment but
 
 ## Acceptance Criteria
 
-- [ ] MessageInput component created in `src/components/chat/MessageInput.tsx`
+- [ ] MessageInput component created in `src/features/Chat/components/MessageInput.tsx`
 - [ ] Multi-line text input with auto-expand
 - [ ] Send button (disabled when empty)
 - [ ] Keyboard submit support (Enter key)
@@ -29,7 +43,7 @@ Create a MessageInput component with text input, send button, and attachment but
 ### MessageInput Component
 
 ```typescript
-// src/components/chat/MessageInput.tsx
+// src/features/Chat/components/MessageInput.tsx
 
 import React, { useState, useRef } from 'react';
 import { TextInput, Platform } from 'react-native';
@@ -189,7 +203,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 ### Unit Tests
 
 ```typescript
-// src/components/chat/__tests__/MessageInput.test.tsx
+// src/features/Chat/components/__tests__/MessageInput.test.tsx
 
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';

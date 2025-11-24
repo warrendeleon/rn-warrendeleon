@@ -34,10 +34,22 @@ yarn add jail-monkey
 cd ios && pod install
 ```
 
+## File Structure
+
+```
+src/utils/
+└── security/
+    ├── securityDetectionService.ts
+    └── __tests__/
+        └── securityDetectionService.test.ts
+```
+
+**Note**: Root/jailbreak detection is a generic device security utility that could be used by multiple features (Auth, Settings, etc.), so it's correctly centralized in `/src/utils/security/` (not feature-specific).
+
 ### Security Detection Service
 
 ```typescript
-// src/services/security/securityDetectionService.ts
+// src/utils/security/securityDetectionService.ts
 
 import JailMonkey from 'jail-monkey';
 import { Platform } from 'react-native';

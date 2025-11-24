@@ -5,6 +5,22 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Auth/
+├── screens/
+│   ├── UpdateProfilePictureScreen.tsx
+│   └── __tests__/
+│       └── UpdateProfilePictureScreen.rntl.tsx
+└── api/
+    └── storage.ts                  # Profile picture upload (Supabase Storage)
+```
+
+**Note**: Profile picture management is Auth-specific user data functionality, co-located with Auth feature following feature-first architecture (established in TASK-196). Uses existing `storage.ts` from TASK-198.
+
+---
+
 ## Task Description
 
 Create the UpdateProfilePictureScreen component with current profile picture display, image picker integration, image preview, crop/resize controls, upload progress indicator, and success/error messaging. Support both camera capture and photo library selection.
@@ -13,7 +29,7 @@ Create the UpdateProfilePictureScreen component with current profile picture dis
 
 ## Acceptance Criteria
 
-- [ ] UpdateProfilePictureScreen component created in `src/screens/settings/UpdateProfilePictureScreen.tsx`
+- [ ] UpdateProfilePictureScreen component created in `src/features/Auth/screens/UpdateProfilePictureScreen.tsx`
 - [ ] Display current profile picture (avatar)
 - [ ] "Take Photo" button (camera)
 - [ ] "Choose from Library" button (photo library)
@@ -31,7 +47,7 @@ Create the UpdateProfilePictureScreen component with current profile picture dis
 ### Component Structure
 
 ```typescript
-// src/screens/settings/UpdateProfilePictureScreen.tsx
+// src/features/Auth/screens/UpdateProfilePictureScreen.tsx
 
 import React, { useState } from 'react';
 import { SafeAreaView, Image } from 'react-native';
@@ -51,8 +67,8 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { launchCamera, launchImageLibrary, ImagePickerResponse } from 'react-native-image-picker';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../store/slices/authSlice';
-import { uploadProfilePicture } from '../../services/profile/profileService';
+import { selectUser } from '@app/features/Auth/store/selectors';
+import { uploadProfilePicture } from '@app/features/Auth/api/storage';
 
 export const UpdateProfilePictureScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -321,29 +337,30 @@ export const UpdateProfilePictureScreen: React.FC = () => {
 ### Unit Tests
 
 ```typescript
-// src/screens/settings/__tests__/UpdateProfilePictureScreen.test.tsx
+// src/features/Auth/screens/__tests__/UpdateProfilePictureScreen.rntl.tsx
 
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { UpdateProfilePictureScreen } from '../UpdateProfilePictureScreen';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import * as profileService from '../../../services/profile/profileService';
+import * as storage from '../../api/storage';
 
 jest.mock('react-native-image-picker');
-jest.mock('../../../services/profile/profileService');
+jest.mock('../../api/storage');
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ goBack: jest.fn() }),
 }));
 jest.mock('react-redux', () => ({
   useSelector: () => ({
-    name: 'John Doe',
-    profile_picture_url: 'https://example.com/profile.jpg',
+    firstName: 'John',
+    lastName: 'Doe',
+    profilePictureUrl: 'https://example.com/profile.jpg',
   }),
 }));
 
 const mockLaunchCamera = launchCamera as jest.MockedFunction<typeof launchCamera>;
 const mockLaunchImageLibrary = launchImageLibrary as jest.MockedFunction<typeof launchImageLibrary>;
-const mockProfileService = profileService as jest.Mocked<typeof profileService>;
+const mockStorage = storage as jest.Mocked<typeof storage>;
 
 describe('UpdateProfilePictureScreen', () => {
   beforeEach(() => {
@@ -418,7 +435,7 @@ describe('UpdateProfilePictureScreen', () => {
     mockLaunchImageLibrary.mockResolvedValue({
       assets: [{ uri: 'file:///path/to/selected-photo.jpg' }],
     });
-    mockProfileService.uploadProfilePicture.mockResolvedValue('https://storage.supabase.co/new-profile.jpg');
+    mockStorage.uploadProfilePicture.mockResolvedValue('https://storage.supabase.co/new-profile.jpg');
 
     const { getByTestId, getByText } = render(<UpdateProfilePictureScreen />);
 
@@ -431,7 +448,7 @@ describe('UpdateProfilePictureScreen', () => {
     fireEvent.press(getByTestId('upload-button'));
 
     await waitFor(() => {
-      expect(mockProfileService.uploadProfilePicture).toHaveBeenCalledWith(
+      expect(mockStorage.uploadProfilePicture).toHaveBeenCalledWith(
         'file:///path/to/selected-photo.jpg',
         expect.any(Function)
       );
@@ -443,7 +460,7 @@ describe('UpdateProfilePictureScreen', () => {
     mockLaunchImageLibrary.mockResolvedValue({
       assets: [{ uri: 'file:///path/to/selected-photo.jpg' }],
     });
-    mockProfileService.uploadProfilePicture.mockRejectedValue(new Error('Upload failed'));
+    mockStorage.uploadProfilePicture.mockRejectedValue(new Error('Upload failed'));
 
     const { getByTestId, getByText } = render(<UpdateProfilePictureScreen />);
 
@@ -466,7 +483,7 @@ describe('UpdateProfilePictureScreen', () => {
     });
 
     let progressCallback: (progress: number) => void;
-    mockProfileService.uploadProfilePicture.mockImplementation((uri, onProgress) => {
+    mockStorage.uploadProfilePicture.mockImplementation((uri, onProgress) => {
       progressCallback = onProgress;
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -509,7 +526,7 @@ describe('UpdateProfilePictureScreen', () => {
 
 - `react-native-image-picker` - Image selection
 - GlueStack UI components
-- Profile service (TASK-244, TASK-246)
+- Supabase Storage API client (TASK-198, TASK-246)
 
 ---
 

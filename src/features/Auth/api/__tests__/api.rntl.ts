@@ -4,7 +4,7 @@ import { server } from '@app/test-utils/msw/server';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage/EncryptedStore';
 import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
 
-import { SupabaseAuthClient } from '../SupabaseAuthClient';
+import { SupabaseAuthClient } from '../api';
 
 // Mock storage modules
 jest.mock('@app/utils/storage/SecureStore');

@@ -3,6 +3,18 @@
 **ID**: TASK-238 | **Epic**: [EPIC-023](../epics/EPIC-023-security-settings.md) | **User Story**: [US-041](../stories/US-041-toggle-biometric-auth.md)
 **Status**: 📋 To Do | **Effort**: 1.5h
 
+## File Structure
+
+```
+src/features/Auth/
+└── screens/
+    ├── BiometricToggleScreen.tsx
+    └── __tests__/
+        └── BiometricToggleScreen.rntl.tsx
+```
+
+**Note**: Biometric authentication management is Auth-specific functionality, co-located with Auth feature following feature-first architecture (established in TASK-196). Uses existing `useBiometricCapability` hook from TASK-209.
+
 ---
 
 ## Task Description
@@ -13,7 +25,7 @@ Create the BiometricToggleScreen component with a toggle switch to enable/disabl
 
 ## Acceptance Criteria
 
-- [ ] BiometricToggleScreen component created in `src/screens/settings/BiometricToggleScreen.tsx`
+- [ ] BiometricToggleScreen component created in `src/features/Auth/screens/BiometricToggleScreen.tsx`
 - [ ] Toggle switch for enabling/disabling biometrics
 - [ ] Display current biometric type (Face ID, Touch ID, Fingerprint)
 - [ ] Show capability check result (available/unavailable)

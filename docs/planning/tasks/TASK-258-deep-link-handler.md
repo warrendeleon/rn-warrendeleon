@@ -5,6 +5,21 @@
 
 ---
 
+## File Structure
+
+```
+src/utils/
+└── navigation/
+    ├── deepLink.ts
+    └── __tests__/
+        ├── deepLink.test.ts
+        └── deepLink.integration.test.ts
+```
+
+**Note**: Deep link handling is a **correctly centralized** generic utility. While currently used for password reset, deep links are also used for email verification (TASK-200), magic links (TASK-218), and potentially other features. This cross-cutting navigation concern belongs in `/src/utils/navigation/`.
+
+---
+
 ## Task Description
 
 Implement deep link handling for password reset URLs. Parse reset token from email link, configure iOS/Android URL schemes, and navigate to ResetPasswordScreen with token parameter.
@@ -13,7 +28,7 @@ Implement deep link handling for password reset URLs. Parse reset token from ema
 
 ## Acceptance Criteria
 
-- [ ] Deep link service created in `src/services/navigation/deepLinkService.ts`
+- [ ] Deep link utility created in `src/utils/navigation/deepLink.ts`
 - [ ] iOS URL scheme configured
 - [ ] Android intent filter configured
 - [ ] Parse password reset URLs
@@ -30,7 +45,7 @@ Implement deep link handling for password reset URLs. Parse reset token from ema
 ### Deep Link Service
 
 ```typescript
-// src/services/navigation/deepLinkService.ts
+// src/utils/navigation/deepLink.ts
 
 import { Linking } from 'react-native';
 import { NavigationContainerRef } from '@react-navigation/native';
@@ -192,7 +207,7 @@ export const buildPasswordResetWebUrl = (token: string): string => {
 
 import React, { useRef, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { initializeDeepLinkListener } from './src/services/navigation/deepLinkService';
+import { initializeDeepLinkListener } from '@app/utils/navigation/deepLink';
 
 export const App: React.FC = () => {
   const navigationRef = useRef<NavigationContainerRef<any>>(null);
@@ -284,9 +299,9 @@ export const App: React.FC = () => {
 ### Unit Tests
 
 ```typescript
-// src/services/navigation/__tests__/deepLinkService.test.ts
+// src/utils/navigation/__tests__/deepLink.test.ts
 
-import { parseDeepLink, buildPasswordResetUrl, buildPasswordResetWebUrl } from '../deepLinkService';
+import { parseDeepLink, buildPasswordResetUrl, buildPasswordResetWebUrl } from '../deepLink';
 
 describe('deepLinkService', () => {
   describe('parseDeepLink', () => {
@@ -423,11 +438,11 @@ describe('deepLinkService', () => {
 ### Integration Tests
 
 ```typescript
-// src/services/navigation/__tests__/deepLinkService.integration.test.ts
+// src/utils/navigation/__tests__/deepLink.integration.test.ts
 
 import { Linking } from 'react-native';
 import { NavigationContainerRef } from '@react-navigation/native';
-import { handleDeepLink, initializeDeepLinkListener } from '../deepLinkService';
+import { handleDeepLink, initializeDeepLinkListener } from '../deepLink';
 
 jest.mock('react-native/Libraries/Linking/Linking', () => ({
   getInitialURL: jest.fn(),

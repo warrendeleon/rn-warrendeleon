@@ -59,3 +59,24 @@ export {
   selectEducationLoading,
   selectEducationWithCertificates,
 } from '@app/features/Education';
+
+// Re-export auth from Auth feature
+export type { AuthState } from '@app/features/Auth';
+export {
+  checkSession,
+  clearError,
+  login,
+  logout,
+  register,
+  selectAuth,
+  selectAuthError,
+  selectAuthLoading,
+  selectAuthProvider,
+  selectBiometricEnabled,
+  selectIsAuthenticated,
+  selectUser,
+  selectUserEmail,
+  selectUserFullName,
+  setBiometricEnabled,
+  updateUserProfile,
+} from '@app/features/Auth';

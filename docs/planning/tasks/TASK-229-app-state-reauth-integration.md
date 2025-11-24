@@ -1,5 +1,21 @@
 # TASK-229: App State Re-Auth Integration
 
+## File Structure
+
+```
+src/features/Auth/
+├── hooks/
+│   ├── useAppStateReauth.ts
+│   └── __tests__/
+│       └── useAppStateReauth.test.ts
+└── utils/
+    └── reauthManager.ts
+```
+
+**Note**: Re-authentication logic is Auth-specific functionality, co-located with Auth feature following feature-first architecture (established in TASK-196).
+
+---
+
 **ID**: TASK-229 | **Title**: Integrate BiometricPromptScreen/PINPromptScreen with App State Listener
 **User Story**: [US-039](../stories/US-039-biometric-reauth.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
 **Status**: 📋 To Do | **Priority**: High | **Effort**: 1.5h

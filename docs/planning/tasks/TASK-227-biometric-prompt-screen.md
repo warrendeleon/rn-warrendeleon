@@ -5,6 +5,18 @@
 **Status**: 📋 To Do | **Priority**: High | **Effort**: 2.5h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
+## File Structure
+
+```
+src/features/Auth/
+└── screens/
+    ├── BiometricPromptScreen.tsx
+    └── __tests__/
+        └── BiometricPromptScreen.rntl.tsx
+```
+
+**Note**: Screen co-located with Auth feature following feature-first architecture (established in TASK-196).
+
 ---
 
 ## Context & Background

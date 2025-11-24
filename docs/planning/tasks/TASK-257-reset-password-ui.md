@@ -5,6 +5,32 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Auth/
+├── screens/
+│   ├── ResetPasswordScreen.tsx
+│   └── __tests__/
+│       └── ResetPasswordScreen.rntl.tsx
+├── api/
+│   └── passwordReset.ts             # TASK-254 (verifyPasswordResetToken, resetPasswordWithToken)
+└── validation/
+    └── resetPasswordSchema.ts       # Extends password validation
+```
+
+```
+src/utils/
+├── navigation/
+│   └── deepLink.ts                  # TASK-258 (deep link handling)
+└── validation/
+    └── passwordValidation.ts        # TASK-259 (correctly centralized - generic utility)
+```
+
+**Note**: Reset password screen is Auth-specific, co-located with Auth feature. Password validation utility is correctly centralized in `/src/utils/validation/` as it's a generic validation utility used by multiple features (registration, change password, reset password).
+
+---
+
 ## Task Description
 
 Create the ResetPasswordScreen component that users access via deep link from password reset email. Includes new password input with validation, password confirmation, strength indicator, and token verification.
@@ -13,7 +39,7 @@ Create the ResetPasswordScreen component that users access via deep link from pa
 
 ## Acceptance Criteria
 
-- [ ] ResetPasswordScreen component created in `src/screens/auth/ResetPasswordScreen.tsx`
+- [ ] ResetPasswordScreen component created in `src/features/Auth/screens/ResetPasswordScreen.tsx`
 - [ ] New password input with visibility toggle
 - [ ] Confirm password input
 - [ ] Password strength indicator
@@ -33,7 +59,7 @@ Create the ResetPasswordScreen component that users access via deep link from pa
 ### Component Structure
 
 ```typescript
-// src/screens/auth/ResetPasswordScreen.tsx
+// src/features/Auth/screens/ResetPasswordScreen.tsx
 
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -57,13 +83,13 @@ import {
   EyeOffIcon,
   LockIcon,
 } from '@gluestack-ui/themed';
-import { ErrorMessage } from '../../components/forms/ErrorMessage';
-import { PasswordStrengthIndicator } from '../../components/forms/PasswordStrengthIndicator';
+import { ErrorMessage } from '@app/components/forms/ErrorMessage';
+import { PasswordStrengthIndicator } from '@app/components/forms/PasswordStrengthIndicator';
 import {
   verifyPasswordResetToken,
   resetPasswordWithToken,
-} from '../../services/auth/passwordResetService';
-import { passwordValidationSchema } from '../../utils/validation/passwordValidation';
+} from '@app/features/Auth/api/passwordReset';
+import { passwordValidationSchema } from '@app/utils/validation/passwordValidation';
 
 const resetPasswordSchema = yup.object({
   password: passwordValidationSchema,
@@ -435,14 +461,14 @@ export const ResetPasswordScreen: React.FC = () => {
 ### Unit Tests
 
 ```typescript
-// src/screens/auth/__tests__/ResetPasswordScreen.test.tsx
+// src/features/Auth/screens/__tests__/ResetPasswordScreen.rntl.tsx
 
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { ResetPasswordScreen } from '../ResetPasswordScreen';
-import * as passwordResetService from '../../../services/auth/passwordResetService';
+import * as passwordResetService from '../../api/passwordReset';
 
-jest.mock('../../../services/auth/passwordResetService');
+jest.mock('../../api/passwordReset');
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ navigate: jest.fn() }),
   useRoute: () => ({ params: { token: 'valid_token_123' } }),

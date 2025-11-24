@@ -5,6 +5,24 @@
 
 ---
 
+## File Structure
+
+```
+src/
+├── components/
+│   └── security/
+│       ├── SecurityWarningModal.tsx
+│       └── __tests__/
+│           └── SecurityWarningModal.test.tsx
+└── utils/
+    └── security/
+        └── securityDetectionService.ts  # TASK-248 (imported by this component)
+```
+
+**Note**: SecurityWarningModal is a shared UI component used across multiple features (Auth, Settings), so it's correctly centralized in `/src/components/security/`. The security detection service is in `/src/utils/security/` (correctly centralized cross-cutting concern from TASK-248).
+
+---
+
 ## Task Description
 
 Create a SecurityWarningModal component to display security warnings when root/jailbreak is detected. Show risk level, specific warnings, recommendations, and option to proceed with caution or exit app.
@@ -56,7 +74,7 @@ import {
   getSecurityStatusMessage,
   getRiskLevelColor,
   shouldBlockFunctionality,
-} from '../../services/security/securityDetectionService';
+} from '@app/utils/security/securityDetectionService';
 
 export interface SecurityWarningModalProps {
   isOpen: boolean;
@@ -252,7 +270,7 @@ export const SecurityWarningModal: React.FC<SecurityWarningModalProps> = ({
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { SecurityWarningModal } from '../SecurityWarningModal';
-import { SecurityRiskLevel } from '../../../services/security/securityDetectionService';
+import { SecurityRiskLevel } from '@app/utils/security/securityDetectionService';
 
 describe('SecurityWarningModal', () => {
   const mockOnClose = jest.fn();

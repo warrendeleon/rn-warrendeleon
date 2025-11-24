@@ -289,7 +289,7 @@ export const NotificationPreferencesScreen: React.FC = () => {
 
 import axios from 'axios';
 import { z } from 'zod';
-import { getAccessToken } from '../auth/tokenService';
+import { SecureStore } from '@app/utils/storage/SecureStore';
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 
@@ -322,7 +322,7 @@ const NotificationPreferencesResponseSchema = z.array(NotificationPreferencesSch
  */
 export const getNotificationPreferences = async (): Promise<NotificationPreferences> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
 
     const response = await axios.get(`${SUPABASE_URL}/rest/v1/notification_preferences`, {
       headers: {
@@ -354,7 +354,7 @@ export const getNotificationPreferences = async (): Promise<NotificationPreferen
  */
 const createDefaultPreferences = async (): Promise<NotificationPreferences> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
 
     const response = await axios.post(
       `${SUPABASE_URL}/rest/v1/notification_preferences`,
@@ -386,7 +386,7 @@ export const updateNotificationPreferences = async (
   updates: NotificationPreferencesUpdate
 ): Promise<NotificationPreferences> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
 
     const response = await axios.patch(
       `${SUPABASE_URL}/rest/v1/notification_preferences`,
@@ -562,7 +562,7 @@ describe('NotificationPreferencesScreen', () => {
 - @gluestack-ui/themed
 - Axios
 - Zod
-- tokenService (for authentication)
+- SecureStore utility (access token retrieval from TASK-196)
 
 ---
 

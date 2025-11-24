@@ -63,7 +63,7 @@ cd ios && pod install && cd ..
 
 ### Phase 2: Biometric Capability Hook (40 minutes)
 
-**File**: `src/hooks/useBiometricCapability.ts`
+**File**: `src/features/Auth/hooks/useBiometricCapability.ts`
 
 ```typescript
 import { useState, useEffect, useCallback } from 'react';
@@ -236,12 +236,12 @@ export const getBiometricSetupInstruction = (type: BiometricType): string => {
 
 ### Phase 3: Capability Display Component (20 minutes)
 
-**File**: `src/components/auth/BiometricCapabilityDisplay.tsx`
+**File**: `src/features/Auth/components/BiometricCapabilityDisplay.tsx`
 
 ```typescript
 import React from 'react';
 import { HStack, VStack, Text, Icon, Button } from '@gluestack-ui/themed';
-import { useBiometricCapability, getBiometricName } from '@/hooks/useBiometricCapability';
+import { useBiometricCapability, getBiometricName } from '@app/features/Auth/hooks/useBiometricCapability';
 import { Linking } from 'react-native';
 
 /**
@@ -311,12 +311,12 @@ export const BiometricCapabilityDisplay: React.FC = () => {
 
 ### Phase 4: Integration with BiometricSetup Screen (10 minutes)
 
-**File**: `src/screens/auth/BiometricSetupScreen.tsx`
+**File**: `src/features/Auth/screens/BiometricSetupScreen.tsx`
 
 ```typescript
 import React from 'react';
 import { VStack, Button, ButtonText, Text } from '@gluestack-ui/themed';
-import { useBiometricCapability, getBiometricName } from '@/hooks/useBiometricCapability';
+import { useBiometricCapability, getBiometricName } from '@app/features/Auth/hooks/useBiometricCapability';
 import { useNavigation } from '@react-navigation/native';
 
 export const BiometricSetupScreen: React.FC = () => {
@@ -392,7 +392,23 @@ export const BiometricSetupScreen: React.FC = () => {
 
 ## Testing
 
-**Test File**: `src/hooks/__tests__/useBiometricCapability.test.ts`
+## File Structure
+
+```
+src/features/Auth/
+├── hooks/
+│   ├── useBiometricCapability.ts
+│   └── __tests__/
+│       └── useBiometricCapability.test.ts
+├── components/
+│   └── BiometricCapabilityDisplay.tsx
+└── screens/
+    └── BiometricSetupScreen.tsx
+```
+
+**Note**: Biometric capability hook and components co-located with Auth feature following feature-first architecture (established in TASK-196).
+
+**Test File**: `src/features/Auth/hooks/__tests__/useBiometricCapability.test.ts`
 
 ```typescript
 import { renderHook, act } from '@testing-library/react-hooks';

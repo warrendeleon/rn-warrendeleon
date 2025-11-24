@@ -3,6 +3,20 @@
 **ID**: TASK-232 | **Epic**: [EPIC-023](../epics/EPIC-023-security-settings.md) | **User Story**: [US-040](../stories/US-040-change-pin.md)
 **Status**: 📋 To Do | **Effort**: 2h | **Priority**: Critical
 
+## File Structure
+
+```
+src/features/Auth/
+├── screens/
+│   ├── ChangePINScreen.tsx
+│   └── __tests__/
+│       └── ChangePINScreen.rntl.tsx
+└── validation/
+    └── changePinSchema.ts
+```
+
+**Note**: PIN management is Auth-specific functionality, co-located with Auth feature following feature-first architecture (established in TASK-196).
+
 ---
 
 ## Task Description
@@ -15,7 +29,7 @@ This screen is the primary interface for users to change their security PIN and 
 
 ## Acceptance Criteria
 
-- [ ] ChangePINScreen component created in `src/screens/settings/ChangePINScreen.tsx`
+- [ ] ChangePINScreen component created in `src/features/Auth/screens/ChangePINScreen.tsx`
 - [ ] Three secured PIN input fields rendered with dot masking
 - [ ] Real-time validation feedback for each field
 - [ ] Submit button disabled until all fields are valid

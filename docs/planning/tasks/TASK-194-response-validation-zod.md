@@ -54,7 +54,7 @@ Expand Zod validation schemas:
 
 ### Schemas Already Created
 
-From TASK-192:
+From TASK-192 (in `src/features/Auth/api/api.ts`):
 
 - ✅ `UserSchema`
 - ✅ `SessionSchema`
@@ -65,13 +65,13 @@ From TASK-192:
 
 ### Additional Schemas Needed
 
-Create `/Users/warrendeleon/Developer/warrendeleon/src/api/supabase/schemas/storage.schemas.ts`:
+Create `src/features/Auth/api/schemas.ts`:
 
 ```typescript
 import { z } from 'zod';
 
 /**
- * Supabase Storage API Schemas
+ * Supabase Storage API Schemas (Auth feature)
  */
 
 // Upload Response
@@ -100,32 +100,25 @@ export const PublicURLSchema = z.object({
 });
 
 export type PublicURL = z.infer<typeof PublicURLSchema>;
-```
 
-Create `/Users/warrendeleon/Developer/warrendeleon/src/api/supabase/schemas/profile.schemas.ts`:
-
-```typescript
-import { z } from 'zod';
-
-/**
- * Profile API Schemas
- */
-
+// Profile Update Schema
 export const ProfileSchema = z.object({
   id: z.string().uuid(),
   email: z.string().email(),
-  full_name: z.string(),
-  profile_picture: z.string().url().nullable(),
-  auth_provider: z.enum(['email', 'linkedin', 'magic_link']),
-  created_at: z.string(),
-  updated_at: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  profilePicture: z.string().url().nullable(),
+  authProvider: z.enum(['email', 'linkedin', 'magic_link']),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
 export type Profile = z.infer<typeof ProfileSchema>;
 
 export const UpdateProfileRequestSchema = z.object({
-  full_name: z.string().optional(),
-  profile_picture: z.string().url().optional(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  profilePicture: z.string().url().optional(),
 });
 
 export type UpdateProfileRequest = z.infer<typeof UpdateProfileRequestSchema>;
@@ -190,15 +183,15 @@ export function validateResponseSafe<T>(
 
 ## Updated Auth Client with Validation
 
-Update `/Users/warrendeleon/Developer/warrendeleon/src/api/supabase/auth.client.ts`:
+Update `src/features/Auth/api/api.ts`:
 
 ```typescript
-import { validateResponse } from '@/utils/validation/validateResponse';
+import { validateResponse } from '@app/utils/validation/validateResponse';
 import {
   SignUpResponseSchema,
   SignInResponseSchema,
   RefreshTokenResponseSchema,
-} from './schemas/auth.schemas';
+} from './schemas';
 
 // In signUp method:
 async signUp(request: SignUpRequest): Promise<SignUpResponse> {
@@ -222,11 +215,15 @@ async signUp(request: SignUpRequest): Promise<SignUpResponse> {
 // Similar updates for signIn, refreshSession, etc.
 ```
 
+**Note**: The Auth API client is co-located in `src/features/Auth/api/api.ts` following feature-first architecture (established in TASK-196).
+
 ---
 
 ## Test Validation
 
-Create `/Users/warrendeleon/Developer/warrendeleon/src/utils/validation/__tests__/validateResponse.test.ts`:
+Create `src/utils/validation/__tests__/validateResponse.test.ts` (generic utility test):
+
+Create `src/features/Auth/api/__tests__/schemas.rntl.ts` (Auth-specific schemas test):
 
 ```typescript
 import { z } from 'zod';

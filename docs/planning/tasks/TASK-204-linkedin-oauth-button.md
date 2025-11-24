@@ -55,7 +55,7 @@ Build a reusable LinkedIn OAuth button component with:
 
 Create the LinkedIn OAuth button component with GlueStack UI:
 
-**File**: `src/components/auth/LinkedInOAuthButton.tsx`
+**File**: `src/features/Auth/components/LinkedInOAuthButton.tsx`
 
 ```typescript
 import React, { useState } from 'react';
@@ -70,7 +70,7 @@ import {
 } from '@gluestack-ui/themed';
 import { styled } from '@gluestack-style/react';
 import { Svg, Path } from 'react-native-svg';
-import { useLinkedInAuth } from '@/hooks/useLinkedInAuth';
+import { useLinkedInAuth } from '@app/features/Auth/hooks/useLinkedInAuth';
 
 /**
  * LinkedIn "in" Logo SVG Component
@@ -224,13 +224,13 @@ export default LinkedInOAuthButton;
 
 Create the LinkedIn OAuth hook that handles the authentication flow:
 
-**File**: `src/hooks/useLinkedInAuth.ts`
+**File**: `src/features/Auth/hooks/useLinkedInAuth.ts`
 
 ```typescript
 import { useState } from 'react';
 import { authorize } from 'react-native-app-auth';
-import { useAppDispatch } from '@/store/hooks';
-import { registerWithLinkedIn } from '@/store/slices/authSlice';
+import { useAppDispatch } from '@app/store/hooks';
+import { registerWithLinkedIn } from '@app/features/Auth';
 
 const linkedInConfig = {
   clientId: process.env.LINKEDIN_CLIENT_ID!,
@@ -324,10 +324,10 @@ export const useLinkedInAuth = () => {
 
 Add the LinkedIn OAuth button to the registration screen:
 
-**File**: `src/screens/auth/RegistrationScreen.tsx`
+**File**: `src/features/Auth/screens/RegistrationScreen.tsx`
 
 ```typescript
-import { LinkedInOAuthButton } from '@/components/auth/LinkedInOAuthButton';
+import { LinkedInOAuthButton } from '@app/features/Auth/components/LinkedInOAuthButton';
 
 // Inside RegistrationScreen component:
 <VStack space="lg" w="$full">
@@ -421,13 +421,13 @@ const getLinkedInErrorMessage = (error: Error): string => {
 
 ## Testing
 
-**Test File**: `src/components/auth/__tests__/LinkedInOAuthButton.test.tsx`
+**Test File**: `src/features/Auth/components/__tests__/LinkedInOAuthButton.rntl.tsx`
 
 ```typescript
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { LinkedInOAuthButton } from '../LinkedInOAuthButton';
-import { useLinkedInAuth } from '@/hooks/useLinkedInAuth';
+import { useLinkedInAuth } from '../../hooks/useLinkedInAuth';
 
 jest.mock('@/hooks/useLinkedInAuth');
 
@@ -539,10 +539,26 @@ describe('LinkedInOAuthButton', () => {
 });
 ```
 
+## File Structure
+
+```
+src/features/Auth/
+├── components/
+│   ├── LinkedInOAuthButton.tsx
+│   └── __tests__/
+│       └── LinkedInOAuthButton.rntl.tsx
+└── hooks/
+    ├── useLinkedInAuth.ts
+    └── __tests__/
+        └── useLinkedInAuth.test.ts
+```
+
+**Note**: Component and hook co-located with Auth feature following feature-first architecture (established in TASK-196).
+
 **Run tests**:
 
 ```bash
-yarn test src/components/auth/__tests__/LinkedInOAuthButton.test.tsx
+yarn test src/features/Auth/components/__tests__/LinkedInOAuthButton.rntl.tsx
 ```
 
 ---

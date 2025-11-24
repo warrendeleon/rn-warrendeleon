@@ -5,6 +5,21 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+├── api/
+│   ├── readReceipt.ts
+│   └── chat.ts                     # TASK-266
+└── hooks/
+    └── useMarkAsRead.ts
+```
+
+**Note**: Read receipt API is Chat-specific, co-located within the Chat feature. Uses custom REST API (NO Supabase SDK).
+
+---
+
 ## Task Description
 
 Create API integration to mark messages as read using custom Supabase REST API. Support marking single messages, batch marking, and automatic marking when messages are visible. Update message status in local state and sync with backend.
@@ -13,7 +28,7 @@ Create API integration to mark messages as read using custom Supabase REST API. 
 
 ## Acceptance Criteria
 
-- [ ] Mark messages as read API created in `src/services/chat/readReceiptService.ts`
+- [ ] Mark messages as read API created in `src/features/Chat/api/readReceipt.ts`
 - [ ] Support marking single message as read
 - [ ] Support batch marking multiple messages
 - [ ] Custom REST API integration (no SDK)
@@ -28,11 +43,11 @@ Create API integration to mark messages as read using custom Supabase REST API. 
 ### Read Receipt Service
 
 ```typescript
-// src/services/chat/readReceiptService.ts
+// src/features/Chat/api/readReceipt.ts
 
 import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
-import { getAccessToken } from '../../utils/storage/secureStorage';
+import { SecureStore } from '@app/utils/storage/SecureStore';
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY!;
@@ -60,7 +75,7 @@ const MessagesResponseSchema = z.array(MessageSchema);
  */
 export const markMessageAsRead = async (messageId: string): Promise<Message> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -111,7 +126,7 @@ export const markMessageAsRead = async (messageId: string): Promise<Message> => 
  */
 export const markMessagesAsRead = async (messageIds: string[]): Promise<Message[]> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -162,7 +177,7 @@ export const markConversationMessagesAsRead = async (
   currentUserId: string
 ): Promise<Message[]> => {
   try {
-    const accessToken = await getAccessToken();
+    const accessToken = await SecureStore.get('accessToken');
     if (!accessToken) {
       throw new Error('Not authenticated');
     }
@@ -248,14 +263,14 @@ export const markMessageAsReadWithRetry = async (
 ### Usage Hook
 
 ```typescript
-// src/hooks/chat/useMarkAsRead.ts
+// src/features/Chat/hooks/useMarkAsRead.ts
 
 import { useCallback } from 'react';
 import {
   markMessageAsRead,
   markMessagesAsRead,
   markConversationMessagesAsRead,
-} from '../../services/chat/readReceiptService';
+} from '../api/readReceipt';
 
 export interface UseMarkAsReadReturn {
   markAsRead: (messageId: string) => Promise<void>;
@@ -314,7 +329,7 @@ export const useMarkAsRead = (): UseMarkAsReadReturn => {
 
 import { useEffect, useRef } from 'react';
 import { ViewabilityConfig, ViewToken } from 'react-native';
-import { useMarkAsRead } from '../../hooks/chat/useMarkAsRead';
+import { useMarkAsRead } from '../hooks/useMarkAsRead';
 
 export const useAutoMarkAsRead = (messages: Message[], currentUserId: string) => {
   const { markMultipleAsRead } = useMarkAsRead();
@@ -366,7 +381,7 @@ export const useAutoMarkAsRead = (messages: Message[], currentUserId: string) =>
 ### Unit Tests
 
 ```typescript
-// src/services/chat/__tests__/readReceiptService.test.ts
+// src/features/Chat/api/__tests__/readReceipt.test.ts
 
 import axios from 'axios';
 import {
@@ -374,21 +389,19 @@ import {
   markMessagesAsRead,
   markConversationMessagesAsRead,
   markMessageAsReadWithRetry,
-} from '../readReceiptService';
-import * as secureStorage from '../../../utils/storage/secureStorage';
+} from '../readReceipt';
+import { SecureStore } from '@app/utils/storage/SecureStore';
 
 jest.mock('axios');
-jest.mock('../../../utils/storage/secureStorage');
+jest.mock('@app/utils/storage/SecureStore');
 
 const mockAxios = axios as jest.Mocked<typeof axios>;
-const mockGetAccessToken = secureStorage.getAccessToken as jest.MockedFunction<
-  typeof secureStorage.getAccessToken
->;
+const mockSecureStore = SecureStore as jest.Mocked<typeof SecureStore>;
 
 describe('readReceiptService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockGetAccessToken.mockResolvedValue('mock-access-token');
+    mockSecureStore.get.mockResolvedValue('mock-access-token');
   });
 
   describe('markMessageAsRead', () => {
@@ -423,7 +436,7 @@ describe('readReceiptService', () => {
     });
 
     it('should throw error when not authenticated', async () => {
-      mockGetAccessToken.mockResolvedValue(null);
+      mockSecureStore.get.mockResolvedValue(null);
 
       await expect(markMessageAsRead('msg-1')).rejects.toThrow('Not authenticated');
     });
@@ -591,7 +604,7 @@ describe('readReceiptService', () => {
     });
 
     it('should not retry on authentication error', async () => {
-      mockGetAccessToken.mockResolvedValue(null);
+      mockSecureStore.get.mockResolvedValue(null);
 
       await expect(markMessageAsReadWithRetry('msg-1')).rejects.toThrow('Not authenticated');
 
@@ -607,7 +620,7 @@ describe('readReceiptService', () => {
 
 - Axios (HTTP client)
 - Zod (runtime validation)
-- secureStorage utility (access token retrieval)
+- SecureStore utility (access token retrieval from TASK-196)
 
 ---
 

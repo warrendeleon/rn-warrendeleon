@@ -5,6 +5,25 @@
 
 ---
 
+## File Structure
+
+```
+src/
+├── components/
+│   └── security/
+│       ├── SecurityStatusIndicator.tsx
+│       ├── SecurityWarningModal.tsx     # TASK-249 (imported by this component)
+│       └── __tests__/
+│           └── SecurityStatusIndicator.test.tsx
+└── utils/
+    └── security/
+        └── securityDetectionService.ts  # TASK-248 (imported by this component)
+```
+
+**Note**: SecurityStatusIndicator is a shared UI component used across multiple features (Settings, Dashboard), so it's correctly centralized in `/src/components/security/`. The security detection service is in `/src/utils/security/` (correctly centralized cross-cutting concern from TASK-248).
+
+---
+
 ## Task Description
 
 Create a SecurityStatusIndicator component to display the current security status in the Settings screen. Show risk level badge, status message, and tap-to-view-details functionality.
@@ -50,7 +69,7 @@ import {
   getSecurityStatusMessage,
   getRiskLevelColor,
   SecurityCheckResult,
-} from '../../services/security/securityDetectionService';
+} from '@app/utils/security/securityDetectionService';
 import { SecurityWarningModal } from './SecurityWarningModal';
 
 export const SecurityStatusIndicator: React.FC = () => {
@@ -213,9 +232,9 @@ export const SecurityStatusIndicator: React.FC = () => {
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { SecurityStatusIndicator } from '../SecurityStatusIndicator';
-import * as securityDetectionService from '../../../services/security/securityDetectionService';
+import * as securityDetectionService from '@app/utils/security/securityDetectionService';
 
-jest.mock('../../../services/security/securityDetectionService');
+jest.mock('@app/utils/security/securityDetectionService');
 
 const mockSecurityDetection = securityDetectionService as jest.Mocked<typeof securityDetectionService>;
 

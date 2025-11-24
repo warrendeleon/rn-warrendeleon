@@ -5,6 +5,21 @@
 
 ---
 
+## File Structure
+
+```
+src/features/Chat/
+├── api/
+│   ├── typingStatus.ts
+│   └── realtime.ts                 # TASK-265 (Supabase SDK)
+└── hooks/
+    └── useTypingStatus.ts
+```
+
+**Note**: Typing status service is Chat-specific, co-located within the Chat feature. Uses Supabase Realtime for broadcasting typing indicators.
+
+---
+
 ## Task Description
 
 Create a typing status service to broadcast and receive typing indicators via Supabase Realtime. Support debounced typing events, automatic status cleanup, and efficient channel management.
@@ -13,7 +28,7 @@ Create a typing status service to broadcast and receive typing indicators via Su
 
 ## Acceptance Criteria
 
-- [ ] Typing status service created in `src/services/chat/typingStatusService.ts`
+- [ ] Typing status service created in `src/features/Chat/api/typingStatus.ts`
 - [ ] Broadcast typing status to Supabase Realtime
 - [ ] Subscribe to typing status updates
 - [ ] Debounced typing events (500ms delay)
@@ -29,10 +44,10 @@ Create a typing status service to broadcast and receive typing indicators via Su
 ### Typing Status Service
 
 ```typescript
-// src/services/chat/typingStatusService.ts
+// src/features/Chat/api/typingStatus.ts
 
 import { RealtimeChannel } from '@supabase/supabase-js';
-import { supabase } from '../../config/supabase';
+import { supabase } from '@app/config/supabase';
 
 export interface TypingStatus {
   user_id: string;
@@ -251,14 +266,10 @@ export const subscribeToTypingStatus = (options: TypingStatusSubscriptionOptions
 ### Usage Hook
 
 ```typescript
-// src/hooks/chat/useTypingStatus.ts
+// src/features/Chat/hooks/useTypingStatus.ts
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import {
-  TypingStatusHandler,
-  subscribeToTypingStatus,
-  TypingStatus,
-} from '../../services/chat/typingStatusService';
+import { TypingStatusHandler, subscribeToTypingStatus, TypingStatus } from '../api/typingStatus';
 
 export interface UseTypingStatusOptions {
   conversationId: string;
@@ -352,16 +363,16 @@ export const useTypingStatus = (options: UseTypingStatusOptions): UseTypingStatu
 ### Unit Tests
 
 ```typescript
-// src/services/chat/__tests__/typingStatusService.test.ts
+// src/features/Chat/api/__tests__/typingStatus.test.ts
 
 import {
   broadcastTypingStatus,
   TypingStatusHandler,
   subscribeToTypingStatus,
-} from '../typingStatusService';
-import { supabase } from '../../../config/supabase';
+} from '../typingStatus';
+import { supabase } from '@app/config/supabase';
 
-jest.mock('../../../config/supabase', () => ({
+jest.mock('@app/config/supabase', () => ({
   supabase: {
     channel: jest.fn(),
     removeChannel: jest.fn(),

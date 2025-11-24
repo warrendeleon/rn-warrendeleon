@@ -5,6 +5,20 @@
 **Status**: 📋 To Do | **Priority**: High | **Effort**: 2h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
+## File Structure
+
+```
+src/features/Auth/
+├── api/
+│   └── api.ts              # signIn method already implemented (TASK-192)
+├── store/
+│   └── actions.ts          # login action already implemented (TASK-196)
+└── screens/
+    └── LoginScreen.tsx     # Integration point (TASK-213)
+```
+
+**Note**: Login API client and Redux actions already implemented in TASK-192/196. This task focuses on integration with LoginScreen.
+
 ---
 
 ## Context & Background

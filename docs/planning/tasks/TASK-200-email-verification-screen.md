@@ -7,6 +7,18 @@
 
 Build email verification screen showing "Check your email" message, resend verification email button, deep link handling for `warrendeleonapp://auth/callback`.
 
+## File Structure
+
+```
+src/features/Auth/
+└── screens/
+    ├── EmailVerificationScreen.tsx
+    └── __tests__/
+        └── EmailVerificationScreen.rntl.tsx
+```
+
+**Note**: Screen co-located with Auth feature following feature-first architecture (established in TASK-196).
+
 ## Acceptance Criteria
 
 - [ ] Display "Check your email" message

@@ -112,7 +112,7 @@ Build a fully functional login form UI with:
 
 ### Phase 1: Set Up LoginScreen Component (20 minutes)
 
-**File**: `src/screens/auth/LoginScreen.tsx`
+**File**: `src/features/Auth/screens/LoginScreen.tsx`
 
 **Deliverables**:
 
@@ -201,7 +201,7 @@ yarn lint       # No ESLint errors
 
 ### Phase 2: Create Login Form Schema (15 minutes)
 
-**File**: `src/schemas/loginSchema.ts`
+**File**: `src/features/Auth/validation/loginSchema.ts`
 
 **Deliverables**:
 
@@ -241,7 +241,7 @@ yarn test src/schemas/__tests__/loginSchema.test.ts
 **Test File** (create alongside):
 
 ```typescript
-// src/schemas/__tests__/loginSchema.test.ts
+// src/features/Auth/validation/__tests__/loginSchema.test.ts
 import { loginSchema } from '../loginSchema';
 
 describe('loginSchema', () => {
@@ -312,10 +312,10 @@ describe('loginSchema', () => {
 **Code**:
 
 ```typescript
-// src/screens/auth/LoginScreen.tsx (updated)
+// src/features/Auth/screens/LoginScreen.tsx (updated)
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema, LoginFormData } from '../../schemas/loginSchema';
+import { loginSchema, LoginFormData } from '../validation/loginSchema';
 import { Input, InputField, FormControl, FormControlLabel, FormControlLabelText, FormControlError, FormControlErrorText } from '@gluestack-ui/themed';
 
 export const LoginScreen: React.FC = () => {
@@ -904,6 +904,22 @@ const {
 ```
 
 ---
+
+## File Structure
+
+```
+src/features/Auth/
+├── screens/
+│   ├── LoginScreen.tsx
+│   └── __tests__/
+│       └── LoginScreen.rntl.tsx
+└── validation/
+    ├── loginSchema.ts
+    └── __tests__/
+        └── loginSchema.test.ts
+```
+
+**Note**: Screen and validation schema co-located with Auth feature following feature-first architecture (established in TASK-196).
 
 ## Definition of Done
 

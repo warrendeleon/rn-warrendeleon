@@ -28,7 +28,7 @@ cd ios && pod install && cd ..
 
 ### Component
 
-`src/components/auth/ProfilePicturePicker.tsx`:
+`src/features/Auth/components/ProfilePicturePicker.tsx`:
 
 ```typescript
 import React, { useState } from 'react';
@@ -86,6 +86,18 @@ export const ProfilePicturePicker = ({ onImageSelected, testID }) => {
 ```
 
 ---
+
+## File Structure
+
+```
+src/features/Auth/
+└── components/
+    ├── ProfilePicturePicker.tsx
+    └── __tests__/
+        └── ProfilePicturePicker.rntl.tsx
+```
+
+**Note**: Component co-located with Auth feature following feature-first architecture (established in TASK-196).
 
 ## Acceptance Criteria
 
