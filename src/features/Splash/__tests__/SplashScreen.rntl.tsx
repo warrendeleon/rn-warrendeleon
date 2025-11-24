@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, render } from '@testing-library/react-native';
+import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 
 import { fetchEducation, fetchProfile, fetchWorkExperience } from '@app/store';
 
@@ -74,52 +74,73 @@ describe('SplashScreen', () => {
     jest.useRealTimers();
   });
 
-  it('renders Logo component', () => {
+  it('renders Logo component', async () => {
     const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalled();
+    });
 
     expect(getByTestId('logo')).toBeTruthy();
   });
 
-  it('renders with dark mode when color scheme is dark', () => {
+  it('renders with dark mode when color scheme is dark', async () => {
     mockUseAppColorScheme.mockReturnValue('dark');
 
     const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalled();
+    });
 
     expect(getByTestId('logo')).toBeTruthy();
     expect(getByTestId('logo-mode')).toHaveTextContent('dark');
   });
 
-  it('renders with light mode when color scheme is light', () => {
+  it('renders with light mode when color scheme is light', async () => {
     mockUseAppColorScheme.mockReturnValue('light');
 
     const { getByTestId } = render(<SplashScreen onComplete={mockOnComplete} />);
+
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalled();
+    });
 
     expect(getByTestId('logo')).toBeTruthy();
     expect(getByTestId('logo-mode')).toHaveTextContent('light');
   });
 
-  it('dispatches fetchProfile on mount', () => {
+  it('dispatches fetchProfile on mount', async () => {
     render(<SplashScreen onComplete={mockOnComplete} />);
 
-    expect(mockDispatch).toHaveBeenCalledWith(fetchProfile());
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledWith(fetchProfile());
+    });
   });
 
-  it('dispatches fetchWorkExperience on mount', () => {
+  it('dispatches fetchWorkExperience on mount', async () => {
     render(<SplashScreen onComplete={mockOnComplete} />);
 
-    expect(mockDispatch).toHaveBeenCalledWith(fetchWorkExperience());
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledWith(fetchWorkExperience());
+    });
   });
 
-  it('dispatches fetchEducation on mount', () => {
+  it('dispatches fetchEducation on mount', async () => {
     render(<SplashScreen onComplete={mockOnComplete} />);
 
-    expect(mockDispatch).toHaveBeenCalledWith(fetchEducation());
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledWith(fetchEducation());
+    });
   });
 
-  it('dispatches all three fetch actions on mount', () => {
+  it('dispatches all three fetch actions on mount', async () => {
     render(<SplashScreen onComplete={mockOnComplete} />);
 
-    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalledTimes(3);
+    });
+
     expect(mockDispatch).toHaveBeenCalledWith(fetchProfile());
     expect(mockDispatch).toHaveBeenCalledWith(fetchWorkExperience());
     expect(mockDispatch).toHaveBeenCalledWith(fetchEducation());
@@ -127,6 +148,10 @@ describe('SplashScreen', () => {
 
   it('calls onComplete after 1.5 seconds', async () => {
     render(<SplashScreen onComplete={mockOnComplete} />);
+
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalled();
+    });
 
     expect(mockOnComplete).not.toHaveBeenCalled();
 
@@ -140,6 +165,10 @@ describe('SplashScreen', () => {
   it('does not call onComplete before 1.5 seconds', async () => {
     render(<SplashScreen onComplete={mockOnComplete} />);
 
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalled();
+    });
+
     await act(async () => {
       jest.advanceTimersByTime(1000);
     });
@@ -149,6 +178,10 @@ describe('SplashScreen', () => {
 
   it('returns null after loading is complete', async () => {
     const { queryByTestId, rerender } = render(<SplashScreen onComplete={mockOnComplete} />);
+
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalled();
+    });
 
     // Initially, should render the splash screen
     expect(queryByTestId('logo')).toBeTruthy();
@@ -167,6 +200,10 @@ describe('SplashScreen', () => {
 
   it('clears timeout on unmount', async () => {
     const { unmount } = render(<SplashScreen onComplete={mockOnComplete} />);
+
+    await waitFor(() => {
+      expect(mockDispatch).toHaveBeenCalled();
+    });
 
     unmount();
 
@@ -193,7 +230,10 @@ describe('SplashScreen', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('splash-error-screen')).toBeTruthy();
+      await waitFor(() => {
+        expect(getByTestId('splash-error-screen')).toBeTruthy();
+      });
+
       expect(getByTestId('splash-retry-button')).toBeTruthy();
     });
 
@@ -209,6 +249,10 @@ describe('SplashScreen', () => {
 
       await act(async () => {
         jest.runAllTimers();
+      });
+
+      await waitFor(() => {
+        expect(mockDispatch).toHaveBeenCalled();
       });
 
       expect(mockOnComplete).not.toHaveBeenCalled();
@@ -228,7 +272,9 @@ describe('SplashScreen', () => {
         jest.runAllTimers();
       });
 
-      expect(getByTestId('splash-error-screen')).toBeTruthy();
+      await waitFor(() => {
+        expect(getByTestId('splash-error-screen')).toBeTruthy();
+      });
 
       // Reset mock to return success
       mockDispatch.mockResolvedValue({
@@ -247,8 +293,11 @@ describe('SplashScreen', () => {
         jest.runAllTimers();
       });
 
-      // Should dispatch all three fetches again
-      expect(mockDispatch).toHaveBeenCalledTimes(6); // 3 initial + 3 retry
+      await waitFor(() => {
+        expect(mockDispatch).toHaveBeenCalledTimes(6);
+      });
+
+      // Should dispatch all three fetches again (3 initial + 3 retry)
     });
   });
 });
