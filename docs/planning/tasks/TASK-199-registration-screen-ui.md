@@ -2,7 +2,7 @@
 
 **Task ID**: TASK-199 | **Title**: Registration Screen UI (React Hook Form + GlueStack)
 **User Story**: [US-033](../stories/US-033-email-password-registration.md) | **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md)
-**Status**: 📋 To Do | **Priority**: Critical | **Effort**: 4h | **Created**: 2025-11-21
+**Status**: ⏳ In Progress | **Priority**: Critical | **Effort**: 4h | **Created**: 2025-11-21
 
 ---
 
