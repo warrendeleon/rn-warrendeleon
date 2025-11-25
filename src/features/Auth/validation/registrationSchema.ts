@@ -92,7 +92,10 @@ export const registrationSchema = yup.object({
     .oneOf([yup.ref('password')], 'Passwords must match')
     .noEmoji('Password cannot contain emojis'),
 
-  acceptTerms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+  acceptTerms: yup
+    .boolean()
+    .required('You must accept the terms and conditions')
+    .oneOf([true], 'You must accept the terms and conditions'),
 });
 
 export type RegistrationFormData = yup.InferType<typeof registrationSchema>;

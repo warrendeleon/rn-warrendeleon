@@ -13,18 +13,23 @@ import { SupabaseAuthClient } from '../api/api';
 export const register = createAsyncThunk(
   'auth/register',
   async (
-    credentials: { email: string; password: string; firstName: string; lastName: string },
+    credentials: {
+      email: string;
+      password: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber?: string;
+    },
     { rejectWithValue }
   ) => {
     try {
       const response = await SupabaseAuthClient.signUp({
         email: credentials.email,
         password: credentials.password,
-        options: {
-          data: {
-            first_name: credentials.firstName,
-            last_name: credentials.lastName,
-          },
+        data: {
+          first_name: credentials.firstName,
+          last_name: credentials.lastName,
+          ...(credentials.phoneNumber && { phone_number: credentials.phoneNumber }),
         },
       });
 
@@ -32,14 +37,14 @@ export const register = createAsyncThunk(
         throw new Error('Registration failed');
       }
 
-      // Store user data in encrypted storage
+      // Store user data in encrypted storage for session restoration
       await EncryptedStore.set(EncryptedStoreKey.USER_FIRST_NAME, credentials.firstName);
       await EncryptedStore.set(EncryptedStoreKey.USER_LAST_NAME, credentials.lastName);
       await EncryptedStore.set(EncryptedStoreKey.AUTH_PROVIDER, 'email');
 
       return {
         id: response.user.id,
-        email: response.user.email,
+        email: response.user.email ?? null,
         firstName: credentials.firstName,
         lastName: credentials.lastName,
         authProvider: 'email' as const,

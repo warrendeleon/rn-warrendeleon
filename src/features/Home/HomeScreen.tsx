@@ -49,6 +49,10 @@ export const handleCVPress = (navigation: HomeScreenNavigationProp): void => {
   });
 };
 
+export const handleRegistrationPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('Registration');
+};
+
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
@@ -80,6 +84,10 @@ export const HomeScreen: React.FC = () => {
 
   const handleGitHub = useCallback(() => {
     handleGitHubPress(navigation);
+  }, [navigation]);
+
+  const handleRegistration = useCallback(() => {
+    handleRegistrationPress(navigation);
   }, [navigation]);
 
   const workLearningItems: SettingsGroupItem[] = useMemo(
@@ -125,8 +133,16 @@ export const HomeScreen: React.FC = () => {
         startIconBgColor: '#8E8E93',
         testID: 'home-settings-button',
       },
+      // TODO: Remove after testing TASK-199
+      {
+        label: 'Register (Test)',
+        onPress: handleRegistration,
+        startIcon: createIconComponent('account-plus'),
+        startIconBgColor: '#34C759',
+        testID: 'home-register-button',
+      },
     ],
-    [t, handleGitHub, handleSettings]
+    [t, handleGitHub, handleSettings, handleRegistration]
   );
 
   return (

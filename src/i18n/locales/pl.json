@@ -1,4 +1,53 @@
 {
+  "auth": {
+    "registration": {
+      "title": "Utwórz konto",
+      "subtitle": "Wprowadź swoje dane, aby utworzyć nowe konto",
+      "firstName": "Imię",
+      "firstNamePlaceholder": "Wprowadź swoje imię",
+      "firstNameHint": "Wprowadź swoje prawdziwe imię",
+      "lastName": "Nazwisko",
+      "lastNamePlaceholder": "Wprowadź swoje nazwisko",
+      "lastNameHint": "Wprowadź swoje prawdziwe nazwisko",
+      "email": "Adres e-mail",
+      "emailPlaceholder": "Wprowadź swój adres e-mail",
+      "emailHint": "Wprowadź poprawny adres e-mail",
+      "phoneNumber": "Numer telefonu",
+      "phoneNumberPlaceholder": "Wprowadź swój numer telefonu",
+      "phoneNumberHint": "Wprowadź swój numer telefonu bez kodu kraju",
+      "password": "Hasło",
+      "passwordPlaceholder": "Utwórz hasło",
+      "passwordHint": "Hasło musi mieć co najmniej 8 znaków z wielką literą, małą literą, cyfrą i znakiem specjalnym",
+      "confirmPassword": "Potwierdź hasło",
+      "confirmPasswordPlaceholder": "Potwierdź swoje hasło",
+      "confirmPasswordHint": "Wprowadź ponownie hasło, aby potwierdzić",
+      "showPassword": "Pokaż hasło",
+      "hidePassword": "Ukryj hasło",
+      "acceptTerms": "Akceptuję regulamin",
+      "acceptTermsHint": "Musisz zaakceptować regulamin, aby utworzyć konto",
+      "acceptTermsText": "Akceptuję",
+      "termsLink": "Regulamin",
+      "andThe": "i",
+      "privacyLink": "Politykę prywatności",
+      "registerButton": "Utwórz konto",
+      "registerButtonHint": "Dotknij, aby utworzyć konto",
+      "haveAccount": "Masz już konto?",
+      "loginLink": "Zaloguj się",
+      "selectCountry": "Wybierz kraj",
+      "searchCountries": "Szukaj krajów...",
+      "noCountriesFound": "Nie znaleziono krajów",
+      "verifyEmailTitle": "Zweryfikuj swój e-mail",
+      "verifyEmailMessage": "Wysłaliśmy link weryfikacyjny na Twój adres e-mail. Sprawdź swoją skrzynkę odbiorczą i kliknij link, aby aktywować swoje konto."
+    }
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "close": "Zamknij"
+  },
   "home": {
     "title": "Strona główna",
     "env": "ŚRODOWISKO",
@@ -104,6 +153,127 @@
         "twitter": "Otwórz profil na twitter",
         "instagram": "Otwórz profil na instagram",
         "linkedin": "Otwórz profil na linkedin"
+      }
+    }
+  },
+  "legal": {
+    "lastUpdated": "Ostatnia aktualizacja: {{date}}",
+    "terms": {
+      "title": "Regulamin",
+      "sections": {
+        "introduction": {
+          "title": "1. Wprowadzenie",
+          "content": "Witamy w naszej aplikacji. Niniejszy Regulamin reguluje korzystanie z naszej aplikacji mobilnej i usług. Uzyskując dostęp do naszej aplikacji lub korzystając z niej, zgadzasz się na przestrzeganie tych warunków. Jeśli nie zgadzasz się z jakąkolwiek częścią tych warunków, nie możesz korzystać z naszej aplikacji."
+        },
+        "acceptance": {
+          "title": "2. Akceptacja warunków",
+          "content": "Tworząc konto lub korzystając z naszych usług, potwierdzasz, że masz co najmniej 16 lat i zdolność prawną do zawarcia tej umowy. Jeśli korzystasz z naszych usług w imieniu organizacji, oświadczasz, że masz upoważnienie do związania tej organizacji niniejszymi warunkami."
+        },
+        "accounts": {
+          "title": "3. Konta użytkowników",
+          "content": "Jesteś odpowiedzialny za zachowanie poufności danych logowania do konta i za wszystkie działania wykonywane na Twoim koncie. Musisz podać dokładne, aktualne i pełne informacje podczas rejestracji. Zgadzasz się natychmiast powiadomić nas o jakimkolwiek nieautoryzowanym użyciu Twojego konta lub jakimkolwiek innym naruszeniu bezpieczeństwa."
+        },
+        "acceptableUse": {
+          "title": "4. Dopuszczalne użytkowanie",
+          "content": "Zgadzasz się nie używać naszych usług do celów niezgodnych z prawem ani w sposób, który mógłby uszkodzić, wyłączyć lub osłabić nasze usługi. Nie wolno próbować uzyskać nieautoryzowanego dostępu do żadnej części naszych usług, innych kont lub systemów komputerowych. Zgadzasz się nie przesyłać żadnego szkodliwego kodu, spamu ani złośliwej treści przez naszą platformę."
+        },
+        "intellectualProperty": {
+          "title": "5. Własność intelektualna",
+          "content": "Cała zawartość, funkcje i funkcjonalność naszej aplikacji, w tym między innymi tekst, grafika, logo i oprogramowanie, są naszą własnością lub własnością naszych licencjodawców i są chronione międzynarodowymi prawami autorskimi, znakami towarowymi i innymi prawami własności intelektualnej. Nie możesz reprodukować, rozpowszechniać ani tworzyć dzieł pochodnych bez naszej uprzedniej pisemnej zgody."
+        },
+        "liability": {
+          "title": "6. Ograniczenie odpowiedzialności",
+          "content": "W najszerszym zakresie dozwolonym przez obowiązujące prawo nie ponosimy odpowiedzialności za jakiekolwiek pośrednie, przypadkowe, specjalne, wynikowe lub karne szkody, w tym utratę zysków, danych lub dobrej woli, wynikające z korzystania z naszych usług. Nasza całkowita odpowiedzialność nie przekroczy kwoty, którą nam zapłaciłeś w ciągu dwunastu miesięcy poprzedzających jakiekolwiek roszczenie."
+        },
+        "termination": {
+          "title": "7. Rozwiązanie umowy",
+          "content": "Możemy zawiesić lub zakończyć Twój dostęp do naszych usług w dowolnym momencie, z podaniem przyczyny lub bez, z powiadomieniem lub bez. Po rozwiązaniu Twoje prawo do korzystania z naszych usług natychmiast wygasa. Możesz zamknąć swoje konto w dowolnym momencie, kontaktując się z nami lub korzystając z funkcji usuwania konta w aplikacji."
+        },
+        "governingLaw": {
+          "title": "8. Prawo właściwe",
+          "content": "Niniejsze warunki podlegają prawu Wielkiej Brytanii i będą zgodnie z nim interpretowane. Wszelkie spory wynikające z niniejszych warunków lub korzystania z naszych usług podlegają wyłącznej jurysdykcji sądów Anglii i Walii. Dla użytkowników w Unii Europejskiej możesz również mieć prawa wynikające z przepisów kraju Twojego zamieszkania."
+        },
+        "changes": {
+          "title": "9. Zmiany w regulaminie",
+          "content": "Zastrzegamy sobie prawo do modyfikacji niniejszych warunków w dowolnym momencie. Powiadomimy Cię o wszelkich istotnych zmianach, publikując zaktualizowane warunki w aplikacji lub wysyłając Ci wiadomość e-mail. Dalsze korzystanie z naszych usług po takich zmianach oznacza akceptację nowych warunków. Zachęcamy do okresowego przeglądania niniejszych warunków."
+        },
+        "contact": {
+          "title": "10. Kontakt",
+          "content": "Jeśli masz pytania dotyczące niniejszego Regulaminu, skontaktuj się z nami za pośrednictwem funkcji wsparcia w aplikacji lub e-mailem. Dążymy do odpowiedzi na wszystkie zapytania w ciągu 5 dni roboczych."
+        }
+      }
+    },
+    "privacy": {
+      "title": "Polityka prywatności",
+      "sections": {
+        "introduction": {
+          "title": "1. Wprowadzenie",
+          "content": "Niniejsza Polityka prywatności wyjaśnia, w jaki sposób gromadzimy, wykorzystujemy, ujawniamy i chronimy Twoje dane osobowe podczas korzystania z naszej aplikacji mobilnej. Zobowiązujemy się do ochrony Twojej prywatności i przetwarzania Twoich danych w sposób otwarty i przejrzysty. Przestrzegamy brytyjskiego Ogólnego Rozporządzenia o Ochronie Danych (UK GDPR) i Ustawy o Ochronie Danych z 2018 roku."
+        },
+        "dataCollection": {
+          "title": "2. Informacje, które gromadzimy",
+          "intro": "Gromadzimy informacje, które nam bezpośrednio przekazujesz, oraz informacje gromadzone automatycznie podczas korzystania z naszych usług:",
+          "items": {
+            "identity": "Dane identyfikacyjne: imię, nazwisko, nazwa użytkownika i podobne identyfikatory",
+            "contact": "Dane kontaktowe: adres e-mail, numer telefonu i adres pocztowy",
+            "technical": "Dane techniczne: typ urządzenia, system operacyjny, unikalne identyfikatory urządzenia i informacje o sieci komórkowej",
+            "usage": "Dane o użytkowaniu: informacje o tym, jak korzystasz z naszej aplikacji, dostępnych funkcjach i czasie spędzonym"
+          }
+        },
+        "dataUse": {
+          "title": "3. Jak wykorzystujemy Twoje dane",
+          "intro": "Wykorzystujemy Twoje dane osobowe w następujących celach:",
+          "items": {
+            "service": "Świadczenie, utrzymanie i ulepszanie naszych usług",
+            "communication": "Komunikacja z Tobą w sprawie aktualizacji, alertów bezpieczeństwa i wiadomości wsparcia",
+            "improvement": "Analiza wzorców użytkowania i poprawa doświadczenia użytkownika",
+            "legal": "Wypełnianie zobowiązań prawnych i ochrona naszych praw"
+          }
+        },
+        "legalBasis": {
+          "title": "4. Podstawa prawna przetwarzania",
+          "content": "Przetwarzamy Twoje dane osobowe na następujących podstawach prawnych: (a) Twoja zgoda, którą możesz wycofać w dowolnym momencie; (b) wykonanie umowy z Tobą; (c) wypełnienie naszych zobowiązań prawnych; oraz (d) nasze uzasadnione interesy, takie jak ulepszanie naszych usług i zapobieganie oszustwom, pod warunkiem że nie przeważają one nad Twoimi podstawowymi prawami i wolnościami."
+        },
+        "dataSharing": {
+          "title": "5. Udostępnianie danych",
+          "content": "Nie sprzedajemy Twoich danych osobowych osobom trzecim. Możemy udostępniać Twoje dane zaufanym dostawcom usług, którzy pomagają nam w prowadzeniu aplikacji, prowadzeniu działalności lub obsłudze Ciebie, pod warunkiem że zgodzą się zachować Twoje informacje w poufności. Możemy również ujawnić Twoje informacje, gdy wymagają tego przepisy prawa lub w celu ochrony naszych praw."
+        },
+        "dataRetention": {
+          "title": "6. Przechowywanie danych",
+          "content": "Przechowujemy Twoje dane osobowe tylko tak długo, jak jest to konieczne do realizacji celów, dla których zostały zebrane, w tym do spełnienia wszelkich wymogów prawnych, księgowych lub sprawozdawczych. Przy określaniu okresów przechowywania bierzemy pod uwagę ilość, charakter i wrażliwość danych, potencjalne ryzyko szkody wynikające z nieautoryzowanego użycia lub ujawnienia oraz obowiązujące wymogi prawne."
+        },
+        "yourRights": {
+          "title": "7. Twoje prawa do ochrony danych",
+          "intro": "Zgodnie z UK GDPR i Ustawą o Ochronie Danych z 2018 roku masz następujące prawa:",
+          "items": {
+            "access": "Prawo dostępu: Możesz zażądać kopii swoich danych osobowych",
+            "rectification": "Prawo do sprostowania: Możesz zażądać poprawienia niedokładnych danych",
+            "erasure": "Prawo do usunięcia: Możesz zażądać usunięcia swoich danych osobowych",
+            "restriction": "Prawo do ograniczenia: Możesz zażądać ograniczenia sposobu wykorzystania Twoich danych",
+            "portability": "Prawo do przenoszenia danych: Możesz zażądać przeniesienia Twoich danych do innej usługi",
+            "objection": "Prawo do sprzeciwu: Możesz sprzeciwić się pewnym rodzajom przetwarzania"
+          }
+        },
+        "internationalTransfers": {
+          "title": "8. Międzynarodowe transfery danych",
+          "content": "Twoje informacje mogą być przekazywane i przetwarzane w krajach poza Wielką Brytanią i Europejskim Obszarem Gospodarczym. Zapewniamy odpowiednie zabezpieczenia, takie jak Standardowe Klauzule Umowne zatwierdzone przez Biuro Komisarza Informacji Wielkiej Brytanii, w celu ochrony Twoich danych osobowych zgodnie z niniejszą Polityką prywatności."
+        },
+        "security": {
+          "title": "9. Bezpieczeństwo danych",
+          "content": "Wdrażamy odpowiednie środki techniczne i organizacyjne w celu ochrony Twoich danych osobowych przed nieautoryzowanym dostępem, zmianą, ujawnieniem lub zniszczeniem. Środki te obejmują szyfrowanie, bezpieczne serwery i regularne oceny bezpieczeństwa. Jednak żadna metoda transmisji przez internet ani przechowywania elektronicznego nie jest całkowicie bezpieczna."
+        },
+        "children": {
+          "title": "10. Prywatność dzieci",
+          "content": "Nasze usługi nie są przeznaczone dla dzieci poniżej 16 roku życia. Świadomie nie gromadzimy danych osobowych od dzieci poniżej 16 roku życia. Jeśli dowiemy się, że zebraliśmy dane osobowe od dziecka poniżej 16 roku życia bez zgody rodzica, podejmiemy kroki w celu niezwłocznego usunięcia tych informacji."
+        },
+        "changes": {
+          "title": "11. Zmiany w polityce",
+          "content": "Możemy od czasu do czasu aktualizować niniejszą Politykę prywatności, aby odzwierciedlić zmiany w naszych praktykach lub z powodów prawnych, operacyjnych lub regulacyjnych. Powiadomimy Cię o wszelkich istotnych zmianach, publikując zaktualizowaną politykę w aplikacji i, w stosownych przypadkach, wysyłając wiadomość e-mail. Zachęcamy do okresowego przeglądania niniejszej polityki."
+        },
+        "contact": {
+          "title": "12. Kontakt",
+          "content": "Jeśli masz pytania dotyczące niniejszej Polityki prywatności lub chcesz skorzystać ze swoich praw do ochrony danych, skontaktuj się z nami za pośrednictwem funkcji wsparcia w aplikacji lub e-mailem. Masz również prawo złożyć skargę do Biura Komisarza Informacji Wielkiej Brytanii (ICO), jeśli uważasz, że Twoje prawa do ochrony danych zostały naruszone."
+        }
       }
     }
   }

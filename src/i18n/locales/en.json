@@ -1,4 +1,53 @@
 {
+  "auth": {
+    "registration": {
+      "title": "Create Account",
+      "subtitle": "Enter your details to create a new account",
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Enter your first name",
+      "firstNameHint": "Enter your legal first name",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Enter your last name",
+      "lastNameHint": "Enter your legal last name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "emailHint": "Enter a valid email address",
+      "phoneNumber": "Mobile Number",
+      "phoneNumberPlaceholder": "Enter your mobile number",
+      "phoneNumberHint": "Enter your mobile number without the country code",
+      "password": "Password",
+      "passwordPlaceholder": "Create a password",
+      "passwordHint": "Password must be at least 8 characters with uppercase, lowercase, number, and special character",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "confirmPasswordHint": "Re-enter your password to confirm",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "acceptTerms": "Accept terms and conditions",
+      "acceptTermsHint": "You must accept the terms to create an account",
+      "acceptTermsText": "I agree to the",
+      "termsLink": "Terms and Conditions",
+      "andThe": "and the",
+      "privacyLink": "Privacy Policy",
+      "registerButton": "Create Account",
+      "registerButtonHint": "Tap to create your account",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Log in",
+      "selectCountry": "Select Country",
+      "searchCountries": "Search countries...",
+      "noCountriesFound": "No countries found",
+      "verifyEmailTitle": "Verify Your Email",
+      "verifyEmailMessage": "We've sent a verification link to your email address. Please check your inbox and click the link to activate your account."
+    }
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
   "home": {
     "title": "Home",
     "env": "ENV",
@@ -104,6 +153,127 @@
         "twitter": "Open twitter profile",
         "instagram": "Open instagram profile",
         "linkedin": "Open linkedin profile"
+      }
+    }
+  },
+  "legal": {
+    "lastUpdated": "Last updated: {{date}}",
+    "terms": {
+      "title": "Terms and Conditions",
+      "sections": {
+        "introduction": {
+          "title": "1. Introduction",
+          "content": "Welcome to our application. These Terms and Conditions govern your use of our mobile application and services. By accessing or using our app, you agree to be bound by these terms. If you do not agree with any part of these terms, you must not use our application."
+        },
+        "acceptance": {
+          "title": "2. Acceptance of Terms",
+          "content": "By creating an account or using our services, you confirm that you are at least 16 years of age and have the legal capacity to enter into this agreement. If you are using our services on behalf of an organisation, you represent that you have authority to bind that organisation to these terms."
+        },
+        "accounts": {
+          "title": "3. User Accounts",
+          "content": "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must provide accurate, current, and complete information during registration. You agree to notify us immediately of any unauthorised use of your account or any other breach of security."
+        },
+        "acceptableUse": {
+          "title": "4. Acceptable Use",
+          "content": "You agree not to use our services for any unlawful purpose or in any way that could damage, disable, or impair our services. You must not attempt to gain unauthorised access to any part of our services, other accounts, or computer systems. You agree not to transmit any harmful code, spam, or malicious content through our platform."
+        },
+        "intellectualProperty": {
+          "title": "5. Intellectual Property",
+          "content": "All content, features, and functionality of our application, including but not limited to text, graphics, logos, and software, are owned by us or our licensors and are protected by international copyright, trademark, and other intellectual property laws. You may not reproduce, distribute, or create derivative works without our prior written consent."
+        },
+        "liability": {
+          "title": "6. Limitation of Liability",
+          "content": "To the fullest extent permitted by applicable law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or goodwill, arising from your use of our services. Our total liability shall not exceed the amount you have paid us in the twelve months preceding any claim."
+        },
+        "termination": {
+          "title": "7. Termination",
+          "content": "We may suspend or terminate your access to our services at any time, with or without cause, and with or without notice. Upon termination, your right to use our services will cease immediately. You may terminate your account at any time by contacting us or using the account deletion feature within the app."
+        },
+        "governingLaw": {
+          "title": "8. Governing Law",
+          "content": "These terms shall be governed by and construed in accordance with the laws of the United Kingdom. Any disputes arising from these terms or your use of our services shall be subject to the exclusive jurisdiction of the courts of England and Wales. For users in the European Union, you may also have rights under the laws of your country of residence."
+        },
+        "changes": {
+          "title": "9. Changes to Terms",
+          "content": "We reserve the right to modify these terms at any time. We will notify you of any material changes by posting the updated terms within the app or by sending you an email. Your continued use of our services after such changes constitutes your acceptance of the new terms. We encourage you to review these terms periodically."
+        },
+        "contact": {
+          "title": "10. Contact Us",
+          "content": "If you have any questions about these Terms and Conditions, please contact us through the app's support feature or by email. We aim to respond to all enquiries within 5 working days."
+        }
+      }
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "sections": {
+        "introduction": {
+          "title": "1. Introduction",
+          "content": "This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you use our mobile application. We are committed to protecting your privacy and handling your data in an open and transparent manner. We comply with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018."
+        },
+        "dataCollection": {
+          "title": "2. Information We Collect",
+          "intro": "We collect information that you provide directly to us and information collected automatically when you use our services:",
+          "items": {
+            "identity": "Identity Data: first name, last name, username, and similar identifiers",
+            "contact": "Contact Data: email address, telephone number, and postal address",
+            "technical": "Technical Data: device type, operating system, unique device identifiers, and mobile network information",
+            "usage": "Usage Data: information about how you use our app, features accessed, and time spent"
+          }
+        },
+        "dataUse": {
+          "title": "3. How We Use Your Information",
+          "intro": "We use your personal information for the following purposes:",
+          "items": {
+            "service": "To provide, maintain, and improve our services",
+            "communication": "To communicate with you about updates, security alerts, and support messages",
+            "improvement": "To analyse usage patterns and improve user experience",
+            "legal": "To comply with legal obligations and protect our rights"
+          }
+        },
+        "legalBasis": {
+          "title": "4. Legal Basis for Processing",
+          "content": "We process your personal data on the following legal grounds: (a) your consent, which you may withdraw at any time; (b) the performance of a contract with you; (c) compliance with our legal obligations; and (d) our legitimate interests, such as improving our services and preventing fraud, provided these do not override your fundamental rights and freedoms."
+        },
+        "dataSharing": {
+          "title": "5. Data Sharing",
+          "content": "We do not sell your personal information to third parties. We may share your data with trusted service providers who assist us in operating our app, conducting our business, or servicing you, provided they agree to keep your information confidential. We may also disclose your information when required by law or to protect our rights."
+        },
+        "dataRetention": {
+          "title": "6. Data Retention",
+          "content": "We retain your personal information only for as long as necessary to fulfil the purposes for which it was collected, including to satisfy any legal, accounting, or reporting requirements. When determining retention periods, we consider the amount, nature, and sensitivity of the data, the potential risk of harm from unauthorised use or disclosure, and applicable legal requirements."
+        },
+        "yourRights": {
+          "title": "7. Your Data Protection Rights",
+          "intro": "Under the UK GDPR and Data Protection Act 2018, you have the following rights:",
+          "items": {
+            "access": "Right of Access: You can request copies of your personal data",
+            "rectification": "Right to Rectification: You can request correction of inaccurate data",
+            "erasure": "Right to Erasure: You can request deletion of your personal data",
+            "restriction": "Right to Restriction: You can request that we limit how we use your data",
+            "portability": "Right to Data Portability: You can request transfer of your data to another service",
+            "objection": "Right to Object: You can object to certain types of processing"
+          }
+        },
+        "internationalTransfers": {
+          "title": "8. International Data Transfers",
+          "content": "Your information may be transferred to and processed in countries outside the UK and European Economic Area. We ensure appropriate safeguards are in place, such as Standard Contractual Clauses approved by the UK Information Commissioner's Office, to protect your personal data in accordance with this Privacy Policy."
+        },
+        "security": {
+          "title": "9. Data Security",
+          "content": "We implement appropriate technical and organisational measures to protect your personal information against unauthorised access, alteration, disclosure, or destruction. These measures include encryption, secure servers, and regular security assessments. However, no method of transmission over the internet or electronic storage is completely secure."
+        },
+        "children": {
+          "title": "10. Children's Privacy",
+          "content": "Our services are not intended for children under the age of 16. We do not knowingly collect personal information from children under 16. If we become aware that we have collected personal data from a child under 16 without parental consent, we will take steps to delete that information promptly."
+        },
+        "changes": {
+          "title": "11. Changes to This Policy",
+          "content": "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal, operational, or regulatory reasons. We will notify you of any material changes by posting the updated policy within the app and, where appropriate, by email. We encourage you to review this policy periodically."
+        },
+        "contact": {
+          "title": "12. Contact Us",
+          "content": "If you have questions about this Privacy Policy or wish to exercise your data protection rights, please contact us through the app's support feature or by email. You also have the right to lodge a complaint with the UK Information Commissioner's Office (ICO) if you believe your data protection rights have been violated."
+        }
       }
     }
   }

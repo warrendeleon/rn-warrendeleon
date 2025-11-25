@@ -1,6 +1,6 @@
 /**
  * Auth Feature
- * Exports auth slice, actions, selectors, and types
+ * Exports auth slice, actions, selectors, screens, and types
  */
 
 export type { AuthState } from './store';
@@ -23,3 +23,6 @@ export {
   setBiometricEnabled,
   updateUserProfile,
 } from './store';
+
+// Screens
+export { RegistrationScreen } from './RegistrationScreen';

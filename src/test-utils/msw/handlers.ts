@@ -87,36 +87,18 @@ const githubHandlers = [
 const SUPABASE_URL = 'https://test.supabase.co';
 
 const supabaseHandlers = [
-  // Sign up
+  // Sign up - Returns user directly (email confirmation required case)
   http.post(`${SUPABASE_URL}/auth/v1/signup`, () => {
     return HttpResponse.json(
       {
-        user: {
-          id: '550e8400-e29b-41d4-a716-446655440000',
-          aud: 'authenticated',
-          email: 'test@example.com',
-          email_confirmed_at: null,
-          phone: null,
-          confirmed_at: null,
-          last_sign_in_at: null,
-          created_at: '2025-01-01T00:00:00Z',
-        },
-        session: {
-          access_token: 'access_token_123',
-          refresh_token: 'refresh_token_123',
-          token_type: 'bearer',
-          expires_in: 3600,
-          user: {
-            id: '550e8400-e29b-41d4-a716-446655440000',
-            aud: 'authenticated',
-            email: 'test@example.com',
-            email_confirmed_at: null,
-            phone: null,
-            confirmed_at: null,
-            last_sign_in_at: null,
-            created_at: '2025-01-01T00:00:00Z',
-          },
-        },
+        id: '550e8400-e29b-41d4-a716-446655440000',
+        aud: 'authenticated',
+        email: 'test@example.com',
+        email_confirmed_at: null,
+        phone: null,
+        confirmed_at: null,
+        last_sign_in_at: null,
+        created_at: '2025-01-01T00:00:00Z',
       },
       { status: 200 }
     );

@@ -1,4 +1,53 @@
 {
+  "auth": {
+    "registration": {
+      "title": "Gumawa ng Account",
+      "subtitle": "Ilagay ang iyong mga detalye para gumawa ng bagong account",
+      "firstName": "Pangalan",
+      "firstNamePlaceholder": "Ilagay ang iyong pangalan",
+      "firstNameHint": "Ilagay ang iyong legal na pangalan",
+      "lastName": "Apelyido",
+      "lastNamePlaceholder": "Ilagay ang iyong apelyido",
+      "lastNameHint": "Ilagay ang iyong legal na apelyido",
+      "email": "Email Address",
+      "emailPlaceholder": "Ilagay ang iyong email address",
+      "emailHint": "Ilagay ang isang valid na email address",
+      "phoneNumber": "Numero ng Mobile",
+      "phoneNumberPlaceholder": "Ilagay ang iyong numero ng mobile",
+      "phoneNumberHint": "Ilagay ang iyong numero ng mobile nang walang country code",
+      "password": "Password",
+      "passwordPlaceholder": "Gumawa ng password",
+      "passwordHint": "Ang password ay dapat may hindi bababa sa 8 na karakter na may uppercase, lowercase, numero, at special character",
+      "confirmPassword": "Kumpirmahin ang Password",
+      "confirmPasswordPlaceholder": "Kumpirmahin ang iyong password",
+      "confirmPasswordHint": "Ilagay muli ang iyong password para kumpirmahin",
+      "showPassword": "Ipakita ang password",
+      "hidePassword": "Itago ang password",
+      "acceptTerms": "Tanggapin ang mga tuntunin at kondisyon",
+      "acceptTermsHint": "Kailangan mong tanggapin ang mga tuntunin para gumawa ng account",
+      "acceptTermsText": "Tinatanggap ko ang",
+      "termsLink": "Mga Tuntunin at Kondisyon",
+      "andThe": "at ang",
+      "privacyLink": "Patakaran sa Privacy",
+      "registerButton": "Gumawa ng Account",
+      "registerButtonHint": "Pindutin para gumawa ng iyong account",
+      "haveAccount": "May account na?",
+      "loginLink": "Mag-login",
+      "selectCountry": "Pumili ng Bansa",
+      "searchCountries": "Maghanap ng mga bansa...",
+      "noCountriesFound": "Walang nahanap na bansa",
+      "verifyEmailTitle": "I-verify ang Iyong Email",
+      "verifyEmailMessage": "Nagpadala kami ng verification link sa iyong email address. Pakisuri ang iyong inbox at i-click ang link para i-activate ang iyong account."
+    }
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Kanselahin",
+    "save": "I-save",
+    "delete": "Burahin",
+    "edit": "I-edit",
+    "close": "Isara"
+  },
   "home": {
     "title": "Home",
     "env": "KAPALIGIRAN",
@@ -104,6 +153,127 @@
         "twitter": "Buksan ang twitter profile",
         "instagram": "Buksan ang instagram profile",
         "linkedin": "Buksan ang linkedin profile"
+      }
+    }
+  },
+  "legal": {
+    "lastUpdated": "Huling na-update: {{date}}",
+    "terms": {
+      "title": "Mga Tuntunin at Kondisyon",
+      "sections": {
+        "introduction": {
+          "title": "1. Panimula",
+          "content": "Maligayang pagdating sa aming aplikasyon. Ang mga Tuntunin at Kondisyong ito ay namamahala sa paggamit mo ng aming mobile application at mga serbisyo. Sa pag-access o paggamit ng aming app, sumasang-ayon kang sumunod sa mga tuntuning ito. Kung hindi ka sumasang-ayon sa anumang bahagi ng mga tuntuning ito, hindi mo dapat gamitin ang aming aplikasyon."
+        },
+        "acceptance": {
+          "title": "2. Pagtanggap ng mga Tuntunin",
+          "content": "Sa paggawa ng account o paggamit ng aming mga serbisyo, kinukumpirma mo na ikaw ay hindi bababa sa 16 taong gulang at may legal na kakayahan na pumasok sa kasunduang ito. Kung gumagamit ka ng aming mga serbisyo sa ngalan ng isang organisasyon, kinakatawan mo na mayroon kang awtoridad na i-bind ang organisasyong iyon sa mga tuntuning ito."
+        },
+        "accounts": {
+          "title": "3. Mga Account ng User",
+          "content": "Ikaw ang responsable sa pagpapanatili ng pagiging kumpidensyal ng iyong mga kredensyal ng account at sa lahat ng aktibidad na nangyayari sa ilalim ng iyong account. Dapat kang magbigay ng tumpak, kasalukuyan, at kumpletong impormasyon sa panahon ng pagpaparehistro. Sumasang-ayon kang ipaalam agad sa amin ang anumang hindi awtorisadong paggamit ng iyong account o anumang iba pang paglabag sa seguridad."
+        },
+        "acceptableUse": {
+          "title": "4. Katanggap-tanggap na Paggamit",
+          "content": "Sumasang-ayon kang hindi gamitin ang aming mga serbisyo para sa anumang layuning labag sa batas o sa anumang paraan na maaaring makasira, mag-disable, o makapinsala sa aming mga serbisyo. Hindi mo dapat subukang makakuha ng hindi awtorisadong access sa anumang bahagi ng aming mga serbisyo, iba pang mga account, o mga computer system. Sumasang-ayon kang hindi magpadala ng anumang nakakapinsalang code, spam, o mapanganib na nilalaman sa pamamagitan ng aming platform."
+        },
+        "intellectualProperty": {
+          "title": "5. Intelektwal na Pag-aari",
+          "content": "Lahat ng nilalaman, mga feature, at functionality ng aming aplikasyon, kabilang ngunit hindi limitado sa teksto, graphics, mga logo, at software, ay pagmamay-ari namin o ng aming mga licensor at protektado ng mga internasyonal na batas sa copyright, trademark, at iba pang mga batas sa intelektwal na pag-aari. Hindi mo maaaring i-reproduce, i-distribute, o lumikha ng mga derived work nang walang aming naunang nakasulat na pahintulot."
+        },
+        "liability": {
+          "title": "6. Limitasyon ng Pananagutan",
+          "content": "Sa pinakamalawak na lawak na pinahihintulutan ng naaangkop na batas, hindi kami mananagot sa anumang hindi direktang, incidental, espesyal, consequential, o punitive na pinsala, kabilang ang pagkawala ng mga kita, data, o goodwill, na nagmumula sa paggamit mo ng aming mga serbisyo. Ang aming kabuuang pananagutan ay hindi lalampas sa halagang binayaran mo sa amin sa labindalawang buwan bago ang anumang claim."
+        },
+        "termination": {
+          "title": "7. Pagwawakas",
+          "content": "Maaari naming suspindihin o wakasan ang iyong access sa aming mga serbisyo anumang oras, may dahilan man o wala, at may abiso man o wala. Sa pagwawakas, ang iyong karapatang gamitin ang aming mga serbisyo ay agad na mawawala. Maaari mong wakasan ang iyong account anumang oras sa pamamagitan ng pakikipag-ugnayan sa amin o paggamit ng feature na pag-delete ng account sa loob ng app."
+        },
+        "governingLaw": {
+          "title": "8. Namamahalang Batas",
+          "content": "Ang mga tuntuning ito ay pamamahalaan at bibigyang-kahulugan alinsunod sa mga batas ng United Kingdom. Anumang mga dispute na nagmumula sa mga tuntuning ito o sa paggamit mo ng aming mga serbisyo ay sasailalim sa eksklusibong hurisdiksyon ng mga korte ng England at Wales. Para sa mga user sa European Union, maaari ka ring magkaroon ng mga karapatan sa ilalim ng mga batas ng iyong bansang tinitirhan."
+        },
+        "changes": {
+          "title": "9. Mga Pagbabago sa Tuntunin",
+          "content": "Nakalaan sa amin ang karapatang baguhin ang mga tuntuning ito anumang oras. Ipapaalam namin sa iyo ang anumang mahahalagang pagbabago sa pamamagitan ng pag-post ng mga na-update na tuntunin sa loob ng app o sa pamamagitan ng pagpapadala sa iyo ng email. Ang patuloy na paggamit mo ng aming mga serbisyo pagkatapos ng mga pagbabagong iyon ay bumubuo ng iyong pagtanggap sa mga bagong tuntunin. Hinihikayat ka naming suriin ang mga tuntuning ito pana-panahon."
+        },
+        "contact": {
+          "title": "10. Makipag-ugnayan sa Amin",
+          "content": "Kung mayroon kang anumang mga katanungan tungkol sa mga Tuntunin at Kondisyong ito, makipag-ugnayan sa amin sa pamamagitan ng feature ng suporta ng app o sa pamamagitan ng email. Layunin naming tumugon sa lahat ng mga katanungan sa loob ng 5 araw ng trabaho."
+        }
+      }
+    },
+    "privacy": {
+      "title": "Patakaran sa Privacy",
+      "sections": {
+        "introduction": {
+          "title": "1. Panimula",
+          "content": "Ipinapaliwanag ng Patakaran sa Privacy na ito kung paano namin kinokolekta, ginagamit, inilalantad, at pinoprotektahan ang iyong personal na impormasyon kapag gumagamit ka ng aming mobile application. Nakatuon kami sa pagprotekta sa iyong privacy at paghawak sa iyong data sa bukas at transparent na paraan. Sumusunod kami sa UK General Data Protection Regulation (UK GDPR) at sa Data Protection Act 2018."
+        },
+        "dataCollection": {
+          "title": "2. Impormasyong Kinokolekta Namin",
+          "intro": "Kinokolekta namin ang impormasyong direktang ibinibigay mo sa amin at impormasyong awtomatikong kinokolekta kapag gumagamit ka ng aming mga serbisyo:",
+          "items": {
+            "identity": "Data ng Pagkakakilanlan: pangalan, apelyido, username, at mga katulad na identifier",
+            "contact": "Data ng Kontak: email address, numero ng telepono, at postal address",
+            "technical": "Teknikal na Data: uri ng device, operating system, mga natatanging device identifier, at impormasyon ng mobile network",
+            "usage": "Data ng Paggamit: impormasyon kung paano mo ginagamit ang aming app, mga feature na na-access, at oras na ginugol"
+          }
+        },
+        "dataUse": {
+          "title": "3. Paano Namin Ginagamit ang Iyong Impormasyon",
+          "intro": "Ginagamit namin ang iyong personal na impormasyon para sa mga sumusunod na layunin:",
+          "items": {
+            "service": "Upang magbigay, mapanatili, at mapabuti ang aming mga serbisyo",
+            "communication": "Upang makipag-ugnayan sa iyo tungkol sa mga update, alerto sa seguridad, at mga mensahe ng suporta",
+            "improvement": "Upang suriin ang mga pattern ng paggamit at mapabuti ang karanasan ng user",
+            "legal": "Upang sumunod sa mga legal na obligasyon at protektahan ang aming mga karapatan"
+          }
+        },
+        "legalBasis": {
+          "title": "4. Legal na Batayan para sa Pagproseso",
+          "content": "Pinoproseso namin ang iyong personal na data sa mga sumusunod na legal na batayan: (a) ang iyong pahintulot, na maaari mong bawiin anumang oras; (b) ang pagtupad ng kontrata sa iyo; (c) pagsunod sa aming mga legal na obligasyon; at (d) ang aming mga lehitimong interes, tulad ng pagpapabuti ng aming mga serbisyo at pagpigil sa panloloko, basta hindi ito umaabot sa iyong mga pundamental na karapatan at kalayaan."
+        },
+        "dataSharing": {
+          "title": "5. Pagbabahagi ng Data",
+          "content": "Hindi namin ibinebenta ang iyong personal na impormasyon sa mga third party. Maaari naming ibahagi ang iyong data sa mga pinagkakatiwalaang service provider na tumutulong sa amin sa pagpapatakbo ng aming app, pagsasagawa ng aming negosyo, o pagseserbisyo sa iyo, basta sumang-ayon silang panatilihing kumpidensyal ang iyong impormasyon. Maaari rin naming ilantad ang iyong impormasyon kapag kinakailangan ng batas o upang protektahan ang aming mga karapatan."
+        },
+        "dataRetention": {
+          "title": "6. Pagpapanatili ng Data",
+          "content": "Pinapanatili lamang namin ang iyong personal na impormasyon hangga't kinakailangan upang matupad ang mga layuning para sa kung saan ito nakolekta, kabilang ang pagtugon sa anumang mga legal, accounting, o reporting requirement. Kapag tinutukoy ang mga panahon ng pagpapanatili, isinasaalang-alang namin ang dami, kalikasan, at sensitivity ng data, ang potensyal na panganib ng pinsala mula sa hindi awtorisadong paggamit o pagbubunyag, at ang mga naaangkop na legal na kinakailangan."
+        },
+        "yourRights": {
+          "title": "7. Ang Iyong mga Karapatan sa Proteksyon ng Data",
+          "intro": "Sa ilalim ng UK GDPR at Data Protection Act 2018, mayroon kang mga sumusunod na karapatan:",
+          "items": {
+            "access": "Karapatan sa Pag-access: Maaari kang humingi ng mga kopya ng iyong personal na data",
+            "rectification": "Karapatan sa Pagwawasto: Maaari kang humiling ng pagwawasto ng hindi tumpak na data",
+            "erasure": "Karapatan sa Pagbura: Maaari kang humiling ng pagbura ng iyong personal na data",
+            "restriction": "Karapatan sa Paghihigpit: Maaari kang humiling na limitahan namin kung paano namin ginagamit ang iyong data",
+            "portability": "Karapatan sa Data Portability: Maaari kang humiling ng paglipat ng iyong data sa ibang serbisyo",
+            "objection": "Karapatan sa Pagtutol: Maaari kang tumutol sa ilang uri ng pagproseso"
+          }
+        },
+        "internationalTransfers": {
+          "title": "8. Mga International Data Transfer",
+          "content": "Ang iyong impormasyon ay maaaring ilipat at iproseso sa mga bansang nasa labas ng United Kingdom at European Economic Area. Tinitiyak namin na may mga naaangkop na safeguard, tulad ng Standard Contractual Clauses na inaprubahan ng UK Information Commissioner's Office, upang protektahan ang iyong personal na data alinsunod sa Patakaran sa Privacy na ito."
+        },
+        "security": {
+          "title": "9. Seguridad ng Data",
+          "content": "Nagpapatupad kami ng mga naaangkop na teknikal at organisasyonal na hakbang upang protektahan ang iyong personal na impormasyon laban sa hindi awtorisadong access, pagbabago, pagbubunyag, o pagkasira. Kasama sa mga hakbang na ito ang encryption, mga secure server, at regular na security assessment. Gayunpaman, walang paraan ng transmisyon sa internet o electronic storage na ganap na secure."
+        },
+        "children": {
+          "title": "10. Privacy ng mga Bata",
+          "content": "Ang aming mga serbisyo ay hindi nilalayong para sa mga batang wala pang 16 taong gulang. Hindi namin sinasadyang kinokolekta ang personal na impormasyon mula sa mga batang wala pang 16. Kung malaman namin na nakolekta namin ang personal na data mula sa isang batang wala pang 16 nang walang pahintulot ng magulang, gagawa kami ng mga hakbang upang agad na tanggalin ang impormasyong iyon."
+        },
+        "changes": {
+          "title": "11. Mga Pagbabago sa Patakarang Ito",
+          "content": "Maaari naming i-update ang Patakaran sa Privacy na ito paminsan-minsan upang ipakita ang mga pagbabago sa aming mga kasanayan o para sa mga legal, operational, o regulatory na dahilan. Ipapaalam namin sa iyo ang anumang mahahalagang pagbabago sa pamamagitan ng pag-post ng na-update na patakaran sa loob ng app at, kung naaangkop, sa pamamagitan ng email. Hinihikayat ka naming suriin ang patakarang ito pana-panahon."
+        },
+        "contact": {
+          "title": "12. Makipag-ugnayan sa Amin",
+          "content": "Kung mayroon kang mga katanungan tungkol sa Patakaran sa Privacy na ito o nais mong gamitin ang iyong mga karapatan sa proteksyon ng data, makipag-ugnayan sa amin sa pamamagitan ng feature ng suporta ng app o sa pamamagitan ng email. Mayroon ka ring karapatang magsumite ng reklamo sa UK Information Commissioner's Office (ICO) kung naniniwala kang nalabag ang iyong mga karapatan sa proteksyon ng data."
+        }
       }
     }
   }

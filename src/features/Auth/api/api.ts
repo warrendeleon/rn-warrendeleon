@@ -1,17 +1,18 @@
 import Config from 'react-native-config';
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-import {
+import type {
   SupabaseErrorResponse,
   SupabaseRefreshTokenResponse,
-  SupabaseRefreshTokenResponseSchema,
   SupabaseSignInRequest,
   SupabaseSignInResponse,
-  SupabaseSignInResponseSchema,
   SupabaseSignUpRequest,
   SupabaseSignUpResponse,
-  SupabaseSignUpResponseSchema,
   SupabaseUser,
+} from '@app/schemas';
+import {
+  SupabaseRefreshTokenResponseSchema,
+  SupabaseSignInResponseSchema,
   SupabaseUserSchema,
 } from '@app/schemas';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage/EncryptedStore';
@@ -133,25 +134,16 @@ class SupabaseAuthClientClass {
     try {
       const { data } = await this.axiosInstance.post('/auth/v1/signup', request);
 
-      // Validate response with context
-      const validatedData = validateResponse(
-        SupabaseSignUpResponseSchema,
-        data,
-        'Supabase Auth signUp'
-      );
-
-      // Store tokens if session exists
-      if (validatedData.session) {
-        await this.storeSession(validatedData.session);
-      }
+      // Supabase REST API returns user object directly when email confirmation is required
+      const user = validateResponse(SupabaseUserSchema, data, 'Supabase Auth signUp');
 
       // Store user data in encrypted storage
-      if (validatedData.user) {
-        await EncryptedStore.set(EncryptedStoreKey.USER_EMAIL, validatedData.user.email);
-        await SecureStore.set(SecureStoreKey.USER_ID, validatedData.user.id);
+      if (user) {
+        await EncryptedStore.set(EncryptedStoreKey.USER_EMAIL, user.email);
+        await SecureStore.set(SecureStoreKey.USER_ID, user.id);
       }
 
-      return validatedData;
+      return { user, session: null };
     } catch (error) {
       throw this.handleError(error);
     }

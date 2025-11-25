@@ -4,7 +4,12 @@ import { enableScreens } from 'react-native-screens';
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { ErrorBoundary, HeaderBackButton } from '@app/components';
+import {
+  CountryCodeSelectorScreen,
+  type CountryData,
+  ErrorBoundary,
+  HeaderBackButton,
+} from '@app/components';
 import {
   AppearanceScreen,
   EducationScreen,
@@ -12,8 +17,11 @@ import {
   LanguageScreen,
   MockStatusScreen,
   PDFScreen,
+  PrivacyPolicyScreen,
   ProfileScreen,
+  RegistrationScreen,
   SettingsScreen,
+  TermsAndConditionsScreen,
   WebViewScreen,
   WorkExperienceClientsScreen,
   WorkExperienceDetailsScreen,
@@ -26,6 +34,9 @@ enableScreens(true);
 
 export type RootStackParamList = {
   Home: undefined;
+  Registration: undefined;
+  Login: undefined;
+  EmailVerification: undefined;
   Settings: undefined;
   Language: undefined;
   Appearance: undefined;
@@ -38,6 +49,12 @@ export type RootStackParamList = {
   WebView: { uri: string };
   PDF: { uri: string; title?: string };
   MockStatus: undefined;
+  CountryCodeSelector: {
+    selectedCountryCode: string;
+    onSelect: (country: CountryData) => void;
+  };
+  TermsAndConditions: undefined;
+  PrivacyPolicy: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -66,6 +83,11 @@ export const RootNavigator: React.FC = () => {
             name="Home"
             component={HomeScreen}
             options={{ title: t('home.title'), headerLeft: () => null }}
+          />
+          <Stack.Screen
+            name="Registration"
+            component={RegistrationScreen}
+            options={{ title: t('auth.registration.title') }}
           />
           <Stack.Screen
             name="Settings"
@@ -118,6 +140,21 @@ export const RootNavigator: React.FC = () => {
             name="MockStatus"
             component={MockStatusScreen}
             options={{ title: 'Mock Status' }}
+          />
+          <Stack.Screen
+            name="CountryCodeSelector"
+            component={CountryCodeSelectorScreen}
+            options={{ title: t('auth.registration.selectCountry') }}
+          />
+          <Stack.Screen
+            name="TermsAndConditions"
+            component={TermsAndConditionsScreen}
+            options={{ title: t('legal.terms.title') }}
+          />
+          <Stack.Screen
+            name="PrivacyPolicy"
+            component={PrivacyPolicyScreen}
+            options={{ title: t('legal.privacy.title') }}
           />
         </Stack.Navigator>
       </ErrorBoundary>

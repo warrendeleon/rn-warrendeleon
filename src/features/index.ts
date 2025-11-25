@@ -1,5 +1,7 @@
+export * from './Auth';
 export * from './Education';
 export * from './Home';
+export * from './Legal';
 export * from './MockStatus';
 export * from './PDF';
 export * from './Profile';

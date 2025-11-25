@@ -21,18 +21,23 @@ export const SupabaseUserMetadataSchema = z.record(
 
 export type SupabaseUserMetadata = z.infer<typeof SupabaseUserMetadataSchema>;
 
-// Identity data schema
-export const SupabaseIdentityDataSchema = z.object({
-  email: z.string().email().optional(),
-  email_verified: z.boolean().optional(),
-  phone_verified: z.boolean().optional(),
-  sub: z.string().optional(),
-});
+// Identity data schema (flexible to accept additional user metadata)
+export const SupabaseIdentityDataSchema = z
+  .object({
+    email: z.string().email().optional(),
+    email_verified: z.boolean().optional(),
+    phone_verified: z.boolean().optional(),
+    sub: z.string().optional(),
+    first_name: z.string().optional(),
+    last_name: z.string().optional(),
+  })
+  .passthrough(); // Allow additional fields
 
 export type SupabaseIdentityData = z.infer<typeof SupabaseIdentityDataSchema>;
 
 // Identity schema
 export const SupabaseIdentitySchema = z.object({
+  identity_id: z.string().optional(), // New field in recent Supabase versions
   id: z.string(),
   user_id: z.string().uuid(),
   identity_data: SupabaseIdentityDataSchema.optional(),
@@ -40,25 +45,37 @@ export const SupabaseIdentitySchema = z.object({
   last_sign_in_at: z.string().nullable(),
   created_at: z.string(),
   updated_at: z.string(),
+  email: z.string().email().optional(), // Can be present on identity
 });
 
 export type SupabaseIdentity = z.infer<typeof SupabaseIdentitySchema>;
 
 // User object schema
+// Supports both REST API format (raw_*_meta_data) and SDK format (*_metadata)
 export const SupabaseUserSchema = z.object({
   id: z.string().uuid(),
-  aud: z.string(),
+  aud: z.string().optional(), // Not always present in REST API responses
   role: z.string().optional(),
   email: z.string().email(),
-  email_confirmed_at: z.string().nullable(),
+  email_confirmed_at: z.string().nullable().optional(),
   phone: z.string().nullable(),
-  confirmed_at: z.string().nullable(),
-  last_sign_in_at: z.string().nullable(),
+  confirmed_at: z.string().nullable().optional(), // Not present on signup response
+  confirmation_sent_at: z.string().nullable().optional(),
+  last_sign_in_at: z.string().nullable().optional(), // Not present on signup response
+  // REST API returns raw_*_meta_data, SDK returns *_metadata
   app_metadata: SupabaseAppMetadataSchema.optional(),
+  raw_app_meta_data: SupabaseAppMetadataSchema.optional(),
   user_metadata: SupabaseUserMetadataSchema.optional(),
+  raw_user_meta_data: SupabaseUserMetadataSchema.optional(),
   identities: z.array(SupabaseIdentitySchema).optional(),
   created_at: z.string(),
   updated_at: z.string().optional(),
+  // Additional fields from REST API
+  banned_until: z.string().nullable().optional(),
+  is_anonymous: z.boolean().optional(),
+  is_sso_user: z.boolean().optional(),
+  invited_at: z.string().nullable().optional(),
+  providers: z.array(z.string()).optional(),
 });
 
 export type SupabaseUser = z.infer<typeof SupabaseUserSchema>;
@@ -75,27 +92,34 @@ export const SupabaseSessionSchema = z.object({
 
 export type SupabaseSession = z.infer<typeof SupabaseSessionSchema>;
 
-// Sign Up Request
+// Sign Up Request (REST API format - data at root level, not nested under options)
 export const SupabaseSignUpRequestSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
-  options: z
-    .object({
-      data: SupabaseUserMetadataSchema.optional(), // User metadata
-      emailRedirectTo: z.string().url().optional(),
-    })
-    .optional(),
+  data: SupabaseUserMetadataSchema.optional(), // User metadata (first_name, last_name, etc.)
 });
 
 export type SupabaseSignUpRequest = z.infer<typeof SupabaseSignUpRequestSchema>;
 
-// Sign Up Response
-export const SupabaseSignUpResponseSchema = z.object({
-  user: SupabaseUserSchema.nullable(),
-  session: SupabaseSessionSchema.nullable(),
-});
+// Sign Up Response Schema (for validation)
+// When email confirmation is required, Supabase returns the user object directly (no session)
+// When email confirmation is disabled, it returns { user, session }
+// We use a union to handle both cases during validation
+export const SupabaseSignUpResponseSchema = z.union([
+  // Case 1: User object returned directly (email confirmation required)
+  SupabaseUserSchema,
+  // Case 2: Wrapped response (email confirmation disabled)
+  z.object({
+    user: SupabaseUserSchema.nullish(),
+    session: SupabaseSessionSchema.nullish(),
+  }),
+]);
 
-export type SupabaseSignUpResponse = z.infer<typeof SupabaseSignUpResponseSchema>;
+// Normalized response type (always { user, session } after processing in API layer)
+export type SupabaseSignUpResponse = {
+  user: SupabaseUser | null | undefined;
+  session: SupabaseSession | null | undefined;
+};
 
 // Sign In Request
 export const SupabaseSignInRequestSchema = z.object({

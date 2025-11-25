@@ -51,11 +51,9 @@ describe('Auth actions', () => {
       expect(SupabaseAuthClient.signUp).toHaveBeenCalledWith({
         email: 'test@example.com',
         password: 'Password123!',
-        options: {
-          data: {
-            first_name: 'Warren',
-            last_name: 'de Leon',
-          },
+        data: {
+          first_name: 'Warren',
+          last_name: 'de Leon',
         },
       });
 

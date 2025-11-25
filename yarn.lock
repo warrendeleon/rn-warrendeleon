@@ -12819,6 +12819,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.66.1":
+  version: 7.66.1
+  resolution: "react-hook-form@npm:7.66.1"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18 || ^19
+  checksum: b0d4e9b3091485f6a92c539e1999a0570c78da9179ddeaa7999f98c547b70c99f3365cc2d3d652a581f8ea26a96f9ad03102c140a11aea4c4e8966cb734ea3af
+  languageName: node
+  linkType: hard
+
 "react-i18next@npm:^16.2.4":
   version: 16.2.4
   resolution: "react-i18next@npm:16.2.4"
@@ -15540,6 +15549,7 @@ __metadata:
     prettier-plugin-tailwindcss: ^0.5.11
     react: 19.1.1
     react-dom: 18.3.1
+    react-hook-form: ^7.66.1
     react-i18next: ^16.2.4
     react-native: 0.82.1
     react-native-blob-util: ^0.23.2

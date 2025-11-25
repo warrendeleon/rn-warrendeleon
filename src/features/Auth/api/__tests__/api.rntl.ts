@@ -18,7 +18,7 @@ describe('SupabaseAuthClient', () => {
   });
 
   describe('signUp', () => {
-    it('should sign up a new user and store session', async () => {
+    it('should sign up a new user and store user data (no session when email confirmation required)', async () => {
       (SecureStore.set as jest.Mock).mockResolvedValue(true);
       (EncryptedStore.set as jest.Mock).mockResolvedValue(true);
 
@@ -28,11 +28,10 @@ describe('SupabaseAuthClient', () => {
       });
 
       expect(result.user).toBeDefined();
-      expect(result.session).toBeDefined();
-      expect(SecureStore.set).toHaveBeenCalledWith(SecureStoreKey.ACCESS_TOKEN, 'access_token_123');
+      expect(result.session).toBeNull();
       expect(SecureStore.set).toHaveBeenCalledWith(
-        SecureStoreKey.REFRESH_TOKEN,
-        'refresh_token_123'
+        SecureStoreKey.USER_ID,
+        '550e8400-e29b-41d4-a716-446655440000'
       );
       expect(EncryptedStore.set).toHaveBeenCalledWith(
         EncryptedStoreKey.USER_EMAIL,

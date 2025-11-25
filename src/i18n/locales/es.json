@@ -1,4 +1,53 @@
 {
+  "auth": {
+    "registration": {
+      "title": "Crear cuenta",
+      "subtitle": "Introduce tus datos para crear una nueva cuenta",
+      "firstName": "Nombre",
+      "firstNamePlaceholder": "Introduce tu nombre",
+      "firstNameHint": "Introduce tu nombre legal",
+      "lastName": "Apellido",
+      "lastNamePlaceholder": "Introduce tu apellido",
+      "lastNameHint": "Introduce tu apellido legal",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "Introduce tu correo electrónico",
+      "emailHint": "Introduce un correo electrónico válido",
+      "phoneNumber": "Número de móvil",
+      "phoneNumberPlaceholder": "Introduce tu número de móvil",
+      "phoneNumberHint": "Introduce tu número de móvil sin el código del país",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Crea una contraseña",
+      "passwordHint": "La contraseña debe tener al menos 8 caracteres con mayúsculas, minúsculas, números y caracteres especiales",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu contraseña",
+      "confirmPasswordHint": "Vuelve a introducir tu contraseña para confirmar",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
+      "acceptTerms": "Aceptar términos y condiciones",
+      "acceptTermsHint": "Debes aceptar los términos para crear una cuenta",
+      "acceptTermsText": "Acepto los",
+      "termsLink": "Términos y condiciones",
+      "andThe": "y la",
+      "privacyLink": "Política de privacidad",
+      "registerButton": "Crear cuenta",
+      "registerButtonHint": "Toca para crear tu cuenta",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Iniciar sesión",
+      "selectCountry": "Seleccionar país",
+      "searchCountries": "Buscar países...",
+      "noCountriesFound": "No se encontraron países",
+      "verifyEmailTitle": "Verifica tu correo electrónico",
+      "verifyEmailMessage": "Hemos enviado un enlace de verificación a tu correo electrónico. Por favor revisa tu bandeja de entrada y haz clic en el enlace para activar tu cuenta."
+    }
+  },
+  "common": {
+    "ok": "Aceptar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar"
+  },
   "home": {
     "title": "Inicio",
     "env": "ENTORNO",
@@ -104,6 +153,127 @@
         "twitter": "Abrir perfil de twitter",
         "instagram": "Abrir perfil de instagram",
         "linkedin": "Abrir perfil de linkedin"
+      }
+    }
+  },
+  "legal": {
+    "lastUpdated": "Última actualización: {{date}}",
+    "terms": {
+      "title": "Términos y condiciones",
+      "sections": {
+        "introduction": {
+          "title": "1. Introducción",
+          "content": "Bienvenido a nuestra aplicación. Estos Términos y Condiciones regulan el uso de nuestra aplicación móvil y servicios. Al acceder o utilizar nuestra aplicación, aceptas quedar vinculado por estos términos. Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestra aplicación."
+        },
+        "acceptance": {
+          "title": "2. Aceptación de los términos",
+          "content": "Al crear una cuenta o utilizar nuestros servicios, confirmas que tienes al menos 16 años de edad y la capacidad legal para celebrar este acuerdo. Si utilizas nuestros servicios en nombre de una organización, declaras que tienes autoridad para vincular a dicha organización a estos términos."
+        },
+        "accounts": {
+          "title": "3. Cuentas de usuario",
+          "content": "Eres responsable de mantener la confidencialidad de las credenciales de tu cuenta y de todas las actividades que ocurran bajo tu cuenta. Debes proporcionar información precisa, actual y completa durante el registro. Aceptas notificarnos inmediatamente sobre cualquier uso no autorizado de tu cuenta o cualquier otra violación de seguridad."
+        },
+        "acceptableUse": {
+          "title": "4. Uso aceptable",
+          "content": "Aceptas no utilizar nuestros servicios para ningún propósito ilegal ni de ninguna manera que pueda dañar, desactivar o deteriorar nuestros servicios. No debes intentar obtener acceso no autorizado a ninguna parte de nuestros servicios, otras cuentas o sistemas informáticos. Aceptas no transmitir ningún código dañino, spam o contenido malicioso a través de nuestra plataforma."
+        },
+        "intellectualProperty": {
+          "title": "5. Propiedad intelectual",
+          "content": "Todo el contenido, características y funcionalidad de nuestra aplicación, incluyendo pero no limitado a texto, gráficos, logotipos y software, son propiedad nuestra o de nuestros licenciantes y están protegidos por las leyes internacionales de derechos de autor, marcas registradas y otras leyes de propiedad intelectual. No puedes reproducir, distribuir ni crear obras derivadas sin nuestro consentimiento previo por escrito."
+        },
+        "liability": {
+          "title": "6. Limitación de responsabilidad",
+          "content": "En la máxima medida permitida por la ley aplicable, no seremos responsables de ningún daño indirecto, incidental, especial, consecuente o punitivo, incluyendo pérdida de beneficios, datos o buena voluntad, derivados del uso de nuestros servicios. Nuestra responsabilidad total no excederá la cantidad que nos hayas pagado en los doce meses anteriores a cualquier reclamación."
+        },
+        "termination": {
+          "title": "7. Terminación",
+          "content": "Podemos suspender o terminar tu acceso a nuestros servicios en cualquier momento, con o sin causa, y con o sin previo aviso. Tras la terminación, tu derecho a usar nuestros servicios cesará inmediatamente. Puedes cancelar tu cuenta en cualquier momento contactándonos o utilizando la función de eliminación de cuenta dentro de la aplicación."
+        },
+        "governingLaw": {
+          "title": "8. Ley aplicable",
+          "content": "Estos términos se regirán e interpretarán de acuerdo con las leyes del Reino Unido. Cualquier disputa que surja de estos términos o del uso de nuestros servicios estará sujeta a la jurisdicción exclusiva de los tribunales de Inglaterra y Gales. Para usuarios en la Unión Europea, también puedes tener derechos bajo las leyes de tu país de residencia."
+        },
+        "changes": {
+          "title": "9. Cambios en los términos",
+          "content": "Nos reservamos el derecho de modificar estos términos en cualquier momento. Te notificaremos de cualquier cambio material publicando los términos actualizados dentro de la aplicación o enviándote un correo electrónico. El uso continuado de nuestros servicios después de dichos cambios constituye tu aceptación de los nuevos términos. Te animamos a revisar estos términos periódicamente."
+        },
+        "contact": {
+          "title": "10. Contáctanos",
+          "content": "Si tienes alguna pregunta sobre estos Términos y Condiciones, contáctanos a través de la función de soporte de la aplicación o por correo electrónico. Nuestro objetivo es responder a todas las consultas en un plazo de 5 días laborables."
+        }
+      }
+    },
+    "privacy": {
+      "title": "Política de privacidad",
+      "sections": {
+        "introduction": {
+          "title": "1. Introducción",
+          "content": "Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y protegemos tu información personal cuando utilizas nuestra aplicación móvil. Estamos comprometidos con la protección de tu privacidad y el manejo de tus datos de manera abierta y transparente. Cumplimos con el Reglamento General de Protección de Datos del Reino Unido (UK GDPR) y la Ley de Protección de Datos de 2018."
+        },
+        "dataCollection": {
+          "title": "2. Información que recopilamos",
+          "intro": "Recopilamos información que nos proporcionas directamente e información recopilada automáticamente cuando utilizas nuestros servicios:",
+          "items": {
+            "identity": "Datos de identidad: nombre, apellido, nombre de usuario e identificadores similares",
+            "contact": "Datos de contacto: dirección de correo electrónico, número de teléfono y dirección postal",
+            "technical": "Datos técnicos: tipo de dispositivo, sistema operativo, identificadores únicos del dispositivo e información de la red móvil",
+            "usage": "Datos de uso: información sobre cómo utilizas nuestra aplicación, funciones accedidas y tiempo empleado"
+          }
+        },
+        "dataUse": {
+          "title": "3. Cómo usamos tu información",
+          "intro": "Utilizamos tu información personal para los siguientes propósitos:",
+          "items": {
+            "service": "Proporcionar, mantener y mejorar nuestros servicios",
+            "communication": "Comunicarnos contigo sobre actualizaciones, alertas de seguridad y mensajes de soporte",
+            "improvement": "Analizar patrones de uso y mejorar la experiencia del usuario",
+            "legal": "Cumplir con obligaciones legales y proteger nuestros derechos"
+          }
+        },
+        "legalBasis": {
+          "title": "4. Base legal para el procesamiento",
+          "content": "Procesamos tus datos personales con los siguientes fundamentos legales: (a) tu consentimiento, que puedes retirar en cualquier momento; (b) la ejecución de un contrato contigo; (c) el cumplimiento de nuestras obligaciones legales; y (d) nuestros intereses legítimos, como mejorar nuestros servicios y prevenir el fraude, siempre que estos no prevalezcan sobre tus derechos y libertades fundamentales."
+        },
+        "dataSharing": {
+          "title": "5. Compartir datos",
+          "content": "No vendemos tu información personal a terceros. Podemos compartir tus datos con proveedores de servicios de confianza que nos ayudan a operar nuestra aplicación, llevar a cabo nuestro negocio o atenderte, siempre que acepten mantener tu información confidencial. También podemos divulgar tu información cuando lo exija la ley o para proteger nuestros derechos."
+        },
+        "dataRetention": {
+          "title": "6. Retención de datos",
+          "content": "Retenemos tu información personal solo durante el tiempo necesario para cumplir los propósitos para los que fue recopilada, incluyendo cualquier requisito legal, contable o de informes. Al determinar los períodos de retención, consideramos la cantidad, naturaleza y sensibilidad de los datos, el riesgo potencial de daño por uso o divulgación no autorizados, y los requisitos legales aplicables."
+        },
+        "yourRights": {
+          "title": "7. Tus derechos de protección de datos",
+          "intro": "Bajo el UK GDPR y la Ley de Protección de Datos de 2018, tienes los siguientes derechos:",
+          "items": {
+            "access": "Derecho de acceso: Puedes solicitar copias de tus datos personales",
+            "rectification": "Derecho de rectificación: Puedes solicitar la corrección de datos inexactos",
+            "erasure": "Derecho de supresión: Puedes solicitar la eliminación de tus datos personales",
+            "restriction": "Derecho de restricción: Puedes solicitar que limitemos cómo usamos tus datos",
+            "portability": "Derecho a la portabilidad de datos: Puedes solicitar la transferencia de tus datos a otro servicio",
+            "objection": "Derecho de oposición: Puedes oponerte a ciertos tipos de procesamiento"
+          }
+        },
+        "internationalTransfers": {
+          "title": "8. Transferencias internacionales de datos",
+          "content": "Tu información puede ser transferida y procesada en países fuera del Reino Unido y del Espacio Económico Europeo. Nos aseguramos de que existan las salvaguardas apropiadas, como las Cláusulas Contractuales Estándar aprobadas por la Oficina del Comisionado de Información del Reino Unido, para proteger tus datos personales de acuerdo con esta Política de Privacidad."
+        },
+        "security": {
+          "title": "9. Seguridad de los datos",
+          "content": "Implementamos medidas técnicas y organizativas apropiadas para proteger tu información personal contra el acceso, alteración, divulgación o destrucción no autorizados. Estas medidas incluyen cifrado, servidores seguros y evaluaciones de seguridad regulares. Sin embargo, ningún método de transmisión por internet o almacenamiento electrónico es completamente seguro."
+        },
+        "children": {
+          "title": "10. Privacidad de los niños",
+          "content": "Nuestros servicios no están destinados a menores de 16 años. No recopilamos conscientemente información personal de niños menores de 16 años. Si descubrimos que hemos recopilado datos personales de un niño menor de 16 años sin el consentimiento de los padres, tomaremos medidas para eliminar esa información de inmediato."
+        },
+        "changes": {
+          "title": "11. Cambios en esta política",
+          "content": "Podemos actualizar esta Política de Privacidad de vez en cuando para reflejar cambios en nuestras prácticas o por razones legales, operativas o regulatorias. Te notificaremos de cualquier cambio material publicando la política actualizada dentro de la aplicación y, cuando corresponda, por correo electrónico. Te animamos a revisar esta política periódicamente."
+        },
+        "contact": {
+          "title": "12. Contáctanos",
+          "content": "Si tienes preguntas sobre esta Política de Privacidad o deseas ejercer tus derechos de protección de datos, contáctanos a través de la función de soporte de la aplicación o por correo electrónico. También tienes derecho a presentar una queja ante la Oficina del Comisionado de Información del Reino Unido (ICO) si crees que se han violado tus derechos de protección de datos."
+        }
       }
     }
   }

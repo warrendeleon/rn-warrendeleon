@@ -7,6 +7,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import type { RenderOptions } from '@testing-library/react-native';
 import { render } from '@testing-library/react-native';
 
+import { authReducer } from '@app/features/Auth';
 import { educationReducer } from '@app/features/Education';
 import { profileReducer } from '@app/features/Profile';
 import { settingsReducer } from '@app/features/Settings';
@@ -19,6 +20,7 @@ import i18n from '@app/i18n';
  */
 const rootReducer = combineReducers({
   settings: settingsReducer,
+  auth: authReducer,
   profile: profileReducer,
   workExperience: workExperienceReducer,
   education: educationReducer,
