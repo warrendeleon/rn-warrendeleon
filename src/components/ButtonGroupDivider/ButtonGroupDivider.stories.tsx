@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@gluestack-ui/themed';
+import { Box, Text } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
 
 import { ButtonGroupDivider } from './ButtonGroupDivider';
@@ -37,15 +37,15 @@ export const InContext: Story = {
   render: () => (
     <Box bg="$white" borderRadius="$lg" overflow="hidden">
       <Box p="$4">
-        <Box>Item 1</Box>
+        <Text>Item 1</Text>
       </Box>
       <ButtonGroupDivider />
       <Box p="$4">
-        <Box>Item 2</Box>
+        <Text>Item 2</Text>
       </Box>
       <ButtonGroupDivider />
       <Box p="$4">
-        <Box>Item 3</Box>
+        <Text>Item 3</Text>
       </Box>
     </Box>
   ),

@@ -11,7 +11,6 @@ if (__DEV__) {
 
 import { AppRegistry, LogBox } from 'react-native';
 
-import { App } from './src/app';
 import { name as appName } from './app.json';
 
 // Suppress known third-party library warnings that we cannot fix
@@ -22,14 +21,16 @@ LogBox.ignoreLogs([
   'Sending `onAnimatedValueUpdate` with no listeners registered',
 ]);
 
-// Toggle Storybook via STORYBOOK environment variable
-// Run with: STORYBOOK=true yarn ios
-const SHOW_STORYBOOK = process.env.STORYBOOK === 'true';
+// Storybook toggle wrapper - checks AsyncStorage for preference and provides dev menu toggle
+let AppEntryPoint;
 
-let AppEntryPoint = App;
-
-if (SHOW_STORYBOOK && __DEV__) {
-  AppEntryPoint = require('./.rnstorybook').default;
+if (__DEV__) {
+  // In dev mode, use the Storybook toggle wrapper
+  AppEntryPoint = require('./src/app/StorybookToggle').default;
+} else {
+  // In production, always use the main app
+  const { App } = require('./src/app');
+  AppEntryPoint = App;
 }
 
 AppRegistry.registerComponent(appName, () => AppEntryPoint);

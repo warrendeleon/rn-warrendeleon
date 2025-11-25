@@ -27,5 +27,11 @@
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", "nativewind-env.d.ts"],
-  "exclude": ["**/node_modules", "babel.config.js", "metro.config.js", "**/Pods"]
+  "exclude": [
+    "**/node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "**/Pods",
+    ".rnstorybook/storybook.requires.ts"
+  ]
 }

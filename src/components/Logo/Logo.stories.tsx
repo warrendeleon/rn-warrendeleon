@@ -33,12 +33,14 @@ type Story = StoryObj<typeof Logo>;
 export const Default: Story = {
   args: {
     darkMode: false,
+    style: { width: 150, height: 75 },
   },
 };
 
 export const DarkMode: Story = {
   args: {
     darkMode: true,
+    style: { width: 150, height: 75 },
   },
   parameters: {
     backgrounds: { default: 'dark' },

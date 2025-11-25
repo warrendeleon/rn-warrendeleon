@@ -1,16 +1,32 @@
+import '../src/i18n'; // Initialize i18next for components using useTranslation
+
 import React from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
+import { NavigationContainer } from '@react-navigation/native';
+import { withBackgrounds } from '@storybook/addon-ondevice-backgrounds';
 import type { Preview } from '@storybook/react-native';
 
-import { config } from '../gluestack-ui.config';
+import { store } from '../src/store';
+
+import '../global.css';
 
 const preview: Preview = {
   decorators: [
     Story => (
-      <GluestackUIProvider config={config}>
-        <Story />
-      </GluestackUIProvider>
+      <SafeAreaProvider>
+        <Provider store={store}>
+          <GluestackUIProvider config={config}>
+            <NavigationContainer>
+              <Story />
+            </NavigationContainer>
+          </GluestackUIProvider>
+        </Provider>
+      </SafeAreaProvider>
     ),
+    withBackgrounds,
   ],
   parameters: {
     backgrounds: {

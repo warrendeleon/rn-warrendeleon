@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { Meta, StoryObj } from '@storybook/react-native';
 
@@ -7,21 +6,19 @@ import { FallbackUI } from './FallbackUI';
 
 const Stack = createNativeStackNavigator();
 
-// Wrapper to provide navigation context
-const NavigationWrapper = ({ children }: { children: React.ReactNode }) => (
-  <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name="Home" options={{ headerShown: false }}>
-        {() => <>{children}</>}
-      </Stack.Screen>
-    </Stack.Navigator>
-  </NavigationContainer>
+// Wrapper to provide stack navigation context (NavigationContainer provided globally)
+const StackWrapper = ({ children }: { children: React.ReactNode }) => (
+  <Stack.Navigator>
+    <Stack.Screen name="Home" options={{ headerShown: false }}>
+      {() => <>{children}</>}
+    </Stack.Screen>
+  </Stack.Navigator>
 );
 
 const meta: Meta<typeof FallbackUI> = {
   title: 'Components/FallbackUI',
   component: FallbackUI,
-  decorators: [Story => <NavigationWrapper>{Story()}</NavigationWrapper>],
+  decorators: [Story => <StackWrapper>{Story()}</StackWrapper>],
   parameters: {
     notes: `
 ## FallbackUI Component

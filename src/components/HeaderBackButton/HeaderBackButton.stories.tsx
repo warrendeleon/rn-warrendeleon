@@ -1,20 +1,28 @@
 import React from 'react';
-import { Box } from '@gluestack-ui/themed';
-import { NavigationContainer } from '@react-navigation/native';
+import { Box, Text } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
 
 import { HeaderBackButton } from './HeaderBackButton';
+
+// Helper component to avoid whitespace text node issues in React Native
+const HeaderLayout = ({ children }: { children: React.ReactNode }) => (
+  <Box flexDirection="row" alignItems="center" p="$4" bg="$backgroundLight100">
+    {children}
+    <Box flex={1} alignItems="center">
+      <Text>Screen Title</Text>
+    </Box>
+    <Box w={32} />
+  </Box>
+);
 
 const meta: Meta<typeof HeaderBackButton> = {
   title: 'Components/HeaderBackButton',
   component: HeaderBackButton,
   decorators: [
     Story => (
-      <NavigationContainer>
-        <Box p="$4">
-          <Story />
-        </Box>
-      </NavigationContainer>
+      <Box p="$4">
+        <Story />
+      </Box>
     ),
   ],
   parameters: {
@@ -45,15 +53,9 @@ export const Default: Story = {};
 export const InHeader: Story = {
   decorators: [
     Story => (
-      <NavigationContainer>
-        <Box flexDirection="row" alignItems="center" p="$4" bg="$backgroundLight100">
-          <Story />
-          <Box flex={1} alignItems="center">
-            <Box>Screen Title</Box>
-          </Box>
-          <Box w={32} /> {/* Spacer for balance */}
-        </Box>
-      </NavigationContainer>
+      <HeaderLayout>
+        <Story />
+      </HeaderLayout>
     ),
   ],
 };
