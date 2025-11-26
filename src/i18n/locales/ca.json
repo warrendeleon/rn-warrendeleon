@@ -38,6 +38,27 @@
       "noCountriesFound": "No s'han trobat països",
       "verifyEmailTitle": "Verifica el teu correu electrònic",
       "verifyEmailMessage": "Hem enviat un enllaç de verificació al teu correu electrònic. Si us plau, revisa la teva safata d'entrada i fes clic a l'enllaç per activar el teu compte."
+    },
+    "login": {
+      "title": "Benvingut de nou",
+      "subtitle": "Inicia sessió al teu compte per continuar",
+      "email": "Correu electrònic",
+      "password": "Contrasenya",
+      "forgotPassword": "Has oblidat la contrasenya?",
+      "loginButton": "Iniciar sessió",
+      "loginButtonHint": "Toca per iniciar sessió al teu compte",
+      "noAccount": "No tens un compte?",
+      "registerLink": "Registra't",
+      "errors": {
+        "emailRequired": "El correu electrònic és obligatori",
+        "emailInvalid": "Si us plau, introdueix un correu electrònic vàlid",
+        "emailNoEmoji": "El correu electrònic no pot contenir emojis",
+        "passwordRequired": "La contrasenya és obligatòria",
+        "passwordMinLength": "La contrasenya ha de tenir almenys 8 caràcters",
+        "invalidCredentials": "Correu electrònic o contrasenya incorrectes",
+        "networkError": "Error de xarxa. Si us plau, torna-ho a provar.",
+        "accountLocked": "El teu compte ha estat bloquejat. Si us plau, contacta amb suport."
+      }
     }
   },
   "common": {
@@ -82,7 +103,12 @@
     "preferredLanguage": "Idioma preferit",
     "appearance": "Aparença",
     "darkAppearance": "Mode fosc",
-    "general": "General"
+    "general": "General",
+    "account": "Compte",
+    "logout": "Tancar sessió",
+    "loggingOut": "Tancant sessió...",
+    "logoutTitle": "Tancar sessió",
+    "logoutMessage": "Estàs segur que vols tancar la sessió?"
   },
   "language": {
     "title": "Idioma",

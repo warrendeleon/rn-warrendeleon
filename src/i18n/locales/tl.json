@@ -38,6 +38,27 @@
       "noCountriesFound": "Walang nahanap na bansa",
       "verifyEmailTitle": "I-verify ang Iyong Email",
       "verifyEmailMessage": "Nagpadala kami ng verification link sa iyong email address. Pakisuri ang iyong inbox at i-click ang link para i-activate ang iyong account."
+    },
+    "login": {
+      "title": "Maligayang Pagbabalik",
+      "subtitle": "Mag-login sa iyong account para magpatuloy",
+      "email": "Email Address",
+      "password": "Password",
+      "forgotPassword": "Nakalimutan ang password?",
+      "loginButton": "Mag-login",
+      "loginButtonHint": "Pindutin para mag-login sa iyong account",
+      "noAccount": "Wala pang account?",
+      "registerLink": "Mag-sign up",
+      "errors": {
+        "emailRequired": "Kinakailangan ang email",
+        "emailInvalid": "Pakilagay ang isang valid na email address",
+        "emailNoEmoji": "Hindi pwedeng may emoji ang email",
+        "passwordRequired": "Kinakailangan ang password",
+        "passwordMinLength": "Ang password ay dapat may hindi bababa sa 8 na karakter",
+        "invalidCredentials": "Maling email o password",
+        "networkError": "May error sa network. Pakisubukan muli.",
+        "accountLocked": "Na-lock ang iyong account. Makipag-ugnayan sa support."
+      }
     }
   },
   "common": {
@@ -82,7 +103,12 @@
     "preferredLanguage": "Piniling Wika",
     "appearance": "Itsura",
     "darkAppearance": "Dark Mode",
-    "general": "Pangkalahatan"
+    "general": "Pangkalahatan",
+    "account": "Account",
+    "logout": "Mag-log Out",
+    "loggingOut": "Naglo-log Out...",
+    "logoutTitle": "Mag-log Out",
+    "logoutMessage": "Sigurado ka bang gusto mong mag-log out?"
   },
   "language": {
     "title": "Wika",

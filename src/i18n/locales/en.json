@@ -38,6 +38,27 @@
       "noCountriesFound": "No countries found",
       "verifyEmailTitle": "Verify Your Email",
       "verifyEmailMessage": "We've sent a verification link to your email address. Please check your inbox and click the link to activate your account."
+    },
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Log in to your account to continue",
+      "email": "Email Address",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "loginButton": "Log In",
+      "loginButtonHint": "Tap to log in to your account",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Sign up",
+      "errors": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "emailNoEmoji": "Email cannot contain emojis",
+        "passwordRequired": "Password is required",
+        "passwordMinLength": "Password must be at least 8 characters",
+        "invalidCredentials": "Incorrect email or password",
+        "networkError": "Network error. Please try again.",
+        "accountLocked": "Your account has been locked. Please contact support."
+      }
     }
   },
   "common": {
@@ -82,7 +103,12 @@
     "preferredLanguage": "Preferred Language",
     "appearance": "Appearance",
     "darkAppearance": "Dark Appearance",
-    "general": "General"
+    "general": "General",
+    "account": "Account",
+    "logout": "Log Out",
+    "loggingOut": "Logging Out...",
+    "logoutTitle": "Log Out",
+    "logoutMessage": "Are you sure you want to log out?"
   },
   "language": {
     "title": "Language",

@@ -38,6 +38,27 @@
       "noCountriesFound": "Nie znaleziono krajów",
       "verifyEmailTitle": "Zweryfikuj swój e-mail",
       "verifyEmailMessage": "Wysłaliśmy link weryfikacyjny na Twój adres e-mail. Sprawdź swoją skrzynkę odbiorczą i kliknij link, aby aktywować swoje konto."
+    },
+    "login": {
+      "title": "Witaj ponownie",
+      "subtitle": "Zaloguj się na swoje konto, aby kontynuować",
+      "email": "Adres e-mail",
+      "password": "Hasło",
+      "forgotPassword": "Zapomniałeś hasła?",
+      "loginButton": "Zaloguj się",
+      "loginButtonHint": "Dotknij, aby zalogować się na swoje konto",
+      "noAccount": "Nie masz konta?",
+      "registerLink": "Zarejestruj się",
+      "errors": {
+        "emailRequired": "Adres e-mail jest wymagany",
+        "emailInvalid": "Proszę wprowadzić poprawny adres e-mail",
+        "emailNoEmoji": "Adres e-mail nie może zawierać emoji",
+        "passwordRequired": "Hasło jest wymagane",
+        "passwordMinLength": "Hasło musi mieć co najmniej 8 znaków",
+        "invalidCredentials": "Nieprawidłowy adres e-mail lub hasło",
+        "networkError": "Błąd sieci. Spróbuj ponownie.",
+        "accountLocked": "Twoje konto zostało zablokowane. Skontaktuj się z pomocą techniczną."
+      }
     }
   },
   "common": {
@@ -82,7 +103,12 @@
     "preferredLanguage": "Preferowany język",
     "appearance": "Wygląd",
     "darkAppearance": "Tryb ciemny",
-    "general": "Ogólne"
+    "general": "Ogólne",
+    "account": "Konto",
+    "logout": "Wyloguj się",
+    "loggingOut": "Wylogowywanie...",
+    "logoutTitle": "Wyloguj się",
+    "logoutMessage": "Czy na pewno chcesz się wylogować?"
   },
   "language": {
     "title": "Język",

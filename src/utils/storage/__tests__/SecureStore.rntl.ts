@@ -29,7 +29,7 @@ describe('SecureStore', () => {
   });
 
   describe('set', () => {
-    it('should store a key-value pair in Keychain', async () => {
+    it('should store a key-value pair in Keychain with unique service per key', async () => {
       (Keychain.setGenericPassword as jest.Mock).mockResolvedValueOnce(true);
 
       const result = await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, 'test_token');
@@ -39,7 +39,7 @@ describe('SecureStore', () => {
         SecureStoreKey.ACCESS_TOKEN,
         'test_token',
         expect.objectContaining({
-          service: 'com.warrendeleon.portfolio',
+          service: `com.warrendeleon.portfolio.${SecureStoreKey.ACCESS_TOKEN}`,
           accessible: 'WHEN_UNLOCKED_THIS_DEVICE_ONLY',
           accessControl: 'BIOMETRY_ANY_OR_DEVICE_PASSCODE',
         })
@@ -56,7 +56,7 @@ describe('SecureStore', () => {
   });
 
   describe('get', () => {
-    it('should retrieve a value from Keychain', async () => {
+    it('should retrieve a value from Keychain using unique service', async () => {
       (Keychain.getGenericPassword as jest.Mock).mockResolvedValueOnce({
         username: SecureStoreKey.ACCESS_TOKEN,
         password: 'test_token',
@@ -65,21 +65,13 @@ describe('SecureStore', () => {
       const value = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
 
       expect(value).toBe('test_token');
+      expect(Keychain.getGenericPassword).toHaveBeenCalledWith({
+        service: `com.warrendeleon.portfolio.${SecureStoreKey.ACCESS_TOKEN}`,
+      });
     });
 
     it('should return null if key not found', async () => {
       (Keychain.getGenericPassword as jest.Mock).mockResolvedValueOnce(false);
-
-      const value = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
-
-      expect(value).toBeNull();
-    });
-
-    it('should return null if username does not match key', async () => {
-      (Keychain.getGenericPassword as jest.Mock).mockResolvedValueOnce({
-        username: 'differentKey',
-        password: 'test_token',
-      });
 
       const value = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
 
@@ -96,14 +88,14 @@ describe('SecureStore', () => {
   });
 
   describe('remove', () => {
-    it('should remove a key from Keychain', async () => {
+    it('should remove a specific key from Keychain using unique service', async () => {
       (Keychain.resetGenericPassword as jest.Mock).mockResolvedValueOnce(true);
 
       const result = await SecureStore.remove(SecureStoreKey.ACCESS_TOKEN);
 
       expect(result).toBe(true);
       expect(Keychain.resetGenericPassword).toHaveBeenCalledWith({
-        service: 'com.warrendeleon.portfolio',
+        service: `com.warrendeleon.portfolio.${SecureStoreKey.ACCESS_TOKEN}`,
       });
     });
 
@@ -119,15 +111,16 @@ describe('SecureStore', () => {
   });
 
   describe('clear', () => {
-    it('should clear all Keychain data', async () => {
-      (Keychain.resetGenericPassword as jest.Mock).mockResolvedValueOnce(true);
+    it('should clear all Keychain keys', async () => {
+      (Keychain.resetGenericPassword as jest.Mock).mockResolvedValue(true);
 
       const result = await SecureStore.clear();
 
       expect(result).toBe(true);
-      expect(Keychain.resetGenericPassword).toHaveBeenCalledWith({
-        service: 'com.warrendeleon.portfolio',
-      });
+      // Should be called once for each SecureStoreKey
+      expect(Keychain.resetGenericPassword).toHaveBeenCalledTimes(
+        Object.values(SecureStoreKey).length
+      );
     });
 
     it('should return false on error', async () => {

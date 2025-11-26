@@ -83,15 +83,13 @@ We chose Storybook v10 for React Native because:
 
 ### Running Storybook
 
-```bash
-# iOS
-yarn storybook:ios
+Storybook is integrated into the app and accessible via the dev menu:
 
-# Android
-yarn storybook:android
-```
+1. Run the app: `yarn ios` or `yarn android`
+2. Open the Dev Menu (shake device or Cmd+D on iOS simulator)
+3. Select **"Toggle Storybook"**
 
-This builds and launches the app in Storybook mode, showing all available stories.
+This switches between the main app and Storybook mode.
 
 ### Generating Story Requirements
 
@@ -120,7 +118,7 @@ graph LR
 1. Create your component in `src/components/MyComponent/`
 2. Add a story file: `MyComponent.stories.tsx`
 3. Run `yarn storybook-generate`
-4. Launch Storybook: `yarn storybook:ios`
+4. Run app (`yarn ios`) and toggle Storybook from dev menu
 5. Develop and test your component
 6. Write unit tests when satisfied
 
@@ -641,9 +639,11 @@ export const AccessibleButton: Story = {
 # Regenerate story loader
 yarn storybook-generate
 
-# Restart Storybook
-yarn storybook:ios
+# Restart the app
+yarn ios
 ```
+
+Then toggle Storybook from the dev menu.
 
 ### Metro Cache Issues
 
@@ -652,12 +652,11 @@ yarn storybook:ios
 **Solution:**
 
 ```bash
-# Clear Metro cache
-yarn start --reset-cache
-
-# Rebuild Storybook
-yarn storybook:ios
+# Clear Metro cache and restart
+yarn start:reset
 ```
+
+Then rebuild the app with `yarn ios`.
 
 ### GlueStack UI Components Not Styled
 
@@ -713,17 +712,15 @@ parameters: {
 ## Useful Commands
 
 ```bash
-# Run Storybook on iOS
-yarn storybook:ios
+# Run app (then toggle Storybook from dev menu)
+yarn ios
+yarn android
 
-# Run Storybook on Android
-yarn storybook:android
-
-# Generate story requirements
+# Generate story requirements (after adding new stories)
 yarn storybook-generate
 
 # Clear cache and restart
-yarn start --reset-cache
+yarn start:reset
 ```
 
 ---

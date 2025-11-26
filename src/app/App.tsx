@@ -9,7 +9,7 @@ import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { SplashScreen } from '@app/features';
+import { AuthProvider, SplashScreen } from '@app/features';
 import { selectLanguage } from '@app/features/Settings/store';
 import { RootNavigator } from '@app/navigation';
 import { persistor, store, useAppSelector } from '@app/store';
@@ -43,7 +43,9 @@ const AppContent: React.FC = () => {
 
   return (
     <GluestackUIProvider config={config}>
-      {showSplash ? <SplashScreen onComplete={handleSplashComplete} /> : <RootNavigator />}
+      <AuthProvider>
+        {showSplash ? <SplashScreen onComplete={handleSplashComplete} /> : <RootNavigator />}
+      </AuthProvider>
     </GluestackUIProvider>
   );
 };

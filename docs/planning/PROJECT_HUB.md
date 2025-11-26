@@ -405,23 +405,23 @@
 
 #### US-060: Auth Navigation Foundation (5 tasks)
 
-| Task ID                                                        | Title                                     | Status         | Effort | Priority |
-| -------------------------------------------------------------- | ----------------------------------------- | -------------- | ------ | -------- |
-| [TASK-333](./tasks/TASK-333-auth-context-redux-integration.md) | Create AuthContext with Redux Integration | ⏳ In Progress | 2h     | Critical |
-| [TASK-334](./tasks/TASK-334-use-auth-hook.md)                  | Create useAuth Hook                       | 📋 To Do       | 0.5h   | Critical |
-| [TASK-335](./tasks/TASK-335-protected-route-hoc.md)            | Create ProtectedRoute HOC                 | ⏳ In Progress | 1.5h   | Critical |
-| [TASK-336](./tasks/TASK-336-session-check-app-startup.md)      | Integrate Session Check on App Startup    | 📋 To Do       | 1h     | High     |
-| [TASK-337](./tasks/TASK-337-auth-navigation-rntl-tests.md)     | Auth Navigation RNTL Tests                | 📋 To Do       | 2h     | High     |
+| Task ID                                                        | Title                                     | Status   | Effort | Priority |
+| -------------------------------------------------------------- | ----------------------------------------- | -------- | ------ | -------- |
+| [TASK-333](./tasks/TASK-333-auth-context-redux-integration.md) | Create AuthContext with Redux Integration | ✅ Done  | 2h     | Critical |
+| [TASK-334](./tasks/TASK-334-use-auth-hook.md)                  | Create useAuth Hook                       | ✅ Done  | 0.5h   | Critical |
+| [TASK-335](./tasks/TASK-335-protected-route-hoc.md)            | Create ProtectedRoute HOC                 | ✅ Done  | 1.5h   | Critical |
+| [TASK-336](./tasks/TASK-336-session-check-app-startup.md)      | Integrate Session Check on App Startup    | 📋 To Do | 1h     | High     |
+| [TASK-337](./tasks/TASK-337-auth-navigation-rntl-tests.md)     | Auth Navigation RNTL Tests                | 📋 To Do | 2h     | High     |
 
 #### US-036: Email/Password Login (5 tasks)
 
-| Task ID                                               | Title                     | Status         | Effort | Priority |
-| ----------------------------------------------------- | ------------------------- | -------------- | ------ | -------- |
-| [TASK-213](./tasks/TASK-213-login-ui-form.md)         | Login UI Form             | ⏳ In Progress | 3h     | Critical |
-| [TASK-214](./tasks/TASK-214-login-api-integration.md) | Login API Integration     | 📋 To Do       | 3h     | Critical |
-| [TASK-215](./tasks/TASK-215-login-rntl-tests.md)      | Login RNTL Tests          | 📋 To Do       | 2h     | High     |
-| [TASK-216](./tasks/TASK-216-login-e2e-tests.md)       | Login E2E Tests           | 📋 To Do       | 3h     | High     |
-| [TASK-217](./tasks/TASK-217-forgot-password-flow.md)  | Forgot Password Flow Link | 📋 To Do       | 0.5h   | Medium   |
+| Task ID                                               | Title                     | Status   | Effort | Priority |
+| ----------------------------------------------------- | ------------------------- | -------- | ------ | -------- |
+| [TASK-213](./tasks/TASK-213-login-ui-form.md)         | Login UI Form             | ✅ Done  | 3h     | Critical |
+| [TASK-214](./tasks/TASK-214-login-api-integration.md) | Login API Integration     | 📋 To Do | 3h     | Critical |
+| [TASK-215](./tasks/TASK-215-login-rntl-tests.md)      | Login RNTL Tests          | 📋 To Do | 2h     | High     |
+| [TASK-216](./tasks/TASK-216-login-e2e-tests.md)       | Login E2E Tests           | 📋 To Do | 3h     | High     |
+| [TASK-217](./tasks/TASK-217-forgot-password-flow.md)  | Forgot Password Flow Link | 📋 To Do | 0.5h   | Medium   |
 
 #### US-061: Settings Account Section (4 tasks)
 

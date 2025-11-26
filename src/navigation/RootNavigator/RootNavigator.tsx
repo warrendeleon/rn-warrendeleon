@@ -9,6 +9,7 @@ import {
   type CountryData,
   ErrorBoundary,
   HeaderBackButton,
+  withAuth,
 } from '@app/components';
 import {
   AppearanceScreen,
@@ -17,6 +18,7 @@ import {
   EducationScreen,
   HomeScreen,
   LanguageScreen,
+  LoginScreen,
   MockStatusScreen,
   PDFScreen,
   PrivacyPolicyScreen,
@@ -94,6 +96,11 @@ export const RootNavigator: React.FC = () => {
             options={{ title: t('auth.registration.title') }}
           />
           <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ title: t('auth.login.title') }}
+          />
+          <Stack.Screen
             name="Settings"
             component={SettingsScreen}
             options={{ title: t('settings.title') }}
@@ -162,12 +169,12 @@ export const RootNavigator: React.FC = () => {
           />
           <Stack.Screen
             name="ChatPlaceholder"
-            component={ChatPlaceholderScreen}
+            component={withAuth(ChatPlaceholderScreen)}
             options={{ title: t('placeholder.chat.title') }}
           />
           <Stack.Screen
             name="BookingPlaceholder"
-            component={BookingPlaceholderScreen}
+            component={withAuth(BookingPlaceholderScreen)}
             options={{ title: t('placeholder.booking.title') }}
           />
         </Stack.Navigator>

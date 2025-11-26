@@ -4,7 +4,6 @@ describe('loginSchema', () => {
   const validData = {
     email: 'test@example.com',
     password: 'password123',
-    rememberMe: false,
   };
 
   describe('valid data', () => {
@@ -12,7 +11,6 @@ describe('loginSchema', () => {
       await expect(loginSchema.validate(validData)).resolves.toMatchObject({
         email: 'test@example.com',
         password: 'password123',
-        rememberMe: false,
       });
     });
 
@@ -26,12 +24,6 @@ describe('loginSchema', () => {
       const data = { ...validData, email: '  test@example.com  ' };
       const result = await loginSchema.validate(data);
       expect(result.email).toBe('test@example.com');
-    });
-
-    it('should default rememberMe to false if not provided', async () => {
-      const data = { email: 'test@example.com', password: 'password123' };
-      const result = await loginSchema.validate(data);
-      expect(result.rememberMe).toBe(false);
     });
   });
 
@@ -74,32 +66,21 @@ describe('loginSchema', () => {
       await expect(loginSchema.validate(data)).rejects.toThrow('Password is required');
     });
 
-    it('should accept any non-empty password', async () => {
-      // Login form should accept any password (validation happened during registration)
-      const data = { ...validData, password: 'a' };
+    it('should reject password shorter than 8 characters', async () => {
+      const data = { ...validData, password: 'short' };
+      await expect(loginSchema.validate(data)).rejects.toThrow(
+        'Password must be at least 8 characters'
+      );
+    });
+
+    it('should accept password with 8 or more characters', async () => {
+      const data = { ...validData, password: '12345678' };
       await expect(loginSchema.validate(data)).resolves.toBeDefined();
     });
 
     it('should accept password with spaces', async () => {
       const data = { ...validData, password: 'password with spaces' };
       await expect(loginSchema.validate(data)).resolves.toBeDefined();
-    });
-
-    it('should accept weak password (validation was at registration)', async () => {
-      const data = { ...validData, password: 'weak' };
-      await expect(loginSchema.validate(data)).resolves.toBeDefined();
-    });
-  });
-
-  describe('rememberMe validation', () => {
-    it('should accept true', async () => {
-      const data = { ...validData, rememberMe: true };
-      await expect(loginSchema.validate(data)).resolves.toMatchObject({ rememberMe: true });
-    });
-
-    it('should accept false', async () => {
-      const data = { ...validData, rememberMe: false };
-      await expect(loginSchema.validate(data)).resolves.toMatchObject({ rememberMe: false });
     });
   });
 
@@ -112,7 +93,7 @@ describe('loginSchema', () => {
     });
 
     it('should reject password with emojis', async () => {
-      const data = { ...validData, password: 'Pass😀' };
+      const data = { ...validData, password: 'Password😀' };
       await expect(loginSchema.validate(data)).rejects.toThrow('Password cannot contain emojis');
     });
   });

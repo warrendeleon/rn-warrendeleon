@@ -1,14 +1,16 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Alert } from 'react-native';
 import { Box, GlobeIcon, MoonIcon, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Activity, ShieldAlert } from 'lucide-react-native';
+import { Activity, LogOut, ShieldAlert } from 'lucide-react-native';
 
 import { SettingsGroup, type SettingsGroupItem } from '@app/components';
+import { useAuth } from '@app/features/Auth';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
-import { useAppSelector } from '@app/store';
+import { logout, useAppDispatch, useAppSelector } from '@app/store';
 
 import { selectLanguage, selectTheme } from './store';
 
@@ -17,6 +19,8 @@ type SettingsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList
 export const SettingsScreen: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<SettingsScreenNavigationProp>();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAuth();
   const currentLanguage = useAppSelector(selectLanguage);
   const currentTheme = useAppSelector(selectTheme);
   const colorScheme = useAppColorScheme();
@@ -27,6 +31,7 @@ export const SettingsScreen: React.FC = () => {
 
   // Error trigger state for testing ErrorBoundary
   const [shouldThrowError, setShouldThrowError] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   if (shouldThrowError) {
     throw new Error('Test error triggered from Settings');
@@ -64,6 +69,28 @@ export const SettingsScreen: React.FC = () => {
   const handleMockStatus = useCallback(() => {
     navigation.navigate('MockStatus');
   }, [navigation]);
+
+  const handleLogout = useCallback(() => {
+    Alert.alert(t('settings.logoutTitle'), t('settings.logoutMessage'), [
+      { text: t('common.cancel'), style: 'cancel' },
+      {
+        text: t('settings.logout'),
+        style: 'destructive',
+        onPress: async () => {
+          setIsLoggingOut(true);
+          try {
+            await dispatch(logout()).unwrap();
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Home' }],
+            });
+          } finally {
+            setIsLoggingOut(false);
+          }
+        },
+      },
+    ]);
+  }, [dispatch, navigation, t]);
 
   const settingsItems: SettingsGroupItem[] = useMemo(
     () => [
@@ -109,6 +136,21 @@ export const SettingsScreen: React.FC = () => {
     [handleTriggerError, handleMockStatus]
   );
 
+  const accountItems: SettingsGroupItem[] = useMemo(
+    () => [
+      {
+        label: isLoggingOut ? t('settings.loggingOut') : t('settings.logout'),
+        onPress: handleLogout,
+        startIcon: LogOut,
+        startIconBgColor: '$coolGray500',
+        testID: 'settings-logout-button',
+        showChevron: false,
+        isDisabled: isLoggingOut,
+      },
+    ],
+    [handleLogout, isLoggingOut, t]
+  );
+
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
@@ -149,6 +191,24 @@ export const SettingsScreen: React.FC = () => {
             Testing
           </Text>
           <SettingsGroup items={testingItems} />
+        </Box>
+      )}
+
+      {isAuthenticated && (
+        <Box mt="$6">
+          <Text
+            mb="$3"
+            pt="$1"
+            fontSize="$xs"
+            fontWeight="$semibold"
+            textTransform="uppercase"
+            lineHeight="$sm"
+            color="$coolGray500"
+            accessibilityRole="header"
+          >
+            {t('settings.account')}
+          </Text>
+          <SettingsGroup items={accountItems} />
         </Box>
       )}
     </ScrollView>

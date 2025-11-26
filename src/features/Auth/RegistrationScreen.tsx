@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Alert, KeyboardAvoidingView, Platform } from 'react-native';
@@ -19,11 +19,11 @@ import { AlertCircle } from 'lucide-react-native';
 
 import {
   ButtonGroupDivider,
-  CountryCodeSelector,
-  type CountryData,
-  DEFAULT_COUNTRY,
+  EmailInput,
+  FormInputGroup,
   FormInputItem,
-  getButtonGroupVariant,
+  PasswordInput,
+  PhoneInput,
 } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
@@ -50,18 +50,21 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<CountryData>(DEFAULT_COUNTRY);
+
+  // Field refs for keyboard navigation
+  const lastNameRef = useRef<{ focus: () => void }>(null);
+  const phoneRef = useRef<{ focus: () => void }>(null);
+  const emailRef = useRef<{ focus: () => void }>(null);
+  const passwordRef = useRef<{ focus: () => void }>(null);
+  const confirmPasswordRef = useRef<{ focus: () => void }>(null);
 
   const {
     control,
     handleSubmit,
-    setValue,
-    watch,
     formState: { errors, isValid },
   } = useForm<RegistrationFormData>({
     resolver: yupResolver(registrationSchema),
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       // TODO: Remove test data before production
       firstName: 'Warren',
@@ -73,42 +76,6 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
       acceptTerms: true,
     },
   });
-
-  const phoneNumberValue = watch('phoneNumber');
-
-  const handleCountrySelect = useCallback(
-    (country: CountryData) => {
-      setSelectedCountry(country);
-      if (phoneNumberValue) {
-        const nationalNumber = phoneNumberValue.replace(/^\+\d+/, '');
-        setValue('phoneNumber', `${country.callingCode}${nationalNumber}`, {
-          shouldValidate: true,
-        });
-      }
-    },
-    [phoneNumberValue, setValue]
-  );
-
-  const handlePhoneNumberChange = useCallback(
-    (text: string, onChange: (value: string) => void) => {
-      let formattedNumber = text;
-      if (text && !text.startsWith('+')) {
-        formattedNumber = `${selectedCountry.callingCode}${text}`;
-      }
-      onChange(formattedNumber);
-    },
-    [selectedCountry.callingCode]
-  );
-
-  const getDisplayPhoneNumber = useCallback(
-    (fullNumber: string): string => {
-      if (fullNumber.startsWith(selectedCountry.callingCode)) {
-        return fullNumber.slice(selectedCountry.callingCode.length);
-      }
-      return fullNumber.replace(/^\+\d+/, '');
-    },
-    [selectedCountry.callingCode]
-  );
 
   const onSubmit = useCallback(
     async (data: RegistrationFormData) => {
@@ -143,42 +110,9 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
     [dispatch, navigation, t]
   );
 
-  // Form section configurations
-  const nameFields = [
-    {
-      name: 'firstName' as const,
-      placeholder: t('auth.registration.firstName'),
-      textContentType: 'givenName' as const,
-      autoComplete: 'given-name',
-    },
-    {
-      name: 'lastName' as const,
-      placeholder: t('auth.registration.lastName'),
-      textContentType: 'familyName' as const,
-      autoComplete: 'family-name',
-    },
-  ];
-
-  const passwordFields = [
-    {
-      name: 'password' as const,
-      placeholder: t('auth.registration.password'),
-      secure: true,
-      showToggle: true,
-      isVisible: showPassword,
-      onToggle: () => setShowPassword(prev => !prev),
-      textContentType: 'newPassword' as const,
-    },
-    {
-      name: 'confirmPassword' as const,
-      placeholder: t('auth.registration.confirmPassword'),
-      secure: true,
-      showToggle: true,
-      isVisible: showConfirmPassword,
-      onToggle: () => setShowConfirmPassword(prev => !prev),
-      textContentType: 'newPassword' as const,
-    },
-  ];
+  const togglePasswordVisibility = useCallback(() => {
+    setShowPassword(prev => !prev);
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -214,118 +148,145 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
         )}
 
         {/* Name Section */}
-        <Box mx="$4" mt="$6">
-          {nameFields.map((field, index) => (
-            <Fragment key={field.name}>
-              <Controller
-                control={control}
-                name={field.name}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <FormInputItem
-                    placeholder={field.placeholder}
-                    value={value}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    groupVariant={getButtonGroupVariant(index, nameFields.length)}
-                    testID={`${field.name}-input`}
-                    autoCapitalize="words"
-                    autoCorrect={false}
-                    autoComplete={field.autoComplete}
-                    textContentType={field.textContentType}
-                    error={errors[field.name]?.message}
-                  />
-                )}
+        <FormInputGroup>
+          <Controller
+            control={control}
+            name="firstName"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <FormInputItem
+                placeholder={t('auth.registration.firstName')}
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                groupVariant="top"
+                testID="firstName-input"
+                autoCapitalize="words"
+                autoCorrect={false}
+                autoComplete="given-name"
+                textContentType="givenName"
+                returnKeyType="next"
+                onSubmitEditing={() => lastNameRef.current?.focus()}
+                error={errors.firstName?.message}
               />
-              {index < nameFields.length - 1 && <ButtonGroupDivider />}
-            </Fragment>
-          ))}
-        </Box>
+            )}
+          />
+          <ButtonGroupDivider />
+          <Controller
+            control={control}
+            name="lastName"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <FormInputItem
+                ref={lastNameRef}
+                placeholder={t('auth.registration.lastName')}
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                groupVariant="bottom"
+                testID="lastName-input"
+                autoCapitalize="words"
+                autoCorrect={false}
+                autoComplete="family-name"
+                textContentType="familyName"
+                returnKeyType="next"
+                onSubmitEditing={() => phoneRef.current?.focus()}
+                error={errors.lastName?.message}
+              />
+            )}
+          />
+        </FormInputGroup>
 
         {/* Contact Section - Phone */}
-        <Box mx="$4" mt="$6">
+        <FormInputGroup>
           <Controller
             control={control}
             name="phoneNumber"
             render={({ field: { onChange, onBlur, value } }) => (
-              <FormInputItem
+              <PhoneInput
+                ref={phoneRef}
                 placeholder={t('auth.registration.phoneNumber')}
-                value={getDisplayPhoneNumber(value)}
-                onChangeText={text => handlePhoneNumberChange(text, onChange)}
+                value={value}
+                onChangeText={onChange}
                 onBlur={onBlur}
                 groupVariant="single"
                 testID="phone-number-input"
-                keyboardType="phone-pad"
-                autoComplete="tel"
-                textContentType="telephoneNumber"
+                returnKeyType="next"
+                onSubmitEditing={() => emailRef.current?.focus()}
                 error={errors.phoneNumber?.message}
-                leftContent={
-                  <CountryCodeSelector
-                    selectedCountry={selectedCountry}
-                    onCountrySelect={handleCountrySelect}
-                    testID="country-code-selector"
-                    isDisabled={isSubmitting}
-                  />
-                }
+                isCountrySelectorDisabled={isSubmitting}
+                countrySelectorTestID="country-code-selector"
               />
             )}
           />
-        </Box>
+        </FormInputGroup>
 
         {/* Contact Section - Email */}
-        <Box mx="$4" mt="$6">
+        <FormInputGroup>
           <Controller
             control={control}
             name="email"
             render={({ field: { onChange, onBlur, value } }) => (
-              <FormInputItem
+              <EmailInput
+                ref={emailRef}
                 placeholder={t('auth.registration.email')}
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 groupVariant="single"
                 testID="email-input"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-                autoComplete="email"
-                textContentType="emailAddress"
+                returnKeyType="next"
+                onSubmitEditing={() => passwordRef.current?.focus()}
                 error={errors.email?.message}
               />
             )}
           />
-        </Box>
+        </FormInputGroup>
 
         {/* Password Section */}
-        <Box mx="$4" mt="$6">
-          {passwordFields.map((field, index) => (
-            <Fragment key={field.name}>
-              <Controller
-                control={control}
-                name={field.name}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <FormInputItem
-                    placeholder={field.placeholder}
-                    value={value}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    groupVariant={getButtonGroupVariant(index, passwordFields.length)}
-                    testID={`${field.name}-input`}
-                    secureTextEntry={field.secure}
-                    showSecureToggle={field.showToggle}
-                    isSecureVisible={field.isVisible}
-                    onToggleSecure={field.onToggle}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    autoComplete="new-password"
-                    textContentType={field.textContentType}
-                    error={errors[field.name]?.message}
-                  />
-                )}
+        <FormInputGroup>
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <PasswordInput
+                ref={passwordRef}
+                placeholder={t('auth.registration.password')}
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                groupVariant="top"
+                testID="password-input"
+                isNewPassword
+                isSecureVisible={showPassword}
+                onToggleSecure={togglePasswordVisibility}
+                returnKeyType="next"
+                onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+                error={errors.password?.message}
               />
-              {index < passwordFields.length - 1 && <ButtonGroupDivider />}
-            </Fragment>
-          ))}
-        </Box>
+            )}
+          />
+          <ButtonGroupDivider />
+          <Controller
+            control={control}
+            name="confirmPassword"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <PasswordInput
+                ref={confirmPasswordRef}
+                placeholder={t('auth.registration.confirmPassword')}
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                groupVariant="bottom"
+                testID="confirmPassword-input"
+                isNewPassword
+                isSecureVisible={showPassword}
+                onToggleSecure={togglePasswordVisibility}
+                returnKeyType="done"
+                onSubmitEditing={handleSubmit(onSubmit)}
+                error={errors.confirmPassword?.message}
+              />
+            )}
+          />
+        </FormInputGroup>
 
         {/* Terms Toggle */}
         <Box mx="$4" mt="$6">

@@ -125,10 +125,9 @@ yarn start:reset        # Start Metro with cache reset
 yarn ios                # Run iOS app (Debug)
 yarn android            # Run Android app (Debug)
 
-# Storybook
-yarn storybook:ios      # Run Storybook on iOS
-yarn storybook:android  # Run Storybook on Android
-yarn storybook-generate # Regenerate story requirements
+# Storybook (toggle via Dev Menu)
+yarn ios                # Run app, then toggle Storybook from dev menu
+yarn storybook-generate # Regenerate story requirements (after adding stories)
 
 # Testing
 yarn test               # Run unit tests

@@ -38,6 +38,27 @@
       "noCountriesFound": "No se encontraron países",
       "verifyEmailTitle": "Verifica tu correo electrónico",
       "verifyEmailMessage": "Hemos enviado un enlace de verificación a tu correo electrónico. Por favor revisa tu bandeja de entrada y haz clic en el enlace para activar tu cuenta."
+    },
+    "login": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Inicia sesión en tu cuenta para continuar",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "loginButton": "Iniciar sesión",
+      "loginButtonHint": "Toca para iniciar sesión en tu cuenta",
+      "noAccount": "¿No tienes una cuenta?",
+      "registerLink": "Regístrate",
+      "errors": {
+        "emailRequired": "El correo electrónico es obligatorio",
+        "emailInvalid": "Por favor introduce un correo electrónico válido",
+        "emailNoEmoji": "El correo electrónico no puede contener emojis",
+        "passwordRequired": "La contraseña es obligatoria",
+        "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+        "invalidCredentials": "Correo electrónico o contraseña incorrectos",
+        "networkError": "Error de red. Por favor inténtalo de nuevo.",
+        "accountLocked": "Tu cuenta ha sido bloqueada. Por favor contacta con soporte."
+      }
     }
   },
   "common": {
@@ -82,7 +103,12 @@
     "preferredLanguage": "Idioma preferido",
     "appearance": "Apariencia",
     "darkAppearance": "Apariencia Oscura",
-    "general": "General"
+    "general": "General",
+    "account": "Cuenta",
+    "logout": "Cerrar sesión",
+    "loggingOut": "Cerrando sesión...",
+    "logoutTitle": "Cerrar sesión",
+    "logoutMessage": "¿Estás seguro de que quieres cerrar sesión?"
   },
   "language": {
     "title": "Idioma",

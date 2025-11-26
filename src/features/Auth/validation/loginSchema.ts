@@ -23,11 +23,9 @@ export const loginSchema = yup.object({
   password: yup
     .string()
     .required('Password is required')
-    .min(1, 'Password cannot be empty')
+    .min(8, 'Password must be at least 8 characters')
     .max(128, 'Password must not exceed 128 characters')
     .noEmoji('Password cannot contain emojis'),
-
-  rememberMe: yup.boolean().default(false),
 });
 
 export type LoginFormData = yup.InferType<typeof loginSchema>;

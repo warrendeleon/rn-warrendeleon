@@ -25,9 +25,15 @@ export enum SecureStoreKey {
 }
 
 /**
- * Keychain service name (grouping key-value pairs)
+ * Base service name - each key gets its own service to avoid overwrites
+ * (Keychain stores ONE credential per service)
  */
-const SERVICE_NAME = 'com.warrendeleon.portfolio';
+const SERVICE_BASE = 'com.warrendeleon.portfolio';
+
+/**
+ * Get unique service name for a key
+ */
+const getServiceName = (key: SecureStoreKey): string => `${SERVICE_BASE}.${key}`;
 
 class SecureStoreClass {
   /**
@@ -40,7 +46,7 @@ class SecureStoreClass {
   async set(key: SecureStoreKey, value: string): Promise<boolean> {
     try {
       await Keychain.setGenericPassword(key, value, {
-        service: SERVICE_NAME,
+        service: getServiceName(key),
         accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
         accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
       });
@@ -60,10 +66,10 @@ class SecureStoreClass {
   async get(key: SecureStoreKey): Promise<string | null> {
     try {
       const credentials = await Keychain.getGenericPassword({
-        service: SERVICE_NAME,
+        service: getServiceName(key),
       });
 
-      if (credentials && credentials.username === key) {
+      if (credentials) {
         return credentials.password;
       }
 
@@ -82,7 +88,7 @@ class SecureStoreClass {
    */
   async remove(key: SecureStoreKey): Promise<boolean> {
     try {
-      await Keychain.resetGenericPassword({ service: SERVICE_NAME });
+      await Keychain.resetGenericPassword({ service: getServiceName(key) });
       return true;
     } catch (error) {
       console.error(`SecureStore.remove error for key ${key}:`, error);
@@ -97,7 +103,12 @@ class SecureStoreClass {
    */
   async clear(): Promise<boolean> {
     try {
-      await Keychain.resetGenericPassword({ service: SERVICE_NAME });
+      // Clear all known keys
+      await Promise.all(
+        Object.values(SecureStoreKey).map(key =>
+          Keychain.resetGenericPassword({ service: getServiceName(key) })
+        )
+      );
       return true;
     } catch (error) {
       console.error('SecureStore.clear error:', error);

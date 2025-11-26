@@ -23,20 +23,49 @@ This document covers setting up your development environment and running the app
 
 | Tool           | Version | Purpose                        |
 | -------------- | ------- | ------------------------------ |
+| Homebrew       | Latest  | Package manager for macOS      |
 | Node.js        | 22.x    | JavaScript runtime             |
 | Yarn           | 3.6.4   | Package manager (via Corepack) |
-| Xcode          | 16.0+   | iOS development (macOS only)   |
-| Android Studio | 2023.1+ | Android development            |
-| Java (JDK)     | 17      | Android build tools            |
+| rbenv          | Latest  | Ruby version manager           |
+| Ruby           | 3.3.6   | Required for CocoaPods         |
 | CocoaPods      | 1.16+   | iOS dependency management      |
+| Xcode          | 16.0+   | iOS development (macOS only)   |
+| Java (JDK)     | 17      | Android build tools            |
+| Android Studio | 2023.1+ | Android development            |
 
 ### Installation
 
-#### 1. Node.js (via nvm - Recommended)
+> **Important:** We use Homebrew consistently for all installations. This ensures reproducible setups across machines.
+
+> **Note:** macOS uses `zsh` as the default shell (since Catalina). All shell configuration in this guide uses `~/.zshrc`. If you're using a different shell, adjust accordingly.
+
+#### 1. Homebrew (Package Manager)
 
 ```bash
-# Install nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+# Install Homebrew if not already installed
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Follow the post-install instructions to add brew to PATH
+# For Apple Silicon Macs, add to ~/.zshrc:
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+source ~/.zshrc
+
+# Verify installation
+brew --version
+```
+
+#### 2. Node.js (via nvm)
+
+```bash
+# Install nvm via Homebrew
+brew install nvm
+
+# Create nvm directory and add to shell config
+mkdir -p ~/.nvm
+echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc
+echo '[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"' >> ~/.zshrc
+echo '[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"' >> ~/.zshrc
+source ~/.zshrc
 
 # Install Node.js 22.x
 nvm install 22
@@ -47,7 +76,7 @@ nvm use 22
 
 The project includes a `.nvmrc` file that specifies Node.js 22.12. Running `nvm use` in the project root automatically selects this version.
 
-#### 2. Enable Corepack (for Yarn)
+#### 3. Enable Corepack (for Yarn)
 
 ```bash
 # Enable Corepack (ships with Node.js 16.10+)
@@ -57,7 +86,7 @@ corepack enable
 yarn --version  # Should output: 3.6.4
 ```
 
-#### 3. Xcode (macOS only)
+#### 4. Xcode (macOS only)
 
 1. Install Xcode from the Mac App Store
 2. Install Xcode Command Line Tools:
@@ -69,22 +98,74 @@ yarn --version  # Should output: 3.6.4
    sudo xcodebuild -license accept
    ```
 
-#### 4. CocoaPods
+#### 5. Ruby & rbenv (Required for CocoaPods)
+
+> **Important:** Do NOT use system Ruby or `sudo gem install`. Use rbenv to manage Ruby versions.
 
 ```bash
+# Install rbenv via Homebrew
+brew install rbenv ruby-build
+
+# Add rbenv to shell
+echo 'eval "$(rbenv init - zsh)"' >> ~/.zshrc
+source ~/.zshrc
+
+# Install Ruby version specified in .ruby-version
+rbenv install 3.3.6
+
+# Set as default (or let .ruby-version handle it per-project)
+rbenv global 3.3.6
+
+# Verify Ruby version
+ruby -v  # Should be 3.3.6
+which ruby  # Should be ~/.rbenv/shims/ruby (NOT /usr/bin/ruby)
+```
+
+#### 6. CocoaPods (via rbenv Ruby)
+
+> **Important:** Install CocoaPods using rbenv-managed Ruby, NOT system Ruby.
+
+```bash
+# Ensure you're using rbenv Ruby
+ruby -v  # Should be 3.3.6
+
 # Install CocoaPods
-sudo gem install cocoapods
+gem install cocoapods
+
+# Rehash rbenv to pick up the new binary
+rbenv rehash
 
 # Verify installation
 pod --version  # Should be 1.16+
+which pod  # Should be ~/.rbenv/shims/pod
 ```
 
-#### 5. Android Studio
+#### 7. Java JDK 17 (via Homebrew)
 
-1. Download from [developer.android.com/studio](https://developer.android.com/studio)
-2. Install Android SDK (API 35)
-3. Install JDK 17 (bundled with Android Studio)
-4. Configure environment variables in `~/.zshrc` or `~/.bashrc`:
+> **Important:** Install Java via Homebrew for consistency. Don't rely on Android Studio's bundled JDK.
+
+```bash
+# Install Eclipse Temurin JDK 17
+brew install --cask temurin@17
+
+# Add JAVA_HOME to shell config
+echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 17)' >> ~/.zshrc
+source ~/.zshrc
+
+# Verify installation
+java -version  # Should be openjdk 17.x.x (Temurin)
+echo $JAVA_HOME  # Should point to Temurin 17
+```
+
+#### 8. Android Studio
+
+1. Install via Homebrew:
+   ```bash
+   brew install --cask android-studio
+   ```
+2. Open Android Studio and complete setup wizard
+3. Install Android SDK (API 35) via SDK Manager
+4. Configure environment variables in `~/.zshrc`:
 
 ```bash
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -92,13 +173,63 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 ```
 
+5. Reload shell:
+   ```bash
+   source ~/.zshrc
+   ```
+
 ### Verify Installation
 
 ```bash
+# Run all verification commands
 node --version      # Should be v22.x
 yarn --version      # Should be 3.6.4
+ruby -v             # Should be 3.3.6 (from rbenv, NOT system)
+which ruby          # Should be ~/.rbenv/shims/ruby
 pod --version       # Should be 1.16+
-java --version      # Should be 17.x
+java -version       # Should be openjdk 17.x.x (Temurin)
+echo $JAVA_HOME     # Should point to Temurin 17
+echo $ANDROID_HOME  # Should be ~/Library/Android/sdk
+```
+
+### Troubleshooting Installation
+
+#### Ruby/CocoaPods Issues
+
+**Problem:** `pod install` fails or uses wrong Ruby version
+
+**Solution:**
+
+```bash
+# Check which Ruby is being used
+which ruby  # Should NOT be /usr/bin/ruby
+
+# If using system Ruby, ensure rbenv is set up correctly
+eval "$(rbenv init - zsh)"
+rbenv global 3.3.6
+ruby -v
+
+# Reinstall CocoaPods with correct Ruby
+gem install cocoapods
+rbenv rehash
+```
+
+#### Java Version Issues
+
+**Problem:** Android build fails with Java version errors
+
+**Solution:**
+
+```bash
+# Check Java version
+java -version
+
+# If wrong version, ensure JAVA_HOME is set
+echo $JAVA_HOME
+
+# If empty or wrong, add to ~/.zshrc:
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+source ~/.zshrc
 ```
 
 ---
@@ -546,15 +677,36 @@ code --install-extension ms-vscode.vscode-typescript-next
 
 #### CocoaPods Errors
 
-**Problem:** Pod installation fails or dependencies not found
+**Problem:** Pod installation fails, version mismatch, or "run pod update" message
 
-**Solution:**
+**When to use which command:**
+
+| Scenario                      | Command          | Why                                        |
+| ----------------------------- | ---------------- | ------------------------------------------ |
+| Fresh clone / new machine     | `yarn ios:pods`  | Clean install matching Podfile.lock        |
+| After updating dependencies   | `yarn ios:pods`  | Install new pod versions                   |
+| Pod version mismatch errors   | `yarn clean:ios` | Full clean + reinstall                     |
+| "Run pod update" suggestion   | `yarn clean:ios` | **Don't run `pod update`** - clean instead |
+| Corrupted pods / weird errors | `yarn clean:ios` | Nuclear option - cleans everything         |
+
+**Solution for version mismatches:**
+
+```bash
+# DON'T run: pod update (this changes Podfile.lock)
+
+# DO run: Clean and reinstall to match Podfile.lock exactly
+yarn clean:ios
+```
+
+This removes Pods folder, reinstalls with `bundle exec pod install`, and ensures versions match Podfile.lock.
+
+**Manual clean if needed:**
 
 ```bash
 cd ios
 rm -rf Pods Podfile.lock
 pod deintegrate
-pod install
+bundle exec pod install
 cd ..
 ```
 
@@ -628,13 +780,13 @@ yarn android
 **Solution:**
 
 ```bash
-# Add to ~/.zshrc or ~/.bashrc
+# Add to ~/.zshrc
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Reload shell
-source ~/.zshrc  # or source ~/.bashrc
+source ~/.zshrc
 
 # Verify
 echo $ANDROID_HOME

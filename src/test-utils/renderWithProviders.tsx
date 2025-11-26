@@ -7,7 +7,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import type { RenderOptions } from '@testing-library/react-native';
 import { render } from '@testing-library/react-native';
 
-import { authReducer } from '@app/features/Auth';
+import { AuthProvider, authReducer } from '@app/features/Auth';
 import { educationReducer } from '@app/features/Education';
 import { profileReducer } from '@app/features/Profile';
 import { settingsReducer } from '@app/features/Settings';
@@ -85,9 +85,11 @@ export function renderWithProviders(
   function Wrapper({ children }: { children: React.ReactNode }) {
     return (
       <Provider store={createdStore}>
-        <I18nextProvider i18n={i18n}>
-          <GluestackUIProvider config={config}>{children}</GluestackUIProvider>
-        </I18nextProvider>
+        <AuthProvider>
+          <I18nextProvider i18n={i18n}>
+            <GluestackUIProvider config={config}>{children}</GluestackUIProvider>
+          </I18nextProvider>
+        </AuthProvider>
       </Provider>
     );
   }
