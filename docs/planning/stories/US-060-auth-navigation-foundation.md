@@ -2,7 +2,7 @@
 
 **ID**: US-060 | **Title**: Auth Navigation Foundation (AuthContext + ProtectedRoute)
 **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: 📋 To Do | **Priority**: Critical | **Story Points**: 3 | **Effort**: 7h
+**Status**: ⏳ In Progress | **Priority**: Critical | **Story Points**: 3 | **Effort**: 7h
 **Created**: 2025-11-25 | **Assignee**: Warren de Leon
 
 ---

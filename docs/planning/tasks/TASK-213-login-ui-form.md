@@ -2,7 +2,7 @@
 
 **ID**: TASK-213 | **Title**: Build Login UI Form with Email/Password Inputs
 **User Story**: [US-036](../stories/US-036-email-password-login.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: 📋 To Do | **Priority**: High | **Effort**: 2h
+**Status**: ⏳ In Progress | **Priority**: High | **Effort**: 2h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
 ---

@@ -2,7 +2,7 @@
 
 **Epic ID**: EPIC-022
 **Title**: Login & Session Management (Email, LinkedIn, Magic Link, Biometric Re-Auth)
-**Status**: 📋 To Do | **Priority**: Critical | **Created**: 2025-11-21
+**Status**: ⏳ In Progress | **Priority**: Critical | **Created**: 2025-11-21
 **Owner**: Warren de Leon | **Category**: Authentication
 **Timeline**: 2-3 weeks | **Effort**: 45.5 hours
 **Dependencies**: EPIC-021 (Registration must be complete first)
