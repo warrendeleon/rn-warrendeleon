@@ -13,6 +13,33 @@
 
 Build comprehensive login and session management system supporting multiple authentication methods (email/password, LinkedIn OAuth, magic link), automatic token refresh, biometric re-authentication on app resume, and session expiry handling.
 
+### Architecture Decision: Portfolio-First with Screen-Level Guards
+
+**App Type**: Hybrid app with public portfolio content + authenticated features (Book a Call, Chat).
+
+**Navigation Strategy**: Single flat stack with `ProtectedRoute` HOC guards (not conditional AuthStack/AppStack).
+
+**Rationale**:
+
+- Public portfolio screens remain accessible without login
+- No navigation state reset when auth status changes
+- Simpler redirect handling with `intendedRoute` tracking
+- Better UX for hybrid public/authenticated apps
+
+**Flow**:
+
+```
+App Launch → Splash → Home (public portfolio)
+                      ↓
+      User navigates to protected screen (e.g., BookACall)
+                      ↓
+      ProtectedRoute checks isAuthenticated
+                      ↓
+      If not authenticated → Navigate to Login (save intended route)
+                      ↓
+      User logs in → Redirect to intended route
+```
+
 **Key Features**:
 
 - Multi-method login: Email/password, LinkedIn OAuth, passwordless magic link
@@ -191,14 +218,25 @@ Users expect modern mobile apps to provide:
 
 ## User Stories
 
-| ID                                                  | User Story                                             | Status   | Story Points | Effort |
-| --------------------------------------------------- | ------------------------------------------------------ | -------- | ------------ | ------ |
-| [US-036](../stories/US-036-email-password-login.md) | Email/Password Login                                   | 📋 To Do | 5            | 11h    |
-| [US-037](../stories/US-037-magic-link-login.md)     | Magic Link Login                                       | 📋 To Do | 4            | 7.5h   |
-| [US-038](../stories/US-038-session-management.md)   | Session Management (Token Refresh, Expiry, Inactivity) | 📋 To Do | 6            | 11.5h  |
-| [US-039](../stories/US-039-biometric-reauth.md)     | Biometric Re-Authentication                            | 📋 To Do | 4            | 9h     |
+| ID                                                        | User Story                                                | Status   | Story Points | Effort |
+| --------------------------------------------------------- | --------------------------------------------------------- | -------- | ------------ | ------ |
+| [US-060](../stories/US-060-auth-navigation-foundation.md) | Auth Navigation Foundation (AuthContext + ProtectedRoute) | 📋 To Do | 3            | 7h     |
+| [US-036](../stories/US-036-email-password-login.md)       | Email/Password Login                                      | 📋 To Do | 5            | 11h    |
+| [US-037](../stories/US-037-magic-link-login.md)           | Magic Link Login                                          | 📋 To Do | 4            | 7.5h   |
+| [US-038](../stories/US-038-session-management.md)         | Session Management (Token Refresh, Expiry, Inactivity)    | 📋 To Do | 6            | 11.5h  |
+| [US-039](../stories/US-039-biometric-reauth.md)           | Biometric Re-Authentication                               | 📋 To Do | 4            | 9h     |
+| [US-061](../stories/US-061-settings-account-section.md)   | Settings Account Section                                  | 📋 To Do | 3            | 7.5h   |
 
-**Total**: 4 stories, 19 story points, 45.5 hours
+**Total**: 6 stories, 25 story points, 53.5 hours
+
+**Implementation Order**:
+
+1. **US-060** (Auth Navigation Foundation) - Must be first, establishes AuthContext and ProtectedRoute
+2. **US-036** (Email/Password Login) - Core login screen
+3. **US-061** (Settings Account Section) - Logout + account management
+4. **US-038** (Session Management) - Token refresh, expiry
+5. **US-037** (Magic Link) - Passwordless
+6. **US-039** (Biometric Re-Auth) - App resume
 
 ---
 
@@ -374,6 +412,16 @@ User Activity Tracker
 
 ## Tasks
 
+### US-060: Auth Navigation Foundation (5 tasks, 7h)
+
+| ID                                                              | Task                                      | Status   | Effort | Priority |
+| --------------------------------------------------------------- | ----------------------------------------- | -------- | ------ | -------- |
+| [TASK-333](../tasks/TASK-333-auth-context-redux-integration.md) | Create AuthContext with Redux Integration | 📋 To Do | 2h     | Critical |
+| [TASK-334](../tasks/TASK-334-use-auth-hook.md)                  | Create useAuth Hook                       | 📋 To Do | 0.5h   | Critical |
+| [TASK-335](../tasks/TASK-335-protected-route-hoc.md)            | Create ProtectedRoute HOC                 | 📋 To Do | 1.5h   | Critical |
+| [TASK-336](../tasks/TASK-336-session-check-app-startup.md)      | Integrate Session Check on App Startup    | 📋 To Do | 1h     | High     |
+| [TASK-337](../tasks/TASK-337-auth-navigation-rntl-tests.md)     | Auth Navigation RNTL Tests                | 📋 To Do | 2h     | High     |
+
 ### US-036: Email/Password Login (5 tasks, 11h)
 
 | ID                                                         | Task                                       | Status   | Effort | Priority |
@@ -412,7 +460,16 @@ User Activity Tracker
 | [TASK-229](../tasks/TASK-229-reauth-rntl-tests.md)       | Re-Auth RNTL Tests                             | 📋 To Do | 2h     | Medium   |
 | [TASK-230](../tasks/TASK-230-reauth-e2e-tests.md)        | Re-Auth E2E Tests (Detox)                      | 📋 To Do | 2.5h   | Medium   |
 
-**Task Summary**: 21 tasks, 45.5 hours total
+### US-061: Settings Account Section (4 tasks, 7.5h)
+
+| ID                                                           | Task                                  | Status   | Effort | Priority |
+| ------------------------------------------------------------ | ------------------------------------- | -------- | ------ | -------- |
+| [TASK-338](../tasks/TASK-338-settings-account-section.md)    | Add Account Section to SettingsScreen | 📋 To Do | 2h     | High     |
+| [TASK-339](../tasks/TASK-339-user-card-component.md)         | Create UserCard Component             | 📋 To Do | 1h     | Medium   |
+| [TASK-340](../tasks/TASK-340-edit-account-screen.md)         | Create EditAccountScreen              | 📋 To Do | 3h     | Medium   |
+| [TASK-341](../tasks/TASK-341-settings-account-rntl-tests.md) | Settings Account RNTL Tests           | 📋 To Do | 1.5h   | Medium   |
+
+**Task Summary**: 30 tasks, 60 hours total
 
 ---
 

@@ -1,8 +1,8 @@
 # React Native Portfolio App - Planning Hub
 
-**Progress**: 57% (187/332 tasks) | **Remaining**: 145 tasks
+**Progress**: 52% (187/358 tasks) | **Remaining**: 171 tasks
 
-**Total Tasks**: 332 tasks (TASK-001 through TASK-332)
+**Total Tasks**: 358 tasks (TASK-001 through TASK-367)
 
 ---
 
@@ -395,9 +395,19 @@
 | [TASK-211](./tasks/TASK-211-pin-setup-screen.md)               | 6-Digit PIN Setup Screen       | 📋 To Do | 2.5h   | High     |
 | [TASK-212](./tasks/TASK-212-biometric-setup-e2e-tests.md)      | Biometric Setup E2E Tests      | 📋 To Do | 2h     | Medium   |
 
-### EPIC-022: Login & Session Management (19 tasks) 📋 To Do
+### EPIC-022: Login & Session Management (30 tasks) 📋 To Do
 
-#### US-036: Email/Password Login (4 tasks)
+#### US-060: Auth Navigation Foundation (5 tasks) - **IMPLEMENT FIRST**
+
+| Task ID                                                        | Title                                     | Status   | Effort | Priority |
+| -------------------------------------------------------------- | ----------------------------------------- | -------- | ------ | -------- |
+| [TASK-333](./tasks/TASK-333-auth-context-redux-integration.md) | Create AuthContext with Redux Integration | 📋 To Do | 2h     | Critical |
+| [TASK-334](./tasks/TASK-334-use-auth-hook.md)                  | Create useAuth Hook                       | 📋 To Do | 0.5h   | Critical |
+| [TASK-335](./tasks/TASK-335-protected-route-hoc.md)            | Create ProtectedRoute HOC                 | 📋 To Do | 1.5h   | Critical |
+| [TASK-336](./tasks/TASK-336-session-check-app-startup.md)      | Integrate Session Check on App Startup    | 📋 To Do | 1h     | High     |
+| [TASK-337](./tasks/TASK-337-auth-navigation-rntl-tests.md)     | Auth Navigation RNTL Tests                | 📋 To Do | 2h     | High     |
+
+#### US-036: Email/Password Login (5 tasks)
 
 | Task ID                                               | Title                     | Status   | Effort | Priority |
 | ----------------------------------------------------- | ------------------------- | -------- | ------ | -------- |
@@ -406,6 +416,15 @@
 | [TASK-215](./tasks/TASK-215-login-rntl-tests.md)      | Login RNTL Tests          | 📋 To Do | 2h     | High     |
 | [TASK-216](./tasks/TASK-216-login-e2e-tests.md)       | Login E2E Tests           | 📋 To Do | 3h     | High     |
 | [TASK-217](./tasks/TASK-217-forgot-password-flow.md)  | Forgot Password Flow Link | 📋 To Do | 0.5h   | Medium   |
+
+#### US-061: Settings Account Section (4 tasks)
+
+| Task ID                                                     | Title                                 | Status   | Effort | Priority |
+| ----------------------------------------------------------- | ------------------------------------- | -------- | ------ | -------- |
+| [TASK-338](./tasks/TASK-338-settings-account-section.md)    | Add Account Section to SettingsScreen | 📋 To Do | 2h     | High     |
+| [TASK-339](./tasks/TASK-339-user-card-component.md)         | Create UserCard Component             | 📋 To Do | 1h     | Medium   |
+| [TASK-340](./tasks/TASK-340-edit-account-screen.md)         | Create EditAccountScreen              | 📋 To Do | 3h     | Medium   |
+| [TASK-341](./tasks/TASK-341-settings-account-rntl-tests.md) | Settings Account RNTL Tests           | 📋 To Do | 1.5h   | Medium   |
 
 #### US-037: Magic Link Login (5 tasks)
 
@@ -648,6 +667,54 @@
 | Task ID                                                          | Title                            | Status  | Effort | Priority |
 | ---------------------------------------------------------------- | -------------------------------- | ------- | ------ | -------- |
 | [TASK-328](./tasks/TASK-328-msw-redux-testing-infrastructure.md) | MSW Redux Testing Infrastructure | ✅ Done | 8h     | High     |
+
+### EPIC-031: Book a Call (26 tasks) 📋 To Do
+
+#### US-062: Booking Backend (5 tasks)
+
+| Task ID                                                        | Title                          | Status   | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------ | -------- | ------ | -------- |
+| [TASK-342](./tasks/TASK-342-database-schema.md)                | Database schema + migrations   | 📋 To Do | 2h     | High     |
+| [TASK-343](./tasks/TASK-343-admin-oauth-edge-function.md)      | Admin OAuth Edge Function      | 📋 To Do | 4h     | High     |
+| [TASK-344](./tasks/TASK-344-get-availability-edge-function.md) | Get Availability Edge Function | 📋 To Do | 4h     | High     |
+| [TASK-345](./tasks/TASK-345-create-booking-edge-function.md)   | Create Booking Edge Function   | 📋 To Do | 4h     | High     |
+| [TASK-346](./tasks/TASK-346-admin-google-oauth-setup.md)       | Admin Google OAuth setup       | 📋 To Do | 1h     | High     |
+
+#### US-063: Booking Flow UI (6 tasks)
+
+| Task ID                                                   | Title                            | Status   | Effort | Priority |
+| --------------------------------------------------------- | -------------------------------- | -------- | ------ | -------- |
+| [TASK-347](./tasks/TASK-347-booking-api-client.md)        | Booking API client + Zod schemas | 📋 To Do | 3h     | High     |
+| [TASK-348](./tasks/TASK-348-booking-redux-store.md)       | Redux store (reducer, actions)   | 📋 To Do | 3h     | High     |
+| [TASK-349](./tasks/TASK-349-duration-selection-screen.md) | Duration Selection Screen        | 📋 To Do | 3h     | High     |
+| [TASK-350](./tasks/TASK-350-calendar-picker-screen.md)    | Calendar Picker Screen           | 📋 To Do | 4h     | High     |
+| [TASK-351](./tasks/TASK-351-time-slots-screen.md)         | Time Slots Screen                | 📋 To Do | 4h     | High     |
+| [TASK-352](./tasks/TASK-352-meeting-details-screen.md)    | Meeting Details Screen           | 📋 To Do | 4h     | High     |
+
+#### US-064: Booking Confirmation & Navigation (6 tasks)
+
+| Task ID                                                  | Title                           | Status   | Effort | Priority |
+| -------------------------------------------------------- | ------------------------------- | -------- | ------ | -------- |
+| [TASK-353](./tasks/TASK-353-confirmation-screen.md)      | Confirmation Screen             | 📋 To Do | 3h     | High     |
+| [TASK-354](./tasks/TASK-354-ical-generation.md)          | iCal generation                 | 📋 To Do | 2h     | Medium   |
+| [TASK-355](./tasks/TASK-355-navigation-integration.md)   | Navigation integration          | 📋 To Do | 2h     | High     |
+| [TASK-356](./tasks/TASK-356-home-screen-entry-points.md) | Home Screen entry points        | 📋 To Do | 2h     | High     |
+| [TASK-357](./tasks/TASK-357-i18n-translations.md)        | i18n translations (5 languages) | 📋 To Do | 2h     | Medium   |
+| [TASK-358](./tasks/TASK-358-e2e-booking-flow-tests.md)   | E2E tests for booking flow      | 📋 To Do | 4h     | High     |
+
+#### US-065: View & Manage Bookings (9 tasks)
+
+| Task ID                                                         | Title                           | Status   | Effort | Priority |
+| --------------------------------------------------------------- | ------------------------------- | -------- | ------ | -------- |
+| [TASK-359](./tasks/TASK-359-get-user-bookings-edge-function.md) | Get User Bookings Edge Function | 📋 To Do | 2h     | High     |
+| [TASK-360](./tasks/TASK-360-update-booking-edge-function.md)    | Update Booking Edge Function    | 📋 To Do | 3h     | High     |
+| [TASK-361](./tasks/TASK-361-cancel-booking-edge-function.md)    | Cancel Booking Edge Function    | 📋 To Do | 2h     | High     |
+| [TASK-362](./tasks/TASK-362-swipe-to-reveal-component.md)       | Swipe-to-reveal component       | 📋 To Do | 3h     | High     |
+| [TASK-363](./tasks/TASK-363-my-bookings-screen.md)              | My Bookings Screen              | 📋 To Do | 4h     | High     |
+| [TASK-364](./tasks/TASK-364-booking-detail-screen.md)           | Booking Detail Screen           | 📋 To Do | 4h     | High     |
+| [TASK-365](./tasks/TASK-365-edit-booking-screen.md)             | Edit Booking Screen             | 📋 To Do | 4h     | High     |
+| [TASK-366](./tasks/TASK-366-deep-link-handling.md)              | Deep link handling              | 📋 To Do | 2h     | Medium   |
+| [TASK-367](./tasks/TASK-367-e2e-manage-bookings-tests.md)       | E2E tests for manage bookings   | 📋 To Do | 4h     | High     |
 
 ---
 
