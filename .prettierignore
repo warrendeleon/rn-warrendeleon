@@ -1,0 +1,11 @@
+# Auto-generated files
+.rnstorybook/storybook.requires.ts
+
+# Build outputs
+android/
+ios/
+node_modules/
+.yarn/
+
+# Coverage
+coverage/
