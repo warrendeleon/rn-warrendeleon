@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
 import { Box, Text } from '@gluestack-ui/themed';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { Meta, StoryObj } from '@storybook/react-native';
 
 import { PhoneInput } from './PhoneInput';
+
+// Stack navigator wrapper for components using useNavigation (NavigationContainer provided globally)
+const Stack = createNativeStackNavigator();
+
+const StackWrapper = ({ children }: { children: React.ReactNode }) => (
+  <Stack.Navigator>
+    <Stack.Screen name="PhoneInputStory" options={{ headerShown: false }}>
+      {() => <>{children}</>}
+    </Stack.Screen>
+  </Stack.Navigator>
+);
 
 const meta: Meta<typeof PhoneInput> = {
   title: 'Components/PhoneInput',
   component: PhoneInput,
   decorators: [
     Story => (
-      <Box p="$4" bg="$coolGray100" flex={1}>
-        <Story />
-      </Box>
+      <StackWrapper>
+        <Box p="$4" bg="$coolGray100" flex={1}>
+          <Story />
+        </Box>
+      </StackWrapper>
     ),
   ],
   argTypes: {
@@ -93,12 +107,14 @@ const InteractivePhoneInput = (props: React.ComponentProps<typeof PhoneInput>) =
   );
 };
 
+// Note: Country selector navigation is disabled in Storybook as it requires full app navigation context
 export const Default: Story = {
   render: args => <InteractivePhoneInput {...args} />,
   args: {
     placeholder: 'Phone Number',
     value: '',
     groupVariant: 'single',
+    isCountrySelectorDisabled: true,
   },
 };
 
@@ -108,6 +124,7 @@ export const WithValue: Story = {
     placeholder: 'Phone Number',
     value: '+447510084239',
     groupVariant: 'single',
+    isCountrySelectorDisabled: true,
   },
 };
 
@@ -118,6 +135,7 @@ export const WithError: Story = {
     value: '+4475',
     error: 'Please enter a valid phone number',
     groupVariant: 'single',
+    isCountrySelectorDisabled: true,
   },
 };
 
@@ -127,6 +145,7 @@ export const InGroupTop: Story = {
     placeholder: 'Phone Number',
     value: '',
     groupVariant: 'top',
+    isCountrySelectorDisabled: true,
   },
 };
 
@@ -136,6 +155,7 @@ export const InGroupBottom: Story = {
     placeholder: 'Phone Number',
     value: '',
     groupVariant: 'bottom',
+    isCountrySelectorDisabled: true,
   },
 };
 

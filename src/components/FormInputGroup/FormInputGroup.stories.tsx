@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, ScrollView } from '@gluestack-ui/themed';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { Meta, StoryObj } from '@storybook/react-native';
 
 import { ButtonGroupDivider } from '@app/components/ButtonGroupDivider';
@@ -10,15 +11,28 @@ import { PhoneInput } from '@app/components/PhoneInput';
 
 import { FormInputGroup } from './FormInputGroup';
 
+// Stack navigator wrapper for components using useNavigation (NavigationContainer provided globally)
+const Stack = createNativeStackNavigator();
+
+const StackWrapper = ({ children }: { children: React.ReactNode }) => (
+  <Stack.Navigator>
+    <Stack.Screen name="FormInputGroupStory" options={{ headerShown: false }}>
+      {() => <>{children}</>}
+    </Stack.Screen>
+  </Stack.Navigator>
+);
+
 const meta: Meta<typeof FormInputGroup> = {
   title: 'Components/FormInputGroup',
   component: FormInputGroup,
   decorators: [
     Story => (
-      <ScrollView flex={1} bg="$coolGray100" p="$0">
-        <Story />
-        <Box h="$20" />
-      </ScrollView>
+      <StackWrapper>
+        <ScrollView flex={1} bg="$coolGray100" p="$0">
+          <Story />
+          <Box h="$20" />
+        </ScrollView>
+      </StackWrapper>
     ),
   ],
   argTypes: {
@@ -172,6 +186,7 @@ export const ContactSection: Story = {
           onChangeText={setPhone}
           groupVariant="single"
           testID="phone-input"
+          isCountrySelectorDisabled // Country selector requires full app navigation
         />
       </FormInputGroup>
     );
@@ -257,6 +272,7 @@ export const CompleteRegistrationForm: Story = {
             value={phone}
             onChangeText={setPhone}
             groupVariant="single"
+            isCountrySelectorDisabled // Country selector requires full app navigation
           />
         </FormInputGroup>
 
