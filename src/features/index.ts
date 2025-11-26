@@ -4,6 +4,7 @@ export * from './Home';
 export * from './Legal';
 export * from './MockStatus';
 export * from './PDF';
+export * from './Placeholder';
 export * from './Profile';
 export * from './Settings';
 export * from './Splash';

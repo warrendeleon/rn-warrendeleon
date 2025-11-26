@@ -12,6 +12,8 @@ import {
 } from '@app/components';
 import {
   AppearanceScreen,
+  BookingPlaceholderScreen,
+  ChatPlaceholderScreen,
   EducationScreen,
   HomeScreen,
   LanguageScreen,
@@ -55,6 +57,8 @@ export type RootStackParamList = {
   };
   TermsAndConditions: undefined;
   PrivacyPolicy: undefined;
+  ChatPlaceholder: undefined;
+  BookingPlaceholder: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -155,6 +159,16 @@ export const RootNavigator: React.FC = () => {
             name="PrivacyPolicy"
             component={PrivacyPolicyScreen}
             options={{ title: t('legal.privacy.title') }}
+          />
+          <Stack.Screen
+            name="ChatPlaceholder"
+            component={ChatPlaceholderScreen}
+            options={{ title: t('placeholder.chat.title') }}
+          />
+          <Stack.Screen
+            name="BookingPlaceholder"
+            component={BookingPlaceholderScreen}
+            options={{ title: t('placeholder.booking.title') }}
           />
         </Stack.Navigator>
       </ErrorBoundary>

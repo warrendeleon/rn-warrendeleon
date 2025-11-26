@@ -2,7 +2,7 @@
 
 **Epic**: EPIC-022: Login & Session Management (Prerequisite)
 **User Story**: Pre-Auth Navigation Setup
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Effort**: 3h
 **Priority**: P0 (Critical Path - Blocks Login Epic)
 **Assigned To**: Warren
@@ -335,41 +335,41 @@ const contactItems: SettingsGroupItem[] = useMemo(
 
 **Home Screen**:
 
-- [ ] "Contact Warren" section appears below "Work & Learning"
-- [ ] "Contact me" button renders with message icon (green background)
-- [ ] "Book a Call" button renders with calendar icon (pink background)
-- [ ] Both buttons navigate to their respective placeholder screens
-- [ ] Both buttons have EAA-compliant accessibility props
-- [ ] Both buttons have correct testIDs
+- [x] "Contact Warren" section appears below "Work & Learning"
+- [x] "Contact me" button renders with chat icon (green background)
+- [x] "Book a Call" button renders with calendar-clock icon (pink background)
+- [x] Both buttons navigate to their respective placeholder screens
+- [x] Both buttons have EAA-compliant accessibility props
+- [x] Both buttons have correct testIDs
 
 **Placeholder Screens**:
 
-- [ ] ChatPlaceholderScreen displays icon, title, "Coming soon", and description
-- [ ] BookingPlaceholderScreen displays icon, title, "Coming soon", and description
-- [ ] Both screens support dark mode
-- [ ] Both screens have EAA-compliant accessibility props
-- [ ] Both screens have correct testIDs
+- [x] ChatPlaceholderScreen displays icon, title, "Coming soon", and description
+- [x] BookingPlaceholderScreen displays icon, title, "Coming soon", and description
+- [x] Both screens support dark mode
+- [x] Both screens have EAA-compliant accessibility props
+- [x] Both screens have correct testIDs
 
 **Navigation**:
 
-- [ ] `ChatPlaceholder` route added to RootStackParamList
-- [ ] `BookingPlaceholder` route added to RootStackParamList
-- [ ] Back navigation works correctly from placeholder screens
+- [x] `ChatPlaceholder` route added to RootStackParamList
+- [x] `BookingPlaceholder` route added to RootStackParamList
+- [x] Back navigation works correctly from placeholder screens
 
 **i18n**:
 
-- [ ] All translation keys added to en.json
-- [ ] All translation keys translated to es.json
-- [ ] All translation keys translated to ca.json
-- [ ] All translation keys translated to pl.json
-- [ ] All translation keys translated to tl.json
+- [x] All translation keys added to en.json
+- [x] All translation keys translated to es.json
+- [x] All translation keys translated to ca.json
+- [x] All translation keys translated to pl.json
+- [x] All translation keys translated to tl.json
 
 **Validation**:
 
-- [ ] `yarn typecheck` passes with 0 errors
-- [ ] `yarn lint` passes with 0 warnings
-- [ ] `yarn test` passes with 0 failures
-- [ ] `yarn validate` passes completely
+- [x] `yarn typecheck` passes with 0 errors
+- [x] `yarn lint` passes with 0 warnings
+- [x] `yarn test` passes with 0 failures
+- [x] `yarn validate` passes completely
 
 ---
 
@@ -404,3 +404,4 @@ const contactItems: SettingsGroupItem[] = useMemo(
 ---
 
 **Last Updated**: 2025-11-26
+**Completed**: 2025-11-26

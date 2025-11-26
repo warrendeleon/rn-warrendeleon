@@ -60,7 +60,21 @@
     "contactMe": "Get in touch",
     "bookMeeting": "Book a meeting",
     "github": "Github",
-    "settings": "Settings"
+    "settings": "Settings",
+    "contactWarren": "Contact Warren",
+    "bookACall": "Book a Call"
+  },
+  "placeholder": {
+    "chat": {
+      "title": "Contact Me",
+      "comingSoon": "Coming Soon",
+      "description": "A messaging feature to contact Warren directly will be available here soon."
+    },
+    "booking": {
+      "title": "Book a Call",
+      "comingSoon": "Coming Soon",
+      "description": "Schedule a meeting or call with Warren using this feature, coming soon."
+    }
   },
   "settings": {
     "title": "Settings",

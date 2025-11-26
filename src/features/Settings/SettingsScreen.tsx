@@ -101,7 +101,7 @@ export const SettingsScreen: React.FC = () => {
         label: 'View Mock Status',
         onPress: handleMockStatus,
         startIcon: Activity,
-        startIconBgColor: '$blue600',
+        startIconBgColor: '$green500',
         testID: 'settings-mock-status-button',
         showChevron: true,
       },

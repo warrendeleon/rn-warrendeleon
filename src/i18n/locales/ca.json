@@ -60,7 +60,21 @@
     "contactMe": "Contacta",
     "bookMeeting": "Reserva una reunió",
     "github": "Github",
-    "settings": "Configuració"
+    "settings": "Configuració",
+    "contactWarren": "Contactar amb Warren",
+    "bookACall": "Reservar una trucada"
+  },
+  "placeholder": {
+    "chat": {
+      "title": "Contacta'm",
+      "comingSoon": "Properament",
+      "description": "Una funció de missatgeria per contactar amb Warren directament estarà disponible aquí aviat."
+    },
+    "booking": {
+      "title": "Reservar una trucada",
+      "comingSoon": "Properament",
+      "description": "Programa una reunió o trucada amb Warren usant aquesta funció, properament."
+    }
   },
   "settings": {
     "title": "Configuració",

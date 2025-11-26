@@ -14,9 +14,13 @@ import { useAppSelector } from '@app/store';
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 // Create icon wrapper components for vector icons
-const createIconComponent = (iconName: string) => {
+const createIconComponent = (iconName: string, defaultSize?: number) => {
   const IconComponent = ({ color, size }: { color?: string; size?: number }) => (
-    <MaterialCommunityIcons name={iconName} color={color || '#FFFFFF'} size={size || 20} />
+    <MaterialCommunityIcons
+      name={iconName}
+      color={color || '#FFFFFF'}
+      size={size || defaultSize || 20}
+    />
   );
   IconComponent.displayName = `Icon(${iconName})`;
   return IconComponent;
@@ -49,8 +53,12 @@ export const handleCVPress = (navigation: HomeScreenNavigationProp): void => {
   });
 };
 
-export const handleRegistrationPress = (navigation: HomeScreenNavigationProp): void => {
-  navigation.navigate('Registration');
+export const handleContactMePress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('ChatPlaceholder');
+};
+
+export const handleBookCallPress = (navigation: HomeScreenNavigationProp): void => {
+  navigation.navigate('BookingPlaceholder');
 };
 
 export const HomeScreen: React.FC = () => {
@@ -86,8 +94,12 @@ export const HomeScreen: React.FC = () => {
     handleGitHubPress(navigation);
   }, [navigation]);
 
-  const handleRegistration = useCallback(() => {
-    handleRegistrationPress(navigation);
+  const handleContactMe = useCallback(() => {
+    handleContactMePress(navigation);
+  }, [navigation]);
+
+  const handleBookCall = useCallback(() => {
+    handleBookCallPress(navigation);
   }, [navigation]);
 
   const workLearningItems: SettingsGroupItem[] = useMemo(
@@ -96,21 +108,21 @@ export const HomeScreen: React.FC = () => {
         label: t('home.workExperience'),
         onPress: handleWorkPress,
         startIcon: createIconComponent('briefcase'),
-        startIconBgColor: '#007AFF',
+        startIconBgColor: '$blue500',
         testID: 'home-work-experience-button',
       },
       {
         label: t('home.education'),
         onPress: handleEducation,
         startIcon: createIconComponent('school'),
-        startIconBgColor: '#5856D6',
+        startIconBgColor: '$orange500',
         testID: 'home-education-button',
       },
       {
         label: t('home.cv'),
         onPress: handleCV,
         startIcon: createIconComponent('file-document'),
-        startIconBgColor: '#00BCD4',
+        startIconBgColor: '$yellow500',
         testID: 'home-cv-button',
       },
     ],
@@ -123,26 +135,38 @@ export const HomeScreen: React.FC = () => {
         label: t('home.github'),
         onPress: handleGitHub,
         startIcon: createIconComponent('github'),
-        startIconBgColor: '#1C1C1E',
+        startIconBgColor: '$coolGray800',
         testID: 'home-github-button',
       },
       {
         label: t('home.settings'),
         onPress: handleSettings,
         startIcon: createIconComponent('cog'),
-        startIconBgColor: '#8E8E93',
+        startIconBgColor: '$coolGray400',
         testID: 'home-settings-button',
       },
-      // TODO: Remove after testing TASK-199
+    ],
+    [t, handleGitHub, handleSettings]
+  );
+
+  const contactItems: SettingsGroupItem[] = useMemo(
+    () => [
       {
-        label: 'Register (Test)',
-        onPress: handleRegistration,
-        startIcon: createIconComponent('account-plus'),
-        startIconBgColor: '#34C759',
-        testID: 'home-register-button',
+        label: t('home.contactMe'),
+        onPress: handleContactMe,
+        startIcon: createIconComponent('chat', 24),
+        startIconBgColor: '$green500',
+        testID: 'home-contact-me-button',
+      },
+      {
+        label: t('home.bookACall'),
+        onPress: handleBookCall,
+        startIcon: createIconComponent('calendar-clock'),
+        startIconBgColor: '$pink600',
+        testID: 'home-book-a-call-button',
       },
     ],
-    [t, handleGitHub, handleSettings, handleRegistration]
+    [t, handleContactMe, handleBookCall]
   );
 
   return (
@@ -179,6 +203,22 @@ export const HomeScreen: React.FC = () => {
           Work & Learning
         </Text>
         <SettingsGroup items={workLearningItems} />
+      </Box>
+
+      <Box mt="$6">
+        <Text
+          mb="$3"
+          pt="$1"
+          fontSize="$xs"
+          fontWeight="$semibold"
+          textTransform="uppercase"
+          lineHeight="$sm"
+          color="$coolGray500"
+          accessibilityRole="header"
+        >
+          {t('home.contactWarren')}
+        </Text>
+        <SettingsGroup items={contactItems} />
       </Box>
 
       <Box mt="$6">

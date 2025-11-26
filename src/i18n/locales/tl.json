@@ -60,7 +60,21 @@
     "contactMe": "Kontakin ako",
     "bookMeeting": "Mag-book ng meeting",
     "github": "Github",
-    "settings": "Mga Setting"
+    "settings": "Mga Setting",
+    "contactWarren": "Makipag-ugnayan kay Warren",
+    "bookACall": "Mag-book ng Tawag"
+  },
+  "placeholder": {
+    "chat": {
+      "title": "Kontakin Ako",
+      "comingSoon": "Paparating Na",
+      "description": "Ang feature ng messaging para makipag-ugnayan kay Warren ay magiging available dito sa lalong madaling panahon."
+    },
+    "booking": {
+      "title": "Mag-book ng Tawag",
+      "comingSoon": "Paparating Na",
+      "description": "Mag-schedule ng meeting o tawag kay Warren gamit ang feature na ito, paparating na."
+    }
   },
   "settings": {
     "title": "Settings",
