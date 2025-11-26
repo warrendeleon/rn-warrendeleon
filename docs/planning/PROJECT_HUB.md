@@ -1,8 +1,8 @@
 # React Native Portfolio App - Planning Hub
 
-**Progress**: 52% (187/358 tasks) | **Remaining**: 171 tasks
+**Progress**: 52% (187/359 tasks) | **Remaining**: 172 tasks
 
-**Total Tasks**: 358 tasks (TASK-001 through TASK-367)
+**Total Tasks**: 359 tasks (TASK-001 through TASK-368)
 
 ---
 
@@ -395,9 +395,15 @@
 | [TASK-211](./tasks/TASK-211-pin-setup-screen.md)               | 6-Digit PIN Setup Screen       | 📋 To Do | 2.5h   | High     |
 | [TASK-212](./tasks/TASK-212-biometric-setup-e2e-tests.md)      | Biometric Setup E2E Tests      | 📋 To Do | 2h     | Medium   |
 
-### EPIC-022: Login & Session Management (30 tasks) 📋 To Do
+### EPIC-022: Login & Session Management (31 tasks) 📋 To Do
 
-#### US-060: Auth Navigation Foundation (5 tasks) - **IMPLEMENT FIRST**
+#### Prerequisite: Home Screen Entry Points (1 task) - **IMPLEMENT FIRST**
+
+| Task ID                                                          | Title                            | Status   | Effort | Priority |
+| ---------------------------------------------------------------- | -------------------------------- | -------- | ------ | -------- |
+| [TASK-368](./tasks/TASK-368-home-screen-contact-entry-points.md) | Home Screen Contact Entry Points | 📋 To Do | 3h     | Critical |
+
+#### US-060: Auth Navigation Foundation (5 tasks)
 
 | Task ID                                                        | Title                                     | Status   | Effort | Priority |
 | -------------------------------------------------------------- | ----------------------------------------- | -------- | ------ | -------- |
