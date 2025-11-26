@@ -399,9 +399,9 @@
 
 #### Prerequisite: Home Screen Entry Points (1 task) - **IMPLEMENT FIRST**
 
-| Task ID                                                          | Title                            | Status   | Effort | Priority |
-| ---------------------------------------------------------------- | -------------------------------- | -------- | ------ | -------- |
-| [TASK-368](./tasks/TASK-368-home-screen-contact-entry-points.md) | Home Screen Contact Entry Points | 📋 To Do | 3h     | Critical |
+| Task ID                                                          | Title                            | Status         | Effort | Priority |
+| ---------------------------------------------------------------- | -------------------------------- | -------------- | ------ | -------- |
+| [TASK-368](./tasks/TASK-368-home-screen-contact-entry-points.md) | Home Screen Contact Entry Points | ⏳ In Progress | 3h     | Critical |
 
 #### US-060: Auth Navigation Foundation (5 tasks)
 
