@@ -1,7 +1,7 @@
 # US-044: Request Password Reset
 
 **ID**: US-044 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **Title**: Forgot Password - Request Reset Link
-**Status**: 📋 To Do | **Priority**: High | **Story Points**: 3 | **Effort**: 7h
+**Status**: ⏳ In Progress | **Priority**: High | **Story Points**: 3 | **Effort**: 7h
 
 ---
 

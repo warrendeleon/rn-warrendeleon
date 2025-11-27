@@ -1,7 +1,7 @@
 # EPIC-024: Password Recovery
 
 **ID**: EPIC-024 | **Title**: Forgot Password Flow with Rate Limiting
-**Status**: 📋 To Do | **Priority**: High | **Start Date**: TBD | **Target Date**: TBD
+**Status**: ⏳ In Progress | **Priority**: High | **Start Date**: 2025-11-27 | **Target Date**: TBD
 **Owner**: Warren de Leon | **Total Story Points**: 6 | **Total Effort**: 13.5h
 
 ---

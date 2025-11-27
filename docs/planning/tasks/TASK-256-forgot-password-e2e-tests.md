@@ -1,7 +1,7 @@
 # TASK-256: Forgot Password E2E Tests
 
 **ID**: TASK-256 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **User Story**: [US-044](../stories/US-044-forgot-password-request.md)
-**Status**: 📋 To Do | **Effort**: 0.5h
+**Status**: ⏳ In Progress | **Effort**: 0.5h
 
 ---
 
