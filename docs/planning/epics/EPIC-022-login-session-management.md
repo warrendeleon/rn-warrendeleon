@@ -4,7 +4,7 @@
 **Title**: Login & Session Management (Email, LinkedIn, Magic Link, Biometric Re-Auth)
 **Status**: ⏳ In Progress | **Priority**: Critical | **Created**: 2025-11-21
 **Owner**: Warren de Leon | **Category**: Authentication
-**Timeline**: 2-3 weeks | **Effort**: 45.5 hours
+**Timeline**: 2-3 weeks | **Effort**: 62 hours
 **Dependencies**: EPIC-021 (Registration must be complete first)
 
 ---
@@ -218,16 +218,17 @@ Users expect modern mobile apps to provide:
 
 ## User Stories
 
-| ID                                                        | User Story                                                | Status   | Story Points | Effort |
-| --------------------------------------------------------- | --------------------------------------------------------- | -------- | ------------ | ------ |
-| [US-060](../stories/US-060-auth-navigation-foundation.md) | Auth Navigation Foundation (AuthContext + ProtectedRoute) | 📋 To Do | 3            | 7h     |
-| [US-036](../stories/US-036-email-password-login.md)       | Email/Password Login                                      | 📋 To Do | 5            | 11h    |
-| [US-037](../stories/US-037-magic-link-login.md)           | Magic Link Login                                          | 📋 To Do | 4            | 7.5h   |
-| [US-038](../stories/US-038-session-management.md)         | Session Management (Token Refresh, Expiry, Inactivity)    | 📋 To Do | 6            | 11.5h  |
-| [US-039](../stories/US-039-biometric-reauth.md)           | Biometric Re-Authentication                               | 📋 To Do | 4            | 9h     |
-| [US-061](../stories/US-061-settings-account-section.md)   | Settings Account Section                                  | 📋 To Do | 3            | 7.5h   |
+| ID                                                          | User Story                                                | Status         | Story Points | Effort |
+| ----------------------------------------------------------- | --------------------------------------------------------- | -------------- | ------------ | ------ |
+| [US-060](../stories/US-060-auth-navigation-foundation.md)   | Auth Navigation Foundation (AuthContext + ProtectedRoute) | ⏳ In Progress | 3            | 7h     |
+| [US-036](../stories/US-036-email-password-login.md)         | Email/Password Login                                      | 📋 To Do       | 5            | 11h    |
+| [US-037](../stories/US-037-magic-link-login.md)             | Magic Link Login                                          | 📋 To Do       | 4            | 7.5h   |
+| [US-038](../stories/US-038-session-management.md)           | Session Management (Token Refresh, Expiry, Inactivity)    | 📋 To Do       | 6            | 11.5h  |
+| [US-039](../stories/US-039-biometric-reauth.md)             | Biometric Re-Authentication                               | 📋 To Do       | 4            | 9h     |
+| [US-061](../stories/US-061-settings-account-section.md)     | Settings Account Section                                  | 📋 To Do       | 3            | 7.5h   |
+| [US-066](../stories/US-066-proactive-session-validation.md) | Proactive Session Validation                              | 📋 To Do       | 5            | 8.5h   |
 
-**Total**: 6 stories, 25 story points, 53.5 hours
+**Total**: 7 stories, 30 story points, 62 hours
 
 **Implementation Order**:
 
@@ -235,8 +236,9 @@ Users expect modern mobile apps to provide:
 2. **US-036** (Email/Password Login) - Core login screen
 3. **US-061** (Settings Account Section) - Logout + account management
 4. **US-038** (Session Management) - Token refresh, expiry
-5. **US-037** (Magic Link) - Passwordless
-6. **US-039** (Biometric Re-Auth) - App resume
+5. **US-066** (Proactive Session Validation) - ensureValidSession + auth documentation
+6. **US-037** (Magic Link) - Passwordless
+7. **US-039** (Biometric Re-Auth) - App resume
 
 ---
 
@@ -469,7 +471,14 @@ User Activity Tracker
 | [TASK-340](../tasks/TASK-340-edit-account-screen.md)         | Create EditAccountScreen              | 📋 To Do | 3h     | Medium   |
 | [TASK-341](../tasks/TASK-341-settings-account-rntl-tests.md) | Settings Account RNTL Tests           | 📋 To Do | 1.5h   | Medium   |
 
-**Task Summary**: 30 tasks, 60 hours total
+### US-066: Proactive Session Validation (2 tasks, 8.5h)
+
+| ID                                                       | Task                                                        | Status   | Effort | Priority |
+| -------------------------------------------------------- | ----------------------------------------------------------- | -------- | ------ | -------- |
+| [TASK-369](../tasks/TASK-369-ensure-valid-session.md)    | Implement ensureValidSession() + ProtectedRoute Integration | 📋 To Do | 6h     | High     |
+| [TASK-370](../tasks/TASK-370-auth-flow-documentation.md) | Comprehensive Auth Flow Documentation                       | 📋 To Do | 2.5h   | Medium   |
+
+**Task Summary**: 32 tasks, 68.5 hours total
 
 ---
 
@@ -519,6 +528,7 @@ User Activity Tracker
 - [ ] Magic link login working (passwordless)
 - [ ] Biometric re-auth on app resume (Face ID, Touch ID, Fingerprint, PIN fallback)
 - [ ] Automatic token refresh via Axios interceptors
+- [ ] Proactive session validation before secure screen access (ensureValidSession)
 - [ ] Session expiry detection and handling (modal + re-login)
 - [ ] Inactivity timeout (auto-logout after 5 minutes idle)
 - [ ] Remember Me checkbox persists login across app restarts
@@ -554,6 +564,7 @@ User Activity Tracker
 - [ ] All components documented with JSDoc
 - [ ] README.md updated with login flow diagrams
 - [ ] SECURITY.md updated with token management details
+- [ ] AUTH_FLOW.md created with comprehensive auth documentation and visual diagrams
 
 ---
 
@@ -632,6 +643,6 @@ User Activity Tracker
 
 ---
 
-**Last Updated**: 2025-11-21
+**Last Updated**: 2025-11-27
 **Epic Owner**: Warren de Leon
 **Next Review**: Before Phase 1 kickoff
