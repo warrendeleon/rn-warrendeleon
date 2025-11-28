@@ -543,11 +543,11 @@ describe('authSlice', () => {
 
 ## Security Checklist
 
-- [ ] **Tokens NEVER in Redux** (verified - only in SecureStore)
-- [ ] **User data from EncryptedStore** (not plain AsyncStorage)
-- [ ] **Auth status cleared on logout** (all state reset)
-- [ ] **Persist whitelist minimal** (only biometric preference)
-- [ ] **Error messages sanitized** (no technical details exposed)
+- [x] **Tokens NEVER in Redux** (verified - only in SecureStore)
+- [x] **User data from EncryptedStore** (not plain AsyncStorage)
+- [x] **Auth status cleared on logout** (all state reset)
+- [x] **Persist whitelist minimal** (only biometric preference)
+- [x] **Error messages sanitized** (no technical details exposed)
 
 ---
 

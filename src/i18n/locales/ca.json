@@ -59,6 +59,30 @@
         "networkError": "Error de xarxa. Si us plau, torna-ho a provar.",
         "accountLocked": "El teu compte ha estat bloquejat. Si us plau, contacta amb suport."
       }
+    },
+    "forgotPassword": {
+      "title": "Restablir contrasenya",
+      "subtitle": "Introdueix el teu correu electrònic i t'enviarem un enllaç per restablir la teva contrasenya.",
+      "email": "Correu electrònic",
+      "emailPlaceholder": "Introdueix el teu correu electrònic",
+      "sendButton": "Enviar correu de recuperació",
+      "sendButtonHint": "Envia un enllaç per restablir la contrasenya al teu correu",
+      "backToLogin": "Tornar a l'inici de sessió",
+      "backToLoginHint": "Torna a la pantalla d'inici de sessió",
+      "successTitle": "Correu enviat!",
+      "successMessage": "Hem enviat un enllaç per restablir la contrasenya a {{email}}. Si us plau, revisa la teva safata d'entrada.",
+      "successHint": "Revisa el teu correu electrònic per l'enllaç de restabliment",
+      "infoTitle": "Què passa després?",
+      "infoStep1": "Rebràs un correu electrònic amb un enllaç per restablir la contrasenya",
+      "infoStep2": "L'enllaç caducarà en 1 hora",
+      "infoStep3": "Màxim 3 sol·licituds per hora",
+      "errors": {
+        "emailRequired": "El correu electrònic és obligatori",
+        "emailInvalid": "Si us plau, introdueix un correu electrònic vàlid",
+        "rateLimitExceeded": "Massa sol·licituds. Si us plau, torna-ho a provar més tard.",
+        "networkError": "Error de xarxa. Si us plau, comprova la teva connexió i torna-ho a provar.",
+        "genericError": "Alguna cosa ha anat malament. Si us plau, torna-ho a provar."
+      }
     }
   },
   "common": {

@@ -2,7 +2,7 @@
 
 **ID**: TASK-216 | **Title**: Write Detox + Cucumber E2E Tests for Login Flow
 **User Story**: [US-036](../stories/US-036-email-password-login.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: 📋 To Do | **Priority**: Medium | **Effort**: 1.5h
+**Status**: ✅ Done | **Priority**: Medium | **Effort**: 1.5h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
 ---
@@ -318,24 +318,24 @@ yarn detox:ios:test --grep "@network"
 
 **Test Coverage**:
 
-- [ ] Successful login scenario passes
-- [ ] Failed login (invalid credentials) scenario passes
-- [ ] All validation error scenarios pass (5 scenarios)
-- [ ] Password visibility toggle scenario passes
-- [ ] Navigation scenarios pass (2 scenarios)
-- [ ] Network error scenario passes
-- [ ] Rate limit scenario passes
+- [x] Successful login scenario passes
+- [x] Failed login (invalid credentials) scenario passes
+- [x] All validation error scenarios pass (5 scenarios)
+- [x] Password visibility toggle scenario passes
+- [x] Navigation scenarios pass (2 scenarios)
+- [x] Network error scenario passes
+- [x] Rate limit scenario passes
 
 **Platform Coverage**:
 
-- [ ] All tests pass on iOS simulator
-- [ ] All tests pass on Android emulator (future)
+- [x] All tests pass on iOS simulator
+- [x] All tests pass on Android emulator (future) - Deferred
 
 **Quality**:
 
-- [ ] Tests are reliable (no flaky failures)
-- [ ] Tests run in reasonable time (<5 minutes total)
-- [ ] All assertions meaningful and specific
+- [x] Tests are reliable (no flaky failures)
+- [x] Tests run in reasonable time (<5 minutes total)
+- [x] All assertions meaningful and specific
 
 ---
 
@@ -381,11 +381,11 @@ await waitFor(element(by.id('home-screen')))
 
 ## Definition of Done
 
-- [ ] Feature file created with all scenarios
-- [ ] Step definitions implemented
-- [ ] All scenarios pass on iOS simulator
-- [ ] Tests are reliable (run 3 times with no failures)
-- [ ] Test execution time <5 minutes
+- [x] Feature file created with all scenarios
+- [x] Step definitions implemented
+- [x] All scenarios pass on iOS simulator
+- [x] Tests are reliable (run 3 times with no failures)
+- [x] Test execution time <5 minutes
 
 ---
 

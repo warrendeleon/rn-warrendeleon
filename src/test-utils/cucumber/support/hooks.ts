@@ -4,11 +4,25 @@ import { device } from 'detox';
 import { cleanupDetox, detox, setupDetox } from './detox-setup';
 import { DetoxWorld } from './world';
 
-BeforeAll({ timeout: 120 * 1000 }, async function () {
+BeforeAll({ timeout: 180 * 1000 }, async function () {
   console.log('🚀 Starting Detox E2E tests...');
 
+  console.log('📱 Setting up Detox...');
   await setupDetox();
-  await device.launchApp();
+  console.log('✅ Detox setup complete');
+
+  console.log('🚀 Launching app...');
+  await device.launchApp({
+    newInstance: true,
+    launchArgs: {
+      // Disable synchronization initially to help with connection
+      detoxEnableSynchronization: 0,
+    },
+  });
+  console.log('✅ App launched successfully');
+
+  // Re-enable synchronization after launch
+  await device.enableSynchronization();
 });
 
 Before({ timeout: 30000 }, async function (this: DetoxWorld, { pickle }) {

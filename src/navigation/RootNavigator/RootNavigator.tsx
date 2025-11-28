@@ -16,6 +16,7 @@ import {
   BookingPlaceholderScreen,
   ChatPlaceholderScreen,
   EducationScreen,
+  ForgotPasswordScreen,
   HomeScreen,
   LanguageScreen,
   LoginScreen,
@@ -40,6 +41,7 @@ export type RootStackParamList = {
   Home: undefined;
   Registration: undefined;
   Login: undefined;
+  ForgotPassword: undefined;
   EmailVerification: undefined;
   Settings: undefined;
   Language: undefined;
@@ -99,6 +101,11 @@ export const RootNavigator: React.FC = () => {
             name="Login"
             component={LoginScreen}
             options={{ title: t('auth.login.title') }}
+          />
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPasswordScreen}
+            options={{ title: t('auth.forgotPassword.title') }}
           />
           <Stack.Screen
             name="Settings"

@@ -745,43 +745,43 @@ export const LoginScreen: React.FC = () => {
 
 **Functional Requirements**:
 
-- [ ] Email input field renders correctly
-- [ ] Email validation on blur (Yup schema)
-- [ ] Password input field renders correctly
-- [ ] Password show/hide toggle works
-- [ ] "Log In" button submits form
-- [ ] Button shows loading state during submission
-- [ ] "Forgot password?" link navigates to ForgotPasswordScreen
-- [ ] "Sign up" link navigates to RegisterScreen
-- [ ] "Magic Link" button renders (placeholder for now)
-- [ ] "LinkedIn" button renders (placeholder for now)
-- [ ] Form validates on submit (both email and password required)
+- [x] Email input field renders correctly
+- [x] Email validation on blur (Yup schema)
+- [x] Password input field renders correctly
+- [x] Password show/hide toggle works
+- [x] "Log In" button submits form
+- [x] Button shows loading state during submission
+- [x] "Forgot password?" link navigates to ForgotPasswordScreen
+- [x] "Sign up" link navigates to RegisterScreen
+- [x] "Magic Link" button renders (placeholder for now)
+- [x] "LinkedIn" button renders (placeholder for now)
+- [x] Form validates on submit (both email and password required)
 
 **Non-Functional Requirements**:
 
-- [ ] All input fields have proper `testID` for E2E tests
-- [ ] All touch targets minimum 44×44 (iOS) / 48×48 (Android)
-- [ ] Email keyboard type is "email-address"
-- [ ] Password field uses `secureTextEntry`
-- [ ] Form scrolls correctly when keyboard appears
-- [ ] `KeyboardAvoidingView` works on iOS
-- [ ] All elements have proper accessibility labels/roles/hints
+- [x] All input fields have proper `testID` for E2E tests
+- [x] All touch targets minimum 44×44 (iOS) / 48×48 (Android)
+- [x] Email keyboard type is "email-address"
+- [x] Password field uses `secureTextEntry`
+- [x] Form scrolls correctly when keyboard appears
+- [x] `KeyboardAvoidingView` works on iOS
+- [x] All elements have proper accessibility labels/roles/hints
 
 **Error Handling**:
 
-- [ ] Invalid email → "Please enter a valid email address"
-- [ ] Empty email → "Email is required"
-- [ ] Empty password → "Password is required"
-- [ ] Password <8 chars → "Password must be at least 8 characters"
+- [x] Invalid email → "Please enter a valid email address"
+- [x] Empty email → "Email is required"
+- [x] Empty password → "Password is required"
+- [x] Password <8 chars → "Password must be at least 8 characters"
 
 **EAA Compliance**:
 
-- [ ] Email field has `accessibilityLabel="Email address"`
-- [ ] Password field has `accessibilityLabel="Password"`
-- [ ] "Log In" button has `accessibilityRole="button"` and hint
-- [ ] "Forgot password?" link has `accessibilityRole="link"` and hint
-- [ ] Error messages announced to screen reader
-- [ ] All touch targets comply with minimum size
+- [x] Email field has `accessibilityLabel="Email address"`
+- [x] Password field has `accessibilityLabel="Password"`
+- [x] "Log In" button has `accessibilityRole="button"` and hint
+- [x] "Forgot password?" link has `accessibilityRole="link"` and hint
+- [x] Error messages announced to screen reader
+- [x] All touch targets comply with minimum size
 
 ---
 
@@ -791,43 +791,43 @@ export const LoginScreen: React.FC = () => {
 
 **Email Field**:
 
-- [ ] Tap email field → Keyboard appears (email type)
-- [ ] Enter invalid email → Blur → Error message appears
-- [ ] Enter valid email → Blur → No error
-- [ ] Leave empty → Submit → "Email is required" error
+- [x] Tap email field → Keyboard appears (email type)
+- [x] Enter invalid email → Blur → Error message appears
+- [x] Enter valid email → Blur → No error
+- [x] Leave empty → Submit → "Email is required" error
 
 **Password Field**:
 
-- [ ] Tap password field → Secure keyboard appears
-- [ ] Password displays as dots (•••)
-- [ ] Tap eye icon → Password becomes visible
-- [ ] Tap eye icon again → Password hidden
-- [ ] Leave empty → Submit → "Password is required" error
-- [ ] Enter <8 chars → Submit → "Password must be at least 8 characters" error
+- [x] Tap password field → Secure keyboard appears
+- [x] Password displays as dots (•••)
+- [x] Tap eye icon → Password becomes visible
+- [x] Tap eye icon again → Password hidden
+- [x] Leave empty → Submit → "Password is required" error
+- [x] Enter <8 chars → Submit → "Password must be at least 8 characters" error
 
 **Submit Button**:
 
-- [ ] Valid email + password → Tap "Log In" → Button shows loading state
-- [ ] Button disabled during loading
-- [ ] Console logs form data
+- [x] Valid email + password → Tap "Log In" → Button shows loading state
+- [x] Button disabled during loading
+- [x] Console logs form data
 
 **Navigation**:
 
-- [ ] Tap "Forgot password?" → Navigate to ForgotPasswordScreen
-- [ ] Tap "Sign up" → Navigate to RegisterScreen
+- [x] Tap "Forgot password?" → Navigate to ForgotPasswordScreen
+- [x] Tap "Sign up" → Navigate to RegisterScreen
 
 **Keyboard**:
 
-- [ ] Keyboard appears when tapping input
-- [ ] Keyboard doesn't overlap inputs (KeyboardAvoidingView works)
-- [ ] Tap outside input → Keyboard dismisses
+- [x] Keyboard appears when tapping input
+- [x] Keyboard doesn't overlap inputs (KeyboardAvoidingView works)
+- [x] Tap outside input → Keyboard dismisses
 
 **Accessibility** (VoiceOver/TalkBack):
 
-- [ ] Email field announced as "Email address"
-- [ ] Password field announced as "Password"
-- [ ] "Log In" button announced with hint
-- [ ] Error messages announced when they appear
+- [x] Email field announced as "Email address"
+- [x] Password field announced as "Password"
+- [x] "Log In" button announced with hint
+- [x] Error messages announced when they appear
 
 ---
 
@@ -925,31 +925,31 @@ src/features/Auth/
 
 **Code Complete**:
 
-- [ ] LoginScreen component renders correctly
-- [ ] Email and password inputs working with validation
-- [ ] "Log In" button submits form
-- [ ] Loading state working
-- [ ] All navigation links working
-- [ ] Alternative login methods render (placeholders)
+- [x] LoginScreen component renders correctly
+- [x] Email and password inputs working with validation
+- [x] "Log In" button submits form
+- [x] Loading state working
+- [x] All navigation links working
+- [x] Alternative login methods render (placeholders)
 
 **Quality**:
 
-- [ ] `yarn typecheck` passes
-- [ ] `yarn lint` passes
-- [ ] All manual tests pass (checklist above)
-- [ ] Screenshots captured for documentation
+- [x] `yarn typecheck` passes
+- [x] `yarn lint` passes
+- [x] All manual tests pass (checklist above)
+- [x] Screenshots captured for documentation
 
 **Accessibility**:
 
-- [ ] All EAA requirements met
-- [ ] VoiceOver/TalkBack tested
-- [ ] Touch targets verified (44×44 iOS, 48×48 Android)
+- [x] All EAA requirements met
+- [x] VoiceOver/TalkBack tested
+- [x] Touch targets verified (44×44 iOS, 48×48 Android)
 
 **Documentation**:
 
-- [ ] Component documented with JSDoc
-- [ ] Props documented
-- [ ] Usage example in comments
+- [x] Component documented with JSDoc
+- [x] Props documented
+- [x] Usage example in comments
 
 ---
 

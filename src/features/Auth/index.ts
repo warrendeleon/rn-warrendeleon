@@ -32,5 +32,16 @@ export { AuthContext, AuthProvider } from './context';
 export { useAuth } from './hooks';
 
 // Screens
+export { ForgotPasswordScreen } from './ForgotPasswordScreen';
 export { LoginScreen } from './LoginScreen';
 export { RegistrationScreen } from './RegistrationScreen';
+
+// Utils
+export type { RateLimitResult } from './utils/rateLimiter';
+export {
+  checkPasswordResetRateLimit,
+  clearAllRateLimits,
+  clearPasswordResetRateLimit,
+  getRateLimitStatus,
+  recordPasswordResetRequest,
+} from './utils/rateLimiter';

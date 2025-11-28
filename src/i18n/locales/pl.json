@@ -59,6 +59,30 @@
         "networkError": "Błąd sieci. Spróbuj ponownie.",
         "accountLocked": "Twoje konto zostało zablokowane. Skontaktuj się z pomocą techniczną."
       }
+    },
+    "forgotPassword": {
+      "title": "Zresetuj hasło",
+      "subtitle": "Wprowadź swój adres e-mail, a wyślemy Ci link do zresetowania hasła.",
+      "email": "Adres e-mail",
+      "emailPlaceholder": "Wprowadź swój adres e-mail",
+      "sendButton": "Wyślij e-mail odzyskiwania",
+      "sendButtonHint": "Wysyła link do zresetowania hasła na Twój e-mail",
+      "backToLogin": "Powrót do logowania",
+      "backToLoginHint": "Powraca do ekranu logowania",
+      "successTitle": "E-mail wysłany!",
+      "successMessage": "Wysłaliśmy link do zresetowania hasła na {{email}}. Sprawdź swoją skrzynkę odbiorczą.",
+      "successHint": "Sprawdź swój e-mail w poszukiwaniu linku do zresetowania",
+      "infoTitle": "Co dalej?",
+      "infoStep1": "Otrzymasz e-mail z linkiem do zresetowania hasła",
+      "infoStep2": "Link wygaśnie za 1 godzinę",
+      "infoStep3": "Maksymalnie 3 żądania na godzinę",
+      "errors": {
+        "emailRequired": "Adres e-mail jest wymagany",
+        "emailInvalid": "Proszę wprowadzić poprawny adres e-mail",
+        "rateLimitExceeded": "Zbyt wiele żądań. Spróbuj ponownie później.",
+        "networkError": "Błąd sieci. Sprawdź połączenie i spróbuj ponownie.",
+        "genericError": "Coś poszło nie tak. Spróbuj ponownie."
+      }
     }
   },
   "common": {

@@ -2,7 +2,7 @@
 
 **ID**: TASK-214 | **Title**: Integrate Supabase Auth API for Email/Password Login
 **User Story**: [US-036](../stories/US-036-email-password-login.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: 📋 To Do | **Priority**: High | **Effort**: 2h
+**Status**: ✅ Done | **Priority**: High | **Effort**: 2h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
 ## File Structure
@@ -744,34 +744,34 @@ export const LoginScreen: React.FC = () => {
 
 **Functional Requirements**:
 
-- [ ] `loginWithEmail` function calls Supabase Auth API correctly
-- [ ] Response validated with Zod schema
-- [ ] Access token stored in Keychain (`auth_access_token` service)
-- [ ] Refresh token stored in Keychain (`auth_refresh_token` service)
-- [ ] User metadata stored in Encrypted Storage
-- [ ] Redux state updated (`isAuthenticated: true`, user metadata)
-- [ ] Navigation to Home screen on success
-- [ ] Error messages displayed for all scenarios
+- [x] `loginWithEmail` function calls Supabase Auth API correctly
+- [x] Response validated with Zod schema
+- [x] Access token stored in Keychain (`auth_access_token` service)
+- [x] Refresh token stored in Keychain (`auth_refresh_token` service)
+- [x] User metadata stored in Encrypted Storage
+- [x] Redux state updated (`isAuthenticated: true`, user metadata)
+- [x] Navigation to Home screen on success
+- [x] Error messages displayed for all scenarios
 
 **Error Handling**:
 
-- [ ] 401 (invalid credentials) → "Incorrect email or password"
-- [ ] 429 (rate limit) → "Too many login attempts. Please try again later."
-- [ ] Network error → "Network error. Please check your connection."
-- [ ] Invalid response → "Received invalid response from server"
+- [x] 401 (invalid credentials) → "Incorrect email or password"
+- [x] 429 (rate limit) → "Too many login attempts. Please try again later."
+- [x] Network error → "Network error. Please check your connection."
+- [x] Invalid response → "Received invalid response from server"
 
 **Security**:
 
-- [ ] Tokens NEVER logged (masked in console)
-- [ ] Tokens stored in hardware-backed Keychain
-- [ ] User metadata encrypted (Encrypted Storage)
-- [ ] Password NEVER stored anywhere
+- [x] Tokens NEVER logged (masked in console)
+- [x] Tokens stored in hardware-backed Keychain
+- [x] User metadata encrypted (Encrypted Storage)
+- [x] Password NEVER stored anywhere
 
 **Performance**:
 
-- [ ] API call completes <2 seconds (normal network)
-- [ ] Token storage <50ms
-- [ ] Total login flow <3 seconds
+- [x] API call completes <2 seconds (normal network)
+- [x] Token storage <50ms
+- [x] Total login flow <3 seconds
 
 ---
 
@@ -856,32 +856,32 @@ export const apiClient = axios.create({
 
 **Code Complete**:
 
-- [ ] `loginWithEmail` function working
-- [ ] Zod validation working
-- [ ] Token storage in Keychain working
-- [ ] User metadata storage working
-- [ ] Redux state update working
-- [ ] Navigation working
-- [ ] Error handling for all scenarios
+- [x] `loginWithEmail` function working
+- [x] Zod validation working
+- [x] Token storage in Keychain working
+- [x] User metadata storage working
+- [x] Redux state update working
+- [x] Navigation working
+- [x] Error handling for all scenarios
 
 **Quality**:
 
-- [ ] `yarn typecheck` passes
-- [ ] `yarn lint` passes
-- [ ] Unit tests pass (100% coverage)
-- [ ] Manual testing complete
+- [x] `yarn typecheck` passes
+- [x] `yarn lint` passes
+- [x] Unit tests pass (100% coverage)
+- [x] Manual testing complete
 
 **Security**:
 
-- [ ] Tokens NEVER logged
-- [ ] Keychain using hardware-backed storage
-- [ ] Password never stored
+- [x] Tokens NEVER logged
+- [x] Keychain using hardware-backed storage
+- [x] Password never stored
 
 **Documentation**:
 
-- [ ] All functions documented with JSDoc
-- [ ] Error codes documented
-- [ ] Usage examples in comments
+- [x] All functions documented with JSDoc
+- [x] Error codes documented
+- [x] Usage examples in comments
 
 ---
 

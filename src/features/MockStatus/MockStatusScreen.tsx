@@ -1,8 +1,8 @@
-import React from 'react';
-import { Box, ScrollView, Text } from '@gluestack-ui/themed';
+import React, { useEffect, useState } from 'react';
+import { Box, Heading, ScrollView, Spinner, Text } from '@gluestack-ui/themed';
 import { CheckCircle, XCircle } from 'lucide-react-native';
 
-import { isE2EMockEnabled } from '@app/config/e2e';
+import { SupabaseAuthClient } from '@app/features/Auth/api';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootState } from '@app/store';
 import { useAppSelector } from '@app/store';
@@ -20,13 +20,20 @@ type MockedData<T> = T & { mocked?: boolean };
  * Only accessible when ENABLE_TEST_UI=true.
  *
  * Shows mock status for:
- * - Profile data
- * - Education data
- * - Work Experience data
+ * - Profile data (checks Redux store for mocked flag)
+ * - Education data (checks Redux store for mocked flag)
+ * - Work Experience data (checks Redux store for mocked flag)
+ * - Auth API (makes actual API call to verify mocking)
  */
 export const MockStatusScreen: React.FC = () => {
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
+
+  // Auth mock verification state - actually calls the API
+  const [authMockStatus, setAuthMockStatus] = useState<{
+    loading: boolean;
+    mocked: boolean | null;
+  }>({ loading: true, mocked: null });
 
   // Get data from Redux store with mocked flag support
   // Metro runtime mocking adds 'mocked: true' to responses during E2E tests
@@ -39,6 +46,21 @@ export const MockStatusScreen: React.FC = () => {
   const workExperienceData = useAppSelector(
     (state: RootState) => state.workExperience.data
   ) as MockedData<RootState['workExperience']['data'][number]>[];
+
+  // Verify Auth API mocking by making an actual API call
+  useEffect(() => {
+    const verifyAuthMocking = async (): Promise<void> => {
+      try {
+        const result = await SupabaseAuthClient.verifyMockStatus();
+        setAuthMockStatus({ loading: false, mocked: result.mocked });
+      } catch {
+        // On error, assume not mocked (real API would error)
+        setAuthMockStatus({ loading: false, mocked: false });
+      }
+    };
+
+    verifyAuthMocking();
+  }, []);
 
   // Check if data is mocked
   const isProfileMocked = profileData?.mocked === true;
@@ -69,12 +91,17 @@ export const MockStatusScreen: React.FC = () => {
           color={labelColor}
           accessibilityRole="header"
         >
-          API Mock Status {isE2EMockEnabled ? 'Enabled' : 'Disabled'}
+          API Mock Status Verification
         </Text>
         <Text mb="$6" fontSize="$sm" color={labelColor}>
-          Verifies whether API responses are being intercepted and mocked by Metro runtime mocking
-          during E2E tests.
+          Verifies that API responses contain mocked data with the mocked=true flag during E2E
+          tests.
         </Text>
+
+        {/* Portfolio API Section */}
+        <Heading size="sm" mb="$3" color={textColor}>
+          Portfolio API (GitHub)
+        </Heading>
 
         {/* Profile Status */}
         <MockStatusItem
@@ -105,6 +132,25 @@ export const MockStatusScreen: React.FC = () => {
           textColor={textColor}
           testID="mock-status-work-experience"
         />
+
+        {/* Auth API Section */}
+        <Heading size="sm" mt="$4" mb="$3" color={textColor}>
+          Supabase Auth API
+        </Heading>
+        <Text mb="$3" fontSize="$xs" color={labelColor}>
+          Makes actual API call to verify mocking returns response with mocked=true.
+        </Text>
+
+        {/* Auth API - makes actual API call to verify mocking */}
+        <MockStatusItem
+          label="Auth API Call"
+          isMocked={authMockStatus.mocked === true}
+          hasData={!authMockStatus.loading}
+          isLoading={authMockStatus.loading}
+          bgColor={cardBg}
+          textColor={textColor}
+          testID="mock-status-auth-api"
+        />
       </Box>
     </ScrollView>
   );
@@ -117,6 +163,7 @@ interface MockStatusItemProps {
   label: string;
   isMocked: boolean;
   hasData: boolean;
+  isLoading?: boolean;
   bgColor: string;
   textColor: string;
   testID: string;
@@ -126,6 +173,7 @@ const MockStatusItem: React.FC<MockStatusItemProps> = ({
   label,
   isMocked,
   hasData,
+  isLoading = false,
   bgColor,
   textColor,
   testID,
@@ -146,13 +194,13 @@ const MockStatusItem: React.FC<MockStatusItemProps> = ({
       bg={bgColor}
       testID={testID}
       accessibilityRole="summary"
-      accessibilityLabel={`${label}: ${status}`}
+      accessibilityLabel={`${label}: ${isLoading ? 'Loading' : status}`}
     >
       <Box flex={1}>
         <Text mb="$1" fontSize="$md" fontWeight="$semibold" color={textColor}>
           {label}
         </Text>
-        {!hasData && (
+        {!hasData && !isLoading && (
           <Text fontSize="$xs" color="$amber600">
             No data loaded
           </Text>
@@ -160,15 +208,21 @@ const MockStatusItem: React.FC<MockStatusItemProps> = ({
       </Box>
 
       <Box flexDirection="row" alignItems="center" gap="$2">
-        <Text
-          fontSize="$sm"
-          fontWeight="$medium"
-          color={statusColorToken}
-          testID={`${testID}-status`}
-        >
-          {status}
-        </Text>
-        <Icon size={20} color={iconColor} testID={`${testID}-icon`} />
+        {isLoading ? (
+          <Spinner size="small" testID={`${testID}-loading`} />
+        ) : (
+          <>
+            <Text
+              fontSize="$sm"
+              fontWeight="$medium"
+              color={statusColorToken}
+              testID={`${testID}-${isMocked ? 'mocked' : 'not-mocked'}`}
+            >
+              {status}
+            </Text>
+            <Icon size={20} color={iconColor} testID={`${testID}-icon`} />
+          </>
+        )}
       </Box>
     </Box>
   );

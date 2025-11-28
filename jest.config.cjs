@@ -19,7 +19,8 @@ module.exports = {
     '\\.css$': '<rootDir>/src/test-utils/mocks/styleMock.js',
     '^react-dom$': '<rootDir>/src/test-utils/mocks/react-dom.js',
     '^react-dom/(.*)$': '<rootDir>/src/test-utils/mocks/react-dom.js',
-    // axios mock removed to allow MSW to intercept real HTTP requests
+    // Mock Storybook to avoid ESM parsing issues in Jest
+    '^\\.\\./\\.\\./\\.rnstorybook$': '<rootDir>/src/test-utils/mocks/storybookMock.ts',
   },
   testPathIgnorePatterns: [
     '/node_modules/',

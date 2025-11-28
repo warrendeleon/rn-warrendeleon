@@ -59,6 +59,30 @@
         "networkError": "Error de red. Por favor inténtalo de nuevo.",
         "accountLocked": "Tu cuenta ha sido bloqueada. Por favor contacta con soporte."
       }
+    },
+    "forgotPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "Introduce tu correo electrónico",
+      "sendButton": "Enviar correo de recuperación",
+      "sendButtonHint": "Envía un enlace para restablecer la contraseña a tu correo",
+      "backToLogin": "Volver al inicio de sesión",
+      "backToLoginHint": "Vuelve a la pantalla de inicio de sesión",
+      "successTitle": "¡Correo enviado!",
+      "successMessage": "Hemos enviado un enlace para restablecer la contraseña a {{email}}. Por favor, revisa tu bandeja de entrada.",
+      "successHint": "Revisa tu correo electrónico para el enlace de restablecimiento",
+      "infoTitle": "¿Qué pasa después?",
+      "infoStep1": "Recibirás un correo electrónico con un enlace para restablecer la contraseña",
+      "infoStep2": "El enlace caducará en 1 hora",
+      "infoStep3": "Máximo 3 solicitudes por hora",
+      "errors": {
+        "emailRequired": "El correo electrónico es obligatorio",
+        "emailInvalid": "Por favor introduce un correo electrónico válido",
+        "rateLimitExceeded": "Demasiadas solicitudes. Por favor, inténtalo más tarde.",
+        "networkError": "Error de red. Por favor, comprueba tu conexión e inténtalo de nuevo.",
+        "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
+      }
     }
   },
   "common": {

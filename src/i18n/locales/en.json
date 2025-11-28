@@ -59,6 +59,30 @@
         "networkError": "Network error. Please try again.",
         "accountLocked": "Your account has been locked. Please contact support."
       }
+    },
+    "forgotPassword": {
+      "title": "Reset Password",
+      "subtitle": "Enter your email address and we'll send you a link to reset your password.",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "sendButton": "Send Recovery Email",
+      "sendButtonHint": "Sends a password reset link to your email",
+      "backToLogin": "Back to Login",
+      "backToLoginHint": "Returns to the login screen",
+      "successTitle": "Email Sent!",
+      "successMessage": "We've sent a password reset link to {{email}}. Please check your inbox.",
+      "successHint": "Check your email for the password reset link",
+      "infoTitle": "What happens next?",
+      "infoStep1": "You'll receive an email with a password reset link",
+      "infoStep2": "The link will expire in 1 hour",
+      "infoStep3": "Maximum 3 requests per hour",
+      "errors": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "rateLimitExceeded": "Too many requests. Please try again later.",
+        "networkError": "Network error. Please check your connection and try again.",
+        "genericError": "Something went wrong. Please try again."
+      }
     }
   },
   "common": {

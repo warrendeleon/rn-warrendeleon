@@ -2,7 +2,7 @@
 
 **ID**: TASK-217 | **Title**: Implement Forgot Password Screen and Email Sending
 **User Story**: [US-036](../stories/US-036-email-password-login.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: 📋 To Do | **Priority**: Medium | **Effort**: 2h
+**Status**: ✅ Done | **Priority**: Medium | **Effort**: 2h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
 ## File Structure
@@ -673,33 +673,33 @@ describe('ForgotPasswordScreen', () => {
 
 **Functional**:
 
-- [ ] ForgotPasswordScreen renders correctly
-- [ ] Email input validates on blur
-- [ ] "Send Reset Link" button calls API
-- [ ] Success message displays after sending
-- [ ] "Resend" button disabled for 60 seconds
-- [ ] Countdown timer works correctly
-- [ ] "Back to Login" navigates back
-- [ ] All error scenarios handled
+- [x] ForgotPasswordScreen renders correctly
+- [x] Email input validates on blur
+- [x] "Send Reset Link" button calls API
+- [x] Success message displays after sending
+- [x] "Resend" button disabled for 60 seconds
+- [x] Countdown timer works correctly
+- [x] "Back to Login" navigates back
+- [x] All error scenarios handled
 
 **Non-Functional**:
 
-- [ ] API call completes <2 seconds
-- [ ] All EAA requirements met
-- [ ] 100% RNTL coverage
-- [ ] All testIDs present for E2E tests
+- [x] API call completes <2 seconds
+- [x] All EAA requirements met
+- [x] 100% RNTL coverage
+- [x] All testIDs present for E2E tests
 
 ---
 
 ## Definition of Done
 
-- [ ] ForgotPasswordScreen component complete
-- [ ] API integration working
-- [ ] Success/error messages displaying
-- [ ] Resend functionality working
-- [ ] RNTL tests passing (100% coverage)
-- [ ] `yarn validate` passes
-- [ ] Manual testing complete
+- [x] ForgotPasswordScreen component complete
+- [x] API integration working
+- [x] Success/error messages displaying
+- [x] Resend functionality working
+- [x] RNTL tests passing (100% coverage)
+- [x] `yarn validate` passes
+- [x] Manual testing complete
 
 ---
 

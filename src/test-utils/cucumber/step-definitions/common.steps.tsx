@@ -6,7 +6,10 @@ import { DetoxWorld } from '../support/world';
 // Common Given steps
 
 Given('the app is launched', { timeout: 60000 }, async function (this: DetoxWorld) {
-  await device.launchApp({ newInstance: true });
+  // Clear iOS Keychain to reset auth tokens (survives app uninstall)
+  await device.clearKeychain();
+  // Launch app with fresh state (delete: true clears AsyncStorage)
+  await device.launchApp({ newInstance: true, delete: true });
 });
 
 Given('I am on the {string} screen', async function (this: DetoxWorld, screenName: string) {
@@ -27,9 +30,25 @@ When('I tap the {string} button', async function (this: DetoxWorld, buttonName: 
 });
 
 When('I tap the element with testID {string}', async function (this: DetoxWorld, testID: string) {
-  await waitFor(element(by.id(testID)))
-    .toBeVisible()
-    .withTimeout(5000);
+  // First try to find the element as visible
+  try {
+    await waitFor(element(by.id(testID)))
+      .toBeVisible()
+      .withTimeout(2000);
+  } catch {
+    // Element not visible, try scrolling to find it
+    try {
+      await waitFor(element(by.id(testID)))
+        .toBeVisible()
+        .whileElement(by.type('RCTScrollView'))
+        .scroll(200, 'down');
+    } catch {
+      // Final attempt with longer timeout
+      await waitFor(element(by.id(testID)))
+        .toBeVisible()
+        .withTimeout(3000);
+    }
+  }
   await element(by.id(testID)).tap();
 });
 
@@ -63,7 +82,32 @@ When('I scroll down on the {string} screen', async function (this: DetoxWorld, s
 When(
   'I type {string} into the input with testID {string}',
   async function (this: DetoxWorld, text: string, testID: string) {
-    await element(by.id(testID)).typeText(text);
+    // Dismiss keyboard by sending the Return key to the currently focused element
+    // This moves focus to next field or dismisses keyboard
+    try {
+      await element(by.type('UITextField')).atIndex(0).tapReturnKey();
+      await new Promise(resolve => setTimeout(resolve, 200));
+    } catch {
+      // No focused text field, continue
+    }
+
+    // Scroll to make the element visible if needed
+    try {
+      await waitFor(element(by.id(testID)))
+        .toBeVisible()
+        .whileElement(by.type('RCTScrollView'))
+        .scroll(100, 'up');
+    } catch {
+      // Element might already be visible
+    }
+
+    // Wait for element to be visible
+    await waitFor(element(by.id(testID)))
+      .toBeVisible()
+      .withTimeout(3000);
+
+    // Use replaceText to set the text (works even with keyboard visible)
+    await element(by.id(testID)).replaceText(text);
   }
 );
 
@@ -189,13 +233,68 @@ Then(
 Then(
   'the element with testID {string} should be disabled',
   async function (this: DetoxWorld, testID: string) {
-    await detoxExpect(element(by.id(testID))).not.toBeVisible();
+    // On iOS, disabled elements have the 'notEnabled' accessibility trait
+    // We use both by.id and by.traits to match a disabled element with the testID
+    await waitFor(element(by.id(testID).and(by.traits(['notEnabled']))))
+      .toBeVisible()
+      .withTimeout(5000);
   }
 );
 
 Then(
   'the element with testID {string} should be enabled',
   async function (this: DetoxWorld, testID: string) {
-    await detoxExpect(element(by.id(testID))).toBeVisible();
+    // Wait for element to be visible
+    await waitFor(element(by.id(testID)))
+      .toBeVisible()
+      .withTimeout(5000);
+    // Verify it does NOT have notEnabled trait by checking it doesn't match the disabled matcher
+    await detoxExpect(element(by.id(testID).and(by.traits(['notEnabled'])))).not.toExist();
   }
 );
+
+// Tap by text (for nested Text components where testID doesn't work)
+
+When('I tap the text {string}', async function (this: DetoxWorld, text: string) {
+  // Try multiple strategies for finding text elements
+  // Strategy 1: by.text() for simple text elements
+  try {
+    await waitFor(element(by.text(text)))
+      .toBeVisible()
+      .withTimeout(2000);
+    await element(by.text(text)).tap();
+    return;
+  } catch {
+    // Strategy 2: by.label() for elements with accessibilityLabel
+    try {
+      await waitFor(element(by.label(text)))
+        .toBeVisible()
+        .withTimeout(2000);
+      await element(by.label(text)).tap();
+      return;
+    } catch {
+      // Strategy 3: by.id() using kebab-case version of text
+      const testID = `${text.toLowerCase().replace(/\s+/g, '-')}-link`;
+      await waitFor(element(by.id(testID)))
+        .toBeVisible()
+        .withTimeout(2000);
+      await element(by.id(testID)).tap();
+    }
+  }
+});
+
+// Alert handling steps
+
+When('I tap {string} on the alert', async function (this: DetoxWorld, buttonText: string) {
+  // Wait for the alert to be visible and tap the button
+  await waitFor(element(by.text(buttonText)))
+    .toBeVisible()
+    .withTimeout(5000);
+  await element(by.text(buttonText)).tap();
+});
+
+Then('I should see an alert with title {string}', async function (this: DetoxWorld, title: string) {
+  await waitFor(element(by.text(title)))
+    .toBeVisible()
+    .withTimeout(5000);
+});

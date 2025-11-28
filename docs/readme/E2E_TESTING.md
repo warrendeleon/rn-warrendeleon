@@ -13,6 +13,7 @@ This document covers end-to-end (E2E) testing with Detox, Cucumber, and Metro Ru
 - [Best Practices](#best-practices)
 - [Debugging](#debugging)
 - [Troubleshooting](#troubleshooting)
+  - [TrustKit SSL Pinning Blocking Detox Tests](#trustkit-ssl-pinning-blocking-detox-tests-ios)
 
 ## Overview
 
@@ -1214,6 +1215,130 @@ cd android
 cd ..
 yarn detox:android:build
 ```
+
+### TrustKit SSL Pinning Blocking Detox Tests (iOS)
+
+**Problem**: App gets stuck on the native iOS splash screen during Detox tests. Metro bundler connection fails silently, and the React Native app never loads.
+
+**Symptoms**:
+
+- App shows the LaunchScreen indefinitely
+- No crash or error - just frozen on splash
+- `device.launchApp()` succeeds but app never becomes interactive
+- Tests timeout waiting for screens that never appear
+- Works fine when running `yarn ios` manually
+
+**Root Cause**: TrustKit is an iOS SSL certificate pinning library that enforces SSL pinning for all network connections. During Detox E2E tests:
+
+1. The iOS app tries to connect to Metro bundler at `localhost:8081`
+2. TrustKit intercepts this connection and performs certificate validation
+3. Metro's development certificate doesn't match the pinned certificates
+4. TrustKit **silently blocks** the connection (no error, no crash)
+5. The JS bundle never loads, so the app stays on the native splash screen
+
+**Solution**: Disable TrustKit for Detox test builds by checking for the Detox framework at runtime.
+
+**Step 1: Modify AppDelegate.mm**
+
+Add a helper function to detect if Detox is present:
+
+```objectivec
+// AppDelegate.mm
+
+// Add at the top of the file, after imports
+static BOOL isDetoxRunning(void) {
+  // Check if Detox framework is loaded (only present during E2E tests)
+  return NSClassFromString(@"Detox") != nil;
+}
+```
+
+**Step 2: Conditionally Skip TrustKit Initialization**
+
+In your `application:didFinishLaunchingWithOptions:` method:
+
+```objectivec
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  self.moduleName = @"warrendeleon";
+  self.initialProps = @{};
+
+  // Skip TrustKit during Detox E2E tests
+  // TrustKit's SSL pinning blocks Metro bundler connections
+  if (!isDetoxRunning()) {
+    [self setupTrustKit];
+  }
+
+  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+}
+```
+
+**Step 3: Move TrustKit Setup to Separate Method**
+
+```objectivec
+- (void)setupTrustKit {
+  NSDictionary *trustKitConfig = @{
+    kTSKSwizzleNetworkDelegates: @YES,
+    kTSKPinnedDomains: @{
+      @"your-api-domain.com": @{
+        kTSKIncludeSubdomains: @YES,
+        kTSKEnforcePinning: @YES,
+        kTSKPublicKeyHashes: @[
+          @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+          @"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB="
+        ],
+      },
+    },
+  };
+
+  [TrustKit initSharedInstanceWithConfiguration:trustKitConfig];
+}
+```
+
+**Why This Works**:
+
+1. During normal app usage: TrustKit is initialized and enforces SSL pinning
+2. During Detox tests: The Detox framework is injected into the app
+3. `NSClassFromString(@"Detox")` returns non-nil only when Detox is present
+4. TrustKit is skipped, allowing Metro bundler connection to succeed
+5. React Native loads normally, and Detox can interact with the app
+
+**Security Note**: This is safe because:
+
+- Detox is only present in debug/test builds
+- Production builds don't include Detox framework
+- The check happens at runtime, not compile time
+- TrustKit still protects all production API calls
+
+**Debugging TrustKit Issues**:
+
+```objectivec
+// Add verbose logging to diagnose TrustKit issues
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  NSLog(@"Detox running: %@", isDetoxRunning() ? @"YES" : @"NO");
+
+  if (!isDetoxRunning()) {
+    NSLog(@"Initializing TrustKit...");
+    [self setupTrustKit];
+  } else {
+    NSLog(@"Skipping TrustKit for Detox E2E tests");
+  }
+
+  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+}
+```
+
+**Alternative Solutions** (if you can't modify TrustKit initialization):
+
+1. **Use a separate build configuration**: Create a "DetoxDebug" scheme that doesn't include TrustKit
+2. **Preprocessor macro**: Use `#ifdef DEBUG` with an additional E2E flag
+3. **Environment variable**: Check for an environment variable passed via Detox launch args
+
+**Related Issues**:
+
+- Similar problems occur with other SSL pinning libraries (like `ssl-pinning-react-native`)
+- Charles Proxy and other debugging proxies can also trigger SSL pinning failures
+- The key insight is that **any network interception** (including Metro) triggers pinning validation
 
 ### Flaky Tests
 

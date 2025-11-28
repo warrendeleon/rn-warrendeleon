@@ -33,6 +33,40 @@ jest.mock('react-native-config', () => ({
   SUPABASE_ANON_KEY: 'test-anon-key',
 }));
 
+// Mock react-native-gesture-handler
+jest.mock('react-native-gesture-handler', () => {
+  const RN = require('react-native');
+  return {
+    GestureHandlerRootView: RN.View,
+    Swipeable: RN.View,
+    DrawerLayout: RN.View,
+    State: {},
+    ScrollView: RN.ScrollView,
+    Slider: RN.View,
+    Switch: RN.Switch,
+    TextInput: RN.TextInput,
+    ToolbarAndroid: RN.View,
+    ViewPagerAndroid: RN.View,
+    DrawerLayoutAndroid: RN.View,
+    WebView: RN.View,
+    NativeViewGestureHandler: RN.View,
+    TapGestureHandler: RN.View,
+    FlingGestureHandler: RN.View,
+    ForceTouchGestureHandler: RN.View,
+    LongPressGestureHandler: RN.View,
+    PanGestureHandler: RN.View,
+    PinchGestureHandler: RN.View,
+    RotationGestureHandler: RN.View,
+    RawButton: RN.View,
+    BaseButton: RN.View,
+    RectButton: RN.View,
+    BorderlessButton: RN.View,
+    FlatList: RN.FlatList,
+    gestureHandlerRootHOC: (component: unknown) => component,
+    Directions: {},
+  };
+});
+
 // Mock react-native-worklets
 jest.mock('react-native-worklets', () => ({
   useWorklet: jest.fn(fn => fn),
@@ -126,7 +160,15 @@ jest.mock('@gluestack-ui/themed', () => {
     Button: mockRN.Pressable,
     ButtonText: mockRN.Text,
     ButtonIcon: mockRN.View,
+    ButtonSpinner: mockRN.ActivityIndicator,
     Pressable: mockRN.Pressable,
+
+    // Form components
+    Input: mockRN.View,
+    InputField: mockRN.TextInput,
+    InputSlot: mockRN.View,
+    InputIcon: mockRN.View,
+    Switch: mockRN.Switch,
 
     // Avatar components
     Avatar: mockRN.View,
@@ -186,7 +228,8 @@ console.error = (...args: unknown[]) => {
 
   if (
     msg.includes('Symbols are not valid as a React child') ||
-    msg.includes('SafeAreaView has been deprecated')
+    msg.includes('SafeAreaView has been deprecated') ||
+    msg.includes('not wrapped in act(')
   ) {
     return;
   }
@@ -199,7 +242,7 @@ const originalWarn = console.warn;
 console.warn = (...args: unknown[]) => {
   const msg = String(args[0]);
 
-  if (msg.includes('SafeAreaView has been deprecated')) {
+  if (msg.includes('SafeAreaView has been deprecated') || msg.includes('NativeEventEmitter')) {
     return;
   }
 

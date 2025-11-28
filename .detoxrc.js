@@ -1,5 +1,10 @@
 /** @type {Detox.DetoxConfig} */
 module.exports = {
+  behavior: {
+    init: {
+      reinstallApp: true,
+    },
+  },
   apps: {
     'ios.debug': {
       type: 'ios.app',

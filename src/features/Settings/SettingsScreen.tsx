@@ -7,6 +7,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Activity, LogOut, ShieldAlert } from 'lucide-react-native';
 
 import { SettingsGroup, type SettingsGroupItem } from '@app/components';
+import { isTestUIEnabled } from '@app/config/e2e';
 import { useAuth } from '@app/features/Auth';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
@@ -25,9 +26,6 @@ export const SettingsScreen: React.FC = () => {
   const currentTheme = useAppSelector(selectTheme);
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
-
-  // Check if test UI is enabled (debug builds only, includes E2E tests)
-  const isTestUIEnabled = __DEV__;
 
   // Error trigger state for testing ErrorBoundary
   const [shouldThrowError, setShouldThrowError] = useState(false);

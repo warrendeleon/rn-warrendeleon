@@ -66,14 +66,13 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
     resolver: yupResolver(registrationSchema),
     mode: 'onChange',
     defaultValues: {
-      // TODO: Remove test data before production
-      firstName: 'Warren',
-      lastName: 'De Leon',
-      email: 'hi@warrendeleon.com',
-      phoneNumber: '+447510084239',
-      password: 'Test1234!',
-      confirmPassword: 'Test1234!',
-      acceptTerms: true,
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      password: '',
+      confirmPassword: '',
+      acceptTerms: false,
     },
   });
 
@@ -299,30 +298,35 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
                   <Box flex={1} pr="$3" justifyContent="center">
                     <Text fontSize="$sm" color={isDark ? '$coolGray300' : '$coolGray700'}>
                       {t('auth.registration.acceptTermsText')}{' '}
-                      <Text
-                        color="$primary500"
-                        fontWeight="$semibold"
+                    </Text>
+                    <HStack flexWrap="wrap" alignItems="center">
+                      <Pressable
                         onPress={() => navigation.navigate('TermsAndConditions')}
                         testID="terms-link"
                         accessibilityRole="link"
                         accessibilityLabel={t('auth.registration.termsLink')}
-                        suppressHighlighting
+                        hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
                       >
-                        {t('auth.registration.termsLink')}
-                      </Text>{' '}
-                      {t('auth.registration.andThe')}{' '}
-                      <Text
-                        color="$primary500"
-                        fontWeight="$semibold"
+                        <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+                          {t('auth.registration.termsLink')}
+                        </Text>
+                      </Pressable>
+                      <Text fontSize="$sm" color={isDark ? '$coolGray300' : '$coolGray700'}>
+                        {' '}
+                        {t('auth.registration.andThe')}{' '}
+                      </Text>
+                      <Pressable
                         onPress={() => navigation.navigate('PrivacyPolicy')}
                         testID="privacy-link"
                         accessibilityRole="link"
                         accessibilityLabel={t('auth.registration.privacyLink')}
-                        suppressHighlighting
+                        hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
                       >
-                        {t('auth.registration.privacyLink')}
-                      </Text>
-                    </Text>
+                        <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+                          {t('auth.registration.privacyLink')}
+                        </Text>
+                      </Pressable>
+                    </HStack>
                   </Box>
                   <Box justifyContent="center">
                     <Switch

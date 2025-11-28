@@ -2,7 +2,7 @@
 
 **ID**: TASK-215 | **Title**: Write RNTL Tests for Login Screen and useLogin Hook
 **User Story**: [US-036](../stories/US-036-email-password-login.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: 📋 To Do | **Priority**: Medium | **Effort**: 1.5h
+**Status**: ✅ Done | **Priority**: Medium | **Effort**: 1.5h
 **Created**: 2025-11-21 | **Assignee**: Warren de Leon
 
 ---
@@ -499,35 +499,35 @@ describe('tokenStorage', () => {
 
 **Coverage**:
 
-- [ ] LoginScreen: 100% coverage
-- [ ] useLogin hook: 100% coverage
-- [ ] loginWithEmail: 100% coverage (from TASK-214)
-- [ ] tokenStorage: 100% coverage
+- [x] LoginScreen: 100% coverage
+- [x] useLogin hook: 100% coverage
+- [x] loginWithEmail: 100% coverage (from TASK-214)
+- [x] tokenStorage: 100% coverage
 
 **Test Scenarios**:
 
-- [ ] LoginScreen renders correctly
-- [ ] Email validation errors
-- [ ] Password validation errors
-- [ ] Form submission
-- [ ] API error display
-- [ ] Loading state
-- [ ] Password visibility toggle
-- [ ] Navigation links
-- [ ] useLogin success flow
-- [ ] useLogin error scenarios (401, 429, network)
-- [ ] Token storage in Keychain
-- [ ] Token retrieval from Keychain
-- [ ] Token clearing
+- [x] LoginScreen renders correctly
+- [x] Email validation errors
+- [x] Password validation errors
+- [x] Form submission
+- [x] API error display
+- [x] Loading state
+- [x] Password visibility toggle
+- [x] Navigation links
+- [x] useLogin success flow
+- [x] useLogin error scenarios (401, 429, network)
+- [x] Token storage in Keychain
+- [x] Token retrieval from Keychain
+- [x] Token clearing
 
 ---
 
 ## Definition of Done
 
-- [ ] All test files created
-- [ ] All tests passing: `yarn test --coverage`
-- [ ] 100% coverage for all files
-- [ ] `yarn validate` passes
+- [x] All test files created
+- [x] All tests passing: `yarn test --coverage`
+- [x] 100% coverage for all files
+- [x] `yarn validate` passes
 
 ---
 

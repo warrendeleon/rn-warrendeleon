@@ -59,6 +59,30 @@
         "networkError": "May error sa network. Pakisubukan muli.",
         "accountLocked": "Na-lock ang iyong account. Makipag-ugnayan sa support."
       }
+    },
+    "forgotPassword": {
+      "title": "I-reset ang Password",
+      "subtitle": "Ilagay ang iyong email address at padadalhan ka namin ng link para i-reset ang iyong password.",
+      "email": "Email Address",
+      "emailPlaceholder": "Ilagay ang iyong email address",
+      "sendButton": "Magpadala ng Recovery Email",
+      "sendButtonHint": "Nagpapadala ng password reset link sa iyong email",
+      "backToLogin": "Bumalik sa Login",
+      "backToLoginHint": "Bumabalik sa login screen",
+      "successTitle": "Naipadala na ang Email!",
+      "successMessage": "Nagpadala kami ng password reset link sa {{email}}. Pakisuri ang iyong inbox.",
+      "successHint": "Tignan ang iyong email para sa reset link",
+      "infoTitle": "Ano ang susunod na mangyayari?",
+      "infoStep1": "Makakatanggap ka ng email na may password reset link",
+      "infoStep2": "Ang link ay mag-e-expire sa 1 oras",
+      "infoStep3": "Maximum 3 request kada oras",
+      "errors": {
+        "emailRequired": "Kinakailangan ang email",
+        "emailInvalid": "Pakilagay ang isang valid na email address",
+        "rateLimitExceeded": "Masyadong maraming request. Subukan mo ulit mamaya.",
+        "networkError": "May error sa network. Tignan ang iyong connection at subukan mo ulit.",
+        "genericError": "May nangyaring mali. Subukan mo ulit."
+      }
     }
   },
   "common": {

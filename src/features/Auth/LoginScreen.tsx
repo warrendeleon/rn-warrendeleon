@@ -96,9 +96,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   );
 
   const handleForgotPassword = useCallback(() => {
-    // TODO: Navigate to ForgotPassword screen when implemented
-    // navigation.navigate('ForgotPassword');
-  }, []);
+    navigation.navigate('ForgotPassword');
+  }, [navigation]);
 
   const handleRegister = useCallback(() => {
     navigation.navigate('Registration');
