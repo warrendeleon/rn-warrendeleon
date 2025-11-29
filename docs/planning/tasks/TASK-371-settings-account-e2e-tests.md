@@ -2,7 +2,7 @@
 
 **ID**: TASK-371 | **Title**: Write Detox + Cucumber E2E Tests for Settings Account
 **User Story**: [US-061](../stories/US-061-settings-account-section.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: 📋 To Do | **Priority**: Medium | **Effort**: 2h
+**Status**: ⏳ In Progress | **Priority**: Medium | **Effort**: 2h
 **Created**: 2025-11-29 | **Assignee**: Warren de Leon
 
 ---
