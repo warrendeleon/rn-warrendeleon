@@ -2,7 +2,7 @@
 
 **ID**: US-061 | **Title**: Settings Account Section
 **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: 📋 To Do | **Priority**: High | **Story Points**: 3 | **Effort**: 7.5h
+**Status**: ⏳ In Progress | **Priority**: High | **Story Points**: 3 | **Effort**: 7.5h
 **Created**: 2025-11-25 | **Assignee**: Warren de Leon
 
 ---
@@ -137,12 +137,12 @@ Following the project's feature-first architecture:
 
 ### Task Breakdown (4 tasks, 7.5h total)
 
-| ID                                                           | Task                                  | Status   | Effort | Priority | Dependencies       |
-| ------------------------------------------------------------ | ------------------------------------- | -------- | ------ | -------- | ------------------ |
-| [TASK-338](../tasks/TASK-338-settings-account-section.md)    | Add Account Section to SettingsScreen | 📋 To Do | 2h     | High     | US-060             |
-| [TASK-339](../tasks/TASK-339-user-card-component.md)         | Create UserCard Component             | 📋 To Do | 1h     | Medium   | None               |
-| [TASK-340](../tasks/TASK-340-edit-account-screen.md)         | Create EditAccountScreen              | 📋 To Do | 3h     | Medium   | TASK-339           |
-| [TASK-341](../tasks/TASK-341-settings-account-rntl-tests.md) | Settings Account RNTL Tests           | 📋 To Do | 1.5h   | Medium   | TASK-338, TASK-339 |
+| ID                                                           | Task                                  | Status         | Effort | Priority | Dependencies       |
+| ------------------------------------------------------------ | ------------------------------------- | -------------- | ------ | -------- | ------------------ |
+| [TASK-338](../tasks/TASK-338-settings-account-section.md)    | Add Account Section to SettingsScreen | ⏳ In Progress | 2h     | High     | US-060             |
+| [TASK-339](../tasks/TASK-339-user-card-component.md)         | Create UserCard Component             | ⏳ In Progress | 1h     | Medium   | None               |
+| [TASK-340](../tasks/TASK-340-edit-account-screen.md)         | Create EditAccountScreen              | ⏳ In Progress | 3h     | Medium   | TASK-339           |
+| [TASK-341](../tasks/TASK-341-settings-account-rntl-tests.md) | Settings Account RNTL Tests           | ⏳ In Progress | 1.5h   | Medium   | TASK-338, TASK-339 |
 
 **Total Effort**: 7.5 hours
 

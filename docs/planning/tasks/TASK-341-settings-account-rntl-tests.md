@@ -4,7 +4,7 @@
 **Title**: Settings Account RNTL Tests
 **User Story**: [US-061](../stories/US-061-settings-account-section.md) - Settings Account Section
 **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md) - Login & Session Management
-**Status**: 📋 To Do
+**Status**: ⏳ In Progress
 **Priority**: Medium
 **Effort**: 1.5 hours
 **Owner**: Warren de Leon

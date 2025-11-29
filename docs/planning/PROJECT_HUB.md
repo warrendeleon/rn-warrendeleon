@@ -425,12 +425,12 @@
 
 #### US-061: Settings Account Section (4 tasks)
 
-| Task ID                                                     | Title                                 | Status   | Effort | Priority |
-| ----------------------------------------------------------- | ------------------------------------- | -------- | ------ | -------- |
-| [TASK-338](./tasks/TASK-338-settings-account-section.md)    | Add Account Section to SettingsScreen | 📋 To Do | 2h     | High     |
-| [TASK-339](./tasks/TASK-339-user-card-component.md)         | Create UserCard Component             | 📋 To Do | 1h     | Medium   |
-| [TASK-340](./tasks/TASK-340-edit-account-screen.md)         | Create EditAccountScreen              | 📋 To Do | 3h     | Medium   |
-| [TASK-341](./tasks/TASK-341-settings-account-rntl-tests.md) | Settings Account RNTL Tests           | 📋 To Do | 1.5h   | Medium   |
+| Task ID                                                     | Title                                 | Status         | Effort | Priority |
+| ----------------------------------------------------------- | ------------------------------------- | -------------- | ------ | -------- |
+| [TASK-338](./tasks/TASK-338-settings-account-section.md)    | Add Account Section to SettingsScreen | ⏳ In Progress | 2h     | High     |
+| [TASK-339](./tasks/TASK-339-user-card-component.md)         | Create UserCard Component             | ⏳ In Progress | 1h     | Medium   |
+| [TASK-340](./tasks/TASK-340-edit-account-screen.md)         | Create EditAccountScreen              | ⏳ In Progress | 3h     | Medium   |
+| [TASK-341](./tasks/TASK-341-settings-account-rntl-tests.md) | Settings Account RNTL Tests           | ⏳ In Progress | 1.5h   | Medium   |
 
 #### US-037: Magic Link Login (5 tasks)
 
