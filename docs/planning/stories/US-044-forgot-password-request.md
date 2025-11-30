@@ -1,7 +1,7 @@
 # US-044: Request Password Reset
 
 **ID**: US-044 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **Title**: Forgot Password - Request Reset Link
-**Status**: ⏳ In Progress | **Priority**: High | **Story Points**: 3 | **Effort**: 7h
+**Status**: ✅ Done | **Priority**: High | **Story Points**: 3 | **Effort**: 7h | **Completed**: 2025-11-30
 
 ---
 
@@ -295,17 +295,17 @@ export const useForgotPassword = () => {
 
 ---
 
-## Tasks Breakdown
+## Tasks Breakdown ✅
 
-| Task ID  | Description                       | Effort |
-| -------- | --------------------------------- | ------ |
-| TASK-252 | ForgotPasswordScreen UI           | 1.5h   |
-| TASK-253 | Rate Limiter Implementation       | 1.5h   |
-| TASK-254 | Supabase Recovery API Integration | 2h     |
-| TASK-255 | Forgot Password RNTL Tests        | 1.5h   |
-| TASK-256 | Forgot Password E2E Tests         | 0.5h   |
+| Task ID  | Description                       | Status  | Effort |
+| -------- | --------------------------------- | ------- | ------ |
+| TASK-252 | ForgotPasswordScreen UI           | ✅ Done | 1.5h   |
+| TASK-253 | Rate Limiter Implementation       | ✅ Done | 1.5h   |
+| TASK-254 | Supabase Recovery API Integration | ✅ Done | 2h     |
+| TASK-255 | Forgot Password RNTL Tests        | ✅ Done | 1.5h   |
+| TASK-256 | Forgot Password E2E Tests         | ✅ Done | 0.5h   |
 
-**Total**: 5 tasks, 7 hours
+**Total**: 5 tasks, 7 hours - All Complete
 
 ---
 
@@ -454,28 +454,28 @@ Feature: Forgot Password
 
 **Functional**:
 
-- [ ] All acceptance criteria met
-- [ ] All 5 tasks complete
-- [ ] Flow working on iOS + Android
+- [x] All acceptance criteria met
+- [x] All 5 tasks complete
+- [x] Flow working on iOS + Android
 
 **Quality**:
 
-- [ ] 100% RNTL coverage
-- [ ] All E2E tests passing
-- [ ] `yarn validate` passes
+- [x] 100% RNTL coverage
+- [x] All E2E tests passing
+- [x] `yarn validate` passes
 
 **Security**:
 
-- [ ] Rate limiting enforced (3 requests/hour)
-- [ ] No account enumeration
-- [ ] Reset tokens expire after 1 hour
+- [x] Rate limiting enforced (3 requests/hour)
+- [x] No account enumeration
+- [x] Reset tokens expire after 1 hour
 
 **Accessibility**:
 
-- [ ] All EAA requirements met
-- [ ] Screen reader tested
+- [x] All EAA requirements met
+- [x] Screen reader tested
 
 ---
 
-**Last Updated**: 2025-11-21
+**Last Updated**: 2025-11-30
 **Related**: [EPIC-024](../epics/EPIC-024-password-recovery.md), [US-045](US-045-reset-password.md)

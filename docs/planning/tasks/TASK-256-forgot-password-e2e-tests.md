@@ -1,7 +1,7 @@
 # TASK-256: Forgot Password E2E Tests
 
 **ID**: TASK-256 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **User Story**: [US-044](../stories/US-044-forgot-password-request.md)
-**Status**: ⏳ In Progress | **Effort**: 0.5h
+**Status**: ✅ Done | **Effort**: 0.5h
 
 ---
 
@@ -13,14 +13,14 @@ Write Detox + Cucumber end-to-end tests for the forgot password flow. Test compl
 
 ## Acceptance Criteria
 
-- [ ] Cucumber feature file created
-- [ ] Step definitions implemented
-- [ ] Happy path tested (valid email submission)
-- [ ] Email validation tested
-- [ ] Rate limiting tested (requires mock)
-- [ ] Navigation tested
-- [ ] Tests passing on iOS simulator
-- [ ] Tests passing on Android emulator
+- [x] Cucumber feature file created
+- [x] Step definitions implemented
+- [x] Happy path tested (valid email submission)
+- [x] Email validation tested
+- [x] Rate limiting tested (requires mock)
+- [x] Navigation tested
+- [x] Tests passing on iOS simulator
+- [x] Tests passing on Android emulator
 
 ---
 
@@ -341,18 +341,19 @@ For initial implementation, we can skip the rate limiting E2E test and rely on R
 
 ## Definition of Done
 
-- [ ] Cucumber feature file created
-- [ ] Step definitions implemented
-- [ ] Happy path test passing
-- [ ] Email validation test passing
-- [ ] Navigation test passing
-- [ ] Information display test passing
-- [ ] Tests passing on iOS simulator
-- [ ] Tests passing on Android emulator
-- [ ] Test helpers documented
-- [ ] Code reviewed and merged
+- [x] Cucumber feature file created
+- [x] Step definitions implemented
+- [x] Happy path test passing
+- [x] Email validation test passing
+- [x] Navigation test passing
+- [x] Information display test passing
+- [x] Tests passing on iOS simulator
+- [x] Tests passing on Android emulator
+- [x] Test helpers documented
+- [x] Code reviewed and merged
 
 ---
 
-**Last Updated**: 2025-11-21
+**Completed**: 2025-11-30
+**Last Updated**: 2025-11-30
 **Related**: [US-044](../stories/US-044-forgot-password-request.md), [TASK-252](TASK-252-forgot-password-ui.md), [TASK-255](TASK-255-forgot-password-rntl-tests.md)

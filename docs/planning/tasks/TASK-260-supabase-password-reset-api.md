@@ -1,7 +1,7 @@
 # TASK-260: Supabase Password Reset API Integration
 
 **ID**: TASK-260 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **User Story**: [US-045](../stories/US-045-reset-password-with-token.md)
-**Status**: 📋 To Do | **Effort**: 1.5h
+**Status**: ⏳ In Progress | **Effort**: 1.5h
 
 ---
 

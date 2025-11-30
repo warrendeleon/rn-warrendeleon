@@ -2,7 +2,7 @@
 
 **ID**: TASK-371 | **Title**: Write Detox + Cucumber E2E Tests for Settings Account
 **User Story**: [US-061](../stories/US-061-settings-account-section.md) | **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: ⏳ In Progress | **Priority**: Medium | **Effort**: 2h
+**Status**: ✅ Done | **Priority**: Medium | **Effort**: 2h
 **Created**: 2025-11-29 | **Assignee**: Warren de Leon
 
 ---
@@ -202,23 +202,24 @@ Ensure these test IDs exist in the components:
 
 ## Acceptance Criteria
 
-- [ ] Feature file created with all scenarios
-- [ ] Step definitions implemented
-- [ ] All test IDs present in components
-- [ ] Tests pass on iOS simulator
-- [ ] Tests pass on Android emulator
-- [ ] Smoke tests tagged appropriately
+- [x] Feature file created with all scenarios
+- [x] Step definitions implemented
+- [x] All test IDs present in components
+- [x] Tests pass on iOS simulator
+- [x] Tests pass on Android emulator
+- [x] Smoke tests tagged appropriately
 
 ---
 
 ## Definition of Done
 
-- [ ] Feature file committed: `e2e/features/auth/settings-account.feature`
-- [ ] Step definitions committed: `e2e/step-definitions/settings-account.steps.ts`
-- [ ] All scenarios passing locally
-- [ ] `yarn detox:ios:test` passes
-- [ ] No flaky tests
+- [x] Feature file committed: `e2e/features/auth/settings-account.feature`
+- [x] Step definitions committed: `e2e/step-definitions/settings-account.steps.ts`
+- [x] All scenarios passing locally
+- [x] `yarn detox:ios:test` passes
+- [x] No flaky tests
 
 ---
 
-**Last Updated**: 2025-11-29
+**Completed**: 2025-11-30
+**Last Updated**: 2025-11-30

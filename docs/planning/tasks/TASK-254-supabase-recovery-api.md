@@ -1,7 +1,7 @@
 # TASK-254: Supabase Recovery API Integration
 
 **ID**: TASK-254 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **User Story**: [US-044](../stories/US-044-forgot-password-request.md)
-**Status**: ⏳ In Progress | **Effort**: 2h
+**Status**: ✅ Done | **Effort**: 2h
 
 ---
 
@@ -29,14 +29,14 @@ Integrate Supabase Auth REST API for password recovery. Send recovery email with
 
 ## Acceptance Criteria
 
-- [ ] Password reset API client created in `src/features/Auth/api/passwordReset.ts`
-- [ ] Custom REST API integration for password recovery
-- [ ] Send recovery email via Supabase Auth API
-- [ ] Integrate rate limiting (3 requests per hour)
-- [ ] Handle Supabase errors appropriately
-- [ ] Clear error messages for user feedback
-- [ ] TypeScript strict mode compliant
-- [ ] Unit tests with 100% coverage
+- [x] Password reset API client created in `src/features/Auth/api/passwordReset.ts`
+- [x] Custom REST API integration for password recovery
+- [x] Send recovery email via Supabase Auth API
+- [x] Integrate rate limiting (3 requests per hour)
+- [x] Handle Supabase errors appropriately
+- [x] Clear error messages for user feedback
+- [x] TypeScript strict mode compliant
+- [x] Unit tests with 100% coverage
 
 ---
 
@@ -623,18 +623,19 @@ describe('passwordResetService', () => {
 
 ## Definition of Done
 
-- [ ] Password reset service implemented
-- [ ] Custom REST API integration working
-- [ ] Rate limiting integrated
-- [ ] Token verification working
-- [ ] Password reset with token working
-- [ ] All error cases handled
-- [ ] All unit tests passing
-- [ ] 100% code coverage
-- [ ] TypeScript strict mode compliant
-- [ ] Code reviewed and merged
+- [x] Password reset service implemented
+- [x] Custom REST API integration working
+- [x] Rate limiting integrated
+- [x] Token verification working
+- [x] Password reset with token working
+- [x] All error cases handled
+- [x] All unit tests passing
+- [x] 100% code coverage
+- [x] TypeScript strict mode compliant
+- [x] Code reviewed and merged
 
 ---
 
-**Last Updated**: 2025-11-21
+**Completed**: 2025-11-30
+**Last Updated**: 2025-11-30
 **Related**: [US-044](../stories/US-044-forgot-password-request.md), [TASK-252](TASK-252-forgot-password-ui.md), [TASK-253](TASK-253-rate-limiter-implementation.md), [TASK-255](TASK-255-forgot-password-rntl-tests.md)

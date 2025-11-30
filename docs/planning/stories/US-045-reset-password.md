@@ -1,7 +1,7 @@
 # US-045: Reset Password with Token
 
 **ID**: US-045 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **Title**: Reset Password Using Reset Token
-**Status**: 📋 To Do | **Priority**: High | **Story Points**: 3 | **Effort**: 6.5h
+**Status**: ⏳ In Progress | **Priority**: High | **Story Points**: 3 | **Effort**: 6.5h
 
 ---
 
@@ -609,5 +609,5 @@ Feature: Reset Password
 
 ---
 
-**Last Updated**: 2025-11-21
+**Last Updated**: 2025-11-30
 **Related**: [EPIC-024](../epics/EPIC-024-password-recovery.md), [US-044](US-044-forgot-password-request.md)

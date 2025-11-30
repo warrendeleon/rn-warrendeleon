@@ -4,7 +4,7 @@
 **Title**: Create EditAccountScreen
 **User Story**: [US-061](../stories/US-061-settings-account-section.md) - Settings Account Section
 **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md) - Login & Session Management
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 3 hours
 **Owner**: Warren de Leon
@@ -261,18 +261,19 @@ src/features/Account/
 
 ## Acceptance Criteria
 
-- [ ] EditAccountScreen created in Account feature
-- [ ] Form pre-populated with current user data
-- [ ] First name and last name editable
-- [ ] Yup validation working
-- [ ] Saves to EncryptedStore on submit
-- [ ] Updates Redux state on submit
-- [ ] Navigates back after save
-- [ ] Navigation route added
-- [ ] i18n translations for all languages
-- [ ] EAA accessibility compliance
+- [x] EditAccountScreen created in Account feature
+- [x] Form pre-populated with current user data
+- [x] First name and last name editable
+- [x] Yup validation working
+- [x] Saves to EncryptedStore on submit
+- [x] Updates Redux state on submit
+- [x] Navigates back after save
+- [x] Navigation route added
+- [x] i18n translations for all languages
+- [x] EAA accessibility compliance
 
 ---
 
 **Estimated Time**: 3 hours
-**Last Updated**: 2025-11-25
+**Completed**: 2025-11-30
+**Last Updated**: 2025-11-30

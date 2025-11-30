@@ -4,7 +4,7 @@
 **Title**: Create UserCard Component
 **User Story**: [US-061](../stories/US-061-settings-account-section.md) - Settings Account Section
 **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md) - Login & Session Management
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 1 hour
 **Owner**: Warren de Leon
@@ -215,16 +215,17 @@ src/components/
 
 ## Acceptance Criteria
 
-- [ ] UserCard component created
-- [ ] Displays profile picture when provided
-- [ ] Shows initials avatar as fallback
-- [ ] Displays full name (handles missing first/last)
-- [ ] Displays email when provided
-- [ ] Shows chevron when onPress provided
-- [ ] EAA compliant with accessibility props
-- [ ] Exported from components barrel
+- [x] UserCard component created
+- [x] Displays profile picture when provided
+- [x] Shows initials avatar as fallback
+- [x] Displays full name (handles missing first/last)
+- [x] Displays email when provided
+- [x] Shows chevron when onPress provided
+- [x] EAA compliant with accessibility props
+- [x] Exported from components barrel
 
 ---
 
 **Estimated Time**: 1 hour
-**Last Updated**: 2025-11-25
+**Completed**: 2025-11-30
+**Last Updated**: 2025-11-30

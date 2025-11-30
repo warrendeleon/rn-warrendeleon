@@ -2,8 +2,8 @@
 
 **ID**: US-061 | **Title**: Settings Account Section
 **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md)
-**Status**: ⏳ In Progress | **Priority**: High | **Story Points**: 3 | **Effort**: 7.5h
-**Created**: 2025-11-25 | **Assignee**: Warren de Leon
+**Status**: ✅ Done | **Priority**: High | **Story Points**: 3 | **Effort**: 9.5h
+**Created**: 2025-11-25 | **Completed**: 2025-11-30 | **Assignee**: Warren de Leon
 
 ---
 
@@ -135,16 +135,17 @@ Following the project's feature-first architecture:
 
 ## Tasks
 
-### Task Breakdown (4 tasks, 7.5h total)
+### Task Breakdown (5 tasks, 9.5h total) ✅
 
-| ID                                                           | Task                                  | Status         | Effort | Priority | Dependencies       |
-| ------------------------------------------------------------ | ------------------------------------- | -------------- | ------ | -------- | ------------------ |
-| [TASK-338](../tasks/TASK-338-settings-account-section.md)    | Add Account Section to SettingsScreen | ⏳ In Progress | 2h     | High     | US-060             |
-| [TASK-339](../tasks/TASK-339-user-card-component.md)         | Create UserCard Component             | ⏳ In Progress | 1h     | Medium   | None               |
-| [TASK-340](../tasks/TASK-340-edit-account-screen.md)         | Create EditAccountScreen              | ⏳ In Progress | 3h     | Medium   | TASK-339           |
-| [TASK-341](../tasks/TASK-341-settings-account-rntl-tests.md) | Settings Account RNTL Tests           | ⏳ In Progress | 1.5h   | Medium   | TASK-338, TASK-339 |
+| ID                                                           | Task                                  | Status  | Effort | Priority | Dependencies       |
+| ------------------------------------------------------------ | ------------------------------------- | ------- | ------ | -------- | ------------------ |
+| [TASK-338](../tasks/TASK-338-settings-account-section.md)    | Add Account Section to SettingsScreen | ✅ Done | 2h     | High     | US-060             |
+| [TASK-339](../tasks/TASK-339-user-card-component.md)         | Create UserCard Component             | ✅ Done | 1h     | Medium   | None               |
+| [TASK-340](../tasks/TASK-340-edit-account-screen.md)         | Create EditAccountScreen              | ✅ Done | 3h     | Medium   | TASK-339           |
+| [TASK-341](../tasks/TASK-341-settings-account-rntl-tests.md) | Settings Account RNTL Tests           | ✅ Done | 1.5h   | Medium   | TASK-338, TASK-339 |
+| [TASK-371](../tasks/TASK-371-settings-account-e2e-tests.md)  | Settings Account E2E Tests            | ✅ Done | 2h     | Medium   | TASK-338, TASK-340 |
 
-**Total Effort**: 7.5 hours
+**Total Effort**: 9.5 hours
 
 **Dependency Chain**:
 
@@ -179,26 +180,26 @@ Add to all locale files (`en.json`, `es.json`, `ca.json`, `pl.json`, `tl.json`):
 
 **Functional**:
 
-- [ ] Account section shows when authenticated
-- [ ] User card displays name, email, avatar
-- [ ] Sign Out button works and redirects to Home
-- [ ] Sign In button shows when not authenticated
-- [ ] Navigation to EditAccountScreen works
+- [x] Account section shows when authenticated
+- [x] User card displays name, email, avatar
+- [x] Sign Out button works and redirects to Home
+- [x] Sign In button shows when not authenticated
+- [x] Navigation to EditAccountScreen works
 
 **Quality**:
 
-- [ ] 100% RNTL coverage for new components
-- [ ] `yarn validate` passes
-- [ ] Zero ESLint/TypeScript errors
+- [x] 100% RNTL coverage for new components
+- [x] `yarn validate` passes
+- [x] Zero ESLint/TypeScript errors
 
 **Accessibility**:
 
-- [ ] UserCard EAA compliant
-- [ ] Sign Out button accessible with proper role and hint
-- [ ] Touch targets minimum 48×48
+- [x] UserCard EAA compliant
+- [x] Sign Out button accessible with proper role and hint
+- [x] Touch targets minimum 48×48
 
 ---
 
-**Last Updated**: 2025-11-25
+**Last Updated**: 2025-11-30
 **Story Points**: 3
 **Priority**: High (enables logout and account management)

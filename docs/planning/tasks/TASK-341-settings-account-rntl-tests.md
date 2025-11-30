@@ -4,7 +4,7 @@
 **Title**: Settings Account RNTL Tests
 **User Story**: [US-061](../stories/US-061-settings-account-section.md) - Settings Account Section
 **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md) - Login & Session Management
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 1.5 hours
 **Owner**: Warren de Leon
@@ -208,15 +208,16 @@ describe('SettingsScreen Account Section', () => {
 
 ## Acceptance Criteria
 
-- [ ] UserCard tests complete with 100% coverage
-- [ ] SettingsScreen account section tests complete
-- [ ] Tests for authenticated state
-- [ ] Tests for unauthenticated state
-- [ ] Sign Out functionality tested
-- [ ] All tests pass
-- [ ] Tests follow existing patterns
+- [x] UserCard tests complete with 100% coverage
+- [x] SettingsScreen account section tests complete
+- [x] Tests for authenticated state
+- [x] Tests for unauthenticated state
+- [x] Sign Out functionality tested
+- [x] All tests pass
+- [x] Tests follow existing patterns
 
 ---
 
 **Estimated Time**: 1.5 hours
-**Last Updated**: 2025-11-25
+**Completed**: 2025-11-30
+**Last Updated**: 2025-11-30

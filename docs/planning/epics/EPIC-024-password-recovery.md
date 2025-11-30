@@ -1,7 +1,7 @@
 # EPIC-024: Password Recovery
 
 **ID**: EPIC-024 | **Title**: Forgot Password Flow with Rate Limiting
-**Status**: ⏳ In Progress | **Priority**: High | **Start Date**: 2025-11-27 | **Target Date**: TBD
+**Status**: ⏳ In Progress (1/2 stories done) | **Priority**: High | **Start Date**: 2025-11-27 | **Target Date**: TBD
 **Owner**: Warren de Leon | **Total Story Points**: 6 | **Total Effort**: 13.5h
 
 ---
@@ -45,12 +45,12 @@ Provide secure password recovery mechanism for users who forget their login cred
 
 ### Overview
 
-| ID                                                     | Title                     | Priority | Story Points | Effort | Status   |
-| ------------------------------------------------------ | ------------------------- | -------- | ------------ | ------ | -------- |
-| [US-044](../stories/US-044-forgot-password-request.md) | Request Password Reset    | High     | 3            | 7h     | 📋 To Do |
-| [US-045](../stories/US-045-reset-password.md)          | Reset Password with Token | High     | 3            | 6.5h   | 📋 To Do |
+| ID                                                     | Title                     | Priority | Story Points | Effort | Status         |
+| ------------------------------------------------------ | ------------------------- | -------- | ------------ | ------ | -------------- |
+| [US-044](../stories/US-044-forgot-password-request.md) | Request Password Reset    | High     | 3            | 7h     | ✅ Done        |
+| [US-045](../stories/US-045-reset-password.md)          | Reset Password with Token | High     | 3            | 6.5h   | ⏳ In Progress |
 
-**Total**: 2 user stories, 6 story points, 13.5 hours
+**Total**: 2 user stories, 6 story points, 13.5 hours (1 complete, 1 remaining)
 
 ---
 
@@ -569,6 +569,6 @@ export const ResetPasswordScreen: React.FC = () => {
 
 ---
 
-**Last Updated**: 2025-11-21
-**Status**: Ready for implementation
-**Next Review**: Before Phase 1 kickoff
+**Last Updated**: 2025-11-30
+**Status**: In Progress (Phase 1 complete)
+**Next Review**: Before Phase 2 kickoff

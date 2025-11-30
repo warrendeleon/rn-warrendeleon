@@ -4,7 +4,7 @@
 **Title**: Add Account Section to SettingsScreen
 **User Story**: [US-061](../stories/US-061-settings-account-section.md) - Settings Account Section
 **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md) - Login & Session Management
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: High
 **Effort**: 2 hours
 **Owner**: Warren de Leon
@@ -145,17 +145,18 @@ Update all locale files (`en.json`, `es.json`, `ca.json`, `pl.json`, `tl.json`):
 
 ## Acceptance Criteria
 
-- [ ] Account section appears at top of Settings
-- [ ] UserCard shows when authenticated
-- [ ] Sign Out button shows when authenticated
-- [ ] Sign Out is styled as destructive (red text)
-- [ ] Sign Out dispatches logout and navigates to Home
-- [ ] Sign In button shows when not authenticated
-- [ ] Sign In navigates to Login screen
-- [ ] All i18n translations added
-- [ ] EAA accessibility props on all interactive elements
+- [x] Account section appears at top of Settings
+- [x] UserCard shows when authenticated
+- [x] Sign Out button shows when authenticated
+- [x] Sign Out is styled as destructive (red text)
+- [x] Sign Out dispatches logout and navigates to Home
+- [x] Sign In button shows when not authenticated
+- [x] Sign In navigates to Login screen
+- [x] All i18n translations added
+- [x] EAA accessibility props on all interactive elements
 
 ---
 
 **Estimated Time**: 2 hours
-**Last Updated**: 2025-11-25
+**Completed**: 2025-11-30
+**Last Updated**: 2025-11-30

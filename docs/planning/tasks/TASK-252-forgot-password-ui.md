@@ -1,7 +1,7 @@
 # TASK-252: ForgotPasswordScreen UI Implementation
 
 **ID**: TASK-252 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **User Story**: [US-044](../stories/US-044-forgot-password-request.md)
-**Status**: ⏳ In Progress | **Effort**: 1.5h
+**Status**: ✅ Done | **Effort**: 1.5h
 
 ---
 
@@ -31,16 +31,16 @@ Create the ForgotPasswordScreen component with email input, rate limiting feedba
 
 ## Acceptance Criteria
 
-- [ ] ForgotPasswordScreen component created in `src/features/Auth/screens/ForgotPasswordScreen.tsx`
-- [ ] Email input field with validation
-- [ ] "Send Recovery Email" button
-- [ ] Rate limiting feedback (3 requests per hour)
-- [ ] Success message with instructions
-- [ ] Error messaging (invalid email, rate limit exceeded)
-- [ ] Loading indicator during request
-- [ ] Back button navigates to LoginScreen
-- [ ] All EAA accessibility requirements met
-- [ ] TypeScript strict mode compliant
+- [x] ForgotPasswordScreen component created in `src/features/Auth/screens/ForgotPasswordScreen.tsx`
+- [x] Email input field with validation
+- [x] "Send Recovery Email" button
+- [x] Rate limiting feedback (3 requests per hour)
+- [x] Success message with instructions
+- [x] Error messaging (invalid email, rate limit exceeded)
+- [x] Loading indicator during request
+- [x] Back button navigates to LoginScreen
+- [x] All EAA accessibility requirements met
+- [x] TypeScript strict mode compliant
 
 ---
 
@@ -443,15 +443,16 @@ describe('ForgotPasswordScreen', () => {
 
 ## Definition of Done
 
-- [ ] Component implemented and renders correctly
-- [ ] Email validation working
-- [ ] Submit button state correct
-- [ ] Success/error messaging working
-- [ ] All unit tests passing
-- [ ] EAA compliance verified
-- [ ] Code reviewed and merged
+- [x] Component implemented and renders correctly
+- [x] Email validation working
+- [x] Submit button state correct
+- [x] Success/error messaging working
+- [x] All unit tests passing
+- [x] EAA compliance verified
+- [x] Code reviewed and merged
 
 ---
 
-**Last Updated**: 2025-11-21
+**Completed**: 2025-11-30
+**Last Updated**: 2025-11-30
 **Related**: [US-044](../stories/US-044-forgot-password-request.md), [TASK-253](TASK-253-rate-limiter-implementation.md), [TASK-254](TASK-254-supabase-recovery-api.md)
