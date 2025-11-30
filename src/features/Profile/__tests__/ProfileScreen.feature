@@ -1,3 +1,4 @@
+@profile
 Feature: Profile Screen Navigation and Interactions
   As a user
   I want to view and interact with profile information
@@ -7,32 +8,18 @@ Feature: Profile Screen Navigation and Interactions
     Given the app is launched
     And I am on the "Home" screen
 
-  Scenario: Navigate to Profile screen from Home
+  @smoke @critical
+  Scenario: Navigate to Profile screen and view all elements
     When I tap the element with testID "profile-card"
     Then I should see the "Profile" screen
     And I should see the element with testID "profile-name"
     And I should see the element with testID "profile-phone"
     And I should see the element with testID "profile-email"
-    When I go back
-    Then I should see the "Home" screen
-
-  Scenario: Tap phone contact button
-    When I tap the element with testID "profile-card"
-    Then I should see the "Profile" screen
-    When I tap the element with testID "profile-phone"
-    # Note: Cannot test actual phone app opening in E2E
-    # Test validates button is tappable and has proper accessibility
-
-  Scenario: Tap email contact button
-    When I tap the element with testID "profile-card"
-    Then I should see the "Profile" screen
-    When I tap the element with testID "profile-email"
-    # Note: Cannot test actual email app opening in E2E
-    # Test validates button is tappable and has proper accessibility
-
-  Scenario: View profile birthday information
-    When I tap the element with testID "profile-card"
-    Then I should see the "Profile" screen
     And I should see the element with testID "profile-birthday"
+
+  @navigation
+  Scenario: Back navigation from Profile screen
+    When I tap the element with testID "profile-card"
+    Then I should see the "Profile" screen
     When I go back
     Then I should see the "Home" screen

@@ -1,3 +1,4 @@
+@settings @language @i18n
 Feature: Language Switching
   As a user
   I want to switch between different languages

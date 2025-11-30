@@ -40,7 +40,7 @@ export const fetchWorkExperienceData = async (
   language: string
 ): Promise<AxiosResponse<WorkExperience[]>> => {
   // E2E mocking: Return fixture data when E2E_MOCK=true
-  if (isE2EMockEnabled) {
+  if (isE2EMockEnabled()) {
     // Check if this endpoint should simulate an error
     if (shouldEndpointFail('workExperience')) {
       const error = createE2EError();

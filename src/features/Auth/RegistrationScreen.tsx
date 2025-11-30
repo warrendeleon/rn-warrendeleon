@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import {
   Box,
   Button,
@@ -19,6 +19,7 @@ import { AlertCircle } from 'lucide-react-native';
 
 import {
   ButtonGroupDivider,
+  ConfirmDialog,
   EmailInput,
   FormInputGroup,
   FormInputItem,
@@ -50,6 +51,7 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showVerifyEmailDialog, setShowVerifyEmailDialog] = useState(false);
 
   // Field refs for keyboard navigation
   const lastNameRef = useRef<{ focus: () => void }>(null);
@@ -89,25 +91,22 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
             phoneNumber: data.phoneNumber,
           })
         ).unwrap();
-        // Show verification message and navigate back
-        Alert.alert(
-          t('auth.registration.verifyEmailTitle'),
-          t('auth.registration.verifyEmailMessage'),
-          [
-            {
-              text: t('common.ok'),
-              onPress: () => navigation.goBack(),
-            },
-          ]
-        );
+        // Show verification dialog
+        setShowVerifyEmailDialog(true);
       } catch {
         // Error handled by Redux state
       } finally {
         setIsSubmitting(false);
       }
     },
-    [dispatch, navigation, t]
+    [dispatch]
   );
+
+  const handleVerifyEmailConfirm = useCallback(() => {
+    setShowVerifyEmailDialog(false);
+    // Navigate to Login screen so user can sign in with their new credentials
+    navigation.replace('Login');
+  }, [navigation]);
 
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword(prev => !prev);
@@ -392,6 +391,23 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
           </Pressable>
         </HStack>
       </ScrollView>
+
+      {/* Email Verification Dialog */}
+      <ConfirmDialog
+        visible={showVerifyEmailDialog}
+        title={t('auth.registration.verifyEmailTitle')}
+        message={t('auth.registration.verifyEmailMessage')}
+        testID="verify-email-dialog"
+        buttons={[
+          {
+            text: t('common.ok'),
+            style: 'default',
+            onPress: handleVerifyEmailConfirm,
+            testID: 'verify-email-ok-button',
+          },
+        ]}
+        onClose={handleVerifyEmailConfirm}
+      />
     </KeyboardAvoidingView>
   );
 };

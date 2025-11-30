@@ -15,6 +15,7 @@ import {
   AppearanceScreen,
   BookingPlaceholderScreen,
   ChatPlaceholderScreen,
+  EditAccountScreen,
   EducationScreen,
   ForgotPasswordScreen,
   HomeScreen,
@@ -44,6 +45,7 @@ export type RootStackParamList = {
   ForgotPassword: undefined;
   EmailVerification: undefined;
   Settings: undefined;
+  EditAccount: undefined;
   Language: undefined;
   Appearance: undefined;
   Profile: undefined;
@@ -111,6 +113,11 @@ export const RootNavigator: React.FC = () => {
             name="Settings"
             component={SettingsScreen}
             options={{ title: t('settings.title') }}
+          />
+          <Stack.Screen
+            name="EditAccount"
+            component={withAuth(EditAccountScreen)}
+            options={{ title: t('account.title') }}
           />
           <Stack.Screen
             name="Language"

@@ -20,9 +20,9 @@ Feature: User Registration
     And I toggle the switch with testID "accept-terms-switch"
     And I wait for 1 seconds
     And I tap the element with testID "register-button"
-    # Successful registration shows email verification alert
-    Then I should see an alert with title "Verify Your Email"
-    When I tap "OK" on the alert
+    # Successful registration shows email verification dialog (using testID)
+    Then I should see an alert with title "verify-email-dialog"
+    When I tap "verify-email-ok-button" on the alert
     Then I should see the "Login" screen
 
   @ui
@@ -41,12 +41,6 @@ Feature: User Registration
   @validation
   Scenario: Register button disabled when form is empty
     Then I should see the "Registration" screen
-    And the element with testID "register-button" should be disabled
-
-  @validation
-  Scenario: Registration form fields start empty (no pre-filled data)
-    Then I should see the "Registration" screen
-    # Verify register button is disabled since form is empty
     And the element with testID "register-button" should be disabled
 
   @validation

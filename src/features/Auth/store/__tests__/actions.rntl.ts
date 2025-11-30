@@ -306,6 +306,7 @@ describe('Auth actions', () => {
         email: 'test@example.com',
         firstName: 'Warren',
         lastName: 'de Leon',
+        phoneNumber: null,
         profilePicture: null,
         authProvider: 'email',
         biometricEnabled: true,

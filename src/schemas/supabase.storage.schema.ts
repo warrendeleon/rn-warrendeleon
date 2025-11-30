@@ -41,6 +41,7 @@ export const SupabaseUserProfileSchema = z.object({
   email: z.string().email(),
   firstName: z.string(),
   lastName: z.string(),
+  phoneNumber: z.string().nullable().optional(),
   profilePicture: z.string().url().nullable(),
   authProvider: z.enum(['email', 'linkedin', 'magic_link']),
   createdAt: z.string(),
@@ -53,6 +54,7 @@ export type SupabaseUserProfile = z.infer<typeof SupabaseUserProfileSchema>;
 export const SupabaseUpdateProfileRequestSchema = z.object({
   firstName: z.string().optional(),
   lastName: z.string().optional(),
+  phoneNumber: z.string().optional(),
   profilePicture: z.string().url().optional(),
 });
 

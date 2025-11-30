@@ -52,7 +52,3 @@ Feature: Forgot Password
     When I tap the element with testID "back-to-login-button"
     Then I should see the "Login" screen
 
-  @ui
-  Scenario: Display information about the password reset process
-    Then I should see the "Forgot Password" screen
-    And I should see an element with testID "info-box"

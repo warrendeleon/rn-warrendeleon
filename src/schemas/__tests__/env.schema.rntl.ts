@@ -3,7 +3,6 @@ import { APP_ENV_VALUES, EnvSchema } from '../env.schema';
 describe('EnvSchema', () => {
   const validEnv = {
     APP_ENV: 'development',
-    API_URL: 'https://raw.githubusercontent.com/warrendeleon/portfolio-data/main',
   };
 
   it('validates correct environment configuration', () => {
@@ -28,24 +27,7 @@ describe('EnvSchema', () => {
   });
 
   it('rejects missing APP_ENV', () => {
-    const result = EnvSchema.safeParse({
-      API_URL: validEnv.API_URL,
-    });
-    expect(result.success).toBe(false);
-  });
-
-  it('rejects missing API_URL', () => {
-    const result = EnvSchema.safeParse({
-      APP_ENV: validEnv.APP_ENV,
-    });
-    expect(result.success).toBe(false);
-  });
-
-  it('rejects invalid API_URL (not a URL)', () => {
-    const result = EnvSchema.safeParse({
-      ...validEnv,
-      API_URL: 'not-a-url',
-    });
+    const result = EnvSchema.safeParse({});
     expect(result.success).toBe(false);
   });
 

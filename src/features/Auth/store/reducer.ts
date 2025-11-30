@@ -1,6 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { checkSession, login, logout, register } from './actions';
+import {
+  checkSession,
+  login,
+  logout,
+  refreshUser,
+  register,
+  updateUserProfileAsync,
+} from './actions';
 
 /**
  * Auth State Interface
@@ -13,6 +20,7 @@ export interface AuthState {
     email: string | null;
     firstName: string | null;
     lastName: string | null;
+    phoneNumber: string | null;
     profilePicture: string | null;
     authProvider: 'email' | 'linkedin' | 'magic_link' | null;
   } | null;
@@ -149,6 +157,29 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
         state.biometricEnabled = false;
+        state.error = action.payload as string;
+      });
+
+    // Refresh User (background operation - no loading state)
+    builder.addCase(refreshUser.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.user = action.payload;
+      }
+    });
+
+    // Update User Profile (async - persists to backend)
+    builder
+      .addCase(updateUserProfileAsync.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateUserProfileAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(updateUserProfileAsync.rejected, (state, action) => {
+        state.isLoading = false;
         state.error = action.payload as string;
       });
   },

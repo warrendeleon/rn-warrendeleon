@@ -1,3 +1,4 @@
+@settings @preferences
 Feature: Settings Management
   As a user
   I want to change app settings

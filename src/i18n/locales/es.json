@@ -85,10 +85,32 @@
       }
     }
   },
+  "account": {
+    "title": "Editar cuenta",
+    "personalInfo": "Información personal",
+    "contactInfo": "Información de contacto",
+    "firstName": "Nombre",
+    "firstNamePlaceholder": "Introduce tu nombre",
+    "firstNameHint": "Edita tu nombre",
+    "lastName": "Apellido",
+    "lastNamePlaceholder": "Introduce tu apellido",
+    "lastNameHint": "Edita tu apellido",
+    "phoneNumber": "Número de móvil",
+    "phoneNumberPlaceholder": "Introduce tu número de móvil",
+    "phoneNumberHint": "Edita tu número de móvil",
+    "email": "Correo electrónico",
+    "emailHint": "Tu correo electrónico no se puede cambiar",
+    "save": "Guardar cambios",
+    "saveHint": "Guarda los cambios de tu cuenta",
+    "updateError": "No se pudo actualizar el perfil. Por favor, inténtalo de nuevo.",
+    "session": "Sesión",
+    "logoutHint": "Cierra la sesión de tu cuenta"
+  },
   "common": {
     "ok": "Aceptar",
     "cancel": "Cancelar",
     "save": "Guardar",
+    "saving": "Guardando...",
     "delete": "Eliminar",
     "edit": "Editar",
     "close": "Cerrar"
@@ -129,6 +151,7 @@
     "darkAppearance": "Apariencia Oscura",
     "general": "General",
     "account": "Cuenta",
+    "signIn": "Iniciar sesión / Crear cuenta",
     "logout": "Cerrar sesión",
     "loggingOut": "Cerrando sesión...",
     "logoutTitle": "Cerrar sesión",

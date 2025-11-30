@@ -46,7 +46,7 @@ export const getEnv = (): EnvConfig => {
 export const env = getEnv();
 
 // Convenient named exports
-export const { APP_ENV, API_URL } = env;
+export const { APP_ENV } = env;
 
 // Optional default export for flexibility
 export default env;

@@ -1,17 +1,16 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert } from 'react-native';
 import { Box, GlobeIcon, MoonIcon, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Activity, LogOut, ShieldAlert } from 'lucide-react-native';
+import { Activity, LogIn, ShieldAlert } from 'lucide-react-native';
 
-import { SettingsGroup, type SettingsGroupItem } from '@app/components';
+import { SettingsGroup, type SettingsGroupItem, UserCard } from '@app/components';
 import { isTestUIEnabled } from '@app/config/e2e';
-import { useAuth } from '@app/features/Auth';
+import { selectUser, useAuth } from '@app/features/Auth';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
-import { logout, useAppDispatch, useAppSelector } from '@app/store';
+import { useAppSelector } from '@app/store';
 
 import { selectLanguage, selectTheme } from './store';
 
@@ -20,8 +19,8 @@ type SettingsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList
 export const SettingsScreen: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<SettingsScreenNavigationProp>();
-  const dispatch = useAppDispatch();
   const { isAuthenticated } = useAuth();
+  const user = useAppSelector(selectUser);
   const currentLanguage = useAppSelector(selectLanguage);
   const currentTheme = useAppSelector(selectTheme);
   const colorScheme = useAppColorScheme();
@@ -29,7 +28,6 @@ export const SettingsScreen: React.FC = () => {
 
   // Error trigger state for testing ErrorBoundary
   const [shouldThrowError, setShouldThrowError] = useState(false);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   if (shouldThrowError) {
     throw new Error('Test error triggered from Settings');
@@ -68,27 +66,13 @@ export const SettingsScreen: React.FC = () => {
     navigation.navigate('MockStatus');
   }, [navigation]);
 
-  const handleLogout = useCallback(() => {
-    Alert.alert(t('settings.logoutTitle'), t('settings.logoutMessage'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      {
-        text: t('settings.logout'),
-        style: 'destructive',
-        onPress: async () => {
-          setIsLoggingOut(true);
-          try {
-            await dispatch(logout()).unwrap();
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Home' }],
-            });
-          } finally {
-            setIsLoggingOut(false);
-          }
-        },
-      },
-    ]);
-  }, [dispatch, navigation, t]);
+  const handleSignIn = useCallback(() => {
+    navigation.navigate('Login');
+  }, [navigation]);
+
+  const handleEditAccount = useCallback(() => {
+    navigation.navigate('EditAccount');
+  }, [navigation]);
 
   const settingsItems: SettingsGroupItem[] = useMemo(
     () => [
@@ -134,19 +118,18 @@ export const SettingsScreen: React.FC = () => {
     [handleTriggerError, handleMockStatus]
   );
 
-  const accountItems: SettingsGroupItem[] = useMemo(
+  const signInItems: SettingsGroupItem[] = useMemo(
     () => [
       {
-        label: isLoggingOut ? t('settings.loggingOut') : t('settings.logout'),
-        onPress: handleLogout,
-        startIcon: LogOut,
-        startIconBgColor: '$coolGray500',
-        testID: 'settings-logout-button',
-        showChevron: false,
-        isDisabled: isLoggingOut,
+        label: t('settings.signIn'),
+        onPress: handleSignIn,
+        startIcon: LogIn,
+        startIconBgColor: '$primary500',
+        testID: 'settings-sign-in-button',
+        showChevron: true,
       },
     ],
-    [handleLogout, isLoggingOut, t]
+    [handleSignIn, t]
   );
 
   return (
@@ -158,7 +141,36 @@ export const SettingsScreen: React.FC = () => {
       testID="settings-screen"
       accessibilityLabel={t('settings.title')}
     >
+      {/* Account Section */}
       <Box mt="$2">
+        <Text
+          mb="$3"
+          pt="$1"
+          fontSize="$xs"
+          fontWeight="$semibold"
+          textTransform="uppercase"
+          lineHeight="$sm"
+          color="$coolGray500"
+          accessibilityRole="header"
+        >
+          {t('settings.account')}
+        </Text>
+        {isAuthenticated && user ? (
+          <UserCard
+            firstName={user.firstName}
+            lastName={user.lastName}
+            email={user.email}
+            onPress={handleEditAccount}
+            groupVariant="single"
+            testID="settings-user-card"
+          />
+        ) : (
+          <SettingsGroup items={signInItems} />
+        )}
+      </Box>
+
+      {/* General Section */}
+      <Box mt="$6">
         <Text
           mb="$3"
           pt="$1"
@@ -189,24 +201,6 @@ export const SettingsScreen: React.FC = () => {
             Testing
           </Text>
           <SettingsGroup items={testingItems} />
-        </Box>
-      )}
-
-      {isAuthenticated && (
-        <Box mt="$6">
-          <Text
-            mb="$3"
-            pt="$1"
-            fontSize="$xs"
-            fontWeight="$semibold"
-            textTransform="uppercase"
-            lineHeight="$sm"
-            color="$coolGray500"
-            accessibilityRole="header"
-          >
-            {t('settings.account')}
-          </Text>
-          <SettingsGroup items={accountItems} />
         </Box>
       )}
     </ScrollView>

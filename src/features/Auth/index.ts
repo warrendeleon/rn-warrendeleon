@@ -10,6 +10,7 @@ export {
   clearError,
   login,
   logout,
+  refreshUser,
   register,
   selectAuth,
   selectAuthError,
@@ -22,6 +23,7 @@ export {
   selectUserFullName,
   setBiometricEnabled,
   updateUserProfile,
+  updateUserProfileAsync,
 } from './store';
 
 // Context

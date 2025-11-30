@@ -1,3 +1,4 @@
+@error-handling @resilience
 Feature: ErrorBoundary
   As a user
   I want errors to be caught gracefully

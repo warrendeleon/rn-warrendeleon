@@ -38,7 +38,7 @@ const educationFixtures: Record<string, Education[]> = {
  */
 export const fetchEducationData = async (language: string): Promise<AxiosResponse<Education[]>> => {
   // E2E mocking: Return fixture data when E2E_MOCK=true
-  if (isE2EMockEnabled) {
+  if (isE2EMockEnabled()) {
     // Check if this endpoint should simulate an error
     if (shouldEndpointFail('education')) {
       const error = createE2EError();

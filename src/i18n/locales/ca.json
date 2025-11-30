@@ -85,10 +85,32 @@
       }
     }
   },
+  "account": {
+    "title": "Editar compte",
+    "personalInfo": "Informació personal",
+    "contactInfo": "Informació de contacte",
+    "firstName": "Nom",
+    "firstNamePlaceholder": "Introdueix el teu nom",
+    "firstNameHint": "Edita el teu nom",
+    "lastName": "Cognom",
+    "lastNamePlaceholder": "Introdueix el teu cognom",
+    "lastNameHint": "Edita el teu cognom",
+    "phoneNumber": "Número de mòbil",
+    "phoneNumberPlaceholder": "Introdueix el teu número de mòbil",
+    "phoneNumberHint": "Edita el teu número de mòbil",
+    "email": "Correu electrònic",
+    "emailHint": "La teva adreça de correu electrònic no es pot canviar",
+    "save": "Desar canvis",
+    "saveHint": "Desa els canvis del teu compte",
+    "updateError": "No s'ha pogut actualitzar el perfil. Si us plau, torna-ho a provar.",
+    "session": "Sessió",
+    "logoutHint": "Tanca la sessió del teu compte"
+  },
   "common": {
     "ok": "D'acord",
     "cancel": "Cancel·lar",
     "save": "Desar",
+    "saving": "Desant...",
     "delete": "Eliminar",
     "edit": "Editar",
     "close": "Tancar"
@@ -129,6 +151,7 @@
     "darkAppearance": "Mode fosc",
     "general": "General",
     "account": "Compte",
+    "signIn": "Iniciar sessió / Crear compte",
     "logout": "Tancar sessió",
     "loggingOut": "Tancant sessió...",
     "logoutTitle": "Tancar sessió",

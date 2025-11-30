@@ -1,5 +1,6 @@
 export * from './ButtonGroup';
 export * from './ButtonGroupDivider';
+export * from './ConfirmDialog';
 export * from './CountryCodeSelector';
 export * from './DetailListGroup';
 export * from './EmailInput';
@@ -17,3 +18,4 @@ export * from './ProtectedRoute';
 export * from './SettingsGroup';
 export * from './SettingsItem';
 export * from './shared';
+export * from './UserCard';

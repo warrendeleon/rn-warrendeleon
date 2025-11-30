@@ -85,10 +85,32 @@
       }
     }
   },
+  "account": {
+    "title": "Edit Account",
+    "personalInfo": "Personal Information",
+    "contactInfo": "Contact Information",
+    "firstName": "First Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "firstNameHint": "Edit your first name",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Enter your last name",
+    "lastNameHint": "Edit your last name",
+    "phoneNumber": "Mobile Number",
+    "phoneNumberPlaceholder": "Enter your mobile number",
+    "phoneNumberHint": "Edit your mobile number",
+    "email": "Email",
+    "emailHint": "Your email address cannot be changed",
+    "save": "Save Changes",
+    "saveHint": "Saves your account changes",
+    "updateError": "Failed to update profile. Please try again.",
+    "session": "Session",
+    "logoutHint": "Logs you out of your account"
+  },
   "common": {
     "ok": "OK",
     "cancel": "Cancel",
     "save": "Save",
+    "saving": "Saving...",
     "delete": "Delete",
     "edit": "Edit",
     "close": "Close"
@@ -129,6 +151,7 @@
     "darkAppearance": "Dark Appearance",
     "general": "General",
     "account": "Account",
+    "signIn": "Sign In / Create Account",
     "logout": "Log Out",
     "loggingOut": "Logging Out...",
     "logoutTitle": "Log Out",

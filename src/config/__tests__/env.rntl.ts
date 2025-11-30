@@ -12,22 +12,19 @@ describe('env.ts', () => {
     return require('@app/config/env');
   };
 
-  it('re-exports APP_ENV and API_URL from react-native-config (happy path)', () => {
+  it('re-exports APP_ENV from react-native-config (happy path)', () => {
     jest.doMock('react-native-config', () => ({
       APP_ENV: 'development',
-      API_URL: 'https://api-dev.example.com',
     }));
 
-    const { APP_ENV, API_URL } = loadEnv();
+    const { APP_ENV } = loadEnv();
 
     expect(APP_ENV).toBe('development');
-    expect(API_URL).toBe('https://api-dev.example.com');
   });
 
   it('throws if APP_ENV is missing', () => {
     jest.doMock('react-native-config', () => ({
       APP_ENV: undefined,
-      API_URL: 'https://api-dev.example.com',
     }));
 
     expect(() => loadEnv()).toThrow('Environment validation failed');
@@ -37,27 +34,15 @@ describe('env.ts', () => {
   it('throws if APP_ENV has an invalid value', () => {
     jest.doMock('react-native-config', () => ({
       APP_ENV: 'staging',
-      API_URL: 'https://api-dev.example.com',
     }));
 
     expect(() => loadEnv()).toThrow('Environment validation failed');
     expect(() => loadEnv()).toThrow('APP_ENV must be one of: development, production');
   });
 
-  it('throws if API_URL is missing', () => {
-    jest.doMock('react-native-config', () => ({
-      APP_ENV: 'development',
-      API_URL: undefined,
-    }));
-
-    expect(() => loadEnv()).toThrow('Environment validation failed');
-    expect(() => loadEnv()).toThrow('API_URL');
-  });
-
   it('reuses cached env on subsequent getEnv() calls', () => {
     jest.doMock('react-native-config', () => ({
       APP_ENV: 'development',
-      API_URL: 'https://api-dev.example.com',
     }));
 
     const { getEnv } = loadEnv();

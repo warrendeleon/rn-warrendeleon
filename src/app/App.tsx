@@ -11,6 +11,7 @@ import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { isE2EMockEnabled } from '@app/config/e2e';
+import { getE2EErrorConfig } from '@app/config/e2e-error';
 import { AuthProvider, SplashScreen } from '@app/features';
 import { selectLanguage } from '@app/features/Settings/store';
 import { RootNavigator } from '@app/navigation';
@@ -31,8 +32,12 @@ import '../../global.css';
 const StorybookUI = __DEV__ ? require('../../.rnstorybook').default : null;
 
 const AppContent: React.FC = () => {
-  // Skip JS splash screen in E2E mode - mocked data loads instantly
-  const [showSplash, setShowSplash] = useState(!isE2EMockEnabled);
+  // Get E2E error config to determine if we should show splash for error testing
+  const e2eErrorConfig = getE2EErrorConfig();
+
+  // Skip JS splash screen in E2E mode UNLESS error mode is enabled
+  // When testing error states, we need the splash screen to show error UI
+  const [showSplash, setShowSplash] = useState(!isE2EMockEnabled() || e2eErrorConfig.enabled);
   const [showStorybook, setShowStorybook] = useState(false);
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
@@ -45,18 +50,19 @@ const AppContent: React.FC = () => {
     }
   }, [persistedLanguage, i18n]);
 
-  // In E2E mode, load portfolio data immediately (skip splash UI but still fetch data)
+  // In E2E mode (without error testing), load portfolio data immediately
+  // When error mode is enabled, SplashScreen handles data fetching and error display
   useEffect(() => {
-    if (isE2EMockEnabled) {
+    if (isE2EMockEnabled() && !e2eErrorConfig.enabled) {
       dispatch(fetchProfile());
       dispatch(fetchEducation());
       dispatch(fetchWorkExperience());
     }
-  }, [dispatch]);
+  }, [dispatch, e2eErrorConfig.enabled]);
 
   useEffect(() => {
     // In E2E mode, hide native splash immediately without animation
-    if (isE2EMockEnabled) {
+    if (isE2EMockEnabled()) {
       BootSplash.hide({ fade: false });
       return;
     }

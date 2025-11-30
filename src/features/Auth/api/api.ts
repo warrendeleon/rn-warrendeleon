@@ -144,7 +144,7 @@ class SupabaseAuthClientClass {
    */
   async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
     // E2E mocking: Return mock user without network call
-    if (isE2EMockEnabled) {
+    if (isE2EMockEnabled()) {
       this.mockState.signUp = { mocked: true, email: request.email };
 
       const mockUser: SupabaseUser = {
@@ -193,8 +193,14 @@ class SupabaseAuthClientClass {
    */
   async signIn(request: SupabaseSignInRequest): Promise<SupabaseSignInResponse> {
     // E2E mocking: Return mock session without network call
-    if (isE2EMockEnabled) {
+    if (isE2EMockEnabled()) {
       this.mockState.signIn = { mocked: true, email: request.email };
+
+      // Retrieve stored user data from registration (if available)
+      // Fall back to 'Test' / 'User' for fresh installs without registration
+      const storedFirstName = await EncryptedStore.get(EncryptedStoreKey.USER_FIRST_NAME);
+      const storedLastName = await EncryptedStore.get(EncryptedStoreKey.USER_LAST_NAME);
+      const storedPhoneNumber = await EncryptedStore.get(EncryptedStoreKey.USER_PHONE_NUMBER);
 
       const mockResponse: SupabaseSignInResponse = {
         access_token: 'mock_access_token_e2e',
@@ -210,6 +216,11 @@ class SupabaseAuthClientClass {
           confirmed_at: new Date().toISOString(),
           last_sign_in_at: new Date().toISOString(),
           created_at: new Date().toISOString(),
+          user_metadata: {
+            first_name: storedFirstName || 'Test',
+            last_name: storedLastName || 'User',
+            phone_number: storedPhoneNumber || '+447510000000',
+          },
         },
       };
 
@@ -286,7 +297,7 @@ class SupabaseAuthClientClass {
    */
   async logout(): Promise<void> {
     // E2E mocking: Clear session without network call
-    if (isE2EMockEnabled) {
+    if (isE2EMockEnabled()) {
       this.mockState.logout = { mocked: true };
       await this.clearSession();
       return;
@@ -318,7 +329,7 @@ class SupabaseAuthClientClass {
    */
   async getCurrentUser(): Promise<SupabaseUser | null> {
     // E2E mocking: Return mock user based on stored session
-    if (isE2EMockEnabled) {
+    if (isE2EMockEnabled()) {
       this.mockState.getCurrentUser = { mocked: true };
 
       const accessToken = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
@@ -328,6 +339,8 @@ class SupabaseAuthClientClass {
 
       const storedEmail = await EncryptedStore.get(EncryptedStoreKey.USER_EMAIL);
       const storedUserId = await SecureStore.get(SecureStoreKey.USER_ID);
+      const storedFirstName = await EncryptedStore.get(EncryptedStoreKey.USER_FIRST_NAME);
+      const storedLastName = await EncryptedStore.get(EncryptedStoreKey.USER_LAST_NAME);
 
       if (!storedEmail || !storedUserId) {
         return null;
@@ -342,6 +355,10 @@ class SupabaseAuthClientClass {
         confirmed_at: new Date().toISOString(),
         last_sign_in_at: new Date().toISOString(),
         created_at: new Date().toISOString(),
+        user_metadata: {
+          first_name: storedFirstName || 'Test',
+          last_name: storedLastName || 'User',
+        },
       };
     }
 
@@ -383,6 +400,84 @@ class SupabaseAuthClientClass {
   }
 
   /**
+   * Update user profile (first name, last name, phone number)
+   *
+   * E2E mocking: When E2E_MOCK=true, updates local storage without network call
+   *
+   * @param updates - Object with firstName, lastName, and/or phoneNumber
+   * @returns Promise<SupabaseUser> - Updated user data
+   * @throws Error if update fails
+   */
+  async updateUser(updates: {
+    firstName?: string;
+    lastName?: string;
+    phoneNumber?: string;
+  }): Promise<SupabaseUser> {
+    // E2E mocking: Update local storage without network call
+    if (isE2EMockEnabled()) {
+      if (updates.firstName !== undefined) {
+        await EncryptedStore.set(EncryptedStoreKey.USER_FIRST_NAME, updates.firstName);
+      }
+      if (updates.lastName !== undefined) {
+        await EncryptedStore.set(EncryptedStoreKey.USER_LAST_NAME, updates.lastName);
+      }
+      if (updates.phoneNumber !== undefined) {
+        await EncryptedStore.set(EncryptedStoreKey.USER_PHONE_NUMBER, updates.phoneNumber);
+      }
+
+      const storedEmail = await EncryptedStore.get(EncryptedStoreKey.USER_EMAIL);
+      const storedUserId = await SecureStore.get(SecureStoreKey.USER_ID);
+      const storedFirstName = await EncryptedStore.get(EncryptedStoreKey.USER_FIRST_NAME);
+      const storedLastName = await EncryptedStore.get(EncryptedStoreKey.USER_LAST_NAME);
+      const storedPhoneNumber = await EncryptedStore.get(EncryptedStoreKey.USER_PHONE_NUMBER);
+
+      return {
+        id: storedUserId || '550e8400-e29b-41d4-a716-446655440000',
+        aud: 'authenticated',
+        email: storedEmail || '',
+        email_confirmed_at: new Date().toISOString(),
+        phone: null,
+        confirmed_at: new Date().toISOString(),
+        last_sign_in_at: new Date().toISOString(),
+        created_at: new Date().toISOString(),
+        user_metadata: {
+          first_name: storedFirstName || updates.firstName || null,
+          last_name: storedLastName || updates.lastName || null,
+          phone_number: storedPhoneNumber || updates.phoneNumber || null,
+        },
+      };
+    }
+
+    try {
+      const { data } = await this.axiosInstance.put('/auth/v1/user', {
+        data: {
+          first_name: updates.firstName,
+          last_name: updates.lastName,
+          phone_number: updates.phoneNumber,
+        },
+      });
+
+      // Validate response with context
+      const validatedData = validateResponse(SupabaseUserSchema, data, 'Supabase Auth updateUser');
+
+      // Update local storage with new values
+      if (updates.firstName !== undefined) {
+        await EncryptedStore.set(EncryptedStoreKey.USER_FIRST_NAME, updates.firstName);
+      }
+      if (updates.lastName !== undefined) {
+        await EncryptedStore.set(EncryptedStoreKey.USER_LAST_NAME, updates.lastName);
+      }
+      if (updates.phoneNumber !== undefined) {
+        await EncryptedStore.set(EncryptedStoreKey.USER_PHONE_NUMBER, updates.phoneNumber);
+      }
+
+      return validatedData;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  /**
    * Request a password recovery email
    *
    * E2E mocking: When E2E_MOCK=true, returns success without making network call
@@ -393,7 +488,7 @@ class SupabaseAuthClientClass {
    */
   async requestPasswordRecovery(email: string): Promise<void> {
     // E2E mocking: Return success without network call
-    if (isE2EMockEnabled) {
+    if (isE2EMockEnabled()) {
       this.mockState.passwordRecovery = { mocked: true, email };
       return Promise.resolve();
     }
@@ -418,7 +513,7 @@ class SupabaseAuthClientClass {
    */
   async verifyMockStatus(): Promise<{ mocked: boolean }> {
     // E2E mocking: Return mock response without network call
-    if (isE2EMockEnabled) {
+    if (isE2EMockEnabled()) {
       // Simulate the mocking that would happen for any Auth API call
       return { mocked: true };
     }

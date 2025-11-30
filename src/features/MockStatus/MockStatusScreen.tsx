@@ -1,11 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Heading, ScrollView, Spinner, Text } from '@gluestack-ui/themed';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Alert } from 'react-native';
+import { Box, Button, ButtonText, Heading, ScrollView, Spinner, Text } from '@gluestack-ui/themed';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { CheckCircle, XCircle } from 'lucide-react-native';
 
+import {
+  getE2EMockOverride,
+  getEnvE2EMockValue,
+  isE2EMockEnabled,
+  setE2EMockOverride,
+} from '@app/config/e2e';
 import { SupabaseAuthClient } from '@app/features/Auth/api';
 import { useAppColorScheme } from '@app/hooks';
+import type { RootStackParamList } from '@app/navigation';
 import type { RootState } from '@app/store';
-import { useAppSelector } from '@app/store';
+import {
+  clearEducation,
+  clearProfile,
+  clearWorkExperience,
+  fetchEducation,
+  fetchProfile,
+  fetchWorkExperience,
+  logout,
+  useAppDispatch,
+  useAppSelector,
+} from '@app/store';
 
 /**
  * Extended types for mocked data
@@ -25,15 +45,72 @@ type MockedData<T> = T & { mocked?: boolean };
  * - Work Experience data (checks Redux store for mocked flag)
  * - Auth API (makes actual API call to verify mocking)
  */
+type MockStatusScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'MockStatus'>;
+
 export const MockStatusScreen: React.FC = () => {
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation<MockStatusScreenNavigationProp>();
+
+  // Mock override state for developer toggle
+  const [mockEnabled, setMockEnabled] = useState(isE2EMockEnabled());
+  const [isToggling, setIsToggling] = useState(false);
+  const envValue = getEnvE2EMockValue();
+  const overrideValue = getE2EMockOverride();
 
   // Auth mock verification state - actually calls the API
   const [authMockStatus, setAuthMockStatus] = useState<{
     loading: boolean;
     mocked: boolean | null;
   }>({ loading: true, mocked: null });
+
+  // Toggle mock override with full logout and data refresh
+  const handleToggleMock = useCallback(() => {
+    const newValue = !mockEnabled;
+    const action = newValue ? 'ENABLE' : 'DISABLE';
+
+    Alert.alert(`${action} Mock Mode`, `This will log you out and refresh all data. Continue?`, [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: action,
+        style: newValue ? 'default' : 'destructive',
+        onPress: async () => {
+          setIsToggling(true);
+          try {
+            // 1. Log out the user
+            await dispatch(logout()).unwrap();
+
+            // 2. Clear all portfolio data
+            dispatch(clearProfile());
+            dispatch(clearEducation());
+            dispatch(clearWorkExperience());
+
+            // 3. Set the new mock override value
+            setE2EMockOverride(newValue);
+            setMockEnabled(newValue);
+
+            // 4. Fetch fresh data with new mock setting
+            dispatch(fetchProfile());
+            dispatch(fetchEducation());
+            dispatch(fetchWorkExperience());
+
+            // 5. Navigate to Home
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Home' }],
+            });
+          } catch {
+            // Silent fail - still update mock state
+            setE2EMockOverride(newValue);
+            setMockEnabled(newValue);
+          } finally {
+            setIsToggling(false);
+          }
+        },
+      },
+    ]);
+  }, [mockEnabled, dispatch, navigation]);
 
   // Get data from Redux store with mocked flag support
   // Metro runtime mocking adds 'mocked: true' to responses during E2E tests
@@ -81,7 +158,53 @@ export const MockStatusScreen: React.FC = () => {
       testID="mock-status-screen"
       accessibilityLabel="Mock Status Screen"
     >
-      <Box mt="$2">
+      {/* Developer Mock Toggle */}
+      <Box mt="$2" mb="$6">
+        <Text
+          mb="$3"
+          fontSize="$xs"
+          fontWeight="$semibold"
+          textTransform="uppercase"
+          lineHeight="$sm"
+          color={labelColor}
+          accessibilityRole="header"
+        >
+          Developer Mock Control
+        </Text>
+        <Box
+          p="$4"
+          borderRadius="$lg"
+          bg={cardBg}
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Box flex={1}>
+            <Text fontSize="$md" fontWeight="$semibold" color={textColor}>
+              E2E Mock Status
+            </Text>
+            <Text fontSize="$xs" color={labelColor} mt="$1">
+              .env: {envValue ? 'true' : 'false'}
+              {overrideValue !== null && ` → Override: ${overrideValue}`}
+            </Text>
+          </Box>
+          <Button
+            size="sm"
+            action={mockEnabled ? 'negative' : 'positive'}
+            onPress={handleToggleMock}
+            isDisabled={isToggling}
+            testID="mock-toggle-button"
+          >
+            {isToggling ? (
+              <Spinner size="small" color="$white" />
+            ) : (
+              <ButtonText>{mockEnabled ? 'DISABLE' : 'ENABLE'}</ButtonText>
+            )}
+          </Button>
+        </Box>
+      </Box>
+
+      <Box>
         <Text
           mb="$3"
           fontSize="$xs"

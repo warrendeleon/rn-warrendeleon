@@ -85,10 +85,32 @@
       }
     }
   },
+  "account": {
+    "title": "I-edit ang Account",
+    "personalInfo": "Personal na Impormasyon",
+    "contactInfo": "Impormasyon sa Pakikipag-ugnayan",
+    "firstName": "Pangalan",
+    "firstNamePlaceholder": "Ilagay ang iyong pangalan",
+    "firstNameHint": "I-edit ang iyong pangalan",
+    "lastName": "Apelyido",
+    "lastNamePlaceholder": "Ilagay ang iyong apelyido",
+    "lastNameHint": "I-edit ang iyong apelyido",
+    "phoneNumber": "Numero ng Mobile",
+    "phoneNumberPlaceholder": "Ilagay ang iyong numero ng mobile",
+    "phoneNumberHint": "I-edit ang iyong numero ng mobile",
+    "email": "Email",
+    "emailHint": "Hindi mababago ang iyong email address",
+    "save": "I-save ang mga Pagbabago",
+    "saveHint": "Sine-save ang mga pagbabago sa iyong account",
+    "updateError": "Hindi na-update ang profile. Subukan mo ulit.",
+    "session": "Sesyon",
+    "logoutHint": "Maglo-log out sa iyong account"
+  },
   "common": {
     "ok": "OK",
     "cancel": "Kanselahin",
     "save": "I-save",
+    "saving": "Sine-save...",
     "delete": "Burahin",
     "edit": "I-edit",
     "close": "Isara"
@@ -129,6 +151,7 @@
     "darkAppearance": "Dark Mode",
     "general": "Pangkalahatan",
     "account": "Account",
+    "signIn": "Mag-login / Gumawa ng Account",
     "logout": "Mag-log Out",
     "loggingOut": "Naglo-log Out...",
     "logoutTitle": "Mag-log Out",

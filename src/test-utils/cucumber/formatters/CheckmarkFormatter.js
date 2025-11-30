@@ -15,6 +15,11 @@ class CheckmarkFormatter extends Formatter {
     this.testCasesById = new Map();
     this.currentFeature = null;
 
+    // Track counts for summary
+    this.scenarioCounts = { passed: 0, failed: 0, skipped: 0, pending: 0 };
+    this.stepCounts = { passed: 0, failed: 0, skipped: 0, pending: 0 };
+    this.currentScenarioStatus = 'PASSED'; // Track current scenario's worst status
+
     options.eventBroadcaster.on('envelope', envelope => {
       // Store pickles with their names and URIs
       if (envelope.pickle) {
@@ -55,6 +60,9 @@ class CheckmarkFormatter extends Formatter {
 
       // Print feature and scenario when test case actually starts
       if (envelope.testCaseStarted) {
+        // Reset scenario status for this new test case
+        this.currentScenarioStatus = 'PASSED';
+
         const testCase = this.testCasesById.get(envelope.testCaseStarted.testCaseId);
         if (testCase && testCase.uri) {
           const feature = this.features.get(testCase.uri);
@@ -86,6 +94,27 @@ class CheckmarkFormatter extends Formatter {
         if (step && step.text) {
           const status = testStepResult.status;
           const duration = (testStepResult.duration?.nanos || 0) / 1000000; // Convert to ms
+
+          // Track step counts
+          if (status === 'PASSED') {
+            this.stepCounts.passed++;
+          } else if (status === 'FAILED') {
+            this.stepCounts.failed++;
+            this.currentScenarioStatus = 'FAILED';
+          } else if (status === 'SKIPPED') {
+            this.stepCounts.skipped++;
+            if (this.currentScenarioStatus !== 'FAILED') {
+              this.currentScenarioStatus = 'SKIPPED';
+            }
+          } else if (status === 'PENDING') {
+            this.stepCounts.pending++;
+            if (
+              this.currentScenarioStatus !== 'FAILED' &&
+              this.currentScenarioStatus !== 'SKIPPED'
+            ) {
+              this.currentScenarioStatus = 'PENDING';
+            }
+          }
 
           let symbol;
           let statusText;
@@ -121,13 +150,73 @@ class CheckmarkFormatter extends Formatter {
       }
 
       if (envelope.testCaseFinished) {
+        // Count scenario based on its final status
+        if (this.currentScenarioStatus === 'PASSED') {
+          this.scenarioCounts.passed++;
+        } else if (this.currentScenarioStatus === 'FAILED') {
+          this.scenarioCounts.failed++;
+        } else if (this.currentScenarioStatus === 'SKIPPED') {
+          this.scenarioCounts.skipped++;
+        } else if (this.currentScenarioStatus === 'PENDING') {
+          this.scenarioCounts.pending++;
+        }
         this.log('\n');
       }
 
       if (envelope.testRunFinished) {
         this.log('\n');
         this.log(chalk.bold('Summary:\n'));
-        // The summary will be printed by Cucumber's default mechanism
+
+        // Calculate totals
+        const totalScenarios =
+          this.scenarioCounts.passed +
+          this.scenarioCounts.failed +
+          this.scenarioCounts.skipped +
+          this.scenarioCounts.pending;
+        const totalSteps =
+          this.stepCounts.passed +
+          this.stepCounts.failed +
+          this.stepCounts.skipped +
+          this.stepCounts.pending;
+
+        // Build scenario summary string
+        const scenarioDetails = [];
+        if (this.scenarioCounts.passed > 0) {
+          scenarioDetails.push(chalk.green(`${this.scenarioCounts.passed} passed`));
+        }
+        if (this.scenarioCounts.failed > 0) {
+          scenarioDetails.push(chalk.red(`${this.scenarioCounts.failed} failed`));
+        }
+        if (this.scenarioCounts.skipped > 0) {
+          scenarioDetails.push(chalk.yellow(`${this.scenarioCounts.skipped} skipped`));
+        }
+        if (this.scenarioCounts.pending > 0) {
+          scenarioDetails.push(chalk.yellow(`${this.scenarioCounts.pending} pending`));
+        }
+
+        // Build step summary string
+        const stepDetails = [];
+        if (this.stepCounts.passed > 0) {
+          stepDetails.push(chalk.green(`${this.stepCounts.passed} passed`));
+        }
+        if (this.stepCounts.failed > 0) {
+          stepDetails.push(chalk.red(`${this.stepCounts.failed} failed`));
+        }
+        if (this.stepCounts.skipped > 0) {
+          stepDetails.push(chalk.yellow(`${this.stepCounts.skipped} skipped`));
+        }
+        if (this.stepCounts.pending > 0) {
+          stepDetails.push(chalk.yellow(`${this.stepCounts.pending} pending`));
+        }
+
+        // Print summary
+        this.log(`  Scenarios: ${totalScenarios} (${scenarioDetails.join(', ')})\n`);
+        this.log(`  Steps:     ${totalSteps} (${stepDetails.join(', ')})\n`);
+
+        // Print duration if available
+        if (envelope.testRunFinished.timestamp) {
+          this.log('\n');
+        }
       }
     });
 

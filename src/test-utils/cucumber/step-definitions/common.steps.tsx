@@ -115,6 +115,23 @@ When('I wait for {int} seconds', async function (this: DetoxWorld, seconds: numb
   await new Promise(resolve => setTimeout(resolve, seconds * 1000));
 });
 
+When('I dismiss the keyboard', async function (this: DetoxWorld) {
+  // Dismiss keyboard by tapping outside the focused element
+  try {
+    // Try to tap return key on any focused text field first
+    await element(by.type('UITextField')).atIndex(0).tapReturnKey();
+  } catch {
+    // No text field focused, try scrolling to dismiss
+    try {
+      await element(by.type('RCTScrollView')).atIndex(0).scroll(50, 'down');
+      await element(by.type('RCTScrollView')).atIndex(0).scroll(50, 'up');
+    } catch {
+      // No scroll view, just wait a moment
+    }
+  }
+  await new Promise(resolve => setTimeout(resolve, 500));
+});
+
 When('I go back', async function (this: DetoxWorld) {
   // Navigate back using custom header back button with testID
   await waitFor(element(by.id('header-back-button')))
@@ -283,18 +300,29 @@ When('I tap the text {string}', async function (this: DetoxWorld, text: string) 
   }
 });
 
-// Alert handling steps
+// Alert/Dialog handling steps
+// Custom ConfirmDialog component is used instead of native Alert.alert()
+// because native iOS alerts can't be reliably tested with Detox
 
-When('I tap {string} on the alert', async function (this: DetoxWorld, buttonText: string) {
-  // Wait for the alert to be visible and tap the button
-  await waitFor(element(by.text(buttonText)))
-    .toBeVisible()
-    .withTimeout(5000);
-  await element(by.text(buttonText)).tap();
-});
+When(
+  'I tap {string} on the alert',
+  { timeout: 10000 },
+  async function (this: DetoxWorld, buttonTestID: string) {
+    // Find button by testID within the dialog
+    await waitFor(element(by.id(buttonTestID)))
+      .toBeVisible()
+      .withTimeout(5000);
+    await element(by.id(buttonTestID)).tap();
+  }
+);
 
-Then('I should see an alert with title {string}', async function (this: DetoxWorld, title: string) {
-  await waitFor(element(by.text(title)))
-    .toBeVisible()
-    .withTimeout(5000);
-});
+Then(
+  'I should see an alert with title {string}',
+  { timeout: 10000 },
+  async function (this: DetoxWorld, dialogTestID: string) {
+    // ConfirmDialog title uses testID pattern: ${dialogTestID}-title
+    await waitFor(element(by.id(`${dialogTestID}-title`)))
+      .toBeVisible()
+      .withTimeout(5000);
+  }
+);

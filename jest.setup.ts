@@ -169,6 +169,14 @@ jest.mock('@gluestack-ui/themed', () => {
     InputSlot: mockRN.View,
     InputIcon: mockRN.View,
     Switch: mockRN.Switch,
+    FormControl: mockRN.View,
+    FormControlLabel: mockRN.View,
+    FormControlLabelText: mockRN.Text,
+    FormControlHelper: mockRN.View,
+    FormControlHelperText: mockRN.Text,
+    FormControlError: mockRN.View,
+    FormControlErrorText: mockRN.Text,
+    FormControlErrorIcon: mockRN.View,
 
     // Avatar components
     Avatar: mockRN.View,

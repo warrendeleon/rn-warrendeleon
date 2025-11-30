@@ -3,7 +3,14 @@ export type { AuthState } from './reducer';
 export { authReducer, clearError, setBiometricEnabled, updateUserProfile } from './reducer';
 
 // Actions
-export { checkSession, login, logout, register } from './actions';
+export {
+  checkSession,
+  login,
+  logout,
+  refreshUser,
+  register,
+  updateUserProfileAsync,
+} from './actions';
 
 // Selectors
 export {

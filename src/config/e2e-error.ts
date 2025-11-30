@@ -79,7 +79,7 @@ export const getRetryAttempts = (): number => {
  */
 export const getE2EErrorConfig = (): E2EErrorConfig => {
   // Only check launch arguments if E2E mocking is enabled
-  if (!isE2EMockEnabled) {
+  if (!isE2EMockEnabled()) {
     return {
       enabled: false,
       errorMode: 'none',

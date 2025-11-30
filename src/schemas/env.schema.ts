@@ -17,7 +17,6 @@ export const APP_ENV_VALUES = ['development', 'production'] as const;
  *
  * Defines and validates all environment variables:
  * - APP_ENV: The current environment (development or production)
- * - API_URL: The base URL for API requests
  */
 export const EnvSchema = z.object({
   /**
@@ -29,19 +28,6 @@ export const EnvSchema = z.object({
       message: `APP_ENV must be one of: ${APP_ENV_VALUES.join(', ')}`,
     })
     .describe('Application environment (development or production)'),
-
-  /**
-   * API base URL
-   * Must be a valid URL starting with http:// or https://
-   */
-  API_URL: z
-    .string({
-      error: 'API_URL is not defined in environment',
-    })
-    .url({
-      message: 'API_URL must be a valid URL',
-    })
-    .describe('Base URL for API requests'),
 });
 
 /**
