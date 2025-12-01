@@ -1,7 +1,7 @@
 # TASK-200: Email Verification Screen
 
 **Task ID**: TASK-200 | **User Story**: [US-033](../stories/US-033-email-password-registration.md) | **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md)
-**Status**: 📋 To Do | **Priority**: High | **Effort**: 2h | **Created**: 2025-11-21
+**Status**: ⏳ In Progress | **Priority**: High | **Effort**: 2h | **Created**: 2025-11-21
 
 ## Objective
 

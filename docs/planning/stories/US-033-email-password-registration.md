@@ -436,29 +436,29 @@ Feature: Email/Password Registration
 
 ## Tasks
 
-| ID                                                                 | Task                               | Effort | Priority | Status   |
-| ------------------------------------------------------------------ | ---------------------------------- | ------ | -------- | -------- |
-| [TASK-187](../tasks/TASK-187-supabase-setup-security-config.md)    | Complete Supabase Setup + Security | 4h     | Critical | ✅ Done  |
-| [TASK-188](../tasks/TASK-188-linkedin-developer-app-setup.md)      | Create LinkedIn Developer App      | 2h     | Critical | ✅ Done  |
-| [TASK-189](../tasks/TASK-189-android-security-hardening.md)        | Android Security Hardening         | 1.5h   | High     | ✅ Done  |
-| [TASK-190](../tasks/TASK-190-ios-security-hardening.md)            | iOS Security Hardening             | 1h     | High     | ✅ Done  |
-| [TASK-191](../tasks/TASK-191-three-tier-storage-implementation.md) | 3-Tier Storage Implementation      | 3h     | Critical | ✅ Done  |
-| [TASK-192](../tasks/TASK-192-supabase-auth-rest-api-client.md)     | Supabase Auth REST API Client      | 4h     | Critical | ✅ Done  |
-| [TASK-193](../tasks/TASK-193-certificate-pinning.md)               | Certificate Pinning (iOS)          | 2h     | Medium   | ✅ Done  |
-| [TASK-194](../tasks/TASK-194-response-validation-zod.md)           | Response Validation with Zod       | 2h     | High     | ✅ Done  |
-| [TASK-195](../tasks/TASK-195-input-validation-yup.md)              | Input Validation with Yup          | 2h     | High     | ✅ Done  |
-| [TASK-196](../tasks/TASK-196-redux-auth-slice.md)                  | Redux Auth Slice                   | 3h     | Critical | ✅ Done  |
-| [TASK-197](../tasks/TASK-197-profile-picture-picker.md)            | Profile Picture Picker (Deferred)  | 3h     | Medium   | 📋 To Do |
-| [TASK-198](../tasks/TASK-198-supabase-storage-api-client.md)       | Storage API Client (Deferred)      | 2h     | Medium   | 📋 To Do |
-| [TASK-199](../tasks/TASK-199-registration-screen-ui.md)            | Registration Screen UI             | 4h     | Critical | 📋 To Do |
-| [TASK-200](../tasks/TASK-200-email-verification-screen.md)         | Email Verification Screen          | 2h     | High     | 📋 To Do |
-| [TASK-201](../tasks/TASK-201-data-masking-logs.md)                 | Data Masking in Logs Utility       | 1h     | High     | 📋 To Do |
-| [TASK-202](../tasks/TASK-202-registration-rntl-tests.md)           | Registration RNTL Tests            | 3h     | High     | 📋 To Do |
-| [TASK-203](../tasks/TASK-203-registration-e2e-tests.md)            | Registration E2E Tests             | 4h     | High     | 📋 To Do |
-| [TASK-329](../tasks/TASK-329-expand-common-password-list.md)       | Expand Common Password List        | 1.5h   | Medium   | 📋 To Do |
-| [TASK-330](../tasks/TASK-330-unicode-normalization-names.md)       | Unicode Normalization for Names    | 1h     | Medium   | 📋 To Do |
-| [TASK-331](../tasks/TASK-331-token-code-validation-schemas.md)     | Token & Code Validation Schemas    | 2h     | High     | 📋 To Do |
-| [TASK-332](../tasks/TASK-332-advanced-security-features.md)        | Advanced Security Features         | 6h     | Low      | 📋 To Do |
+| ID                                                                 | Task                               | Effort | Priority | Status         |
+| ------------------------------------------------------------------ | ---------------------------------- | ------ | -------- | -------------- |
+| [TASK-187](../tasks/TASK-187-supabase-setup-security-config.md)    | Complete Supabase Setup + Security | 4h     | Critical | ✅ Done        |
+| [TASK-188](../tasks/TASK-188-linkedin-developer-app-setup.md)      | Create LinkedIn Developer App      | 2h     | Critical | ✅ Done        |
+| [TASK-189](../tasks/TASK-189-android-security-hardening.md)        | Android Security Hardening         | 1.5h   | High     | ✅ Done        |
+| [TASK-190](../tasks/TASK-190-ios-security-hardening.md)            | iOS Security Hardening             | 1h     | High     | ✅ Done        |
+| [TASK-191](../tasks/TASK-191-three-tier-storage-implementation.md) | 3-Tier Storage Implementation      | 3h     | Critical | ✅ Done        |
+| [TASK-192](../tasks/TASK-192-supabase-auth-rest-api-client.md)     | Supabase Auth REST API Client      | 4h     | Critical | ✅ Done        |
+| [TASK-193](../tasks/TASK-193-certificate-pinning.md)               | Certificate Pinning (iOS)          | 2h     | Medium   | ✅ Done        |
+| [TASK-194](../tasks/TASK-194-response-validation-zod.md)           | Response Validation with Zod       | 2h     | High     | ✅ Done        |
+| [TASK-195](../tasks/TASK-195-input-validation-yup.md)              | Input Validation with Yup          | 2h     | High     | ✅ Done        |
+| [TASK-196](../tasks/TASK-196-redux-auth-slice.md)                  | Redux Auth Slice                   | 3h     | Critical | ✅ Done        |
+| [TASK-197](../tasks/TASK-197-profile-picture-picker.md)            | Profile Picture Picker (Deferred)  | 3h     | Medium   | 📋 To Do       |
+| [TASK-198](../tasks/TASK-198-supabase-storage-api-client.md)       | Storage API Client (Deferred)      | 2h     | Medium   | 📋 To Do       |
+| [TASK-199](../tasks/TASK-199-registration-screen-ui.md)            | Registration Screen UI             | 4h     | Critical | 📋 To Do       |
+| [TASK-200](../tasks/TASK-200-email-verification-screen.md)         | Email Verification Screen          | 2h     | High     | ⏳ In Progress |
+| [TASK-201](../tasks/TASK-201-data-masking-logs.md)                 | Data Masking in Logs Utility       | 1h     | High     | 📋 To Do       |
+| [TASK-202](../tasks/TASK-202-registration-rntl-tests.md)           | Registration RNTL Tests            | 3h     | High     | 📋 To Do       |
+| [TASK-203](../tasks/TASK-203-registration-e2e-tests.md)            | Registration E2E Tests             | 4h     | High     | 📋 To Do       |
+| [TASK-329](../tasks/TASK-329-expand-common-password-list.md)       | Expand Common Password List        | 1.5h   | Medium   | 📋 To Do       |
+| [TASK-330](../tasks/TASK-330-unicode-normalization-names.md)       | Unicode Normalization for Names    | 1h     | Medium   | 📋 To Do       |
+| [TASK-331](../tasks/TASK-331-token-code-validation-schemas.md)     | Token & Code Validation Schemas    | 2h     | High     | 📋 To Do       |
+| [TASK-332](../tasks/TASK-332-advanced-security-features.md)        | Advanced Security Features         | 6h     | Low      | 📋 To Do       |
 
 **Total Tasks**: 21
 **Total Effort**: 54 hours
