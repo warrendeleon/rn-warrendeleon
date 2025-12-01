@@ -501,6 +501,92 @@ class SupabaseAuthClientClass {
   }
 
   /**
+   * Reset password using a recovery token
+   *
+   * E2E mocking: When E2E_MOCK=true, returns success without making network call
+   *
+   * @param accessToken - Access token from the recovery email deep link
+   * @param newPassword - The new password to set
+   * @returns Promise<void>
+   * @throws Error if reset fails (expired token, invalid password, etc.)
+   */
+  async resetPasswordWithToken(accessToken: string, newPassword: string): Promise<void> {
+    // E2E mocking: Return success without network call
+    if (isE2EMockEnabled()) {
+      return Promise.resolve();
+    }
+
+    try {
+      await this.axiosInstance.put(
+        '/auth/v1/user',
+        { password: newPassword },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  /**
+   * Change password for logged-in user with current password verification
+   *
+   * E2E mocking: When E2E_MOCK=true, returns success without making network call
+   *
+   * Security: Verifies current password before allowing password change
+   *
+   * @param currentPassword - User's current password for verification
+   * @param newPassword - The new password to set
+   * @returns Promise<void>
+   * @throws Error if current password is incorrect or update fails
+   */
+  async changePassword(currentPassword: string, newPassword: string): Promise<void> {
+    // E2E mocking: Return success without network call
+    if (isE2EMockEnabled()) {
+      return Promise.resolve();
+    }
+
+    try {
+      // Step 1: Verify current password by attempting sign-in
+      const email = await EncryptedStore.get(EncryptedStoreKey.USER_EMAIL);
+      if (!email) {
+        throw new Error('User email not found');
+      }
+
+      // Attempt to sign in with current password to verify it
+      await this.axiosInstance.post('/auth/v1/token?grant_type=password', {
+        email,
+        password: currentPassword,
+      });
+
+      // Step 2: If sign-in succeeded, update the password
+      const accessToken = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
+      if (!accessToken) {
+        throw new Error('No access token available');
+      }
+
+      await this.axiosInstance.put(
+        '/auth/v1/user',
+        { password: newPassword },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      // Provide user-friendly error message for incorrect password
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
+        throw new Error('Current password is incorrect');
+      }
+      throw this.handleError(error);
+    }
+  }
+
+  /**
    * Verify mock status by making a test API call
    *
    * E2E mocking: When E2E_MOCK=true, returns { mocked: true } without network call

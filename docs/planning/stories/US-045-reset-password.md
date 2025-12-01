@@ -1,7 +1,7 @@
 # US-045: Reset Password with Token
 
 **ID**: US-045 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **Title**: Reset Password Using Reset Token
-**Status**: ⏳ In Progress | **Priority**: High | **Story Points**: 3 | **Effort**: 6.5h
+**Status**: ✅ Done | **Priority**: High | **Story Points**: 3 | **Effort**: 6.5h
 
 ---
 
@@ -18,65 +18,65 @@
 ### Functional Requirements
 
 1. **Deep Link Handling**
-   - [ ] App handles deep link: `warrendeleon://reset-password?token=TOKEN`
-   - [ ] Deep link opens ResetPasswordScreen
-   - [ ] Token extracted from URL query parameter
-   - [ ] If no token: Show error "Invalid reset link. Please request a new one."
+   - [x] App handles deep link: `warrendeleonapp://auth/callback#access_token=TOKEN&type=recovery`
+   - [x] Deep link opens ResetPasswordScreen
+   - [x] Token extracted from URL hash fragment (Supabase format)
+   - [x] If no token: Show error "Invalid reset link. Please request a new one."
 
 2. **ResetPasswordScreen**
-   - [ ] Screen title: "Reset Password"
-   - [ ] Two password input fields:
+   - [x] Screen title: "Reset Password"
+   - [x] Two password input fields:
      - New Password (secured, show/hide toggle)
      - Confirm Password (secured, show/hide toggle)
-   - [ ] Password strength indicator (real-time)
-   - [ ] Submit button: "Reset Password"
+   - [x] Password strength indicator (real-time)
+   - [x] Submit button: "Reset Password"
 
 3. **Password Validation**
-   - [ ] Real-time validation as user types (debounced 500ms)
-   - [ ] Minimum 8 characters
-   - [ ] At least 1 uppercase letter
-   - [ ] At least 1 lowercase letter
-   - [ ] At least 1 number
-   - [ ] At least 1 special character (@$!%\*?&#)
-   - [ ] No common passwords (password, password123, etc.)
-   - [ ] Passwords must match
+   - [x] Real-time validation as user types (debounced 500ms)
+   - [x] Minimum 8 characters
+   - [x] At least 1 uppercase letter
+   - [x] At least 1 lowercase letter
+   - [x] At least 1 number
+   - [x] At least 1 special character (@$!%\*?&#)
+   - [x] No common passwords (password, password123, etc.)
+   - [x] Passwords must match
 
 4. **Password Reset**
-   - [ ] On submit:
+   - [x] On submit:
      - Validate new password strength
      - Call Supabase `/auth/v1/user` with token and new password
      - Show loading indicator during API call
      - On success: Navigate to LoginScreen with success message
      - On failure: Show error message
-   - [ ] Success message: "Password reset successfully. Please log in with your new password."
-   - [ ] Error handling:
+   - [x] Success message: "Password reset successfully. Please log in with your new password."
+   - [x] Error handling:
      - Expired token: "Reset link expired. Please request a new one."
      - Invalid token: "Invalid reset link. Please request a new one."
      - Network error: "Network error. Please try again."
 
 5. **Token Security**
-   - [ ] Token expires after 1 hour
-   - [ ] Token is one-time use (invalidated after successful reset)
-   - [ ] Token never logged or stored
-   - [ ] All communication over HTTPS
+   - [x] Token expires after 1 hour
+   - [x] Token is one-time use (invalidated after successful reset)
+   - [x] Token never logged or stored
+   - [x] All communication over HTTPS
 
 ### Non-Functional Requirements
 
 1. **Performance**
-   - [ ] Password validation: <50ms
-   - [ ] Token extraction: <100ms
-   - [ ] API call: <2 seconds
+   - [x] Password validation: <50ms
+   - [x] Token extraction: <100ms
+   - [x] API call: <2 seconds
 
 2. **Accessibility (EAA)**
-   - [ ] Password fields have `accessibilityLabel="New password"`
-   - [ ] Show/hide toggles have `accessibilityHint="Toggle password visibility"`
-   - [ ] Password strength indicator has `accessibilityLabel="Password strength: Strong"`
-   - [ ] Success/error messages have `accessibilityRole="alert"`
+   - [x] Password fields have `accessibilityLabel="New password"`
+   - [x] Show/hide toggles have `accessibilityHint="Toggle password visibility"`
+   - [x] Password strength indicator has `accessibilityLabel="Password strength: Strong"`
+   - [x] Success/error messages have `accessibilityRole="alert"`
 
 3. **Testing**
-   - [ ] 100% RNTL coverage for ResetPasswordScreen
-   - [ ] E2E test for complete password reset flow
-   - [ ] Security test: Verify token expiry works
+   - [x] 100% RNTL coverage for ResetPasswordScreen
+   - [x] E2E test for complete password reset flow
+   - [x] Security test: Verify token expiry works
 
 ---
 
@@ -585,27 +585,27 @@ Feature: Reset Password
 
 **Functional**:
 
-- [ ] All acceptance criteria met
-- [ ] All 5 tasks complete
-- [ ] Flow working on iOS + Android
+- [x] All acceptance criteria met
+- [x] All 5 tasks complete
+- [x] Flow working on iOS + Android
 
 **Quality**:
 
-- [ ] 100% RNTL coverage
-- [ ] All E2E tests passing
-- [ ] `yarn validate` passes
+- [x] 100% RNTL coverage
+- [x] All E2E tests passing
+- [x] `yarn validate` passes
 
 **Security**:
 
-- [ ] Token expires after 1 hour
-- [ ] One-time use tokens
-- [ ] Password strength enforced
-- [ ] HTTPS-only communication
+- [x] Token expires after 1 hour
+- [x] One-time use tokens
+- [x] Password strength enforced
+- [x] HTTPS-only communication
 
 **Accessibility**:
 
-- [ ] All EAA requirements met
-- [ ] Screen reader tested
+- [x] All EAA requirements met
+- [x] Screen reader tested
 
 ---
 

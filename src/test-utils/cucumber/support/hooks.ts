@@ -4,11 +4,20 @@ import { device } from 'detox';
 import { cleanupDetox, detox, setupDetox } from './detox-setup';
 import { DetoxWorld } from './world';
 
+/**
+ * Gets the worker ID from Cucumber's parallel execution environment
+ * Returns '0' for sequential execution
+ */
+const getWorkerId = (): string => {
+  return process.env.CUCUMBER_WORKER_ID ?? '0';
+};
+
 BeforeAll({ timeout: 180 * 1000 }, async function () {
-  console.log('🚀 Starting Detox E2E tests...');
+  const workerId = getWorkerId();
+  console.log(`🚀 Starting Detox E2E tests (worker ${workerId})...`);
 
   console.log('📱 Setting up Detox...');
-  await setupDetox();
+  await setupDetox(workerId);
   console.log('✅ Detox setup complete');
 
   console.log('🚀 Launching app...');

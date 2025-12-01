@@ -215,12 +215,32 @@ jest.mock('@react-aria/utils', () => ({
   runAfterTransition: jest.fn(fn => fn()),
 }));
 
-// Mock react-native-safe-area-context
-jest.mock('react-native-safe-area-context', () => ({
-  SafeAreaProvider: ({ children }: { children: React.ReactNode }) => children,
-  SafeAreaView: ({ children }: { children: React.ReactNode }) => children,
-  useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }),
-}));
+// Mock react-native-safe-area-context with displayName for css-interop compatibility
+jest.mock('react-native-safe-area-context', () => {
+  const React = require('react');
+
+  // Create components with displayName for css-interop compatibility
+  const SafeAreaProvider = ({ children }: { children: React.ReactNode }) => children;
+  SafeAreaProvider.displayName = 'SafeAreaProvider';
+
+  const SafeAreaView = ({ children }: { children: React.ReactNode }) => children;
+  SafeAreaView.displayName = 'SafeAreaView';
+
+  const SafeAreaInsetsContext = React.createContext({ top: 0, right: 0, bottom: 0, left: 0 });
+  SafeAreaInsetsContext.displayName = 'SafeAreaInsetsContext';
+
+  return {
+    SafeAreaProvider,
+    SafeAreaView,
+    SafeAreaInsetsContext,
+    useSafeAreaInsets: () => ({ top: 0, right: 0, bottom: 0, left: 0 }),
+    useSafeAreaFrame: () => ({ x: 0, y: 0, width: 0, height: 0 }),
+    initialWindowMetrics: {
+      frame: { x: 0, y: 0, width: 0, height: 0 },
+      insets: { top: 0, right: 0, bottom: 0, left: 0 },
+    },
+  };
+});
 
 // Mock react-native-bootsplash
 jest.mock('react-native-bootsplash', () => ({
@@ -275,16 +295,80 @@ jest.mock('react-native-localize', () => ({
 
 // Mock react-navigation/native
 jest.mock('@react-navigation/native', () => {
-  const actualNav = jest.requireActual('@react-navigation/native');
+  const React = require('react');
+
+  // Create a mock navigation ref
+  const mockNavigationRef = {
+    isReady: jest.fn(() => false),
+    navigate: jest.fn(),
+    dispatch: jest.fn(),
+    reset: jest.fn(),
+    goBack: jest.fn(),
+    current: null,
+    getRootState: jest.fn(),
+    resetRoot: jest.fn(),
+    getCurrentRoute: jest.fn(),
+    getCurrentOptions: jest.fn(),
+  };
+
   return {
-    ...actualNav,
     useNavigation: () => ({
       navigate: jest.fn(),
       dispatch: jest.fn(),
       goBack: jest.fn(),
+      setOptions: jest.fn(),
+      reset: jest.fn(),
     }),
+    useRoute: () => ({
+      params: {},
+      name: 'MockRoute',
+    }),
+    useFocusEffect: jest.fn(callback => {
+      // Call the callback immediately for testing
+      React.useEffect(() => {
+        callback();
+      }, [callback]);
+    }),
+    useIsFocused: jest.fn(() => true),
+    NavigationContainer: ({ children }: { children: React.ReactNode }) => children,
+    createNavigationContainerRef: jest.fn(() => mockNavigationRef),
+    getStateFromPath: jest.fn(),
+    getPathFromState: jest.fn(),
+    CommonActions: {
+      reset: jest.fn(),
+      navigate: jest.fn(),
+      goBack: jest.fn(),
+    },
+    StackActions: {
+      push: jest.fn(),
+      pop: jest.fn(),
+      replace: jest.fn(),
+    },
   };
 });
+
+// Mock navigation/navigationRef module to avoid module-level createNavigationContainerRef call
+jest.mock('@app/navigation/navigationRef', () => ({
+  navigationRef: {
+    isReady: jest.fn(() => false),
+    navigate: jest.fn(),
+    dispatch: jest.fn(),
+    reset: jest.fn(),
+    goBack: jest.fn(),
+    current: null,
+  },
+  navigate: jest.fn(),
+  resetToRoute: jest.fn(),
+}));
+
+// Mock navigation/linking module to avoid module-level dependencies
+jest.mock('@app/navigation/linking', () => ({
+  linkingConfiguration: {
+    prefixes: ['warrendeleonapp://'],
+    config: { screens: {} },
+  },
+  setOnAuthTokensStored: jest.fn(),
+}));
 
 // Mock react-navigation/native-stack so Navigator/Screen behave minimally in tests
 jest.mock('@react-navigation/native-stack', () => ({

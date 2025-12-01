@@ -83,6 +83,77 @@
         "networkError": "Error de xarxa. Si us plau, comprova la teva connexió i torna-ho a provar.",
         "genericError": "Alguna cosa ha anat malament. Si us plau, torna-ho a provar."
       }
+    },
+    "resetPassword": {
+      "title": "Nova contrasenya",
+      "subtitle": "Crea una contrasenya segura per protegir el teu compte.",
+      "newPassword": "Nova contrasenya",
+      "newPasswordPlaceholder": "Introdueix la teva nova contrasenya",
+      "newPasswordHint": "La contrasenya ha de tenir almenys 8 caràcters amb majúscules, minúscules, números i caràcters especials",
+      "confirmPassword": "Confirmar contrasenya",
+      "confirmPasswordPlaceholder": "Torna a introduir la teva nova contrasenya",
+      "confirmPasswordHint": "Torna a introduir la teva contrasenya per confirmar",
+      "showPassword": "Mostrar contrasenya",
+      "hidePassword": "Amagar contrasenya",
+      "resetButton": "Restablir contrasenya",
+      "resetButtonHint": "Toca per establir la teva nova contrasenya",
+      "backToLogin": "Tornar a l'inici de sessió",
+      "backToLoginHint": "Torna a la pantalla d'inici de sessió",
+      "backToAccount": "Tornar al compte",
+      "backToAccountHint": "Torna a la configuració del compte",
+      "successTitle": "Contrasenya actualitzada!",
+      "successMessage": "La teva contrasenya s'ha restablit correctament. Ara pots iniciar sessió amb la teva nova contrasenya.",
+      "successMessageFromAccount": "La teva contrasenya s'ha actualitzat correctament.",
+      "successHint": "Restabliment de contrasenya completat",
+      "requirements": {
+        "title": "Requisits de contrasenya",
+        "length": "Almenys 8 caràcters",
+        "uppercase": "Una lletra majúscula",
+        "lowercase": "Una lletra minúscula",
+        "number": "Un número",
+        "special": "Un caràcter especial"
+      },
+      "strength": {
+        "weak": "Feble",
+        "fair": "Acceptable",
+        "good": "Bona",
+        "strong": "Forta"
+      },
+      "errors": {
+        "passwordRequired": "La contrasenya és obligatòria",
+        "passwordMinLength": "La contrasenya ha de tenir almenys 8 caràcters",
+        "passwordRequirements": "La contrasenya ha d'incloure majúscules, minúscules, números i caràcters especials",
+        "passwordsDoNotMatch": "Les contrasenyes no coincideixen",
+        "confirmPasswordRequired": "Si us plau, confirma la teva contrasenya",
+        "invalidToken": "Aquest enllaç de restabliment ha caducat o no és vàlid. Si us plau, sol·licita'n un de nou.",
+        "tokenExpired": "Aquest enllaç de restabliment ha caducat. Si us plau, sol·licita un nou restabliment de contrasenya.",
+        "networkError": "Error de xarxa. Si us plau, comprova la teva connexió i torna-ho a provar.",
+        "genericError": "Alguna cosa ha anat malament. Si us plau, torna-ho a provar."
+      }
+    },
+    "changePassword": {
+      "title": "Canviar contrasenya",
+      "subtitle": "Per seguretat, introdueix la teva contrasenya actual abans d'establir-ne una de nova.",
+      "currentSection": "Contrasenya actual",
+      "newSection": "Nova contrasenya",
+      "currentPassword": "Contrasenya actual",
+      "currentPasswordHint": "Introdueix la teva contrasenya actual per verificar",
+      "newPassword": "Nova contrasenya",
+      "newPasswordHint": "La contrasenya ha de tenir almenys 8 caràcters amb majúscules, minúscules, números i caràcters especials",
+      "confirmPassword": "Confirmar contrasenya",
+      "confirmPasswordHint": "Torna a introduir la teva nova contrasenya per confirmar",
+      "changeButton": "Canviar contrasenya",
+      "changeButtonHint": "Toca per actualitzar la teva contrasenya",
+      "requirements": {
+        "different": "Diferent de la contrasenya actual"
+      },
+      "errors": {
+        "currentPasswordRequired": "La contrasenya actual és obligatòria",
+        "currentPasswordIncorrect": "La contrasenya actual és incorrecta",
+        "newPasswordRequired": "La nova contrasenya és obligatòria",
+        "passwordsDifferent": "La nova contrasenya ha de ser diferent de l'actual",
+        "genericError": "Alguna cosa ha anat malament. Si us plau, torna-ho a provar."
+      }
     }
   },
   "account": {
@@ -103,6 +174,9 @@
     "save": "Desar canvis",
     "saveHint": "Desa els canvis del teu compte",
     "updateError": "No s'ha pogut actualitzar el perfil. Si us plau, torna-ho a provar.",
+    "security": "Seguretat",
+    "changePassword": "Canviar contrasenya",
+    "changePasswordHint": "Canvia la contrasenya del teu compte",
     "session": "Sessió",
     "logoutHint": "Tanca la sessió del teu compte"
   },

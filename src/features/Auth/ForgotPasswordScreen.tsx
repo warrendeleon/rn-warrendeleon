@@ -19,9 +19,9 @@ import { AlertCircle, CheckCircle, Info } from 'lucide-react-native';
 
 import { EmailInput, FormInputGroup } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
+import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
 
-import { SupabaseAuthClient } from './api/api';
 import { checkPasswordResetRateLimit, recordPasswordResetRequest } from './utils/rateLimiter';
 import type { PasswordRecoveryFormData } from './validation/passwordRecoverySchema';
 import { passwordRecoverySchema } from './validation/passwordRecoverySchema';

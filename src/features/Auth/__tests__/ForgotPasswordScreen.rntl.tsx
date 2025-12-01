@@ -2,15 +2,15 @@ import React from 'react';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { fireEvent, waitFor } from '@testing-library/react-native';
 
+import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
 import { renderWithProviders } from '@app/test-utils';
 
-import { SupabaseAuthClient } from '../api/api';
 import { ForgotPasswordScreen } from '../ForgotPasswordScreen';
 import * as rateLimiter from '../utils/rateLimiter';
 
 // Mock the API client
-jest.mock('../api/api', () => ({
+jest.mock('@app/httpClients', () => ({
   SupabaseAuthClient: {
     requestPasswordRecovery: jest.fn(),
   },

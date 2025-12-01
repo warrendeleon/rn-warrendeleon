@@ -1,1 +1,1 @@
-export { SupabaseAuthClient } from './api';
+export { SupabaseAuthClient } from '@app/httpClients';

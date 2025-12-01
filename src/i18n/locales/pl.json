@@ -83,6 +83,77 @@
         "networkError": "Błąd sieci. Sprawdź połączenie i spróbuj ponownie.",
         "genericError": "Coś poszło nie tak. Spróbuj ponownie."
       }
+    },
+    "resetPassword": {
+      "title": "Nowe hasło",
+      "subtitle": "Utwórz silne hasło, aby zabezpieczyć swoje konto.",
+      "newPassword": "Nowe hasło",
+      "newPasswordPlaceholder": "Wprowadź nowe hasło",
+      "newPasswordHint": "Hasło musi mieć co najmniej 8 znaków z wielką literą, małą literą, cyfrą i znakiem specjalnym",
+      "confirmPassword": "Potwierdź hasło",
+      "confirmPasswordPlaceholder": "Wprowadź ponownie nowe hasło",
+      "confirmPasswordHint": "Wprowadź ponownie hasło, aby potwierdzić",
+      "showPassword": "Pokaż hasło",
+      "hidePassword": "Ukryj hasło",
+      "resetButton": "Zresetuj hasło",
+      "resetButtonHint": "Dotknij, aby ustawić nowe hasło",
+      "backToLogin": "Powrót do logowania",
+      "backToLoginHint": "Powraca do ekranu logowania",
+      "backToAccount": "Powrót do konta",
+      "backToAccountHint": "Powraca do ustawień konta",
+      "successTitle": "Hasło zaktualizowane!",
+      "successMessage": "Twoje hasło zostało pomyślnie zresetowane. Możesz teraz zalogować się za pomocą nowego hasła.",
+      "successMessageFromAccount": "Twoje hasło zostało pomyślnie zaktualizowane.",
+      "successHint": "Resetowanie hasła zakończone",
+      "requirements": {
+        "title": "Wymagania dotyczące hasła",
+        "length": "Co najmniej 8 znaków",
+        "uppercase": "Jedna wielka litera",
+        "lowercase": "Jedna mała litera",
+        "number": "Jedna cyfra",
+        "special": "Jeden znak specjalny"
+      },
+      "strength": {
+        "weak": "Słabe",
+        "fair": "Średnie",
+        "good": "Dobre",
+        "strong": "Silne"
+      },
+      "errors": {
+        "passwordRequired": "Hasło jest wymagane",
+        "passwordMinLength": "Hasło musi mieć co najmniej 8 znaków",
+        "passwordRequirements": "Hasło musi zawierać wielkie litery, małe litery, cyfry i znaki specjalne",
+        "passwordsDoNotMatch": "Hasła nie są zgodne",
+        "confirmPasswordRequired": "Proszę potwierdzić hasło",
+        "invalidToken": "Ten link do resetowania wygasł lub jest nieprawidłowy. Proszę poprosić o nowy.",
+        "tokenExpired": "Ten link do resetowania wygasł. Proszę poprosić o nowe resetowanie hasła.",
+        "networkError": "Błąd sieci. Sprawdź połączenie i spróbuj ponownie.",
+        "genericError": "Coś poszło nie tak. Spróbuj ponownie."
+      }
+    },
+    "changePassword": {
+      "title": "Zmień hasło",
+      "subtitle": "Dla bezpieczeństwa wprowadź aktualne hasło przed ustawieniem nowego.",
+      "currentSection": "Aktualne hasło",
+      "newSection": "Nowe hasło",
+      "currentPassword": "Aktualne hasło",
+      "currentPasswordHint": "Wprowadź aktualne hasło w celu weryfikacji",
+      "newPassword": "Nowe hasło",
+      "newPasswordHint": "Hasło musi mieć co najmniej 8 znaków z wielką literą, małą literą, cyfrą i znakiem specjalnym",
+      "confirmPassword": "Potwierdź hasło",
+      "confirmPasswordHint": "Wprowadź ponownie nowe hasło, aby potwierdzić",
+      "changeButton": "Zmień hasło",
+      "changeButtonHint": "Dotknij, aby zaktualizować hasło",
+      "requirements": {
+        "different": "Różne od aktualnego hasła"
+      },
+      "errors": {
+        "currentPasswordRequired": "Aktualne hasło jest wymagane",
+        "currentPasswordIncorrect": "Aktualne hasło jest nieprawidłowe",
+        "newPasswordRequired": "Nowe hasło jest wymagane",
+        "passwordsDifferent": "Nowe hasło musi być inne niż aktualne",
+        "genericError": "Coś poszło nie tak. Spróbuj ponownie."
+      }
     }
   },
   "account": {
@@ -103,6 +174,9 @@
     "save": "Zapisz zmiany",
     "saveHint": "Zapisuje zmiany w koncie",
     "updateError": "Nie udało się zaktualizować profilu. Spróbuj ponownie.",
+    "security": "Bezpieczeństwo",
+    "changePassword": "Zmień hasło",
+    "changePasswordHint": "Zmień hasło do konta",
     "session": "Sesja",
     "logoutHint": "Wylogowuje z konta"
   },

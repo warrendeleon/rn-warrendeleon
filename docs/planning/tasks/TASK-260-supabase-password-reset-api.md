@@ -1,7 +1,7 @@
 # TASK-260: Supabase Password Reset API Integration
 
 **ID**: TASK-260 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **User Story**: [US-045](../stories/US-045-reset-password-with-token.md)
-**Status**: ⏳ In Progress | **Effort**: 1.5h
+**Status**: ✅ Done | **Effort**: 1.5h
 
 ---
 
@@ -33,15 +33,15 @@ Integrate Supabase Auth REST API for resetting password with recovery token. Ver
 
 ## Acceptance Criteria
 
-- [ ] Password reset API integration in `passwordReset.ts` (extends TASK-254)
-- [ ] Verify recovery token before showing reset form
-- [ ] Update password with recovery token
-- [ ] Return new access and refresh tokens after reset
-- [ ] Handle invalid/expired token errors
-- [ ] Handle weak password errors
-- [ ] Store new tokens in Keychain (Tier 1)
-- [ ] TypeScript strict mode compliant
-- [ ] Unit tests with 100% coverage
+- [x] Password reset API integration in `src/httpClients/SupabaseAuthClient.ts`
+- [x] Verify recovery token before showing reset form
+- [x] Update password with recovery token
+- [x] Return new access and refresh tokens after reset
+- [x] Handle invalid/expired token errors
+- [x] Handle weak password errors
+- [x] Store new tokens in Keychain (Tier 1)
+- [x] TypeScript strict mode compliant
+- [x] Unit tests with 100% coverage
 
 ---
 
@@ -630,15 +630,15 @@ describe('passwordResetService (Extended)', () => {
 
 ## Definition of Done
 
-- [ ] Password reset API integration complete
-- [ ] Token verification working
-- [ ] Password update working
-- [ ] New tokens stored in SecureStore (Keychain)
-- [ ] All error cases handled
-- [ ] All unit tests passing
-- [ ] 100% code coverage
-- [ ] TypeScript strict mode compliant
-- [ ] Code reviewed and merged
+- [x] Password reset API integration complete
+- [x] Token verification working
+- [x] Password update working
+- [x] New tokens stored in SecureStore (Keychain)
+- [x] All error cases handled
+- [x] All unit tests passing
+- [x] 100% code coverage
+- [x] TypeScript strict mode compliant
+- [x] Code reviewed and merged
 
 ---
 

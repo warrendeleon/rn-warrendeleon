@@ -1,6 +1,9 @@
 {
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
+    /* Build Performance */
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
     /* Type Checking */
     "strict": true,
     "noUnusedLocals": true,

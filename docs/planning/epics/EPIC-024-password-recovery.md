@@ -1,7 +1,7 @@
 # EPIC-024: Password Recovery
 
 **ID**: EPIC-024 | **Title**: Forgot Password Flow with Rate Limiting
-**Status**: ⏳ In Progress (1/2 stories done) | **Priority**: High | **Start Date**: 2025-11-27 | **Target Date**: TBD
+**Status**: ✅ Done | **Priority**: High | **Start Date**: 2025-11-27 | **Target Date**: 2025-12-01
 **Owner**: Warren de Leon | **Total Story Points**: 6 | **Total Effort**: 13.5h
 
 ---
@@ -45,12 +45,12 @@ Provide secure password recovery mechanism for users who forget their login cred
 
 ### Overview
 
-| ID                                                     | Title                     | Priority | Story Points | Effort | Status         |
-| ------------------------------------------------------ | ------------------------- | -------- | ------------ | ------ | -------------- |
-| [US-044](../stories/US-044-forgot-password-request.md) | Request Password Reset    | High     | 3            | 7h     | ✅ Done        |
-| [US-045](../stories/US-045-reset-password.md)          | Reset Password with Token | High     | 3            | 6.5h   | ⏳ In Progress |
+| ID                                                     | Title                     | Priority | Story Points | Effort | Status  |
+| ------------------------------------------------------ | ------------------------- | -------- | ------------ | ------ | ------- |
+| [US-044](../stories/US-044-forgot-password-request.md) | Request Password Reset    | High     | 3            | 7h     | ✅ Done |
+| [US-045](../stories/US-045-reset-password.md)          | Reset Password with Token | High     | 3            | 6.5h   | ✅ Done |
 
-**Total**: 2 user stories, 6 story points, 13.5 hours (1 complete, 1 remaining)
+**Total**: 2 user stories, 6 story points, 13.5 hours (2 complete, 0 remaining)
 
 ---
 
@@ -534,41 +534,41 @@ export const ResetPasswordScreen: React.FC = () => {
 
 **Functional**:
 
-- [ ] Both user stories complete
-- [ ] Password reset request working
-- [ ] Reset link delivered via email
-- [ ] Deep link opens app correctly
-- [ ] New password validates and updates
-- [ ] Rate limiting enforced
+- [x] Both user stories complete
+- [x] Password reset request working
+- [x] Reset link delivered via email
+- [x] Deep link opens app correctly
+- [x] New password validates and updates
+- [x] Rate limiting enforced
 
 **Quality**:
 
-- [ ] 100% RNTL coverage
-- [ ] All E2E tests passing (iOS + Android)
-- [ ] `yarn validate` passes
-- [ ] Manual testing complete
+- [x] 100% RNTL coverage
+- [x] All E2E tests passing (iOS + Android)
+- [x] `yarn validate` passes
+- [x] Manual testing complete
 
 **Security**:
 
-- [ ] Rate limiting active (3 requests/hour)
-- [ ] Password strength enforced
-- [ ] Tokens expire after 1 hour
-- [ ] One-time use tokens
+- [x] Rate limiting active (3 requests/hour)
+- [x] Password strength enforced
+- [x] Tokens expire after 1 hour
+- [x] One-time use tokens
 
 **Accessibility**:
 
-- [ ] All EAA requirements met
-- [ ] VoiceOver/TalkBack tested
-- [ ] Touch targets verified
+- [x] All EAA requirements met
+- [x] VoiceOver/TalkBack tested
+- [x] Touch targets verified
 
 **Documentation**:
 
-- [ ] Password reset flow documented
-- [ ] Rate limiting explained in README
-- [ ] Security best practices documented
+- [x] Password reset flow documented
+- [x] Rate limiting explained in README
+- [x] Security best practices documented
 
 ---
 
-**Last Updated**: 2025-11-30
-**Status**: In Progress (Phase 1 complete)
-**Next Review**: Before Phase 2 kickoff
+**Last Updated**: 2025-12-01
+**Status**: Complete (Phase 1 + Phase 2 done)
+**Completed**: 2025-12-01

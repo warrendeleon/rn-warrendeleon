@@ -24,6 +24,7 @@ import {
   FormInputGroup,
   FormInputItem,
   PasswordInput,
+  PasswordRequirements,
   PhoneInput,
 } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
@@ -63,6 +64,7 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors, isValid },
   } = useForm<RegistrationFormData>({
     resolver: yupResolver(registrationSchema),
@@ -77,6 +79,8 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
       acceptTerms: false,
     },
   });
+
+  const password = watch('password');
 
   const onSubmit = useCallback(
     async (data: RegistrationFormData) => {
@@ -285,6 +289,11 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
             )}
           />
         </FormInputGroup>
+
+        {/* Password Requirements */}
+        <Box mx="$4" mt="$4">
+          <PasswordRequirements password={password} testID="password-requirements" />
+        </Box>
 
         {/* Terms Toggle */}
         <Box mx="$4" mt="$6">

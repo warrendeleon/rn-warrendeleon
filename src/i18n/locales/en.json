@@ -83,6 +83,77 @@
         "networkError": "Network error. Please check your connection and try again.",
         "genericError": "Something went wrong. Please try again."
       }
+    },
+    "resetPassword": {
+      "title": "Set New Password",
+      "subtitle": "Create a strong password to secure your account.",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "newPasswordHint": "Password must be at least 8 characters with uppercase, lowercase, number, and special character",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your new password",
+      "confirmPasswordHint": "Re-enter your password to confirm",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "resetButton": "Reset Password",
+      "resetButtonHint": "Tap to set your new password",
+      "backToLogin": "Back to Login",
+      "backToLoginHint": "Returns to the login screen",
+      "backToAccount": "Back to Account",
+      "backToAccountHint": "Returns to the account settings screen",
+      "successTitle": "Password Updated!",
+      "successMessage": "Your password has been reset successfully. You can now log in with your new password.",
+      "successMessageFromAccount": "Your password has been updated successfully.",
+      "successHint": "Password reset complete",
+      "requirements": {
+        "title": "Password Requirements",
+        "length": "At least 8 characters",
+        "uppercase": "One uppercase letter",
+        "lowercase": "One lowercase letter",
+        "number": "One number",
+        "special": "One special character"
+      },
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      },
+      "errors": {
+        "passwordRequired": "Password is required",
+        "passwordMinLength": "Password must be at least 8 characters",
+        "passwordRequirements": "Password must include uppercase, lowercase, number, and special character",
+        "passwordsDoNotMatch": "Passwords do not match",
+        "confirmPasswordRequired": "Please confirm your password",
+        "invalidToken": "This reset link has expired or is invalid. Please request a new one.",
+        "tokenExpired": "This reset link has expired. Please request a new password reset.",
+        "networkError": "Network error. Please check your connection and try again.",
+        "genericError": "Something went wrong. Please try again."
+      }
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "subtitle": "For security, please enter your current password before setting a new one.",
+      "currentSection": "Current Password",
+      "newSection": "New Password",
+      "currentPassword": "Current Password",
+      "currentPasswordHint": "Enter your current password for verification",
+      "newPassword": "New Password",
+      "newPasswordHint": "Password must be at least 8 characters with uppercase, lowercase, number, and special character",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordHint": "Re-enter your new password to confirm",
+      "changeButton": "Change Password",
+      "changeButtonHint": "Tap to update your password",
+      "requirements": {
+        "different": "Different from current password"
+      },
+      "errors": {
+        "currentPasswordRequired": "Current password is required",
+        "currentPasswordIncorrect": "Current password is incorrect",
+        "newPasswordRequired": "New password is required",
+        "passwordsDifferent": "New password must be different from current password",
+        "genericError": "Something went wrong. Please try again."
+      }
     }
   },
   "account": {
@@ -103,6 +174,9 @@
     "save": "Save Changes",
     "saveHint": "Saves your account changes",
     "updateError": "Failed to update profile. Please try again.",
+    "security": "Security",
+    "changePassword": "Change Password",
+    "changePasswordHint": "Change your account password",
     "session": "Session",
     "logoutHint": "Logs you out of your account"
   },

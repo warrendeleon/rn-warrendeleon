@@ -10,13 +10,13 @@ module.exports = {
       type: 'ios.app',
       binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/warrendeleon.app',
       build:
-        'xcodebuild -workspace ios/warrendeleon.xcworkspace -scheme warrendeleon -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build',
+        'xcodebuild -workspace ios/warrendeleon.xcworkspace -scheme warrendeleon -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build -arch arm64 ONLY_ACTIVE_ARCH=YES DEBUG_INFORMATION_FORMAT=dwarf',
     },
     'ios.release': {
       type: 'ios.app',
       binaryPath: 'ios/build/Build/Products/Release-iphonesimulator/warrendeleon.app',
       build:
-        'xcodebuild -workspace ios/warrendeleon.xcworkspace -scheme warrendeleon -configuration Release -sdk iphonesimulator -derivedDataPath ios/build',
+        'xcodebuild -workspace ios/warrendeleon.xcworkspace -scheme warrendeleon -configuration Release -sdk iphonesimulator -derivedDataPath ios/build -arch arm64 ONLY_ACTIVE_ARCH=YES',
     },
     'android.debug': {
       type: 'android.apk',
@@ -35,6 +35,7 @@ module.exports = {
   devices: {
     simulator: {
       type: 'ios.simulator',
+      headless: process.env.CI ? true : false, // Headless in CI, visible locally
       device: {
         type: 'iPhone 17 Pro',
       },
@@ -47,6 +48,7 @@ module.exports = {
     },
     emulator: {
       type: 'android.emulator',
+      headless: process.env.CI ? true : false, // Headless in CI, visible locally
       device: {
         avdName: 'Pixel_7_API_35',
       },

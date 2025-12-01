@@ -48,3 +48,38 @@ export const passwordResetSchema = yup.object({
 });
 
 export type PasswordResetFormData = yup.InferType<typeof passwordResetSchema>;
+
+/**
+ * Change Password Form Validation Schema
+ *
+ * Validates change password form data (for logged-in users):
+ * - Current password (required for verification)
+ * - New password (8+ chars, mixed case, number, special char, must differ from current)
+ * - Password confirmation (must match new password)
+ */
+export const changePasswordSchema = yup.object({
+  currentPassword: yup
+    .string()
+    .required('Current password is required')
+    .noEmoji('Password cannot contain emojis'),
+
+  newPassword: yup
+    .string()
+    .required('New password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .max(128, 'Password must not exceed 128 characters')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!-/:-@[-`{-~])/,
+      'Password must include uppercase, lowercase, number, and special character'
+    )
+    .noEmoji('Password cannot contain emojis')
+    .notOneOf([yup.ref('currentPassword')], 'New password must be different from current password'),
+
+  confirmPassword: yup
+    .string()
+    .required('Please confirm your password')
+    .oneOf([yup.ref('newPassword')], 'Passwords must match')
+    .noEmoji('Password cannot contain emojis'),
+});
+
+export type ChangePasswordFormData = yup.InferType<typeof changePasswordSchema>;

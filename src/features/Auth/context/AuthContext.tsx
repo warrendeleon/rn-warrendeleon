@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { setOnAuthTokensStored } from '@app/navigation';
 import { useAppDispatch, useAppSelector } from '@app/store';
 
 import type { AuthState } from '../store';
@@ -54,6 +55,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Check session on mount
   useEffect(() => {
     dispatch(checkSession());
+  }, [dispatch]);
+
+  // Register callback for deep link auth token storage
+  // This ensures auth state is refreshed when tokens are stored via deep link
+  useEffect(() => {
+    const handleDeepLinkAuth = () => {
+      dispatch(checkSession());
+    };
+
+    setOnAuthTokensStored(handleDeepLinkAuth);
+
+    return () => {
+      setOnAuthTokensStored(null);
+    };
   }, [dispatch]);
 
   // Navigation helpers

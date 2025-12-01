@@ -19,6 +19,7 @@ Feature: User Registration
     And I type "SecurePass123!" into the input with testID "confirmPassword-input"
     And I toggle the switch with testID "accept-terms-switch"
     And I wait for 1 seconds
+    And I scroll down
     And I tap the element with testID "register-button"
     # Successful registration shows email verification dialog (using testID)
     Then I should see an alert with title "verify-email-dialog"
@@ -34,6 +35,7 @@ Feature: User Registration
     And I should see an element with testID "email-input"
     And I should see an element with testID "password-input"
     And I should see an element with testID "confirmPassword-input"
+    And I scroll down
     And I should see an element with testID "accept-terms-switch"
     And I should see an element with testID "register-button"
     And I should see an element with testID "login-link"
@@ -41,6 +43,7 @@ Feature: User Registration
   @validation
   Scenario: Register button disabled when form is empty
     Then I should see the "Registration" screen
+    And I scroll down
     And the element with testID "register-button" should be disabled
 
   @validation
@@ -53,6 +56,7 @@ Feature: User Registration
     And I type "SecurePass123!" into the input with testID "confirmPassword-input"
     And I toggle the switch with testID "accept-terms-switch"
     And I wait for 1 seconds
+    And I scroll down
     Then the element with testID "register-button" should be disabled
 
   @validation
@@ -65,6 +69,7 @@ Feature: User Registration
     And I type "weak" into the input with testID "confirmPassword-input"
     And I toggle the switch with testID "accept-terms-switch"
     And I wait for 1 seconds
+    And I scroll down
     Then the element with testID "register-button" should be disabled
 
   @validation
@@ -77,6 +82,7 @@ Feature: User Registration
     And I type "DifferentPass456!" into the input with testID "confirmPassword-input"
     And I toggle the switch with testID "accept-terms-switch"
     And I wait for 1 seconds
+    And I scroll down
     Then the element with testID "register-button" should be disabled
 
   @validation
@@ -89,19 +95,23 @@ Feature: User Registration
     And I type "SecurePass123!" into the input with testID "confirmPassword-input"
     # Don't toggle the terms switch
     And I wait for 1 seconds
+    And I scroll down
     Then the element with testID "register-button" should be disabled
 
   @navigation
   Scenario: Navigate to Login from Registration
-    When I tap the element with testID "login-link"
+    When I scroll down
+    And I tap the element with testID "login-link"
     Then I should see the "Login" screen
 
   @navigation
   Scenario: Navigate to Terms and Conditions
-    When I tap the element with testID "terms-link"
+    When I scroll down
+    And I tap the element with testID "terms-link"
     Then I should see the "Terms And Conditions" screen
 
   @navigation
   Scenario: Navigate to Privacy Policy
-    When I tap the element with testID "privacy-link"
+    When I scroll down
+    And I tap the element with testID "privacy-link"
     Then I should see the "Privacy Policy" screen

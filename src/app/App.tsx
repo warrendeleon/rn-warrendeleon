@@ -10,6 +10,7 @@ import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import { ToastProvider } from '@app/components';
 import { isE2EMockEnabled } from '@app/config/e2e';
 import { getE2EErrorConfig } from '@app/config/e2e-error';
 import { AuthProvider, SplashScreen } from '@app/features';
@@ -110,9 +111,11 @@ const AppContent: React.FC = () => {
   // Main app
   return (
     <GluestackUIProvider config={config}>
-      <AuthProvider>
-        <RootNavigator />
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <RootNavigator />
+        </AuthProvider>
+      </ToastProvider>
     </GluestackUIProvider>
   );
 };

@@ -14,6 +14,7 @@ import {
 import {
   AppearanceScreen,
   BookingPlaceholderScreen,
+  ChangePasswordScreen,
   ChatPlaceholderScreen,
   EditAccountScreen,
   EducationScreen,
@@ -26,6 +27,7 @@ import {
   PrivacyPolicyScreen,
   ProfileScreen,
   RegistrationScreen,
+  ResetPasswordScreen,
   SettingsScreen,
   TermsAndConditionsScreen,
   WebViewScreen,
@@ -36,16 +38,21 @@ import {
 } from '@app/features';
 import { useAppColorScheme } from '@app/hooks';
 
+import { linkingConfiguration } from '../linking';
+import { navigationRef } from '../navigationRef';
+
 enableScreens(true);
 
 export type RootStackParamList = {
   Home: undefined;
   Registration: undefined;
-  Login: undefined;
+  Login: { passwordUpdated?: boolean } | undefined;
   ForgotPassword: undefined;
+  ResetPassword: { accessToken: string; fromEditAccount?: boolean };
+  ChangePassword: undefined;
   EmailVerification: undefined;
   Settings: undefined;
-  EditAccount: undefined;
+  EditAccount: { passwordUpdated?: boolean } | undefined;
   Language: undefined;
   Appearance: undefined;
   Profile: undefined;
@@ -76,7 +83,7 @@ export const RootNavigator: React.FC = () => {
   const navigationTheme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
 
   return (
-    <NavigationContainer theme={navigationTheme}>
+    <NavigationContainer ref={navigationRef} theme={navigationTheme} linking={linkingConfiguration}>
       <ErrorBoundary>
         <Stack.Navigator
           screenOptions={{
@@ -108,6 +115,16 @@ export const RootNavigator: React.FC = () => {
             name="ForgotPassword"
             component={ForgotPasswordScreen}
             options={{ title: t('auth.forgotPassword.title') }}
+          />
+          <Stack.Screen
+            name="ResetPassword"
+            component={ResetPasswordScreen}
+            options={{ title: t('auth.resetPassword.title') }}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            component={withAuth(ChangePasswordScreen)}
+            options={{ title: t('auth.changePassword.title') }}
           />
           <Stack.Screen
             name="Settings"

@@ -1,9 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { SupabaseAuthClient } from '@app/httpClients';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage/EncryptedStore';
 import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
-
-import { SupabaseAuthClient } from '../api/api';
 
 /**
  * Async thunks for authentication actions

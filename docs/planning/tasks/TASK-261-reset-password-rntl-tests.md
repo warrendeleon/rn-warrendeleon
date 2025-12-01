@@ -1,7 +1,7 @@
 # TASK-261: Reset Password RNTL Tests
 
 **ID**: TASK-261 | **Epic**: [EPIC-024](../epics/EPIC-024-password-recovery.md) | **User Story**: [US-045](../stories/US-045-reset-password-with-token.md)
-**Status**: ⏳ In Progress | **Effort**: 1h
+**Status**: ✅ Done | **Effort**: 1h
 
 ---
 
@@ -13,20 +13,20 @@ Write comprehensive React Native Testing Library tests for ResetPasswordScreen. 
 
 ## Acceptance Criteria
 
-- [ ] Complete RNTL test suite for ResetPasswordScreen
-- [ ] Token verification tested
-- [ ] Password validation tested
-- [ ] Password confirmation tested
-- [ ] Password strength indicator tested
-- [ ] Password visibility toggle tested
-- [ ] Success message tested
-- [ ] Error messages tested
-- [ ] Loading states tested
-- [ ] Button states tested (enabled/disabled)
-- [ ] Navigation tested
-- [ ] Accessibility tested
-- [ ] 100% code coverage
-- [ ] All tests passing
+- [x] Complete RNTL test suite for ResetPasswordScreen
+- [x] Token verification tested (via route params)
+- [x] Password validation tested
+- [x] Password confirmation tested
+- [x] Password strength indicator tested
+- [x] Password visibility toggle tested
+- [x] Success message tested
+- [x] Error messages tested
+- [x] Loading states tested
+- [x] Button states tested (enabled/disabled)
+- [x] Navigation tested
+- [x] Accessibility tested
+- [x] 100% code coverage
+- [x] All tests passing
 
 ---
 
@@ -745,21 +745,21 @@ describe('ResetPasswordScreen', () => {
 
 ## Definition of Done
 
-- [ ] All test scenarios covered
-- [ ] Token verification tested
-- [ ] Password validation tested
-- [ ] Password confirmation tested
-- [ ] Strength indicator tested
-- [ ] Visibility toggle tested
-- [ ] Button states tested
-- [ ] Success/error states tested
-- [ ] Loading states tested
-- [ ] Navigation tested
-- [ ] Accessibility tested
-- [ ] Edge cases tested
-- [ ] 100% code coverage achieved
-- [ ] All tests passing
-- [ ] Code reviewed and merged
+- [x] All test scenarios covered
+- [x] Token verification tested
+- [x] Password validation tested
+- [x] Password confirmation tested
+- [x] Strength indicator tested
+- [x] Visibility toggle tested
+- [x] Button states tested
+- [x] Success/error states tested
+- [x] Loading states tested
+- [x] Navigation tested
+- [x] Accessibility tested
+- [x] Edge cases tested
+- [x] 100% code coverage achieved
+- [x] All tests passing
+- [x] Code reviewed and merged
 
 ---
 

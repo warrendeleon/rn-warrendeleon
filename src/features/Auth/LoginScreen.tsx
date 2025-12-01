@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -16,7 +16,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AlertCircle } from 'lucide-react-native';
 
-import { ButtonGroupDivider, EmailInput, FormInputGroup, PasswordInput } from '@app/components';
+import {
+  ButtonGroupDivider,
+  EmailInput,
+  FormInputGroup,
+  PasswordInput,
+  useToast,
+} from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
 import { login, selectAuthError, useAppDispatch, useAppSelector } from '@app/store';
@@ -33,12 +39,13 @@ type LoginScreenProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
  * Provides email/password login with validation.
  * EAA compliant with proper accessibility labels and touch targets.
  */
-export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation, route }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
   const { intendedRoute, clearIntendedRoute } = useAuth();
+  const { showToast } = useToast();
 
   const authError = useAppSelector(selectAuthError);
 
@@ -46,6 +53,19 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const passwordRef = useRef<{ focus: () => void }>(null);
+
+  // Show toast when navigated here after successful password reset
+  useEffect(() => {
+    if (route?.params?.passwordUpdated) {
+      showToast({
+        message: t('auth.resetPassword.successTitle'),
+        type: 'success',
+        testID: 'password-updated-toast',
+      });
+      // Clear the param to prevent showing toast again on re-render
+      navigation.setParams({ passwordUpdated: undefined });
+    }
+  }, [route?.params?.passwordUpdated, navigation, showToast, t]);
 
   const {
     control,

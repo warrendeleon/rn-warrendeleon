@@ -83,6 +83,77 @@
         "networkError": "May error sa network. Tignan ang iyong connection at subukan mo ulit.",
         "genericError": "May nangyaring mali. Subukan mo ulit."
       }
+    },
+    "resetPassword": {
+      "title": "Bagong Password",
+      "subtitle": "Gumawa ng malakas na password para ma-secure ang iyong account.",
+      "newPassword": "Bagong Password",
+      "newPasswordPlaceholder": "Ilagay ang iyong bagong password",
+      "newPasswordHint": "Ang password ay dapat may hindi bababa sa 8 na karakter na may uppercase, lowercase, numero, at special character",
+      "confirmPassword": "Kumpirmahin ang Password",
+      "confirmPasswordPlaceholder": "Ilagay muli ang iyong bagong password",
+      "confirmPasswordHint": "Ilagay muli ang iyong password para kumpirmahin",
+      "showPassword": "Ipakita ang password",
+      "hidePassword": "Itago ang password",
+      "resetButton": "I-reset ang Password",
+      "resetButtonHint": "Pindutin para i-set ang iyong bagong password",
+      "backToLogin": "Bumalik sa Login",
+      "backToLoginHint": "Bumabalik sa login screen",
+      "backToAccount": "Bumalik sa Account",
+      "backToAccountHint": "Bumabalik sa mga setting ng account",
+      "successTitle": "Na-update na ang Password!",
+      "successMessage": "Matagumpay na na-reset ang iyong password. Maaari ka nang mag-login gamit ang iyong bagong password.",
+      "successMessageFromAccount": "Matagumpay na na-update ang iyong password.",
+      "successHint": "Kumpleto na ang password reset",
+      "requirements": {
+        "title": "Mga Kinakailangan sa Password",
+        "length": "Hindi bababa sa 8 na karakter",
+        "uppercase": "Isang uppercase na letra",
+        "lowercase": "Isang lowercase na letra",
+        "number": "Isang numero",
+        "special": "Isang special character"
+      },
+      "strength": {
+        "weak": "Mahina",
+        "fair": "Katamtaman",
+        "good": "Mabuti",
+        "strong": "Malakas"
+      },
+      "errors": {
+        "passwordRequired": "Kinakailangan ang password",
+        "passwordMinLength": "Ang password ay dapat may hindi bababa sa 8 na karakter",
+        "passwordRequirements": "Ang password ay dapat may uppercase, lowercase, numero, at special character",
+        "passwordsDoNotMatch": "Hindi magkatugma ang mga password",
+        "confirmPasswordRequired": "Pakikumpirma ang iyong password",
+        "invalidToken": "Ang reset link na ito ay expired na o invalid. Mag-request ng bago.",
+        "tokenExpired": "Ang reset link na ito ay expired na. Mag-request ng bagong password reset.",
+        "networkError": "May error sa network. Tignan ang iyong connection at subukan mo ulit.",
+        "genericError": "May nangyaring mali. Subukan mo ulit."
+      }
+    },
+    "changePassword": {
+      "title": "Palitan ang Password",
+      "subtitle": "Para sa seguridad, ilagay ang iyong kasalukuyang password bago mag-set ng bago.",
+      "currentSection": "Kasalukuyang Password",
+      "newSection": "Bagong Password",
+      "currentPassword": "Kasalukuyang Password",
+      "currentPasswordHint": "Ilagay ang iyong kasalukuyang password para sa verification",
+      "newPassword": "Bagong Password",
+      "newPasswordHint": "Ang password ay dapat may hindi bababa sa 8 na karakter na may uppercase, lowercase, numero, at special character",
+      "confirmPassword": "Kumpirmahin ang Password",
+      "confirmPasswordHint": "Ilagay muli ang iyong bagong password para kumpirmahin",
+      "changeButton": "Palitan ang Password",
+      "changeButtonHint": "Pindutin para i-update ang iyong password",
+      "requirements": {
+        "different": "Iba sa kasalukuyang password"
+      },
+      "errors": {
+        "currentPasswordRequired": "Kinakailangan ang kasalukuyang password",
+        "currentPasswordIncorrect": "Hindi tama ang kasalukuyang password",
+        "newPasswordRequired": "Kinakailangan ang bagong password",
+        "passwordsDifferent": "Ang bagong password ay dapat iba sa kasalukuyan",
+        "genericError": "May nangyaring mali. Subukan mo ulit."
+      }
     }
   },
   "account": {
@@ -103,6 +174,9 @@
     "save": "I-save ang mga Pagbabago",
     "saveHint": "Sine-save ang mga pagbabago sa iyong account",
     "updateError": "Hindi na-update ang profile. Subukan mo ulit.",
+    "security": "Seguridad",
+    "changePassword": "Palitan ang Password",
+    "changePasswordHint": "Palitan ang password ng iyong account",
     "session": "Sesyon",
     "logoutHint": "Maglo-log out sa iyong account"
   },

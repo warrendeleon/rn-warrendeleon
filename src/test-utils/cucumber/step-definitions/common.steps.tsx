@@ -6,10 +6,18 @@ import { DetoxWorld } from '../support/world';
 // Common Given steps
 
 Given('the app is launched', { timeout: 60000 }, async function (this: DetoxWorld) {
+  // Terminate any running instance first to ensure clean state
+  try {
+    await device.terminateApp();
+  } catch {
+    // App might not be running, ignore
+  }
   // Clear iOS Keychain to reset auth tokens (survives app uninstall)
   await device.clearKeychain();
   // Launch app with fresh state (delete: true clears AsyncStorage)
   await device.launchApp({ newInstance: true, delete: true });
+  // Wait for app to fully initialize before starting test
+  await new Promise(resolve => setTimeout(resolve, 500));
 });
 
 Given('I am on the {string} screen', async function (this: DetoxWorld, screenName: string) {
@@ -50,28 +58,39 @@ When('I tap the element with testID {string}', async function (this: DetoxWorld,
     }
   }
   await element(by.id(testID)).tap();
+  // Wait for navigation/interaction animation to settle before subsequent steps
+  // Increased from 300ms to 500ms for better stability in parallel execution
+  await new Promise(resolve => setTimeout(resolve, 500));
 });
 
 When('I scroll down', async function (this: DetoxWorld) {
-  // Try to find ScrollView by type first, fall back to finding by scrollable trait
+  // Use swipe gesture for reliable scrolling across different ScrollView implementations
+  // Swipe up on element to scroll content down (reveal more content below)
+  // Try multiple ScrollView type names for compatibility across RN versions
+  // Using 0.7 swipe distance (increased from 0.5) to ensure elements at bottom are visible
   try {
-    await element(by.type('RCTScrollView')).atIndex(0).scrollTo('bottom');
+    await element(by.type('RCTScrollView')).atIndex(0).swipe('up', 'fast', 0.7);
   } catch {
-    // For GlueStack ScrollView, use traits
-    await element(by.traits(['scrollable']))
-      .atIndex(0)
-      .scrollTo('bottom');
+    // Fallback to UIScrollView (native iOS type)
+    await element(by.type('UIScrollView')).atIndex(0).swipe('up', 'fast', 0.7);
   }
+  // Wait for scroll animation to settle before subsequent interactions
+  // Increased from 300ms to 500ms for better stability in parallel execution
+  await new Promise(resolve => setTimeout(resolve, 500));
 });
 
 When('I scroll up', async function (this: DetoxWorld) {
+  // Use swipe gesture for reliable scrolling across different ScrollView implementations
+  // Swipe down on element to scroll content up (reveal content above)
+  // Try multiple ScrollView type names for compatibility across RN versions
   try {
-    await element(by.type('RCTScrollView')).atIndex(0).scrollTo('top');
+    await element(by.type('RCTScrollView')).atIndex(0).swipe('down', 'fast', 0.5);
   } catch {
-    await element(by.traits(['scrollable']))
-      .atIndex(0)
-      .scrollTo('top');
+    // Fallback to UIScrollView (native iOS type)
+    await element(by.type('UIScrollView')).atIndex(0).swipe('down', 'fast', 0.5);
   }
+  // Wait for scroll animation to settle before subsequent interactions
+  await new Promise(resolve => setTimeout(resolve, 300));
 });
 
 When('I scroll down on the {string} screen', async function (this: DetoxWorld, screenName: string) {
@@ -185,12 +204,15 @@ When(
 
 Then(
   'I should see the {string} screen',
-  { timeout: 15000 },
+  { timeout: 25000 },
   async function (this: DetoxWorld, screenName: string) {
     const testID = `${screenName.toLowerCase().replace(/\s+/g, '-')}-screen`;
+    // Wait briefly for navigation animation to complete before checking
+    // This is especially important for parallel execution where animations may be slower
+    await new Promise(resolve => setTimeout(resolve, 500));
     await waitFor(element(by.id(testID)))
       .toBeVisible()
-      .withTimeout(10000);
+      .withTimeout(20000);
   }
 );
 

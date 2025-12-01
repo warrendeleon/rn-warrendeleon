@@ -83,6 +83,77 @@
         "networkError": "Error de red. Por favor, comprueba tu conexión e inténtalo de nuevo.",
         "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
       }
+    },
+    "resetPassword": {
+      "title": "Nueva contraseña",
+      "subtitle": "Crea una contraseña segura para proteger tu cuenta.",
+      "newPassword": "Nueva contraseña",
+      "newPasswordPlaceholder": "Introduce tu nueva contraseña",
+      "newPasswordHint": "La contraseña debe tener al menos 8 caracteres con mayúsculas, minúsculas, números y caracteres especiales",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Vuelve a introducir tu nueva contraseña",
+      "confirmPasswordHint": "Vuelve a introducir tu contraseña para confirmar",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
+      "resetButton": "Restablecer contraseña",
+      "resetButtonHint": "Toca para establecer tu nueva contraseña",
+      "backToLogin": "Volver al inicio de sesión",
+      "backToLoginHint": "Vuelve a la pantalla de inicio de sesión",
+      "backToAccount": "Volver a la cuenta",
+      "backToAccountHint": "Vuelve a la configuración de la cuenta",
+      "successTitle": "¡Contraseña actualizada!",
+      "successMessage": "Tu contraseña se ha restablecido correctamente. Ahora puedes iniciar sesión con tu nueva contraseña.",
+      "successMessageFromAccount": "Tu contraseña se ha actualizado correctamente.",
+      "successHint": "Restablecimiento de contraseña completado",
+      "requirements": {
+        "title": "Requisitos de contraseña",
+        "length": "Al menos 8 caracteres",
+        "uppercase": "Una letra mayúscula",
+        "lowercase": "Una letra minúscula",
+        "number": "Un número",
+        "special": "Un carácter especial"
+      },
+      "strength": {
+        "weak": "Débil",
+        "fair": "Aceptable",
+        "good": "Buena",
+        "strong": "Fuerte"
+      },
+      "errors": {
+        "passwordRequired": "La contraseña es obligatoria",
+        "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+        "passwordRequirements": "La contraseña debe incluir mayúsculas, minúsculas, números y caracteres especiales",
+        "passwordsDoNotMatch": "Las contraseñas no coinciden",
+        "confirmPasswordRequired": "Por favor confirma tu contraseña",
+        "invalidToken": "Este enlace de restablecimiento ha caducado o no es válido. Por favor solicita uno nuevo.",
+        "tokenExpired": "Este enlace de restablecimiento ha caducado. Por favor solicita un nuevo restablecimiento de contraseña.",
+        "networkError": "Error de red. Por favor, comprueba tu conexión e inténtalo de nuevo.",
+        "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
+      }
+    },
+    "changePassword": {
+      "title": "Cambiar contraseña",
+      "subtitle": "Por seguridad, introduce tu contraseña actual antes de establecer una nueva.",
+      "currentSection": "Contraseña actual",
+      "newSection": "Nueva contraseña",
+      "currentPassword": "Contraseña actual",
+      "currentPasswordHint": "Introduce tu contraseña actual para verificación",
+      "newPassword": "Nueva contraseña",
+      "newPasswordHint": "La contraseña debe tener al menos 8 caracteres con mayúsculas, minúsculas, números y caracteres especiales",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordHint": "Vuelve a introducir tu nueva contraseña para confirmar",
+      "changeButton": "Cambiar contraseña",
+      "changeButtonHint": "Toca para actualizar tu contraseña",
+      "requirements": {
+        "different": "Diferente de la contraseña actual"
+      },
+      "errors": {
+        "currentPasswordRequired": "La contraseña actual es obligatoria",
+        "currentPasswordIncorrect": "La contraseña actual es incorrecta",
+        "newPasswordRequired": "La nueva contraseña es obligatoria",
+        "passwordsDifferent": "La nueva contraseña debe ser diferente de la actual",
+        "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
+      }
     }
   },
   "account": {
@@ -103,6 +174,9 @@
     "save": "Guardar cambios",
     "saveHint": "Guarda los cambios de tu cuenta",
     "updateError": "No se pudo actualizar el perfil. Por favor, inténtalo de nuevo.",
+    "security": "Seguridad",
+    "changePassword": "Cambiar contraseña",
+    "changePasswordHint": "Cambia la contraseña de tu cuenta",
     "session": "Sesión",
     "logoutHint": "Cierra la sesión de tu cuenta"
   },

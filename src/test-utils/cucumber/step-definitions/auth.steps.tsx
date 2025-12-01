@@ -1,5 +1,5 @@
 import { Given, Then, When } from '@cucumber/cucumber';
-import { by, element, expect as detoxExpect, waitFor } from 'detox';
+import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
 
 import { DetoxWorld } from '../support/world';
 
@@ -7,6 +7,149 @@ import { DetoxWorld } from '../support/world';
  * Auth-specific step definitions for E2E tests
  * Navigation to Login/Registration screens and form interactions
  */
+
+// Password reset deep link URL with mock token (Supabase auth callback format)
+// In E2E mode, any token will succeed as the API is mocked
+const PASSWORD_RESET_DEEP_LINK =
+  'warrendeleonapp://auth/callback#access_token=mock-e2e-test-token-12345&type=recovery';
+
+// Email confirmation deep link URL (after registration)
+// Includes both access_token and refresh_token for auto-login
+const EMAIL_CONFIRMATION_DEEP_LINK =
+  'warrendeleonapp://auth/callback#access_token=mock-e2e-signup-token-12345&refresh_token=mock-e2e-refresh-token-12345&type=signup';
+
+// ============================================================================
+// DEEP LINK STEP DEFINITIONS
+// ============================================================================
+
+/**
+ * Cold start: Launch app directly via deep link
+ * Simulates user tapping recovery link when app is not running
+ */
+Given(
+  'the app is launched via password reset deep link',
+  { timeout: 60000 },
+  async function (this: DetoxWorld) {
+    // Clear iOS Keychain to reset auth tokens
+    await device.clearKeychain();
+    // Launch app with deep link URL (cold start)
+    await device.launchApp({
+      newInstance: true,
+      delete: true,
+      url: PASSWORD_RESET_DEEP_LINK,
+    });
+    // Wait for the Reset Password screen to appear
+    await waitFor(element(by.id('reset-password-screen')))
+      .toBeVisible()
+      .withTimeout(10000);
+  }
+);
+
+/**
+ * Send app to background (for warm start testing)
+ */
+When('I send the app to background', async function (this: DetoxWorld) {
+  await device.sendToHome();
+  // Brief wait for app to actually go to background
+  await new Promise(resolve => setTimeout(resolve, 1000));
+});
+
+/**
+ * Warm start: Open deep link when app is in background
+ * Uses launchApp with newInstance: false to bring app to foreground with URL
+ */
+When(
+  'I open the password reset deep link from background',
+  { timeout: 30000 },
+  async function (this: DetoxWorld) {
+    // For warm start, use launchApp with newInstance: false
+    // This simulates tapping a deep link while app is in background
+    await device.launchApp({
+      newInstance: false,
+      url: PASSWORD_RESET_DEEP_LINK,
+    });
+    // Wait for the Reset Password screen to appear
+    await waitFor(element(by.id('reset-password-screen')))
+      .toBeVisible()
+      .withTimeout(10000);
+  }
+);
+
+/**
+ * Foreground: Open deep link when app is active in foreground
+ * Uses openURL which triggers the Linking event listener
+ */
+When('I open the password reset deep link', { timeout: 30000 }, async function (this: DetoxWorld) {
+  await device.openURL({ url: PASSWORD_RESET_DEEP_LINK });
+  // Wait for the Reset Password screen to appear
+  await waitFor(element(by.id('reset-password-screen')))
+    .toBeVisible()
+    .withTimeout(10000);
+});
+
+// ============================================================================
+// EMAIL CONFIRMATION DEEP LINK STEP DEFINITIONS
+// ============================================================================
+
+/**
+ * Cold start: Launch app directly via email confirmation deep link
+ * Simulates user tapping confirmation link in email when app is not running
+ * Auto-login: The access token from the deep link is stored, logging the user in automatically
+ */
+Given(
+  'the app is launched via email confirmation deep link',
+  { timeout: 60000 },
+  async function (this: DetoxWorld) {
+    // Clear iOS Keychain to reset auth tokens
+    await device.clearKeychain();
+    // Launch app with deep link URL (cold start)
+    // The app will store the access_token and auto-login the user
+    await device.launchApp({
+      newInstance: true,
+      delete: true,
+      url: EMAIL_CONFIRMATION_DEEP_LINK,
+    });
+    // Wait for the Home screen to appear (user is auto-logged in)
+    await waitFor(element(by.id('home-screen')))
+      .toBeVisible()
+      .withTimeout(10000);
+  }
+);
+
+/**
+ * Warm start: Open email confirmation deep link when app is in background
+ * Auto-login: The access token from the deep link is stored, logging the user in automatically
+ */
+When(
+  'I open the email confirmation deep link from background',
+  { timeout: 30000 },
+  async function (this: DetoxWorld) {
+    await device.launchApp({
+      newInstance: false,
+      url: EMAIL_CONFIRMATION_DEEP_LINK,
+    });
+    // Wait for the Home screen to appear (user is auto-logged in)
+    await waitFor(element(by.id('home-screen')))
+      .toBeVisible()
+      .withTimeout(10000);
+  }
+);
+
+/**
+ * Foreground: Open email confirmation deep link when app is active
+ * Auto-login: The access token from the deep link is stored, logging the user in automatically
+ */
+When(
+  'I open the email confirmation deep link',
+  { timeout: 30000 },
+  async function (this: DetoxWorld) {
+    await device.openURL({ url: EMAIL_CONFIRMATION_DEEP_LINK });
+    // Wait for the Home screen to appear (user is auto-logged in)
+    await waitFor(element(by.id('home-screen')))
+      .toBeVisible()
+      .withTimeout(10000);
+  }
+);
 
 // Navigation steps
 

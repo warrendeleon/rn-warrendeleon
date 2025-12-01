@@ -1,10 +1,10 @@
+import { SupabaseAuthClient } from '@app/httpClients';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage/EncryptedStore';
 import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
 
-import { SupabaseAuthClient } from '../../api/api';
 import { checkSession, login, logout, register } from '../actions';
 
-jest.mock('../../api/api');
+jest.mock('@app/httpClients');
 jest.mock('@app/utils/storage/SecureStore');
 jest.mock('@app/utils/storage/EncryptedStore');
 
