@@ -316,3 +316,56 @@ Given(
     await loginAndNavigateToEditAccount();
   }
 );
+
+// Email Verification specific steps
+
+/**
+ * Wait for resend button to be enabled (cooldown to expire)
+ * Uses polling to check button state since cooldown can be up to 60 seconds
+ */
+When(
+  'I wait for the resend button to be enabled',
+  { timeout: 70000 },
+  async function (this: DetoxWorld) {
+    // Poll until button is enabled (cooldown expires)
+    // The button shows "Resend Email" when enabled, "Resend Email (Xs)" when disabled
+    const maxWaitTime = 65000;
+    const pollInterval = 2000;
+    const startTime = Date.now();
+
+    while (Date.now() - startTime < maxWaitTime) {
+      try {
+        // Check if button is enabled by looking for the text without countdown
+        await detoxExpect(element(by.id('resend-email-button'))).toHaveText('Resend Email');
+        // Button is enabled, exit the loop
+        return;
+      } catch {
+        // Button still has countdown, wait and try again
+        await new Promise(resolve => setTimeout(resolve, pollInterval));
+      }
+    }
+
+    // Final check - if we get here and button isn't enabled, fail the test
+    await detoxExpect(element(by.id('resend-email-button'))).toHaveText('Resend Email');
+  }
+);
+
+/**
+ * Tap the resend email button with explicit handling
+ * Assumes button is already enabled - use "I wait for the resend button to be enabled" first if needed
+ */
+When('I tap the resend email button', { timeout: 15000 }, async function (this: DetoxWorld) {
+  // Wait for any async operations to settle
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  // Find the button and ensure it's visible
+  await waitFor(element(by.id('resend-email-button')))
+    .toBeVisible()
+    .withTimeout(5000);
+
+  // Tap with explicit element targeting
+  await element(by.id('resend-email-button')).tap();
+
+  // Wait for the async operation to complete
+  await new Promise(resolve => setTimeout(resolve, 1000));
+});

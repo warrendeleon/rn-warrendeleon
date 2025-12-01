@@ -21,10 +21,9 @@ Feature: User Registration
     And I wait for 1 seconds
     And I scroll down
     And I tap the element with testID "register-button"
-    # Successful registration shows email verification dialog (using testID)
-    Then I should see an alert with title "verify-email-dialog"
-    When I tap "verify-email-ok-button" on the alert
-    Then I should see the "Login" screen
+    # Successful registration navigates directly to Email Verification screen
+    Then I should see the "Email Verification" screen
+    And I should see an element with testID "email-address"
 
   @ui
   Scenario: Display all Registration screen elements

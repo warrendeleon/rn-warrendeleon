@@ -51,6 +51,8 @@ export {
 
 // Supabase Auth schema
 export {
+  AUTH_ERROR_CODES,
+  type AuthErrorCode,
   type SupabaseAppMetadata,
   SupabaseAppMetadataSchema,
   type SupabaseErrorResponse,

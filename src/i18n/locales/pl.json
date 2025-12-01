@@ -131,6 +131,29 @@
         "genericError": "Coś poszło nie tak. Spróbuj ponownie."
       }
     },
+    "emailVerification": {
+      "title": "Sprawdź swój e-mail",
+      "message": "Wysłaliśmy link weryfikacyjny na Twój adres e-mail. Sprawdź swoją skrzynkę odbiorczą i kliknij link, aby aktywować swoje konto.",
+      "emailSentTo": "E-mail weryfikacyjny wysłany na {{email}}",
+      "resendButton": "Wyślij ponownie",
+      "resendButtonCooldown": "Wyślij ponownie ({{seconds}}s)",
+      "resendButtonHint": "Wysyła kolejny e-mail weryfikacyjny na Twój adres",
+      "resendSuccess": "E-mail weryfikacyjny wysłany pomyślnie!",
+      "backToLogin": "Powrót do logowania",
+      "backToLoginHint": "Powraca do ekranu logowania",
+      "loginInstead": "Już zweryfikowany? Zaloguj się",
+      "infoTitle": "Co dalej?",
+      "infoStep1": "Sprawdź swoją skrzynkę odbiorczą w poszukiwaniu e-maila weryfikacyjnego",
+      "infoStep2": "Kliknij link w e-mailu, aby zweryfikować swoje konto",
+      "infoStep3": "Po weryfikacji zostaniesz automatycznie zalogowany",
+      "toastRegistrationSuccess": "E-mail weryfikacyjny wysłany! Sprawdź swoją skrzynkę odbiorczą.",
+      "toastEmailNotConfirmed": "Zweryfikuj swój adres e-mail przed zalogowaniem.",
+      "toastAccountExists": "Konto z tym adresem e-mail już istnieje. Zweryfikuj swój e-mail, aby się zalogować.",
+      "errors": {
+        "rateLimitExceeded": "Proszę poczekać przed wysłaniem kolejnego e-maila.",
+        "resendFailed": "Nie udało się wysłać e-maila. Spróbuj ponownie."
+      }
+    },
     "changePassword": {
       "title": "Zmień hasło",
       "subtitle": "Dla bezpieczeństwa wprowadź aktualne hasło przed ustawieniem nowego.",

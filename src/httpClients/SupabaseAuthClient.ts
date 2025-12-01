@@ -501,6 +501,31 @@ class SupabaseAuthClientClass {
   }
 
   /**
+   * Resend confirmation email for email verification
+   *
+   * E2E mocking: When E2E_MOCK=true, returns success without making network call
+   *
+   * @param email - Email address to resend confirmation to
+   * @returns Promise<void>
+   * @throws Error if request fails
+   */
+  async resendConfirmationEmail(email: string): Promise<void> {
+    // E2E mocking: Return success without network call
+    if (isE2EMockEnabled()) {
+      return Promise.resolve();
+    }
+
+    try {
+      await this.axiosInstance.post('/auth/v1/resend', {
+        type: 'signup',
+        email,
+      });
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  /**
    * Reset password using a recovery token
    *
    * E2E mocking: When E2E_MOCK=true, returns success without making network call
@@ -662,38 +687,80 @@ class SupabaseAuthClientClass {
    * Handle API errors and convert to user-friendly messages
    *
    * @param error - Axios error
-   * @returns Error with user-friendly message
+   * @returns AuthError with user-friendly message and error code
    */
-  private handleError(error: unknown): Error {
+  private handleError(error: unknown): AuthError {
     // Check if error has response property (axios error)
     if (axios.isAxiosError(error) || (error && typeof error === 'object' && 'response' in error)) {
       const axiosError = error as AxiosError;
       const errorData = axiosError.response?.data as SupabaseErrorResponse;
 
+      // Check for specific error codes first (HTTPError format)
+      if (errorData?.error_code) {
+        const errorCode = errorData.error_code;
+        const message = errorData.msg || errorData.message || 'An error occurred';
+
+        // Map specific error codes to user-friendly messages
+        switch (errorCode) {
+          case 'email_not_confirmed':
+            return new AuthError('Email not confirmed', 'email_not_confirmed');
+          case 'user_already_exists':
+            return new AuthError('User already exists', 'user_already_exists');
+          case 'invalid_credentials':
+            return new AuthError('Invalid email or password', 'invalid_credentials');
+          default:
+            return new AuthError(message, errorCode);
+        }
+      }
+
+      // OAuth error format
       if (errorData?.error_description) {
-        return new Error(errorData.error_description);
+        return new AuthError(errorData.error_description);
+      }
+
+      // Legacy message format
+      if (errorData?.msg) {
+        return new AuthError(errorData.msg);
       }
 
       if (errorData?.message) {
-        return new Error(errorData.message);
+        return new AuthError(errorData.message);
       }
 
-      // Map common errors to user-friendly messages
+      // Map common HTTP status codes to user-friendly messages
       switch (axiosError.response?.status) {
         case 400:
-          return new Error('Invalid email or password');
+          return new AuthError('Invalid email or password', 'invalid_credentials');
         case 422:
-          return new Error('Email already registered');
+          return new AuthError('Email already registered', 'user_already_exists');
         case 429:
-          return new Error('Too many attempts. Please try again later.');
+          return new AuthError('Too many attempts. Please try again later.', 'rate_limit_exceeded');
         case 500:
-          return new Error('Server error. Please try again later.');
+          return new AuthError('Server error. Please try again later.', 'server_error');
         default:
-          return new Error('An unexpected error occurred');
+          return new AuthError('An unexpected error occurred');
       }
     }
 
-    return error instanceof Error ? error : new Error('Unknown error');
+    return error instanceof Error ? new AuthError(error.message) : new AuthError('Unknown error');
+  }
+}
+
+/**
+ * Custom error class for authentication errors
+ * Includes an optional error code for type-safe error handling
+ */
+export class AuthError extends Error {
+  public readonly code?: string;
+
+  constructor(message: string, code?: string) {
+    super(message);
+    this.name = 'AuthError';
+    this.code = code;
+    // Maintains proper stack trace for where our error was thrown
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, AuthError);
+    }
   }
 }
 

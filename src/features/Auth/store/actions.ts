@@ -1,8 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { SupabaseAuthClient } from '@app/httpClients';
+import { AuthError, SupabaseAuthClient } from '@app/httpClients';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage/EncryptedStore';
 import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
+
+/**
+ * Auth error payload for rejected thunks
+ * Includes error code for specific error handling in screens
+ */
+export interface AuthErrorPayload {
+  message: string;
+  code?: string;
+}
 
 /**
  * Async thunks for authentication actions
@@ -53,7 +62,9 @@ export const register = createAsyncThunk(
         authProvider: 'email' as const,
       };
     } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Registration failed');
+      const message = error instanceof Error ? error.message : 'Registration failed';
+      const code = error instanceof AuthError ? error.code : undefined;
+      return rejectWithValue({ message, code } as AuthErrorPayload);
     }
   }
 );
@@ -103,7 +114,9 @@ export const login = createAsyncThunk(
         authProvider: provider,
       };
     } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Login failed');
+      const message = error instanceof Error ? error.message : 'Login failed';
+      const code = error instanceof AuthError ? error.code : undefined;
+      return rejectWithValue({ message, code } as AuthErrorPayload);
     }
   }
 );

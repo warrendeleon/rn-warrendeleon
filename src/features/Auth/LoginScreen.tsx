@@ -25,6 +25,7 @@ import {
 } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import type { AuthErrorPayload } from '@app/store';
 import { login, selectAuthError, useAppDispatch, useAppSelector } from '@app/store';
 
 import type { LoginFormData } from './validation/loginSchema';
@@ -106,8 +107,14 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation, route }) =
             routes: [{ name: 'Home' }],
           });
         }
-      } catch {
-        // Error handled by Redux state
+      } catch (error) {
+        // Check for email_not_confirmed error - redirect to EmailVerification
+        const authError = error as AuthErrorPayload | undefined;
+        if (authError?.code === 'email_not_confirmed') {
+          navigation.replace('EmailVerification', { email: data.email, source: 'login' });
+          return;
+        }
+        // Other errors handled by Redux state
       } finally {
         setIsSubmitting(false);
       }

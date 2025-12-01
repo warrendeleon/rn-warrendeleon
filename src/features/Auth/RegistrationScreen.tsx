@@ -19,7 +19,6 @@ import { AlertCircle } from 'lucide-react-native';
 
 import {
   ButtonGroupDivider,
-  ConfirmDialog,
   EmailInput,
   FormInputGroup,
   FormInputItem,
@@ -29,6 +28,7 @@ import {
 } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import type { AuthErrorPayload } from '@app/store';
 import { register, selectAuthError, useAppDispatch, useAppSelector } from '@app/store';
 
 import type { RegistrationFormData } from './validation/registrationSchema';
@@ -52,7 +52,6 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showVerifyEmailDialog, setShowVerifyEmailDialog] = useState(false);
 
   // Field refs for keyboard navigation
   const lastNameRef = useRef<{ focus: () => void }>(null);
@@ -95,22 +94,25 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
             phoneNumber: data.phoneNumber,
           })
         ).unwrap();
-        // Show verification dialog
-        setShowVerifyEmailDialog(true);
-      } catch {
-        // Error handled by Redux state
+        // Navigate directly to EmailVerification screen
+        navigation.replace('EmailVerification', { email: data.email, source: 'registration' });
+      } catch (error) {
+        // Check for user_already_exists error - redirect to EmailVerification
+        const authError = error as AuthErrorPayload | undefined;
+        if (authError?.code === 'user_already_exists') {
+          navigation.replace('EmailVerification', {
+            email: data.email,
+            source: 'registration_exists',
+          });
+          return;
+        }
+        // Other errors handled by Redux state
       } finally {
         setIsSubmitting(false);
       }
     },
-    [dispatch]
+    [dispatch, navigation]
   );
-
-  const handleVerifyEmailConfirm = useCallback(() => {
-    setShowVerifyEmailDialog(false);
-    // Navigate to Login screen so user can sign in with their new credentials
-    navigation.replace('Login');
-  }, [navigation]);
 
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword(prev => !prev);
@@ -400,23 +402,6 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
           </Pressable>
         </HStack>
       </ScrollView>
-
-      {/* Email Verification Dialog */}
-      <ConfirmDialog
-        visible={showVerifyEmailDialog}
-        title={t('auth.registration.verifyEmailTitle')}
-        message={t('auth.registration.verifyEmailMessage')}
-        testID="verify-email-dialog"
-        buttons={[
-          {
-            text: t('common.ok'),
-            style: 'default',
-            onPress: handleVerifyEmailConfirm,
-            testID: 'verify-email-ok-button',
-          },
-        ]}
-        onClose={handleVerifyEmailConfirm}
-      />
     </KeyboardAvoidingView>
   );
 };

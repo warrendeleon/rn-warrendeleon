@@ -14,6 +14,7 @@ const mockNavigation = {
   goBack: jest.fn(),
   reset: jest.fn(),
   setOptions: jest.fn(),
+  setParams: jest.fn(),
   addListener: jest.fn(() => () => {}),
   removeListener: jest.fn(),
   dispatch: jest.fn(),

@@ -3,7 +3,7 @@
  * Exports auth slice, actions, selectors, screens, context, hooks, and types
  */
 
-export type { AuthState } from './store';
+export type { AuthErrorPayload, AuthState } from './store';
 export {
   authReducer,
   checkSession,
@@ -36,12 +36,20 @@ export { useAuth } from './hooks';
 // Screens
 export { ChangePasswordScreen } from './ChangePasswordScreen';
 export { EditAccountScreen } from './EditAccountScreen';
+export { EmailVerificationScreen } from './EmailVerificationScreen';
 export { ForgotPasswordScreen } from './ForgotPasswordScreen';
 export { LoginScreen } from './LoginScreen';
 export { RegistrationScreen } from './RegistrationScreen';
 export { ResetPasswordScreen } from './ResetPasswordScreen';
 
 // Utils
+export type { EmailResendRateLimitResult } from './utils/emailResendRateLimiter';
+export {
+  checkEmailResendRateLimit,
+  clearEmailResendRateLimit,
+  getEmailResendRateLimitStatus,
+  recordEmailResendRequest,
+} from './utils/emailResendRateLimiter';
 export type { RateLimitResult } from './utils/rateLimiter';
 export {
   checkPasswordResetRateLimit,

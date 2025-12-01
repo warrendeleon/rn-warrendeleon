@@ -131,6 +131,29 @@
         "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
       }
     },
+    "emailVerification": {
+      "title": "Revisa tu correo electrónico",
+      "message": "Hemos enviado un enlace de verificación a tu correo electrónico. Por favor revisa tu bandeja de entrada y haz clic en el enlace para activar tu cuenta.",
+      "emailSentTo": "Correo de verificación enviado a {{email}}",
+      "resendButton": "Reenviar correo",
+      "resendButtonCooldown": "Reenviar correo ({{seconds}}s)",
+      "resendButtonHint": "Envía otro correo de verificación a tu dirección",
+      "resendSuccess": "¡Correo de verificación enviado correctamente!",
+      "backToLogin": "Volver al inicio de sesión",
+      "backToLoginHint": "Vuelve a la pantalla de inicio de sesión",
+      "loginInstead": "¿Ya verificado? Iniciar sesión",
+      "infoTitle": "¿Qué pasa después?",
+      "infoStep1": "Revisa tu bandeja de entrada para el correo de verificación",
+      "infoStep2": "Haz clic en el enlace del correo para verificar tu cuenta",
+      "infoStep3": "Iniciarás sesión automáticamente después de la verificación",
+      "toastRegistrationSuccess": "¡Correo de verificación enviado! Por favor revisa tu bandeja de entrada.",
+      "toastEmailNotConfirmed": "Por favor verifica tu correo electrónico antes de iniciar sesión.",
+      "toastAccountExists": "Ya existe una cuenta con este correo. Por favor verifica tu correo para iniciar sesión.",
+      "errors": {
+        "rateLimitExceeded": "Por favor espera antes de solicitar otro correo.",
+        "resendFailed": "No se pudo enviar el correo. Por favor, inténtalo de nuevo."
+      }
+    },
     "changePassword": {
       "title": "Cambiar contraseña",
       "subtitle": "Por seguridad, introduce tu contraseña actual antes de establecer una nueva.",

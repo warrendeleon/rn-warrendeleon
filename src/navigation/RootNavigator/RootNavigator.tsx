@@ -18,6 +18,7 @@ import {
   ChatPlaceholderScreen,
   EditAccountScreen,
   EducationScreen,
+  EmailVerificationScreen,
   ForgotPasswordScreen,
   HomeScreen,
   LanguageScreen,
@@ -50,7 +51,7 @@ export type RootStackParamList = {
   ForgotPassword: undefined;
   ResetPassword: { accessToken: string; fromEditAccount?: boolean };
   ChangePassword: undefined;
-  EmailVerification: undefined;
+  EmailVerification: { email: string; source?: 'registration' | 'login' | 'registration_exists' };
   Settings: undefined;
   EditAccount: { passwordUpdated?: boolean } | undefined;
   Language: undefined;
@@ -125,6 +126,11 @@ export const RootNavigator: React.FC = () => {
             name="ChangePassword"
             component={withAuth(ChangePasswordScreen)}
             options={{ title: t('auth.changePassword.title') }}
+          />
+          <Stack.Screen
+            name="EmailVerification"
+            component={EmailVerificationScreen}
+            options={{ title: t('auth.emailVerification.title') }}
           />
           <Stack.Screen
             name="Settings"

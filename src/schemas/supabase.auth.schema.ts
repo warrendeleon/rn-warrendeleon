@@ -145,10 +145,29 @@ export const SupabaseRefreshTokenResponseSchema = SupabaseSessionSchema;
 export type SupabaseRefreshTokenResponse = z.infer<typeof SupabaseRefreshTokenResponseSchema>;
 
 // Error Response
+// Supabase Auth REST API returns errors in HTTPError format:
+// { "code": 400, "error_code": "email_not_confirmed", "msg": "Email not confirmed" }
+// Or OAuth format:
+// { "error": "error_type", "error_description": "Description" }
 export const SupabaseErrorResponseSchema = z.object({
-  error: z.string(),
+  // HTTPError format fields
+  code: z.number().optional(),
+  error_code: z.string().optional(),
+  msg: z.string().optional(),
+  // OAuth format fields
+  error: z.string().optional(),
   error_description: z.string().optional(),
+  // Legacy/fallback
   message: z.string().optional(),
 });
 
 export type SupabaseErrorResponse = z.infer<typeof SupabaseErrorResponseSchema>;
+
+// Auth error codes for type-safe error handling
+export const AUTH_ERROR_CODES = {
+  EMAIL_NOT_CONFIRMED: 'email_not_confirmed',
+  USER_ALREADY_EXISTS: 'user_already_exists',
+  INVALID_CREDENTIALS: 'invalid_credentials',
+} as const;
+
+export type AuthErrorCode = (typeof AUTH_ERROR_CODES)[keyof typeof AUTH_ERROR_CODES];

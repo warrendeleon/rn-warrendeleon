@@ -61,7 +61,7 @@ export {
 } from '@app/features/Education';
 
 // Re-export auth from Auth feature
-export type { AuthState } from '@app/features/Auth';
+export type { AuthErrorPayload, AuthState } from '@app/features/Auth';
 export {
   checkSession,
   clearError,

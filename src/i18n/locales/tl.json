@@ -131,6 +131,29 @@
         "genericError": "May nangyaring mali. Subukan mo ulit."
       }
     },
+    "emailVerification": {
+      "title": "Tignan ang Iyong Email",
+      "message": "Nagpadala kami ng verification link sa iyong email address. Pakisuri ang iyong inbox at i-click ang link para i-activate ang iyong account.",
+      "emailSentTo": "Na-send ang verification email sa {{email}}",
+      "resendButton": "I-resend ang Email",
+      "resendButtonCooldown": "I-resend ang Email ({{seconds}}s)",
+      "resendButtonHint": "Nagpapadala ng isa pang verification email sa iyong address",
+      "resendSuccess": "Matagumpay na naipadala ang verification email!",
+      "backToLogin": "Bumalik sa Login",
+      "backToLoginHint": "Bumabalik sa login screen",
+      "loginInstead": "Na-verify na? Mag-login",
+      "infoTitle": "Ano ang susunod na mangyayari?",
+      "infoStep1": "Tignan ang iyong inbox para sa verification email",
+      "infoStep2": "I-click ang link sa email para i-verify ang iyong account",
+      "infoStep3": "Awtomatikong maglo-log in ka pagkatapos ng verification",
+      "toastRegistrationSuccess": "Na-send na ang verification email! Tignan ang iyong inbox.",
+      "toastEmailNotConfirmed": "I-verify muna ang iyong email address bago mag-login.",
+      "toastAccountExists": "May account na gamit ang email na ito. I-verify ang iyong email para mag-login.",
+      "errors": {
+        "rateLimitExceeded": "Maghintay muna bago mag-request ng isa pang email.",
+        "resendFailed": "Hindi naipadala ang email. Subukan mo ulit."
+      }
+    },
     "changePassword": {
       "title": "Palitan ang Password",
       "subtitle": "Para sa seguridad, ilagay ang iyong kasalukuyang password bago mag-set ng bago.",

@@ -1,2 +1,2 @@
 export { BASE_URL, GithubApiClient } from './GithubApiClient';
-export { SupabaseAuthClient } from './SupabaseAuthClient';
+export { AuthError, SupabaseAuthClient } from './SupabaseAuthClient';

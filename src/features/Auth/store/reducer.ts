@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import {
+  type AuthErrorPayload,
   checkSession,
   login,
   logout,
@@ -8,6 +9,20 @@ import {
   register,
   updateUserProfileAsync,
 } from './actions';
+
+/**
+ * Helper to extract error message from payload
+ * Supports both string (legacy) and AuthErrorPayload formats
+ */
+const extractErrorMessage = (payload: unknown): string => {
+  if (typeof payload === 'string') {
+    return payload;
+  }
+  if (payload && typeof payload === 'object' && 'message' in payload) {
+    return (payload as AuthErrorPayload).message;
+  }
+  return 'An error occurred';
+};
 
 /**
  * Auth State Interface
@@ -97,7 +112,7 @@ const authSlice = createSlice({
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = extractErrorMessage(action.payload);
       });
 
     // Login
@@ -114,7 +129,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = extractErrorMessage(action.payload);
       });
 
     // Check Session
@@ -157,7 +172,7 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
         state.biometricEnabled = false;
-        state.error = action.payload as string;
+        state.error = extractErrorMessage(action.payload);
       });
 
     // Refresh User (background operation - no loading state)
@@ -180,7 +195,7 @@ const authSlice = createSlice({
       })
       .addCase(updateUserProfileAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = extractErrorMessage(action.payload);
       });
   },
 });

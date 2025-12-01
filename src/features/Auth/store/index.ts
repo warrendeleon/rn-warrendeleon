@@ -4,6 +4,7 @@ export { authReducer, clearError, setBiometricEnabled, updateUserProfile } from 
 
 // Actions
 export {
+  type AuthErrorPayload,
   checkSession,
   login,
   logout,

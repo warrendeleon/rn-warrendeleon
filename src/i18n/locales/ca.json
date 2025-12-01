@@ -131,6 +131,29 @@
         "genericError": "Alguna cosa ha anat malament. Si us plau, torna-ho a provar."
       }
     },
+    "emailVerification": {
+      "title": "Revisa el teu correu electrònic",
+      "message": "Hem enviat un enllaç de verificació al teu correu electrònic. Si us plau, revisa la teva safata d'entrada i fes clic a l'enllaç per activar el teu compte.",
+      "emailSentTo": "Correu de verificació enviat a {{email}}",
+      "resendButton": "Reenviar correu",
+      "resendButtonCooldown": "Reenviar correu ({{seconds}}s)",
+      "resendButtonHint": "Envia un altre correu de verificació a la teva adreça",
+      "resendSuccess": "Correu de verificació enviat correctament!",
+      "backToLogin": "Tornar a l'inici de sessió",
+      "backToLoginHint": "Torna a la pantalla d'inici de sessió",
+      "loginInstead": "Ja verificat? Iniciar sessió",
+      "infoTitle": "Què passa després?",
+      "infoStep1": "Revisa la teva safata d'entrada per al correu de verificació",
+      "infoStep2": "Fes clic a l'enllaç del correu per verificar el teu compte",
+      "infoStep3": "Iniciaràs sessió automàticament després de la verificació",
+      "toastRegistrationSuccess": "Correu de verificació enviat! Si us plau, revisa la teva safata d'entrada.",
+      "toastEmailNotConfirmed": "Si us plau, verifica el teu correu electrònic abans d'iniciar sessió.",
+      "toastAccountExists": "Ja existeix un compte amb aquest correu. Si us plau, verifica el teu correu per iniciar sessió.",
+      "errors": {
+        "rateLimitExceeded": "Si us plau, espera abans de sol·licitar un altre correu.",
+        "resendFailed": "No s'ha pogut enviar el correu. Si us plau, torna-ho a provar."
+      }
+    },
     "changePassword": {
       "title": "Canviar contrasenya",
       "subtitle": "Per seguretat, introdueix la teva contrasenya actual abans d'establir-ne una de nova.",

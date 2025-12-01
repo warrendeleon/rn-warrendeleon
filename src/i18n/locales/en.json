@@ -131,6 +131,29 @@
         "genericError": "Something went wrong. Please try again."
       }
     },
+    "emailVerification": {
+      "title": "Check Your Email",
+      "message": "We've sent a verification link to your email address. Please check your inbox and click the link to activate your account.",
+      "emailSentTo": "Verification email sent to {{email}}",
+      "resendButton": "Resend Email",
+      "resendButtonCooldown": "Resend Email ({{seconds}}s)",
+      "resendButtonHint": "Sends another verification email to your address",
+      "resendSuccess": "Verification email sent successfully!",
+      "backToLogin": "Back to Login",
+      "backToLoginHint": "Returns to the login screen",
+      "loginInstead": "Already verified? Log in",
+      "infoTitle": "What happens next?",
+      "infoStep1": "Check your inbox for the verification email",
+      "infoStep2": "Click the link in the email to verify your account",
+      "infoStep3": "You'll be automatically logged in after verification",
+      "toastRegistrationSuccess": "Verification email sent! Please check your inbox.",
+      "toastEmailNotConfirmed": "Please verify your email address before logging in.",
+      "toastAccountExists": "An account with this email already exists. Please verify your email to log in.",
+      "errors": {
+        "rateLimitExceeded": "Please wait before requesting another email.",
+        "resendFailed": "Failed to send email. Please try again."
+      }
+    },
     "changePassword": {
       "title": "Change Password",
       "subtitle": "For security, please enter your current password before setting a new one.",

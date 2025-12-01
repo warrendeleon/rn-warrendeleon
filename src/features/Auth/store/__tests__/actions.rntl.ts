@@ -1,12 +1,25 @@
-import { SupabaseAuthClient } from '@app/httpClients';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage/EncryptedStore';
 import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
 
 import { checkSession, login, logout, register } from '../actions';
 
-jest.mock('@app/httpClients');
+// Import the actual AuthError class to use in tests
+const { AuthError } = jest.requireActual('@app/httpClients');
+
+jest.mock('@app/httpClients', () => ({
+  ...jest.requireActual('@app/httpClients'),
+  SupabaseAuthClient: {
+    signUp: jest.fn(),
+    signIn: jest.fn(),
+    logout: jest.fn(),
+    isAuthenticated: jest.fn(),
+  },
+}));
 jest.mock('@app/utils/storage/SecureStore');
 jest.mock('@app/utils/storage/EncryptedStore');
+
+// Import the mocked SupabaseAuthClient for test assertions
+const { SupabaseAuthClient } = jest.requireMock('@app/httpClients');
 
 describe('Auth actions', () => {
   const mockDispatch = jest.fn();
@@ -77,7 +90,28 @@ describe('Auth actions', () => {
       const result = await thunk(mockDispatch, mockGetState, undefined);
 
       expect(result.type).toBe('auth/register/rejected');
-      expect(result.payload).toBe('Email already registered');
+      expect(result.payload).toEqual({ message: 'Email already registered', code: undefined });
+    });
+
+    it('dispatches rejected with error code when AuthError is thrown', async () => {
+      (SupabaseAuthClient.signUp as jest.Mock).mockRejectedValue(
+        new AuthError('User already registered', 'user_already_exists')
+      );
+
+      const thunk = register({
+        email: 'test@example.com',
+        password: 'Password123!',
+        firstName: 'Warren',
+        lastName: 'de Leon',
+      });
+
+      const result = await thunk(mockDispatch, mockGetState, undefined);
+
+      expect(result.type).toBe('auth/register/rejected');
+      expect(result.payload).toEqual({
+        message: 'User already registered',
+        code: 'user_already_exists',
+      });
     });
 
     it('rejects when signUp returns no user', async () => {
@@ -96,7 +130,7 @@ describe('Auth actions', () => {
       const result = await thunk(mockDispatch, mockGetState, undefined);
 
       expect(result.type).toBe('auth/register/rejected');
-      expect(result.payload).toBe('Registration failed');
+      expect(result.payload).toEqual({ message: 'Registration failed', code: undefined });
     });
 
     it('handles non-Error rejections', async () => {
@@ -112,7 +146,7 @@ describe('Auth actions', () => {
       const result = await thunk(mockDispatch, mockGetState, undefined);
 
       expect(result.type).toBe('auth/register/rejected');
-      expect(result.payload).toBe('Registration failed');
+      expect(result.payload).toEqual({ message: 'Registration failed', code: undefined });
     });
   });
 
@@ -248,7 +282,26 @@ describe('Auth actions', () => {
       const result = await thunk(mockDispatch, mockGetState, undefined);
 
       expect(result.type).toBe('auth/login/rejected');
-      expect(result.payload).toBe('Invalid credentials');
+      expect(result.payload).toEqual({ message: 'Invalid credentials', code: undefined });
+    });
+
+    it('dispatches rejected with error code when AuthError is thrown', async () => {
+      (SupabaseAuthClient.signIn as jest.Mock).mockRejectedValue(
+        new AuthError('Email not confirmed', 'email_not_confirmed')
+      );
+
+      const thunk = login({
+        email: 'test@example.com',
+        password: 'Password123!',
+      });
+
+      const result = await thunk(mockDispatch, mockGetState, undefined);
+
+      expect(result.type).toBe('auth/login/rejected');
+      expect(result.payload).toEqual({
+        message: 'Email not confirmed',
+        code: 'email_not_confirmed',
+      });
     });
 
     it('handles non-Error rejections', async () => {
@@ -262,7 +315,7 @@ describe('Auth actions', () => {
       const result = await thunk(mockDispatch, mockGetState, undefined);
 
       expect(result.type).toBe('auth/login/rejected');
-      expect(result.payload).toBe('Login failed');
+      expect(result.payload).toEqual({ message: 'Login failed', code: undefined });
     });
   });
 
