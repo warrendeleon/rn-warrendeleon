@@ -16,9 +16,7 @@ Feature: Education Screen
   Scenario: Education items display correctly
     When I tap the element with testID "home-education-button"
     Then I should see the "Education" screen
-    And I should see education items with institutions and degrees
-    And education items should display SVG logos
-    And education items should show date ranges
+    And I should see education items loaded
 
   Scenario: Back navigation from Education screen
     When I tap the element with testID "home-education-button"

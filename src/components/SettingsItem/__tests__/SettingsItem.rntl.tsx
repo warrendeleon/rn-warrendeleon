@@ -214,36 +214,52 @@ describe('SettingsItem accessibility', () => {
     mockUseColorScheme.mockReturnValue('light');
   });
 
-  it('renders with accessibilityLabel combining label and endLabel', () => {
-    expect(() =>
-      renderWithProviders(<SettingsItem label="Language" endLabel="English" />)
-    ).not.toThrow();
+  it('has accessibilityRole of button', () => {
+    const { getByRole } = renderWithProviders(
+      <SettingsItem label="Settings" testID="settings-item" />
+    );
+
+    expect(getByRole('button')).toBeTruthy();
   });
 
-  it('renders with accessibilityLabel without endLabel', () => {
-    expect(() => renderWithProviders(<SettingsItem label="Settings" />)).not.toThrow();
+  it('combines label and endLabel in accessibilityLabel', () => {
+    const { getByLabelText } = renderWithProviders(
+      <SettingsItem label="Language" endLabel="English" testID="language-item" />
+    );
+
+    // Should find by combined label: "Language, English"
+    expect(getByLabelText('Language, English')).toBeTruthy();
   });
 
-  it('renders with accessibilityHint when provided', () => {
+  it('uses only label as accessibilityLabel when endLabel is not provided', () => {
+    const { getByLabelText } = renderWithProviders(
+      <SettingsItem label="Settings" testID="settings-item" />
+    );
+
+    expect(getByLabelText('Settings')).toBeTruthy();
+  });
+
+  it('applies accessibilityHint when provided', () => {
     const hint = 'Double tap to change appearance settings';
-    expect(() =>
-      renderWithProviders(<SettingsItem label="Appearance" accessibilityHint={hint} />)
-    ).not.toThrow();
+    const { getByA11yHint } = renderWithProviders(
+      <SettingsItem label="Appearance" accessibilityHint={hint} testID="appearance-item" />
+    );
+
+    expect(getByA11yHint(hint)).toBeTruthy();
   });
 
-  it('renders without accessibilityHint when not provided', () => {
-    expect(() => renderWithProviders(<SettingsItem label="About" />)).not.toThrow();
-  });
+  it('applies all accessibility props correctly', () => {
+    const { getByRole, getByLabelText, getByA11yHint } = renderWithProviders(
+      <SettingsItem
+        label="Appearance"
+        endLabel="Automatic"
+        accessibilityHint="Double tap to change theme"
+        testID="appearance-item"
+      />
+    );
 
-  it('renders with all accessibility props correctly', () => {
-    expect(() =>
-      renderWithProviders(
-        <SettingsItem
-          label="Appearance"
-          endLabel="Automatic"
-          accessibilityHint="Double tap to change theme"
-        />
-      )
-    ).not.toThrow();
+    expect(getByRole('button')).toBeTruthy();
+    expect(getByLabelText('Appearance, Automatic')).toBeTruthy();
+    expect(getByA11yHint('Double tap to change theme')).toBeTruthy();
   });
 });

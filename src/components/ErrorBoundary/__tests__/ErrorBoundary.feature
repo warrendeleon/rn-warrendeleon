@@ -13,14 +13,14 @@ Feature: ErrorBoundary
     And I dismiss the React Native error screen
     Then I should see an element with testID "error-try-again-button"
     And I should see an element with testID "error-go-home-button"
-    And I should see the text "Something Went Wrong"
+    And I should see text "Something Went Wrong"
 
   Scenario: Try Again button resets error state
     When I tap the element with testID "test-error-button"
     And I dismiss the React Native error screen
     Then I should see an element with testID "error-try-again-button"
     When I tap the element with testID "error-try-again-button"
-    Then I should see the element with testID "test-error-button"
+    Then I should see an element with testID "test-error-button"
 
   Scenario: Go Home button navigates to Home screen
     When I tap the element with testID "test-error-button"
@@ -28,4 +28,4 @@ Feature: ErrorBoundary
     Then I should see an element with testID "error-go-home-button"
     When I tap the element with testID "error-go-home-button"
     Then I should see the "Home" screen
-    And I should see the element with testID "home-settings-button"
+    And I should see an element with testID "home-settings-button"

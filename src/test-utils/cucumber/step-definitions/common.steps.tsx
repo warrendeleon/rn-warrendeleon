@@ -247,21 +247,6 @@ Then('I should see text {string}', async function (this: DetoxWorld, text: strin
     .withTimeout(5000);
 });
 
-Then('I should see the text {string}', async function (this: DetoxWorld, text: string) {
-  await waitFor(element(by.text(text)))
-    .toBeVisible()
-    .withTimeout(5000);
-});
-
-Then(
-  'I should see the element with testID {string}',
-  async function (this: DetoxWorld, testID: string) {
-    await waitFor(element(by.id(testID)))
-      .toBeVisible()
-      .withTimeout(5000);
-  }
-);
-
 Then(
   'the element with testID {string} should contain text {string}',
   async function (this: DetoxWorld, testID: string, text: string) {

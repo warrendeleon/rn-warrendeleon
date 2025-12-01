@@ -12,10 +12,10 @@ Feature: Profile Screen Navigation and Interactions
   Scenario: Navigate to Profile screen and view all elements
     When I tap the element with testID "profile-card"
     Then I should see the "Profile" screen
-    And I should see the element with testID "profile-name"
-    And I should see the element with testID "profile-phone"
-    And I should see the element with testID "profile-email"
-    And I should see the element with testID "profile-birthday"
+    And I should see an element with testID "profile-name"
+    And I should see an element with testID "profile-phone"
+    And I should see an element with testID "profile-email"
+    And I should see an element with testID "profile-birthday"
 
   @navigation
   Scenario: Back navigation from Profile screen

@@ -12,27 +12,32 @@ import { mockProfile, renderWithProviders } from '@app/test-utils';
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 describe('HomeScreen', () => {
-  it('renders without crashing', () => {
-    const { UNSAFE_root } = renderWithProviders(<HomeScreen />);
+  it('renders home screen with correct testID', () => {
+    const { getByTestId } = renderWithProviders(<HomeScreen />);
 
-    expect(UNSAFE_root).toBeTruthy();
+    expect(getByTestId('home-screen')).toBeTruthy();
   });
 
-  it('renders complete component tree', () => {
-    const component = renderWithProviders(<HomeScreen />);
+  it('renders all Work & Learning buttons', () => {
+    const { getByTestId } = renderWithProviders(<HomeScreen />);
 
-    // Ensure the component rendered successfully
-    expect(component.UNSAFE_root).toBeTruthy();
+    expect(getByTestId('home-work-experience-button')).toBeTruthy();
+    expect(getByTestId('home-education-button')).toBeTruthy();
+    expect(getByTestId('home-cv-button')).toBeTruthy();
   });
 
-  it('renders button and calls navigation when clicked', () => {
-    const { UNSAFE_root } = renderWithProviders(<HomeScreen />);
+  it('renders all Contact buttons', () => {
+    const { getByTestId } = renderWithProviders(<HomeScreen />);
 
-    // Verify component rendered with its internal structure
-    expect(UNSAFE_root).toBeTruthy();
+    expect(getByTestId('home-contact-me-button')).toBeTruthy();
+    expect(getByTestId('home-book-a-call-button')).toBeTruthy();
+  });
 
-    // The component uses useNavigation and useTranslation hooks
-    // and renders a ButtonWithChevron, which we've tested separately
+  it('renders Settings section buttons', () => {
+    const { getByTestId } = renderWithProviders(<HomeScreen />);
+
+    expect(getByTestId('home-github-button')).toBeTruthy();
+    expect(getByTestId('home-settings-button')).toBeTruthy();
   });
 
   it('navigates to Settings when handleSettingsPress is called', () => {
@@ -69,8 +74,8 @@ describe('HomeScreen implementation', () => {
 });
 
 describe('HomeScreen with ProfileCard', () => {
-  it('renders without crashing when profile data exists', () => {
-    const { UNSAFE_root } = renderWithProviders(<HomeScreen />, {
+  it('renders ProfileCard when profile data exists', () => {
+    const { getByTestId } = renderWithProviders(<HomeScreen />, {
       preloadedState: {
         profile: {
           data: mockProfile,
@@ -94,41 +99,12 @@ describe('HomeScreen with ProfileCard', () => {
       },
     });
 
-    // Component should render without crashing
-    expect(UNSAFE_root).toBeTruthy();
+    // ProfileCard should be visible when profile data exists
+    expect(getByTestId('profile-card')).toBeTruthy();
   });
 
-  it('renders complete component tree with profile data', () => {
-    const { UNSAFE_root } = renderWithProviders(<HomeScreen />, {
-      preloadedState: {
-        profile: {
-          data: mockProfile,
-          loading: false,
-          error: null,
-        },
-        settings: {
-          language: 'en',
-          theme: 'light',
-        },
-        workExperience: {
-          data: [],
-          loading: false,
-          error: null,
-        },
-        education: {
-          data: [],
-          loading: false,
-          error: null,
-        },
-      },
-    });
-
-    // Component should render successfully with profile data
-    expect(UNSAFE_root).toBeTruthy();
-  });
-
-  it('renders without crashing when profile data is null', () => {
-    const { UNSAFE_root } = renderWithProviders(<HomeScreen />, {
+  it('does not render ProfileCard when profile data is null', () => {
+    const { queryByTestId, getByTestId } = renderWithProviders(<HomeScreen />, {
       preloadedState: {
         profile: {
           data: null,
@@ -152,7 +128,9 @@ describe('HomeScreen with ProfileCard', () => {
       },
     });
 
-    // Component should render without crashing
-    expect(UNSAFE_root).toBeTruthy();
+    // HomeScreen should still render
+    expect(getByTestId('home-screen')).toBeTruthy();
+    // But ProfileCard should not be present
+    expect(queryByTestId('profile-card')).toBeNull();
   });
 });

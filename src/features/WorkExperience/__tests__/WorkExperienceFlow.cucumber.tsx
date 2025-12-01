@@ -28,8 +28,8 @@ Then('work experience items should be visible', async () => {
     .not.toBeVisible()
     .withTimeout(10000);
 
-  // Verify the work experience screen is still visible and has content
-  await detoxExpect(element(by.id('work-experience-screen'))).toBeVisible();
+  // Verify the empty state is NOT shown (confirms items actually loaded)
+  await detoxExpect(element(by.id('work-experience-empty-state'))).not.toExist();
 });
 
 /**

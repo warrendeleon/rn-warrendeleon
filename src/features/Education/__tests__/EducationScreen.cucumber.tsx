@@ -18,7 +18,7 @@ import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
  * - Touch targets meet 44x44 minimum (DetailListGroup minHeight: 60)
  */
 
-Then('I should see education items with institutions and degrees', async () => {
+Then('I should see education items loaded', async () => {
   // Wait for education screen to finish loading
   await waitFor(element(by.id('education-screen')))
     .toBeVisible()
@@ -29,26 +29,9 @@ Then('I should see education items with institutions and degrees', async () => {
     .not.toBeVisible()
     .withTimeout(10000);
 
-  // Verify the education screen is still visible and has content
-  await detoxExpect(element(by.id('education-screen'))).toBeVisible();
-});
-
-Then('education items should display SVG logos', async () => {
-  // SVG logos are rendered within the DetailListGroup
-  // The SvgUri component renders the logo from the logoUri prop
-  // Direct SVG testing is limited in Detox, so we verify the container exists
-  // Detailed SVG rendering is verified in RNTL unit tests
-
-  await detoxExpect(element(by.id('education-screen'))).toBeVisible();
-});
-
-Then('education items should show date ranges', async () => {
-  // Date ranges are shown in the subtitle of each DetailListGroupItem
-  // Format: "{location} • {start} - {end}"
-  // Specific date text verification would be brittle (depends on API data)
-  // This is verified in RNTL unit tests
-
-  await detoxExpect(element(by.id('education-screen'))).toBeVisible();
+  // Verify the "No education data available" message is NOT shown
+  // This confirms education items actually loaded
+  await detoxExpect(element(by.text('No education data available'))).not.toExist();
 });
 
 /**

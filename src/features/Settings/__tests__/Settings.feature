@@ -7,15 +7,14 @@ Feature: Settings Management
   Background:
     Given the app is launched
     And I am on the "Home" screen
-    # Reset language to English at start of each test to avoid test isolation issues
-    When I tap the "home-settings" button
-    And I tap the element with testID "settings-language-button"
-    And I tap the element with testID "language-option-en"
-    And I go back
-
-  Scenario: Change appearance to Dark mode
     When I tap the "home-settings" button
     Then I should see the "Settings" screen
+    # Reset language to English at start of each test to avoid test isolation issues
+    When I tap the element with testID "settings-language-button"
+    And I tap the element with testID "language-option-en"
+    # Now on Settings screen with language reset
+
+  Scenario: Change appearance to Dark mode
     When I tap the element with testID "settings-appearance-button"
     Then I should see the "Appearance" screen
     When I tap the element with testID "appearance-option-dark"
@@ -23,8 +22,6 @@ Feature: Settings Management
     And the "settings-appearance-button" should show "Dark" as end label
 
   Scenario: Change appearance to Light mode
-    When I tap the "home-settings" button
-    Then I should see the "Settings" screen
     When I tap the element with testID "settings-appearance-button"
     Then I should see the "Appearance" screen
     When I tap the element with testID "appearance-option-light"
@@ -32,8 +29,6 @@ Feature: Settings Management
     And the "settings-appearance-button" should show "Light" as end label
 
   Scenario: Change appearance to Automatic mode
-    When I tap the "home-settings" button
-    Then I should see the "Settings" screen
     When I tap the element with testID "settings-appearance-button"
     Then I should see the "Appearance" screen
     When I tap the element with testID "appearance-option-system"
@@ -41,8 +36,6 @@ Feature: Settings Management
     And the "settings-appearance-button" should show "Automatic" as end label
 
   Scenario: Change language to Spanish
-    When I tap the "home-settings" button
-    Then I should see the "Settings" screen
     When I tap the element with testID "settings-language-button"
     Then I should see the "Language" screen
     When I tap the element with testID "language-option-es"
@@ -50,8 +43,6 @@ Feature: Settings Management
     And the "settings-language-button" should show "Español" as end label
 
   Scenario: Change language to English
-    When I tap the "home-settings" button
-    Then I should see the "Settings" screen
     When I tap the element with testID "settings-language-button"
     Then I should see the "Language" screen
     When I tap the element with testID "language-option-en"
@@ -59,8 +50,7 @@ Feature: Settings Management
     And the "settings-language-button" should show "English" as end label
 
   Scenario: Settings persist after returning home
-    When I tap the "home-settings" button
-    And I tap the element with testID "settings-appearance-button"
+    When I tap the element with testID "settings-appearance-button"
     And I tap the element with testID "appearance-option-dark"
     And I go back
     Then I should see the "Home" screen
