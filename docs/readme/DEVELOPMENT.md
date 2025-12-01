@@ -21,17 +21,18 @@ This document covers setting up your development environment and running the app
 
 ### Required Software
 
-| Tool           | Version | Purpose                        |
-| -------------- | ------- | ------------------------------ |
-| Homebrew       | Latest  | Package manager for macOS      |
-| Node.js        | 22.x    | JavaScript runtime             |
-| Yarn           | 3.6.4   | Package manager (via Corepack) |
-| rbenv          | Latest  | Ruby version manager           |
-| Ruby           | 3.3.6   | Required for CocoaPods         |
-| CocoaPods      | 1.16+   | iOS dependency management      |
-| Xcode          | 16.0+   | iOS development (macOS only)   |
-| Java (JDK)     | 17      | Android build tools            |
-| Android Studio | 2023.1+ | Android development            |
+| Tool           | Version | Purpose                               |
+| -------------- | ------- | ------------------------------------- |
+| Homebrew       | Latest  | Package manager for macOS             |
+| Node.js        | 22.x    | JavaScript runtime                    |
+| Yarn           | 3.6.4   | Package manager (via Corepack)        |
+| rbenv          | Latest  | Ruby version manager                  |
+| Ruby           | 3.3.6   | Required for CocoaPods                |
+| CocoaPods      | 1.16+   | iOS dependency management             |
+| ccache         | Latest  | Compiler cache (speeds up iOS builds) |
+| Xcode          | 16.0+   | iOS development (macOS only)          |
+| Java (JDK)     | 17      | Android build tools                   |
+| Android Studio | 2023.1+ | Android development                   |
 
 ### Installation
 
@@ -140,7 +141,27 @@ pod --version  # Should be 1.16+
 which pod  # Should be ~/.rbenv/shims/pod
 ```
 
-#### 7. Java JDK 17 (via Homebrew)
+#### 7. ccache (Compiler Cache)
+
+ccache dramatically speeds up iOS builds by caching compiled objects. Without it, builds can take 15+ minutes. With it, incremental builds take **1-3 minutes**.
+
+```bash
+# Install ccache
+brew install ccache
+
+# Verify installation
+which ccache  # Should output: /opt/homebrew/bin/ccache
+ccache --version
+```
+
+ccache is automatically enabled in the Podfile. After running `pod install`, you should see:
+
+```
+[Ccache]: Ccache found at /opt/homebrew/bin/ccache
+[Ccache]: Setting CC, LD, CXX & LDPLUSPLUS build settings
+```
+
+#### 8. Java JDK 17 (via Homebrew)
 
 > **Important:** Install Java via Homebrew for consistency. Don't rely on Android Studio's bundled JDK.
 
@@ -157,7 +178,7 @@ java -version  # Should be openjdk 17.x.x (Temurin)
 echo $JAVA_HOME  # Should point to Temurin 17
 ```
 
-#### 8. Android Studio
+#### 9. Android Studio
 
 1. Install via Homebrew:
    ```bash
@@ -187,6 +208,7 @@ yarn --version      # Should be 3.6.4
 ruby -v             # Should be 3.3.6 (from rbenv, NOT system)
 which ruby          # Should be ~/.rbenv/shims/ruby
 pod --version       # Should be 1.16+
+which ccache        # Should be /opt/homebrew/bin/ccache
 java -version       # Should be openjdk 17.x.x (Temurin)
 echo $JAVA_HOME     # Should point to Temurin 17
 echo $ANDROID_HOME  # Should be ~/Library/Android/sdk
@@ -621,22 +643,59 @@ code --install-extension ms-vscode.vscode-typescript-next
 
 ### iOS Optimisations
 
-1. **Use Debug Builds During Development**
+1. **Enable ccache (Highly Recommended)**
+
+   ccache is a compiler cache that dramatically speeds up rebuilds. Without it, builds can take 15+ minutes. With it, incremental builds drop to **1-3 minutes**.
+
+   ```bash
+   # Install ccache via Homebrew
+   brew install ccache
+
+   # Verify installation
+   which ccache  # Should output: /opt/homebrew/bin/ccache
+   ```
+
+   ccache is already enabled in the Podfile. After installing, run:
+
+   ```bash
+   cd ios && pod install && cd ..
+   ```
+
+   You should see this in the output:
+
+   ```
+   [Ccache]: Ccache found at /opt/homebrew/bin/ccache
+   [Ccache]: Setting CC, LD, CXX & LDPLUSPLUS build settings
+   ```
+
+   Check cache stats after a few builds:
+
+   ```bash
+   ccache -s  # Shows hit rate, cache size, etc.
+   ```
+
+   **Expected build times with ccache:**
+   | Build | Duration |
+   |-------|----------|
+   | First (cold cache) | ~3-4 min |
+   | Subsequent | ~1-2 min |
+
+2. **Use Debug Builds During Development**
    - Debug builds are faster to compile
    - Enable Fast Refresh for quick iteration
 
-2. **Disable Flipper (If Not Using)**
+3. **Disable Flipper (If Not Using)**
 
    ```ruby
    # ios/Podfile
    use_flipper!(false)  # Change to false
    ```
 
-3. **Use Incremental Builds**
+4. **Use Incremental Builds**
    - Xcode handles this automatically
    - Avoid "Clean Build Folder" unless necessary
 
-4. **Close Unused Xcode Projects**
+5. **Close Unused Xcode Projects**
    - Reduces memory usage
    - Improves indexing speed
 
