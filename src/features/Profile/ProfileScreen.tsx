@@ -366,10 +366,11 @@ export const ProfileScreen: React.FC = () => {
           {profile.socials && (
             <VStack space="md" py="$4" px="$4">
               <Text
-                color={headlineColor}
-                fontSize="$sm"
-                fontWeight="$semibold"
+                mb="$2"
+                fontSize="$xs"
+                fontWeight="$medium"
                 textTransform="uppercase"
+                color={isDark ? '$textDark400' : '$textLight500'}
                 testID="profile-social-header"
                 accessibilityRole="header"
               >

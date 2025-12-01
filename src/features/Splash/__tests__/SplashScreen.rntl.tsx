@@ -10,11 +10,13 @@ jest.mock('@app/config', () => ({
   incrementRetryAttempts: jest.fn(),
 }));
 
-// Mock Logo component
+// Mock Logo component - spread actual exports to preserve ToastProvider for renderWithProviders
 jest.mock('@app/components', () => {
   const React = jest.requireActual('react');
   const RN = jest.requireActual('react-native');
+  const actual = jest.requireActual('@app/components');
   return {
+    ...actual,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Logo: ({ darkMode, style }: { darkMode: boolean; style: any }) => {
       return React.createElement(

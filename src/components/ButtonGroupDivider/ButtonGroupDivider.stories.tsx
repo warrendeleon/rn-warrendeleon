@@ -20,7 +20,7 @@ No props required - automatically adapts to light/dark mode.
   },
   decorators: [
     Story => (
-      <Box p="$4" bg="$backgroundLight100">
+      <Box p="$4">
         <Story />
       </Box>
     ),

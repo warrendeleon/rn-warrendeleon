@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
   divider: {
     height: StyleSheet.hairlineWidth,
     marginLeft: 78, // Align with text, not logo
+    marginRight: 16, // iOS-style right inset to stop before chevron
   },
   errorText: {
     fontSize: 16,

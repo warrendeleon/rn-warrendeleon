@@ -6,7 +6,7 @@ import { HeaderBackButton } from './HeaderBackButton';
 
 // Helper component to avoid whitespace text node issues in React Native
 const HeaderLayout = ({ children }: { children: React.ReactNode }) => (
-  <Box flexDirection="row" alignItems="center" p="$4" bg="$backgroundLight100">
+  <Box flexDirection="row" alignItems="center" p="$4">
     {children}
     <Box flex={1} alignItems="center">
       <Text>Screen Title</Text>

@@ -26,6 +26,7 @@ export const ButtonGroupDivider: React.FC = React.memo(() => {
       h={0.5}
       bg={dividerColor}
       ml={64} // Aligns with button text: padding (16px) + icon (36px) + spacing (12px)
+      mr={16} // iOS-style right inset to stop before chevron
     />
   );
 });

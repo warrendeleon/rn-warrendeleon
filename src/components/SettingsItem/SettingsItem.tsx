@@ -18,6 +18,8 @@ export type SettingsItemProps = {
   accessibilityHint?: string;
   /** Show chevron icon on the right (default: true) */
   showChevron?: boolean;
+  /** Label font weight (default: '$semibold') */
+  labelFontWeight?: '$normal' | '$medium' | '$semibold' | '$bold';
 };
 
 /**
@@ -47,6 +49,7 @@ export const SettingsItem = React.memo<SettingsItemProps>(
     testID,
     accessibilityHint,
     showChevron = true,
+    labelFontWeight = '$semibold',
   }) => {
     const scheme = useAppColorScheme(); // "light" | "dark"
 
@@ -99,7 +102,7 @@ export const SettingsItem = React.memo<SettingsItemProps>(
         <HStack space="md" alignItems="center" flex={1}>
           {startIconElement}
 
-          <Text color={labelColor} fontWeight="$semibold" lineHeight="$xl">
+          <Text color={labelColor} fontWeight={labelFontWeight} lineHeight="$xl">
             {label}
           </Text>
         </HStack>

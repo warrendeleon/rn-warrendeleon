@@ -28,7 +28,7 @@ const meta: Meta<typeof FormInputGroup> = {
   decorators: [
     Story => (
       <StackWrapper>
-        <ScrollView flex={1} bg="$coolGray100" p="$0">
+        <ScrollView flex={1} p="$0">
           <Story />
           <Box h="$20" />
         </ScrollView>

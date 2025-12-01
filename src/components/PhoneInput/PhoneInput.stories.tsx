@@ -22,7 +22,7 @@ const meta: Meta<typeof PhoneInput> = {
   decorators: [
     Story => (
       <StackWrapper>
-        <Box p="$4" bg="$coolGray100" flex={1}>
+        <Box p="$4" flex={1}>
           <Story />
         </Box>
       </StackWrapper>

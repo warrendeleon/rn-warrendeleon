@@ -140,6 +140,7 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
         {
           "height": 0.5,
           "marginLeft": 78,
+          "marginRight": 16,
         },
         {
           "backgroundColor": "#C6C6C8",

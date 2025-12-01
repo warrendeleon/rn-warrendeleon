@@ -161,11 +161,11 @@ export const MockStatusScreen: React.FC = () => {
       {/* Developer Mock Toggle */}
       <Box mt="$2" mb="$6">
         <Text
-          mb="$3"
+          mb="$2"
+          ml="$4"
           fontSize="$xs"
-          fontWeight="$semibold"
+          fontWeight="$medium"
           textTransform="uppercase"
-          lineHeight="$sm"
           color={labelColor}
           accessibilityRole="header"
         >
@@ -206,11 +206,11 @@ export const MockStatusScreen: React.FC = () => {
 
       <Box>
         <Text
-          mb="$3"
+          mb="$2"
+          ml="$4"
           fontSize="$xs"
-          fontWeight="$semibold"
+          fontWeight="$medium"
           textTransform="uppercase"
-          lineHeight="$sm"
           color={labelColor}
           accessibilityRole="header"
         >

@@ -144,13 +144,12 @@ export const SettingsScreen: React.FC = () => {
       {/* Account Section */}
       <Box mt="$2">
         <Text
-          mb="$3"
-          pt="$1"
+          mb="$2"
+          ml="$4"
           fontSize="$xs"
-          fontWeight="$semibold"
+          fontWeight="$medium"
           textTransform="uppercase"
-          lineHeight="$sm"
-          color="$coolGray500"
+          color={isDark ? '$textDark400' : '$textLight500'}
           accessibilityRole="header"
         >
           {t('settings.account')}
@@ -172,13 +171,12 @@ export const SettingsScreen: React.FC = () => {
       {/* General Section */}
       <Box mt="$6">
         <Text
-          mb="$3"
-          pt="$1"
+          mb="$2"
+          ml="$4"
           fontSize="$xs"
-          fontWeight="$semibold"
+          fontWeight="$medium"
           textTransform="uppercase"
-          lineHeight="$sm"
-          color="$coolGray500"
+          color={isDark ? '$textDark400' : '$textLight500'}
           accessibilityRole="header"
         >
           {t('settings.general')}
@@ -189,13 +187,12 @@ export const SettingsScreen: React.FC = () => {
       {isTestUIEnabled && (
         <Box mt="$6">
           <Text
-            mb="$3"
-            pt="$1"
+            mb="$2"
+            ml="$4"
             fontSize="$xs"
-            fontWeight="$semibold"
+            fontWeight="$medium"
             textTransform="uppercase"
-            lineHeight="$sm"
-            color="$coolGray500"
+            color={isDark ? '$textDark400' : '$textLight500'}
             accessibilityRole="header"
           >
             Testing
