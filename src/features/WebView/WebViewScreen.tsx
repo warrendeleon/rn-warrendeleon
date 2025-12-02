@@ -4,8 +4,8 @@ import { Box, Spinner, Text } from '@gluestack-ui/themed';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 
 import { ALLOWED_WEBVIEW_DOMAINS } from '@app/config/constants';
-import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { isUrlAllowed } from '@app/utils/urlValidator';
 
 type WebViewScreenRouteProp = RouteProp<RootStackParamList, 'WebView'>;

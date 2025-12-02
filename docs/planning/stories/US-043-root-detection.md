@@ -323,7 +323,7 @@ export const SecurityWarningModal: React.FC<SecurityWarningModalProps> = ({
 ### Security Indicator Component
 
 ```typescript
-// src/components/settings/SecurityStatusIndicator.tsx
+// src/features/Settings/components/SecurityStatusIndicator.tsx
 
 import React from 'react';
 import { Pressable } from 'react-native';
@@ -458,7 +458,7 @@ export const App = () => {
 
 ### Unit Tests (RNTL)
 
-**File**: `src/components/security/__tests__/SecurityWarningModal.test.tsx`
+**File**: `src/features/Settings/components/__tests__/SecurityWarningModal.rntl.tsx`
 
 ```typescript
 describe('SecurityWarningModal', () => {
@@ -532,7 +532,7 @@ describe('SecurityWarningModal', () => {
 
 ### E2E Tests (Detox + Cucumber)
 
-**File**: `e2e/features/root-detection.feature`
+**File**: `src/features/Settings/__tests__/RootDetection/root-detection.feature`
 
 ```gherkin
 Feature: Root/Jailbreak Detection

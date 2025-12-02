@@ -11,6 +11,8 @@ import type {
 } from '@react-navigation/native-stack';
 import * as yup from 'yup';
 
+import { refreshUser, selectUser, updateUserProfileAsync } from '@app/features/Auth';
+import type { RootStackParamList } from '@app/navigation';
 import {
   AlertBox,
   AuthScreenWrapper,
@@ -18,15 +20,13 @@ import {
   SettingsItem,
   UserCard,
   useToast,
-} from '@app/components';
+} from '@app/shared/components';
 import {
   CountryCodeSelector,
   type CountryData,
   DEFAULT_COUNTRY,
-} from '@app/components/CountryCodeSelector';
-import { refreshUser, selectUser, updateUserProfileAsync } from '@app/features/Auth';
-import { useAppColorScheme } from '@app/hooks';
-import type { RootStackParamList } from '@app/navigation';
+} from '@app/shared/components/CountryCodeSelector';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { logout, useAppDispatch, useAppSelector } from '@app/store';
 
 type EditAccountScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditAccount'>;

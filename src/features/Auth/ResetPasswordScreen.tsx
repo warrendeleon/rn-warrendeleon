@@ -13,15 +13,15 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { SupabaseAuthClient } from '@app/httpClients';
+import type { RootStackParamList } from '@app/navigation';
 import {
   AlertBox,
   AuthScreenWrapper,
   FormInputGroup,
   PasswordInput,
   PasswordRequirements,
-} from '@app/components';
-import { SupabaseAuthClient } from '@app/httpClients';
-import type { RootStackParamList } from '@app/navigation';
+} from '@app/shared/components';
 
 import type { PasswordResetFormData } from './validation/passwordRecoverySchema';
 import { passwordResetSchema } from './validation/passwordRecoverySchema';

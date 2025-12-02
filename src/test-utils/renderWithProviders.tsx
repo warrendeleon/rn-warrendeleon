@@ -7,13 +7,13 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import type { RenderOptions } from '@testing-library/react-native';
 import { render } from '@testing-library/react-native';
 
-import { ToastProvider } from '@app/components';
 import { AuthProvider, authReducer } from '@app/features/Auth';
 import { educationReducer } from '@app/features/Education';
 import { profileReducer } from '@app/features/Profile';
 import { settingsReducer } from '@app/features/Settings';
 import { workExperienceReducer } from '@app/features/WorkExperience';
 import i18n from '@app/i18n';
+import { ToastProvider } from '@app/shared/components';
 
 /**
  * Root reducer for tests (same structure as production)
@@ -54,7 +54,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'wrapper'> {
  * Uses REAL Redux store with MSW for HTTP mocking
  *
  * Benefits:
- * - Tests actual integration behavior (not mocked Redux)
+ * - Tests actual integration behaviour (not mocked Redux)
  * - No act() warnings (all state updates within React's control)
  * - MSW intercepts HTTP requests at the correct layer
  * - Reusable pattern for all Redux-connected component tests

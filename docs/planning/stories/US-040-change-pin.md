@@ -77,7 +77,7 @@
 ### Component Structure
 
 ```typescript
-// src/screens/settings/ChangePINScreen.tsx
+// src/features/Settings/screens/ChangePINScreen.tsx
 
 ChangePINScreen
 ├── Header (Back button, "Change PIN" title)
@@ -332,7 +332,7 @@ export const resetPINAttempts = (userId: string): void => {
 
 ### Unit Tests (RNTL)
 
-**File**: `src/screens/settings/__tests__/ChangePINScreen.test.tsx`
+**File**: `src/features/Settings/screens/__tests__/ChangePINScreen.rntl.tsx`
 
 ```typescript
 describe('ChangePINScreen', () => {
@@ -436,7 +436,7 @@ describe('ChangePINScreen', () => {
 
 ### E2E Tests (Detox + Cucumber)
 
-**File**: `e2e/features/change-pin.feature`
+**File**: `src/features/Settings/__tests__/ChangePIN/change-pin.feature`
 
 ```gherkin
 Feature: Change PIN

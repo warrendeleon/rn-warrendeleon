@@ -14,6 +14,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import type { RootStackParamList } from '@app/navigation';
 import {
   AlertBox,
   AuthScreenWrapper,
@@ -24,9 +25,8 @@ import {
   PasswordInput,
   PasswordRequirements,
   PhoneInput,
-} from '@app/components';
-import { useAppColorScheme } from '@app/hooks';
-import type { RootStackParamList } from '@app/navigation';
+} from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 import type { AuthErrorPayload } from '@app/store';
 import { register, selectAuthError, useAppDispatch, useAppSelector } from '@app/store';
 

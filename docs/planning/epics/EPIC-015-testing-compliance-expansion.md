@@ -68,7 +68,7 @@ These gaps create risk of regressions, accessibility violations, and potential E
 ### Out of Scope
 
 - Security fixes (EPIC-013)
-- Performance optimizations (EPIC-014)
+- Performance optimisations (EPIC-014)
 - New feature development
 - Automated colour contrast testing (defer to future epic)
 

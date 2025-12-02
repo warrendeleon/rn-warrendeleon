@@ -52,7 +52,7 @@ Current performance and quality issues:
 
 ### In Scope
 
-1. **Performance Optimization** (US-024)
+1. **Performance Optimisation** (US-024)
    - Add React.memo to DetailListGroup, SettingsItem, ButtonGroupDivider
    - Replace Dimensions.get() with useWindowDimensions hook
    - Optimise splash screen with parallel data loading + dynamic timing
@@ -79,14 +79,14 @@ Current performance and quality issues:
 
 | ID                                                              | Title                            | Priority  | Tasks | Status         |
 | --------------------------------------------------------------- | -------------------------------- | --------- | ----- | -------------- |
-| [US-024](../stories/US-024-performance-optimization-phase-2.md) | Performance Optimization Phase 2 | 🟠 High   | 4     | ⏳ In Progress |
+| [US-024](../stories/US-024-performance-optimization-phase-2.md) | Performance Optimisation Phase 2 | 🟠 High   | 4     | ⏳ In Progress |
 | [US-027](../stories/US-027-code-quality-tech-debt.md)           | Code Quality & Tech Debt         | 🟡 Medium | 10    | ✅ Complete    |
 
 ---
 
 ## Tasks Breakdown
 
-### US-024: Performance Optimization Phase 2 (4 tasks, 13 hours)
+### US-024: Performance Optimisation Phase 2 (4 tasks, 13 hours)
 
 | Task ID                                                    | Title                                             | Effort | Priority  | Status         |
 | ---------------------------------------------------------- | ------------------------------------------------- | ------ | --------- | -------------- |

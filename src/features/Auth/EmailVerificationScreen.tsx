@@ -13,10 +13,10 @@ import {
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Mail } from 'lucide-react-native';
 
-import { AlertBox, AuthScreenWrapper, useToast } from '@app/components';
-import { useAppColorScheme } from '@app/hooks';
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
+import { AlertBox, AuthScreenWrapper, useToast } from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 
 import {
   checkEmailResendRateLimit,

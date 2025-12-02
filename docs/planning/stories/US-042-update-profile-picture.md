@@ -74,7 +74,7 @@
 ### Component Structure
 
 ```typescript
-// src/screens/settings/UpdateProfilePictureScreen.tsx
+// src/features/Settings/screens/UpdateProfilePictureScreen.tsx
 
 UpdateProfilePictureScreen
 ├── Header ("Profile Picture")
@@ -371,7 +371,7 @@ export const InitialsAvatar: React.FC<InitialsAvatarProps> = ({
 
 ### Unit Tests (RNTL)
 
-**File**: `src/screens/settings/__tests__/UpdateProfilePictureScreen.test.tsx`
+**File**: `src/features/Settings/screens/__tests__/UpdateProfilePictureScreen.rntl.tsx`
 
 ```typescript
 describe('UpdateProfilePictureScreen', () => {
@@ -462,7 +462,7 @@ describe('UpdateProfilePictureScreen', () => {
 
 ### E2E Tests (Detox + Cucumber)
 
-**File**: `e2e/features/update-profile-picture.feature`
+**File**: `src/features/Settings/__tests__/UpdateProfilePicture/update-profile-picture.feature`
 
 ```gherkin
 Feature: Update Profile Picture

@@ -1,13 +1,13 @@
 import type { InternalAxiosRequestConfig } from 'axios';
 
+import * as api from '@app/features/Education/api/api';
 import type { RootState } from '@app/store';
 import mockEducationData from '@app/test-utils/fixtures/api/en/education.json';
 
-import * as api from '../../api/api';
 import { fetchEducation } from '../actions';
 
 // Mock the API
-jest.mock('../../api/api');
+jest.mock('@app/features/Education/api/api');
 const mockedApi = api as jest.Mocked<typeof api>;
 
 describe('Education actions', () => {

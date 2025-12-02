@@ -95,7 +95,7 @@ CREATE TABLE typing_indicators (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Indexes for performance
+-- Indices for performance
 CREATE INDEX idx_conversations_user_id ON conversations(user_id);
 CREATE INDEX idx_conversations_admin_id ON conversations(admin_id);
 CREATE INDEX idx_messages_conversation_id ON messages(conversation_id);

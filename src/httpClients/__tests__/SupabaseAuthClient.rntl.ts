@@ -1,6 +1,6 @@
 /**
  * Tests for SupabaseAuthClient
- * Tests AuthError class and documents E2E mocking behavior
+ * Tests AuthError class and documents E2E mocking behaviour
  * @jest-environment node
  */
 

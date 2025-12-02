@@ -5,10 +5,10 @@ import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { ProfileCard, SettingsGroup, type SettingsGroupItem } from '@app/components';
 import { selectProfile } from '@app/features/Profile';
-import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { ProfileCard, SettingsGroup, type SettingsGroupItem } from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { useAppSelector } from '@app/store';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;

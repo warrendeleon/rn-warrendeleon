@@ -2,7 +2,7 @@ import * as ReactNavigation from '@react-navigation/native';
 import { screen } from '@testing-library/react-native';
 
 import { ALLOWED_PDF_DOMAINS } from '@app/config/constants';
-import { useAppColorScheme } from '@app/hooks';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { renderWithProviders } from '@app/test-utils/renderWithProviders';
 import { isUrlAllowed } from '@app/utils/urlValidator';
 
@@ -29,7 +29,7 @@ jest.mock('@react-navigation/native', () => ({
   })),
 }));
 
-jest.mock('@app/hooks', () => ({
+jest.mock('@app/shared/hooks', () => ({
   useAppColorScheme: jest.fn(() => 'light'),
 }));
 

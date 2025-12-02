@@ -123,7 +123,7 @@ Build a Calendly-like booking system that allows authenticated users to book pho
 - FABs (Floating Action Buttons)
 - Android-specific components
 - Hex colours or pixel values
-- Hardcoded numbers
+- Hard-coded numbers
 
 ---
 

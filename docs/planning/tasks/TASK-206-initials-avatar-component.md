@@ -66,7 +66,7 @@ Build a reusable, accessible initials avatar component with:
 
 Create the initials avatar component with GlueStack UI:
 
-**File**: `src/components/common/InitialsAvatar.tsx`
+**File**: `src/features/Auth/components/InitialsAvatar.tsx`
 
 ```typescript
 import React from 'react';
@@ -277,11 +277,11 @@ export const getInitials = (fullName: string): string => {
 
 Show how to use the component in a user profile context:
 
-**File**: `src/components/user/UserProfile.tsx`
+**File**: `src/features/Auth/components/UserProfile.tsx`
 
 ```typescript
-import { InitialsAvatar } from '@/components/common/InitialsAvatar';
-import { useAppSelector } from '@/store/hooks';
+import { InitialsAvatar } from '@app/features/Auth/components/InitialsAvatar';
+import { useAppSelector } from '@app/store/hooks';
 
 export const UserProfile: React.FC = () => {
   const user = useAppSelector(state => state.auth.user);
@@ -313,10 +313,10 @@ export const UserProfile: React.FC = () => {
 
 Verify WCAG AAA contrast for white text on all colour backgrounds:
 
-**File**: `src/components/common/__tests__/InitialsAvatar.accessibility.test.ts`
+**File**: `src/features/Auth/components/__tests__/InitialsAvatar.accessibility.rntl.tsx`
 
 ```typescript
-import { getContrastRatio } from '@/utils/accessibility.utils';
+import { getContrastRatio } from '@app/utils/accessibility.utils';
 import { AVATAR_COLOURS } from '../InitialsAvatar';
 
 describe('InitialsAvatar - Accessibility', () => {
@@ -339,10 +339,14 @@ describe('InitialsAvatar - Accessibility', () => {
 
 Export utility functions for reuse elsewhere in the app:
 
-**File**: `src/utils/avatar.utils.ts`
+**File**: `src/features/Auth/utils/avatar.utils.ts`
 
 ```typescript
-export { getInitials, getColourForName, AVATAR_COLOURS } from '@/components/common/InitialsAvatar';
+export {
+  getInitials,
+  getColourForName,
+  AVATAR_COLOURS,
+} from '@app/features/Auth/components/InitialsAvatar';
 
 /**
  * Get avatar display data for a user
@@ -380,7 +384,7 @@ export const getAvatarData = (user: { fullName: string; profilePictureUrl?: stri
 
 ## Testing
 
-**Test File**: `src/components/common/__tests__/InitialsAvatar.test.tsx`
+**Test File**: `src/features/Auth/components/__tests__/InitialsAvatar.rntl.tsx`
 
 ```typescript
 import React from 'react';
@@ -530,7 +534,7 @@ describe('InitialsAvatar', () => {
 **Run tests**:
 
 ```bash
-yarn test src/components/common/__tests__/InitialsAvatar.test.tsx
+yarn test src/features/Auth/components/__tests__/InitialsAvatar.rntl.tsx
 ```
 
 ---

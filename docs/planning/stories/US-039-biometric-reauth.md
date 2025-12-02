@@ -251,13 +251,13 @@ User has PIN enabled (no biometrics)
 **BiometricPromptScreen Component**:
 
 ```typescript
-// src/screens/auth/BiometricPromptScreen.tsx
+// src/features/Auth/screens/BiometricPromptScreen.tsx
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, Pressable, Alert } from 'react-native';
-import { useBiometricAuth } from '../../hooks/useBiometricAuth';
+import { useBiometricAuth } from '@app/features/Auth/hooks/useBiometricAuth';
 import { useDispatch } from 'react-redux';
-import { clearAuth } from '../../store/auth/authSlice';
+import { clearAuth } from '@app/features/Auth/store/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import * as Keychain from 'react-native-keychain';
 import { Button, ButtonText } from '@gluestack-ui/themed';
@@ -468,12 +468,12 @@ export const BiometricPromptScreen: React.FC = () => {
 **PINPromptScreen Component**:
 
 ```typescript
-// src/screens/auth/PINPromptScreen.tsx
+// src/features/Auth/screens/PINPromptScreen.tsx
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, Pressable, TextInput, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { clearAuth } from '../../store/auth/authSlice';
+import { clearAuth } from '@app/features/Auth/store/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import * as Keychain from 'react-native-keychain';
 import bcrypt from 'react-native-bcrypt';
@@ -682,8 +682,8 @@ export const PINPromptScreen: React.FC = () => {
 **Updated useAppStateListener Hook**:
 
 ```typescript
-// src/hooks/useAppStateListener.ts (updated)
-import { useBiometricCapability } from './useBiometricCapability';
+// src/features/Auth/hooks/useAppStateListener.ts (updated)
+import { useBiometricCapability } from '@app/features/Auth/hooks/useBiometricCapability';
 
 export const useAppStateListener = () => {
   const { isAvailable } = useBiometricCapability();
@@ -746,21 +746,21 @@ export const useAppStateListener = () => {
 
 **Test Files**:
 
-- `src/screens/auth/__tests__/BiometricPromptScreen.test.tsx`
-- `src/screens/auth/__tests__/PINPromptScreen.test.tsx`
-- `src/hooks/__tests__/useBiometricReAuth.test.ts`
+- `src/features/Auth/screens/__tests__/BiometricPromptScreen.rntl.tsx`
+- `src/features/Auth/screens/__tests__/PINPromptScreen.rntl.tsx`
+- `src/features/Auth/hooks/__tests__/useBiometricReAuth.rntl.tsx`
 
 **Test Coverage**:
 
 **BiometricPromptScreen**:
 
 ```typescript
-// src/screens/auth/__tests__/BiometricPromptScreen.test.tsx
+// src/features/Auth/screens/__tests__/BiometricPromptScreen.rntl.tsx
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { BiometricPromptScreen } from '../BiometricPromptScreen';
-import { useBiometricAuth } from '../../../hooks/useBiometricAuth';
+import { BiometricPromptScreen } from '@app/features/Auth/screens/BiometricPromptScreen';
+import { useBiometricAuth } from '@app/features/Auth/hooks/useBiometricAuth';
 
-jest.mock('../../../hooks/useBiometricAuth');
+jest.mock('@app/features/Auth/hooks/useBiometricAuth');
 
 describe('BiometricPromptScreen', () => {
   it('should render correctly', () => {
@@ -904,9 +904,9 @@ describe('BiometricPromptScreen', () => {
 **PINPromptScreen**:
 
 ```typescript
-// src/screens/auth/__tests__/PINPromptScreen.test.tsx
+// src/features/Auth/screens/__tests__/PINPromptScreen.rntl.tsx
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { PINPromptScreen } from '../PINPromptScreen';
+import { PINPromptScreen } from '@app/features/Auth/screens/PINPromptScreen';
 import * as Keychain from 'react-native-keychain';
 import bcrypt from 'react-native-bcrypt';
 
@@ -1052,7 +1052,7 @@ describe('PINPromptScreen', () => {
 
 **Objective**: Write E2E tests for biometric re-authentication flows.
 
-**Feature File**: `e2e/features/auth/biometric-reauth.feature`
+**Feature File**: `src/features/Auth/__tests__/BiometricReauth/biometric-reauth.feature`
 
 **Scenarios**:
 

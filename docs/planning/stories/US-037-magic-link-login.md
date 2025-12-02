@@ -224,7 +224,7 @@ Magic Link Tab (inactive)
 
 **Deliverables**:
 
-- `src/hooks/useMagicLink.ts` hook with send function
+- `src/features/Auth/hooks/useMagicLink.ts` hook with send function
 - Supabase magic link API client
 - Deep link handler for callback
 - Token extraction from URL parameters
@@ -273,7 +273,7 @@ warrendeleon://login?access_token=eyJhbGci...&refresh_token=v1.MRjVvF...&type=ma
 **Deep Link Handler**:
 
 ```typescript
-// src/screens/auth/LoginCallbackScreen.tsx
+// src/features/Auth/screens/LoginCallbackScreen.tsx
 useEffect(() => {
   const handleDeepLink = async (url: string) => {
     const params = parseURLParams(url);
@@ -337,9 +337,9 @@ useEffect(() => {
 
 **Test Files**:
 
-- `src/components/auth/__tests__/MagicLinkTab.test.tsx`
-- `src/screens/auth/__tests__/LoginCallbackScreen.test.tsx`
-- `src/hooks/__tests__/useMagicLink.test.ts`
+- `src/features/Auth/components/__tests__/MagicLinkTab.rntl.tsx`
+- `src/features/Auth/screens/__tests__/LoginCallbackScreen.rntl.tsx`
+- `src/features/Auth/hooks/__tests__/useMagicLink.rntl.ts`
 
 **Test Coverage**:
 
@@ -373,7 +373,7 @@ useEffect(() => {
 
 **Objective**: Write E2E tests for magic link flow using Detox + Cucumber.
 
-**Feature File**: `e2e/features/auth/magic-link.feature`
+**Feature File**: `src/features/Auth/__tests__/MagicLink.feature`
 
 **Scenarios**:
 

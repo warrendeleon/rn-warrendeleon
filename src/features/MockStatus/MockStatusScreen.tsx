@@ -12,8 +12,8 @@ import {
   setE2EMockOverride,
 } from '@app/config/e2e';
 import { SupabaseAuthClient } from '@app/features/Auth/api';
-import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { useAppColorScheme } from '@app/shared/hooks';
 import type { RootState } from '@app/store';
 import {
   clearEducation,

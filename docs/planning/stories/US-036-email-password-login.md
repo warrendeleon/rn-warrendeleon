@@ -233,7 +233,7 @@ export const loginSchema = yup.object({
 
 **Deliverables**:
 
-- `src/screens/auth/LoginScreen.tsx` component
+- `src/features/Auth/screens/LoginScreen.tsx` component
 - Tab navigation (Email/Password | Magic Link)
 - Email + password input fields
 - Show/hide password toggle
@@ -314,7 +314,7 @@ User closes app → User reopens app → Check Keychain → If Remember Me flag 
 
 **Deliverables**:
 
-- `src/hooks/useAuth.ts` hook with login function
+- `src/features/Auth/hooks/useAuth.ts` hook with login function
 - Supabase Auth API client (custom REST, no SDK)
 - Token storage in Keychain (access + refresh tokens)
 - Redux state update with user metadata
@@ -408,9 +408,9 @@ dispatch(
 
 **Test Files**:
 
-- `src/screens/auth/__tests__/LoginScreen.test.tsx`
-- `src/hooks/__tests__/useAuth.test.ts`
-- `src/schemas/__tests__/loginSchema.test.ts`
+- `src/features/Auth/screens/__tests__/LoginScreen.rntl.tsx`
+- `src/features/Auth/hooks/__tests__/useAuth.rntl.ts`
+- `src/schemas/__tests__/loginSchema.rntl.ts`
 
 **Test Coverage**:
 
@@ -443,7 +443,7 @@ dispatch(
 
 **Objective**: Write E2E tests for all login scenarios using Detox + Cucumber.
 
-**Feature File**: `e2e/features/auth/login.feature`
+**Feature File**: `src/features/Auth/__tests__/Login.feature`
 
 **Scenarios**:
 

@@ -59,7 +59,7 @@
 ### Component Structure
 
 ```typescript
-// src/screens/chat/ChatScreen.tsx (with pagination)
+// src/features/Chat/screens/ChatScreen.tsx (with pagination)
 
 ChatScreen
 ├── Header
@@ -91,15 +91,11 @@ User scrolls to top of message list
 ### useChatMessages Hook (with Pagination)
 
 ```typescript
-// src/hooks/useChatMessages.ts (enhanced)
+// src/features/Chat/hooks/useChatMessages.ts (enhanced)
 
 import { useState, useEffect } from 'react';
-import {
-  subscribeToMessages,
-  unsubscribeFromMessages,
-  Message,
-} from '../services/chat/realtimeService';
-import { sendMessage as sendMessageAPI } from '../api/chat/messages';
+import { subscribeToMessages, unsubscribeFromMessages, Message } from '../services/realtimeService';
+import { sendMessage as sendMessageAPI } from '../api/messages';
 import Config from 'react-native-config';
 import { getAccessToken } from '../services/storage/keychainService';
 
@@ -219,12 +215,12 @@ export const useChatMessages = (conversationId: string) => {
 ### MessageList Component
 
 ```typescript
-// src/components/chat/MessageList.tsx
+// src/features/Chat/components/MessageList.tsx
 
 import React from 'react';
 import { FlatList, ActivityIndicator, View, Text } from 'react-native';
 import { MessageBubble } from './MessageBubble';
-import { Message } from '../../services/chat/realtimeService';
+import { Message } from '../services/realtimeService';
 import { Box } from '@gluestack-ui/themed';
 
 interface MessageListProps {
@@ -310,7 +306,7 @@ export const MessageList: React.FC<MessageListProps> = ({
 ### Empty State Component
 
 ```typescript
-// src/components/chat/EmptyState.tsx
+// src/features/Chat/components/EmptyState.tsx
 
 import React from 'react';
 import { View, Text } from 'react-native';
@@ -377,7 +373,7 @@ export const EmptyState: React.FC = () => {
 
 ### Unit Tests (RNTL)
 
-**File**: `src/components/chat/__tests__/MessageList.test.tsx`
+**File**: `src/features/Chat/components/__tests__/MessageList.rntl.tsx`
 
 ```typescript
 describe('MessageList', () => {
@@ -452,7 +448,7 @@ describe('MessageList', () => {
 
 ### E2E Tests (Detox + Cucumber)
 
-**File**: `e2e/features/message-history.feature`
+**File**: `src/features/Chat/__tests__/MessageHistory.feature`
 
 ```gherkin
 Feature: Message History with Pagination

@@ -9,8 +9,8 @@ import { type RouteProp, useNavigation, useRoute } from '@react-navigation/nativ
 import { Share2 } from 'lucide-react-native';
 
 import { ALLOWED_PDF_DOMAINS } from '@app/config/constants';
-import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { isUrlAllowed } from '@app/utils/urlValidator';
 
 // Wrap react-native-pdf with styled() for GlueStack UI consistency

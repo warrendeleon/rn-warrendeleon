@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Box, Heading, ScrollView, Text, VStack } from '@gluestack-ui/themed';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { useAppColorScheme } from '@app/shared/hooks';
 
 type TermsAndConditionsScreenProps = NativeStackScreenProps<
   RootStackParamList,

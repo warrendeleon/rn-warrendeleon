@@ -73,7 +73,7 @@
 ### Component Structure
 
 ```typescript
-// src/components/chat/MessageInput.tsx (enhanced)
+// src/features/Chat/components/MessageInput.tsx (enhanced)
 
 MessageInput
 ├── TextInput
@@ -111,7 +111,7 @@ User taps attachment button
 ### Supabase Storage Upload
 
 ```typescript
-// src/services/storage/chatAttachmentsService.ts
+// src/features/Chat/services/chatAttachmentsService.ts
 
 import { createClient } from '@supabase/supabase-js';
 import Config from 'react-native-config';
@@ -185,7 +185,7 @@ const processImage = async (imageUri: string): Promise<string> => {
 ### AttachmentPicker Component
 
 ```typescript
-// src/components/chat/AttachmentPicker.tsx
+// src/features/Chat/components/AttachmentPicker.tsx
 
 import React from 'react';
 import { Modal, Pressable, View, Text } from 'react-native';
@@ -299,12 +299,12 @@ export const AttachmentPicker: React.FC<AttachmentPickerProps> = ({
 ### AttachmentMessageBubble Component
 
 ```typescript
-// src/components/chat/AttachmentMessageBubble.tsx
+// src/features/Chat/components/AttachmentMessageBubble.tsx
 
 import React from 'react';
 import { Pressable, Image, Text } from 'react-native';
 import { Box, VStack } from '@gluestack-ui/themed';
-import { Message } from '../../services/chat/realtimeService';
+import { Message } from '../services/realtimeService';
 
 interface AttachmentMessageBubbleProps {
   message: Message;
@@ -371,7 +371,7 @@ export const AttachmentMessageBubble: React.FC<AttachmentMessageBubbleProps> = (
 
 ### Unit Tests (RNTL)
 
-**File**: `src/components/chat/__tests__/AttachmentPicker.test.tsx`
+**File**: `src/features/Chat/components/__tests__/AttachmentPicker.rntl.tsx`
 
 ```typescript
 describe('AttachmentPicker', () => {
@@ -418,6 +418,8 @@ describe('AttachmentPicker', () => {
 ```
 
 ### E2E Tests (Detox + Cucumber)
+
+**File**: `src/features/Chat/__tests__/ChatAttachments.feature`
 
 ```gherkin
 Feature: Chat Attachments

@@ -60,7 +60,7 @@ Build full E2E test suite for biometric and PIN setup flows with:
 
 ### Phase 1: Cucumber Feature File (40 minutes)
 
-**File**: `e2e/features/auth/biometric-setup.feature`
+**File**: `src/features/Auth/__tests__/BiometricSetup.feature`
 
 ```gherkin
 Feature: Biometric and PIN Setup
@@ -173,7 +173,7 @@ Feature: Biometric and PIN Setup
 
 ### Phase 2: Step Definitions - Biometric Setup (30 minutes)
 
-**File**: `e2e/step-definitions/auth/biometric-setup.steps.ts`
+**File**: `src/features/Auth/__tests__/biometric-setup.cucumber.tsx`
 
 ```typescript
 import { Given, When, Then } from '@cucumber/cucumber';
@@ -263,7 +263,7 @@ Then('I should remain on the BiometricSetup screen', async () => {
 
 ### Phase 3: Step Definitions - PIN Setup (30 minutes)
 
-**File**: `e2e/step-definitions/auth/pin-setup.steps.ts`
+**File**: `src/features/Auth/__tests__/pin-setup.cucumber.tsx`
 
 ```typescript
 import { When, Then } from '@cucumber/cucumber';
@@ -338,7 +338,7 @@ Then('PIN input fields should be cleared', async () => {
 
 ### Phase 4: Skip Warning Modal Steps (15 minutes)
 
-**File**: `e2e/step-definitions/auth/skip-warning.steps.ts`
+**File**: `src/features/Auth/__tests__/skip-warning.cucumber.tsx`
 
 ```typescript
 import { Then } from '@cucumber/cucumber';

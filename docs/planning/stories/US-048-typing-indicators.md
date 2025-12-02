@@ -66,7 +66,7 @@
 ### Component Structure
 
 ```typescript
-// src/screens/chat/ChatScreen.tsx (enhanced)
+// src/features/Chat/screens/ChatScreen.tsx (enhanced)
 
 ChatScreen
 ├── Header
@@ -129,7 +129,7 @@ $$ LANGUAGE plpgsql;
 ### Typing Indicator Supabase Realtime
 
 ```typescript
-// src/services/chat/typingIndicatorService.ts
+// src/features/Chat/services/typingIndicatorService.ts
 
 import { createClient } from '@supabase/supabase-js';
 import Config from 'react-native-config';
@@ -195,7 +195,7 @@ export const clearTypingStatus = async (conversationId: string, userId: string) 
 ### TypingIndicator Component
 
 ```typescript
-// src/components/chat/TypingIndicator.tsx
+// src/features/Chat/components/TypingIndicator.tsx
 
 import React, { useEffect, useRef } from 'react';
 import { Animated, View, Text } from 'react-native';
@@ -314,7 +314,7 @@ export const TypingIndicator: React.FC<TypingIndicatorProps> = ({
 ### Read Receipt Component
 
 ```typescript
-// src/components/chat/ReadReceipt.tsx
+// src/features/Chat/components/ReadReceipt.tsx
 
 import React from 'react';
 import { Text } from 'react-native';
@@ -365,11 +365,11 @@ export const ReadReceipt: React.FC<ReadReceiptProps> = ({
 ### Mark Messages as Read
 
 ```typescript
-// src/api/chat/readReceipts.ts
+// src/features/Chat/api/readReceipts.ts
 
 import axios from 'axios';
 import Config from 'react-native-config';
-import { getAccessToken } from '../../services/storage/keychainService';
+import { getAccessToken } from '@/services/storage/keychainService';
 
 export const markMessagesAsRead = async (conversationId: string): Promise<void> => {
   try {
@@ -414,7 +414,7 @@ export const markMessagesAsRead = async (conversationId: string): Promise<void> 
 
 ### Unit Tests (RNTL)
 
-**File**: `src/components/chat/__tests__/TypingIndicator.test.tsx`
+**File**: `src/features/Chat/components/__tests__/TypingIndicator.rntl.tsx`
 
 ```typescript
 describe('TypingIndicator', () => {
@@ -461,7 +461,7 @@ describe('ReadReceipt', () => {
 
 ### E2E Tests (Detox + Cucumber)
 
-**File**: `e2e/features/typing-indicators.feature`
+**File**: `src/features/Chat/__tests__/TypingIndicators.feature`
 
 ```gherkin
 Feature: Typing Indicators and Read Receipts

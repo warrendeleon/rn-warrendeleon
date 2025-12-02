@@ -1,11 +1,11 @@
 // Import common and auth steps to make them available
-import '@app/test-utils/cucumber/step-definitions/common.steps';
-import '@app/test-utils/cucumber/step-definitions/auth.steps';
+import '@app/test-utils/cucumber/step-definitions/common.cucumber';
+import '@app/test-utils/cucumber/step-definitions/auth.cucumber';
 
 import { Given } from '@cucumber/cucumber';
 import { by, element, waitFor } from 'detox';
 
-import { loginAndNavigateToEditAccount } from '@app/test-utils/cucumber/step-definitions/auth.steps';
+import { loginAndNavigateToEditAccount } from '@app/test-utils/cucumber/step-definitions/auth.cucumber';
 import { DetoxWorld } from '@app/test-utils/cucumber/support/world';
 
 /**

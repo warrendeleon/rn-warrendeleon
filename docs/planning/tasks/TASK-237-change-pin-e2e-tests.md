@@ -13,8 +13,8 @@ Write end-to-end tests for the Change PIN flow using Detox and Cucumber. Test th
 
 ## Acceptance Criteria
 
-- [ ] Feature file created at `e2e/features/change-pin.feature`
-- [ ] Step definitions created at `e2e/step-definitions/change-pin.steps.ts`
+- [ ] Feature file created at `src/features/Auth/__tests__/ChangePIN.feature`
+- [ ] Step definitions created at `src/features/Auth/__tests__/changePIN.cucumber.tsx`
 - [ ] Navigation to Change PIN screen tested
 - [ ] PIN input interaction tested
 - [ ] Form validation tested (mismatched PINs, weak PINs)
@@ -31,7 +31,7 @@ Write end-to-end tests for the Change PIN flow using Detox and Cucumber. Test th
 ### Feature File
 
 ```gherkin
-# e2e/features/change-pin.feature
+# src/features/Auth/__tests__/ChangePIN.feature
 
 @change-pin
 Feature: Change PIN
@@ -118,7 +118,7 @@ Feature: Change PIN
 ### Step Definitions
 
 ```typescript
-// e2e/step-definitions/change-pin.steps.ts
+// src/features/Auth/__tests__/changePIN.cucumber.tsx
 
 import { Given, When, Then } from '@cucumber/cucumber';
 import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
@@ -217,7 +217,7 @@ Then('I should hear {string}', async (accessibilityLabel: string) => {
 ### Page Object Model (Optional but Recommended)
 
 ```typescript
-// e2e/page-objects/ChangePINScreen.ts
+// src/features/Auth/__tests__/page-objects/ChangePINScreen.ts
 
 import { by, element, waitFor } from 'detox';
 
@@ -287,7 +287,7 @@ export class ChangePINScreen {
 yarn detox:ios:build
 
 # Run Change PIN tests only
-DETOX_CONFIGURATION=ios.sim.debug npx cucumber-js e2e/features/change-pin.feature
+DETOX_CONFIGURATION=ios.sim.debug npx cucumber-js src/features/Auth/__tests__/ChangePIN.feature
 
 # Run with specific tag
 DETOX_CONFIGURATION=ios.sim.debug npx cucumber-js --tags "@change-pin and @smoke"

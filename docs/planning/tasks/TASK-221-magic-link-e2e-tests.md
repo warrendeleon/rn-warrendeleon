@@ -15,7 +15,7 @@ Write E2E tests for complete magic link flow using Detox + Cucumber.
 
 ## Feature File
 
-**File**: `e2e/features/auth/magic-link.feature`
+**File**: `src/features/Auth/__tests__/MagicLink.feature`
 
 ```gherkin
 Feature: Magic Link Login
@@ -68,7 +68,7 @@ Feature: Magic Link Login
 
 ## Step Definitions
 
-**File**: `e2e/step-definitions/magicLink.steps.ts`
+**File**: `src/features/Auth/__tests__/magicLink.cucumber.tsx`
 
 ```typescript
 import { Given, When, Then } from '@cucumber/cucumber';

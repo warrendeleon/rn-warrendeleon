@@ -6,7 +6,8 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-native';
 
-import { AuthContext, type AuthContextValue } from '../../context';
+import { AuthContext, type AuthContextValue } from '@app/features/Auth/context';
+
 import { useAuth } from '../useAuth';
 
 describe('useAuth', () => {

@@ -1,13 +1,13 @@
 import type { InternalAxiosRequestConfig } from 'axios';
 
+import * as api from '@app/features/WorkExperience/api/api';
 import type { RootState } from '@app/store';
 import mockWorkExperienceData from '@app/test-utils/fixtures/api/en/workxp.json';
 
-import * as api from '../../api/api';
 import { fetchWorkExperience } from '../actions';
 
 // Mock the API
-jest.mock('../../api/api');
+jest.mock('@app/features/WorkExperience/api/api');
 const mockedApi = api as jest.Mocked<typeof api>;
 
 describe('WorkExperience actions', () => {

@@ -61,7 +61,7 @@ Build comprehensive E2E test suite using Detox + Cucumber to validate the entire
 
 Create Cucumber feature file for registration scenarios:
 
-**File**: `e2e/features/auth/registration.feature`
+**File**: `src/features/Auth/__tests__/Registration.feature`
 
 ```gherkin
 Feature: User Registration
@@ -184,7 +184,7 @@ Feature: User Registration
 
 Create step definitions for registration flows:
 
-**File**: `e2e/step-definitions/auth/registration.steps.ts`
+**File**: `src/features/Auth/__tests__/registration.cucumber.tsx`
 
 ```typescript
 import { Given, When, Then } from '@cucumber/cucumber';
@@ -372,7 +372,7 @@ Then('my LinkedIn profile picture should be downloaded and stored', async () => 
 
 Create helper utilities for common E2E operations:
 
-**File**: `e2e/helpers/auth.helper.ts`
+**File**: `src/features/Auth/__tests__/helpers/auth.helper.ts`
 
 ```typescript
 import { by, device, element, waitFor } from 'detox';
@@ -446,7 +446,7 @@ export class AuthHelper {
 }
 ```
 
-**File**: `e2e/helpers/network.helper.ts`
+**File**: `src/features/Auth/__tests__/helpers/network.helper.ts`
 
 ```typescript
 import { device } from 'detox';

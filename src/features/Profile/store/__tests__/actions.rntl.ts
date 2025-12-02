@@ -1,13 +1,13 @@
 import type { InternalAxiosRequestConfig } from 'axios';
 
+import * as api from '@app/features/Profile/api/api';
 import type { RootState } from '@app/store';
 import mockProfileData from '@app/test-utils/fixtures/api/en/profile.json';
 
-import * as api from '../../api/api';
 import { fetchProfile } from '../actions';
 
 // Mock the API
-jest.mock('../../api/api');
+jest.mock('@app/features/Profile/api/api');
 const mockedApi = api as jest.Mocked<typeof api>;
 
 describe('Profile actions', () => {

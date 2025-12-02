@@ -6,7 +6,7 @@ import { useRoute } from '@react-navigation/native';
 import { render, screen } from '@testing-library/react-native';
 
 import { ALLOWED_WEBVIEW_DOMAINS } from '@app/config/constants';
-import { useAppColorScheme } from '@app/hooks';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { isUrlAllowed } from '@app/utils/urlValidator';
 
 import { WebViewScreen } from '../WebViewScreen';
@@ -16,7 +16,7 @@ jest.mock('@react-navigation/native', () => ({
   useRoute: jest.fn(),
 }));
 
-jest.mock('@app/hooks', () => ({
+jest.mock('@app/shared/hooks', () => ({
   useAppColorScheme: jest.fn(),
 }));
 

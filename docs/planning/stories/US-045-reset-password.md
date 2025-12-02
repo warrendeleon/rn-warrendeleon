@@ -85,7 +85,7 @@
 ### Component Structure
 
 ```typescript
-// src/screens/auth/ResetPasswordScreen.tsx
+// src/features/Auth/screens/ResetPasswordScreen.tsx
 
 ResetPasswordScreen
 ├── Header ("Reset Password")
@@ -309,7 +309,7 @@ export const resetPasswordWithToken = async (token: string, newPassword: string)
 ### useResetPassword Hook
 
 ```typescript
-// src/hooks/useResetPassword.ts
+// src/features/Auth/hooks/useResetPassword.ts
 
 import { useState } from 'react';
 import { resetPasswordWithToken } from '../api/auth/resetPassword';
@@ -423,7 +423,7 @@ export const SecureTextInput: React.FC<SecureTextInputProps> = ({
 
 ### Unit Tests (RNTL)
 
-**File**: `src/screens/auth/__tests__/ResetPasswordScreen.test.tsx`
+**File**: `src/features/Auth/screens/__tests__/ResetPasswordScreen.rntl.tsx`
 
 ```typescript
 describe('ResetPasswordScreen', () => {
@@ -519,7 +519,7 @@ describe('ResetPasswordScreen', () => {
 
 ### E2E Tests (Detox + Cucumber)
 
-**File**: `e2e/features/reset-password.feature`
+**File**: `src/features/Auth/__tests__/ResetPassword.feature`
 
 ```gherkin
 Feature: Reset Password

@@ -3,9 +3,9 @@ import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { DetailListGroup, type DetailListGroupItem } from '@app/components';
-import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { DetailListGroup, type DetailListGroupItem } from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { useAppDispatch, useAppSelector } from '@app/store';
 import { formatDate } from '@app/utils/dateFormatter';
 

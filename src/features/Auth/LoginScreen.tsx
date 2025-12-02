@@ -13,6 +13,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import type { RootStackParamList } from '@app/navigation';
 import {
   AlertBox,
   AuthScreenWrapper,
@@ -21,9 +22,8 @@ import {
   FormInputGroup,
   PasswordInput,
   useToast,
-} from '@app/components';
-import { useAppColorScheme } from '@app/hooks';
-import type { RootStackParamList } from '@app/navigation';
+} from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 import type { AuthErrorPayload } from '@app/store';
 import { login, selectAuthError, useAppDispatch, useAppSelector } from '@app/store';
 

@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { fetchProfileData } from '@app/features/Profile/api/api';
 import type { AppDispatch } from '@app/store';
 import profileFixture from '@app/test-utils/fixtures/api/en/profile.json';
 
-import { fetchProfileData } from '../../api/api';
 import { fetchProfile } from '../actions';
 import { clearProfile, profileReducer, type ProfileState } from '../reducer';
 
-jest.mock('../../api/api');
+jest.mock('@app/features/Profile/api/api');
 const mockedFetchProfileData = fetchProfileData as jest.MockedFunction<typeof fetchProfileData>;
 
 describe('profileReducer', () => {

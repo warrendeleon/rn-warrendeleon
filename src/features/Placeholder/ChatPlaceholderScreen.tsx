@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Box, Text, VStack } from '@gluestack-ui/themed';
 
-import { useAppColorScheme } from '@app/hooks';
+import { useAppColorScheme } from '@app/shared/hooks';
 
 export const ChatPlaceholderScreen: React.FC = () => {
   const { t } = useTranslation();

@@ -82,10 +82,10 @@ import {
 } from '@gluestack-ui/themed';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useBiometricCapability, getBiometricName } from '@/hooks/useBiometricCapability';
-import { useBiometricAuth } from '@/hooks/useBiometricAuth';
-import { SkipBiometricWarningModal } from '@/components/auth/SkipBiometricWarningModal';
-import { FaceIdIcon, FingerprintIcon, LockIcon } from '@/components/icons';
+import { useBiometricCapability, getBiometricName } from '@app/features/Auth/hooks/useBiometricCapability';
+import { useBiometricAuth } from '@app/features/Auth/hooks/useBiometricAuth';
+import { SkipBiometricWarningModal } from '@app/features/Auth/components/SkipBiometricWarningModal';
+import { FaceIdIcon, FingerprintIcon, LockIcon } from '@app/components/icons';
 
 /**
  * BiometricSetupScreen
@@ -362,7 +362,7 @@ import {
   VStack,
   Icon,
 } from '@gluestack-ui/themed';
-import { AlertTriangleIcon } from '@/components/icons';
+import { AlertTriangleIcon } from '@app/components/icons';
 
 interface SkipBiometricWarningModalProps {
   /** Whether modal is visible */
@@ -667,7 +667,7 @@ export default FingerprintIcon;
 
 ```typescript
 // Add BiometricSetupScreen to navigation stack
-import { BiometricSetupScreen } from '@/screens/auth/BiometricSetupScreen';
+import { BiometricSetupScreen } from '@app/features/Auth/screens/BiometricSetupScreen';
 
 // In stack navigator
 <Stack.Screen
@@ -717,18 +717,18 @@ export type AuthStackParamList = {
 
 ## Testing
 
-**Test File**: `src/screens/auth/__tests__/BiometricSetupScreen.test.tsx`
+**Test File**: `src/features/Auth/screens/__tests__/BiometricSetupScreen.rntl.tsx`
 
 ```typescript
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react-native';
 import { BiometricSetupScreen } from '../BiometricSetupScreen';
-import { useBiometricCapability } from '@/hooks/useBiometricCapability';
-import { useBiometricAuth } from '@/hooks/useBiometricAuth';
+import { useBiometricCapability } from '@app/features/Auth/hooks/useBiometricCapability';
+import { useBiometricAuth } from '@app/features/Auth/hooks/useBiometricAuth';
 import { useNavigation } from '@react-navigation/native';
 
 // Mocks
-jest.mock('@/hooks/useBiometricCapability');
+jest.mock('@app/features/Auth/hooks/useBiometricCapability');
 jest.mock('@/hooks/useBiometricAuth');
 jest.mock('@react-navigation/native');
 

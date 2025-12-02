@@ -1,5 +1,5 @@
 // Import common steps to make them available
-import '@app/test-utils/cucumber/step-definitions/common.steps';
+import '@app/test-utils/cucumber/step-definitions/common.cucumber';
 
 import { After, Then } from '@cucumber/cucumber';
 import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
@@ -8,7 +8,7 @@ import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
  * Work Experience flow step definitions
  *
  * Tests navigation and display of work experience data.
- * Most steps use common step definitions from common.steps.tsx.
+ * Most steps use common step definitions from common.cucumber.tsx.
  * This file only contains WorkExperience-specific custom steps.
  *
  * EAA Compliance:

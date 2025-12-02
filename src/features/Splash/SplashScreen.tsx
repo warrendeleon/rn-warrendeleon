@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Box, Button, ButtonText, Heading, Text } from '@gluestack-ui/themed';
 
-import { Logo } from '@app/components';
 import { incrementRetryAttempts } from '@app/config';
-import { useAppColorScheme } from '@app/hooks';
+import { Logo } from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 import {
   fetchEducation,
   fetchProfile,
@@ -43,7 +43,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   const combinedError = profileError || educationError || workExperienceError;
 
   /**
-   * Load app data with optimized parallel fetching
+   * Load app data with optimised parallel fetching
    * Returns true if loading succeeded, false if error occurred
    */
   const loadAppData = async (): Promise<boolean> => {

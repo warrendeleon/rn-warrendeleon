@@ -50,7 +50,7 @@ Without these updates:
 ### Redux Selector Updates
 
 ```typescript
-// src/store/workExperience/selectors.ts
+// src/features/WorkExperience/store/selectors.ts
 
 // OLD: Nested clients structure
 export const selectWorkExperienceClients = (state: RootState, workExpId: string) => {

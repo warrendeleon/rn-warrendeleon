@@ -110,13 +110,21 @@ export const ProfilePicturePicker = ({ onImageSelected, testID }) => {
 
 ```
 src/features/Auth/
-└── components/
-    ├── ProfilePicturePicker.tsx
+├── components/
+│   ├── ProfilePicturePicker.tsx
+│   └── __tests__/
+│       └── ProfilePicturePicker.rntl.tsx
+├── hooks/
+│   ├── useImagePicker.ts
+│   └── __tests__/
+│       └── useImagePicker.rntl.tsx
+└── utils/
+    ├── imageProcessing.ts
     └── __tests__/
-        └── ProfilePicturePicker.rntl.tsx
+        └── imageProcessing.rntl.tsx
 ```
 
-**Note**: Component co-located with Auth feature following feature-first architecture (established in TASK-196).
+**Note**: Component, hooks, and utils co-located with Auth feature following feature-first architecture (established in TASK-196).
 
 ## Acceptance Criteria
 

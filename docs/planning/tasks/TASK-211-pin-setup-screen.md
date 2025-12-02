@@ -81,7 +81,7 @@ Build secure 6-digit PIN setup screen with:
 
 ### Phase 1: PIN Input Component (45 minutes)
 
-**File**: `src/components/auth/PINInput.tsx`
+**File**: `src/features/Auth/components/PINInput.tsx`
 
 ```typescript
 import React, { useRef, useState, useEffect } from 'react';
@@ -241,7 +241,7 @@ export const PINInput: React.FC<PINInputProps> = ({
 
 ### Phase 2: PIN Validation Logic (30 minutes)
 
-**File**: `src/utils/pinValidation.ts`
+**File**: `src/features/Auth/utils/pinValidation.ts`
 
 ```typescript
 /**
@@ -401,7 +401,7 @@ export const comparePINs = (pin1: string, pin2: string): PINValidationResult => 
 
 ### Phase 3: bcrypt Hashing Utility (20 minutes)
 
-**File**: `src/utils/pinHashing.ts`
+**File**: `src/features/Auth/utils/pinHashing.ts`
 
 ```typescript
 import bcrypt from 'react-native-bcrypt';
@@ -508,7 +508,7 @@ export const deletePINHash = async (): Promise<void> => {
 
 ### Phase 4: PIN Setup Screen Component (45 minutes)
 
-**File**: `src/screens/auth/PINSetupScreen.tsx`
+**File**: `src/features/Auth/screens/PINSetupScreen.tsx`
 
 ```typescript
 import React, { useState } from 'react';
@@ -522,9 +522,9 @@ import {
 } from '@gluestack-ui/themed';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { PINInput } from '@/components/auth/PINInput';
-import { validatePIN, comparePINs } from '@/utils/pinValidation';
-import { hashPIN, storePINHash } from '@/utils/pinHashing';
+import { PINInput } from '@app/features/Auth/components/PINInput';
+import { validatePIN, comparePINs } from '@app/features/Auth/utils/pinValidation';
+import { hashPIN, storePINHash } from '@app/features/Auth/utils/pinHashing';
 
 type PINSetupStep = 'enter' | 'confirm';
 
@@ -737,7 +737,7 @@ export const PINSetupScreen: React.FC = () => {
 
 ```typescript
 // Add PINSetupScreen to navigation stack
-import { PINSetupScreen } from '@/screens/auth/PINSetupScreen';
+import { PINSetupScreen } from '@app/features/Auth/screens/PINSetupScreen';
 
 // In stack navigator
 <Stack.Screen
@@ -793,17 +793,17 @@ export type AuthStackParamList = {
 
 ## Testing
 
-**Test File**: `src/screens/auth/__tests__/PINSetupScreen.test.tsx`
+**Test File**: `src/features/Auth/screens/__tests__/PINSetupScreen.rntl.tsx`
 
 ```typescript
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react-native';
 import { PINSetupScreen } from '../PINSetupScreen';
-import { hashPIN, storePINHash } from '@/utils/pinHashing';
+import { hashPIN, storePINHash } from '@app/features/Auth/utils/pinHashing';
 import { useNavigation } from '@react-navigation/native';
 
 // Mocks
-jest.mock('@/utils/pinHashing');
+jest.mock('@app/features/Auth/utils/pinHashing');
 jest.mock('@react-navigation/native');
 
 const mockHashPIN = hashPIN as jest.MockedFunction<typeof hashPIN>;

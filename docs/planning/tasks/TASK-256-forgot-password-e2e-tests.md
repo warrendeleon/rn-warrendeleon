@@ -29,7 +29,7 @@ Write Detox + Cucumber end-to-end tests for the forgot password flow. Test compl
 ### Cucumber Feature File
 
 ```gherkin
-# e2e/features/forgot-password.feature
+# src/features/Auth/__tests__/ForgotPassword.feature
 
 Feature: Forgot Password
 
@@ -78,7 +78,7 @@ Feature: Forgot Password
 ### Step Definitions
 
 ```typescript
-// e2e/steps/forgot-password.steps.ts
+// src/features/Auth/__tests__/forgotPassword.cucumber.tsx
 
 import { Given, When, Then } from '@cucumber/cucumber';
 import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
@@ -181,7 +181,7 @@ Then('I should see the information box with title {string}', async (title: strin
 ### Additional Detox Test Helpers
 
 ```typescript
-// e2e/helpers/forgot-password.helpers.ts
+// src/features/Auth/__tests__/helpers/forgot-password.helpers.ts
 
 import { by, device, element, waitFor } from 'detox';
 
@@ -262,7 +262,7 @@ export const setRateLimitToMax = async (email: string) => {
 ### Test Configuration
 
 ```typescript
-// e2e/config/forgot-password.config.ts
+// src/features/Auth/__tests__/config/forgot-password.config.ts
 
 /**
  * Test configuration for forgot password E2E tests
@@ -293,10 +293,10 @@ export const forgotPasswordTestConfig = {
 yarn detox:ios:build
 
 # Run forgot password E2E tests on iOS
-DETOX_CONFIGURATION=ios.sim.debug npx cucumber-js e2e/features/forgot-password.feature
+DETOX_CONFIGURATION=ios.sim.debug npx cucumber-js src/features/Auth/__tests__/ForgotPassword.feature
 
 # Run forgot password E2E tests on Android
-DETOX_CONFIGURATION=android.emu.debug npx cucumber-js e2e/features/forgot-password.feature
+DETOX_CONFIGURATION=android.emu.debug npx cucumber-js src/features/Auth/__tests__/ForgotPassword.feature
 
 # Run all E2E tests
 yarn detox:ios:test

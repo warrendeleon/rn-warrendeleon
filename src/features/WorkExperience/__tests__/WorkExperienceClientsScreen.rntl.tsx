@@ -21,7 +21,7 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 // Mock DetailListGroup
-jest.mock('@app/components', () => {
+jest.mock('@app/shared/components', () => {
   const mockReact = jest.requireActual('react');
   const mockRN = jest.requireActual('react-native');
 

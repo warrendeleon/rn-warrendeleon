@@ -15,10 +15,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Info } from 'lucide-react-native';
 
-import { AlertBox, AuthScreenWrapper, EmailInput, FormInputGroup } from '@app/components';
-import { useAppColorScheme } from '@app/hooks';
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
+import { AlertBox, AuthScreenWrapper, EmailInput, FormInputGroup } from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 
 import { checkPasswordResetRateLimit, recordPasswordResetRequest } from './utils/rateLimiter';
 import type { PasswordRecoveryFormData } from './validation/passwordRecoverySchema';

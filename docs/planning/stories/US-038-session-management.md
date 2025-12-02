@@ -254,9 +254,9 @@ User backgrounds app (Home button / app switcher)
 // src/api/interceptors/authInterceptor.ts
 import axios from 'axios';
 import * as Keychain from 'react-native-keychain';
-import { refreshAccessToken } from '../auth/refresh';
-import { store } from '../../store';
-import { clearAuth } from '../../store/auth/authSlice';
+import { refreshAccessToken } from '@app/api/auth/refresh';
+import { store } from '@app/store';
+import { clearAuth } from '@app/features/Auth/store/authSlice';
 
 axios.interceptors.response.use(
   response => response, // Pass through successful responses
@@ -438,11 +438,11 @@ export const refreshAccessToken = async (refreshToken: string) => {
 **useInactivityTimeout Hook**:
 
 ```typescript
-// src/hooks/useInactivityTimeout.ts
+// src/features/Auth/hooks/useInactivityTimeout.ts
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store';
-import { clearAuth } from '../store/auth/authSlice';
+import { RootState } from '@app/store';
+import { clearAuth } from '@app/features/Auth/store/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import * as Keychain from 'react-native-keychain';
 
@@ -503,9 +503,9 @@ export const useInactivityTimeout = () => {
 **Redux Middleware to Track User Interactions**:
 
 ```typescript
-// src/store/middleware/activityMiddleware.ts
+// src/features/Auth/store/middleware/activityMiddleware.ts
 import { Middleware } from '@reduxjs/toolkit';
-import { updateLastActivity } from '../auth/authSlice';
+import { updateLastActivity } from '@app/features/Auth/store/authSlice';
 
 // Actions that indicate user activity
 const ACTIVITY_ACTIONS = [
@@ -534,7 +534,7 @@ export const activityMiddleware: Middleware = store => next => action => {
 **Redux Slice Update**:
 
 ```typescript
-// src/store/auth/authSlice.ts
+// src/features/Auth/store/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AuthState {
@@ -570,7 +570,7 @@ export default authSlice.reducer;
 **Pause/Resume on App State Change**:
 
 ```typescript
-// src/hooks/useInactivityTimeout.ts (updated)
+// src/features/Auth/hooks/useInactivityTimeout.ts (updated)
 import { AppState, AppStateStatus } from 'react-native';
 
 export const useInactivityTimeout = () => {
@@ -641,12 +641,12 @@ export const useInactivityTimeout = () => {
 **useAppStateListener Hook**:
 
 ```typescript
-// src/hooks/useAppStateListener.ts
+// src/features/Auth/hooks/useAppStateListener.ts
 import { useEffect, useRef } from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store';
-import { setBackgroundTimestamp, clearAuth } from '../store/auth/authSlice';
+import { RootState } from '@app/store';
+import { setBackgroundTimestamp, clearAuth } from '@app/features/Auth/store/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import * as Keychain from 'react-native-keychain';
 
@@ -739,7 +739,7 @@ export const useAppStateListener = () => {
 **Redux Slice Update**:
 
 ```typescript
-// src/store/auth/authSlice.ts
+// src/features/Auth/store/authSlice.ts
 interface AuthState {
   isAuthenticated: boolean;
   lastActivity: number;
@@ -776,12 +776,12 @@ export default authSlice.reducer;
 **BiometricPromptScreen**:
 
 ```typescript
-// src/screens/auth/BiometricPromptScreen.tsx
+// src/features/Auth/screens/BiometricPromptScreen.tsx
 import React, { useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
-import { useBiometricAuth } from '../../hooks/useBiometricAuth';
+import { useBiometricAuth } from '@app/features/Auth/hooks/useBiometricAuth';
 import { useDispatch } from 'react-redux';
-import { clearAuth } from '../../store/auth/authSlice';
+import { clearAuth } from '@app/features/Auth/store/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import * as Keychain from 'react-native-keychain';
 
@@ -1025,22 +1025,22 @@ const App = () => {
 
 **Test Files**:
 
-- `src/hooks/__tests__/useTokenRefresh.test.ts`
-- `src/hooks/__tests__/useInactivityTimeout.test.ts`
-- `src/hooks/__tests__/useAppStateListener.test.ts`
-- `src/utils/__tests__/jwt.test.ts`
-- `src/screens/auth/__tests__/BiometricPromptScreen.test.tsx`
+- `src/features/Auth/hooks/__tests__/useTokenRefresh.rntl.tsx`
+- `src/features/Auth/hooks/__tests__/useInactivityTimeout.rntl.tsx`
+- `src/features/Auth/hooks/__tests__/useAppStateListener.rntl.tsx`
+- `src/utils/__tests__/jwt.rntl.tsx`
+- `src/features/Auth/screens/__tests__/BiometricPromptScreen.rntl.tsx`
 
 **Test Coverage**:
 
 **useTokenRefresh Hook**:
 
 ```typescript
-// src/hooks/__tests__/useTokenRefresh.test.ts
+// src/features/Auth/hooks/__tests__/useTokenRefresh.rntl.tsx
 import { renderHook } from '@testing-library/react-hooks';
 import axios from 'axios';
 import * as Keychain from 'react-native-keychain';
-import { refreshAccessToken } from '../../api/auth/refresh';
+import { refreshAccessToken } from '@app/api/auth/refresh';
 
 jest.mock('axios');
 jest.mock('react-native-keychain');
@@ -1102,11 +1102,11 @@ describe('refreshAccessToken', () => {
 **useInactivityTimeout Hook**:
 
 ```typescript
-// src/hooks/__tests__/useInactivityTimeout.test.ts
+// src/features/Auth/hooks/__tests__/useInactivityTimeout.rntl.tsx
 import { renderHook, act } from '@testing-library/react-hooks';
-import { useInactivityTimeout } from '../useInactivityTimeout';
+import { useInactivityTimeout } from '@app/features/Auth/hooks/useInactivityTimeout';
 import { Provider } from 'react-redux';
-import { store } from '../../store';
+import { store } from '@app/store';
 
 jest.useFakeTimers();
 
@@ -1154,8 +1154,8 @@ describe('useInactivityTimeout', () => {
 **JWT Decode Utility**:
 
 ```typescript
-// src/utils/__tests__/jwt.test.ts
-import { decodeJWT, isTokenExpired } from '../jwt';
+// src/utils/__tests__/jwt.rntl.tsx
+import { decodeJWT, isTokenExpired } from '@app/utils/jwt';
 
 describe('JWT Utilities', () => {
   const validToken =

@@ -10,12 +10,12 @@ import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { ToastProvider } from '@app/components';
 import { isE2EMockEnabled } from '@app/config/e2e';
 import { getE2EErrorConfig } from '@app/config/e2e-error';
 import { AuthProvider, SplashScreen } from '@app/features';
 import { selectLanguage } from '@app/features/Settings/store';
 import { RootNavigator } from '@app/navigation';
+import { ToastProvider } from '@app/shared/components';
 import {
   fetchEducation,
   fetchProfile,

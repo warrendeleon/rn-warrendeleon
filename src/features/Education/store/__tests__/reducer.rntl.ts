@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { fetchEducationData } from '@app/features/Education/api/api';
 import type { AppDispatch } from '@app/store';
 import educationFixture from '@app/test-utils/fixtures/api/en/education.json';
 
-import { fetchEducationData } from '../../api/api';
 import { fetchEducation } from '../actions';
 import { clearEducation, educationReducer, type EducationState } from '../reducer';
 
-jest.mock('../../api/api');
+jest.mock('@app/features/Education/api/api');
 const mockedFetchEducationData = fetchEducationData as jest.MockedFunction<
   typeof fetchEducationData
 >;

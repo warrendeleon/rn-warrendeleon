@@ -80,7 +80,7 @@
 ### Component Structure
 
 ```typescript
-// src/screens/chat/ChatScreen.tsx
+// src/features/Chat/screens/ChatScreen.tsx
 
 ChatScreen
 ├── Header (Admin name, online status)
@@ -118,7 +118,7 @@ User opens ChatScreen
 ### Supabase Realtime Subscription
 
 ```typescript
-// src/services/chat/realtimeService.ts
+// src/features/Chat/services/realtimeService.ts
 
 import { createClient } from '@supabase/supabase-js';
 import Config from 'react-native-config';
@@ -167,15 +167,11 @@ export const unsubscribeFromMessages = (subscription: any) => {
 ### useChatMessages Hook
 
 ```typescript
-// src/hooks/useChatMessages.ts
+// src/features/Chat/hooks/useChatMessages.ts
 
 import { useState, useEffect } from 'react';
-import {
-  subscribeToMessages,
-  unsubscribeFromMessages,
-  Message,
-} from '../services/chat/realtimeService';
-import { sendMessage as sendMessageAPI } from '../api/chat/messages';
+import { subscribeToMessages, unsubscribeFromMessages, Message } from '../services/realtimeService';
+import { sendMessage as sendMessageAPI } from '../api/messages';
 import Config from 'react-native-config';
 import { getAccessToken } from '../services/storage/keychainService';
 
@@ -270,11 +266,11 @@ export const useChatMessages = (conversationId: string) => {
 ### Send Message API
 
 ```typescript
-// src/api/chat/messages.ts
+// src/features/Chat/api/messages.ts
 
 import axios from 'axios';
 import Config from 'react-native-config';
-import { getAccessToken } from '../../services/storage/keychainService';
+import { getAccessToken } from '@/services/storage/keychainService';
 import { z } from 'zod';
 
 const sendMessageRequestSchema = z.object({
@@ -335,13 +331,13 @@ export const sendMessage = async (data: {
 ### MessageBubble Component
 
 ```typescript
-// src/components/chat/MessageBubble.tsx
+// src/features/Chat/components/MessageBubble.tsx
 
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Box, HStack, VStack } from '@gluestack-ui/themed';
-import { Message } from '../../services/chat/realtimeService';
-import { formatRelativeTime } from '../../utils/timeUtils';
+import { Message } from '../services/realtimeService';
+import { formatRelativeTime } from '@/utils/timeUtils';
 
 interface MessageBubbleProps {
   message: Message;
@@ -400,7 +396,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({
 ### MessageInput Component
 
 ```typescript
-// src/components/chat/MessageInput.tsx
+// src/features/Chat/components/MessageInput.tsx
 
 import React, { useState } from 'react';
 import { Pressable, TextInput } from 'react-native';
@@ -525,7 +521,7 @@ export const formatRelativeTime = (timestamp: string): string => {
 
 ### Unit Tests (RNTL)
 
-**File**: `src/screens/chat/__tests__/ChatScreen.test.tsx`
+**File**: `src/features/Chat/screens/__tests__/ChatScreen.rntl.tsx`
 
 ```typescript
 describe('ChatScreen', () => {
@@ -581,7 +577,7 @@ describe('ChatScreen', () => {
 
 ### E2E Tests (Detox + Cucumber)
 
-**File**: `e2e/features/chat.feature`
+**File**: `src/features/Chat/__tests__/Chat.feature`
 
 ```gherkin
 Feature: Chat - Send and Receive Messages

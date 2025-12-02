@@ -71,7 +71,7 @@
 ### Component Structure
 
 ```typescript
-// src/screens/settings/BiometricToggleScreen.tsx
+// src/features/Settings/screens/BiometricToggleScreen.tsx
 
 BiometricToggleScreen
 ├── Header ("Biometric Authentication")
@@ -182,7 +182,7 @@ export const authenticateBiometric = async (promptMessage: string): Promise<bool
 ### Enable/Disable Logic
 
 ```typescript
-// src/hooks/useBiometricToggle.ts
+// src/features/Settings/hooks/useBiometricToggle.ts
 
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -300,7 +300,7 @@ export const useBiometricToggle = () => {
 ### Biometric Type Label
 
 ```typescript
-// src/components/settings/BiometricTypeLabel.tsx
+// src/features/Settings/components/BiometricTypeLabel.tsx
 
 import React from 'react';
 import { Text } from '@gluestack-ui/themed';
@@ -349,7 +349,7 @@ export const BiometricTypeLabel: React.FC<BiometricTypeLabelProps> = ({ biometry
 
 ### Unit Tests (RNTL)
 
-**File**: `src/screens/settings/__tests__/BiometricToggleScreen.test.tsx`
+**File**: `src/features/Settings/screens/__tests__/BiometricToggleScreen.rntl.tsx`
 
 ```typescript
 describe('BiometricToggleScreen', () => {
@@ -420,7 +420,7 @@ describe('BiometricToggleScreen', () => {
 
 ### E2E Tests (Detox + Cucumber)
 
-**File**: `e2e/features/biometric-toggle.feature`
+**File**: `src/features/Settings/__tests__/BiometricToggle/biometric-toggle.feature`
 
 ```gherkin
 Feature: Toggle Biometric Authentication

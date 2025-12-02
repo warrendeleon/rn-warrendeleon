@@ -15,7 +15,7 @@ Write E2E tests for biometric re-authentication flow using Detox + Cucumber.
 
 ## Feature File
 
-**File**: `e2e/features/auth/biometric-reauth.feature`
+**File**: `src/features/Auth/__tests__/BiometricReauth.feature`
 
 ```gherkin
 Feature: Biometric Re-Authentication After App Background
@@ -64,7 +64,7 @@ Feature: Biometric Re-Authentication After App Background
 
 ## Step Definitions
 
-**File**: `e2e/step-definitions/biometricReauth.steps.ts`
+**File**: `src/features/Auth/__tests__/biometricReauth.cucumber.tsx`
 
 ```typescript
 import { Given, When, Then } from '@cucumber/cucumber';

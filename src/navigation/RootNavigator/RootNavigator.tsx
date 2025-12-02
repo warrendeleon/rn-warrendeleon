@@ -5,13 +5,6 @@ import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import {
-  CountryCodeSelectorScreen,
-  type CountryData,
-  ErrorBoundary,
-  HeaderBackButton,
-  withAuth,
-} from '@app/components';
-import {
   AppearanceScreen,
   BookingPlaceholderScreen,
   ChangePasswordScreen,
@@ -37,7 +30,14 @@ import {
   WorkExperiencePositionsScreen,
   WorkExperienceScreen,
 } from '@app/features';
-import { useAppColorScheme } from '@app/hooks';
+import {
+  CountryCodeSelectorScreen,
+  type CountryData,
+  ErrorBoundary,
+  HeaderBackButton,
+  withAuth,
+} from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 
 import { linkingConfiguration } from '../linking';
 import { navigationRef } from '../navigationRef';

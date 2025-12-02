@@ -51,7 +51,7 @@ Without thorough testing:
 ### Unit Test Updates
 
 ```typescript
-// src/store/workExperience/__tests__/selectors.test.ts
+// src/features/WorkExperience/store/__tests__/selectors.rntl.tsx
 
 // OLD: Tests for nested clients structure
 describe('selectWorkExperienceClients', () => {

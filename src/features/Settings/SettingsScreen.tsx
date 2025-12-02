@@ -5,11 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Activity, LogIn, ShieldAlert } from 'lucide-react-native';
 
-import { SettingsGroup, type SettingsGroupItem, UserCard } from '@app/components';
 import { isTestUIEnabled } from '@app/config/e2e';
 import { selectUser, useAuth } from '@app/features/Auth';
-import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { SettingsGroup, type SettingsGroupItem, UserCard } from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { useAppSelector } from '@app/store';
 
 import { selectLanguage, selectTheme } from './store';

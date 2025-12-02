@@ -5,6 +5,8 @@ import { Box, Button, ButtonSpinner, ButtonText, Text } from '@gluestack-ui/them
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { SupabaseAuthClient } from '@app/httpClients';
+import type { RootStackParamList } from '@app/navigation';
 import {
   AlertBox,
   AuthScreenWrapper,
@@ -12,10 +14,8 @@ import {
   FormInputGroup,
   PasswordInput,
   PasswordRequirements,
-} from '@app/components';
-import { useAppColorScheme } from '@app/hooks';
-import { SupabaseAuthClient } from '@app/httpClients';
-import type { RootStackParamList } from '@app/navigation';
+} from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 
 import type { ChangePasswordFormData } from './validation/passwordRecoverySchema';
 import { changePasswordSchema } from './validation/passwordRecoverySchema';

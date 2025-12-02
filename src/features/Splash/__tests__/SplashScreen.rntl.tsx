@@ -11,10 +11,10 @@ jest.mock('@app/config', () => ({
 }));
 
 // Mock Logo component - spread actual exports to preserve ToastProvider for renderWithProviders
-jest.mock('@app/components', () => {
+jest.mock('@app/shared/components', () => {
   const React = jest.requireActual('react');
   const RN = jest.requireActual('react-native');
-  const actual = jest.requireActual('@app/components');
+  const actual = jest.requireActual('@app/shared/components');
   return {
     ...actual,
     Logo: ({ darkMode, style }: { darkMode: boolean; style: Record<string, unknown> }) => {
@@ -29,7 +29,7 @@ jest.mock('@app/components', () => {
 
 // Mock useAppColorScheme hook
 const mockUseAppColorScheme = jest.fn();
-jest.mock('@app/hooks', () => ({
+jest.mock('@app/shared/hooks', () => ({
   useAppColorScheme: () => mockUseAppColorScheme(),
 }));
 

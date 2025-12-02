@@ -3,7 +3,13 @@
  * @jest-environment node
  */
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  mockAsyncStorage,
+  mockGetItem,
+  mockRemoveItem,
+  mockSetItem,
+  setupDefaultAsyncStorageMocks,
+} from '@app/test-utils/mocks/asyncStorage';
 
 import {
   checkEmailResendRateLimit,
@@ -12,14 +18,7 @@ import {
   recordEmailResendRequest,
 } from '../emailResendRateLimiter';
 
-// Mock AsyncStorage
-jest.mock('@react-native-async-storage/async-storage', () => ({
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-}));
-
-const mockAsyncStorage = AsyncStorage as jest.Mocked<typeof AsyncStorage>;
+jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 
 describe('emailResendRateLimiter', () => {
   const testEmail = 'test@example.com';
@@ -27,6 +26,7 @@ describe('emailResendRateLimiter', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    setupDefaultAsyncStorageMocks();
     jest.useFakeTimers();
   });
 
@@ -36,7 +36,7 @@ describe('emailResendRateLimiter', () => {
 
   describe('checkEmailResendRateLimit', () => {
     it('should allow request when no previous request exists', async () => {
-      mockAsyncStorage.getItem.mockResolvedValue(null);
+      mockGetItem.mockResolvedValue(null);
 
       const result = await checkEmailResendRateLimit(testEmail);
 
@@ -48,9 +48,7 @@ describe('emailResendRateLimiter', () => {
     it('should deny request when within cooldown period', async () => {
       const now = Date.now();
       const thirtySecondsAgo = now - 30 * 1000;
-      mockAsyncStorage.getItem.mockResolvedValue(
-        JSON.stringify({ lastRequestTimestamp: thirtySecondsAgo })
-      );
+      mockGetItem.mockResolvedValue(JSON.stringify({ lastRequestTimestamp: thirtySecondsAgo }));
 
       jest.setSystemTime(now);
 
@@ -64,9 +62,7 @@ describe('emailResendRateLimiter', () => {
     it('should allow request when cooldown has passed', async () => {
       const now = Date.now();
       const twoMinutesAgo = now - 120 * 1000;
-      mockAsyncStorage.getItem.mockResolvedValue(
-        JSON.stringify({ lastRequestTimestamp: twoMinutesAgo })
-      );
+      mockGetItem.mockResolvedValue(JSON.stringify({ lastRequestTimestamp: twoMinutesAgo }));
 
       jest.setSystemTime(now);
 
@@ -77,23 +73,23 @@ describe('emailResendRateLimiter', () => {
     });
 
     it('should normalise email to lowercase', async () => {
-      mockAsyncStorage.getItem.mockResolvedValue(null);
+      mockGetItem.mockResolvedValue(null);
 
       await checkEmailResendRateLimit('TEST@EXAMPLE.COM');
 
-      expect(mockAsyncStorage.getItem).toHaveBeenCalledWith(expectedKey);
+      expect(mockGetItem).toHaveBeenCalledWith(expectedKey);
     });
 
     it('should trim email whitespace', async () => {
-      mockAsyncStorage.getItem.mockResolvedValue(null);
+      mockGetItem.mockResolvedValue(null);
 
       await checkEmailResendRateLimit('  test@example.com  ');
 
-      expect(mockAsyncStorage.getItem).toHaveBeenCalledWith(expectedKey);
+      expect(mockGetItem).toHaveBeenCalledWith(expectedKey);
     });
 
     it('should handle AsyncStorage errors gracefully (fail open)', async () => {
-      mockAsyncStorage.getItem.mockRejectedValue(new Error('Storage error'));
+      mockGetItem.mockRejectedValue(new Error('Storage error'));
 
       const result = await checkEmailResendRateLimit(testEmail);
 
@@ -102,7 +98,7 @@ describe('emailResendRateLimiter', () => {
     });
 
     it('should handle corrupted storage data gracefully', async () => {
-      mockAsyncStorage.getItem.mockResolvedValue('invalid-json');
+      mockGetItem.mockResolvedValue('invalid-json');
 
       const result = await checkEmailResendRateLimit(testEmail);
 
@@ -113,9 +109,7 @@ describe('emailResendRateLimiter', () => {
     it('should use singular "second" when 1 second remaining', async () => {
       const now = Date.now();
       const almostOneMinuteAgo = now - 59 * 1000;
-      mockAsyncStorage.getItem.mockResolvedValue(
-        JSON.stringify({ lastRequestTimestamp: almostOneMinuteAgo })
-      );
+      mockGetItem.mockResolvedValue(JSON.stringify({ lastRequestTimestamp: almostOneMinuteAgo }));
 
       jest.setSystemTime(now);
 
@@ -135,7 +129,7 @@ describe('emailResendRateLimiter', () => {
 
       await recordEmailResendRequest(testEmail);
 
-      expect(mockAsyncStorage.setItem).toHaveBeenCalledWith(
+      expect(mockSetItem).toHaveBeenCalledWith(
         expectedKey,
         JSON.stringify({ lastRequestTimestamp: now })
       );
@@ -144,11 +138,11 @@ describe('emailResendRateLimiter', () => {
     it('should normalise email to lowercase', async () => {
       await recordEmailResendRequest('TEST@EXAMPLE.COM');
 
-      expect(mockAsyncStorage.setItem).toHaveBeenCalledWith(expectedKey, expect.any(String));
+      expect(mockSetItem).toHaveBeenCalledWith(expectedKey, expect.any(String));
     });
 
     it('should not throw on AsyncStorage errors', async () => {
-      mockAsyncStorage.setItem.mockRejectedValue(new Error('Storage error'));
+      mockSetItem.mockRejectedValue(new Error('Storage error'));
 
       await expect(recordEmailResendRequest(testEmail)).resolves.not.toThrow();
     });
@@ -158,17 +152,17 @@ describe('emailResendRateLimiter', () => {
     it('should remove rate limit from AsyncStorage', async () => {
       await clearEmailResendRateLimit(testEmail);
 
-      expect(mockAsyncStorage.removeItem).toHaveBeenCalledWith(expectedKey);
+      expect(mockRemoveItem).toHaveBeenCalledWith(expectedKey);
     });
 
     it('should normalise email to lowercase', async () => {
       await clearEmailResendRateLimit('TEST@EXAMPLE.COM');
 
-      expect(mockAsyncStorage.removeItem).toHaveBeenCalledWith(expectedKey);
+      expect(mockRemoveItem).toHaveBeenCalledWith(expectedKey);
     });
 
     it('should not throw on AsyncStorage errors', async () => {
-      mockAsyncStorage.removeItem.mockRejectedValue(new Error('Storage error'));
+      mockRemoveItem.mockRejectedValue(new Error('Storage error'));
 
       await expect(clearEmailResendRateLimit(testEmail)).resolves.not.toThrow();
     });
@@ -176,7 +170,7 @@ describe('emailResendRateLimiter', () => {
 
   describe('getEmailResendRateLimitStatus', () => {
     it('should return status when no previous request exists', async () => {
-      mockAsyncStorage.getItem.mockResolvedValue(null);
+      mockGetItem.mockResolvedValue(null);
 
       const result = await getEmailResendRateLimitStatus(testEmail);
 
@@ -188,9 +182,7 @@ describe('emailResendRateLimiter', () => {
     it('should return status when within cooldown', async () => {
       const now = Date.now();
       const thirtySecondsAgo = now - 30 * 1000;
-      mockAsyncStorage.getItem.mockResolvedValue(
-        JSON.stringify({ lastRequestTimestamp: thirtySecondsAgo })
-      );
+      mockGetItem.mockResolvedValue(JSON.stringify({ lastRequestTimestamp: thirtySecondsAgo }));
 
       jest.setSystemTime(now);
 
@@ -204,9 +196,7 @@ describe('emailResendRateLimiter', () => {
     it('should return status when cooldown has passed', async () => {
       const now = Date.now();
       const twoMinutesAgo = now - 120 * 1000;
-      mockAsyncStorage.getItem.mockResolvedValue(
-        JSON.stringify({ lastRequestTimestamp: twoMinutesAgo })
-      );
+      mockGetItem.mockResolvedValue(JSON.stringify({ lastRequestTimestamp: twoMinutesAgo }));
 
       jest.setSystemTime(now);
 
@@ -220,9 +210,7 @@ describe('emailResendRateLimiter', () => {
     it('should handle exact cooldown boundary', async () => {
       const now = Date.now();
       const exactlyOneMinuteAgo = now - 60 * 1000;
-      mockAsyncStorage.getItem.mockResolvedValue(
-        JSON.stringify({ lastRequestTimestamp: exactlyOneMinuteAgo })
-      );
+      mockGetItem.mockResolvedValue(JSON.stringify({ lastRequestTimestamp: exactlyOneMinuteAgo }));
 
       jest.setSystemTime(now);
 
@@ -242,16 +230,12 @@ describe('emailResendRateLimiter', () => {
       jest.setSystemTime(now);
 
       // Just under cooldown - should be denied
-      mockAsyncStorage.getItem.mockResolvedValue(
-        JSON.stringify({ lastRequestTimestamp: fiftyNineSecondsAgo })
-      );
+      mockGetItem.mockResolvedValue(JSON.stringify({ lastRequestTimestamp: fiftyNineSecondsAgo }));
       const deniedResult = await checkEmailResendRateLimit(testEmail);
       expect(deniedResult.allowed).toBe(false);
 
       // Just over cooldown - should be allowed
-      mockAsyncStorage.getItem.mockResolvedValue(
-        JSON.stringify({ lastRequestTimestamp: sixtyOneSecondsAgo })
-      );
+      mockGetItem.mockResolvedValue(JSON.stringify({ lastRequestTimestamp: sixtyOneSecondsAgo }));
       const allowedResult = await checkEmailResendRateLimit(testEmail);
       expect(allowedResult.allowed).toBe(true);
     });

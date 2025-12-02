@@ -86,7 +86,7 @@
 ### Component Structure
 
 ```typescript
-// src/screens/auth/ForgotPasswordScreen.tsx
+// src/features/Auth/screens/ForgotPasswordScreen.tsx
 
 ForgotPasswordScreen
 ├── Header (Back button, "Reset Password" title)
@@ -244,7 +244,7 @@ export const sendPasswordResetEmail = async (email: string): Promise<void> => {
 ### useForgotPassword Hook
 
 ```typescript
-// src/hooks/useForgotPassword.ts
+// src/features/Auth/hooks/useForgotPassword.ts
 
 import { useState } from 'react';
 import { sendPasswordResetEmail } from '../api/auth/forgotPassword';
@@ -313,7 +313,7 @@ export const useForgotPassword = () => {
 
 ### Unit Tests (RNTL)
 
-**File**: `src/screens/auth/__tests__/ForgotPasswordScreen.test.tsx`
+**File**: `src/features/Auth/screens/__tests__/ForgotPasswordScreen.rntl.tsx`
 
 ```typescript
 describe('ForgotPasswordScreen', () => {
@@ -396,7 +396,7 @@ describe('ForgotPasswordScreen', () => {
 
 ### E2E Tests (Detox + Cucumber)
 
-**File**: `e2e/features/forgot-password.feature`
+**File**: `src/features/Auth/__tests__/ForgotPassword.feature`
 
 ```gherkin
 Feature: Forgot Password

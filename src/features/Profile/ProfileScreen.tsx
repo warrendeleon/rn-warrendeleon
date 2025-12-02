@@ -16,7 +16,7 @@ import {
 } from '@gluestack-ui/themed';
 
 import { CAROUSEL_HEIGHT_RATIO, TOUCH_TARGET_SIZE } from '@app/config/constants';
-import { useAppColorScheme } from '@app/hooks';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { useAppSelector } from '@app/store';
 import { logError } from '@app/utils/logger';
 

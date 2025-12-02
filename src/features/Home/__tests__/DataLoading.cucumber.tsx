@@ -1,5 +1,5 @@
 // Import common steps to make them available
-import '@app/test-utils/cucumber/step-definitions/common.steps';
+import '@app/test-utils/cucumber/step-definitions/common.cucumber';
 
 import { Then } from '@cucumber/cucumber';
 import { by, element, waitFor } from 'detox';

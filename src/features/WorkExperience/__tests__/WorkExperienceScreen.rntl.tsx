@@ -30,7 +30,7 @@ jest.mock('react-native/Libraries/Image/resolveAssetSource', () => {
 });
 
 // Mock DetailListGroup
-jest.mock('@app/components', () => {
+jest.mock('@app/shared/components', () => {
   const mockReact = jest.requireActual('react');
   const mockRN = jest.requireActual('react-native');
 

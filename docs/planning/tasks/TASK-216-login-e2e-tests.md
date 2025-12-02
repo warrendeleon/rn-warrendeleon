@@ -28,7 +28,7 @@ Write comprehensive E2E tests for:
 
 ## Feature File
 
-**File**: `e2e/features/auth/login.feature`
+**File**: `src/features/Auth/__tests__/Login.feature`
 
 ```gherkin
 Feature: Email/Password Login
@@ -113,7 +113,7 @@ Feature: Email/Password Login
 
 ## Step Definitions
 
-**File**: `e2e/step-definitions/login.steps.ts`
+**File**: `src/features/Auth/__tests__/login.cucumber.tsx`
 
 ```typescript
 import { Given, When, Then } from '@cucumber/cucumber';

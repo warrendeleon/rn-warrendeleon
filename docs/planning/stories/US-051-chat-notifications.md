@@ -136,14 +136,11 @@ serve(async req => {
 ### Notification Handler (Deep Link)
 
 ```typescript
-// src/hooks/useNotificationHandler.ts
+// src/features/Notifications/hooks/useNotificationHandler.ts
 
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {
-  onNotificationOpenedApp,
-  getInitialNotification,
-} from '../services/notifications/fcmService';
+import { onNotificationOpenedApp, getInitialNotification } from '../services/fcmService';
 
 export const useNotificationHandler = () => {
   const navigation = useNavigation();

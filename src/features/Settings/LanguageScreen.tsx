@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 
-import { PickerGroup, type PickerGroupItem } from '@app/components';
-import { useAppColorScheme } from '@app/hooks';
+import { PickerGroup, type PickerGroupItem } from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { useAppDispatch, useAppSelector } from '@app/store';
 
 import type { Language } from './store';

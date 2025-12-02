@@ -200,7 +200,7 @@ export const deleteFCMToken = async (token: string): Promise<void> => {
 ### useNotifications Hook
 
 ```typescript
-// src/hooks/useNotifications.ts
+// src/features/Notifications/hooks/useNotifications.ts
 
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -210,8 +210,8 @@ import {
   onMessageReceived,
   onNotificationOpenedApp,
   getInitialNotification,
-} from '../services/notifications/fcmService';
-import { saveFCMToken, deleteFCMToken } from '../api/notifications/devices';
+} from '../services/fcmService';
+import { saveFCMToken, deleteFCMToken } from '../../../api/notifications/devices';
 
 export const useNotifications = () => {
   const navigation = useNavigation();
@@ -284,7 +284,7 @@ export const useNotifications = () => {
 ### In-App Notification Banner
 
 ```typescript
-// src/components/notifications/NotificationBanner.tsx
+// src/features/Notifications/components/NotificationBanner.tsx
 
 import React from 'react';
 import { Pressable, Text, Animated } from 'react-native';
@@ -402,7 +402,7 @@ export const NotificationBanner: React.FC<NotificationBannerProps> = ({
 
 ### Unit Tests (RNTL)
 
-**File**: `src/services/notifications/__tests__/fcmService.test.ts`
+**File**: `src/services/notifications/__tests__/fcmService.rntl.tsx`
 
 ```typescript
 describe('FCMService', () => {

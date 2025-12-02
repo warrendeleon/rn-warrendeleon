@@ -1,5 +1,5 @@
 // Import common steps to make them available
-import '@app/test-utils/cucumber/step-definitions/common.steps';
+import '@app/test-utils/cucumber/step-definitions/common.cucumber';
 
 import { After, Then } from '@cucumber/cucumber';
 import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
@@ -8,7 +8,7 @@ import { by, device, element, expect as detoxExpect, waitFor } from 'detox';
  * Education screen E2E step definitions
  *
  * Tests education screen navigation, display, and interactions.
- * Most steps use common step definitions from common.steps.tsx.
+ * Most steps use common step definitions from common.cucumber.tsx.
  * This file only contains Education-specific custom steps.
  *
  * EAA Compliance:

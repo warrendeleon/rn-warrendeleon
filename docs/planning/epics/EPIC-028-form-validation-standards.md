@@ -785,7 +785,7 @@ export const sanitizePhone = (phone: string): string => {
 
 | Risk                              | Probability | Impact | Mitigation                                              |
 | --------------------------------- | ----------- | ------ | ------------------------------------------------------- |
-| Complex validation rules too slow | Low         | Medium | Debounce validation, optimize regex patterns            |
+| Complex validation rules too slow | Low         | Medium | Debounce validation, optimise regex patterns            |
 | Server-side validation mismatch   | Medium      | High   | Share validation logic (TypeScript → PostgreSQL)        |
 | Accessibility testing incomplete  | Low         | High   | Automated a11y tests, manual VoiceOver/TalkBack testing |
 

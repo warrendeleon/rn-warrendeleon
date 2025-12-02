@@ -6,8 +6,8 @@ import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import type { RouteProp } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 
-import { useAppColorScheme } from '@app/hooks';
 import type { RootStackParamList } from '@app/navigation';
+import { useAppColorScheme } from '@app/shared/hooks';
 import { useAppSelector } from '@app/store';
 import { formatDateRange } from '@app/utils/dateFormatter';
 
