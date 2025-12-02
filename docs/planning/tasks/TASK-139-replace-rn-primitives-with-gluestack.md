@@ -9,7 +9,7 @@
 
 ## Context
 
-Comprehensive codebase audit revealed 13 files using RN `<View />` instead of GlueStack `<Box />`, 10 files using RN `<Text />` instead of GlueStack `<Text />`, and 2 files using `<TouchableOpacity />` instead of GlueStack `<Pressable />`.
+Full codebase audit revealed 13 files using RN `<View />` instead of GlueStack `<Box />`, 10 files using RN `<Text />` instead of GlueStack `<Text />`, and 2 files using `<TouchableOpacity />` instead of GlueStack `<Pressable />`.
 
 This creates inconsistent styling patterns and prevents leveraging GlueStack's token system and NativeWind utilities.
 

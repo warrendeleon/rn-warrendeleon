@@ -1,6 +1,6 @@
 # Performance Guide
 
-This document covers performance optimisation patterns for React Native development.
+Performance optimisation patterns for React Native.
 
 ## Table of Contents
 
@@ -458,7 +458,7 @@ buildTypes {
 - **Resource Shrinking**: Removes unused images, layouts, and resources
 - **Bytecode Optimization**: Optimizes Java bytecode for better performance
 
-**Keep Rules**: Comprehensive rules in `android/app/proguard-rules.pro` ensure critical libraries are preserved:
+**Keep Rules**: Full rules in `android/app/proguard-rules.pro` preserve critical libraries:
 
 - React Native core components
 - Security libraries (keychain, encrypted-storage, biometrics)
@@ -816,4 +816,4 @@ Before releasing:
 
 ---
 
-**Need help?** Open an issue on GitHub or use the profiling tools above.
+Use the profiling tools above to diagnose performance issues.

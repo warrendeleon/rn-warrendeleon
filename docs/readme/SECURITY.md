@@ -1,6 +1,6 @@
 # Security Guide
 
-This document covers security best practices for React Native mobile application development.
+Security best practices for building mobile apps that handle sensitive data properly.
 
 ## Table of Contents
 
@@ -15,11 +15,13 @@ This document covers security best practices for React Native mobile application
 - [Security Checklist](#security-checklist)
 - [Incident Response](#incident-response)
 
+**Related:** [Logging Guide](./LOGGING.md) - PII masking and logger utility
+
 ---
 
 ## Overview
 
-Mobile applications face unique security challenges. This guide covers key security practices for React Native apps.
+Mobile apps face different security challenges than web apps.
 
 ### Security Principles
 
@@ -406,15 +408,30 @@ const pasteAndClear = async () => {
 
 ### Data Masking in Logs
 
+**Use the logger utility** which automatically masks PII. Direct `console.*` calls are blocked by ESLint.
+
 ```typescript
-// ❌ Never log sensitive data
+import { logError, logWarning, logDebug } from '@app/utils/logger';
+
+// ❌ Blocked by ESLint - never use console.* directly
 console.log('User password:', password);
 console.log('Token:', token);
 
-// ✅ Mask sensitive data
-console.log('Login attempt for:', email.slice(0, 3) + '***');
-console.log('Token present:', !!token);
+// ✅ Use logger - PII is automatically masked
+logDebug('Login attempt', { email, token });
+// Output: [DEV] Login attempt { email: '[MASKED_EMAIL]', token: '[MASKED]' }
+
+logError('Auth failed', error, { userId: '123' });
 ```
+
+The logger automatically masks:
+
+- Tokens (JWT, Bearer, API keys)
+- Personal data (emails, phone numbers, addresses)
+- Financial data (credit cards, CVV, account numbers)
+- Identity numbers (SSN, NI numbers)
+
+**See [LOGGING.md](./LOGGING.md) for complete usage guide and masked field reference.**
 
 ---
 
@@ -799,4 +816,4 @@ For security issues in dependencies:
 
 ---
 
-**Need help?** Open an issue on GitHub or consult the resources above.
+Check the resources above for more security guidance.

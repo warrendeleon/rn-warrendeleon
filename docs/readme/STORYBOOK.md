@@ -1,6 +1,6 @@
 # Storybook Guide
 
-This document covers using Storybook for isolated component development and documentation in this React Native project.
+Isolated component development and visual documentation using Storybook.
 
 ## Table of Contents
 
@@ -62,7 +62,7 @@ We chose Storybook v10 for React Native because:
 
 1. **On-Device Development**: Components render on real iOS/Android devices, ensuring accurate behaviour
 2. **React Native 0.82 Support**: v10 is compatible with the latest React Native
-3. **GlueStack UI Integration**: Works seamlessly with our UI framework
+3. **GlueStack UI Integration**: Works well with our UI framework
 4. **Interactive Controls**: Test props in real-time without code changes
 5. **Documentation**: Built-in notes addon for component documentation
 6. **Industry Standard**: Widely used for component-driven development
@@ -734,4 +734,4 @@ yarn start:reset
 
 ---
 
-**Need help?** Open an issue on GitHub or check the troubleshooting section above.
+Check the troubleshooting section above if something isn't working.

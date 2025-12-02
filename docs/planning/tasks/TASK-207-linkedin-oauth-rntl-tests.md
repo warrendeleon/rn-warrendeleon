@@ -7,7 +7,7 @@
 
 ## Context & Background
 
-LinkedIn OAuth flow has many moving parts: button interaction → OAuth authorization → profile fetch → image download → account creation. Each step needs comprehensive test coverage to ensure reliability and catch regressions early.
+LinkedIn OAuth flow has many moving parts: button interaction → OAuth authorization → profile fetch → image download → account creation. Each step needs full test coverage to ensure reliability and catch regressions early.
 
 **Why This Task Matters:**
 
@@ -18,7 +18,7 @@ OAuth flows are notoriously difficult to test due to:
 - Multiple failure points (user cancellation, network errors, profile fetch failures)
 - Complex state management (loading, success, error states)
 
-Comprehensive RNTL tests ensure:
+Full RNTL tests ensure:
 
 - All user interactions work correctly
 - All async operations are properly handled
@@ -38,7 +38,7 @@ Comprehensive RNTL tests ensure:
 
 ## Objective
 
-Build comprehensive React Native Testing Library test suite with 100% coverage for:
+Build full React Native Testing Library test suite with 100% coverage for:
 
 1. **LinkedInOAuthButton**: Rendering, button press, loading states, error states
 2. **useLinkedInAuth hook**: Success flow, user cancellation, network errors, profile fetch errors

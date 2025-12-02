@@ -33,7 +33,7 @@ The user explicitly requested to build auth flow **from scratch WITHOUT using Su
 - `POST /auth/v1/magiclink` - Magic link authentication
 - `POST /auth/v1/logout` - Logout (invalidate refresh token)
 
-This task builds a comprehensive, type-safe Supabase Auth client using Axios with automatic token refresh, request/response validation, and error handling.
+This task builds a full, type-safe Supabase Auth client using Axios with automatic token refresh, request/response validation, and error handling.
 
 ---
 
@@ -46,7 +46,7 @@ Build Supabase Auth REST API client:
 3. Implement auth methods (signup, login, refresh, logout)
 4. Add automatic token refresh with interceptors
 5. Integrate with SecureStore for token storage
-6. Add comprehensive error handling
+6. Add full error handling
 7. Create 100% unit test coverage (mocked Axios)
 
 **Deliverable**: Production-ready Supabase Auth client with full TypeScript types, validation, and tests.

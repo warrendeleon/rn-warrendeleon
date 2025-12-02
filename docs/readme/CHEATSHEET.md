@@ -736,4 +736,4 @@ const apiUrl = Config.API_URL;
 
 ---
 
-**Need help?** Open an issue on GitHub or check the full documentation in `/docs`.
+Check the full documentation in `/docs/readme` for more details.

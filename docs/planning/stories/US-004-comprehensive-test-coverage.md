@@ -1,7 +1,7 @@
-# US-004: Comprehensive Test Coverage
+# US-004: Full Test Coverage
 
 **Story ID**: US-004
-**Title**: Comprehensive Test Coverage
+**Title**: Full Test Coverage
 **Epic**: [EPIC-002: Quality & Reliability](../epics/EPIC-002-quality-reliability.md)
 **Status**: ✅ Done
 **Priority**: Medium
@@ -14,7 +14,7 @@
 ## User Story
 
 **As a** developer,
-**I want** comprehensive test coverage across components and hooks,
+**I want** full test coverage across components and hooks,
 **So that** I can refactor confidently without fear of breaking existing functionality.
 
 ---
@@ -29,7 +29,7 @@ Current test coverage is 36.72% overall with critical gaps in component and hook
 - **useAppColorScheme hook**: 0% coverage (completely untested)
 - **Settings integration flow**: No integration tests
 
-Without comprehensive tests:
+Without full tests:
 
 - Developers hesitate to refactor or optimise code
 - Bugs slip into production undetected

@@ -12,7 +12,7 @@
 
 ## Context
 
-Create comprehensive unit tests for the work experience Redux slice, including actions, reducers, async thunks, and memoized selectors. Tests should achieve 100% coverage on all Redux logic to ensure reliability and prevent regressions.
+Create full unit tests for the work experience Redux slice, including actions, reducers, async thunks, and memoized selectors. Tests should achieve 100% coverage on all Redux logic to ensure reliability and prevent regressions.
 
 ## Technical Details
 

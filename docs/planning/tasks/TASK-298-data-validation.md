@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Implement comprehensive data validation for portfolio data before and after migration. Validate source data format and integrity, check required fields, validate data types and constraints, detect duplicates, and ensure data quality standards are met.
+Implement full data validation for portfolio data before and after migration. Validate source data format and integrity, check required fields, validate data types and constraints, detect duplicates, and ensure data quality standards are met.
 
 ---
 

@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Write comprehensive React Native Testing Library tests for FCM setup and permission handling. Test FCM service initialization, token management, permission service, and NotificationBanner component integration. Achieve 100% code coverage.
+Write full React Native Testing Library tests for FCM setup and permission handling. Test FCM service initialization, token management, permission service, and NotificationBanner component integration. Achieve 100% code coverage.
 
 ---
 
@@ -25,7 +25,7 @@ Write comprehensive React Native Testing Library tests for FCM setup and permiss
 
 ## Implementation Details
 
-### Comprehensive RNTL Test Suite
+### Full RNTL Test Suite
 
 ```typescript
 // src/services/notifications/__tests__/FCMIntegration.test.ts

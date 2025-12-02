@@ -11,7 +11,7 @@
 
 ## Executive Summary
 
-Build comprehensive login and session management system supporting multiple authentication methods (email/password, LinkedIn OAuth, magic link), automatic token refresh, biometric re-authentication on app resume, and session expiry handling.
+Build full login and session management system supporting multiple authentication methods (email/password, LinkedIn OAuth, magic link), automatic token refresh, biometric re-authentication on app resume, and session expiry handling.
 
 ### Architecture Decision: Portfolio-First with Screen-Level Guards
 
@@ -51,7 +51,7 @@ App Launch → Splash → Home (public portfolio)
 
 **Business Impact**:
 
-Seamless, secure login experience that balances convenience (biometric re-auth, magic link) with enterprise-grade security (token refresh, session management).
+Smooth, secure login experience that balances convenience (biometric re-auth, magic link) with enterprise-grade security (token refresh, session management).
 
 **Success Metrics**:
 
@@ -144,7 +144,7 @@ Users expect modern mobile apps to provide:
 - **LinkedIn OAuth**: One-tap login for professionals (reuse existing credentials)
 - **Magic link**: Passwordless experience (no password to remember/type)
 - **Biometric re-auth**: Instant access on app resume (Face ID/Fingerprint)
-- **Token refresh**: No re-login for 30 days (seamless session extension)
+- **Token refresh**: No re-login for 30 days (smooth session extension)
 - **Inactivity timeout**: Security without manual logout
 
 **Target Users**:
@@ -476,7 +476,7 @@ User Activity Tracker
 | ID                                                       | Task                                                        | Status   | Effort | Priority |
 | -------------------------------------------------------- | ----------------------------------------------------------- | -------- | ------ | -------- |
 | [TASK-369](../tasks/TASK-369-ensure-valid-session.md)    | Implement ensureValidSession() + ProtectedRoute Integration | 📋 To Do | 6h     | High     |
-| [TASK-370](../tasks/TASK-370-auth-flow-documentation.md) | Comprehensive Auth Flow Documentation                       | 📋 To Do | 2.5h   | Medium   |
+| [TASK-370](../tasks/TASK-370-auth-flow-documentation.md) | Full Auth Flow Documentation                                | 📋 To Do | 2.5h   | Medium   |
 
 **Task Summary**: 32 tasks, 68.5 hours total
 
@@ -506,7 +506,7 @@ User Activity Tracker
 | Token refresh race conditions      | Medium      | High   | Use mutex lock in interceptor, queue concurrent requests           |
 | Biometric re-auth UX confusion     | Low         | Medium | Clear modal explaining why re-auth required, show "Skip this time" |
 | Inactivity timeout false positives | Medium      | Medium | Whitelist background tasks (API polling), detect real inactivity   |
-| Magic link deep linking fails      | Low         | High   | Comprehensive E2E tests, fallback to manual code entry             |
+| Magic link deep linking fails      | Low         | High   | Full E2E tests, fallback to manual code entry                      |
 | LinkedIn OAuth token expiry        | Low         | Low    | Handle in interceptor, prompt re-login if refresh fails            |
 
 ### Business Risks
@@ -564,7 +564,7 @@ User Activity Tracker
 - [ ] All components documented with JSDoc
 - [ ] README.md updated with login flow diagrams
 - [ ] SECURITY.md updated with token management details
-- [ ] AUTH_FLOW.md created with comprehensive auth documentation and visual diagrams
+- [ ] AUTH_FLOW.md created with full auth documentation and visual diagrams
 
 ---
 
@@ -586,7 +586,7 @@ User Activity Tracker
 - Implement session expiry handling (modal + re-login)
 - Implement inactivity timeout (5-minute auto-logout)
 - Implement app state listener (background/foreground detection)
-- Write comprehensive tests (RNTL + E2E)
+- Write full tests (RNTL + E2E)
 
 **Checkpoint**: Token refresh automatic, session expiry handled gracefully
 
@@ -604,7 +604,7 @@ User Activity Tracker
 - Implement biometric re-auth prompt (Face ID/Fingerprint)
 - Implement PIN re-auth fallback
 - Integrate with app resume flow
-- Write comprehensive tests (RNTL + E2E)
+- Write full tests (RNTL + E2E)
 
 **Checkpoint**: Biometric re-auth on app resume fully functional
 

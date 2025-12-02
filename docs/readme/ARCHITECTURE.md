@@ -1,6 +1,6 @@
 # Architecture Guide
 
-This document explains the project structure, design decisions, and architectural patterns used in this React Native application.
+How the codebase is organised and why we made certain design decisions.
 
 ## Table of Contents
 
@@ -677,7 +677,7 @@ import { GroupVariant, getButtonGroupVariant } from '@app/components/shared';
 - Excellent TypeScript support
 - Native stack navigator for performance
 - Active maintenance and community
-- Comprehensive documentation
+- Full documentation
 
 ### Detox for E2E Testing
 
@@ -960,4 +960,4 @@ Ensure all branches, lines, statements, and functions are tested.
 
 ---
 
-**Need help?** Open an issue on GitHub or consult the related documentation.
+Check the related docs for more architectural context.

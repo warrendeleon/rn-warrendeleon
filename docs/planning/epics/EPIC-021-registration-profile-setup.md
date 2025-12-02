@@ -15,7 +15,7 @@
 
 Implement Supabase-backed registration with custom REST API authentication (no SDK), required profile picture upload with square cropping, LinkedIn OAuth with automatic picture extraction, and biometric security (Face ID/Fingerprint/6-digit PIN). This epic establishes the foundation for secure user authentication using a 3-tier storage model and industry-standard security practices.
 
-**Business Impact**: Seamless user onboarding with multiple authentication options, profile personalization from day one, and bank-grade security via biometric authentication.
+**Business Impact**: Smooth user onboarding with multiple authentication options, profile personalization from day one, and bank-grade security via biometric authentication.
 
 ---
 
@@ -55,7 +55,7 @@ By implementing Supabase authentication and data layer:
 | User Registration Completion    | N/A     | 80%+    | High conversion rate        |
 | Profile Picture Upload Rate     | N/A     | 100%    | Professional appearance     |
 | LinkedIn OAuth Adoption         | N/A     | 40%+    | Reduced friction            |
-| Biometric Auth Adoption         | N/A     | 70%+    | Enhanced security & UX      |
+| Biometric Auth Adoption         | N/A     | 70%+    | Better security & UX        |
 | Registration Time (avg)         | N/A     | <2 min  | Fast onboarding             |
 | Security Incidents              | N/A     | 0       | Zero tolerance for breaches |
 | Authentication Method Diversity | N/A     | 3 types | Flexibility for all users   |
@@ -189,7 +189,7 @@ By implementing Supabase authentication and data layer:
 
 - **Likelihood**: Medium
 - **Impact**: High
-- **Mitigation**: Follow Supabase Auth REST API documentation exactly; use Zod for response validation; comprehensive unit testing for all auth flows; reference SECURITY.md standards
+- **Mitigation**: Follow Supabase Auth REST API documentation exactly; use Zod for response validation; full unit testing for all auth flows; reference SECURITY.md standards
 
 **Risk 2**: Profile Picture Upload Failures
 

@@ -21,7 +21,7 @@ src/utils/
 
 ## Task Description
 
-Create a comprehensive password validation utility that enforces strong password requirements. Validate minimum length, character variety (uppercase, lowercase, numbers, special characters), and provide detailed feedback for password strength.
+Create a full password validation utility that enforces strong password requirements. Validate minimum length, character variety (uppercase, lowercase, numbers, special characters), and provide detailed feedback for password strength.
 
 ---
 

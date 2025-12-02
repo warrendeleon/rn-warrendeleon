@@ -10,7 +10,7 @@
 
 ## Overview
 
-Improve test coverage from current 75% to 85%+ by addressing identified gaps in screens, components, utilities, and action tests. Based on comprehensive coverage analysis comparing RNTL unit tests and Detox E2E tests.
+Improve test coverage from current 75% to 85%+ by addressing identified gaps in screens, components, utilities, and action tests. Based on detailed coverage analysis comparing RNTL unit tests and Detox E2E tests.
 
 ## Current Coverage Breakdown
 
@@ -65,4 +65,4 @@ Improve test coverage from current 75% to 85%+ by addressing identified gaps in 
 ## Related
 
 - Based on coverage analysis from 2024-11-19
-- Addresses gaps identified in comprehensive RNTL + Detox coverage audit
+- Addresses gaps identified in detailed RNTL + Detox coverage audit

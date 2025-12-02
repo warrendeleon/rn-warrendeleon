@@ -12,7 +12,7 @@
 
 ## Overview
 
-Add "Book a Call" and "My Bookings" entry points to the Home screen's contact button group. These buttons provide primary navigation into the booking flow and upcoming bookings list. Must integrate seamlessly with existing Home screen design, follow iOS-native patterns, and include full EAA compliance.
+Add "Book a Call" and "My Bookings" entry points to the Home screen's contact button group. These buttons provide primary navigation into the booking flow and upcoming bookings list. Must integrate smoothly with existing Home screen design, follow iOS-native patterns, and include full EAA compliance.
 
 ---
 

@@ -47,7 +47,7 @@ Users need to see Warren's available time slots to book calls. This Edge Functio
 
 Implement an Edge Function that fetches Warren's calendar availability, applies business constraints, and returns a list of available time slots for users to book.
 
-**Deliverable**: Fully functional Edge Function at `/get-availability` with timezone support, automatic token refresh, and comprehensive error handling.
+**Deliverable**: Fully functional Edge Function at `/get-availability` with timezone support, automatic token refresh, and full error handling.
 
 ---
 

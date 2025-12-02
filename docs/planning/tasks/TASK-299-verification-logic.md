@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Implement verification logic to compare source data with migrated data in Supabase. Verify record counts, data integrity, field-by-field comparison, and generate comprehensive verification reports. Ensure all data was migrated accurately without loss or corruption.
+Implement verification logic to compare source data with migrated data in Supabase. Verify record counts, data integrity, field-by-field comparison, and generate full verification reports. Ensure all data was migrated accurately without loss or corruption.
 
 ---
 

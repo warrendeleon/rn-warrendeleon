@@ -22,7 +22,7 @@
 
 ## Context & Rationale
 
-The Work Experience feature requires robust state management to handle:
+The Work Experience feature requires solid state management to handle:
 
 - Async API calls to fetch work experience data
 - Loading and error states during data fetching

@@ -131,7 +131,7 @@ By renaming to purpose-based names:
 
 - **Likelihood**: Low
 - **Impact**: Medium
-- **Mitigation**: Phased migration (new components alongside old), deprecation period, comprehensive testing at each step
+- **Mitigation**: Phased migration (new components alongside old), deprecation period, thorough testing at each step
 
 **Risk 2**: Incomplete Migration (Old Names Linger)
 

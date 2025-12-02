@@ -11,7 +11,7 @@
 
 **As a** logged-in user
 **I want** my session to refresh automatically and logout after inactivity
-**So that** I stay logged in seamlessly while maintaining security
+**So that** I stay logged in smoothly while maintaining security
 
 ---
 
@@ -21,7 +21,7 @@
 
 Session management is the backbone of authentication security and user experience:
 
-1. **Seamless Experience**: Users stay logged in without interruption
+1. **Smooth Experience**: Users stay logged in without interruption
 2. **Security Balance**: Automatic logout after inactivity prevents unauthorised access
 3. **Token Lifecycle**: Access tokens expire quickly (1 hour), refresh tokens last longer (30 days)
 4. **Network Resilience**: Handles network errors gracefully during refresh
@@ -39,7 +39,7 @@ User logs in
   → Gets new access + refresh tokens
   → Stores in Keychain
   → Retries original request
-  → User never notices (seamless)
+  → User never notices (smooth)
 ```
 
 **Inactivity Detection**:

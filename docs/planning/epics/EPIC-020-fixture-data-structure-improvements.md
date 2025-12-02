@@ -390,7 +390,7 @@ src/features/
 
 | Risk                            | Likelihood | Impact | Mitigation                                   |
 | ------------------------------- | ---------- | ------ | -------------------------------------------- |
-| Breaking existing functionality | Medium     | High   | Comprehensive test coverage before migration |
+| Breaking existing functionality | Medium     | High   | Full test coverage before migration          |
 | Inconsistent locale variants    | Medium     | Medium | TASK-186 specifically validates all variants |
 | Missing field updates in UI     | Medium     | Medium | Grep for old field names after migration     |
 | Complex merge conflicts         | Low        | Medium | Complete in single focused effort            |

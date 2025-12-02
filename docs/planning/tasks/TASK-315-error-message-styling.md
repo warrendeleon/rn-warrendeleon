@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Create comprehensive styling system for error messages with WCAG 2.1 Level AA compliance. Implement color schemes with proper contrast ratios, typography standards, spacing guidelines, and dark mode support. Ensure all error states are visually distinct and accessible.
+Create full styling system for error messages with WCAG 2.1 Level AA compliance. Implement color schemes with proper contrast ratios, typography standards, spacing guidelines, and dark mode support. Ensure all error states are visually distinct and accessible.
 
 ---
 

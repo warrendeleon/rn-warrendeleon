@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Create comprehensive React Native Testing Library tests for accessible error messages. Test ErrorMessage component, error announcements, styling, animations, accessibility attributes, screen reader behavior, and EAA compliance. Ensure 100% coverage of accessible error functionality.
+Create full React Native Testing Library tests for accessible error messages. Test ErrorMessage component, error announcements, styling, animations, accessibility attributes, screen reader behavior, and EAA compliance. Ensure 100% coverage of accessible error functionality.
 
 ---
 

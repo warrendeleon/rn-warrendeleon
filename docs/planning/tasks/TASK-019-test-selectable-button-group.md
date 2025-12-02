@@ -29,7 +29,7 @@ SelectableButtonGroup currently has 0% coverage. Add comprehensive tests to reac
 
 ## Acceptance Criteria
 
-- [x] 100% coverage on SelectableButtonGroup (24 comprehensive tests)
+- [x] 100% coverage on SelectableButtonGroup (24 full tests)
 - [x] All tests pass (157 tests total in project)
 - [x] Selection state logic verified
 
@@ -92,7 +92,7 @@ SelectableButtonGroup currently has 0% coverage. Add comprehensive tests to reac
 
 ## Implementation Notes
 
-**Test Coverage**: Added 24 comprehensive tests covering rendering, selection state, checkmark display, onSelect handlers, and groupVariant variations.
+**Test Coverage**: Added 24 full tests covering rendering, selection state, checkmark display, onSelect handlers, and groupVariant variations.
 
 ---
 

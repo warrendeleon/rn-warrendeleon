@@ -1,6 +1,6 @@
 # Authentication Guide
 
-This guide covers the complete authentication system, including user registration, login, password management, and session handling. The implementation uses Supabase as the backend authentication provider with a custom REST API client.
+The complete auth system: registration, login, password management, and session handling. Built on Supabase with a custom REST API client.
 
 ---
 
@@ -168,7 +168,7 @@ interface LoginParams {
 
 ### RegistrationScreen
 
-New user signup with comprehensive validation and terms acceptance.
+New user signup with full validation and terms acceptance.
 
 **Location:** `src/features/Auth/RegistrationScreen.tsx`
 

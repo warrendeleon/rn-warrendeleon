@@ -1,6 +1,6 @@
 # State Management Guide
 
-This document covers state management with Redux Toolkit and Redux Persist.
+State management using Redux Toolkit and Redux Persist.
 
 ## Table of Contents
 
@@ -1745,4 +1745,4 @@ This is expected behaviour in development. To preserve state:
 
 ---
 
-**Need help?** Check the [Redux Toolkit documentation](https://redux-toolkit.js.org/) or [Redux documentation](https://redux.js.org/).
+See the [Redux Toolkit docs](https://redux-toolkit.js.org/) or [Redux docs](https://redux.js.org/) for more details.

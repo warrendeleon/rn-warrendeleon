@@ -18,7 +18,7 @@ Enable users to view PDF documents within the app, starting with the CV/resume. 
 
 **User Experience**:
 
-- Seamless in-app document viewing
+- Smooth in-app document viewing
 - Professional presentation of CV
 - Easy sharing functionality
 - No external app dependencies

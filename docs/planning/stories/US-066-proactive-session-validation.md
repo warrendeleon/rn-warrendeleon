@@ -11,7 +11,7 @@
 
 **As a** logged-in user accessing secure features (Book a Call, Chat)
 **I want** the app to proactively validate and refresh my session before entering secure screens
-**So that** I never encounter authentication failures mid-task and my experience remains seamless
+**So that** I never encounter authentication failures mid-task and my experience remains smooth
 
 ---
 

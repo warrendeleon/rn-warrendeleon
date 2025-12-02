@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Write comprehensive React Native Testing Library tests for the BiometricToggleScreen component. Test capability checking, toggle interactions, success/error states, accessibility, and edge cases. Achieve 100% code coverage.
+Write full React Native Testing Library tests for the BiometricToggleScreen component. Test capability checking, toggle interactions, success/error states, accessibility, and edge cases. Achieve 100% code coverage.
 
 ---
 
@@ -489,7 +489,7 @@ describe('BiometricToggleScreen', () => {
 
 ## Definition of Done
 
-- [ ] Test file created with comprehensive test suite
+- [ ] Test file created with full test suite
 - [ ] Capability check tested
 - [ ] Toggle interactions tested
 - [ ] Enable/disable flows tested

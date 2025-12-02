@@ -21,7 +21,7 @@
 
 ## Context & Rationale
 
-Currently, the app has no authentication system and uses static GitHub-hosted JSON data. To enable user accounts, personalization, real-time features (chat), and backend integration, we need a robust registration system.
+Currently, the app has no authentication system and uses static GitHub-hosted JSON data. To enable user accounts, personalization, real-time features (chat), and backend integration, we need a solid registration system.
 
 **Key Decision**: Custom REST API approach instead of Supabase SDK to maintain full control over authentication flow, reduce bundle size, and follow our security-first architecture. This allows us to implement 3-tier storage (Keychain for tokens, Encrypted Storage for PII, AsyncStorage for preferences) and comply with SECURITY.md standards.
 

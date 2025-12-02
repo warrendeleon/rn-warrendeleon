@@ -1,7 +1,7 @@
 # US-XXX: [Title Here]
 
 <!--
-  This template provides a comprehensive structure for creating detailed user stories.
+  This template provides a detailed structure for creating user stories.
   Replace all [PLACEHOLDERS] with actual content.
   Remove comment blocks when creating actual user stories.
   Use UK English spelling throughout (organisation, behaviour, optimised, etc.)
@@ -308,7 +308,7 @@ So that **the app renders 20-30% faster and provides a smoother user experience*
 - **Impact**: Low-Medium
 - **Description**: Advanced React patterns (memo, useCallback) might confuse new team members unfamiliar with performance optimization
 - **Mitigation Strategy**:
-  - Add comprehensive code comments explaining why optimization is used
+  - Add detailed code comments explaining why optimization is used
   - Update CONTRIBUTING.md with memoization patterns and when to use them
   - Include examples in documentation
   - Conduct team knowledge-sharing session
@@ -430,7 +430,7 @@ So that **the app renders 20-30% faster and provides a smoother user experience*
 ❌ **Don't use when:**
 1. Component renders are already very fast (<5ms)
 2. Component rarely re-renders (less than once per interaction)
-3. Props change on every render anyway (no stability to leverage)
+3. Props change on every render anyway (no stability to use)
 4. Component is only rendered once in the entire app
 5. Premature optimization for features not yet used
 -->

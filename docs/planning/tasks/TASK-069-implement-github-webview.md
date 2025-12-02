@@ -239,7 +239,7 @@ it('navigates to WebView when GitHub button pressed', () => {
 
 **User Experience**:
 
-- Seamless in-app browsing of GitHub repo
+- Smooth in-app browsing of GitHub repo
 - No context switching to external browser
 - Maintains app navigation flow
 

@@ -14,7 +14,7 @@
 ## User Story
 
 **As a** portfolio visitor
-**I want** to navigate seamlessly between Work Experience, Company Details, and Client listings
+**I want** to navigate smoothly between Work Experience, Company Details, and Client listings
 **So that** I can explore work history in detail without confusion
 
 ---

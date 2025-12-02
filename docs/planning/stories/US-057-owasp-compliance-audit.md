@@ -1,6 +1,6 @@
 # US-057: OWASP Mobile Top 10 Compliance Audit
 
-**ID**: US-057 | **Epic**: [EPIC-029](../epics/EPIC-029-security-audit.md) | **Title**: Comprehensive OWASP Mobile Top 10 Security Audit
+**ID**: US-057 | **Epic**: [EPIC-029](../epics/EPIC-029-security-audit.md) | **Title**: Full OWASP Mobile Top 10 Security Audit
 **Status**: 📋 To Do | **Priority**: High | **Story Points**: 4 | **Effort**: 9.5h
 
 ---

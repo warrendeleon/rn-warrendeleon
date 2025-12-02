@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Write comprehensive React Native Testing Library tests for the ChangePINScreen component. Test all user interactions, form validation, success/error states, accessibility, and edge cases. Achieve 100% code coverage.
+Write full React Native Testing Library tests for the ChangePINScreen component. Test all user interactions, form validation, success/error states, accessibility, and edge cases. Achieve 100% code coverage.
 
 ---
 
@@ -493,7 +493,7 @@ describe('ChangePINScreen', () => {
 
 ## Definition of Done
 
-- [ ] Test file created with comprehensive test suite
+- [ ] Test file created with full test suite
 - [ ] All user interactions tested
 - [ ] Form validation tested
 - [ ] Success/error states tested

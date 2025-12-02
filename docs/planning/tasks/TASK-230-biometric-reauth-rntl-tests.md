@@ -9,7 +9,7 @@
 
 ## Objective
 
-Write comprehensive RNTL tests for:
+Write full RNTL tests for:
 
 1. BiometricPromptScreen
 2. PINPromptScreen

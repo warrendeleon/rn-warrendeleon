@@ -8,7 +8,7 @@
 
 ## Epic Overview
 
-Provide users with comprehensive security settings to manage their authentication methods, update profile information, and maintain account security.
+Provide users with full security settings to manage their authentication methods, update profile information, and maintain account security.
 
 **Key Features**:
 

@@ -205,7 +205,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 ```
 
-### 7. Enhance renderWithProviders
+### 7. Update renderWithProviders
 
 Update `src/test-utils/renderWithProviders.tsx`:
 

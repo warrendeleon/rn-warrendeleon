@@ -9,7 +9,7 @@
 
 ## Description
 
-Create comprehensive RNTL unit tests for `WorkExperienceClientsScreen.tsx`. This screen displays a list of clients for a specific work experience entry.
+Create full RNTL unit tests for `WorkExperienceClientsScreen.tsx`. This screen displays a list of clients for a specific work experience entry.
 
 ## Current State
 

@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Write comprehensive React Native Testing Library tests for typing indicators and read receipts. Test TypingIndicator component, typing status service, ReadReceipt component, and mark as read functionality. Achieve 100% code coverage.
+Write full React Native Testing Library tests for typing indicators and read receipts. Test TypingIndicator component, typing status service, ReadReceipt component, and mark as read functionality. Achieve 100% code coverage.
 
 ---
 
@@ -25,7 +25,7 @@ Write comprehensive React Native Testing Library tests for typing indicators and
 
 ## Implementation Details
 
-### Comprehensive RNTL Test Suite
+### Full RNTL Test Suite
 
 ```typescript
 // src/components/chat/__tests__/TypingIndicatorReadReceipts.test.tsx

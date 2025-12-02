@@ -43,7 +43,7 @@ Add Unicode normalization and homograph detection to name validation:
 3. Normalize names to NFC form before validation
 4. Block mixed-script names (e.g., Latin + Cyrillic)
 5. Update regex to detect non-Latin characters
-6. Add comprehensive tests for homograph attempts
+6. Add full tests for homograph attempts
 7. Document security rationale
 
 **Deliverable**: Name validation that detects and blocks homograph attacks while supporting legitimate international names (hyphens, apostrophes, spaces).

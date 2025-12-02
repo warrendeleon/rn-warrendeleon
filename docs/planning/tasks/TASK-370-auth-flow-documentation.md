@@ -1,7 +1,7 @@
-# TASK-370: Comprehensive Auth Flow Documentation
+# TASK-370: Full Auth Flow Documentation
 
 **Task ID**: TASK-370
-**Title**: Comprehensive Auth Flow Documentation with Visual Aids
+**Title**: Full Auth Flow Documentation with Visual Aids
 **User Story**: [US-066](../stories/US-066-proactive-session-validation.md) - Proactive Session Validation
 **Epic**: [EPIC-022](../epics/EPIC-022-login-session-management.md) - Login & Session Management
 **Status**: 📋 To Do
@@ -14,7 +14,7 @@
 
 ## Context
 
-The authentication system has grown complex with multiple login methods, token management, session validation, and various logout conditions. This task creates comprehensive documentation that explains the complete auth flow with visual diagrams, making it easy for any developer (or future me) to understand how authentication works in this app.
+The authentication system has grown complex with multiple login methods, token management, session validation, and various logout conditions. This task creates full documentation that explains the complete auth flow with visual diagrams, making it easy for any developer (or future me) to understand how authentication works in this app.
 
 **Why Documentation?**
 
@@ -28,7 +28,7 @@ The authentication system has grown complex with multiple login methods, token m
 
 ## Objective
 
-Create `docs/readme/AUTH_FLOW.md` with comprehensive documentation covering:
+Create `docs/readme/AUTH_FLOW.md` with full documentation covering:
 
 1. **Login flows** - All authentication methods with diagrams
 2. **Registration flow** - Account creation process

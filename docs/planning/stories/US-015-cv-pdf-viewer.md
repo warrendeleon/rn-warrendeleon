@@ -22,15 +22,15 @@ The HomeScreen includes a "My CV" button that currently has no functionality. Ad
 
 - Read the CV without app switching
 - Share the CV via native share functionality
-- Experience a professional, seamless portfolio presentation
+- Experience a professional, smooth portfolio presentation
 
-This aligns with the app's goal of being a comprehensive portfolio showcase.
+This aligns with the app's goal of being a complete portfolio showcase.
 
 ## Benefits
 
 ### User Experience
 
-- **Seamless viewing**: No external apps or browser tabs required
+- **Smooth viewing**: No external apps or browser tabs required
 - **Quick access**: One tap from HomeScreen to full CV
 - **Easy sharing**: Native share sheet for sending CV to contacts
 - **Consistent UX**: Matches app's design language and theme

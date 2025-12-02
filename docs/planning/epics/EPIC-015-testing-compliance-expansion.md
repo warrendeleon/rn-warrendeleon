@@ -13,7 +13,7 @@
 
 ## Executive Summary
 
-Expand E2E test coverage to newly implemented screens (ProfileScreen, WebView, Language, Appearance) and complete EAA (European Accessibility Act) compliance for remaining non-compliant screens. This epic ensures comprehensive test coverage across all user journeys and full WCAG 2.1 Level AA accessibility compliance before the June 2025 EAA deadline.
+Expand E2E test coverage to newly implemented screens (ProfileScreen, WebView, Language, Appearance) and complete EAA (European Accessibility Act) compliance for remaining non-compliant screens. This epic ensures full test coverage across all user journeys and full WCAG 2.1 Level AA accessibility compliance before the June 2025 EAA deadline.
 
 ---
 

@@ -130,7 +130,7 @@ export const WebViewScreen: React.FC = () => {
 - [x] Blocked domains show error message
 - [x] HTTP URLs rejected (only HTTPS allowed)
 - [x] Invalid URLs rejected with error
-- [x] Comprehensive test coverage (all scenarios)
+- [x] Full test coverage (all scenarios)
 - [x] All tests pass (100% coverage for validator)
 
 ---

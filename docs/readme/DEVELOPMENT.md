@@ -1,6 +1,6 @@
 # Development Guide
 
-This document covers setting up your development environment and running the app.
+Everything you need to get the app running on your machine.
 
 ## Table of Contents
 
@@ -567,15 +567,21 @@ Download from [fbflipper.com](https://fbflipper.com/)
 
 ### Logging
 
-```typescript
-// Console logging (appears in Metro terminal)
-console.log('Debug message');
-console.warn('Warning message');
-console.error('Error message');
+Use the logger utility instead of `console.*` directly - it masks sensitive data automatically:
 
-// Object inspection
-console.log('User:', JSON.stringify(user, null, 2));
+```typescript
+import { logDebug, logWarning, logError } from '@app/utils/logger';
+
+// These appear in Metro terminal with [DEV] prefix
+logDebug('Debug message');
+logWarning('Warning message');
+logError('Error message');
+
+// Object inspection (PII automatically masked)
+logDebug('User data', user);
 ```
+
+See the [Logging Guide](./LOGGING.md) for full details on PII masking.
 
 **View Logs:**
 
@@ -1008,4 +1014,4 @@ adb logcat | grep ReactNative           # View Android logs
 
 ---
 
-**Need help?** Open an issue on GitHub or check the troubleshooting section above.
+If something's not working, check the troubleshooting section above.

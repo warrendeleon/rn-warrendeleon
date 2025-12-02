@@ -42,7 +42,7 @@ Biometric setup E2E tests ensure:
 
 ## Objective
 
-Build comprehensive E2E test suite for biometric and PIN setup flows with:
+Build full E2E test suite for biometric and PIN setup flows with:
 
 1. **Cucumber feature file**: Gherkin scenarios covering all user paths
 2. **Step definitions**: Detox interactions for biometric/PIN flows

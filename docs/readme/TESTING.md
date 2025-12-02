@@ -1,6 +1,6 @@
 # Testing Guide
 
-This document covers unit and integration testing with Jest and React Native Testing Library.
+Unit and integration testing with Jest and React Native Testing Library.
 
 ## Current Test Coverage
 
@@ -862,4 +862,4 @@ module.exports = {
 
 ---
 
-**Need help?** Open an issue on GitHub or consult the troubleshooting section above.
+Tests failing unexpectedly? Check the troubleshooting section above.

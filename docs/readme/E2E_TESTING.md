@@ -1,6 +1,6 @@
 # E2E Testing Guide
 
-This document covers end-to-end (E2E) testing with Detox, Cucumber, and Metro Runtime Mocking.
+End-to-end testing with Detox, Cucumber, and Metro runtime mocking.
 
 ## Table of Contents
 
@@ -1386,4 +1386,4 @@ In your `application:didFinishLaunchingWithOptions:` method:
 
 ---
 
-**Need help?** Check the [Detox documentation](https://wix.github.io/Detox/) or [Cucumber documentation](https://cucumber.io/docs/cucumber/).
+See the [Detox docs](https://wix.github.io/Detox/) or [Cucumber docs](https://cucumber.io/docs/cucumber/) for more details.

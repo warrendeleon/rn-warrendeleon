@@ -1,7 +1,7 @@
 # US-011: Splash Screen Testing
 
 **Story ID**: US-011
-**Title**: Comprehensive Testing for Splash Screen
+**Title**: Full Testing for Splash Screen
 **Epic**: [EPIC-006: Splash Screen with Loading Animation](../epics/EPIC-006-splash-screen-loading-animation.md)
 **Status**: ⏳ In Progress
 **Priority**: High
@@ -14,7 +14,7 @@
 ## User Story
 
 **As a** developer,
-**I want** comprehensive tests for the splash screen and loading orchestration,
+**I want** full tests for the splash screen and loading orchestration,
 **So that** the first launch experience is reliable and handles all loading states correctly.
 
 ---

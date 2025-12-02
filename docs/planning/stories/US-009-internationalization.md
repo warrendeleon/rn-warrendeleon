@@ -65,7 +65,7 @@ All 5 languages are now fully supported throughout the app:
 - **Polish (pl)**: Casual tone with personality
 - **Tagalog (tl)**: Mixed formal/casual approach
 
-The app automatically detects the device language and falls back to English if the device language isn't supported. Language switching works seamlessly through the Settings screen.
+The app automatically detects the device language and falls back to English if the device language isn't supported. Language switching works smoothly through the Settings screen.
 
 All 170 tests pass, including 4 locale parity tests confirming all languages have matching translation keys.
 

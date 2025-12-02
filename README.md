@@ -19,7 +19,7 @@
 
 ## About
 
-A modern React Native application built with TypeScript, featuring a **feature-first architecture** and comprehensive testing suite. Built with industry best practices for scalable mobile development.
+A modern React Native application built with TypeScript, featuring a **feature-first architecture** and full testing suite. Built with industry best practices for maintainable mobile development.
 
 **Key Features:**
 

@@ -13,7 +13,7 @@
 
 ## Executive Summary
 
-Implement a comprehensive work experience display screen that showcases professional career history with company logos, position details, employment dates, and client information. This feature enhances the portfolio app by providing visitors with a detailed, visually appealing view of work experience organised by company, with drill-down navigation to see project details and client listings.
+Implement a full work experience display screen that showcases professional career history with company logos, position details, employment dates, and client information. This feature improves the portfolio app by providing visitors with a detailed, visually appealing view of work experience organised by company, with drill-down navigation to see project details and client listings.
 
 ---
 

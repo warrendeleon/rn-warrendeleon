@@ -63,7 +63,7 @@ These issues prevent confident production deployment and could lead to security 
 2. **Test Coverage Completion** (US-023)
    - Test `selectWorkExperienceOrClientById` selector (complex nested logic)
    - Test E2E mocking branches in Profile/Education/WorkExperience API files
-   - Create comprehensive GithubApiClient configuration tests
+   - Create full GithubApiClient configuration tests
    - Export missing Redux selectors from store/index.ts
 
 ### Out of Scope

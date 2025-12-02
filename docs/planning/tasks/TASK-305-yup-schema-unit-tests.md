@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Create comprehensive unit tests for all Yup validation schemas (common schemas, authentication schemas, profile schemas, and composite form schemas). Test all validation rules, edge cases, error messages, conditional validation, and schema composition. Ensure 100% code coverage.
+Create full unit tests for all Yup validation schemas (common schemas, authentication schemas, profile schemas, and composite form schemas). Test all validation rules, edge cases, error messages, conditional validation, and schema composition. Ensure 100% code coverage.
 
 ---
 

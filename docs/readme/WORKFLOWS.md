@@ -1005,4 +1005,4 @@ lsof -ti:8081 | xargs kill
 
 ---
 
-**Need help?** Open an issue on GitHub or consult the full documentation.
+Check the related docs for more details on specific topics.

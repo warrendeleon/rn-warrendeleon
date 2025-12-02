@@ -14,7 +14,7 @@
 ## User Story
 
 **As a** portfolio visitor (recruiter, potential client, or colleague)
-**I want** to view a comprehensive list of work experience with company logos and employment details
+**I want** to view a full list of work experience with company logos and employment details
 **So that** I can quickly assess professional background, career progression, and company associations
 
 ---
@@ -23,7 +23,7 @@
 
 The Work Experience screen is a critical component of the portfolio app, providing visitors with immediate visual recognition of career history through company branding. This screen serves as the primary entry point for exploring detailed work history, including specific projects and client relationships.
 
-Similar to the Education screen (US-016), this feature leverages SVG logos for crisp rendering on any device and provides intuitive navigation to drill down into company-specific details or client listings.
+Similar to the Education screen (US-016), this feature uses SVG logos for crisp rendering on any device and provides intuitive navigation to drill down into company-specific details or client listings.
 
 ---
 
@@ -45,7 +45,7 @@ Similar to the Education screen (US-016), this feature leverages SVG logos for c
 
 ### Technical
 
-- **Reusability**: Leverages MenuButtonGroupSvg from Education screen
+- **Reusability**: Uses MenuButtonGroupSvg from Education screen
 - **Performance**: Memoized selectors prevent unnecessary re-renders
 - **Consistency**: Matches Education screen UX patterns
 - **Accessibility**: WCAG 2.1 AA compliance with proper labels

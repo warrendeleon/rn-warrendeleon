@@ -1,7 +1,7 @@
 # US-010: Data Layer Testing
 
 **Story ID**: US-010
-**Title**: Comprehensive Testing for Data Layer
+**Title**: Full Testing for Data Layer
 **Epic**: [EPIC-005: Multi-Language Portfolio Data Layer](../epics/EPIC-005-multi-language-portfolio-data-layer.md)
 **Status**: ⏳ In Progress
 **Priority**: High
@@ -15,7 +15,7 @@
 ## User Story
 
 **As a** developer,
-**I want** comprehensive tests for the Redux data layer and multi-language support,
+**I want** full tests for the Redux data layer and multi-language support,
 **So that** data fetching, persistence, and language switching are reliable and maintainable.
 
 ---

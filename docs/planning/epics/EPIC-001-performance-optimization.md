@@ -137,7 +137,7 @@ By implementing performance optimisations:
 
 - **Likelihood**: Medium
 - **Impact**: High
-- **Mitigation**: Enable `exhaustive-deps` ESLint rule; comprehensive testing
+- **Mitigation**: Enable `exhaustive-deps` ESLint rule; thorough testing
 
 **Risk 3**: Memory Overhead
 

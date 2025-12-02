@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Write comprehensive React Native Testing Library tests for root/jailbreak detection components. Test SecurityWarningModal, SecurityStatusIndicator, and all security detection scenarios. Achieve 100% code coverage.
+Write full React Native Testing Library tests for root/jailbreak detection components. Test SecurityWarningModal, SecurityStatusIndicator, and all security detection scenarios. Achieve 100% code coverage.
 
 ---
 
@@ -26,7 +26,7 @@ Write comprehensive React Native Testing Library tests for root/jailbreak detect
 
 ## Implementation Details
 
-The SecurityWarningModal and SecurityStatusIndicator components already have comprehensive test suites included in their task files (TASK-249 and TASK-250). This task consolidates and extends those tests to ensure complete coverage.
+The SecurityWarningModal and SecurityStatusIndicator components already have full test suites included in their task files (TASK-249 and TASK-250). This task consolidates and extends those tests to ensure complete coverage.
 
 ### Additional Integration Tests
 

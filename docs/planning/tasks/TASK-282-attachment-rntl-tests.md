@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Write comprehensive React Native Testing Library tests for attachment functionality. Test AttachmentPicker, image processing, storage upload, and AttachmentMessageBubble. Achieve 100% code coverage.
+Write full React Native Testing Library tests for attachment functionality. Test AttachmentPicker, image processing, storage upload, and AttachmentMessageBubble. Achieve 100% code coverage.
 
 ---
 
@@ -25,7 +25,7 @@ Write comprehensive React Native Testing Library tests for attachment functional
 
 ## Implementation Details
 
-### Comprehensive RNTL Test Suite
+### Full RNTL Test Suite
 
 ```typescript
 // src/components/chat/__tests__/AttachmentTests.test.tsx

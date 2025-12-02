@@ -1,6 +1,6 @@
 # Accessibility Guide
 
-This document covers European Accessibility Act (EAA) compliance requirements for this React Native application.
+EAA (European Accessibility Act) compliance requirements. Mandatory by June 2025.
 
 ## Table of Contents
 
@@ -679,4 +679,4 @@ Before committing any component:
 
 ---
 
-**Need help?** Open an issue on GitHub or consult the resources above.
+See the WCAG resources above for detailed guidance.

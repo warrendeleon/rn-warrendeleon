@@ -15,7 +15,7 @@
 
 ## Context
 
-Comprehensive unit tests for the auth navigation foundation components. Tests should cover AuthContext, useAuth hook, and ProtectedRoute HOC with 100% coverage.
+Full unit tests for the auth navigation foundation components. Tests should cover AuthContext, useAuth hook, and ProtectedRoute HOC with 100% coverage.
 
 ---
 

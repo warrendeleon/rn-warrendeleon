@@ -7,7 +7,7 @@
 
 ## Task Description
 
-Write comprehensive React Native Testing Library tests for the UpdateProfilePictureScreen component. Test image picker integration, upload flow, progress tracking, success/error states, and accessibility. Achieve 100% code coverage.
+Write full React Native Testing Library tests for the UpdateProfilePictureScreen component. Test image picker integration, upload flow, progress tracking, success/error states, and accessibility. Achieve 100% code coverage.
 
 ---
 
@@ -385,7 +385,7 @@ describe('UpdateProfilePictureScreen', () => {
 
 ## Definition of Done
 
-- [ ] Test file created with comprehensive test suite
+- [ ] Test file created with full test suite
 - [ ] Image picker tested
 - [ ] Upload flow tested
 - [ ] Progress tracking tested

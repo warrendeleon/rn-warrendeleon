@@ -8,7 +8,7 @@
 
 ## Overview
 
-Enhance the Work Experience feature to support multiple positions at the same company, following the same navigation pattern as the existing clients feature. This allows accurate representation of career progression within a single organisation (e.g., starting as Senior React Native Engineer and progressing to Software Engineering Manager at Sky).
+Extend the Work Experience feature to support multiple positions at the same company, following the same navigation pattern as the existing clients feature. This allows accurate representation of career progression within a single organisation (e.g., starting as Senior React Native Engineer and progressing to Software Engineering Manager at Sky).
 
 ## Business Context
 
