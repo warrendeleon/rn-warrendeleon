@@ -36,7 +36,12 @@ describe('logger', () => {
       const error = new Error('Something went wrong');
       logError(message, error);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith('[DEV] Test error message', error, undefined);
+      // Error object is masked (returns same structure for Error objects)
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        '[DEV] Test error message',
+        expect.any(Object),
+        undefined
+      );
     });
 
     it('calls console.error with message, error, and context in dev mode', () => {
@@ -45,7 +50,11 @@ describe('logger', () => {
       const context = { userId: '123', action: 'fetchData' };
       logError(message, error, context);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith('[DEV] Test error message', error, context);
+      // Context is masked (non-sensitive fields remain unchanged)
+      expect(consoleErrorSpy).toHaveBeenCalledWith('[DEV] Test error message', expect.any(Object), {
+        userId: '123',
+        action: 'fetchData',
+      });
     });
 
     it('includes [DEV] prefix in error message', () => {
@@ -72,7 +81,11 @@ describe('logger', () => {
       const context = { component: 'UserProfile', value: null };
       logWarning(message, context);
 
-      expect(consoleWarnSpy).toHaveBeenCalledWith('[DEV] Test warning message', context);
+      // Non-sensitive context remains unchanged after masking
+      expect(consoleWarnSpy).toHaveBeenCalledWith('[DEV] Test warning message', {
+        component: 'UserProfile',
+        value: null,
+      });
     });
 
     it('includes [DEV] prefix in warning message', () => {
@@ -95,7 +108,11 @@ describe('logger', () => {
       const data = { items: [1, 2, 3], total: 3 };
       logDebug(message, data);
 
-      expect(consoleLogSpy).toHaveBeenCalledWith('[DEV] Test debug message', data);
+      // Non-sensitive data remains unchanged after masking
+      expect(consoleLogSpy).toHaveBeenCalledWith('[DEV] Test debug message', {
+        items: [1, 2, 3],
+        total: 3,
+      });
     });
 
     it('includes [DEV] prefix in debug message', () => {
@@ -128,6 +145,78 @@ describe('logger', () => {
       expect(consoleLogSpy).toHaveBeenCalled();
       expect(consoleErrorSpy).not.toHaveBeenCalled();
       expect(consoleWarnSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('sensitive data masking integration', () => {
+    it('masks email in context', () => {
+      logError('Auth error', undefined, { email: 'user@example.com', action: 'login' });
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith('[DEV] Auth error', undefined, {
+        email: '[MASKED_EMAIL]',
+        action: 'login',
+      });
+    });
+
+    it('masks password in context', () => {
+      logWarning('Validation warning', { password: 'secret123', field: 'password' });
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith('[DEV] Validation warning', {
+        password: '[MASKED]',
+        field: 'password',
+      });
+    });
+
+    it('masks phone in context', () => {
+      logDebug('User data', { phone: '+447123456789', name: 'John' });
+
+      expect(consoleLogSpy).toHaveBeenCalledWith('[DEV] User data', {
+        phone: '[MASKED_PHONE]',
+        name: 'John',
+      });
+    });
+
+    it('masks token in context', () => {
+      logError('Token refresh failed', undefined, { token: 'abc123xyz', userId: '1' });
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith('[DEV] Token refresh failed', undefined, {
+        token: '[MASKED]',
+        userId: '1',
+      });
+    });
+
+    it('masks nested sensitive data', () => {
+      const context = {
+        user: {
+          email: 'test@test.com',
+          profile: {
+            address: '123 Main St',
+          },
+        },
+        action: 'update',
+      };
+      logWarning('Profile update', context);
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith('[DEV] Profile update', {
+        user: {
+          email: '[MASKED_EMAIL]',
+          profile: {
+            address: '[MASKED_ADDRESS]',
+          },
+        },
+        action: 'update',
+      });
+    });
+
+    it('masks JWT tokens in data', () => {
+      const data = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.test';
+      logDebug('Auth header', data);
+
+      // JWT pattern catches the token, resulting in masked output
+      expect(consoleLogSpy).toHaveBeenCalledWith(
+        '[DEV] Auth header',
+        expect.stringContaining('[MASKED_TOKEN]')
+      );
     });
   });
 });

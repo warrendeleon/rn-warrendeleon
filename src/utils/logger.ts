@@ -4,14 +4,22 @@
  * Logs errors and warnings only in development mode (__DEV__).
  * In production, errors are silently ignored to prevent information leakage.
  *
+ * All logged data is automatically sanitised to mask sensitive information:
+ * - JWT tokens, Bearer tokens
+ * - Email addresses
+ * - Passwords and secrets
+ * - PII (phone numbers, addresses)
+ *
  * For production error tracking, consider integrating Sentry or Firebase Crashlytics.
  */
+
+import { maskSensitiveData } from './logging/maskSensitiveData';
 
 /**
  * Log an error in development mode only
  * @param message - Error message
  * @param error - Optional error object
- * @param context - Optional context data
+ * @param context - Optional context data (will be masked)
  */
 export const logError = (
   message: string,
@@ -19,7 +27,9 @@ export const logError = (
   context?: Record<string, unknown>
 ): void => {
   if (__DEV__) {
-    console.error(`[DEV] ${message}`, error, context);
+    const maskedContext = context ? maskSensitiveData(context) : undefined;
+    const maskedError = error ? maskSensitiveData(error) : undefined;
+    console.error(`[DEV] ${message}`, maskedError, maskedContext);
   }
   // In production: error is silently ignored
   // TODO: Integrate Sentry/Crashlytics for production error tracking
@@ -28,11 +38,12 @@ export const logError = (
 /**
  * Log a warning in development mode only
  * @param message - Warning message
- * @param context - Optional context data
+ * @param context - Optional context data (will be masked)
  */
 export const logWarning = (message: string, context?: Record<string, unknown>): void => {
   if (__DEV__) {
-    console.warn(`[DEV] ${message}`, context);
+    const maskedContext = context ? maskSensitiveData(context) : undefined;
+    console.warn(`[DEV] ${message}`, maskedContext);
   }
   // In production: warning is silently ignored
 };
@@ -40,11 +51,12 @@ export const logWarning = (message: string, context?: Record<string, unknown>): 
 /**
  * Log debug information in development mode only
  * @param message - Debug message
- * @param data - Optional data to log
+ * @param data - Optional data to log (will be masked)
  */
 export const logDebug = (message: string, data?: unknown): void => {
   if (__DEV__) {
-    console.log(`[DEV] ${message}`, data);
+    const maskedData = data !== undefined ? maskSensitiveData(data) : undefined;
+    console.log(`[DEV] ${message}`, maskedData);
   }
   // In production: debug info is silently ignored
 };

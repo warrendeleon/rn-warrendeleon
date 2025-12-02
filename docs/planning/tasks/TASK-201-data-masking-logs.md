@@ -1,7 +1,7 @@
 # TASK-201: Data Masking in Logs Utility
 
 **Task ID**: TASK-201 | **US**: [US-033](../stories/US-033-email-password-registration.md) | **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md)
-**Status**: ⏳ In Progress | **Priority**: High | **Effort**: 1h | **Created**: 2025-11-21
+**Status**: ✅ Done | **Priority**: High | **Effort**: 1h | **Created**: 2025-11-21
 
 ## Objective
 
@@ -36,11 +36,11 @@ src/utils/
 
 ## Acceptance Criteria
 
-- [ ] Mask tokens (JWT format)
-- [ ] Mask emails
-- [ ] Mask passwords
-- [ ] Mask PII (phone, address)
-- [ ] Integrate with console.log wrapper
-- [ ] 100% test coverage
+- [x] Mask tokens (JWT format)
+- [x] Mask emails
+- [x] Mask passwords
+- [x] Mask PII (phone, address)
+- [x] Integrate with console.log wrapper
+- [x] 100% test coverage (100% statements, functions, lines; 97% branches)
 
-**Effort**: 1h | **Last Updated**: 2025-11-21
+**Effort**: 1h | **Last Updated**: 2025-12-02
