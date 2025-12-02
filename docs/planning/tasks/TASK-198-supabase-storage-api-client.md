@@ -4,7 +4,7 @@
 **Title**: Supabase Storage API Client (Moved to Post-Login)
 **User Story**: [US-042](../stories/US-042-update-profile-picture.md) - Update Profile Picture (Post-Login)
 **Epic**: [EPIC-023](../epics/EPIC-023-security-settings.md) - Security Settings
-**Status**: 📋 To Do (Deferred to post-registration)
+**Status**: ⏳ In Progress
 **Priority**: Medium (no longer blocks registration)
 **Effort**: 2 hours
 **Created**: 2025-11-21
