@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, Platform } from 'react-native';
 import {
   Box,
   Button,
@@ -8,14 +7,13 @@ import {
   ButtonText,
   HStack,
   Pressable,
-  ScrollView,
   Text,
   VStack,
 } from '@gluestack-ui/themed';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AlertCircle, CheckCircle, Mail } from 'lucide-react-native';
+import { Mail } from 'lucide-react-native';
 
-import { useToast } from '@app/components';
+import { AlertBox, AuthScreenWrapper, useToast } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
@@ -141,213 +139,174 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
   const isResendDisabled = isResending || cooldownSeconds > 0;
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-    >
-      <ScrollView
-        flex={1}
-        bg={isDark ? '$black' : '$coolGray100'}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
-        testID="email-verification-screen"
-      >
-        {/* Email Icon */}
-        <Box alignItems="center" mt="$8">
-          <Box
-            bg={isDark ? '$primary900' : '$primary100'}
-            borderRadius="$full"
-            p="$6"
-            testID="email-icon-container"
-          >
-            <Mail size={48} color={isDark ? '#93C5FD' : '#2563EB'} />
-          </Box>
+    <AuthScreenWrapper testID="email-verification-screen">
+      {/* Email Icon */}
+      <Box alignItems="center" mt="$8">
+        <Box
+          bg={isDark ? '$primary900' : '$primary100'}
+          borderRadius="$full"
+          p="$6"
+          testID="email-icon-container"
+        >
+          <Mail size={48} color={isDark ? '#93C5FD' : '#2563EB'} />
         </Box>
+      </Box>
 
-        {/* Title and Message */}
-        <VStack mx="$4" mt="$6" space="sm" alignItems="center">
-          <Text
-            fontSize="$2xl"
-            fontWeight="$bold"
-            color={isDark ? '$white' : '$coolGray900'}
-            textAlign="center"
-            testID="verification-title"
-          >
-            {t('auth.emailVerification.title')}
-          </Text>
-          <Text
-            fontSize="$md"
-            color={isDark ? '$coolGray400' : '$coolGray600'}
-            textAlign="center"
-            testID="verification-message"
-          >
-            {t('auth.emailVerification.message')}
-          </Text>
-        </VStack>
+      {/* Title and Message */}
+      <VStack mx="$4" mt="$6" space="sm" alignItems="center">
+        <Text
+          fontSize="$2xl"
+          fontWeight="$bold"
+          color={isDark ? '$white' : '$coolGray900'}
+          textAlign="center"
+          testID="verification-title"
+        >
+          {t('auth.emailVerification.title')}
+        </Text>
+        <Text
+          fontSize="$md"
+          color={isDark ? '$coolGray400' : '$coolGray600'}
+          textAlign="center"
+          testID="verification-message"
+        >
+          {t('auth.emailVerification.message')}
+        </Text>
+      </VStack>
 
-        {/* Email Display */}
-        <Box mx="$4" mt="$6">
-          <Box
-            bg={isDark ? '$backgroundDark900' : '$white'}
-            borderRadius="$xl"
-            p="$4"
-            testID="email-display"
-            accessibilityLabel={t('auth.emailVerification.emailSentTo', { email })}
-          >
-            <HStack space="md" alignItems="center" justifyContent="center">
-              <Mail size={20} color={isDark ? '#9CA3AF' : '#6B7280'} />
-              <Text
-                fontSize="$md"
-                fontWeight="$semibold"
-                color={isDark ? '$white' : '$coolGray900'}
-                testID="email-address"
-              >
-                {email}
-              </Text>
-            </HStack>
-          </Box>
-        </Box>
-
-        {/* Error Message */}
-        {error && (
-          <Box mx="$4" mt="$4">
-            <Box
-              bg="$red100"
-              borderRadius="$xl"
-              p="$3"
-              borderWidth={1}
-              borderColor="$red300"
-              testID="error-message"
-              accessibilityRole="alert"
+      {/* Email Display */}
+      <Box mx="$4" mt="$6">
+        <Box
+          bg={isDark ? '$backgroundDark900' : '$white'}
+          borderRadius="$xl"
+          p="$4"
+          testID="email-display"
+          accessibilityLabel={t('auth.emailVerification.emailSentTo', { email })}
+        >
+          <HStack space="md" alignItems="center" justifyContent="center">
+            <Mail size={20} color={isDark ? '#9CA3AF' : '#6B7280'} />
+            <Text
+              fontSize="$md"
+              fontWeight="$semibold"
+              color={isDark ? '$white' : '$coolGray900'}
+              testID="email-address"
             >
-              <HStack space="sm" alignItems="center">
-                <AlertCircle size={20} color="#DC2626" />
-                <Text color="$red700" flex={1} fontSize="$sm">
-                  {error}
-                </Text>
-              </HStack>
-            </Box>
-          </Box>
-        )}
-
-        {/* Resend Success Message */}
-        {resendSuccess && (
-          <Box mx="$4" mt="$4">
-            <Box
-              bg={isDark ? '$green900' : '$green100'}
-              borderRadius="$xl"
-              p="$3"
-              borderWidth={1}
-              borderColor={isDark ? '$green700' : '$green300'}
-              testID="resend-success-message"
-              accessibilityRole="alert"
-              accessibilityLabel={t('auth.emailVerification.resendSuccess')}
-            >
-              <HStack space="sm" alignItems="center">
-                <CheckCircle size={20} color={isDark ? '#86EFAC' : '#16A34A'} />
-                <Text color={isDark ? '$green200' : '$green700'} flex={1} fontSize="$sm">
-                  {t('auth.emailVerification.resendSuccess')}
-                </Text>
-              </HStack>
-            </Box>
-          </Box>
-        )}
-
-        {/* Resend Button */}
-        <Box mx="$4" mt="$6">
-          <Button
-            onPress={handleResendEmail}
-            isDisabled={isResendDisabled}
-            size="lg"
-            variant="outline"
-            testID="resend-email-button"
-            accessibilityRole="button"
-            accessibilityLabel={
-              cooldownSeconds > 0
-                ? t('auth.emailVerification.resendButtonCooldown', { seconds: cooldownSeconds })
-                : t('auth.emailVerification.resendButton')
-            }
-            accessibilityHint={t('auth.emailVerification.resendButtonHint')}
-            accessibilityState={{ disabled: isResendDisabled }}
-            borderRadius="$xl"
-            style={{ minHeight: 50 }}
-          >
-            {isResending ? (
-              <ButtonSpinner color="$primary500" />
-            ) : (
-              <ButtonText fontWeight="$semibold">
-                {cooldownSeconds > 0
-                  ? t('auth.emailVerification.resendButtonCooldown', { seconds: cooldownSeconds })
-                  : t('auth.emailVerification.resendButton')}
-              </ButtonText>
-            )}
-          </Button>
-        </Box>
-
-        {/* Back to Login Button */}
-        <Box mx="$4" mt="$4">
-          <Button
-            onPress={handleBackToLogin}
-            size="lg"
-            testID="back-to-login-button"
-            accessibilityRole="button"
-            accessibilityLabel={t('auth.emailVerification.backToLogin')}
-            accessibilityHint={t('auth.emailVerification.backToLoginHint')}
-            borderRadius="$xl"
-            style={{ minHeight: 50 }}
-          >
-            <ButtonText fontWeight="$semibold">
-              {t('auth.emailVerification.backToLogin')}
-            </ButtonText>
-          </Button>
-        </Box>
-
-        {/* Back to Login Link (secondary) */}
-        <HStack justifyContent="center" alignItems="center" mt="$6">
-          <Pressable
-            onPress={handleBackToLogin}
-            testID="back-to-login-link"
-            accessibilityRole="link"
-            accessibilityLabel={t('auth.emailVerification.backToLogin')}
-            accessibilityHint={t('auth.emailVerification.backToLoginHint')}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
-              {t('auth.emailVerification.loginInstead')}
+              {email}
             </Text>
-          </Pressable>
-        </HStack>
-
-        {/* Information Box */}
-        <Box mx="$4" mt="$8">
-          <Box
-            bg={isDark ? '$backgroundDark900' : '$white'}
-            borderRadius="$xl"
-            p="$4"
-            testID="info-box"
-          >
-            <VStack space="sm">
-              <Text
-                color={isDark ? '$coolGray300' : '$coolGray700'}
-                fontWeight="$semibold"
-                fontSize="$sm"
-              >
-                {t('auth.emailVerification.infoTitle')}
-              </Text>
-              <VStack space="xs">
-                <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
-                  {t('auth.emailVerification.infoStep1')}
-                </Text>
-                <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
-                  {t('auth.emailVerification.infoStep2')}
-                </Text>
-                <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
-                  {t('auth.emailVerification.infoStep3')}
-                </Text>
-              </VStack>
-            </VStack>
-          </Box>
+          </HStack>
         </Box>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </Box>
+
+      {/* Error Message */}
+      {error && (
+        <Box mx="$4" mt="$4">
+          <AlertBox variant="error" message={error} testID="error-message" />
+        </Box>
+      )}
+
+      {/* Resend Success Message */}
+      {resendSuccess && (
+        <Box mx="$4" mt="$4">
+          <AlertBox
+            variant="success"
+            message={t('auth.emailVerification.resendSuccess')}
+            testID="resend-success-message"
+          />
+        </Box>
+      )}
+
+      {/* Resend Button */}
+      <Box mx="$4" mt="$6">
+        <Button
+          onPress={handleResendEmail}
+          isDisabled={isResendDisabled}
+          size="lg"
+          variant="outline"
+          testID="resend-email-button"
+          accessibilityRole="button"
+          accessibilityLabel={
+            cooldownSeconds > 0
+              ? t('auth.emailVerification.resendButtonCooldown', { seconds: cooldownSeconds })
+              : t('auth.emailVerification.resendButton')
+          }
+          accessibilityHint={t('auth.emailVerification.resendButtonHint')}
+          accessibilityState={{ disabled: isResendDisabled }}
+          borderRadius="$xl"
+          style={{ minHeight: 50 }}
+        >
+          {isResending ? (
+            <ButtonSpinner color="$primary500" />
+          ) : (
+            <ButtonText fontWeight="$semibold">
+              {cooldownSeconds > 0
+                ? t('auth.emailVerification.resendButtonCooldown', { seconds: cooldownSeconds })
+                : t('auth.emailVerification.resendButton')}
+            </ButtonText>
+          )}
+        </Button>
+      </Box>
+
+      {/* Back to Login Button */}
+      <Box mx="$4" mt="$4">
+        <Button
+          onPress={handleBackToLogin}
+          size="lg"
+          testID="back-to-login-button"
+          accessibilityRole="button"
+          accessibilityLabel={t('auth.emailVerification.backToLogin')}
+          accessibilityHint={t('auth.emailVerification.backToLoginHint')}
+          borderRadius="$xl"
+          style={{ minHeight: 50 }}
+        >
+          <ButtonText fontWeight="$semibold">{t('auth.emailVerification.backToLogin')}</ButtonText>
+        </Button>
+      </Box>
+
+      {/* Back to Login Link (secondary) */}
+      <HStack justifyContent="center" alignItems="center" mt="$6">
+        <Pressable
+          onPress={handleBackToLogin}
+          testID="back-to-login-link"
+          accessibilityRole="link"
+          accessibilityLabel={t('auth.emailVerification.backToLogin')}
+          accessibilityHint={t('auth.emailVerification.backToLoginHint')}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
+          <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+            {t('auth.emailVerification.loginInstead')}
+          </Text>
+        </Pressable>
+      </HStack>
+
+      {/* Information Box */}
+      <Box mx="$4" mt="$8">
+        <Box
+          bg={isDark ? '$backgroundDark900' : '$white'}
+          borderRadius="$xl"
+          p="$4"
+          testID="info-box"
+        >
+          <VStack space="sm">
+            <Text
+              color={isDark ? '$coolGray300' : '$coolGray700'}
+              fontWeight="$semibold"
+              fontSize="$sm"
+            >
+              {t('auth.emailVerification.infoTitle')}
+            </Text>
+            <VStack space="xs">
+              <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+                {t('auth.emailVerification.infoStep1')}
+              </Text>
+              <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+                {t('auth.emailVerification.infoStep2')}
+              </Text>
+              <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+                {t('auth.emailVerification.infoStep3')}
+              </Text>
+            </VStack>
+          </VStack>
+        </Box>
+      </Box>
+    </AuthScreenWrapper>
   );
 };

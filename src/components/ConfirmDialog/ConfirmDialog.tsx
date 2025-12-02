@@ -3,6 +3,8 @@ import { Modal, StyleSheet } from 'react-native';
 import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { BlurView } from '@react-native-community/blur';
 
+import { useAppColorScheme } from '@app/hooks';
+
 export interface ConfirmDialogButton {
   text: string;
   onPress?: () => void;
@@ -44,6 +46,9 @@ export function ConfirmDialog({
   onClose,
   testID = 'confirm-dialog',
 }: ConfirmDialogProps) {
+  const colorScheme = useAppColorScheme();
+  const isDark = colorScheme === 'dark';
+
   const handleButtonPress = (button: ConfirmDialogButton) => {
     button.onPress?.();
     onClose?.();
@@ -83,9 +88,9 @@ export function ConfirmDialog({
           {/* Blur background for frosted glass effect */}
           <BlurView
             style={StyleSheet.absoluteFill}
-            blurType="xlight"
+            blurType={isDark ? 'dark' : 'xlight'}
             blurAmount={20}
-            reducedTransparencyFallbackColor="white"
+            reducedTransparencyFallbackColor={isDark ? '#1c1c1e' : 'white'}
           />
 
           {/* Title and Message - Left aligned like iOS 18+ */}
@@ -93,14 +98,19 @@ export function ConfirmDialog({
             <Text
               fontSize={17}
               fontWeight="$semibold"
-              color="$black"
+              color={isDark ? '$white' : '$black'}
               testID={`${testID}-title`}
               accessibilityRole="header"
             >
               {title}
             </Text>
             {message && (
-              <Text fontSize={13} color="$textLight600" mt="$0.5" testID={`${testID}-message`}>
+              <Text
+                fontSize={13}
+                color={isDark ? '$textDark400' : '$textLight600'}
+                mt="$0.5"
+                testID={`${testID}-message`}
+              >
                 {message}
               </Text>
             )}
@@ -114,6 +124,7 @@ export function ConfirmDialog({
                 button={button}
                 onPress={() => handleButtonPress(button)}
                 testID={button.testID || `${testID}-button-${index}`}
+                isDark={isDark}
               />
             ))}
           </HStack>
@@ -127,11 +138,19 @@ interface DialogButtonProps {
   button: ConfirmDialogButton;
   onPress: () => void;
   testID: string;
+  isDark: boolean;
 }
 
-function DialogButton({ button, onPress, testID }: DialogButtonProps) {
+function DialogButton({ button, onPress, testID, isDark }: DialogButtonProps) {
   const isCancel = button.style === 'cancel';
   const isDestructive = button.style === 'destructive';
+
+  // Button background colors for dark/light mode
+  const cancelBg = isDark ? 'rgba(99, 99, 102, 0.36)' : 'rgba(120, 120, 128, 0.24)';
+  const defaultBg = isDark ? 'rgba(99, 99, 102, 0.24)' : 'rgba(120, 120, 128, 0.12)';
+
+  // Text color for non-destructive buttons
+  const textColor = isDestructive ? '$error500' : isDark ? '$white' : '$textLight900';
 
   return (
     <Pressable
@@ -140,7 +159,7 @@ function DialogButton({ button, onPress, testID }: DialogButtonProps) {
       justifyContent="center"
       py="$2.5"
       borderRadius="$full"
-      bg={isCancel ? 'rgba(120, 120, 128, 0.24)' : 'rgba(120, 120, 128, 0.12)'}
+      bg={isCancel ? cancelBg : defaultBg}
       onPress={onPress}
       testID={testID}
       accessibilityRole="button"
@@ -151,11 +170,7 @@ function DialogButton({ button, onPress, testID }: DialogButtonProps) {
         },
       }}
     >
-      <Text
-        fontSize={17}
-        fontWeight={isCancel ? '$semibold' : '$normal'}
-        color={isDestructive ? '$error500' : '$textLight900'}
-      >
+      <Text fontSize={17} fontWeight={isCancel ? '$semibold' : '$normal'} color={textColor}>
         {button.text}
       </Text>
     </Pressable>

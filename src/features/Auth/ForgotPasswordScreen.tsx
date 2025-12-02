@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, Platform } from 'react-native';
 import {
   Box,
   Button,
@@ -9,15 +8,14 @@ import {
   ButtonText,
   HStack,
   Pressable,
-  ScrollView,
   Text,
   VStack,
 } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AlertCircle, CheckCircle, Info } from 'lucide-react-native';
+import { Info } from 'lucide-react-native';
 
-import { EmailInput, FormInputGroup } from '@app/components';
+import { AlertBox, AuthScreenWrapper, EmailInput, FormInputGroup } from '@app/components';
 import { useAppColorScheme } from '@app/hooks';
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
@@ -100,201 +98,145 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({ navi
   // Success state
   if (isSuccess) {
     return (
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
-        <ScrollView
-          flex={1}
-          bg={isDark ? '$black' : '$coolGray100'}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
-          testID="forgot-password-screen"
-        >
-          {/* Success Message */}
-          <Box mx="$4" mt="$6">
-            <Box
-              bg={isDark ? '$green900' : '$green100'}
-              borderRadius="$xl"
-              p="$4"
-              borderWidth={1}
-              borderColor={isDark ? '$green700' : '$green300'}
-              testID="success-message"
-              accessibilityRole="alert"
-              accessibilityLabel={t('auth.forgotPassword.successHint')}
-            >
-              <HStack space="md" alignItems="flex-start">
-                <CheckCircle size={24} color={isDark ? '#86EFAC' : '#16A34A'} />
-                <VStack flex={1} space="xs">
-                  <Text
-                    color={isDark ? '$green200' : '$green800'}
-                    fontWeight="$semibold"
-                    fontSize="$md"
-                  >
-                    {t('auth.forgotPassword.successTitle')}
-                  </Text>
-                  <Text color={isDark ? '$green300' : '$green700'} fontSize="$sm">
-                    {t('auth.forgotPassword.successMessage', { email: submittedEmail })}
-                  </Text>
-                </VStack>
-              </HStack>
-            </Box>
-          </Box>
+      <AuthScreenWrapper testID="forgot-password-screen">
+        {/* Success Message */}
+        <Box mx="$4" mt="$6">
+          <AlertBox
+            variant="success"
+            title={t('auth.forgotPassword.successTitle')}
+            message={t('auth.forgotPassword.successMessage', { email: submittedEmail })}
+            testID="success-message"
+          />
+        </Box>
 
-          {/* Back to Login Button */}
-          <Box mx="$4" mt="$8">
-            <Button
-              onPress={handleBackToLogin}
-              size="lg"
-              testID="back-to-login-button"
-              accessibilityRole="button"
-              accessibilityLabel={t('auth.forgotPassword.backToLogin')}
-              accessibilityHint={t('auth.forgotPassword.backToLoginHint')}
-              borderRadius="$xl"
-              style={{ minHeight: 50 }}
-            >
-              <ButtonText fontWeight="$semibold">{t('auth.forgotPassword.backToLogin')}</ButtonText>
-            </Button>
-          </Box>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        {/* Back to Login Button */}
+        <Box mx="$4" mt="$8">
+          <Button
+            onPress={handleBackToLogin}
+            size="lg"
+            testID="back-to-login-button"
+            accessibilityRole="button"
+            accessibilityLabel={t('auth.forgotPassword.backToLogin')}
+            accessibilityHint={t('auth.forgotPassword.backToLoginHint')}
+            borderRadius="$xl"
+            style={{ minHeight: 50 }}
+          >
+            <ButtonText fontWeight="$semibold">{t('auth.forgotPassword.backToLogin')}</ButtonText>
+          </Button>
+        </Box>
+      </AuthScreenWrapper>
     );
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-    >
-      <ScrollView
-        flex={1}
-        bg={isDark ? '$black' : '$coolGray100'}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
-        keyboardShouldPersistTaps="handled"
-        testID="forgot-password-screen"
-      >
-        {/* Subtitle */}
+    <AuthScreenWrapper testID="forgot-password-screen">
+      {/* Subtitle */}
+      <Box mx="$4" mt="$4">
+        <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$sm">
+          {t('auth.forgotPassword.subtitle')}
+        </Text>
+      </Box>
+
+      {/* Error Message */}
+      {error && (
         <Box mx="$4" mt="$4">
-          <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$sm">
-            {t('auth.forgotPassword.subtitle')}
+          <AlertBox variant="error" message={error} testID="error-message" />
+        </Box>
+      )}
+
+      {/* Email Form */}
+      <FormInputGroup>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <EmailInput
+              placeholder={t('auth.forgotPassword.email')}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              groupVariant="single"
+              testID="email-input"
+              returnKeyType="done"
+              onSubmitEditing={handleSubmit(onSubmit)}
+              error={errors.email?.message}
+              editable={!isSubmitting}
+            />
+          )}
+        />
+      </FormInputGroup>
+
+      {/* Send Button */}
+      <Box mx="$4" mt="$6">
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          isDisabled={!isValid || isSubmitting}
+          size="lg"
+          testID="send-reset-email-button"
+          accessibilityRole="button"
+          accessibilityLabel={t('auth.forgotPassword.sendButton')}
+          accessibilityHint={t('auth.forgotPassword.sendButtonHint')}
+          accessibilityState={{ disabled: !isValid || isSubmitting }}
+          borderRadius="$xl"
+          style={{ minHeight: 50 }}
+        >
+          {isSubmitting ? (
+            <ButtonSpinner color="$white" />
+          ) : (
+            <ButtonText fontWeight="$semibold">{t('auth.forgotPassword.sendButton')}</ButtonText>
+          )}
+        </Button>
+      </Box>
+
+      {/* Back to Login Link */}
+      <HStack justifyContent="center" alignItems="center" mt="$6">
+        <Pressable
+          onPress={handleBackToLogin}
+          testID="back-to-login-link"
+          accessibilityRole="link"
+          accessibilityLabel={t('auth.forgotPassword.backToLogin')}
+          accessibilityHint={t('auth.forgotPassword.backToLoginHint')}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
+          <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+            {t('auth.forgotPassword.backToLogin')}
           </Text>
-        </Box>
+        </Pressable>
+      </HStack>
 
-        {/* Error Message */}
-        {error && (
-          <Box mx="$4" mt="$4">
-            <Box
-              bg="$red100"
-              borderRadius="$xl"
-              p="$3"
-              borderWidth={1}
-              borderColor="$red300"
-              testID="error-message"
-              accessibilityRole="alert"
-            >
-              <HStack space="sm" alignItems="center">
-                <AlertCircle size={20} color="#DC2626" />
-                <Text color="$red700" flex={1} fontSize="$sm">
-                  {error}
+      {/* Information Box */}
+      <Box mx="$4" mt="$8">
+        <Box
+          bg={isDark ? '$backgroundDark900' : '$white'}
+          borderRadius="$xl"
+          p="$4"
+          testID="info-box"
+        >
+          <HStack space="md" alignItems="flex-start">
+            <Info size={20} color={isDark ? '#9CA3AF' : '#6B7280'} />
+            <VStack flex={1} space="sm">
+              <Text
+                color={isDark ? '$coolGray300' : '$coolGray700'}
+                fontWeight="$semibold"
+                fontSize="$sm"
+              >
+                {t('auth.forgotPassword.infoTitle')}
+              </Text>
+              <VStack space="xs">
+                <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+                  • {t('auth.forgotPassword.infoStep1')}
                 </Text>
-              </HStack>
-            </Box>
-          </Box>
-        )}
-
-        {/* Email Form */}
-        <FormInputGroup>
-          <Controller
-            control={control}
-            name="email"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <EmailInput
-                placeholder={t('auth.forgotPassword.email')}
-                value={value}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                groupVariant="single"
-                testID="email-input"
-                returnKeyType="done"
-                onSubmitEditing={handleSubmit(onSubmit)}
-                error={errors.email?.message}
-                editable={!isSubmitting}
-              />
-            )}
-          />
-        </FormInputGroup>
-
-        {/* Send Button */}
-        <Box mx="$4" mt="$6">
-          <Button
-            onPress={handleSubmit(onSubmit)}
-            isDisabled={!isValid || isSubmitting}
-            size="lg"
-            testID="send-reset-email-button"
-            accessibilityRole="button"
-            accessibilityLabel={t('auth.forgotPassword.sendButton')}
-            accessibilityHint={t('auth.forgotPassword.sendButtonHint')}
-            accessibilityState={{ disabled: !isValid || isSubmitting }}
-            borderRadius="$xl"
-            style={{ minHeight: 50 }}
-          >
-            {isSubmitting ? (
-              <ButtonSpinner color="$white" />
-            ) : (
-              <ButtonText fontWeight="$semibold">{t('auth.forgotPassword.sendButton')}</ButtonText>
-            )}
-          </Button>
-        </Box>
-
-        {/* Back to Login Link */}
-        <HStack justifyContent="center" alignItems="center" mt="$6">
-          <Pressable
-            onPress={handleBackToLogin}
-            testID="back-to-login-link"
-            accessibilityRole="link"
-            accessibilityLabel={t('auth.forgotPassword.backToLogin')}
-            accessibilityHint={t('auth.forgotPassword.backToLoginHint')}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
-              {t('auth.forgotPassword.backToLogin')}
-            </Text>
-          </Pressable>
-        </HStack>
-
-        {/* Information Box */}
-        <Box mx="$4" mt="$8">
-          <Box
-            bg={isDark ? '$backgroundDark900' : '$white'}
-            borderRadius="$xl"
-            p="$4"
-            testID="info-box"
-          >
-            <HStack space="md" alignItems="flex-start">
-              <Info size={20} color={isDark ? '#9CA3AF' : '#6B7280'} />
-              <VStack flex={1} space="sm">
-                <Text
-                  color={isDark ? '$coolGray300' : '$coolGray700'}
-                  fontWeight="$semibold"
-                  fontSize="$sm"
-                >
-                  {t('auth.forgotPassword.infoTitle')}
+                <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+                  • {t('auth.forgotPassword.infoStep2')}
                 </Text>
-                <VStack space="xs">
-                  <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
-                    • {t('auth.forgotPassword.infoStep1')}
-                  </Text>
-                  <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
-                    • {t('auth.forgotPassword.infoStep2')}
-                  </Text>
-                  <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
-                    • {t('auth.forgotPassword.infoStep3')}
-                  </Text>
-                </VStack>
+                <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+                  • {t('auth.forgotPassword.infoStep3')}
+                </Text>
               </VStack>
-            </HStack>
-          </Box>
+            </VStack>
+          </HStack>
         </Box>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </Box>
+    </AuthScreenWrapper>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, Platform } from 'react-native';
 import {
   Box,
   Button,
@@ -9,14 +8,14 @@ import {
   ButtonText,
   HStack,
   Pressable,
-  ScrollView,
   Text,
 } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AlertCircle } from 'lucide-react-native';
 
 import {
+  AlertBox,
+  AuthScreenWrapper,
   ButtonGroupDivider,
   EmailInput,
   FormInputGroup,
@@ -139,138 +138,113 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation, route }) =
   }, []);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-    >
-      <ScrollView
-        flex={1}
-        bg={isDark ? '$black' : '$coolGray100'}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
-        keyboardShouldPersistTaps="handled"
-        testID="login-screen"
+    <AuthScreenWrapper testID="login-screen">
+      {/* Error Message */}
+      {authError && (
+        <Box mx="$4" mt="$4">
+          <AlertBox variant="error" message={authError} testID="auth-error-message" />
+        </Box>
+      )}
+
+      {/* Login Form */}
+      <FormInputGroup title={t('auth.login.loginButton')}>
+        {/* Email Field */}
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <EmailInput
+              placeholder={t('auth.login.email')}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              groupVariant="top"
+              testID="email-input"
+              returnKeyType="next"
+              onSubmitEditing={focusPassword}
+              error={errors.email?.message}
+            />
+          )}
+        />
+        <ButtonGroupDivider />
+        {/* Password Field */}
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <PasswordInput
+              ref={passwordRef}
+              placeholder={t('auth.login.password')}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              groupVariant="bottom"
+              testID="password-input"
+              returnKeyType="done"
+              onSubmitEditing={handleSubmit(onSubmit)}
+              isSecureVisible={showPassword}
+              onToggleSecure={togglePasswordVisibility}
+              error={errors.password?.message}
+            />
+          )}
+        />
+      </FormInputGroup>
+
+      {/* Forgot Password Link */}
+      <Pressable
+        onPress={handleForgotPassword}
+        testID="forgot-password-link"
+        accessibilityRole="link"
+        accessibilityLabel={t('auth.login.forgotPassword')}
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        mx="$4"
+        mt="$3"
+        alignSelf="flex-end"
       >
-        {/* Error Message */}
-        {authError && (
-          <Box mx="$4" mt="$4">
-            <Box
-              bg="$red100"
-              borderRadius="$xl"
-              p="$3"
-              borderWidth={1}
-              borderColor="$red300"
-              testID="auth-error-message"
-            >
-              <HStack space="sm" alignItems="center">
-                <AlertCircle size={20} color="#DC2626" />
-                <Text color="$red700" flex={1} fontSize="$sm">
-                  {authError}
-                </Text>
-              </HStack>
-            </Box>
-          </Box>
-        )}
+        <Text color="$primary500" fontSize="$sm">
+          {t('auth.login.forgotPassword')}
+        </Text>
+      </Pressable>
 
-        {/* Login Form */}
-        <FormInputGroup title={t('auth.login.loginButton')}>
-          {/* Email Field */}
-          <Controller
-            control={control}
-            name="email"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <EmailInput
-                placeholder={t('auth.login.email')}
-                value={value}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                groupVariant="top"
-                testID="email-input"
-                returnKeyType="next"
-                onSubmitEditing={focusPassword}
-                error={errors.email?.message}
-              />
-            )}
-          />
-          <ButtonGroupDivider />
-          {/* Password Field */}
-          <Controller
-            control={control}
-            name="password"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <PasswordInput
-                ref={passwordRef}
-                placeholder={t('auth.login.password')}
-                value={value}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                groupVariant="bottom"
-                testID="password-input"
-                returnKeyType="done"
-                onSubmitEditing={handleSubmit(onSubmit)}
-                isSecureVisible={showPassword}
-                onToggleSecure={togglePasswordVisibility}
-                error={errors.password?.message}
-              />
-            )}
-          />
-        </FormInputGroup>
-
-        {/* Forgot Password Link */}
-        <Pressable
-          onPress={handleForgotPassword}
-          testID="forgot-password-link"
-          accessibilityRole="link"
-          accessibilityLabel={t('auth.login.forgotPassword')}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          mx="$4"
-          mt="$3"
-          alignSelf="flex-end"
+      {/* Login Button */}
+      <Box mx="$4" mt="$6">
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          isDisabled={!isValid || isSubmitting}
+          size="lg"
+          testID="login-button"
+          accessibilityRole="button"
+          accessibilityLabel={t('auth.login.loginButton')}
+          accessibilityHint={t('auth.login.loginButtonHint')}
+          accessibilityState={{ disabled: !isValid || isSubmitting }}
+          borderRadius="$xl"
+          style={{ minHeight: 50 }}
         >
-          <Text color="$primary500" fontSize="$sm">
-            {t('auth.login.forgotPassword')}
+          {isSubmitting ? (
+            <ButtonSpinner color="$white" />
+          ) : (
+            <ButtonText fontWeight="$semibold">{t('auth.login.loginButton')}</ButtonText>
+          )}
+        </Button>
+      </Box>
+
+      {/* Register Link */}
+      <HStack justifyContent="center" alignItems="center" mt="$6">
+        <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$sm">
+          {t('auth.login.noAccount')}{' '}
+        </Text>
+        <Pressable
+          onPress={handleRegister}
+          testID="register-link"
+          accessibilityRole="link"
+          accessibilityLabel={t('auth.login.registerLink')}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
+          <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+            {t('auth.login.registerLink')}
           </Text>
         </Pressable>
-
-        {/* Login Button */}
-        <Box mx="$4" mt="$6">
-          <Button
-            onPress={handleSubmit(onSubmit)}
-            isDisabled={!isValid || isSubmitting}
-            size="lg"
-            testID="login-button"
-            accessibilityRole="button"
-            accessibilityLabel={t('auth.login.loginButton')}
-            accessibilityHint={t('auth.login.loginButtonHint')}
-            accessibilityState={{ disabled: !isValid || isSubmitting }}
-            borderRadius="$xl"
-            style={{ minHeight: 50 }}
-          >
-            {isSubmitting ? (
-              <ButtonSpinner color="$white" />
-            ) : (
-              <ButtonText fontWeight="$semibold">{t('auth.login.loginButton')}</ButtonText>
-            )}
-          </Button>
-        </Box>
-
-        {/* Register Link */}
-        <HStack justifyContent="center" alignItems="center" mt="$6">
-          <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$sm">
-            {t('auth.login.noAccount')}{' '}
-          </Text>
-          <Pressable
-            onPress={handleRegister}
-            testID="register-link"
-            accessibilityRole="link"
-            accessibilityLabel={t('auth.login.registerLink')}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
-              {t('auth.login.registerLink')}
-            </Text>
-          </Pressable>
-        </HStack>
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </HStack>
+    </AuthScreenWrapper>
   );
 };
