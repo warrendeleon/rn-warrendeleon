@@ -12,6 +12,8 @@
 
 import * as Keychain from 'react-native-keychain';
 
+import { logError } from '../logger';
+
 /**
  * SecureStore keys enum for type safety
  */
@@ -52,7 +54,7 @@ class SecureStoreClass {
       });
       return true;
     } catch (error) {
-      console.error(`SecureStore.set error for key ${key}:`, error);
+      logError(`SecureStore.set error for key ${key}`, error);
       return false;
     }
   }
@@ -75,7 +77,7 @@ class SecureStoreClass {
 
       return null;
     } catch (error) {
-      console.error(`SecureStore.get error for key ${key}:`, error);
+      logError(`SecureStore.get error for key ${key}`, error);
       return null;
     }
   }
@@ -91,7 +93,7 @@ class SecureStoreClass {
       await Keychain.resetGenericPassword({ service: getServiceName(key) });
       return true;
     } catch (error) {
-      console.error(`SecureStore.remove error for key ${key}:`, error);
+      logError(`SecureStore.remove error for key ${key}`, error);
       return false;
     }
   }
@@ -111,7 +113,7 @@ class SecureStoreClass {
       );
       return true;
     } catch (error) {
-      console.error('SecureStore.clear error:', error);
+      logError('SecureStore.clear error', error);
       return false;
     }
   }
@@ -126,7 +128,7 @@ class SecureStoreClass {
       const biometryType = await Keychain.getSupportedBiometryType();
       return biometryType !== null;
     } catch (error) {
-      console.error('SecureStore.isBiometricAvailable error:', error);
+      logError('SecureStore.isBiometricAvailable error', error);
       return false;
     }
   }
@@ -140,7 +142,7 @@ class SecureStoreClass {
     try {
       return await Keychain.getSupportedBiometryType();
     } catch (error) {
-      console.error('SecureStore.getBiometryType error:', error);
+      logError('SecureStore.getBiometryType error', error);
       return null;
     }
   }

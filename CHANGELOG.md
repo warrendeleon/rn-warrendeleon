@@ -85,7 +85,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Documentation
 
-- Comprehensive documentation in `/docs` folder
+- Full documentation in `/docs` folder
 - Mermaid diagrams for architecture visualisation
 - UK English throughout all documentation
 - Notion workspace integration for planning

@@ -62,6 +62,16 @@ export default [
       'simple-import-sort': simpleImportSort,
     },
     rules: {
+      // Enforce using logger utility instead of console.* for PII masking
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector:
+            "CallExpression[callee.object.name='console'][callee.property.name=/^(log|warn|error|info|debug)$/]",
+          message:
+            'Use logError/logWarning/logDebug from @app/utils/logger instead of console.* for automatic PII masking.',
+        },
+      ],
       'prettier/prettier': 'warn',
       'simple-import-sort/imports': [
         'error',
@@ -133,6 +143,23 @@ export default [
     rules: {
       // CommonJS modules use require() by design - this is the correct syntax for .cjs files
       '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  {
+    files: ['src/utils/logger.ts'],
+    rules: {
+      'no-restricted-syntax': 'off',
+    },
+  },
+  {
+    files: [
+      'jest.setup.ts',
+      'scripts/**/*.js',
+      'src/test-utils/**/*.{ts,tsx}',
+      '**/__tests__/**/*.{ts,tsx}',
+    ],
+    rules: {
+      'no-restricted-syntax': 'off',
     },
   },
 ];

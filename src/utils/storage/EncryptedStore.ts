@@ -11,6 +11,8 @@
 
 import EncryptedStorage from 'react-native-encrypted-storage';
 
+import { logError } from '../logger';
+
 /**
  * EncryptedStore keys enum for type safety
  */
@@ -36,7 +38,7 @@ class EncryptedStoreClass {
       await EncryptedStorage.setItem(key, value);
       return true;
     } catch (error) {
-      console.error(`EncryptedStore.set error for key ${key}:`, error);
+      logError(`EncryptedStore.set error for key ${key}`, error);
       return false;
     }
   }
@@ -52,7 +54,7 @@ class EncryptedStoreClass {
       const value = await EncryptedStorage.getItem(key);
       return value ?? null;
     } catch (error) {
-      console.error(`EncryptedStore.get error for key ${key}:`, error);
+      logError(`EncryptedStore.get error for key ${key}`, error);
       return null;
     }
   }
@@ -68,7 +70,7 @@ class EncryptedStoreClass {
       await EncryptedStorage.removeItem(key);
       return true;
     } catch (error) {
-      console.error(`EncryptedStore.remove error for key ${key}:`, error);
+      logError(`EncryptedStore.remove error for key ${key}`, error);
       return false;
     }
   }
@@ -83,7 +85,7 @@ class EncryptedStoreClass {
       await EncryptedStorage.clear();
       return true;
     } catch (error) {
-      console.error('EncryptedStore.clear error:', error);
+      logError('EncryptedStore.clear error', error);
       return false;
     }
   }
@@ -99,7 +101,7 @@ class EncryptedStoreClass {
       const results = await Promise.all(items.map(({ key, value }) => this.set(key, value)));
       return results.every(result => result === true);
     } catch (error) {
-      console.error('EncryptedStore.setMultiple error:', error);
+      logError('EncryptedStore.setMultiple error', error);
       return false;
     }
   }
@@ -121,7 +123,7 @@ class EncryptedStoreClass {
         {} as Record<string, string | null>
       );
     } catch (error) {
-      console.error('EncryptedStore.getMultiple error:', error);
+      logError('EncryptedStore.getMultiple error', error);
       return {};
     }
   }

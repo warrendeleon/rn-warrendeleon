@@ -85,9 +85,13 @@ describe('ErrorBoundary', () => {
 
       boundary.componentDidCatch(error, errorInfo);
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith('[DEV] Error caught by ErrorBoundary', error, {
-        errorInfo,
-      });
+      // Error objects are masked (non-enumerable props become {})
+      // Context is passed through masking as well
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        '[DEV] Error caught by ErrorBoundary',
+        expect.any(Object),
+        { errorInfo }
+      );
     });
   });
 

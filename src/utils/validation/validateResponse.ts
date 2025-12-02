@@ -1,5 +1,7 @@
 import { z, ZodError } from 'zod';
 
+import { logError, logWarning } from '../logger';
+
 /**
  * Validate API response with Zod schema
  *
@@ -26,7 +28,7 @@ export function validateResponse<T>(schema: z.ZodSchema<T>, data: unknown, conte
     return schema.parse(data);
   } catch (error) {
     if (error instanceof ZodError) {
-      console.error(`[${context}] Response validation failed:`, error.issues);
+      logError(`[${context}] Response validation failed`, error, { issues: error.issues });
 
       // Create user-friendly error message
       const firstError = error.issues[0];
@@ -74,7 +76,7 @@ export function validateResponseSafe<T>(
   try {
     return schema.parse(data);
   } catch (error) {
-    console.warn(`[${context}] Response validation failed (non-critical):`, error);
+    logWarning(`[${context}] Response validation failed (non-critical)`, { error });
     return null;
   }
 }

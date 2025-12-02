@@ -68,9 +68,11 @@ describe('validateResponse', () => {
       // Expected to throw
     }
 
+    // Logger wraps with [DEV] prefix and passes error + context object
     expect(console.error).toHaveBeenCalledWith(
-      '[Supabase Auth signUp] Response validation failed:',
-      expect.any(Array)
+      '[DEV] [Supabase Auth signUp] Response validation failed',
+      expect.any(Object),
+      expect.objectContaining({ issues: expect.any(Array) })
     );
   });
 });
@@ -103,9 +105,10 @@ describe('validateResponseSafe', () => {
 
     validateResponseSafe(TestSchema, data, 'Optional metadata fetch');
 
+    // Logger wraps with [DEV] prefix and passes context object
     expect(console.warn).toHaveBeenCalledWith(
-      '[Optional metadata fetch] Response validation failed (non-critical):',
-      expect.any(Object)
+      '[DEV] [Optional metadata fetch] Response validation failed (non-critical)',
+      expect.objectContaining({ error: expect.any(Object) })
     );
   });
 
