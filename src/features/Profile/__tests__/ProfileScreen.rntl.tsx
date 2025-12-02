@@ -2,14 +2,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { render } from '@testing-library/react-native';
 import configureStore from 'redux-mock-store';
-import { thunk } from 'redux-thunk';
 
 import type { Profile } from '@app/types/portfolio';
 
 import { ProfileScreen } from '../ProfileScreen';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mockStore = configureStore([thunk as any]);
+// Use requireActual to avoid type compatibility issues with redux-mock-store
+const middlewares = [jest.requireActual('redux-thunk').thunk];
+const mockStore = configureStore(middlewares);
 
 const mockProfile: Profile = {
   profilePicture: 'https://example.com/avatar.png',

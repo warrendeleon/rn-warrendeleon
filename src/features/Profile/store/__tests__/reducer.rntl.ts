@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import type { AppDispatch } from '@app/store';
 import profileFixture from '@app/test-utils/fixtures/api/en/profile.json';
 
 import { fetchProfileData } from '../../api/api';
@@ -36,8 +37,7 @@ describe('profileReducer', () => {
   });
 
   describe('fetchProfile async thunk', () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let store: any;
+    let store: { dispatch: AppDispatch; getState: () => { profile: ProfileState } };
 
     beforeEach(() => {
       store = configureStore({

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 // Mock react-dom for React Native tests
 // Gluestack UI has some web dependencies that shouldn't run in RN tests
 

@@ -87,9 +87,30 @@ export default [
       'import/no-relative-parent-imports': 'off',
     },
   },
-  // 👇 JS files: allow require() since it's valid in React Native
+  // 👇 JS files: allow require() and CommonJS/Jest globals since it's valid in React Native
   {
     files: ['**/*.js'],
+    languageOptions: {
+      globals: {
+        module: 'readonly',
+        exports: 'readonly',
+        jest: 'readonly',
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  // 👇 App.tsx: allow conditional require for Storybook
+  {
+    files: ['src/app/App.tsx'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  // 👇 Test files: allow jest.requireActual() and jest.requireMock() patterns
+  {
+    files: ['**/__tests__/**/*.{ts,tsx}', '**/*.test.{ts,tsx}', '**/*.rntl.{ts,tsx}'],
     rules: {
       '@typescript-eslint/no-require-imports': 'off',
     },

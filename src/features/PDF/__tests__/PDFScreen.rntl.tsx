@@ -10,14 +10,11 @@ import { PDFScreen } from '../PDFScreen';
 
 // Mock dependencies
 jest.mock('react-native-pdf', () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const React = require('react');
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { View } = require('react-native');
   return {
     __esModule: true,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    default: (props: any) => <View testID="mock-pdf" {...props} />,
+    default: (props: Record<string, unknown>) => <View testID="mock-pdf" {...props} />,
   };
 });
 

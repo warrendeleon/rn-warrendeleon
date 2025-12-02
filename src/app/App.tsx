@@ -29,7 +29,6 @@ import {
 import '../../global.css';
 
 // Storybook is only loaded in __DEV__ - tree-shaken in production builds
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const StorybookUI = __DEV__ ? require('../../.rnstorybook').default : null;
 
 const AppContent: React.FC = () => {

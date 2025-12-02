@@ -1,14 +1,14 @@
 import { Provider } from 'react-redux';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import configureStore from 'redux-mock-store';
-import { thunk } from 'redux-thunk';
 
 import type { Education } from '@app/types/portfolio';
 
 import { EducationScreen } from '../EducationScreen';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mockStore = configureStore([thunk as any]);
+// Use requireActual to avoid type compatibility issues with redux-mock-store
+const middlewares = [jest.requireActual('redux-thunk').thunk];
+const mockStore = configureStore(middlewares);
 
 // Mock navigation
 const mockNavigate = jest.fn();

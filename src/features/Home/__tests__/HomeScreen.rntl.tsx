@@ -1,13 +1,10 @@
-/* eslint-disable simple-import-sort/imports */
 import React from 'react';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-// Import component directly to avoid circular dependency
-import { handleGitHubPress, handleSettingsPress, HomeScreen } from '../HomeScreen';
-
 import type { RootStackParamList } from '@app/navigation';
 import { mockProfile, renderWithProviders } from '@app/test-utils';
-/* eslint-enable simple-import-sort/imports */
+
+import { handleGitHubPress, handleSettingsPress, HomeScreen } from '../HomeScreen';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 

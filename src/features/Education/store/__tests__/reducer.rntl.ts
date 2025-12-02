@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import type { AppDispatch } from '@app/store';
 import educationFixture from '@app/test-utils/fixtures/api/en/education.json';
 
 import { fetchEducationData } from '../../api/api';
@@ -38,8 +39,7 @@ describe('educationReducer', () => {
   });
 
   describe('fetchEducation async thunk', () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let store: any;
+    let store: { dispatch: AppDispatch; getState: () => { education: EducationState } };
 
     beforeEach(() => {
       store = configureStore({

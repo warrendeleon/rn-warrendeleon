@@ -2,6 +2,26 @@
 
 This document covers unit and integration testing with Jest and React Native Testing Library.
 
+## Current Test Coverage
+
+| Metric          | Value |
+| --------------- | ----- |
+| **Test Suites** | 109   |
+| **Total Tests** | 1,691 |
+| **Snapshots**   | 1     |
+
+### Test Distribution
+
+| Category               | Tests | Coverage |
+| ---------------------- | ----- | -------- |
+| Config (100% required) | 54    | ✅       |
+| Redux Store            | 100%  | ✅       |
+| Components             | 202+  | ✅       |
+| Auth Infrastructure    | 87    | ✅       |
+| Screens (RNTL)         | 86+   | ✅       |
+
+_Last updated: December 2025_
+
 ## Table of Contents
 
 - [Testing Philosophy](#testing-philosophy)

@@ -17,8 +17,7 @@ jest.mock('@app/components', () => {
   const actual = jest.requireActual('@app/components');
   return {
     ...actual,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Logo: ({ darkMode, style }: { darkMode: boolean; style: any }) => {
+    Logo: ({ darkMode, style }: { darkMode: boolean; style: Record<string, unknown> }) => {
       return React.createElement(
         RN.View,
         { testID: 'logo', style },

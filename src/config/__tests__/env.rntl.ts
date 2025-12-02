@@ -8,7 +8,6 @@ describe('env.ts', () => {
 
   const loadEnv = () => {
     // Use the path alias configured for this project
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     return require('@app/config/env');
   };
 
