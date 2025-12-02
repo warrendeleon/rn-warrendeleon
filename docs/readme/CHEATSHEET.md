@@ -96,7 +96,7 @@ rm -rf ios/Pods ios/Podfile.lock
 yarn ios:pods
 
 # Simulators
-yarn ios --simulator="iPhone 15 Pro"
+yarn ios --simulator="iPhone 17 Pro"
 yarn ios --simulator="iPhone 14"
 
 # Reset Simulator

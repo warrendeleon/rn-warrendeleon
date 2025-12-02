@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/gluestack--ui-1.1.x-8B5CF6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/nativewind-4.x-38BDF8?style=for-the-badge&logo=tailwindcss" />
   <img src="https://img.shields.io/badge/storybook-10.x-FF4785?style=for-the-badge&logo=storybook" />
-  <img src="https://img.shields.io/badge/coverage-75%25-yellow?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/coverage-75%25-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
 
@@ -24,12 +24,12 @@ A modern React Native application built with TypeScript, featuring a **feature-f
 **Key Features:**
 
 - 🏗️ Feature-first architecture for better code organisation
-- 🌍 Full internationalisation (English & Spanish)
+- 🌍 Full internationalisation (English, Spanish, Catalan, Polish, Tagalog)
 - 🎨 Modern UI with GlueStack UI + NativeWind (Tailwind for React Native)
 - 📚 Storybook for isolated component development and documentation
 - 🧪 Comprehensive testing (Jest + React Native Testing Library + Detox E2E)
 - 📦 Redux Toolkit for state management
-- 🎯 75%+ test coverage (100% store, 92% components, 77% screens)
+- 🎯 60%+ test coverage (100% for Redux store and config)
 
 ---
 
@@ -107,6 +107,7 @@ Comprehensive guides are available in the `/docs` folder. Here's how to navigate
 
 ### 🛠️ Feature-Specific Guides
 
+- **[Authentication](docs/readme/AUTH.md)** - User registration, login, password recovery, and session management
 - **[Internationalisation](docs/readme/I18N.md)** - i18n setup, adding translations, and language management
 - **[State Management](docs/readme/STATE_MANAGEMENT.md)** - Redux Toolkit usage, creating features, and best practices
 - **[Storybook](docs/readme/STORYBOOK.md)** - Component development and documentation

@@ -349,7 +349,7 @@ console.log('Environment:', Config.APP_ENV);
 ### iOS
 
 ```bash
-# Run on default simulator (iPhone 15 Pro)
+# Run on default simulator (iPhone 17 Pro)
 yarn ios
 
 # Run on specific simulator

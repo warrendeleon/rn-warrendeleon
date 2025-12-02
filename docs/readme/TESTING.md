@@ -26,7 +26,7 @@ This document covers unit and integration testing with Jest and React Native Tes
    - Shared components
    - Configuration and setup
 
-2. **Component Behaviour** (85% coverage target)
+2. **Component Behaviour** (60% coverage target)
    - User interactions
    - Conditional rendering
    - Props validation
@@ -89,28 +89,44 @@ Jest configuration is in `jest.config.cjs`:
 ```javascript
 module.exports = {
   preset: 'react-native',
-  testMatch: ['**/__tests__/**/*.rntl.tsx'], // Only run .rntl.tsx files
+  testMatch: ['**/__tests__/**/*.rntl.[jt]s?(x)'],
   coverageThreshold: {
     global: {
-      statements: 85,
-      branches: 80,
-      functions: 85,
-      lines: 85,
+      statements: 60,
+      branches: 50,
+      functions: 45,
+      lines: 55,
+    },
+    // Business logic requires 100% coverage
+    './src/**/store/**/*.ts': {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
+    },
+    './src/config/**/*.ts': {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
     },
   },
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/__tests__/**',
     '!src/**/index.ts',
-    '!src/**/*Screen.tsx', // Screens excluded
+    '!src/**/*Screen.tsx',
   ],
 };
 ```
 
 **Coverage Thresholds:**
 
-- **Global:** 85% (statements, functions, lines), 80% (branches)
-- **Business Logic:** 100% (store, shared components, utilities)
+| Scope                           | Statements | Branches | Functions | Lines |
+| ------------------------------- | ---------- | -------- | --------- | ----- |
+| Global                          | 60%        | 50%      | 45%       | 55%   |
+| Redux store (`src/**/store/**`) | 100%       | 100%     | 100%      | 100%  |
+| Config (`src/config/**`)        | 100%       | 100%     | 100%      | 100%  |
 
 ---
 

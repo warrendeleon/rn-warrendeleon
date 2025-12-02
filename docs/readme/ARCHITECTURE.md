@@ -57,42 +57,49 @@ warrendeleon/
 ├── docs/                      # Documentation
 ├── src/
 │   ├── app/                   # App entry point
+│   ├── assets/                # Static assets (images, fonts)
 │   ├── components/            # Shared components
-│   ├── features/              # Feature modules (feature-first)
-│   ├── navigation/            # Navigation setup
-│   ├── i18n/                  # Internationalisation
-│   ├── store/                 # Redux store configuration
 │   ├── config/                # App configuration
+│   ├── features/              # Feature modules (12 features)
 │   ├── hooks/                 # Shared React hooks
+│   ├── httpClients/           # API clients (Supabase, GitHub)
+│   ├── i18n/                  # Internationalisation (5 languages)
+│   ├── navigation/            # Navigation setup
+│   ├── schemas/               # Zod validation schemas
+│   ├── store/                 # Redux store configuration
+│   ├── test-utils/            # Testing utilities
 │   ├── types/                 # TypeScript type declarations
-│   └── test-utils/            # Testing utilities
+│   └── utils/                 # Shared utility functions
 ├── ios/                       # iOS native code
-├── android/                   # Android native code
-└── e2e/                       # E2E test configuration (optional)
+└── android/                   # Android native code
 ```
 
 ### Feature-First Structure
 
 ```mermaid
 graph TD
-    A[src/features/] --> B[Home/]
-    A --> C[Settings/]
-    A --> D[Language/]
-    A --> E[Appearance/]
+    A[src/features/] --> B[Auth/]
+    A --> C[Education/]
+    A --> D[Home/]
+    A --> E[Legal/]
+    A --> F[MockStatus/]
+    A --> G[PDF/]
+    A --> H[Placeholder/]
+    A --> I[Profile/]
+    A --> J[Settings/]
+    A --> K[Splash/]
+    A --> L[WebView/]
+    A --> M[WorkExperience/]
 
-    C --> C1[SettingsScreen.tsx]
-    C --> C2[components/]
-    C --> C3[store/]
-    C --> C4[__tests__/]
-    C --> C5[index.ts]
+    B --> B1[7 Auth Screens]
+    B --> B2[store/]
+    B --> B3[__tests__/]
 
-    C2 --> C2A[SettingsButton/]
-    C3 --> C3A[reducer.ts]
-    C3 --> C3B[actions.ts]
-    C3 --> C3C[selectors.ts]
-    C4 --> C4A[SettingsScreen.rntl.tsx]
-    C4 --> C4B[Settings.feature]
-    C4 --> C4C[Settings.cucumber.tsx]
+    J --> J1[SettingsScreen.tsx]
+    J --> J2[LanguageScreen.tsx]
+    J --> J3[AppearanceScreen.tsx]
+    J --> J4[store/]
+    J --> J5[__tests__/]
 ```
 
 ---
@@ -116,19 +123,15 @@ src/features/Settings/
 ├── SettingsScreen.tsx              # Main settings screen
 ├── LanguageScreen.tsx              # Language selection screen
 ├── AppearanceScreen.tsx            # Theme selection screen
-├── components/                     # Feature-specific components
-│   └── SettingsButton/
-│       ├── SettingsButton.tsx
-│       └── __tests__/SettingsButton.rntl.tsx
 ├── store/                          # Redux slice
 │   ├── index.ts                    # Store exports
 │   ├── actions.ts                  # Action creators
 │   ├── reducer.ts                  # Slice reducer
 │   ├── selectors.ts                # State selectors
-│   └── __tests__/                  # Store tests
-│       ├── actions.test.ts
-│       ├── reducer.test.ts
-│       └── selectors.test.ts
+│   └── __tests__/                  # Store tests (100% coverage required)
+│       ├── actions.rntl.ts
+│       ├── reducer.rntl.ts
+│       └── selectors.rntl.ts
 ├── __tests__/                      # Feature tests
 │   ├── SettingsScreen.rntl.tsx     # Unit tests
 │   ├── Settings.feature            # E2E scenarios (Gherkin)
@@ -185,7 +188,7 @@ graph LR
 
     B --> B1[src/components/]
     B --> B2[Reusable Across App]
-    B --> B3[ButtonWithChevron]
+    B --> B3[SettingsItem, Toast, UserCard...]
 
     C --> C1[src/features/MyFeature/components/]
     C --> C2[Used Only in Feature]
@@ -198,35 +201,45 @@ Located in `src/components/`, these are reusable across the entire app:
 
 ```
 components/
-  ButtonWithChevron/
-    __tests__/
-      ButtonWithChevron.rntl.tsx
-    ButtonWithChevron.tsx
-    index.ts                        # Re-export
-  shared/                           # Shared utilities
-    types.ts                        # GroupVariant type
-    constants.ts                    # Border radius constants
-    utils.ts                        # getButtonGroupVariant()
-    __tests__/
-      utils.test.ts
-    index.ts
+├── ButtonGroup/              # Grouped button container
+├── ConfirmDialog/            # Confirmation modal
+├── CountryCodeSelector/      # Phone country picker
+├── EmailInput/               # Email input with validation
+├── ErrorBoundary/            # Error boundary wrapper
+├── FormInputGroup/           # Form field grouping
+├── HeaderBackButton/         # Navigation back button
+├── PasswordInput/            # Password input with visibility toggle
+├── PasswordRequirements/     # Password strength indicator
+├── PhoneInput/               # International phone input
+├── PickerGroup/              # Selection list container
+├── PickerItem/               # Selection list item
+├── SettingsGroup/            # Settings section container
+├── SettingsItem/             # Settings list item with chevron
+├── Toast/                    # Toast notification system
+├── UserCard/                 # User profile card
+├── shared/                   # Shared utilities
+│   ├── types.ts              # GroupVariant type
+│   └── index.ts
+└── index.ts                  # Barrel export
 ```
 
 **Example:**
 
 ```typescript
-// src/components/ButtonWithChevron/ButtonWithChevron.tsx
-interface ButtonWithChevronProps {
+// src/components/SettingsItem/SettingsItem.tsx
+interface SettingsItemProps {
   label: string;
   onPress: () => void;
   startIcon?: React.ComponentType<any>;
   endLabel?: string;
   groupVariant?: 'single' | 'top' | 'middle' | 'bottom';
+  showChevron?: boolean;
 }
 
-export const ButtonWithChevron: React.FC<ButtonWithChevronProps> = ({
+export const SettingsItem: React.FC<SettingsItemProps> = ({
   label,
   onPress,
+  showChevron = true,
   ...props
 }) => {
   return <Pressable onPress={onPress}>{/* Implementation */}</Pressable>;
@@ -273,13 +286,13 @@ export const SettingsSection: React.FC<SettingsSectionProps> = ({
 
 ### Component Naming Conventions
 
-| Type                 | Naming Convention | Example                      |
-| -------------------- | ----------------- | ---------------------------- |
-| Screen Components    | `*Screen.tsx`     | `SettingsScreen.tsx`         |
-| UI Components        | PascalCase        | `ButtonWithChevron.tsx`      |
-| Unit Tests           | `*.rntl.tsx`      | `ButtonWithChevron.rntl.tsx` |
-| E2E Features         | `*.feature`       | `Settings.feature`           |
-| E2E Step Definitions | `*.cucumber.tsx`  | `Settings.cucumber.tsx`      |
+| Type                 | Naming Convention | Example                 |
+| -------------------- | ----------------- | ----------------------- |
+| Screen Components    | `*Screen.tsx`     | `SettingsScreen.tsx`    |
+| UI Components        | PascalCase        | `SettingsItem.tsx`      |
+| Unit Tests           | `*.rntl.tsx`      | `SettingsItem.rntl.tsx` |
+| E2E Features         | `*.feature`       | `Settings.feature`      |
+| E2E Step Definitions | `*.cucumber.tsx`  | `Settings.cucumber.tsx` |
 
 ---
 
@@ -690,17 +703,24 @@ import { GroupVariant, getButtonGroupVariant } from '@app/components/shared';
 - Bytecode precompilation
 - Default in React Native 0.82
 
-### 85% Coverage Threshold
+### Coverage Thresholds
 
-**Decision:** Set global coverage threshold at 85%.
+**Decision:** Set tiered coverage thresholds based on code criticality.
+
+**Configuration:**
+
+| Scope        | Statements | Branches | Functions | Lines |
+| ------------ | ---------- | -------- | --------- | ----- |
+| Global       | 60%        | 50%      | 45%       | 55%   |
+| Redux store  | 100%       | 100%     | 100%      | 100%  |
+| Config files | 100%       | 100%     | 100%      | 100%  |
 
 **Why:**
 
-- Industry standard for production apps
-- Balance between quality and velocity
-- 100% on business logic (Redux, utilities)
-- Lower for UI components (harder to test exhaustively)
-- Prevents coverage from degrading over time
+- Business logic (Redux, config) requires 100% - these are critical paths
+- UI components have lower thresholds - harder to test exhaustively
+- Screens excluded from coverage entirely
+- Balance between quality and development velocity
 
 ### Storybook v10
 
