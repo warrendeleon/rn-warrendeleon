@@ -1,7 +1,7 @@
 # TASK-201: Data Masking in Logs Utility
 
 **Task ID**: TASK-201 | **US**: [US-033](../stories/US-033-email-password-registration.md) | **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md)
-**Status**: 📋 To Do | **Priority**: High | **Effort**: 1h | **Created**: 2025-11-21
+**Status**: ⏳ In Progress | **Priority**: High | **Effort**: 1h | **Created**: 2025-11-21
 
 ## Objective
 
