@@ -350,7 +350,7 @@
 
 ### EPIC-021: Registration & Profile Setup (30 tasks) ⏳ In Progress
 
-#### US-033: Email/Password Registration (21 tasks)
+#### US-033: Email/Password Registration (20 tasks)
 
 | Task ID                                                           | Title                              | Status         | Effort | Priority |
 | ----------------------------------------------------------------- | ---------------------------------- | -------------- | ------ | -------- |
@@ -373,7 +373,6 @@
 | [TASK-203](./tasks/TASK-203-registration-e2e-tests.md)            | Registration E2E Tests             | ✅ Done        | 4h     | High     |
 | [TASK-329](./tasks/TASK-329-expand-common-password-list.md)       | Expand Common Password List        | 📋 To Do       | 1.5h   | Medium   |
 | [TASK-330](./tasks/TASK-330-unicode-normalization-names.md)       | Unicode Normalization for Names    | ✅ Done        | 1h     | Medium   |
-| [TASK-331](./tasks/TASK-331-token-code-validation-schemas.md)     | Token & Code Validation Schemas    | 📋 To Do       | 2h     | High     |
 | [TASK-332](./tasks/TASK-332-advanced-security-features.md)        | Advanced Security Features         | 📋 To Do       | 6h     | Low      |
 
 #### US-034: LinkedIn OAuth Registration (5 tasks)

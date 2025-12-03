@@ -457,11 +457,10 @@ Feature: Email/Password Registration
 | [TASK-203](../tasks/TASK-203-registration-e2e-tests.md)            | Registration E2E Tests             | 4h     | High     | 📋 To Do       |
 | [TASK-329](../tasks/TASK-329-expand-common-password-list.md)       | Expand Common Password List        | 1.5h   | Medium   | 📋 To Do       |
 | [TASK-330](../tasks/TASK-330-unicode-normalization-names.md)       | Unicode Normalization for Names    | 1h     | Medium   | 📋 To Do       |
-| [TASK-331](../tasks/TASK-331-token-code-validation-schemas.md)     | Token & Code Validation Schemas    | 2h     | High     | 📋 To Do       |
 | [TASK-332](../tasks/TASK-332-advanced-security-features.md)        | Advanced Security Features         | 6h     | Low      | 📋 To Do       |
 
-**Total Tasks**: 21
-**Total Effort**: 54 hours
+**Total Tasks**: 20
+**Total Effort**: 52 hours
 
 ---
 

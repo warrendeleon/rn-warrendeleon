@@ -445,7 +445,6 @@ describe('registrationSchema', () => {
 
 - TASK-329: Expand common password list to top 10,000
 - TASK-330: Unicode normalization for homograph attack prevention
-- TASK-331: Token/code validation schemas (2FA, reset tokens, etc.)
 - TASK-332: Advanced security features (password strength meter, HIBP, etc.)
 
 ---
