@@ -261,7 +261,7 @@ Call HIBP Pwned Passwords API in real-time.
 **Pros**: Always up-to-date, 850M+ passwords
 **Cons**: Network call (slower, can fail), privacy concerns (even with k-anonymity), requires internet
 
-**Decision**: Offline list for reliability and privacy. HIBP integration can be added later as TASK-332 (Advanced Security Features).
+**Decision**: Offline list for reliability and privacy.
 
 ### Alternative 2: Hash-Based Lookup
 
