@@ -4,7 +4,7 @@
 **Title**: Expand Common Password List to Top 10,000
 **User Story**: [US-033](../stories/US-033-email-password-registration.md) - Email/Password Registration
 **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md) - Registration & Profile Setup
-**Status**: 📋 To Do
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 1.5 hours
 **Owner**: Warren de Leon

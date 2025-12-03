@@ -138,6 +138,33 @@ describe('customRules', () => {
       const data = { password: 'password' };
       await expect(customSchema.validate(data)).rejects.toThrow('Custom error message');
     });
+
+    // Tests for expanded 10K password list
+    it('should reject password from top 300 ("mountain")', async () => {
+      const data = { password: 'mountain' };
+      await expect(schema.validate(data)).rejects.toThrow(
+        'This password is too common. Please choose a different one.'
+      );
+    });
+
+    it('should reject password from top 5000 ("sancho")', async () => {
+      const data = { password: 'sancho' };
+      await expect(schema.validate(data)).rejects.toThrow(
+        'This password is too common. Please choose a different one.'
+      );
+    });
+
+    it('should reject password from top 10000 ("honeydew")', async () => {
+      const data = { password: 'honeydew' };
+      await expect(schema.validate(data)).rejects.toThrow(
+        'This password is too common. Please choose a different one.'
+      );
+    });
+
+    it('should accept uncommon strong password', async () => {
+      const data = { password: 'Xq9#mK2$zR7!wP' };
+      await expect(schema.validate(data)).resolves.toMatchObject(data);
+    });
   });
 
   describe('noEmoji', () => {

@@ -1,7 +1,21 @@
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import * as yup from 'yup';
 
+import commonPasswords from './data/common-passwords-10000.json';
 import { containsMixedScripts, normalizeAndValidate } from './utils/unicodeUtils';
+
+/**
+ * Custom Yup Validation Rules for Authentication Forms
+ *
+ * Common Password List:
+ * - Source: SecLists by Daniel Miessler
+ *   https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/10k-most-common.txt
+ * - Version: Top 10,000 passwords (covers ~91% of all passwords globally)
+ * - Last Updated: 2025-12-03
+ */
+
+// Convert array to Set for O(1) lookup performance
+const COMMON_PASSWORDS_SET = new Set(commonPasswords);
 
 /**
  * Custom validation method for strong passwords
@@ -49,111 +63,9 @@ yup.addMethod<yup.StringSchema>(
 /**
  * Custom validation for preventing common passwords
  *
- * Top 100 most commonly used passwords from SecLists
- * Source: https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/10k-most-common.txt
+ * Uses top 10,000 most commonly used passwords from SecLists
+ * Set provides O(1) lookup vs O(n) array search
  */
-const COMMON_PASSWORDS = [
-  'password',
-  '123456',
-  '12345678',
-  '1234',
-  'qwerty',
-  '12345',
-  'dragon',
-  'pussy',
-  'baseball',
-  'football',
-  'letmein',
-  'monkey',
-  '696969',
-  'abc123',
-  'mustang',
-  'michael',
-  'shadow',
-  'master',
-  'jennifer',
-  '111111',
-  '2000',
-  'jordan',
-  'superman',
-  'harley',
-  '1234567',
-  'fuckme',
-  'hunter',
-  'fuckyou',
-  'trustno1',
-  'ranger',
-  'buster',
-  'thomas',
-  'tigger',
-  'robert',
-  'soccer',
-  'fuck',
-  'batman',
-  'test',
-  'pass',
-  'killer',
-  'hockey',
-  'george',
-  'charlie',
-  'andrew',
-  'michelle',
-  'love',
-  'sunshine',
-  'jessica',
-  'asshole',
-  '6969',
-  'pepper',
-  'daniel',
-  'access',
-  '123456789',
-  '654321',
-  'joshua',
-  'maggie',
-  'starwars',
-  'silver',
-  'william',
-  'dallas',
-  'yankees',
-  '123123',
-  'ashley',
-  '666666',
-  'hello',
-  'amanda',
-  'orange',
-  'biteme',
-  'freedom',
-  'computer',
-  'sexy',
-  'thunder',
-  'nicole',
-  'ginger',
-  'heather',
-  'hammer',
-  'summer',
-  'corvette',
-  'taylor',
-  'fucker',
-  'austin',
-  '1111',
-  'merlin',
-  'matthew',
-  '121212',
-  'golfer',
-  'cheese',
-  'princess',
-  'martin',
-  'chelsea',
-  'patrick',
-  'richard',
-  'diamond',
-  'yellow',
-  'bigdog',
-  'secret',
-  'asdfgh',
-  'sparky',
-];
-
 yup.addMethod<yup.StringSchema>(
   yup.string,
   'notCommonPassword',
@@ -163,9 +75,7 @@ yup.addMethod<yup.StringSchema>(
 
       if (!value) return true;
 
-      const isCommon = COMMON_PASSWORDS.some(
-        common => value.toLowerCase() === common.toLowerCase()
-      );
+      const isCommon = COMMON_PASSWORDS_SET.has(value.toLowerCase());
 
       if (isCommon) {
         return createError({ path, message });

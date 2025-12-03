@@ -371,7 +371,7 @@
 | [TASK-201](./tasks/TASK-201-data-masking-logs.md)                 | Data Masking in Logs Utility       | ✅ Done        | 1h     | High     |
 | [TASK-202](./tasks/TASK-202-registration-rntl-tests.md)           | Registration RNTL Tests            | ✅ Done        | 3h     | High     |
 | [TASK-203](./tasks/TASK-203-registration-e2e-tests.md)            | Registration E2E Tests             | ✅ Done        | 4h     | High     |
-| [TASK-329](./tasks/TASK-329-expand-common-password-list.md)       | Expand Common Password List        | 📋 To Do       | 1.5h   | Medium   |
+| [TASK-329](./tasks/TASK-329-expand-common-password-list.md)       | Expand Common Password List        | ✅ Done        | 1.5h   | Medium   |
 | [TASK-330](./tasks/TASK-330-unicode-normalization-names.md)       | Unicode Normalization for Names    | ✅ Done        | 1h     | Medium   |
 | [TASK-332](./tasks/TASK-332-advanced-security-features.md)        | Advanced Security Features         | 📋 To Do       | 6h     | Low      |
 
