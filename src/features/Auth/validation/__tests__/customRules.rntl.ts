@@ -363,4 +363,99 @@ describe('customRules', () => {
       await expect(schema.validate(data)).rejects.toThrow();
     });
   });
+
+  describe('noHomographs', () => {
+    const schema = yup.object({
+      name: yup.string().noHomographs(),
+    });
+
+    it('should accept pure Latin names', async () => {
+      const data = { name: 'John' };
+      await expect(schema.validate(data)).resolves.toMatchObject(data);
+    });
+
+    it('should accept names with hyphens', async () => {
+      const data = { name: 'Mary-Jane' };
+      await expect(schema.validate(data)).resolves.toMatchObject(data);
+    });
+
+    it('should accept names with apostrophes', async () => {
+      const data = { name: "O'Brien" };
+      await expect(schema.validate(data)).resolves.toMatchObject(data);
+    });
+
+    it('should accept names with spaces', async () => {
+      const data = { name: 'Mary Jane' };
+      await expect(schema.validate(data)).resolves.toMatchObject(data);
+    });
+
+    it('should reject mixed Latin and Cyrillic characters', async () => {
+      // "Јohn" - Cyrillic J + Latin ohn
+      const data = { name: 'Јohn' };
+      await expect(schema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+
+    it('should reject mixed Latin and Greek characters', async () => {
+      // "Jοhn" - Latin J + Greek omicron + Latin hn
+      const data = { name: 'Jοhn' };
+      await expect(schema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+
+    it('should reject pure Cyrillic (not Latin)', async () => {
+      // "Иван" - Ivan in pure Cyrillic
+      const data = { name: 'Иван' };
+      await expect(schema.validate(data)).rejects.toThrow('Name contains invalid characters');
+    });
+
+    it('should reject names with numbers', async () => {
+      const data = { name: 'John123' };
+      await expect(schema.validate(data)).rejects.toThrow('Name contains invalid characters');
+    });
+
+    it('should reject names with special characters', async () => {
+      const data = { name: 'John@doe' };
+      await expect(schema.validate(data)).rejects.toThrow('Name contains invalid characters');
+    });
+
+    it('should accept empty value when not required', async () => {
+      const data = { name: '' };
+      await expect(schema.validate(data)).resolves.toMatchObject(data);
+    });
+
+    it('should accept custom message', async () => {
+      const customSchema = yup.object({
+        name: yup.string().noHomographs('Custom homograph error'),
+      });
+      const data = { name: 'John123' };
+      await expect(customSchema.validate(data)).rejects.toThrow('Custom homograph error');
+    });
+
+    it('should detect Cyrillic lookalike "а" (looks like Latin "a")', async () => {
+      // "Mаry" - M + Cyrillic а + ry
+      const data = { name: 'Mаry' };
+      await expect(schema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+
+    it('should detect Cyrillic lookalike "о" (looks like Latin "o")', async () => {
+      // "Jоhn" - J + Cyrillic о + hn
+      const data = { name: 'Jоhn' };
+      await expect(schema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+
+    it('should detect Cyrillic lookalike "р" (looks like Latin "p")', async () => {
+      // "Johр" - Joh + Cyrillic р
+      const data = { name: 'Johр' };
+      await expect(schema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+  });
 });

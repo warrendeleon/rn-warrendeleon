@@ -1,6 +1,8 @@
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import * as yup from 'yup';
 
+import { containsMixedScripts, normalizeAndValidate } from './utils/unicodeUtils';
+
 /**
  * Custom validation method for strong passwords
  *
@@ -296,6 +298,44 @@ yup.addMethod<yup.StringSchema>(
   }
 );
 
+/**
+ * Custom validation to prevent homograph attacks in names
+ *
+ * Prevents Unicode lookalike characters (e.g., Cyrillic 'а' vs Latin 'a')
+ * from being used to impersonate legitimate users.
+ */
+yup.addMethod<yup.StringSchema>(
+  yup.string,
+  'noHomographs',
+  function (message = 'Name contains invalid characters') {
+    return this.test('no-homographs', message, function (value) {
+      const { path, createError } = this;
+
+      if (!value) return true; // Let required() handle empty values
+
+      // Check for mixed scripts (e.g., Latin + Cyrillic)
+      if (containsMixedScripts(value)) {
+        return createError({
+          path,
+          message: 'Name cannot contain mixed character sets',
+        });
+      }
+
+      // Normalize and validate (only Latin letters allowed)
+      const { isValid } = normalizeAndValidate(value);
+
+      if (!isValid) {
+        return createError({
+          path,
+          message,
+        });
+      }
+
+      return true;
+    });
+  }
+);
+
 // TypeScript module augmentation to add custom methods to Yup schema
 declare module 'yup' {
   interface StringSchema {
@@ -304,5 +344,6 @@ declare module 'yup' {
     noEmoji(message?: string): this;
     noDisposableEmail(message?: string): this;
     phoneNumber(message?: string): this;
+    noHomographs(message?: string): this;
   }
 }

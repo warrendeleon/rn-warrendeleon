@@ -60,17 +60,17 @@ describe('registrationSchema', () => {
       await expect(registrationSchema.validate(data)).rejects.toThrow('First name is too long');
     });
 
-    it('should reject first name with numbers', async () => {
+    it('should reject first name with numbers (noHomographs fails first)', async () => {
       const data = { ...validData, firstName: 'Warren123' };
       await expect(registrationSchema.validate(data)).rejects.toThrow(
-        'First name cannot contain numbers or special characters'
+        'First name contains invalid characters'
       );
     });
 
-    it('should reject first name with special characters (except hyphens, apostrophes, spaces)', async () => {
+    it('should reject first name with special characters (noHomographs fails first)', async () => {
       const data = { ...validData, firstName: 'Warren@' };
       await expect(registrationSchema.validate(data)).rejects.toThrow(
-        'First name cannot contain numbers or special characters'
+        'First name contains invalid characters'
       );
     });
 
@@ -87,6 +87,30 @@ describe('registrationSchema', () => {
     it('should accept first name with spaces', async () => {
       const data = { ...validData, firstName: 'Mary Jane' };
       await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+    });
+
+    it('should reject first name with Cyrillic characters (homograph)', async () => {
+      // "Јohn" - Cyrillic J + Latin ohn (mixed scripts)
+      const data = { ...validData, firstName: 'Јohn' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+
+    it('should reject first name with Greek characters (homograph)', async () => {
+      // "Jοhn" - Latin J + Greek omicron + Latin hn (mixed scripts)
+      const data = { ...validData, firstName: 'Jοhn' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+
+    it('should reject first name with mixed Latin and Cyrillic', async () => {
+      // "Mаry" - M + Cyrillic а + ry (mixed scripts)
+      const data = { ...validData, firstName: 'Mаry' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
     });
   });
 
@@ -108,10 +132,34 @@ describe('registrationSchema', () => {
       await expect(registrationSchema.validate(data)).rejects.toThrow('Last name is too long');
     });
 
-    it('should reject last name with numbers', async () => {
+    it('should reject last name with numbers (noHomographs fails first)', async () => {
       const data = { ...validData, lastName: 'Leon123' };
       await expect(registrationSchema.validate(data)).rejects.toThrow(
-        'Last name cannot contain numbers or special characters'
+        'Last name contains invalid characters'
+      );
+    });
+
+    it('should reject last name with Cyrillic characters (homograph)', async () => {
+      // "Lеоn" - L + Cyrillic е + Cyrillic о + n (mixed scripts)
+      const data = { ...validData, lastName: 'Lеоn' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+
+    it('should reject last name with Greek characters (homograph)', async () => {
+      // "Leοn" - Le + Greek omicron + n (mixed scripts)
+      const data = { ...validData, lastName: 'Leοn' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+
+    it('should reject last name with mixed Latin and Cyrillic', async () => {
+      // "dе Leon" - d + Cyrillic е + space + Leon (mixed scripts)
+      const data = { ...validData, lastName: 'dе Leon' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
       );
     });
   });
@@ -403,17 +451,17 @@ describe('registrationSchema', () => {
   });
 
   describe('emoji validation', () => {
-    it('should reject first name with emojis (regex fails first)', async () => {
+    it('should reject first name with emojis (noHomographs fails first)', async () => {
       const data = { ...validData, firstName: 'Warren😀' };
       await expect(registrationSchema.validate(data)).rejects.toThrow(
-        'First name cannot contain numbers or special characters'
+        'First name contains invalid characters'
       );
     });
 
-    it('should reject last name with emojis (regex fails first)', async () => {
+    it('should reject last name with emojis (noHomographs fails first)', async () => {
       const data = { ...validData, lastName: 'Leon😀' };
       await expect(registrationSchema.validate(data)).rejects.toThrow(
-        'Last name cannot contain numbers or special characters'
+        'Last name contains invalid characters'
       );
     });
 

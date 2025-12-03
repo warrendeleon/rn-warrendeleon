@@ -4,7 +4,7 @@
 **Title**: Add Unicode Normalization to Prevent Homograph Attacks
 **User Story**: [US-033](../stories/US-033-email-password-registration.md) - Email/Password Registration
 **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md) - Registration & Profile Setup
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Medium
 **Effort**: 1 hour
 **Owner**: Warren de Leon
@@ -368,12 +368,12 @@ describe('firstName validation', () => {
 
 ## Security Checklist
 
-- [ ] **Unicode normalization applied** (NFC form)
-- [ ] **Mixed scripts detected** (Latin + Cyrillic/Greek/Arabic)
-- [ ] **Homograph characters blocked** (lookalike characters)
-- [ ] **Legitimate names allowed** (O'Brien, Mary-Jane, etc.)
-- [ ] **Tests cover attack vectors** (Cyrillic, Greek, mixed scripts)
-- [ ] **Error messages user-friendly** (don't reveal attack details)
+- [x] **Unicode normalization applied** (NFC form)
+- [x] **Mixed scripts detected** (Latin + Cyrillic/Greek/Arabic)
+- [x] **Homograph characters blocked** (lookalike characters)
+- [x] **Legitimate names allowed** (O'Brien, Mary-Jane, etc.)
+- [x] **Tests cover attack vectors** (Cyrillic, Greek, mixed scripts)
+- [x] **Error messages user-friendly** (don't reveal attack details)
 
 ---
 

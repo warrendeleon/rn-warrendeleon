@@ -17,6 +17,7 @@ export const profileUpdateSchema = yup.object({
     .string()
     .min(2, 'First name must be at least 2 characters')
     .max(50, 'First name is too long')
+    .noHomographs('First name contains invalid characters')
     .matches(/^[a-zA-Z\s'-]+$/, 'First name cannot contain numbers or special characters')
     .noEmoji('First name cannot contain emojis')
     .trim(),
@@ -25,6 +26,7 @@ export const profileUpdateSchema = yup.object({
     .string()
     .min(2, 'Last name must be at least 2 characters')
     .max(50, 'Last name is too long')
+    .noHomographs('Last name contains invalid characters')
     .matches(/^[a-zA-Z\s'-]+$/, 'Last name cannot contain numbers or special characters')
     .noEmoji('Last name cannot contain emojis')
     .trim(),
