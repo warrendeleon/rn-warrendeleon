@@ -203,6 +203,78 @@
     "session": "Sessió",
     "logoutHint": "Tanca la sessió del teu compte"
   },
+  "profilePicture": {
+    "editButton": "Edita la foto de perfil",
+    "editButtonHint": "Obre opcions per canviar la teva foto de perfil",
+    "tapToChange": "Toca per canviar",
+    "actionSheet": {
+      "title": "Canvia la foto de perfil",
+      "takePhoto": "Fer una foto",
+      "chooseFromLibrary": "Tria de la biblioteca",
+      "removePhoto": "Elimina la foto"
+    },
+    "preview": {
+      "title": "Previsualització",
+      "validating": "Comprovant la foto...",
+      "faceDetected": "Cara detectada",
+      "noFace": "No s'ha detectat cap cara",
+      "imageAlt": "Foto de perfil seleccionada",
+      "save": "Desa",
+      "saveHint": "Desa aquesta foto com a foto de perfil",
+      "retry": "Tria una altra foto",
+      "retryHint": "Torna per seleccionar una altra foto",
+      "tryAgain": "Prova amb una altra foto",
+      "chooseDifferent": "Tria una altra foto"
+    }
+  },
+  "permissions": {
+    "camera": {
+      "title": "Cal accés a la càmera",
+      "description": "Per fer una foto de perfil, necessitem accés a la teva càmera.",
+      "usage": {
+        "takePhoto": "• Fes una foto per al teu perfil",
+        "localProcessing": "• La detecció facial es fa només al teu dispositiu",
+        "noStorage": "• Les fotos no es guarden sense el teu consentiment"
+      },
+      "privacy": "La teva foto es queda al mòbil fins que la desis. La detecció facial es fa localment, no als nostres servidors. Res surt del teu dispositiu fins que toquis Desa.",
+      "continue": "Continua",
+      "continueHint": "Sol·licita permís de càmera al teu dispositiu",
+      "skip": "Ara no",
+      "skipHint": "Torna a la pantalla anterior sense sol·licitar accés a la càmera"
+    },
+    "photoLibrary": {
+      "title": "Cal accés a la biblioteca de fotos",
+      "description": "Per triar una foto de perfil, necessitem accés a la teva biblioteca de fotos.",
+      "usage": {
+        "selectPhoto": "• Selecciona una foto de la teva biblioteca",
+        "localProcessing": "• La detecció facial es fa només al teu dispositiu",
+        "limitedAccess": "• Pots donar accés només a fotos específiques"
+      },
+      "privacy": "Mai veiem les teves altres fotos. Només obtenim la que triïs. La detecció facial es fa al teu mòbil, no als nostres servidors. Res surt del teu dispositiu fins que toquis Desa.",
+      "continue": "Continua",
+      "continueHint": "Sol·licita permís de biblioteca de fotos al teu dispositiu",
+      "skip": "Ara no",
+      "skipHint": "Torna a la pantalla anterior sense sol·licitar accés a la biblioteca de fotos"
+    },
+    "denied": {
+      "camera": {
+        "title": "Cal accés a la càmera",
+        "description": "L'accés a la càmera ha estat denegat. Per fer una foto de perfil, activa l'accés a la càmera a la configuració del dispositiu."
+      },
+      "photoLibrary": {
+        "title": "Cal accés a la biblioteca de fotos",
+        "description": "L'accés a la biblioteca de fotos ha estat denegat. Per triar una foto de perfil, activa l'accés a les fotos a la configuració del dispositiu."
+      },
+      "instructions": {
+        "ios": "Ves a Configuració > Privacitat > [Permís] i activa l'accés per a aquesta app.",
+        "android": "Ves a Configuració > Apps > [Nom de l'App] > Permisos i activa [Permís]."
+      },
+      "openSettings": "Obre Configuració",
+      "openSettingsHint": "Obre la configuració del dispositiu on pots activar el permís",
+      "goBack": "Torna",
+      "goBackHint": "Torna a la pantalla anterior"
+    }
+  },
   "common": {
     "ok": "D'acord",
     "cancel": "Cancel·lar",

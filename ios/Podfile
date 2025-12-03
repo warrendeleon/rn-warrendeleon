@@ -5,6 +5,23 @@ require Pod::Executable.execute_command('node', ['-p',
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
+# react-native-permissions setup
+def node_require(script)
+  require Pod::Executable.execute_command('node', ['-p',
+    "require.resolve(
+      '#{script}',
+      {paths: [process.argv[1]]},
+    )", __dir__]).strip
+end
+
+node_require('react-native-permissions/scripts/setup.rb')
+
+# Configure which iOS permissions to include for profile picture feature
+setup_permissions([
+  'Camera',
+  'PhotoLibrary',
+])
+
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 use_frameworks! :linkage => :static

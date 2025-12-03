@@ -68,7 +68,7 @@ class SupabaseAuthClientClass {
       error => Promise.reject(error)
     );
 
-    // Response interceptor: Handle 401 and refresh token
+    // Response interceptor: Handle 401/403 token expiry and refresh token
     this.axiosInstance.interceptors.response.use(
       response => response,
       async (error: AxiosError) => {
@@ -78,8 +78,25 @@ class SupabaseAuthClientClass {
           return Promise.reject(error);
         }
 
-        // If 401 Unauthorized and not already retrying
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        // Check for token expiry errors (401 or 403 with jwt errors)
+        const status = error.response?.status;
+        const errorData = error.response?.data as
+          | {
+              error_code?: string;
+              msg?: string;
+              message?: string;
+            }
+          | undefined;
+        const errorMessage = errorData?.msg || errorData?.message || '';
+        const isTokenExpired =
+          status === 401 ||
+          (status === 403 &&
+            (errorData?.error_code === 'bad_jwt' ||
+              errorMessage.includes('token is expired') ||
+              errorMessage.includes('exp')));
+
+        // If token expired and not already retrying
+        if (isTokenExpired && !originalRequest._retry) {
           if (this.isRefreshing) {
             // Wait for token refresh to complete
             return new Promise(resolve => {

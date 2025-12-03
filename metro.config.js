@@ -14,7 +14,7 @@ const { assetExts, sourceExts } = defaultConfig.resolver;
  */
 const config = {
   resolver: {
-    assetExts: assetExts.filter(ext => ext !== 'svg'),
+    assetExts: [...assetExts.filter(ext => ext !== 'svg'), 'tflite'],
     resolverMainFields: ['sbmodern', 'react-native', 'browser', 'main'],
     sourceExts: [...sourceExts, 'svg'],
   },

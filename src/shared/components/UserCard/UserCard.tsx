@@ -1,5 +1,14 @@
 import React, { useMemo } from 'react';
-import { Box, ChevronRightIcon, HStack, Icon, Pressable, Text, VStack } from '@gluestack-ui/themed';
+import {
+  Box,
+  ChevronRightIcon,
+  HStack,
+  Icon,
+  Image,
+  Pressable,
+  Text,
+  VStack,
+} from '@gluestack-ui/themed';
 
 import { type GroupVariant, groupVariantRadius } from '@app/shared/components/shared';
 import { useAppColorScheme } from '@app/shared/hooks';
@@ -11,6 +20,8 @@ export interface UserCardProps {
   lastName: string | null;
   /** User's email address */
   email: string | null;
+  /** Profile picture URL (optional) */
+  profilePictureUri?: string | null;
   /** Callback when card is pressed */
   onPress?: () => void;
   /** For grouped list styling */
@@ -54,7 +65,15 @@ export const getUserCardStyles = (scheme: 'light' | 'dark', groupVariant: GroupV
  * ```
  */
 export const UserCard = React.memo<UserCardProps>(
-  ({ firstName, lastName, email, onPress, groupVariant = 'single', testID = 'user-card' }) => {
+  ({
+    firstName,
+    lastName,
+    email,
+    profilePictureUri,
+    onPress,
+    groupVariant = 'single',
+    testID = 'user-card',
+  }) => {
     const scheme = useAppColorScheme();
 
     const { bg, nameColor, emailColor, avatarBg, initialsColor, chevronColor, top, bottom } =
@@ -88,7 +107,7 @@ export const UserCard = React.memo<UserCardProps>(
         borderBottomRightRadius={bottom}
       >
         <HStack space="md" alignItems="center" flex={1}>
-          {/* Avatar with initials */}
+          {/* Avatar with profile picture or initials */}
           <Box
             testID="user-card-avatar"
             w="$12"
@@ -97,15 +116,27 @@ export const UserCard = React.memo<UserCardProps>(
             alignItems="center"
             justifyContent="center"
             bg={avatarBg}
+            overflow="hidden"
           >
-            <Text
-              testID="user-card-initials"
-              color={initialsColor}
-              fontSize="$lg"
-              fontWeight="$semibold"
-            >
-              {initials}
-            </Text>
+            {profilePictureUri ? (
+              <Image
+                source={{ uri: profilePictureUri }}
+                alt={fullName}
+                w="$12"
+                h="$12"
+                borderRadius={24}
+                testID="user-card-profile-picture"
+              />
+            ) : (
+              <Text
+                testID="user-card-initials"
+                color={initialsColor}
+                fontSize="$lg"
+                fontWeight="$semibold"
+              >
+                {initials}
+              </Text>
+            )}
           </Box>
 
           {/* User info */}

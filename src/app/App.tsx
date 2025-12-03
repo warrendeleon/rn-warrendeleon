@@ -10,7 +10,7 @@ import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { isE2EMockEnabled } from '@app/config/e2e';
+import { hasLoadedOverride, isE2EMockEnabled, loadPersistedMockOverride } from '@app/config/e2e';
 import { getE2EErrorConfig } from '@app/config/e2e-error';
 import { AuthProvider, SplashScreen } from '@app/features';
 import { selectLanguage } from '@app/features/Settings/store';
@@ -35,6 +35,9 @@ const AppContent: React.FC = () => {
   // Get E2E error config to determine if we should show splash for error testing
   const e2eErrorConfig = getE2EErrorConfig();
 
+  // Wait for persisted mock override to load before deciding on splash behaviour
+  const [mockOverrideLoaded, setMockOverrideLoaded] = useState(hasLoadedOverride());
+
   // Skip JS splash screen in E2E mode UNLESS error mode is enabled
   // When testing error states, we need the splash screen to show error UI
   const [showSplash, setShowSplash] = useState(!isE2EMockEnabled() || e2eErrorConfig.enabled);
@@ -42,6 +45,17 @@ const AppContent: React.FC = () => {
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const persistedLanguage = useAppSelector(selectLanguage);
+
+  // Load persisted E2E mock override from AsyncStorage at startup
+  useEffect(() => {
+    if (!mockOverrideLoaded) {
+      loadPersistedMockOverride().then(() => {
+        setMockOverrideLoaded(true);
+        // Update showSplash based on loaded mock setting
+        setShowSplash(!isE2EMockEnabled() || e2eErrorConfig.enabled);
+      });
+    }
+  }, [mockOverrideLoaded, e2eErrorConfig.enabled]);
 
   // Sync i18next with persisted language preference after Redux rehydration
   useEffect(() => {
@@ -87,6 +101,12 @@ const AppContent: React.FC = () => {
   const handleSplashComplete = () => {
     setShowSplash(false);
   };
+
+  // Wait for mock override to load from AsyncStorage before deciding what to show
+  // This prevents flash of wrong content if user has toggled mock mode
+  if (!mockOverrideLoaded) {
+    return null; // BootSplash native screen is still visible
+  }
 
   // Show splash screen first
   if (showSplash) {

@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   AppearanceScreen,
   BookingPlaceholderScreen,
+  CameraPermissionScreen,
   ChangePasswordScreen,
   ChatPlaceholderScreen,
   EditAccountScreen,
@@ -18,7 +19,12 @@ import {
   LoginScreen,
   MockStatusScreen,
   PDFScreen,
+  PermissionDeniedScreen,
+  type PermissionType,
+  PhotoLibraryPermissionScreen,
   PrivacyPolicyScreen,
+  ProfilePictureActionSheetScreen,
+  ProfilePicturePreviewScreen,
   ProfileScreen,
   RegistrationScreen,
   ResetPasswordScreen,
@@ -53,7 +59,13 @@ export type RootStackParamList = {
   ChangePassword: undefined;
   EmailVerification: { email: string; source?: 'registration' | 'login' | 'registration_exists' };
   Settings: undefined;
-  EditAccount: { passwordUpdated?: boolean } | undefined;
+  EditAccount:
+    | {
+        passwordUpdated?: boolean;
+        selectedImageUri?: string;
+        profilePictureAction?: 'remove';
+      }
+    | undefined;
   Language: undefined;
   Appearance: undefined;
   Profile: undefined;
@@ -73,6 +85,16 @@ export type RootStackParamList = {
   PrivacyPolicy: undefined;
   ChatPlaceholder: undefined;
   BookingPlaceholder: undefined;
+  // Permission screens
+  CameraPermission: undefined;
+  PhotoLibraryPermission: undefined;
+  PermissionDenied: { permissionType: PermissionType };
+  ProfilePicturePreview: { imageUri: string; source: 'camera' | 'library' };
+  ProfilePictureActionSheet:
+    | {
+        hasExistingPhoto?: boolean;
+      }
+    | undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -213,6 +235,36 @@ export const RootNavigator: React.FC = () => {
             name="BookingPlaceholder"
             component={withAuth(BookingPlaceholderScreen)}
             options={{ title: t('placeholder.booking.title') }}
+          />
+          {/* Permission Screens */}
+          <Stack.Screen
+            name="CameraPermission"
+            component={withAuth(CameraPermissionScreen)}
+            options={{ title: t('permissions.camera.title', 'Camera Access') }}
+          />
+          <Stack.Screen
+            name="PhotoLibraryPermission"
+            component={withAuth(PhotoLibraryPermissionScreen)}
+            options={{ title: t('permissions.photoLibrary.title', 'Photo Library Access') }}
+          />
+          <Stack.Screen
+            name="PermissionDenied"
+            component={withAuth(PermissionDeniedScreen)}
+            options={{ title: t('permissions.denied.title', 'Permission Required') }}
+          />
+          <Stack.Screen
+            name="ProfilePicturePreview"
+            component={withAuth(ProfilePicturePreviewScreen)}
+            options={{ title: t('profilePicture.preview.title', 'Preview') }}
+          />
+          <Stack.Screen
+            name="ProfilePictureActionSheet"
+            component={withAuth(ProfilePictureActionSheetScreen)}
+            options={{
+              presentation: 'transparentModal',
+              animation: 'fade',
+              headerShown: false,
+            }}
           />
         </Stack.Navigator>
       </ErrorBoundary>

@@ -122,6 +122,32 @@ describe('SettingsScreen', () => {
       expect(getByTestId('settings-user-card')).toBeTruthy();
     });
 
+    it('shows profile picture when user has one', () => {
+      const stateWithPicture = {
+        auth: {
+          ...authenticatedState.auth,
+          user: {
+            ...authenticatedState.auth.user,
+            profilePicture: 'https://example.com/profile.jpg',
+          },
+        },
+      };
+
+      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+        preloadedState: stateWithPicture,
+      });
+
+      expect(getByTestId('user-card-profile-picture')).toBeTruthy();
+    });
+
+    it('shows initials when user has no profile picture', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+        preloadedState: authenticatedState,
+      });
+
+      expect(getByTestId('user-card-initials')).toBeTruthy();
+    });
+
     it('does not show sign in button when user is authenticated', () => {
       const { queryByTestId } = renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,

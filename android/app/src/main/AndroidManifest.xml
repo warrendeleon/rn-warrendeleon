@@ -1,5 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <uses-permission android:name="android.permission.INTERNET" />
+  <!-- Camera permission for profile picture -->
+  <uses-permission android:name="android.permission.CAMERA" />
+  <!-- Photo library permissions for profile picture (Android 13+ uses granular media permissions) -->
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+  <!-- Fallback for Android 12 and below -->
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+
+  <!-- TFLite GPU delegate libraries (optional, for hardware acceleration) -->
+  <uses-native-library android:name="libOpenCL.so" android:required="false" />
+  <uses-native-library android:name="libOpenCL-pixel.so" android:required="false" />
+  <uses-native-library android:name="libGLES_mali.so" android:required="false" />
 
   <application
     android:name=".MainApplication"

@@ -62,6 +62,10 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to take a profile picture. Your photo is processed locally on your device for face detection and is only uploaded if you choose to save it.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to select a profile picture. Your photo is processed locally on your device for face detection and is only uploaded if you choose to save it.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

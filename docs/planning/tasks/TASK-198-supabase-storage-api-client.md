@@ -4,11 +4,11 @@
 **Title**: Supabase Storage API Client (Moved to Post-Login)
 **User Story**: [US-042](../stories/US-042-update-profile-picture.md) - Update Profile Picture (Post-Login)
 **Epic**: [EPIC-023](../epics/EPIC-023-security-settings.md) - Security Settings
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Medium (no longer blocks registration)
 **Effort**: 2 hours
 **Created**: 2025-11-21
-**Updated**: 2025-11-24
+**Updated**: 2025-12-08
 
 ---
 
@@ -87,11 +87,38 @@ src/features/Auth/
 
 ## Acceptance Criteria
 
-- [ ] Upload to profile-pictures bucket
-- [ ] File naming: `{userId}/profile-{timestamp}.jpg`
-- [ ] Returns public URL
-- [ ] Delete old picture before uploading new
-- [ ] Error handling with retry (3 attempts)
-- [ ] 100% unit test coverage
+- [x] Upload to profile-pictures bucket
+- [x] File naming: `{userId}/profile-{timestamp}.jpg`
+- [x] Returns public URL
+- [x] Old picture cleanup via database trigger + scheduled Edge Function
+- [x] Error handling with retry (3 attempts, exponential backoff)
+- [x] 100% unit test coverage
+- [x] Token refresh on 401/403 JWT expiry
+- [x] E2E mock support for testing
 
-**Estimated Time**: 2 hours | **Last Updated**: 2025-11-21
+## Implementation Notes (2025-12-08)
+
+### Architecture
+
+The storage client follows the same pattern as `SupabaseAuthClient`:
+
+- Axios instance with request/response interceptors
+- Bearer token authentication
+- Automatic token refresh on 401/403
+
+### Old Picture Cleanup
+
+Old profile pictures are cleaned up via backend automation:
+
+1. Database trigger queues old file paths when `profile_picture` is updated
+2. Monthly cron job (1st of month, 3 AM UTC) calls cleanup Edge Function
+3. Edge Function processes queue and deletes files from storage
+
+### Files
+
+- `src/httpClients/SupabaseStorageClient.ts` - Main client
+- `src/httpClients/__tests__/SupabaseStorageClient.rntl.ts` - Tests
+- `supabase/functions/cleanup-storage/` - Edge Function
+- `supabase/migrations/` - Database trigger + queue table
+
+**Estimated Time**: 2 hours | **Last Updated**: 2025-12-08

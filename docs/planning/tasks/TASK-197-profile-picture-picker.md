@@ -4,11 +4,11 @@
 **Title**: Profile Picture Picker Component (Moved to Post-Login)
 **User Story**: [US-042](../stories/US-042-update-profile-picture.md) - Update Profile Picture (Post-Login)
 **Epic**: [EPIC-023](../epics/EPIC-023-security-settings.md) - Security Settings
-**Status**: ⏳ In Progress
+**Status**: ✅ Done
 **Priority**: Medium (no longer blocks registration)
 **Effort**: 3 hours
 **Created**: 2025-11-21
-**Updated**: 2025-11-24
+**Updated**: 2025-12-08
 
 ---
 
@@ -128,13 +128,16 @@ src/features/Auth/
 
 ## Acceptance Criteria
 
-- [ ] Camera/library selection working
-- [ ] Square crop enforced (1:1 aspect ratio)
-- [ ] Resize to 800×800px
-- [ ] JPEG compression 80%
-- [ ] EXIF metadata stripped
-- [ ] iOS/Android permissions handled
-- [ ] 100% RNTL coverage
+- [x] Camera/library selection working
+- [x] Square crop enforced (1:1 aspect ratio)
+- [x] Resize to 800×800px
+- [x] JPEG compression 80%
+- [x] EXIF metadata stripped (via image re-encoding)
+- [x] iOS/Android permissions handled (GDPR-compliant pre-permission screens)
+- [x] 100% RNTL coverage
+- [x] Face detection validation (Apple Vision iOS / ML Kit Android)
+- [x] NSFW content detection (TFLite NudeNet model)
+- [x] E2E mock support for testing
 
 ---
 

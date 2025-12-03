@@ -21,12 +21,14 @@ module.exports = {
     '^react-dom/(.*)$': '<rootDir>/src/test-utils/mocks/react-dom.js',
     // Mock Storybook to avoid ESM parsing issues in Jest
     '^\\.\\./\\.\\./\\.rnstorybook$': '<rootDir>/src/test-utils/mocks/storybookMock.ts',
+    // Mock TFLite model assets
+    '\\.tflite$': '<rootDir>/src/test-utils/mocks/tfliteMock.js',
   },
   testPathIgnorePatterns: [
     '/node_modules/',
     '/android/',
     '/ios/',
-    '.*\\.feature$',        // Exclude Cucumber feature files
+    '.*\\.feature$', // Exclude Cucumber feature files
     '.*\\.cucumber\\.tsx$', // Exclude Cucumber step definitions
   ],
   collectCoverageFrom: [

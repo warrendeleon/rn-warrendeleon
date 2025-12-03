@@ -467,6 +467,19 @@ jest.mock('@app/config/reactotron', () => ({
   },
 }));
 
+// Mock react-native-fs
+jest.mock('react-native-fs', () => ({
+  MainBundlePath: '/mock/bundle',
+  DocumentDirectoryPath: '/mock/documents',
+  exists: jest.fn(() => Promise.resolve(true)),
+  readFile: jest.fn(() => Promise.resolve('')),
+  writeFile: jest.fn(() => Promise.resolve()),
+  unlink: jest.fn(() => Promise.resolve()),
+  mkdir: jest.fn(() => Promise.resolve()),
+  copyFile: jest.fn(() => Promise.resolve()),
+  moveFile: jest.fn(() => Promise.resolve()),
+}));
+
 // Mock react-native-blob-util
 jest.mock('react-native-blob-util', () => ({
   default: {
@@ -522,6 +535,143 @@ jest.mock('react-native-keychain', () => ({
   setGenericPassword: jest.fn(),
   getGenericPassword: jest.fn(),
   resetGenericPassword: jest.fn(),
+}));
+
+// Mock react-native-permissions
+jest.mock('react-native-permissions', () => ({
+  check: jest.fn(() => Promise.resolve('granted')),
+  request: jest.fn(() => Promise.resolve('granted')),
+  openSettings: jest.fn(() => Promise.resolve()),
+  PERMISSIONS: {
+    IOS: {
+      CAMERA: 'ios.permission.CAMERA',
+      PHOTO_LIBRARY: 'ios.permission.PHOTO_LIBRARY',
+    },
+    ANDROID: {
+      CAMERA: 'android.permission.CAMERA',
+      READ_MEDIA_IMAGES: 'android.permission.READ_MEDIA_IMAGES',
+      READ_EXTERNAL_STORAGE: 'android.permission.READ_EXTERNAL_STORAGE',
+    },
+  },
+  RESULTS: {
+    GRANTED: 'granted',
+    DENIED: 'denied',
+    BLOCKED: 'blocked',
+    UNAVAILABLE: 'unavailable',
+    LIMITED: 'limited',
+  },
+}));
+
+// Mock @infinitered/react-native-mlkit-face-detection (Android face detection)
+jest.mock('@infinitered/react-native-mlkit-face-detection', () => ({
+  RNMLKitFaceDetector: {
+    detectFaces: jest.fn(() =>
+      Promise.resolve({
+        faces: [
+          {
+            boundingBox: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 },
+          },
+        ],
+      })
+    ),
+  },
+  useFacesInPhoto: jest.fn(() => ({
+    faces: [],
+    status: 'ready',
+  })),
+}));
+
+// Mock jpeg-js
+jest.mock('jpeg-js', () => ({
+  decode: jest.fn(() => ({
+    width: 224,
+    height: 224,
+    data: new Uint8Array(224 * 224 * 4).fill(128), // Mock RGBA data
+  })),
+  encode: jest.fn(),
+}));
+
+// Mock TensorFlow.js
+jest.mock('@tensorflow/tfjs', () => ({
+  ready: jest.fn(() => Promise.resolve()),
+  dispose: jest.fn(),
+  util: {
+    encodeString: jest.fn(() => new Uint8Array()),
+  },
+}));
+
+// Mock TensorFlow.js React Native
+jest.mock('@tensorflow/tfjs-react-native', () => ({
+  decodeJpeg: jest.fn(() => ({})),
+}));
+
+// Mock NSFWJS
+jest.mock('nsfwjs', () => ({
+  load: jest.fn(() =>
+    Promise.resolve({
+      classify: jest.fn(() =>
+        Promise.resolve([
+          { className: 'Neutral', probability: 0.95 },
+          { className: 'Drawing', probability: 0.03 },
+          { className: 'Sexy', probability: 0.01 },
+          { className: 'Porn', probability: 0.005 },
+          { className: 'Hentai', probability: 0.005 },
+        ])
+      ),
+    })
+  ),
+}));
+
+// Mock react-native-image-crop-picker
+jest.mock('react-native-image-crop-picker', () => ({
+  openCamera: jest.fn(() =>
+    Promise.resolve({
+      path: 'file://mock-image.jpg',
+      width: 800,
+      height: 800,
+      mime: 'image/jpeg',
+      size: 150000,
+    })
+  ),
+  openPicker: jest.fn(() =>
+    Promise.resolve({
+      path: 'file://mock-image.jpg',
+      width: 800,
+      height: 800,
+      mime: 'image/jpeg',
+      size: 150000,
+    })
+  ),
+  clean: jest.fn(() => Promise.resolve()),
+}));
+
+// Mock react-native-compressor
+jest.mock('react-native-compressor', () => ({
+  Image: {
+    compress: jest.fn(uri => Promise.resolve(uri)),
+  },
+}));
+
+// Mock react-native-fast-tflite
+jest.mock('react-native-fast-tflite', () => ({
+  loadTensorflowModel: jest.fn(() =>
+    Promise.resolve({
+      run: jest.fn(() =>
+        Promise.resolve([
+          // NSFW model output: [drawings, hentai, neutral, porn, sexy]
+          new Float32Array([0.02, 0.01, 0.95, 0.01, 0.01]),
+        ])
+      ),
+      runSync: jest.fn(() => [new Float32Array([0.02, 0.01, 0.95, 0.01, 0.01])]),
+    })
+  ),
+  useTensorflowModel: jest.fn(() => ({
+    state: 'loaded',
+    model: {
+      run: jest.fn(() => Promise.resolve([new Float32Array([0.02, 0.01, 0.95, 0.01, 0.01])])),
+      runSync: jest.fn(() => [new Float32Array([0.02, 0.01, 0.95, 0.01, 0.01])]),
+    },
+  })),
 }));
 
 // Initialize i18n for tests

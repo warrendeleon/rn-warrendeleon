@@ -86,8 +86,8 @@ export const MockStatusScreen: React.FC = () => {
             dispatch(clearEducation());
             dispatch(clearWorkExperience());
 
-            // 3. Set the new mock override value
-            setE2EMockOverride(newValue);
+            // 3. Set the new mock override value (persisted to AsyncStorage)
+            await setE2EMockOverride(newValue);
             setMockEnabled(newValue);
 
             // 4. Fetch fresh data with new mock setting
@@ -102,7 +102,7 @@ export const MockStatusScreen: React.FC = () => {
             });
           } catch {
             // Silent fail - still update mock state
-            setE2EMockOverride(newValue);
+            await setE2EMockOverride(newValue);
             setMockEnabled(newValue);
           } finally {
             setIsToggling(false);

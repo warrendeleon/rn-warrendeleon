@@ -1,0 +1,14 @@
+/*
+  InfoPlist.strings
+  warrendeleon
+
+  Created by Warren de Leon on 03/12/2025.
+
+*/
+"CFBundleDisplayName" = "warrendeleon";
+
+/* Camera permission - shown in native iOS permission dialog */
+"NSCameraUsageDescription" = "Potrzebujemy dostępu do aparatu, żeby zrobić zdjęcie profilowe. Twoje zdjęcie jest przetwarzane lokalnie na urządzeniu w celu wykrycia twarzy i jest przesyłane tylko wtedy, gdy zdecydujesz się je zapisać.";
+
+/* Photo Library permission - shown in native iOS permission dialog */
+"NSPhotoLibraryUsageDescription" = "Potrzebujemy dostępu do biblioteki zdjęć, żeby wybrać zdjęcie profilowe. Twoje zdjęcie jest przetwarzane lokalnie na urządzeniu w celu wykrycia twarzy i jest przesyłane tylko wtedy, gdy zdecydujesz się je zapisać.";

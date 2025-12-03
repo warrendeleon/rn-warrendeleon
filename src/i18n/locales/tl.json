@@ -203,6 +203,78 @@
     "session": "Sesyon",
     "logoutHint": "Maglo-log out sa iyong account"
   },
+  "profilePicture": {
+    "editButton": "I-edit ang profile picture",
+    "editButtonHint": "Nagbubukas ng mga pagpipilian para baguhin ang iyong profile picture",
+    "tapToChange": "I-tap para baguhin",
+    "actionSheet": {
+      "title": "Baguhin ang Profile Picture",
+      "takePhoto": "Kumuha ng Larawan",
+      "chooseFromLibrary": "Pumili mula sa Library",
+      "removePhoto": "Alisin ang Larawan"
+    },
+    "preview": {
+      "title": "Preview",
+      "validating": "Sinusuri ang larawan...",
+      "faceDetected": "May nahanap na mukha",
+      "noFace": "Walang nahanap na mukha",
+      "imageAlt": "Piniling profile picture",
+      "save": "I-save",
+      "saveHint": "Sine-save ang larawang ito bilang iyong profile picture",
+      "retry": "Pumili ng Ibang Larawan",
+      "retryHint": "Bumabalik para pumili ng ibang larawan",
+      "tryAgain": "Subukan ang Ibang Larawan",
+      "chooseDifferent": "Pumili ng Ibang Larawan"
+    }
+  },
+  "permissions": {
+    "camera": {
+      "title": "Kailangan ang Access sa Camera",
+      "description": "Para makakuha ng profile picture, kailangan namin ng access sa iyong camera.",
+      "usage": {
+        "takePhoto": "• Kumuha ng larawan para sa iyong profile",
+        "localProcessing": "• Ang paghahanap ng mukha ay nangyayari lang sa iyong device",
+        "noStorage": "• Hindi sine-save ang mga larawan nang walang pahintulot mo"
+      },
+      "privacy": "Nananatili ang larawan mo sa phone mo hanggang i-save mo ito. Ang paghahanap ng mukha ay nangyayari locally, hindi sa aming mga server. Walang umaalis sa device mo hanggang i-tap mo ang Save.",
+      "continue": "Magpatuloy",
+      "continueHint": "Humihiling ng camera permission sa iyong device",
+      "skip": "Hindi muna",
+      "skipHint": "Bumabalik sa nakaraang screen nang hindi humihingi ng camera access"
+    },
+    "photoLibrary": {
+      "title": "Kailangan ang Access sa Photo Library",
+      "description": "Para pumili ng profile picture, kailangan namin ng access sa iyong photo library.",
+      "usage": {
+        "selectPhoto": "• Pumili ng larawan mula sa iyong library",
+        "localProcessing": "• Ang paghahanap ng mukha ay nangyayari lang sa iyong device",
+        "limitedAccess": "• Pwede kang magbigay ng access sa mga piling larawan lang"
+      },
+      "privacy": "Hindi namin nakikita ang iba mong mga larawan. Nakukuha lang namin ang pinili mo. Ang paghahanap ng mukha ay nangyayari sa phone mo, hindi sa aming mga server. Walang umaalis sa device mo hanggang i-tap mo ang Save.",
+      "continue": "Magpatuloy",
+      "continueHint": "Humihiling ng photo library permission sa iyong device",
+      "skip": "Hindi muna",
+      "skipHint": "Bumabalik sa nakaraang screen nang hindi humihingi ng photo library access"
+    },
+    "denied": {
+      "camera": {
+        "title": "Kailangan ang Access sa Camera",
+        "description": "Na-deny ang camera access. Para makakuha ng profile picture, i-enable ang camera access sa settings ng iyong device."
+      },
+      "photoLibrary": {
+        "title": "Kailangan ang Access sa Photo Library",
+        "description": "Na-deny ang photo library access. Para pumili ng profile picture, i-enable ang photo access sa settings ng iyong device."
+      },
+      "instructions": {
+        "ios": "Pumunta sa Settings > Privacy > [Permission] at i-enable ang access para sa app na ito.",
+        "android": "Pumunta sa Settings > Apps > [App Name] > Permissions at i-enable ang [Permission]."
+      },
+      "openSettings": "Buksan ang Settings",
+      "openSettingsHint": "Binubuksan ang settings ng iyong device kung saan pwede mong i-enable ang permission",
+      "goBack": "Bumalik",
+      "goBackHint": "Bumabalik sa nakaraang screen"
+    }
+  },
   "common": {
     "ok": "OK",
     "cancel": "Kanselahin",

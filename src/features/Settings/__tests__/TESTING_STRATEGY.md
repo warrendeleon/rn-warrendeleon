@@ -61,6 +61,7 @@ The Detox/Cucumber E2E test suite provides complete coverage for Settings functi
 Per `CLAUDE.md`, presentation components (screens) are **explicitly excluded from coverage**:
 
 > **❌ Excluded from Coverage**:
+>
 > - Presentation components (screens)
 > - Navigation setup (native dependencies)
 
@@ -69,6 +70,7 @@ Per `CLAUDE.md`, presentation components (screens) are **explicitly excluded fro
 ### 2. **E2E Coverage is Comprehensive**
 
 E2E tests already validate:
+
 - Navigation integration
 - Redux dispatch and state updates
 - UI rendering based on state
@@ -84,6 +86,7 @@ React Native screens with native modules (Navigation, SafeArea, etc.) are diffic
 ### 4. **Sustainable Testing Philosophy**
 
 Focus on:
+
 - ✅ **100% coverage on business logic**: Redux, selectors, shared components
 - ✅ **E2E tests for user flows**: Real device/simulator testing
 - ❌ **Avoid redundant tests**: Don't duplicate coverage between Jest and E2E
@@ -94,33 +97,33 @@ Focus on:
 
 ### Business Logic (Jest) - 100% Coverage
 
-| Component                | Coverage | Test File                        |
-| ------------------------ | -------- | -------------------------------- |
-| Redux Actions            | 100%     | `actions.rntl.ts`                |
-| Redux Reducer            | 100%     | `reducer.rntl.ts`                |
-| Redux Selectors          | 100%     | `selectors.rntl.ts`              |
-| ChevronButtonGroup       | 100%     | `ChevronButtonGroup.rntl.tsx`    |
-| SelectableButtonGroup    | 100%     | `SelectableButtonGroup.rntl.tsx` |
-| ButtonWithChevron        | 100%     | `ButtonWithChevron.test.tsx`     |
-| ButtonGroupDivider       | 100%     | `ButtonGroupDivider.rntl.tsx`    |
-| SelectableListButton     | 100%     | `SelectableListButton.test.tsx`  |
+| Component             | Coverage | Test File                        |
+| --------------------- | -------- | -------------------------------- |
+| Redux Actions         | 100%     | `actions.rntl.ts`                |
+| Redux Reducer         | 100%     | `reducer.rntl.ts`                |
+| Redux Selectors       | 100%     | `selectors.rntl.ts`              |
+| ChevronButtonGroup    | 100%     | `ChevronButtonGroup.rntl.tsx`    |
+| SelectableButtonGroup | 100%     | `SelectableButtonGroup.rntl.tsx` |
+| ButtonWithChevron     | 100%     | `ButtonWithChevron.test.tsx`     |
+| ButtonGroupDivider    | 100%     | `ButtonGroupDivider.rntl.tsx`    |
+| SelectableListButton  | 100%     | `SelectableListButton.test.tsx`  |
 
 ### User Flows (E2E) - Comprehensive Coverage
 
-| Flow                           | Coverage | Test File           |
-| ------------------------------ | -------- | ------------------- |
-| Change Appearance (all themes) | ✅        | `Settings.feature`  |
-| Change Language (all options)  | ✅        | `Settings.feature`  |
-| Settings persistence           | ✅        | `Settings.feature`  |
-| Navigation flows               | ✅        | `Settings.feature`  |
+| Flow                           | Coverage | Test File          |
+| ------------------------------ | -------- | ------------------ |
+| Change Appearance (all themes) | ✅       | `Settings.feature` |
+| Change Language (all options)  | ✅       | `Settings.feature` |
+| Settings persistence           | ✅       | `Settings.feature` |
+| Navigation flows               | ✅       | `Settings.feature` |
 
 ### Presentation Components (Excluded)
 
-| Component        | Coverage | Justification                          |
-| ---------------- | -------- | -------------------------------------- |
-| SettingsScreen   | N/A      | Excluded: Presentation component       |
-| LanguageScreen   | N/A      | Excluded: Presentation component       |
-| AppearanceScreen | N/A      | Excluded: Presentation component       |
+| Component        | Coverage | Justification                    |
+| ---------------- | -------- | -------------------------------- |
+| SettingsScreen   | N/A      | Excluded: Presentation component |
+| LanguageScreen   | N/A      | Excluded: Presentation component |
+| AppearanceScreen | N/A      | Excluded: Presentation component |
 
 ---
 

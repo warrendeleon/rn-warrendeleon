@@ -203,6 +203,78 @@
     "session": "Session",
     "logoutHint": "Logs you out of your account"
   },
+  "profilePicture": {
+    "editButton": "Edit profile picture",
+    "editButtonHint": "Opens options to change your profile picture",
+    "tapToChange": "Tap to change",
+    "actionSheet": {
+      "title": "Change Profile Picture",
+      "takePhoto": "Take Photo",
+      "chooseFromLibrary": "Choose from Library",
+      "removePhoto": "Remove Photo"
+    },
+    "preview": {
+      "title": "Preview",
+      "validating": "Checking photo...",
+      "faceDetected": "Face detected",
+      "noFace": "No face detected",
+      "imageAlt": "Selected profile picture",
+      "save": "Save",
+      "saveHint": "Saves this photo as your profile picture",
+      "retry": "Choose Different Photo",
+      "retryHint": "Returns to select a different photo",
+      "tryAgain": "Try Different Photo",
+      "chooseDifferent": "Choose Different Photo"
+    }
+  },
+  "permissions": {
+    "camera": {
+      "title": "Camera Access Required",
+      "description": "To take a profile photo, we need access to your camera.",
+      "usage": {
+        "takePhoto": "• Take a photo for your profile",
+        "localProcessing": "• Face detection happens on your device only",
+        "noStorage": "• Photos are not stored without your consent"
+      },
+      "privacy": "Your photo stays on your phone until you save it. Face detection happens locally, not on our servers. Nothing leaves your device until you tap Save.",
+      "continue": "Continue",
+      "continueHint": "Requests camera permission from your device",
+      "skip": "Skip for now",
+      "skipHint": "Returns to the previous screen without requesting camera access"
+    },
+    "photoLibrary": {
+      "title": "Photo Library Access Required",
+      "description": "To choose a profile photo, we need access to your photo library.",
+      "usage": {
+        "selectPhoto": "• Select a photo from your library",
+        "localProcessing": "• Face detection happens on your device only",
+        "limitedAccess": "• You can grant access to specific photos only"
+      },
+      "privacy": "We never see your other photos. We only get the one you pick. Face detection happens on your phone, not our servers. Nothing leaves your device until you tap Save.",
+      "continue": "Continue",
+      "continueHint": "Requests photo library permission from your device",
+      "skip": "Skip for now",
+      "skipHint": "Returns to the previous screen without requesting photo library access"
+    },
+    "denied": {
+      "camera": {
+        "title": "Camera Access Required",
+        "description": "Camera access has been denied. To take a profile photo, please enable camera access in your device settings."
+      },
+      "photoLibrary": {
+        "title": "Photo Library Access Required",
+        "description": "Photo library access has been denied. To choose a profile photo, please enable photo access in your device settings."
+      },
+      "instructions": {
+        "ios": "Go to Settings > Privacy > [Permission] and enable access for this app.",
+        "android": "Go to Settings > Apps > [App Name] > Permissions and enable [Permission]."
+      },
+      "openSettings": "Open Settings",
+      "openSettingsHint": "Opens your device settings where you can enable permission",
+      "goBack": "Go Back",
+      "goBackHint": "Returns to the previous screen"
+    }
+  },
   "common": {
     "ok": "OK",
     "cancel": "Cancel",

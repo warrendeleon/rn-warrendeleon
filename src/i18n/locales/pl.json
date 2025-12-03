@@ -203,6 +203,78 @@
     "session": "Sesja",
     "logoutHint": "Wylogowuje z konta"
   },
+  "profilePicture": {
+    "editButton": "Edytuj zdjęcie profilowe",
+    "editButtonHint": "Otwiera opcje zmiany zdjęcia profilowego",
+    "tapToChange": "Dotknij, aby zmienić",
+    "actionSheet": {
+      "title": "Zmień zdjęcie profilowe",
+      "takePhoto": "Zrób zdjęcie",
+      "chooseFromLibrary": "Wybierz z biblioteki",
+      "removePhoto": "Usuń zdjęcie"
+    },
+    "preview": {
+      "title": "Podgląd",
+      "validating": "Sprawdzanie zdjęcia...",
+      "faceDetected": "Wykryto twarz",
+      "noFace": "Nie wykryto twarzy",
+      "imageAlt": "Wybrane zdjęcie profilowe",
+      "save": "Zapisz",
+      "saveHint": "Zapisuje to zdjęcie jako zdjęcie profilowe",
+      "retry": "Wybierz inne zdjęcie",
+      "retryHint": "Wróć, aby wybrać inne zdjęcie",
+      "tryAgain": "Spróbuj z innym zdjęciem",
+      "chooseDifferent": "Wybierz inne zdjęcie"
+    }
+  },
+  "permissions": {
+    "camera": {
+      "title": "Wymagany dostęp do aparatu",
+      "description": "Żeby zrobić zdjęcie profilowe, potrzebujemy dostępu do aparatu.",
+      "usage": {
+        "takePhoto": "• Zrób zdjęcie do profilu",
+        "localProcessing": "• Wykrywanie twarzy odbywa się tylko na Twoim urządzeniu",
+        "noStorage": "• Zdjęcia nie są zapisywane bez Twojej zgody"
+      },
+      "privacy": "Twoje zdjęcie zostaje na telefonie, dopóki go nie zapiszesz. Wykrywanie twarzy odbywa się lokalnie, nie na naszych serwerach. Nic nie opuszcza urządzenia, dopóki nie dotkniesz Zapisz.",
+      "continue": "Kontynuuj",
+      "continueHint": "Prosi o pozwolenie na dostęp do aparatu",
+      "skip": "Teraz nie",
+      "skipHint": "Wraca do poprzedniego ekranu bez proszenia o dostęp do aparatu"
+    },
+    "photoLibrary": {
+      "title": "Wymagany dostęp do biblioteki zdjęć",
+      "description": "Żeby wybrać zdjęcie profilowe, potrzebujemy dostępu do biblioteki zdjęć.",
+      "usage": {
+        "selectPhoto": "• Wybierz zdjęcie z biblioteki",
+        "localProcessing": "• Wykrywanie twarzy odbywa się tylko na Twoim urządzeniu",
+        "limitedAccess": "• Możesz dać dostęp tylko do wybranych zdjęć"
+      },
+      "privacy": "Nigdy nie widzimy Twoich innych zdjęć. Dostajemy tylko to, które wybierzesz. Wykrywanie twarzy odbywa się na telefonie, nie na naszych serwerach. Nic nie opuszcza urządzenia, dopóki nie dotkniesz Zapisz.",
+      "continue": "Kontynuuj",
+      "continueHint": "Prosi o pozwolenie na dostęp do biblioteki zdjęć",
+      "skip": "Teraz nie",
+      "skipHint": "Wraca do poprzedniego ekranu bez proszenia o dostęp do biblioteki zdjęć"
+    },
+    "denied": {
+      "camera": {
+        "title": "Wymagany dostęp do aparatu",
+        "description": "Dostęp do aparatu został odrzucony. Żeby zrobić zdjęcie profilowe, włącz dostęp do aparatu w ustawieniach urządzenia."
+      },
+      "photoLibrary": {
+        "title": "Wymagany dostęp do biblioteki zdjęć",
+        "description": "Dostęp do biblioteki zdjęć został odrzucony. Żeby wybrać zdjęcie profilowe, włącz dostęp do zdjęć w ustawieniach urządzenia."
+      },
+      "instructions": {
+        "ios": "Przejdź do Ustawienia > Prywatność > [Uprawnienie] i włącz dostęp dla tej aplikacji.",
+        "android": "Przejdź do Ustawienia > Aplikacje > [Nazwa Aplikacji] > Uprawnienia i włącz [Uprawnienie]."
+      },
+      "openSettings": "Otwórz Ustawienia",
+      "openSettingsHint": "Otwiera ustawienia urządzenia, gdzie możesz włączyć uprawnienie",
+      "goBack": "Wróć",
+      "goBackHint": "Wraca do poprzedniego ekranu"
+    }
+  },
   "common": {
     "ok": "OK",
     "cancel": "Anuluj",

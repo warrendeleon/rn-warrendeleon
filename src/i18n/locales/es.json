@@ -203,6 +203,78 @@
     "session": "Sesión",
     "logoutHint": "Cierra la sesión de tu cuenta"
   },
+  "profilePicture": {
+    "editButton": "Editar foto de perfil",
+    "editButtonHint": "Abre opciones para cambiar tu foto de perfil",
+    "tapToChange": "Toca para cambiar",
+    "actionSheet": {
+      "title": "Cambiar foto de perfil",
+      "takePhoto": "Tomar foto",
+      "chooseFromLibrary": "Elegir de la biblioteca",
+      "removePhoto": "Eliminar foto"
+    },
+    "preview": {
+      "title": "Vista previa",
+      "validating": "Comprobando foto...",
+      "faceDetected": "Rostro detectado",
+      "noFace": "No se detectó rostro",
+      "imageAlt": "Foto de perfil seleccionada",
+      "save": "Guardar",
+      "saveHint": "Guarda esta foto como tu foto de perfil",
+      "retry": "Elegir otra foto",
+      "retryHint": "Vuelve para seleccionar otra foto",
+      "tryAgain": "Probar con otra foto",
+      "chooseDifferent": "Elegir otra foto"
+    }
+  },
+  "permissions": {
+    "camera": {
+      "title": "Se necesita acceso a la cámara",
+      "description": "Para tomar una foto de perfil, necesitamos acceso a tu cámara.",
+      "usage": {
+        "takePhoto": "• Toma una foto para tu perfil",
+        "localProcessing": "• La detección facial ocurre solo en tu dispositivo",
+        "noStorage": "• Las fotos no se guardan sin tu consentimiento"
+      },
+      "privacy": "Tu foto se queda en tu móvil hasta que la guardes. La detección facial ocurre localmente, no en nuestros servidores. Nada sale de tu dispositivo hasta que toques Guardar.",
+      "continue": "Continuar",
+      "continueHint": "Solicita permiso de cámara a tu dispositivo",
+      "skip": "Ahora no",
+      "skipHint": "Vuelve a la pantalla anterior sin solicitar acceso a la cámara"
+    },
+    "photoLibrary": {
+      "title": "Se necesita acceso a la biblioteca de fotos",
+      "description": "Para elegir una foto de perfil, necesitamos acceso a tu biblioteca de fotos.",
+      "usage": {
+        "selectPhoto": "• Selecciona una foto de tu biblioteca",
+        "localProcessing": "• La detección facial ocurre solo en tu dispositivo",
+        "limitedAccess": "• Puedes dar acceso solo a fotos específicas"
+      },
+      "privacy": "Nunca vemos tus otras fotos. Solo obtenemos la que elijas. La detección facial ocurre en tu móvil, no en nuestros servidores. Nada sale de tu dispositivo hasta que toques Guardar.",
+      "continue": "Continuar",
+      "continueHint": "Solicita permiso de biblioteca de fotos a tu dispositivo",
+      "skip": "Ahora no",
+      "skipHint": "Vuelve a la pantalla anterior sin solicitar acceso a la biblioteca de fotos"
+    },
+    "denied": {
+      "camera": {
+        "title": "Se necesita acceso a la cámara",
+        "description": "El acceso a la cámara ha sido denegado. Para tomar una foto de perfil, activa el acceso a la cámara en los ajustes de tu dispositivo."
+      },
+      "photoLibrary": {
+        "title": "Se necesita acceso a la biblioteca de fotos",
+        "description": "El acceso a la biblioteca de fotos ha sido denegado. Para elegir una foto de perfil, activa el acceso a las fotos en los ajustes de tu dispositivo."
+      },
+      "instructions": {
+        "ios": "Ve a Ajustes > Privacidad > [Permiso] y activa el acceso para esta app.",
+        "android": "Ve a Ajustes > Apps > [Nombre de la App] > Permisos y activa [Permiso]."
+      },
+      "openSettings": "Abrir Ajustes",
+      "openSettingsHint": "Abre los ajustes de tu dispositivo donde puedes activar el permiso",
+      "goBack": "Volver",
+      "goBackHint": "Vuelve a la pantalla anterior"
+    }
+  },
   "common": {
     "ok": "Aceptar",
     "cancel": "Cancelar",

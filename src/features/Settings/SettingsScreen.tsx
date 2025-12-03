@@ -159,6 +159,7 @@ export const SettingsScreen: React.FC = () => {
             firstName={user.firstName}
             lastName={user.lastName}
             email={user.email}
+            profilePictureUri={user.profilePicture}
             onPress={handleEditAccount}
             groupVariant="single"
             testID="settings-user-card"

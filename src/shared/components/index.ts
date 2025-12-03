@@ -17,6 +17,7 @@ export * from './PhoneInput';
 export * from './PickerGroup';
 export * from './PickerItem';
 export * from './ProfileCard';
+export * from './ProfilePictureActionSheet';
 export * from './ProtectedRoute';
 export * from './SettingsGroup';
 export * from './SettingsItem';

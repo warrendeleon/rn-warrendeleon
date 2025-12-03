@@ -221,38 +221,41 @@ By implementing Supabase authentication and data layer:
 
 | ID                                                         | User Story                  | Status   | Story Points |
 | ---------------------------------------------------------- | --------------------------- | -------- | ------------ |
-| [US-033](../stories/US-033-email-password-registration.md) | Email/Password Registration | 📋 To Do | 8            |
+| [US-033](../stories/US-033-email-password-registration.md) | Email/Password Registration | ✅ Done  | 8            |
 | [US-034](../stories/US-034-linkedin-oauth-registration.md) | LinkedIn OAuth Registration | 📋 To Do | 5            |
 | [US-035](../stories/US-035-biometric-security-setup.md)    | Biometric Security Setup    | 📋 To Do | 4            |
 
 **Total Stories**: 3
 **Total Story Points**: 17
+**Completed**: 1/3 (8 story points)
 
 ---
 
 ## Tasks
 
-### US-033: Email/Password Registration (17 tasks)
+### US-033: Email/Password Registration (19 tasks) ✅ COMPLETE
 
-| ID                                                                 | Task                               | Status         | Effort | Priority |
-| ------------------------------------------------------------------ | ---------------------------------- | -------------- | ------ | -------- |
-| [TASK-187](../tasks/TASK-187-supabase-setup-security-config.md)    | Complete Supabase Setup + Security | ✅ Done        | 4h     | Critical |
-| [TASK-188](../tasks/TASK-188-linkedin-developer-app-setup.md)      | Create LinkedIn Developer App      | ✅ Done        | 1h     | Critical |
-| [TASK-189](../tasks/TASK-189-android-security-hardening.md)        | Android Security Hardening         | ✅ Done        | 1.5h   | High     |
-| [TASK-190](../tasks/TASK-190-ios-security-hardening.md)            | iOS Security Hardening             | ✅ Done        | 1h     | High     |
-| [TASK-191](../tasks/TASK-191-three-tier-storage-implementation.md) | 3-Tier Storage Implementation      | ✅ Done        | 3h     | Critical |
-| [TASK-192](../tasks/TASK-192-supabase-auth-rest-api-client.md)     | Supabase Auth REST API Client      | 📋 To Do       | 4h     | Critical |
-| [TASK-193](../tasks/TASK-193-certificate-pinning.md)               | Certificate Pinning (iOS)          | ✅ Done        | 2h     | Medium   |
-| [TASK-194](../tasks/TASK-194-response-validation-zod.md)           | Response Validation with Zod       | 📋 To Do       | 2h     | High     |
-| [TASK-195](../tasks/TASK-195-input-validation-yup.md)              | Input Validation with Yup          | 📋 To Do       | 2h     | High     |
-| [TASK-196](../tasks/TASK-196-redux-auth-slice.md)                  | Redux Auth Slice                   | 📋 To Do       | 3h     | Critical |
-| [TASK-197](../tasks/TASK-197-profile-picture-picker.md)            | Profile Picture Picker Component   | 📋 To Do       | 3h     | High     |
-| [TASK-198](../tasks/TASK-198-supabase-storage-api-client.md)       | Supabase Storage API Client        | 📋 To Do       | 2h     | High     |
-| [TASK-199](../tasks/TASK-199-registration-screen-ui.md)            | Registration Screen UI             | 📋 To Do       | 4h     | Critical |
-| [TASK-200](../tasks/TASK-200-email-verification-screen.md)         | Email Verification Screen          | ⏳ In Progress | 2h     | High     |
-| [TASK-201](../tasks/TASK-201-data-masking-logs.md)                 | Data Masking in Logs Utility       | 📋 To Do       | 1h     | High     |
-| [TASK-202](../tasks/TASK-202-registration-rntl-tests.md)           | Registration RNTL Tests            | 📋 To Do       | 3h     | High     |
-| [TASK-203](../tasks/TASK-203-registration-e2e-tests.md)            | Registration E2E Tests             | 📋 To Do       | 4h     | High     |
+| ID                                                                 | Task                               | Status  | Effort | Priority |
+| ------------------------------------------------------------------ | ---------------------------------- | ------- | ------ | -------- |
+| [TASK-187](../tasks/TASK-187-supabase-setup-security-config.md)    | Complete Supabase Setup + Security | ✅ Done | 4h     | Critical |
+| [TASK-188](../tasks/TASK-188-linkedin-developer-app-setup.md)      | Create LinkedIn Developer App      | ✅ Done | 1h     | Critical |
+| [TASK-189](../tasks/TASK-189-android-security-hardening.md)        | Android Security Hardening         | ✅ Done | 1.5h   | High     |
+| [TASK-190](../tasks/TASK-190-ios-security-hardening.md)            | iOS Security Hardening             | ✅ Done | 1h     | High     |
+| [TASK-191](../tasks/TASK-191-three-tier-storage-implementation.md) | 3-Tier Storage Implementation      | ✅ Done | 3h     | Critical |
+| [TASK-192](../tasks/TASK-192-supabase-auth-rest-api-client.md)     | Supabase Auth REST API Client      | ✅ Done | 4h     | Critical |
+| [TASK-193](../tasks/TASK-193-certificate-pinning.md)               | Certificate Pinning (iOS)          | ✅ Done | 2h     | Medium   |
+| [TASK-194](../tasks/TASK-194-response-validation-zod.md)           | Response Validation with Zod       | ✅ Done | 2h     | High     |
+| [TASK-195](../tasks/TASK-195-input-validation-yup.md)              | Input Validation with Yup          | ✅ Done | 2h     | High     |
+| [TASK-196](../tasks/TASK-196-redux-auth-slice.md)                  | Redux Auth Slice                   | ✅ Done | 3h     | Critical |
+| [TASK-197](../tasks/TASK-197-profile-picture-picker.md)            | Profile Picture Picker Component   | ✅ Done | 3h     | Medium   |
+| [TASK-198](../tasks/TASK-198-supabase-storage-api-client.md)       | Supabase Storage API Client        | ✅ Done | 2h     | Medium   |
+| [TASK-199](../tasks/TASK-199-registration-screen-ui.md)            | Registration Screen UI             | ✅ Done | 4h     | Critical |
+| [TASK-200](../tasks/TASK-200-email-verification-screen.md)         | Email Verification Screen          | ✅ Done | 2h     | High     |
+| [TASK-201](../tasks/TASK-201-data-masking-logs.md)                 | Data Masking in Logs Utility       | ✅ Done | 1h     | High     |
+| [TASK-202](../tasks/TASK-202-registration-rntl-tests.md)           | Registration RNTL Tests            | ✅ Done | 3h     | High     |
+| [TASK-203](../tasks/TASK-203-registration-e2e-tests.md)            | Registration E2E Tests             | ✅ Done | 4h     | High     |
+| [TASK-329](../tasks/TASK-329-expand-common-password-list.md)       | Expand Common Password List        | ✅ Done | 1.5h   | Medium   |
+| [TASK-330](../tasks/TASK-330-unicode-normalization-names.md)       | Unicode Normalization for Names    | ✅ Done | 1h     | Medium   |
 
 ### US-034: LinkedIn OAuth Registration (5 tasks)
 
@@ -273,8 +276,9 @@ By implementing Supabase authentication and data layer:
 | [TASK-211](../tasks/TASK-211-pin-setup-screen.md)               | 6-Digit PIN Setup Screen       | 📋 To Do | 2.5h   | High     |
 | [TASK-212](../tasks/TASK-212-biometric-setup-e2e-tests.md)      | Biometric Setup E2E Tests      | 📋 To Do | 2h     | Medium   |
 
-**Total Tasks**: 26
-**Total Effort**: 58.5 hours
+**Total Tasks**: 28
+**Total Effort**: 61 hours
+**Completed**: 19/28 (US-033 complete)
 
 ---
 
@@ -299,9 +303,11 @@ This epic is complete when:
 
 _Auto-tracked when status changes_
 
-| Date       | Status | Notes        |
-| ---------- | ------ | ------------ |
-| 2025-11-21 | To Do  | Epic created |
+| Date       | Status      | Notes                          |
+| ---------- | ----------- | ------------------------------ |
+| 2025-11-21 | To Do       | Epic created                   |
+| 2025-11-24 | In Progress | US-033 implementation started  |
+| 2025-12-08 | In Progress | US-033 completed (19/19 tasks) |
 
 ---
 
@@ -329,4 +335,4 @@ _Auto-tracked when status changes_
 
 ---
 
-**Last Updated**: 2025-11-21
+**Last Updated**: 2025-12-08
