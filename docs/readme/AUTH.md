@@ -387,19 +387,21 @@ sequenceDiagram
 
 **SecureStore (Keychain/Keystore):**
 
-- `ACCESS_TOKEN` - JWT access token
-- `REFRESH_TOKEN` - Refresh token
-- `USER_ID` - User identifier
-- `BIOMETRIC_PREFERENCE` - Biometric auth setting
+- `accessToken` - JWT access token
+- `refreshToken` - Refresh token
+- `userId` - User identifier
+- `biometricPreference` - Biometric auth setting
+- `hashedPIN` - Hashed PIN for app lock
+- `encryptionKey` - Encryption key for sensitive data
 
 **EncryptedStore (Encrypted AsyncStorage):**
 
-- `USER_EMAIL` - User's email address
-- `USER_FIRST_NAME` - First name
-- `USER_LAST_NAME` - Last name
-- `USER_PHONE_NUMBER` - Phone number
-- `AUTH_PROVIDER` - Authentication method (email/linkedin/magic_link)
-- `PROFILE_PICTURE_URL` - Avatar URL
+- `userEmail` - User's email address
+- `userFirstName` - First name
+- `userLastName` - Last name
+- `userPhoneNumber` - Phone number
+- `profilePictureURL` - Avatar URL
+- `authProvider` - Authentication method (email/linkedin/magic_link)
 
 ---
 
@@ -577,6 +579,31 @@ warrendeleon://reset-password?access_token=xxx
 4. **Token Refresh** - Automatic on 401 responses
 5. **Secure Logout** - Tokens invalidated on server + cleared locally
 6. **E2E Mock Detection** - Mock mode clearly indicated in development
+7. **Unicode Normalization** - Names validated against homograph attacks
+
+### Homograph Attack Prevention
+
+Name fields (firstName, lastName) are protected against [homograph attacks](https://en.wikipedia.org/wiki/IDN_homograph_attack) where attackers use visually identical Unicode characters to impersonate users.
+
+**Protection implemented via `noHomographs()` Yup validation:**
+
+| Check                  | Description                                       |
+| ---------------------- | ------------------------------------------------- |
+| Unicode Normalization  | Input normalized to NFC form                      |
+| Mixed Script Detection | Blocks Latin + Cyrillic/Greek/Arabic combinations |
+| Latin-Only Validation  | Only allows a-zA-Z, spaces, hyphens, apostrophes  |
+
+**Example attacks blocked:**
+
+- "Јohn" - Cyrillic J (U+0408) looks like Latin J
+- "Mаry" - Cyrillic а (U+0430) looks like Latin a
+- "Раypal" - Cyrillic Р and а used to spoof "Paypal"
+
+**Legitimate names allowed:**
+
+- O'Brien, Mary-Jane, de Leon (hyphens, apostrophes, spaces)
+
+See [SECURITY.md](./SECURITY.md#unicode-normalization--homograph-prevention----implemented) for implementation details.
 
 ---
 

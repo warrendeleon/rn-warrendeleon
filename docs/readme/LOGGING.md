@@ -95,7 +95,7 @@ Any field with these names gets masked, regardless of content:
 
 - `email`, `emailAddress`, `userEmail`, `contactEmail`
 - `phone`, `phoneNumber`, `mobile`, `mobileNumber`, `telephone`, `cell`, `cellPhone`
-- `address`, `streetAddress`, `street`, `addressLine1`, `addressLine2`, `fullAddress`
+- `address`, `streetAddress`, `street`, `addressLine1`, `addressLine2`, `fullAddress`, `homeAddress`, `billingAddress`, `shippingAddress`
 
 **Financial:**
 

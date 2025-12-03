@@ -138,7 +138,7 @@ Create `src/test-utils/msw/handlers.ts`:
 
 ```typescript
 import { http, HttpResponse } from 'msw';
-import { mockProfileEN, mockEducationEN, mockWorkXPEN } from '../fixtures';
+import { mockProfileEN, mockEducationEN, mockWorkXPEN } from './mockData';
 
 const BASE_URL =
   'https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/test-utils/fixtures/api';
@@ -156,7 +156,7 @@ export const handlers = [
   }),
 
   // Work experience endpoint
-  http.get(`${BASE_URL}/:lang/work-experience.json`, ({ params }) => {
+  http.get(`${BASE_URL}/:lang/workxp.json`, ({ params }) => {
     return HttpResponse.json(mockWorkXPEN, { status: 200 });
   }),
 ];
@@ -171,7 +171,7 @@ export const errorHandlers = [
     return HttpResponse.json({ message: 'Network error' }, { status: 500 });
   }),
 
-  http.get(`${BASE_URL}/:lang/work-experience.json`, () => {
+  http.get(`${BASE_URL}/:lang/workxp.json`, () => {
     return HttpResponse.json({ message: 'Network error' }, { status: 500 });
   }),
 ];

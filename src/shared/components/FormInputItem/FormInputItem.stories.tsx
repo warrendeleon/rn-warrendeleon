@@ -40,10 +40,23 @@ const meta: Meta<typeof FormInputItem> = {
       control: 'text',
       description: 'Error message to display',
     },
+    editable: {
+      control: 'boolean',
+      description: 'Whether input is editable',
+    },
     keyboardType: {
       control: 'select',
       options: ['default', 'email-address', 'phone-pad', 'numeric'],
       description: 'Keyboard type for input',
+    },
+    autoCapitalize: {
+      control: 'select',
+      options: ['none', 'sentences', 'words', 'characters'],
+      description: 'Auto-capitalisation behaviour',
+    },
+    autoCorrect: {
+      control: 'boolean',
+      description: 'Enable auto-correct',
     },
   },
   parameters: {

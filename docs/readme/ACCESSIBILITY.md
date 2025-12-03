@@ -343,31 +343,43 @@ accessibilityState={{
 
 ```typescript
 // Using React Native Testing Library
-import { render } from '@testing-library/react-native';
+import { renderWithProviders } from '@app/test-utils';
 
-describe('SettingsButton Accessibility', () => {
+describe('SettingsItem Accessibility', () => {
   it('has correct accessibility properties', () => {
-    const { getByRole } = render(
-      <SettingsButton label="Language" onPress={() => {}} />
+    const { getByRole, getByLabelText } = renderWithProviders(
+      <SettingsItem label="Language" endLabel="English" onPress={() => {}} />
     );
 
+    // Check role
     const button = getByRole('button');
+    expect(button).toBeTruthy();
 
-    expect(button).toHaveAccessibilityValue({ text: 'Language' });
-    expect(button).not.toHaveAccessibilityState({ disabled: true });
+    // Check combined accessibility label
+    expect(getByLabelText('Language, English')).toBeTruthy();
   });
 
   it('meets touch target requirements', () => {
-    const { getByTestId } = render(
-      <SettingsButton label="Theme" onPress={() => {}} testID="theme-btn" />
+    const { getByTestId } = renderWithProviders(
+      <SettingsItem label="Theme" onPress={() => {}} testID="theme-btn" />
     );
 
     const button = getByTestId('theme-btn');
-    const { width, height } = button.props.style;
 
     // iOS minimum is 44
-    expect(width).toBeGreaterThanOrEqual(44);
-    expect(height).toBeGreaterThanOrEqual(44);
+    expect(button.props.style.minHeight).toBeGreaterThanOrEqual(44);
+  });
+
+  it('has accessibility hint', () => {
+    const { getByA11yHint } = renderWithProviders(
+      <SettingsItem
+        label="Theme"
+        onPress={() => {}}
+        accessibilityHint="Opens theme settings"
+      />
+    );
+
+    expect(getByA11yHint('Opens theme settings')).toBeTruthy();
   });
 });
 ```
@@ -444,15 +456,24 @@ Ensure logical reading order:
 
 ### Announcements
 
+For dynamic content updates, use `accessibilityLiveRegion` rather than programmatic announcements:
+
 ```typescript
+// Preferred approach - uses accessibilityLiveRegion
+<View accessibilityLiveRegion="polite">
+  <Text>{statusMessage}</Text>
+</View>
+
+// Alternative for imperative announcements (if needed)
 import { AccessibilityInfo } from 'react-native';
 
-// Announce important changes
 const handleSave = async () => {
   await saveData();
   AccessibilityInfo.announceForAccessibility('Settings saved successfully');
 };
 ```
+
+**Note:** The project primarily uses `accessibilityLiveRegion="polite"` for dynamic announcements, as seen in the Toast component.
 
 ---
 

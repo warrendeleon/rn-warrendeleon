@@ -45,24 +45,24 @@ yarn ios:pods                   # Install iOS dependencies (cd ios && pod instal
 
 ```bash
 # Unit Tests
-yarn test                       # Run all unit tests
-yarn test:watch                 # Run tests in watch mode
-yarn test:coverage              # Run tests with coverage report
-yarn test path/to/file.rntl.tsx # Run specific test file
-yarn test -t "test name"        # Run specific test by name
-yarn test -u                    # Update snapshots
+yarn test                                               # Run all unit tests
+yarn test:watch                                         # Run tests in watch mode
+yarn test:coverage                                      # Run tests with coverage report
+yarn test src/features/MyFeature/__tests__/MyScreen.rntl.tsx  # Run specific test file
+yarn test -t "test name"                                # Run specific test by name
+yarn test -u                                            # Update snapshots
 
 # E2E Tests
 yarn detox:ios:build            # Build iOS app for E2E testing
 yarn detox:ios:test             # Run iOS E2E tests (full suite ~2.5 mins)
-yarn e2e:ios                    # Build + test iOS (convenience)
+yarn e2e:ios                    # Build + test + mock validation iOS (convenience)
 
 yarn detox:android:build        # Build Android app for E2E testing
 yarn detox:android:test         # Run Android E2E tests
-yarn e2e:android                # Build + test Android (convenience)
+yarn e2e:android                # Build + test + mock validation Android (convenience)
 
-# Run Single E2E Scenario (~16 seconds)
-yarn detox:ios:test 'src/features/Settings/__tests__/Settings.feature:10'
+# Run tests with tag filter
+yarn detox:ios:test -- --tags @smoke    # Run only @smoke tagged scenarios
 ```
 
 ---
@@ -96,8 +96,8 @@ rm -rf ios/Pods ios/Podfile.lock
 yarn ios:pods
 
 # Simulators
-yarn ios --simulator="iPhone 17 Pro"
-yarn ios --simulator="iPhone 14"
+yarn ios --simulator="iPhone 17 Pro"    # Default for Detox E2E tests
+yarn ios --simulator="iPhone 16"        # Alternative simulator
 
 # Reset Simulator
 xcrun simctl erase all
@@ -713,9 +713,10 @@ const apiUrl = Config.API_URL;
 ## Coverage Thresholds
 
 ```bash
-# Global: 85% (statements, functions, lines, branches 80%)
-# Business Logic: 100% (Redux store, shared components)
-# Excluded: Screens, navigation, config files
+# Global thresholds:
+#   60% statements, 50% branches, 45% functions, 55% lines
+# Business Logic: 100% (store/, config/)
+# Excluded: Screens (*Screen.tsx), navigation, config files
 ```
 
 ---

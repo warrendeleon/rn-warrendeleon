@@ -101,9 +101,9 @@ features/
   Settings/
     store/
       ├── __tests__/
-      │   ├── actions.test.ts
-      │   ├── reducer.test.ts
-      │   └── selectors.test.ts
+      │   ├── actions.rntl.ts
+      │   ├── reducer.rntl.ts
+      │   └── selectors.rntl.ts
       ├── index.ts        # Feature exports
       ├── actions.ts      # Action definitions
       ├── reducer.ts      # Slice and state

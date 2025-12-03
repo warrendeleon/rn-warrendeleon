@@ -115,7 +115,7 @@ graph LR
 
 **Step-by-step:**
 
-1. Create your component in `src/components/MyComponent/`
+1. Create your component in `src/shared/components/MyComponent/`
 2. Add a story file: `MyComponent.stories.tsx`
 3. Run `yarn storybook-generate`
 4. Run app (`yarn ios`) and toggle Storybook from dev menu
@@ -144,7 +144,7 @@ graph LR
 import type { StorybookConfig } from '@storybook/react-native';
 
 const main: StorybookConfig = {
-  stories: ['../src/components/**/*.stories.?(ts|tsx|js|jsx)'],
+  stories: ['../src/shared/components/**/*.stories.?(ts|tsx|js|jsx)'],
   addons: [
     '@storybook/addon-ondevice-controls',
     '@storybook/addon-ondevice-actions',
@@ -156,7 +156,7 @@ const main: StorybookConfig = {
 export default main;
 ```
 
-**Note:** Stories are located in `src/components/` alongside their components.
+**Note:** Stories are located in `src/shared/components/` alongside their components. A patch for `@gorhom/bottom-sheet` v5 is applied to ensure Fabric compatibility with the Controls addon.
 
 ### Preview Configuration
 
@@ -209,7 +209,7 @@ export default preview;
 ### Basic Story Structure
 
 ```typescript
-// src/components/MyComponent/MyComponent.stories.tsx
+// src/shared/components/MyComponent/MyComponent.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { MyComponent } from './MyComponent';
 
@@ -464,7 +464,7 @@ Access via the "Notes" tab in Storybook.
 ### 1. Co-locate Stories with Components
 
 ```
-src/components/MyComponent/
+src/shared/components/MyComponent/
 ├── MyComponent.tsx
 ├── MyComponent.stories.tsx    # Story file
 ├── index.ts
@@ -683,9 +683,10 @@ decorators: [
 
 **Solution:**
 
-1. Check `argTypes` are defined correctly
+1. Check `argTypes` are defined correctly in your story
 2. Ensure props match component interface
-3. Restart Storybook
+3. Restart Storybook (toggle off/on from dev menu)
+4. Clear Metro cache: `yarn start:reset`
 
 ### Background Not Changing
 

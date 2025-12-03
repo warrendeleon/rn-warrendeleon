@@ -6,8 +6,8 @@ Unit and integration testing with Jest and React Native Testing Library.
 
 | Metric          | Value |
 | --------------- | ----- |
-| **Test Suites** | 109   |
-| **Total Tests** | 1,691 |
+| **Test Suites** | 112   |
+| **Total Tests** | 1,872 |
 | **Snapshots**   | 1     |
 
 ### Test Distribution
@@ -478,40 +478,42 @@ it('handles errors gracefully', async () => {
 
 ### Global Thresholds
 
-- **85% minimum** for statements, functions, lines
-- **80% minimum** for branches
+- **60% minimum** for statements
+- **50% minimum** for branches
+- **45% minimum** for functions
+- **55% minimum** for lines
 
 ### Business Logic (100% Coverage Required)
 
 Must have 100% coverage:
 
-- Redux actions
-- Redux reducers
-- Redux selectors
-- Utility functions (`src/utils/`, `src/components/shared/`)
-- Custom hooks (`src/hooks/`)
-- Shared components (`src/components/`)
+- Redux actions, reducers, selectors (`src/**/store/**`)
+- Configuration files (`src/config/**`)
+
+### Shared Components
+
+Shared components at `src/shared/components/` have high coverage expectations but are not strictly enforced at 100% yet.
 
 ### Excluded from Coverage
 
-These files don't require test coverage:
+These files are excluded from coverage metrics (configured in `jest.config.cjs`):
 
-- Presentation components (`*Screen.tsx`)
+- Screen components (`*Screen.tsx`)
 - Navigation setup (`src/navigation/`)
-- Store configuration (`src/store/index.ts`)
+- Store configuration (`src/store/configureStore.ts`)
 - Barrel exports (`index.ts` files)
 - Type definitions (`*.d.ts`)
-- Config files (`src/config/`)
+- Test utilities (`src/test-utils/`)
+- Reactotron dev config (`src/config/reactotron.ts`)
 
 ### Per-Directory Thresholds
 
 ```javascript
-// jest.config.cjs
+// jest.config.cjs (actual values)
 coverageThreshold: {
-  global: { statements: 85, functions: 85, lines: 85, branches: 80 },
-  'src/features/**/store/': { statements: 100, functions: 100, lines: 100, branches: 100 },
-  'src/store/': { statements: 100, functions: 100, lines: 100, branches: 100 },
-  'src/components/': { statements: 100, functions: 100, lines: 100, branches: 100 },
+  global: { statements: 60, branches: 50, functions: 45, lines: 55 },
+  './src/**/store/**/*.ts': { statements: 100, branches: 100, functions: 100, lines: 100 },
+  './src/config/**/*.ts': { statements: 100, branches: 100, functions: 100, lines: 100 },
 }
 ```
 

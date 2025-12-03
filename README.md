@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/gluestack--ui-1.1.x-8B5CF6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/nativewind-4.x-38BDF8?style=for-the-badge&logo=tailwindcss" />
   <img src="https://img.shields.io/badge/storybook-10.x-FF4785?style=for-the-badge&logo=storybook" />
-  <img src="https://img.shields.io/badge/coverage-75%25-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/coverage-60%25+-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
 
@@ -29,7 +29,7 @@ A modern React Native application built with TypeScript, featuring a **feature-f
 - 📚 Storybook for isolated component development and documentation
 - 🧪 Comprehensive testing (Jest + React Native Testing Library + Detox E2E)
 - 📦 Redux Toolkit for state management
-- 🎯 60%+ test coverage (100% for Redux store and config)
+- 🎯 60%+ global test coverage (100% for Redux store and config)
 
 ---
 
@@ -157,13 +157,20 @@ warrendeleon/
 ├── docs/                  # Documentation
 ├── src/
 │   ├── app/              # App entry point
-│   ├── components/       # Shared components (with .stories.tsx files)
+│   ├── assets/           # Static assets (images, fonts)
+│   ├── config/           # App configuration
 │   ├── features/         # Feature modules (screens, components, tests)
-│   ├── navigation/       # Navigation setup
+│   ├── httpClients/      # API client setup
 │   ├── i18n/             # Internationalisation
+│   ├── navigation/       # Navigation setup
 │   ├── schemas/          # Zod validation schemas
+│   ├── shared/           # Shared code
+│   │   ├── components/   # Reusable UI components (with .stories.tsx)
+│   │   └── hooks/        # Shared hooks
 │   ├── store/            # Redux store
-│   └── test-utils/       # Testing utilities
+│   ├── test-utils/       # Testing utilities
+│   ├── types/            # TypeScript type definitions
+│   └── utils/            # Utility functions
 ├── ios/                  # iOS native code
 └── android/              # Android native code
 ```

@@ -58,14 +58,15 @@ warrendeleon/
 ├── src/
 │   ├── app/                   # App entry point
 │   ├── assets/                # Static assets (images, fonts)
-│   ├── components/            # Shared components
 │   ├── config/                # App configuration
 │   ├── features/              # Feature modules (12 features)
-│   ├── hooks/                 # Shared React hooks
 │   ├── httpClients/           # API clients (Supabase, GitHub)
 │   ├── i18n/                  # Internationalisation (5 languages)
 │   ├── navigation/            # Navigation setup
 │   ├── schemas/               # Zod validation schemas
+│   ├── shared/                # Shared code
+│   │   ├── components/        # Reusable UI components
+│   │   └── hooks/             # Shared React hooks
 │   ├── store/                 # Redux store configuration
 │   ├── test-utils/            # Testing utilities
 │   ├── types/                 # TypeScript type declarations
@@ -186,7 +187,7 @@ graph LR
     A[Components] --> B[Shared]
     A --> C[Feature-Specific]
 
-    B --> B1[src/components/]
+    B --> B1[src/shared/components/]
     B --> B2[Reusable Across App]
     B --> B3[SettingsItem, Toast, UserCard...]
 
@@ -197,26 +198,35 @@ graph LR
 
 ### Shared Components
 
-Located in `src/components/`, these are reusable across the entire app:
+Located in `src/shared/components/`, these are reusable across the entire app:
 
 ```
-components/
+shared/components/
+├── AlertBox/                 # Alert message display
+├── AuthScreenWrapper/        # Auth screen layout wrapper
 ├── ButtonGroup/              # Grouped button container
+├── ButtonGroupDivider/       # Divider for button groups
 ├── ConfirmDialog/            # Confirmation modal
 ├── CountryCodeSelector/      # Phone country picker
+├── DetailListGroup/          # Grouped detail list
 ├── EmailInput/               # Email input with validation
 ├── ErrorBoundary/            # Error boundary wrapper
 ├── FormInputGroup/           # Form field grouping
+├── FormInputItem/            # Form input item
 ├── HeaderBackButton/         # Navigation back button
+├── Logo/                     # App logo component
 ├── PasswordInput/            # Password input with visibility toggle
 ├── PasswordRequirements/     # Password strength indicator
 ├── PhoneInput/               # International phone input
 ├── PickerGroup/              # Selection list container
 ├── PickerItem/               # Selection list item
+├── ProfileCard/              # User profile card
+├── ProtectedRoute/           # Auth-protected route wrapper
 ├── SettingsGroup/            # Settings section container
 ├── SettingsItem/             # Settings list item with chevron
+├── TestErrorButton/          # Dev button for testing errors
 ├── Toast/                    # Toast notification system
-├── UserCard/                 # User profile card
+├── UserCard/                 # User profile card (legacy)
 ├── shared/                   # Shared utilities
 │   ├── types.ts              # GroupVariant type
 │   └── index.ts
@@ -226,7 +236,7 @@ components/
 **Example:**
 
 ```typescript
-// src/components/SettingsItem/SettingsItem.tsx
+// src/shared/components/SettingsItem/SettingsItem.tsx
 interface SettingsItemProps {
   label: string;
   onPress: () => void;
@@ -251,7 +261,7 @@ export const SettingsItem: React.FC<SettingsItemProps> = ({
 - Generic and reusable
 - No feature-specific logic
 - Well-tested (100% coverage required)
-- Exported via `src/components/index.ts`
+- Exported via `src/shared/components/index.ts`
 
 ### Feature-Specific Components
 
@@ -631,13 +641,13 @@ src/features/Settings/store/
 **Example:**
 
 ```typescript
-// components/shared/index.ts
+// shared/components/shared/index.ts
 export type { GroupVariant } from './types';
 export { groupVariantRadius } from './constants';
 export { getButtonGroupVariant } from './utils';
 
 // Usage
-import { GroupVariant, getButtonGroupVariant } from '@app/components/shared';
+import { GroupVariant, getButtonGroupVariant } from '@app/shared/components/shared';
 ```
 
 ---
@@ -848,7 +858,7 @@ import { settingsActions } from '@app/features/Settings/store/actions';
    - Barrel exports (`index.ts`) creating circular references
 
 3. Fix:
-   - Extract shared code to `src/components/` or `src/utils/`
+   - Extract shared code to `src/shared/components/` or `src/utils/`
    - Use lazy imports with `React.lazy()` for screens
    - Avoid re-exporting everything in barrel files
 
@@ -882,7 +892,7 @@ import { settingsActions } from '@app/features/Settings/store/actions';
 **Solution:**
 
 1. **Extract Shared Components:**
-   - Move reusable components to `src/components/`
+   - Move reusable components to `src/shared/components/`
 
 2. **Split Large Features:**
 

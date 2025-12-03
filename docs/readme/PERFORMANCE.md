@@ -111,7 +111,31 @@ npx react-native bundle \
 
 ## List Rendering
 
-### FlatList Optimisation
+### Current Implementation
+
+The project currently uses ScrollView with memoised items for smaller lists. For larger datasets, FlatList optimisation patterns should be applied.
+
+### ScrollView with Memoisation (Current Pattern)
+
+```typescript
+import { ScrollView } from 'react-native';
+
+const OptimisedList = ({ items }) => (
+  <ScrollView>
+    {items.map(item => (
+      <MemoizedListItem key={item.id} item={item} />
+    ))}
+  </ScrollView>
+);
+
+const MemoizedListItem = React.memo(({ item }) => (
+  <DetailListGroup item={item} />
+));
+```
+
+### FlatList Optimisation (For Large Lists)
+
+When dealing with large datasets (50+ items), use FlatList with these optimisation props:
 
 ```typescript
 import { FlatList } from 'react-native';
@@ -326,7 +350,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 // Better performance than JS-based stack
 ```
 
-### Lazy Loading Screens
+### Lazy Loading Screens (Future Optimisation)
+
+For apps with many heavy screens, consider lazy loading:
 
 ```typescript
 // Lazy load heavy screens
@@ -338,6 +364,8 @@ const HeavyScreen = React.lazy(() => import('./HeavyScreen'));
   component={HeavyScreen}
 />
 ```
+
+**Note:** This project currently uses static imports for all screens. Implement lazy loading when screen count grows significantly or startup time becomes an issue.
 
 ### Optimise Screen Transitions
 
@@ -414,8 +442,23 @@ import { SunIcon, MoonIcon } from '@gluestack-ui/themed';
 
 #### 3. Remove Console Logs
 
+The project uses a custom logger utility that automatically suppresses output in production:
+
+```typescript
+// Use the logger utility instead of console.log
+import { logDebug, logError, logWarning } from '@app/utils/logger';
+
+// Development: logs with [DEV] prefix
+// Production: silently ignored (no output)
+logDebug('User action', { action: 'button_click' });
+```
+
+**Note:** Direct `console.*` calls are blocked by ESLint. See the [Logging Guide](./LOGGING.md) for details.
+
+For additional production stripping, you can add babel-plugin-transform-remove-console:
+
 ```javascript
-// babel.config.js
+// babel.config.js (optional additional stripping)
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
   env: {
@@ -570,19 +613,27 @@ useEffect(() => {
 
 ### Image Optimisation
 
-```typescript
-import FastImage from 'react-native-fast-image';
+Images are handled via GlueStack UI components:
 
-// Cached images with memory management
-<FastImage
-  source={{
-    uri: imageUrl,
-    priority: FastImage.priority.normal,
-    cache: FastImage.cacheControl.immutable,
-  }}
-  resizeMode={FastImage.resizeMode.cover}
+```typescript
+import { Avatar, AvatarImage } from '@gluestack-ui/themed';
+
+// Use Avatar for profile images
+<Avatar size="lg">
+  <AvatarImage source={{ uri: imageUrl }} />
+</Avatar>
+
+// For other images, use React Native Image with caching
+import { Image } from 'react-native';
+
+<Image
+  source={{ uri: imageUrl }}
+  style={{ width: 100, height: 100 }}
+  resizeMode="cover"
 />
 ```
+
+**Note:** For apps with heavy image requirements, consider adding `react-native-fast-image` for enhanced caching capabilities.
 
 ### Avoid Memory Leaks
 

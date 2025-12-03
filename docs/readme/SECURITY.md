@@ -55,6 +55,23 @@ graph TD
 | Injection Attacks   | Medium | Input validation           |
 | Insecure Storage    | High   | Keychain/Keystore          |
 
+### Implementation Status
+
+| Feature                   | Android | iOS | Notes                                       |
+| ------------------------- | ------- | --- | ------------------------------------------- |
+| Secure Token Storage      | ✅      | ✅  | Keychain/Keystore via react-native-keychain |
+| Encrypted PII Storage     | ✅      | ✅  | AES-256 via react-native-encrypted-storage  |
+| HTTPS Enforcement         | ✅      | ✅  | network_security_config / ATS               |
+| Certificate Pinning       | ✅      | ✅  | network_security_config / TrustKit          |
+| ProGuard/Code Obfuscation | ✅      | N/A | Android release builds                      |
+| Input Validation          | ✅      | ✅  | Yup schemas with homograph prevention       |
+| PII Masking in Logs       | ✅      | ✅  | maskSensitiveData utility                   |
+| Token Refresh             | ✅      | ✅  | Automatic 401 interceptor                   |
+| WebView Security          | ✅      | ✅  | Domain whitelist + HTTPS-only enforcement   |
+| Deep Link Validation      | ✅      | ✅  | URL scheme + callback type + route restrict |
+| Root/Jailbreak Detection  | ❌      | ❌  | Planned (TASK-248)                          |
+| Biometric Login           | ❌      | ❌  | Infrastructure only                         |
+
 ---
 
 ## Secure Storage
@@ -243,11 +260,16 @@ const API_URL = 'https://api.example.com';
 const API_URL = 'http://api.example.com';
 ```
 
-### Certificate Pinning - ✅ **Implemented for Android**
+### Certificate Pinning & HTTPS Enforcement - ✅ **Implemented (Both Platforms)**
 
-Prevent man-in-the-middle attacks with certificate pinning.
+| Platform | Certificate Pinning | HTTPS Enforcement | Implementation                |
+| -------- | ------------------- | ----------------- | ----------------------------- |
+| Android  | ✅ Implemented      | ✅ Implemented    | network_security_config.xml   |
+| iOS      | ✅ Implemented      | ✅ Via ATS        | TrustKit in AppDelegate.swift |
 
-#### Android Network Security Configuration
+Both platforms use the **same certificate pins** for Supabase, with primary and backup pins for resilience.
+
+#### Android - Network Security Config
 
 **File**: `android/app/src/main/res/xml/network_security_config.xml`
 
@@ -264,8 +286,10 @@ Prevent man-in-the-middle attacks with certificate pinning.
     <domain-config>
         <domain includeSubdomains="true">supabase.co</domain>
         <pin-set expiration="2026-02-02">
-            <!-- Real Supabase certificate pin -->
+            <!-- Primary: Leaf certificate -->
             <pin digest="SHA-256">PzfKSv758ttsdJwUCkGhW/oxG9Wk1Y4N+NMkB5I7RXc=</pin>
+            <!-- Backup: Intermediate CA (Google Trust Services WE1) -->
+            <pin digest="SHA-256">kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4=</pin>
         </pin-set>
     </domain-config>
 
@@ -277,14 +301,68 @@ Prevent man-in-the-middle attacks with certificate pinning.
 </network-security-config>
 ```
 
-**Benefits**:
+#### iOS - TrustKit
 
-- **HTTPS Enforcement**: All HTTP requests blocked automatically
-- **MITM Protection**: App only accepts specific Supabase certificate
-- **Development-Friendly**: Localhost exceptions for Metro bundler
+**Files**: `ios/Podfile` + `ios/warrendeleon/AppDelegate.swift`
 
-**⚠️ Certificate Maintenance**:
-Current certificate expires **Feb 2, 2026**. Extract new pin before expiration:
+```ruby
+# Podfile
+pod 'TrustKit', '~> 3.0'
+```
+
+```swift
+// AppDelegate.swift
+import TrustKit
+
+func application(_ application: UIApplication, didFinishLaunchingWithOptions...) -> Bool {
+    // Skip TrustKit in Detox mode - SSL pinning interferes with E2E tests
+    if !isRunningUnderDetox {
+        let trustKitConfig: [String: Any] = [
+            kTSKSwizzleNetworkDelegates: true,
+            kTSKPinnedDomains: [
+                "rgsvcwaxzfzqcvtyfcwk.supabase.co": [
+                    kTSKIncludeSubdomains: true,
+                    kTSKEnforcePinning: true,
+                    kTSKPublicKeyHashes: [
+                        "PzfKSv758ttsdJwUCkGhW/oxG9Wk1Y4N+NMkB5I7RXc=",  // Primary (leaf)
+                        "kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4="   // Backup (intermediate)
+                    ]
+                ]
+            ]
+        ]
+        TrustKit.initSharedInstance(withConfiguration: trustKitConfig)
+    }
+    // ...
+}
+```
+
+**Key Features**:
+
+- **kTSKSwizzleNetworkDelegates**: Automatically intercepts all URLSession requests
+- **kTSKEnforcePinning**: Fails connections if pins don't match
+- **Detox bypass**: Disabled during E2E tests to allow Detox websocket communication
+
+#### iOS - ATS (Additional Layer)
+
+**File**: `ios/warrendeleon/Info.plist`
+
+ATS provides an additional layer of HTTPS enforcement:
+
+```xml
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <false/>
+    <key>NSAllowsLocalNetworking</key>
+    <true/>
+</dict>
+```
+
+#### Certificate Maintenance
+
+**⚠️ Current certificate expires: Feb 2, 2026**
+
+Extract new pin before expiration:
 
 ```bash
 openssl s_client -servername <your-project>.supabase.co -connect <your-project>.supabase.co:443 </dev/null 2>/dev/null \
@@ -294,22 +372,10 @@ openssl s_client -servername <your-project>.supabase.co -connect <your-project>.
   | openssl enc -base64
 ```
 
-#### iOS Certificate Pinning (Future)
+**Update locations when rotating pins:**
 
-For iOS, use libraries like `react-native-ssl-pinning`:
-
-```typescript
-import { fetch } from 'react-native-ssl-pinning';
-
-const pinnedFetch = async (url: string, options: any) => {
-  return fetch(url, {
-    ...options,
-    sslPinning: {
-      certs: ['cert1', 'cert2'], // Certificate names in assets
-    },
-  });
-};
-```
+1. `android/app/src/main/res/xml/network_security_config.xml`
+2. `ios/warrendeleon/AppDelegate.swift`
 
 ### Request Security Headers
 
@@ -600,13 +666,20 @@ buildTypes {
 - Use app attestation services
 - Detect rooted/jailbroken devices
 
+**Status: ❌ Not Implemented**
+
+Root/jailbreak detection is planned but not yet implemented. When implemented:
+
 ```typescript
+// Future implementation with jail-monkey
 import JailMonkey from 'jail-monkey';
 
 if (JailMonkey.isJailBroken()) {
   // Warn user or restrict functionality
 }
 ```
+
+See [TASK-248](../planning/tasks/TASK-248-root-detection-service.md) for implementation plan.
 
 ---
 
@@ -632,6 +705,98 @@ const sanitiseInput = (input: string): string => {
   return input.replace(/[<>]/g, '');
 };
 ```
+
+### Unicode Normalization & Homograph Prevention - ✅ **Implemented**
+
+Prevent homograph attacks where attackers use Unicode lookalike characters (e.g., Cyrillic "а" looks identical to Latin "a") to impersonate legitimate users.
+
+**Location**: `src/features/Auth/validation/utils/unicodeUtils.ts`
+
+#### What It Protects Against
+
+| Attack Type          | Example                     | Risk               |
+| -------------------- | --------------------------- | ------------------ |
+| Mixed Scripts        | "Јohn" (Cyrillic J + Latin) | User impersonation |
+| Lookalike Characters | "Mаry" (Cyrillic а)         | Identity spoofing  |
+| Visual Deception     | "Раypal" (Cyrillic Р, а)    | Phishing attempts  |
+
+#### How It Works
+
+```typescript
+import {
+  containsMixedScripts,
+  normalizeAndValidate,
+} from '@app/features/Auth/validation/utils/unicodeUtils';
+
+// 1. Unicode Normalization (NFC form)
+// Ensures consistent character representation
+const { normalized, isValid } = normalizeAndValidate(name);
+
+// 2. Mixed Script Detection
+// Detects Latin + Cyrillic/Greek/Arabic combinations
+if (containsMixedScripts(name)) {
+  // Block: potential homograph attack
+}
+
+// 3. Latin-Only Validation for Names
+// Only allows: a-zA-Z, spaces, hyphens, apostrophes
+if (!isValid) {
+  // Block: contains non-Latin characters
+}
+```
+
+#### Yup Schema Integration
+
+The `noHomographs()` custom Yup method is applied to name fields:
+
+```typescript
+import '@app/features/Auth/validation/customRules';
+
+const schema = yup.object({
+  firstName: yup
+    .string()
+    .noHomographs('First name contains invalid characters')
+    .matches(/^[a-zA-Z\s'-]+$/, 'Invalid characters'),
+  lastName: yup
+    .string()
+    .noHomographs('Last name contains invalid characters')
+    .matches(/^[a-zA-Z\s'-]+$/, 'Invalid characters'),
+});
+```
+
+#### Detected Lookalike Characters
+
+Common Cyrillic characters that look identical to Latin:
+
+| Cyrillic | Latin | Unicode |
+| -------- | ----- | ------- |
+| а        | a     | U+0430  |
+| е        | e     | U+0435  |
+| о        | o     | U+043E  |
+| р        | p     | U+0440  |
+| с        | c     | U+0441  |
+| у        | y     | U+0443  |
+| х        | x     | U+0445  |
+| А        | A     | U+0410  |
+| В        | B     | U+0412  |
+| Е        | E     | U+0415  |
+| К        | K     | U+041A  |
+| М        | M     | U+041C  |
+| Н        | H     | U+041D  |
+| О        | O     | U+041E  |
+| Р        | P     | U+0420  |
+| С        | C     | U+0421  |
+| Т        | T     | U+0422  |
+| Х        | X     | U+0425  |
+
+#### User-Friendly Error Messages
+
+Error messages don't reveal attack details to prevent information leakage:
+
+- Mixed scripts: "Name cannot contain mixed character sets"
+- Invalid characters: "First name contains invalid characters"
+
+**Note**: Legitimate names with hyphens (Mary-Jane), apostrophes (O'Brien), and spaces (Mary Jane) are allowed.
 
 ### Type Safety
 
@@ -727,40 +892,41 @@ const handleDeepLink = (url: string) => {
 
 ### Authentication
 
-- [ ] Tokens stored in Keychain/Keystore
-- [ ] Token refresh implemented
-- [ ] Auto-logout on inactivity
-- [ ] Biometric option available
-- [ ] Secure password requirements
+- [x] Tokens stored in Keychain/Keystore (SecureStore using react-native-keychain)
+- [x] Token refresh implemented (automatic 401 interceptor)
+- [ ] Auto-logout on inactivity (not implemented)
+- [ ] Biometric option available (infrastructure only, not in login flow)
+- [x] Secure password requirements (8+ chars, uppercase, lowercase, number, symbol)
 
 ### Data Storage
 
-- [ ] No sensitive data in AsyncStorage
-- [ ] Encryption for sensitive local data
-- [ ] Secure key management
-- [ ] Data cleared on logout
+- [x] No sensitive data in AsyncStorage (using EncryptedStore for PII)
+- [x] Encryption for sensitive local data (AES-256 via react-native-encrypted-storage)
+- [x] Secure key management (Keychain/Keystore)
+- [x] Data cleared on logout (SecureStore.clear() + EncryptedStore.clear())
 
 ### Network
 
-- [ ] HTTPS for all requests
-- [ ] Certificate pinning implemented
-- [ ] Request timeout configured
-- [ ] Response validation
+- [x] HTTPS for all requests (ATS on iOS, network_security_config on Android)
+- [x] Certificate pinning implemented (Android: network_security_config, iOS: TrustKit)
+- [x] Request timeout configured (10 seconds in SupabaseAuthClient)
+- [x] Response validation (Zod schemas for all API responses)
 
 ### Code Security
 
-- [ ] No hardcoded secrets
-- [ ] Environment variables for config
-- [ ] ProGuard enabled (Android)
-- [ ] Input validation on all forms
-- [ ] Sensitive data masked in logs
+- [x] No hardcoded secrets (react-native-config for environment variables)
+- [x] Environment variables for config (SUPABASE_URL, SUPABASE_ANON_KEY)
+- [x] ProGuard enabled (Android release builds)
+- [x] Input validation on all forms (Yup schemas)
+- [x] Sensitive data masked in logs (maskSensitiveData utility)
+- [x] Unicode normalization for names (homograph prevention)
 
 ### Platform Security
 
-- [ ] Minimum permissions requested
-- [ ] Deep links validated
-- [ ] WebView secured (if used)
-- [ ] Root/jailbreak detection (if needed)
+- [x] Minimum permissions requested (only location when needed)
+- [x] Deep links validated (URL scheme + auth callback type + route restriction)
+- [x] WebView secured (domain whitelist + HTTPS-only via urlValidator.ts)
+- [ ] Root/jailbreak detection (not implemented - see TASK-248)
 
 ---
 

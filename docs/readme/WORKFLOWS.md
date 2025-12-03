@@ -91,13 +91,48 @@ Update `src/i18n/locales/en.json`:
 }
 ```
 
-Update `src/i18n/locales/es.json`:
+Update all other language files (`src/i18n/locales/es.json`, `ca.json`, `pl.json`, `tl.json`):
+
+**Spanish** (`es.json`):
 
 ```json
 {
   "myFeature": {
     "title": "Mi Función",
     "welcome": "Bienvenido a Mi Función"
+  }
+}
+```
+
+**Catalan** (`ca.json`):
+
+```json
+{
+  "myFeature": {
+    "title": "La meva funció",
+    "welcome": "Benvingut a la meva funció"
+  }
+}
+```
+
+**Polish** (`pl.json`):
+
+```json
+{
+  "myFeature": {
+    "title": "Moja funkcja",
+    "welcome": "Witamy w mojej funkcji"
+  }
+}
+```
+
+**Filipino** (`tl.json`):
+
+```json
+{
+  "myFeature": {
+    "title": "Aking Feature",
+    "welcome": "Maligayang pagdating sa Aking Feature"
   }
 }
 ```
@@ -707,10 +742,17 @@ Check screenshots in `artifacts/` directory.
 
 ### Step 4: Keep App Running
 
+To keep the app running after a test for inspection, modify the Detox configuration or run tests interactively:
+
 ```bash
-# Keep app running after test to inspect state
-yarn detox:ios:test --cleanup false 'path/to/test.feature:10'
+# Run a specific scenario for debugging
+yarn detox:ios:test 'path/to/test.feature:10'
+
+# Then manually inspect the app state in the simulator
+# The simulator remains open after the test completes
 ```
+
+**Note:** The `--cleanup` flag is a Detox CLI option, not available through the cucumber-js wrapper. For persistent debugging, run the app separately with `yarn ios` and manually reproduce the test steps.
 
 ### Step 5: Verify Element Selectors
 

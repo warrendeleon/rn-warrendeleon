@@ -718,7 +718,7 @@ code --install-extension ms-vscode.vscode-typescript-next
 
    ```properties
    # android/gradle.properties
-   org.gradle.jvmargs=-Xmx4096m
+   org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m
    ```
 
 3. **Use Build Cache** (enabled by default)

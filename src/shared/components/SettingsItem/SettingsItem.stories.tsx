@@ -17,7 +17,7 @@ const meta: Meta<typeof SettingsItem> = {
     },
     startIconBgColor: {
       control: 'color',
-      description: 'Background color for start icon',
+      description: 'Background colour for start icon',
     },
     groupVariant: {
       control: 'select',
@@ -27,6 +27,15 @@ const meta: Meta<typeof SettingsItem> = {
     showChevron: {
       control: 'boolean',
       description: 'Show chevron icon on the right',
+    },
+    labelFontWeight: {
+      control: 'select',
+      options: ['$normal', '$medium', '$semibold', '$bold'],
+      description: 'Label font weight',
+    },
+    accessibilityHint: {
+      control: 'text',
+      description: 'Accessibility hint for screen readers',
     },
   },
   parameters: {

@@ -1238,59 +1238,60 @@ yarn detox:android:build
 
 **Solution**: Disable TrustKit for Detox test builds by checking for the Detox framework at runtime.
 
-**Step 1: Modify AppDelegate.mm**
+**Step 1: Modify AppDelegate.swift**
 
-Add a helper function to detect if Detox is present:
+Add a computed property to detect if Detox is present:
 
-```objectivec
-// AppDelegate.mm
+```swift
+// AppDelegate.swift
 
-// Add at the top of the file, after imports
-static BOOL isDetoxRunning(void) {
-  // Check if Detox framework is loaded (only present during E2E tests)
-  return NSClassFromString(@"Detox") != nil;
-}
-```
+import TrustKit
 
-**Step 2: Conditionally Skip TrustKit Initialization**
+@main
+class AppDelegate: RCTAppDelegate {
 
-In your `application:didFinishLaunchingWithOptions:` method:
-
-```objectivec
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  self.moduleName = @"warrendeleon";
-  self.initialProps = @{};
-
-  // Skip TrustKit during Detox E2E tests
-  // TrustKit's SSL pinning blocks Metro bundler connections
-  if (!isDetoxRunning()) {
-    [self setupTrustKit];
+  // Detox detection: Check if Detox framework is loaded
+  private var isRunningUnderDetox: Bool {
+    return NSClassFromString("Detox") != nil
   }
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+    self.moduleName = "warrendeleon"
+    self.initialProps = [:]
+
+    // Skip TrustKit during Detox E2E tests
+    // TrustKit's SSL pinning blocks Metro bundler connections
+    if !isRunningUnderDetox {
+      setupTrustKit()
+    }
+
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
 }
 ```
 
-**Step 3: Move TrustKit Setup to Separate Method**
+**Step 2: TrustKit Setup Method**
 
-```objectivec
-- (void)setupTrustKit {
-  NSDictionary *trustKitConfig = @{
-    kTSKSwizzleNetworkDelegates: @YES,
-    kTSKPinnedDomains: @{
-      @"your-api-domain.com": @{
-        kTSKIncludeSubdomains: @YES,
-        kTSKEnforcePinning: @YES,
-        kTSKPublicKeyHashes: @[
-          @"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-          @"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB="
-        ],
-      },
-    },
-  };
+```swift
+private func setupTrustKit() {
+  let trustKitConfig: [String: Any] = [
+    kTSKSwizzleNetworkDelegates: true,
+    kTSKPinnedDomains: [
+      "rgsvcwaxzfzqcvtyfcwk.supabase.co": [
+        kTSKIncludeSubdomains: true,
+        kTSKEnforcePinning: true,
+        kTSKPublicKeyHashes: [
+          "PzfKSv758ttsdJwUCkGhW/oxG9Wk1Y4N+NMkB5I7RXc=",  // Primary (leaf)
+          "kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4="   // Backup (intermediate)
+        ]
+      ]
+    ]
+  ]
 
-  [TrustKit initSharedInstanceWithConfiguration:trustKitConfig];
+  TrustKit.initSharedInstance(withConfiguration: trustKitConfig)
 }
 ```
 
@@ -1311,27 +1312,29 @@ In your `application:didFinishLaunchingWithOptions:` method:
 
 **Debugging TrustKit Issues**:
 
-```objectivec
+```swift
 // Add verbose logging to diagnose TrustKit issues
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  NSLog(@"Detox running: %@", isDetoxRunning() ? @"YES" : @"NO");
+override func application(
+  _ application: UIApplication,
+  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+) -> Bool {
+  print("Detox running: \(isRunningUnderDetox)")
 
-  if (!isDetoxRunning()) {
-    NSLog(@"Initializing TrustKit...");
-    [self setupTrustKit];
+  if !isRunningUnderDetox {
+    print("Initializing TrustKit...")
+    setupTrustKit()
   } else {
-    NSLog(@"Skipping TrustKit for Detox E2E tests");
+    print("Skipping TrustKit for Detox E2E tests")
   }
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  return super.application(application, didFinishLaunchingWithOptions: launchOptions)
 }
 ```
 
 **Alternative Solutions** (if you can't modify TrustKit initialization):
 
 1. **Use a separate build configuration**: Create a "DetoxDebug" scheme that doesn't include TrustKit
-2. **Preprocessor macro**: Use `#ifdef DEBUG` with an additional E2E flag
+2. **Compiler flag**: Use `#if DEBUG` with an additional E2E check
 3. **Environment variable**: Check for an environment variable passed via Detox launch args
 
 **Related Issues**:

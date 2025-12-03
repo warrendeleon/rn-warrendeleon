@@ -54,6 +54,19 @@ const meta: Meta<typeof PhoneInput> = {
       control: 'boolean',
       description: 'Whether country selector is disabled',
     },
+    returnKeyType: {
+      control: 'select',
+      options: ['done', 'go', 'next', 'search', 'send'],
+      description: 'Keyboard return key type',
+    },
+    accessibilityLabel: {
+      control: 'text',
+      description: 'Accessibility label for screen readers',
+    },
+    accessibilityHint: {
+      control: 'text',
+      description: 'Accessibility hint for screen readers',
+    },
   },
   parameters: {
     notes: `
