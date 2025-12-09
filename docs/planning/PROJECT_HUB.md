@@ -1,17 +1,19 @@
 # React Native Portfolio App - Planning Hub
 
-**Progress**: 59% (211/359 tasks) | **Remaining**: 148 tasks
+**Progress**: 53% (211/397 tasks) | **Remaining**: 186 tasks
 
-**Total Tasks**: 359 tasks (TASK-001 through TASK-371)
+**Total Tasks**: 397 tasks (TASK-001 through TASK-397)
 
 ---
 
-## ✅ Tasks Status (All 359 Tasks)
+## ✅ Tasks Status (All 397 Tasks)
 
 **Status Breakdown**:
 
 - **Original App Tasks**: TASK-001 through TASK-186 (186 tasks) - **183 done, 3 remaining**
 - **Supabase Backend Integration**: TASK-187 through TASK-371 (185 tasks) - **28 done, 157 remaining**
+- **Observability & Logging**: TASK-372 through TASK-382 (11 tasks) - **0 done, 11 remaining**
+- **Product Analytics & Consent**: TASK-383 through TASK-397 (15 tasks) - **0 done, 15 remaining**
 
 ### EPIC-001: Performance Optimization (10 tasks) ✅
 
@@ -721,6 +723,66 @@
 | [TASK-366](./tasks/TASK-366-deep-link-handling.md)              | Deep link handling              | 📋 To Do | 2h     | Medium   |
 | [TASK-367](./tasks/TASK-367-e2e-manage-bookings-tests.md)       | E2E tests for manage bookings   | 📋 To Do | 4h     | High     |
 
+### EPIC-032: Production Logging & Error Tracking (11 tasks) 📋 To Do
+
+#### US-068: Production Crash & Error Tracking (4 tasks)
+
+| Task ID                                                              | Title                                    | Status   | Effort | Priority |
+| -------------------------------------------------------------------- | ---------------------------------------- | -------- | ------ | -------- |
+| [TASK-372](./tasks/TASK-372-install-configure-sentry-sdk.md)         | Install & Configure Sentry SDK           | 📋 To Do | 2h     | Critical |
+| [TASK-373](./tasks/TASK-373-sentry-configuration-module.md)          | Create Sentry Configuration Module       | 📋 To Do | 1.5h   | Critical |
+| [TASK-374](./tasks/TASK-374-enhance-logger-production-forwarding.md) | Enhance Logger for Production Forwarding | 📋 To Do | 1.5h   | Critical |
+| [TASK-375](./tasks/TASK-375-integrate-sentry-error-boundary.md)      | Integrate Sentry with ErrorBoundary      | 📋 To Do | 1h     | High     |
+
+#### US-069: Application Performance Monitoring (3 tasks)
+
+| Task ID                                                       | Title                                    | Status   | Effort | Priority |
+| ------------------------------------------------------------- | ---------------------------------------- | -------- | ------ | -------- |
+| [TASK-376](./tasks/TASK-376-navigation-breadcrumbs.md)        | Add Navigation Breadcrumbs               | 📋 To Do | 1.5h   | High     |
+| [TASK-377](./tasks/TASK-377-axios-interceptor-api-logging.md) | Create Axios Interceptor for API Logging | 📋 To Do | 1.5h   | High     |
+| [TASK-378](./tasks/TASK-378-enable-performance-monitoring.md) | Enable Performance Monitoring            | 📋 To Do | 1h     | Medium   |
+
+#### US-070: Observability & Debugging Infrastructure (4 tasks)
+
+| Task ID                                                          | Title                                | Status   | Effort | Priority |
+| ---------------------------------------------------------------- | ------------------------------------ | -------- | ------ | -------- |
+| [TASK-379](./tasks/TASK-379-redux-breadcrumb-middleware.md)      | Create Redux Breadcrumb Middleware   | 📋 To Do | 1.5h   | High     |
+| [TASK-380](./tasks/TASK-380-environment-configuration-sentry.md) | Environment Configuration for Sentry | 📋 To Do | 1h     | High     |
+| [TASK-381](./tasks/TASK-381-rntl-tests-enhanced-logger.md)       | RNTL Tests for Enhanced Logger       | 📋 To Do | 2h     | High     |
+| [TASK-382](./tasks/TASK-382-logging-strategy-documentation.md)   | Documentation for Logging Strategy   | 📋 To Do | 1.5h   | Medium   |
+
+### EPIC-033: Product Analytics & Consent Management (15 tasks) 📋 To Do
+
+#### US-071: PostHog Analytics Integration (5 tasks)
+
+| Task ID                                                           | Title                        | Status   | Effort | Priority |
+| ----------------------------------------------------------------- | ---------------------------- | -------- | ------ | -------- |
+| [TASK-383](./tasks/TASK-383-install-posthog-sdk.md)               | Install PostHog SDK          | 📋 To Do | 0.5h   | High     |
+| [TASK-384](./tasks/TASK-384-posthog-configuration-module.md)      | PostHog Configuration Module | 📋 To Do | 1.5h   | High     |
+| [TASK-385](./tasks/TASK-385-analytics-utility-layer.md)           | Analytics Utility Layer      | 📋 To Do | 2h     | High     |
+| [TASK-386](./tasks/TASK-386-posthog-environment-configuration.md) | PostHog Environment Config   | 📋 To Do | 0.5h   | High     |
+| [TASK-387](./tasks/TASK-387-rntl-tests-analytics-utility.md)      | RNTL Tests for Analytics     | 📋 To Do | 2h     | High     |
+
+#### US-072: Unified Consent Management System (5 tasks)
+
+| Task ID                                                      | Title                       | Status   | Effort | Priority |
+| ------------------------------------------------------------ | --------------------------- | -------- | ------ | -------- |
+| [TASK-388](./tasks/TASK-388-supabase-consent-schema.md)      | Supabase Consent Schema     | 📋 To Do | 2h     | Critical |
+| [TASK-389](./tasks/TASK-389-consent-redux-slice.md)          | Consent Redux Slice         | 📋 To Do | 2h     | High     |
+| [TASK-390](./tasks/TASK-390-consent-api-client.md)           | Consent API Client          | 📋 To Do | 2h     | High     |
+| [TASK-391](./tasks/TASK-391-encrypted-store-consent-keys.md) | EncryptedStore Consent Keys | 📋 To Do | 1h     | High     |
+| [TASK-392](./tasks/TASK-392-legal-version-tracking.md)       | Legal Version Tracking      | 📋 To Do | 1h     | High     |
+
+#### US-073: Privacy Settings & Re-consent Flow (5 tasks)
+
+| Task ID                                                       | Title                           | Status   | Effort | Priority |
+| ------------------------------------------------------------- | ------------------------------- | -------- | ------ | -------- |
+| [TASK-393](./tasks/TASK-393-consent-screen-ui.md)             | ConsentScreen UI                | 📋 To Do | 4h     | Critical |
+| [TASK-394](./tasks/TASK-394-onboarding-consent-navigation.md) | Onboarding Consent Navigation   | 📋 To Do | 2h     | Critical |
+| [TASK-395](./tasks/TASK-395-privacy-settings-section.md)      | Privacy Settings Section        | 📋 To Do | 2h     | High     |
+| [TASK-396](./tasks/TASK-396-rntl-tests-consent-features.md)   | RNTL Tests for Consent Features | 📋 To Do | 3h     | High     |
+| [TASK-397](./tasks/TASK-397-e2e-tests-consent-flow.md)        | E2E Tests for Consent Flow      | 📋 To Do | 4h     | High     |
+
 ---
 
 ## 📋 Outstanding Tasks (3)
@@ -742,5 +804,5 @@ These are the only incomplete tasks from the original app planning (TASK-001 thr
 
 ---
 
-**Last Updated**: 2025-12-08
+**Last Updated**: 2025-12-09
 **Project**: Warren DeLeon Portfolio Mobile App
