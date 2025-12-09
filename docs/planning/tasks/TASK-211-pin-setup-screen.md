@@ -1,16 +1,34 @@
 # TASK-211: 6-Digit PIN Setup Screen
 
 **ID**: TASK-211 | **US**: [US-035](../stories/US-035-biometric-security-setup.md) | **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md)
-**Status**: 📋 To Do | **Priority**: High | **Effort**: 2.5h | **Created**: 2025-11-21
+**Status**: 📋 To Do | **Priority**: High | **Effort**: 4h | **Created**: 2025-11-21
 
 ## File Structure
 
 ```
 src/features/Auth/
-└── screens/
-    ├── PINSetupScreen.tsx
+├── screens/
+│   ├── PINSetupScreen.tsx
+│   └── __tests__/
+│       └── PINSetupScreen.rntl.tsx
+├── components/
+│   ├── PINInput.tsx
+│   ├── PINDot.tsx
+│   ├── PINKeypad.tsx
+│   └── __tests__/
+│       ├── PINInput.rntl.tsx
+│       ├── PINDot.rntl.tsx
+│       └── PINKeypad.rntl.tsx
+├── services/
+│   ├── pinLockoutService.ts
+│   └── __tests__/
+│       └── pinLockoutService.test.ts
+└── utils/
+    ├── pinValidation.ts
+    ├── pinHashing.ts
     └── __tests__/
-        └── PINSetupScreen.rntl.tsx
+        ├── pinValidation.test.ts
+        └── pinHashing.test.ts
 ```
 
 **Note**: Screen co-located with Auth feature following feature-first architecture (established in TASK-196).
@@ -30,24 +48,41 @@ PIN-based authentication serves multiple purposes:
 - **User preference**: Some users prefer PIN over biometrics
 - **Security baseline**: Provides minimum security layer for all users
 
+**UI Design Reference:**
+
+The PIN entry UI should follow the **iOS 26 unlock screen style**:
+
+- Clean, minimal design with centred PIN dots
+- Large, circular numeric keypad buttons
+- Subtle haptic feedback on key press
+- Smooth animations on dot fill/clear
+- Dark/light mode adaptive colours
+
 **Security Considerations:**
 
 1. **Weak PIN detection**: Reject sequential (123456, 654321) and repeated (000000, 111111) patterns
 2. **bcrypt hashing**: Never store plain-text PINs (10 rounds, secure salt)
 3. **Keychain storage**: Store hashed PIN in hardware-backed Keychain
-4. **Rate limiting**: Prevent brute-force attacks (lock after 5 failed attempts)
+4. **Apple-style incremental lockout**: Prevent brute-force attacks with escalating delays:
+   - 1st-3rd failed attempts: No lockout
+   - 4th-5th failed attempts: 1 minute lockout
+   - 6th failed attempt: 5 minutes lockout
+   - 7th failed attempt: 15 minutes lockout
+   - 8th failed attempt: 1 hour lockout
+   - 9th+ failed attempts: 24 hours lockout
 5. **Secure input**: Display dots instead of numbers during entry
 
 **User Flow:**
 
-1. User navigates to PIN setup (from BiometricSetup or direct navigation)
-2. Enters 6-digit PIN
-3. System validates PIN strength (rejects weak patterns)
-4. User confirms PIN by re-entering
-5. System verifies both PINs match
-6. PIN hashed with bcrypt (10 rounds)
-7. Hashed PIN stored in Keychain
-8. Navigate to Home
+1. User navigates to PIN setup (from BiometricSetup or direct navigation after first login)
+2. iOS 26-style keypad displayed with 6 empty PIN dots
+3. User enters 6-digit PIN via keypad
+4. System validates PIN strength (rejects weak patterns)
+5. User confirms PIN by re-entering
+6. System verifies both PINs match
+7. PIN hashed with bcrypt (10 rounds)
+8. Hashed PIN stored in Keychain
+9. Navigate to Home
 
 **Weak PIN Patterns (Must Reject):**
 
@@ -63,17 +98,20 @@ PIN-based authentication serves multiple purposes:
 
 ## Objective
 
-Build secure 6-digit PIN setup screen with:
+Build secure 6-digit PIN setup screen with iOS 26 unlock screen style:
 
-1. **Custom PIN input**: 6 individual input fields with secure entry
-2. **Weak PIN validation**: Reject sequential, repeated, and common patterns
-3. **Confirmation flow**: Two-step entry to prevent typos
-4. **bcrypt hashing**: Hash PIN with bcrypt (10 rounds) before storage
-5. **Keychain storage**: Store hashed PIN securely
-6. **Error handling**: Clear error messages for weak/mismatched PINs
-7. **Auto-focus**: Automatic field progression during entry
-8. **EAA compliance**: Full accessibility support
-9. **Testing**: 100% RNTL coverage with all validation scenarios
+1. **iOS 26-style UI**: Circular keypad, centred PIN dots, minimal design
+2. **Custom PIN components**: PINDot, PINKeypad with haptic feedback
+3. **Weak PIN validation**: Reject sequential, repeated, and common patterns
+4. **Confirmation flow**: Two-step entry to prevent typos
+5. **bcrypt hashing**: Hash PIN with bcrypt (10 rounds) before storage
+6. **Keychain storage**: Store hashed PIN securely
+7. **Apple-style lockout**: Incremental delays after failed attempts
+8. **Error handling**: Clear error messages for weak/mismatched PINs
+9. **Dark/light mode**: Full theme support using useAppColorScheme
+10. **i18n translations**: All 5 languages (en, es, ca, pl, tl)
+11. **EAA compliance**: Full accessibility support (44×44 touch targets, screen reader labels)
+12. **Testing**: 100% RNTL coverage with all validation scenarios
 
 ---
 
@@ -765,29 +803,78 @@ export type AuthStackParamList = {
 
 ## Acceptance Criteria
 
-- [ ] 6 individual PIN input fields displayed
-- [ ] Secure entry (displays dots instead of numbers)
-- [ ] Auto-focus progression across fields
-- [ ] Backspace navigates to previous field
-- [ ] Paste support (paste entire 6-digit PIN at once)
-- [ ] Validates weak PINs:
-  - [ ] Rejects sequential ascending (123456)
-  - [ ] Rejects sequential descending (654321)
-  - [ ] Rejects repeated digits (000000)
-  - [ ] Rejects repeated pairs (121212)
-  - [ ] Rejects common patterns (112233, 123123)
-- [ ] Confirmation screen after initial entry
-- [ ] Verifies both PINs match
-- [ ] Shows error message for weak PINs
-- [ ] Shows error message for mismatched PINs
-- [ ] "Change PIN" button returns to first step
+### UI/UX (iOS 26 Style)
+
+- [ ] iOS 26-style PIN entry UI with centred PIN dots
+- [ ] Circular numeric keypad (0-9) with delete button
+- [ ] 6 PIN dots showing filled/empty state
+- [ ] Haptic feedback on key press (using react-native-haptic-feedback)
+- [ ] Smooth animations on dot fill/clear
+- [ ] Dark/light mode support using `useAppColorScheme`
+
+### PIN Input Behaviour
+
+- [ ] Keypad input updates PIN dots in sequence
+- [ ] Delete button removes last entered digit
+- [ ] Auto-submits after 6th digit entered
+- [ ] Paste support from clipboard (validates before applying)
+
+### PIN Validation
+
+- [ ] Rejects sequential ascending (123456, 234567, 012345)
+- [ ] Rejects sequential descending (654321, 543210, 987654)
+- [ ] Rejects repeated digits (000000, 111111, 555555)
+- [ ] Rejects repeated pairs (121212, 454545)
+- [ ] Rejects common patterns (112233, 123123)
+- [ ] Shows clear error message explaining rejection reason
+
+### Confirmation Flow
+
+- [ ] After valid PIN entry, shows "Confirm your PIN" step
+- [ ] Verifies both PINs match exactly
+- [ ] Shows error and clears dots on mismatch
+- [ ] "Change PIN" link returns to first step
+
+### Security
+
 - [ ] Hashes PIN with bcrypt (10 rounds) before storage
-- [ ] Stores hashed PIN in Keychain (not plain-text)
+- [ ] Stores hashed PIN in Keychain (ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY)
+- [ ] Never logs PIN or hash values
+- [ ] Apple-style incremental lockout after failed attempts:
+  - [ ] 1-3 attempts: No lockout
+  - [ ] 4-5 attempts: 1 minute lockout
+  - [ ] 6 attempts: 5 minutes lockout
+  - [ ] 7 attempts: 15 minutes lockout
+  - [ ] 8 attempts: 1 hour lockout
+  - [ ] 9+ attempts: 24 hours lockout
+
+### i18n Translations
+
+- [ ] All UI text translated (en, es, ca, pl, tl)
+- [ ] Error messages translated
+- [ ] Accessibility labels translated
+
+### EAA Compliance
+
+- [ ] All keypad buttons minimum 44×44 touch targets
+- [ ] All elements have accessibilityRole, accessibilityLabel, accessibilityHint
+- [ ] Screen navigable with VoiceOver/TalkBack
+- [ ] Error messages announced via accessibilityLiveRegion
+
+### Navigation
+
+- [ ] Integrates with onboarding flow (after first login)
 - [ ] Navigates to Home on successful setup
-- [ ] All inputs have minimum 48×48 touch targets (EAA compliance)
-- [ ] All elements have proper accessibility labels/hints/roles
-- [ ] Screen navigable with screen reader (VoiceOver/TalkBack)
-- [ ] 100% RNTL test coverage for all validation scenarios
+- [ ] Prevents back navigation during setup (gestureEnabled: false)
+
+### Testing
+
+- [ ] 100% RNTL test coverage for PINInput, PINDot, PINKeypad components
+- [ ] 100% RNTL test coverage for PINSetupScreen
+- [ ] Unit tests for pinValidation utility
+- [ ] Unit tests for pinHashing utility
+- [ ] Unit tests for pinLockoutService
+- [ ] E2E tests covered in [TASK-212](TASK-212-biometric-setup-e2e-tests.md)
 
 ---
 
@@ -1141,4 +1228,20 @@ if (pin.length !== 6) return;
 
 ---
 
-**Effort**: 2.5h | **Last Updated**: 2025-11-21
+## Definition of Done
+
+- [ ] All acceptance criteria met and verified
+- [ ] PINInput, PINDot, PINKeypad components implemented
+- [ ] PINSetupScreen implemented with iOS 26 style
+- [ ] pinValidation, pinHashing, pinLockoutService utilities implemented
+- [ ] All i18n translation keys added (5 languages)
+- [ ] Dark/light mode verified visually
+- [ ] EAA compliance verified (touch targets, a11y labels)
+- [ ] All RNTL tests passing with 100% coverage
+- [ ] `yarn validate` passes (0 errors, 0 warnings, 0 failures)
+- [ ] Code reviewed and merged
+- [ ] E2E tests passing (via TASK-212)
+
+---
+
+**Effort**: 4h | **Last Updated**: 2025-12-09
