@@ -388,12 +388,12 @@
 
 #### US-035: Biometric Security Setup (4 tasks)
 
-| Task ID                                                        | Title                          | Status   | Effort | Priority |
-| -------------------------------------------------------------- | ------------------------------ | -------- | ------ | -------- |
-| [TASK-209](./tasks/TASK-209-biometric-capability-detection.md) | Biometric Capability Detection | 📋 To Do | 1.5h   | High     |
-| [TASK-210](./tasks/TASK-210-biometric-setup-screen.md)         | BiometricSetupScreen UI        | 📋 To Do | 3h     | High     |
-| [TASK-211](./tasks/TASK-211-pin-setup-screen.md)               | 6-Digit PIN Setup Screen       | 📋 To Do | 2.5h   | High     |
-| [TASK-212](./tasks/TASK-212-biometric-setup-e2e-tests.md)      | Biometric Setup E2E Tests      | 📋 To Do | 2h     | Medium   |
+| Task ID                                                        | Title                          | Status         | Effort | Priority |
+| -------------------------------------------------------------- | ------------------------------ | -------------- | ------ | -------- |
+| [TASK-209](./tasks/TASK-209-biometric-capability-detection.md) | Biometric Capability Detection | 📋 To Do       | 1.5h   | High     |
+| [TASK-210](./tasks/TASK-210-biometric-setup-screen.md)         | BiometricSetupScreen UI        | 📋 To Do       | 3h     | High     |
+| [TASK-211](./tasks/TASK-211-pin-setup-screen.md)               | 6-Digit PIN Setup Screen       | ⏳ In Progress | 4h     | High     |
+| [TASK-212](./tasks/TASK-212-biometric-setup-e2e-tests.md)      | Biometric Setup E2E Tests      | 📋 To Do       | 2h     | Medium   |
 
 ### EPIC-022: Login & Session Management (31 tasks) ⏳ In Progress
 

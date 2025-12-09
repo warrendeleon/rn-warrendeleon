@@ -1,7 +1,7 @@
 # TASK-211: 6-Digit PIN Setup Screen
 
 **ID**: TASK-211 | **US**: [US-035](../stories/US-035-biometric-security-setup.md) | **Epic**: [EPIC-021](../epics/EPIC-021-registration-profile-setup.md)
-**Status**: 📋 To Do | **Priority**: High | **Effort**: 4h | **Created**: 2025-11-21
+**Status**: ⏳ In Progress | **Priority**: High | **Effort**: 4h | **Created**: 2025-11-21
 
 ## File Structure
 
