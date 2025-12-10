@@ -177,6 +177,27 @@
         "passwordsDifferent": "Ang bagong password ay dapat iba sa kasalukuyan",
         "genericError": "May nangyaring mali. Subukan mo ulit."
       }
+    },
+    "pin": {
+      "createTitle": "Gumawa ng Iyong PIN",
+      "createSubtitle": "Pumili ng 6 na digit na PIN para ma-secure ang iyong account",
+      "confirmTitle": "Kumpirmahin ang Iyong PIN",
+      "confirmSubtitle": "Ilagay muli ang iyong PIN para kumpirmahin",
+      "changePin": "Palitan ang PIN",
+      "changePinHint": "Bumalik para mag-enter ng ibang PIN",
+      "pinStrong": "Ayos ang PIN!",
+      "infoText": "Ang iyong PIN ay ligtas na naka-save sa device na ito at hindi kailanman ipapadala sa aming mga server.",
+      "settingUp": "Sine-setup ang iyong PIN...",
+      "errors": {
+        "invalidLength": "Ang PIN ay dapat eksaktong 6 na digit",
+        "numbersOnly": "Ang PIN ay dapat numero lamang",
+        "sequential": "Hindi pwedeng sunud-sunod ang PIN (hal., 123456 o 654321)",
+        "repeated": "Hindi pwedeng pare-pareho ang lahat ng digit ng PIN (hal., 000000)",
+        "repeatedPairs": "Hindi pwedeng umuulit na pares ang PIN (hal., 121212)",
+        "tooCommon": "Masyadong karaniwan ang PIN na ito. Pumili ng iba.",
+        "mismatch": "Hindi magkatugma ang mga PIN. Subukan mo ulit.",
+        "storeFailed": "Hindi ma-save ang PIN. Subukan mo ulit."
+      }
     }
   },
   "account": {

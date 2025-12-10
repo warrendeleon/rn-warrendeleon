@@ -22,6 +22,7 @@ import {
   PermissionDeniedScreen,
   type PermissionType,
   PhotoLibraryPermissionScreen,
+  PINSetupScreen,
   PrivacyPolicyScreen,
   ProfilePictureActionSheetScreen,
   ProfilePicturePreviewScreen,
@@ -95,6 +96,8 @@ export type RootStackParamList = {
         hasExistingPhoto?: boolean;
       }
     | undefined;
+  // PIN Setup
+  PINSetup: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -264,6 +267,15 @@ export const RootNavigator: React.FC = () => {
               presentation: 'transparentModal',
               animation: 'fade',
               headerShown: false,
+            }}
+          />
+          {/* PIN Setup */}
+          <Stack.Screen
+            name="PINSetup"
+            component={PINSetupScreen}
+            options={{
+              headerShown: false,
+              gestureEnabled: false,
             }}
           />
         </Stack.Navigator>

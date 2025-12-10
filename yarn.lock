@@ -13272,6 +13272,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-bcrypt@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "react-native-bcrypt@npm:2.4.0"
+  checksum: 120d0df168c55441e93bfba3126b727d87c38911710c920a3581405714ea800d314fbd25de605abc063d80a565e1d42ffa419d76272b110b566d3365d6788544
+  languageName: node
+  linkType: hard
+
 "react-native-blob-util@npm:^0.23.2":
   version: 0.23.2
   resolution: "react-native-blob-util@npm:0.23.2"
@@ -13416,6 +13423,15 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: dddabdb12ce31d68ef71796e8fcaa57acd4608cca14412f36ce36fee14911fb629f325f0ced86bea1336a64673a434e34cde32a63be8d33f29d9a7bed292c5b2
+  languageName: node
+  linkType: hard
+
+"react-native-haptic-feedback@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "react-native-haptic-feedback@npm:2.3.3"
+  peerDependencies:
+    react-native: ">=0.60.0"
+  checksum: 5ff12aaf44fa1cad8ab3d9c58046a11c631c6622955120294060efc51c625203ee4cd7ccb565663c12b27552ebbb7034a386000d9da738b9eea5ff62d58b14c0
   languageName: node
   linkType: hard
 
@@ -16060,6 +16076,7 @@ __metadata:
     react-hook-form: ^7.66.1
     react-i18next: ^16.2.4
     react-native: 0.82.1
+    react-native-bcrypt: ^2.4.0
     react-native-blob-util: ^0.23.2
     react-native-bootsplash: ^6.3.11
     react-native-compressor: ^1.13.0
@@ -16069,6 +16086,7 @@ __metadata:
     react-native-fast-tflite: ^1.6.1
     react-native-fs: ^2.20.0
     react-native-gesture-handler: ^2.29.1
+    react-native-haptic-feedback: ^2.3.3
     react-native-image-crop-picker: ^0.51.1
     react-native-keychain: ^10.0.0
     react-native-launch-arguments: ^4.1.1

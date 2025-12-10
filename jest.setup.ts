@@ -532,6 +532,11 @@ jest.mock('react-native-keychain', () => ({
   ACCESS_CONTROL: {
     BIOMETRY_ANY_OR_DEVICE_PASSCODE: 'BiometryAnyOrDevicePasscode',
   },
+  STORAGE_TYPE: {
+    KC: 'keychain',
+    AKS: 'sharedPreferences',
+    FB: 'sharedPreferences',
+  },
   setGenericPassword: jest.fn(),
   getGenericPassword: jest.fn(),
   resetGenericPassword: jest.fn(),
@@ -650,6 +655,28 @@ jest.mock('react-native-compressor', () => ({
   Image: {
     compress: jest.fn(uri => Promise.resolve(uri)),
   },
+}));
+
+// Mock react-native-haptic-feedback
+jest.mock('react-native-haptic-feedback', () => ({
+  trigger: jest.fn(),
+}));
+
+// Mock react-native-bcrypt
+jest.mock('react-native-bcrypt', () => ({
+  genSalt: jest.fn((_rounds, callback) => {
+    callback(null, '$2a$10$mockSalt');
+  }),
+  hash: jest.fn((_data, _salt, callback) => {
+    callback(null, '$2a$10$hashedValue');
+  }),
+  compare: jest.fn((_data, _hash, callback) => {
+    callback(null, true);
+  }),
+  genSaltSync: jest.fn(() => '$2a$10$mockSalt'),
+  hashSync: jest.fn(() => '$2a$10$hashedValue'),
+  compareSync: jest.fn(() => true),
+  getRounds: jest.fn(() => 10),
 }));
 
 // Mock react-native-fast-tflite

@@ -177,6 +177,27 @@
         "passwordsDifferent": "New password must be different from current password",
         "genericError": "Something went wrong. Please try again."
       }
+    },
+    "pin": {
+      "createTitle": "Create Your PIN",
+      "createSubtitle": "Choose a 6-digit PIN to secure your account",
+      "confirmTitle": "Confirm Your PIN",
+      "confirmSubtitle": "Enter your PIN again to confirm",
+      "changePin": "Change PIN",
+      "changePinHint": "Returns to enter a different PIN",
+      "pinStrong": "PIN looks good!",
+      "infoText": "Your PIN is stored securely on this device and never sent to our servers.",
+      "settingUp": "Setting up your PIN...",
+      "errors": {
+        "invalidLength": "PIN must be exactly 6 digits",
+        "numbersOnly": "PIN must contain only numbers",
+        "sequential": "PIN cannot be sequential (e.g., 123456 or 654321)",
+        "repeated": "PIN cannot be all the same digit (e.g., 000000)",
+        "repeatedPairs": "PIN cannot be repeated pairs (e.g., 121212)",
+        "tooCommon": "This PIN is too common. Please choose a different one.",
+        "mismatch": "PINs do not match. Please try again.",
+        "storeFailed": "Unable to save PIN. Please try again."
+      }
     }
   },
   "account": {

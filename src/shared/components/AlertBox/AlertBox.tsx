@@ -15,6 +15,8 @@ export interface AlertBoxProps {
   title?: string;
   /** Test ID for E2E testing */
   testID?: string;
+  /** Accessibility live region for screen reader announcements */
+  accessibilityLiveRegion?: 'none' | 'polite' | 'assertive';
 }
 
 const VARIANT_CONFIG = {
@@ -77,7 +79,13 @@ const VARIANT_CONFIG = {
  * Used across Auth screens for consistent alert styling.
  * EAA compliant with proper accessibility role.
  */
-export const AlertBox: React.FC<AlertBoxProps> = ({ variant, message, title, testID }) => {
+export const AlertBox: React.FC<AlertBoxProps> = ({
+  variant,
+  message,
+  title,
+  testID,
+  accessibilityLiveRegion,
+}) => {
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -96,6 +104,7 @@ export const AlertBox: React.FC<AlertBoxProps> = ({ variant, message, title, tes
       testID={testID}
       accessibilityRole="alert"
       accessibilityLabel={title ? `${title}: ${message}` : message}
+      accessibilityLiveRegion={accessibilityLiveRegion}
     >
       <HStack space={title ? 'md' : 'sm'} alignItems={title ? 'flex-start' : 'center'}>
         <IconComponent size={iconSize} color={colors.iconColor} />

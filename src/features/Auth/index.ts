@@ -37,6 +37,7 @@ export { useAuth } from './hooks';
 export { EmailVerificationScreen } from './EmailVerificationScreen';
 export { ForgotPasswordScreen } from './ForgotPasswordScreen';
 export { LoginScreen } from './LoginScreen';
+export { PINSetupScreen } from './PINSetupScreen';
 export { RegistrationScreen } from './RegistrationScreen';
 export { ResetPasswordScreen } from './ResetPasswordScreen';
 
@@ -56,3 +57,28 @@ export {
   getRateLimitStatus,
   recordPasswordResetRequest,
 } from './utils/rateLimiter';
+
+// PIN utilities
+export {
+  deletePINHash,
+  hashPIN,
+  hasPINSetup,
+  retrievePINHash,
+  storePINHash,
+  verifyPIN,
+} from './utils/pinHashing';
+export type { PINValidationResult } from './utils/pinValidation';
+export { comparePINs, validatePIN } from './utils/pinValidation';
+
+// PIN lockout service
+export type { LockoutResult } from './services/pinLockoutService';
+export {
+  checkPINLockout,
+  clearAllLockoutData,
+  getFailedAttemptCount,
+  recordFailedPINAttempt,
+  resetPINLockout,
+} from './services/pinLockoutService';
+
+// PIN components
+export { PINDot, PINInput, PINKeypad } from './components/PINInput';

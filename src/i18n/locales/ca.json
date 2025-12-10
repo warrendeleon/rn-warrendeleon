@@ -177,6 +177,27 @@
         "passwordsDifferent": "La nova contrasenya ha de ser diferent de l'actual",
         "genericError": "Alguna cosa ha anat malament. Si us plau, torna-ho a provar."
       }
+    },
+    "pin": {
+      "createTitle": "Crea el teu PIN",
+      "createSubtitle": "Tria un PIN de 6 dígits per protegir el teu compte",
+      "confirmTitle": "Confirma el teu PIN",
+      "confirmSubtitle": "Introdueix el teu PIN de nou per confirmar",
+      "changePin": "Canviar PIN",
+      "changePinHint": "Torna per introduir un PIN diferent",
+      "pinStrong": "El PIN està bé!",
+      "infoText": "El teu PIN es desa de forma segura en aquest dispositiu i mai s'envia als nostres servidors.",
+      "settingUp": "Configurant el teu PIN...",
+      "errors": {
+        "invalidLength": "El PIN ha de tenir exactament 6 dígits",
+        "numbersOnly": "El PIN només pot contenir números",
+        "sequential": "El PIN no pot ser seqüencial (p. ex., 123456 o 654321)",
+        "repeated": "El PIN no pot ser tot el mateix dígit (p. ex., 000000)",
+        "repeatedPairs": "El PIN no pot ser parells repetits (p. ex., 121212)",
+        "tooCommon": "Aquest PIN és massa comú. Si us plau, tria'n un de diferent.",
+        "mismatch": "Els PINs no coincideixen. Si us plau, torna-ho a provar.",
+        "storeFailed": "No s'ha pogut desar el PIN. Si us plau, torna-ho a provar."
+      }
     }
   },
   "account": {

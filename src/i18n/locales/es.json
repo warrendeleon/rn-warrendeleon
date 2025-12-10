@@ -177,6 +177,27 @@
         "passwordsDifferent": "La nueva contraseña debe ser diferente de la actual",
         "genericError": "Algo salió mal. Por favor, inténtalo de nuevo."
       }
+    },
+    "pin": {
+      "createTitle": "Crea tu PIN",
+      "createSubtitle": "Elige un PIN de 6 dígitos para proteger tu cuenta",
+      "confirmTitle": "Confirma tu PIN",
+      "confirmSubtitle": "Introduce tu PIN de nuevo para confirmar",
+      "changePin": "Cambiar PIN",
+      "changePinHint": "Vuelve para introducir un PIN diferente",
+      "pinStrong": "¡El PIN está bien!",
+      "infoText": "Tu PIN se guarda de forma segura en este dispositivo y nunca se envía a nuestros servidores.",
+      "settingUp": "Configurando tu PIN...",
+      "errors": {
+        "invalidLength": "El PIN debe tener exactamente 6 dígitos",
+        "numbersOnly": "El PIN solo puede contener números",
+        "sequential": "El PIN no puede ser secuencial (p. ej., 123456 o 654321)",
+        "repeated": "El PIN no puede ser todo el mismo dígito (p. ej., 000000)",
+        "repeatedPairs": "El PIN no puede ser pares repetidos (p. ej., 121212)",
+        "tooCommon": "Este PIN es demasiado común. Por favor elige uno diferente.",
+        "mismatch": "Los PINs no coinciden. Por favor, inténtalo de nuevo.",
+        "storeFailed": "No se pudo guardar el PIN. Por favor, inténtalo de nuevo."
+      }
     }
   },
   "account": {
