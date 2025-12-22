@@ -6,7 +6,7 @@
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils';
+import { expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { CountryCodeSelector } from '../CountryCodeSelector';
 import type { CountryData } from '../countryData';
@@ -38,28 +38,28 @@ describe('CountryCodeSelector', () => {
   });
 
   describe('rendering', () => {
-    it('should render with default testID', () => {
+    it('renders with default testID', () => {
       renderWithProviders(<CountryCodeSelector {...defaultProps} />);
 
-      expect(screen.getByTestId('country-code-selector')).toBeTruthy();
+      expect(screen.getByTestId('country-code-selector')).toBeOnTheScreen();
     });
 
-    it('should render with custom testID', () => {
+    it('renders with custom testID', () => {
       renderWithProviders(<CountryCodeSelector {...defaultProps} testID="custom-selector" />);
 
-      expect(screen.getByTestId('custom-selector')).toBeTruthy();
+      expect(screen.getByTestId('custom-selector')).toBeOnTheScreen();
     });
 
-    it('should display country flag', () => {
+    it('displays country flag emoji', () => {
       renderWithProviders(<CountryCodeSelector {...defaultProps} />);
 
-      expect(screen.getByText('🇬🇧')).toBeTruthy();
+      expect(screen.getByText('🇬🇧')).toBeOnTheScreen();
     });
 
-    it('should display calling code', () => {
+    it('displays calling code with plus prefix', () => {
       renderWithProviders(<CountryCodeSelector {...defaultProps} />);
 
-      expect(screen.getByText('+44')).toBeTruthy();
+      expect(screen.getByText('+44')).toBeOnTheScreen();
     });
   });
 
@@ -117,12 +117,12 @@ describe('CountryCodeSelector', () => {
       expect(selector.props.accessibilityRole).toBe('button');
     });
 
-    it('should have descriptive accessibility label', () => {
+    it('has descriptive accessibility label with country name and code', () => {
       renderWithProviders(<CountryCodeSelector {...defaultProps} />);
 
       expect(
         screen.getByLabelText('Country code selector. Currently selected: United Kingdom, +44')
-      ).toBeTruthy();
+      ).toBeOnTheScreen();
     });
 
     it('should have accessibility hint', () => {
@@ -147,20 +147,43 @@ describe('CountryCodeSelector', () => {
     });
   });
 
+  describe('EAA Accessibility Compliance', () => {
+    it('selector has accessible touch target (44×44 minimum)', () => {
+      renderWithProviders(<CountryCodeSelector {...defaultProps} />);
+
+      const selector = screen.getByTestId('country-code-selector');
+      expectMinTouchTarget(selector);
+    });
+
+    it('selector with custom testID has accessible touch target', () => {
+      renderWithProviders(<CountryCodeSelector {...defaultProps} testID="custom-selector" />);
+
+      const selector = screen.getByTestId('custom-selector');
+      expectMinTouchTarget(selector);
+    });
+
+    it('disabled selector maintains accessible touch target', () => {
+      renderWithProviders(<CountryCodeSelector {...defaultProps} isDisabled />);
+
+      const selector = screen.getByTestId('country-code-selector');
+      expectMinTouchTarget(selector);
+    });
+  });
+
   describe('different countries', () => {
     it.each<CountryData>([
       { code: 'US', name: 'United States', callingCode: '+1', flag: '🇺🇸' },
       { code: 'DE', name: 'Germany', callingCode: '+49', flag: '🇩🇪' },
       { code: 'JP', name: 'Japan', callingCode: '+81', flag: '🇯🇵' },
       { code: 'AU', name: 'Australia', callingCode: '+61', flag: '🇦🇺' },
-    ])('should display $name correctly', country => {
+    ])('displays $name flag and calling code', country => {
       renderWithProviders(<CountryCodeSelector {...defaultProps} selectedCountry={country} />);
 
-      expect(screen.getByText(country.flag)).toBeTruthy();
-      expect(screen.getByText(country.callingCode)).toBeTruthy();
+      expect(screen.getByText(country.flag)).toBeOnTheScreen();
+      expect(screen.getByText(country.callingCode)).toBeOnTheScreen();
     });
 
-    it('should update accessibility label for different countries', () => {
+    it('updates accessibility label when country changes', () => {
       const usCountry: CountryData = {
         code: 'US',
         name: 'United States',
@@ -172,7 +195,7 @@ describe('CountryCodeSelector', () => {
 
       expect(
         screen.getByLabelText('Country code selector. Currently selected: United States, +1')
-      ).toBeTruthy();
+      ).toBeOnTheScreen();
     });
   });
 

@@ -61,7 +61,7 @@ describe('WebViewScreen', () => {
       const error = screen.queryByTestId('webview-error');
 
       // Either loading or error should be present (depends on timing)
-      expect(loading || error).toBeTruthy();
+      expect(loading ?? error).toBeDefined();
     });
 
     it('renders error state when URL is not allowed', () => {
@@ -71,9 +71,9 @@ describe('WebViewScreen', () => {
       render(<WebViewScreen />);
 
       const errorContainer = screen.getByTestId('webview-error');
-      expect(errorContainer).toBeTruthy();
-      expect(screen.getByText('This URL is not allowed for security reasons')).toBeTruthy();
-      expect(screen.getByText('https://evil.com')).toBeTruthy();
+      expect(errorContainer).toBeOnTheScreen();
+      expect(screen.getByText('This URL is not allowed for security reasons')).toBeOnTheScreen();
+      expect(screen.getByText('https://evil.com')).toBeOnTheScreen();
     });
 
     it('renders WebView when URL is allowed', () => {
@@ -83,7 +83,7 @@ describe('WebViewScreen', () => {
       render(<WebViewScreen />);
 
       const webview = screen.getByTestId('webview-content');
-      expect(webview).toBeTruthy();
+      expect(webview).toBeOnTheScreen();
     });
 
     it('validates URL against ALLOWED_WEBVIEW_DOMAINS', () => {
@@ -135,8 +135,8 @@ describe('WebViewScreen', () => {
 
       // Verify error message is displayed (GlueStack UI handles theming internally)
       const errorText = screen.getByText('This URL is not allowed for security reasons');
-      expect(errorText).toBeTruthy();
-      expect(screen.getByTestId('webview-error')).toBeTruthy();
+      expect(errorText).toBeOnTheScreen();
+      expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
 
     it('renders correctly when light mode is active', () => {
@@ -148,8 +148,8 @@ describe('WebViewScreen', () => {
 
       // Verify error message is displayed (GlueStack UI handles theming internally)
       const errorText = screen.getByText('This URL is not allowed for security reasons');
-      expect(errorText).toBeTruthy();
-      expect(screen.getByTestId('webview-error')).toBeTruthy();
+      expect(errorText).toBeOnTheScreen();
+      expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
   });
 
@@ -160,8 +160,8 @@ describe('WebViewScreen', () => {
 
       render(<WebViewScreen />);
 
-      expect(screen.getByTestId('webview-error')).toBeTruthy();
-      expect(screen.getByText('This URL is not allowed for security reasons')).toBeTruthy();
+      expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
+      expect(screen.getByText('This URL is not allowed for security reasons')).toBeOnTheScreen();
     });
 
     it('blocks non-whitelisted domains', () => {
@@ -170,7 +170,7 @@ describe('WebViewScreen', () => {
 
       render(<WebViewScreen />);
 
-      expect(screen.getByTestId('webview-error')).toBeTruthy();
+      expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
 
     it('allows whitelisted domains with paths and query params', () => {
@@ -179,7 +179,7 @@ describe('WebViewScreen', () => {
 
       render(<WebViewScreen />);
 
-      expect(screen.getByTestId('webview-content')).toBeTruthy();
+      expect(screen.getByTestId('webview-content')).toBeOnTheScreen();
     });
 
     it('allows subdomains of whitelisted domains', () => {
@@ -188,7 +188,7 @@ describe('WebViewScreen', () => {
 
       render(<WebViewScreen />);
 
-      expect(screen.getByTestId('webview-content')).toBeTruthy();
+      expect(screen.getByTestId('webview-content')).toBeOnTheScreen();
     });
   });
 
@@ -201,7 +201,7 @@ describe('WebViewScreen', () => {
       render(<WebViewScreen />);
 
       // Verify WebView is rendered with correct testID
-      expect(screen.getByTestId('webview-content')).toBeTruthy();
+      expect(screen.getByTestId('webview-content')).toBeOnTheScreen();
     });
 
     it('applies dark mode injection when dark mode is active', () => {
@@ -211,7 +211,7 @@ describe('WebViewScreen', () => {
 
       render(<WebViewScreen />);
 
-      expect(screen.getByTestId('webview-content')).toBeTruthy();
+      expect(screen.getByTestId('webview-content')).toBeOnTheScreen();
       // WebView props are passed to the mock but not easily testable here
     });
   });
@@ -223,7 +223,7 @@ describe('WebViewScreen', () => {
 
       render(<WebViewScreen />);
 
-      expect(screen.getByTestId('webview-error')).toBeTruthy();
+      expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
 
     it('handles malformed URLs', () => {
@@ -232,7 +232,7 @@ describe('WebViewScreen', () => {
 
       render(<WebViewScreen />);
 
-      expect(screen.getByTestId('webview-error')).toBeTruthy();
+      expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
 
     it('handles javascript: protocol URLs', () => {
@@ -241,7 +241,7 @@ describe('WebViewScreen', () => {
 
       render(<WebViewScreen />);
 
-      expect(screen.getByTestId('webview-error')).toBeTruthy();
+      expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
   });
 });

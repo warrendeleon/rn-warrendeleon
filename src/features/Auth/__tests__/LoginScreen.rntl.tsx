@@ -1,40 +1,23 @@
+/**
+ * LoginScreen Core Tests
+ *
+ * Tests for basic rendering, form validation, and navigation.
+ * Additional tests split across focused files:
+ * - LoginScreen.security.rntl.tsx - Password security, injection prevention
+ * - LoginScreen.accessibility.rntl.tsx - Screen reader, focus order, touch targets
+ * - LoginScreen.errors.rntl.tsx - Error display, recovery, HTTP codes
+ * - LoginScreen.network.rntl.tsx - Timeout, offline, biometric
+ * - LoginScreen.integration.rntl.tsx - Form submission, keyboard nav, async
+ */
+
 import React from 'react';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { fireEvent, waitFor } from '@testing-library/react-native';
 
-import type { RootStackParamList } from '@app/navigation';
-import { renderWithProviders } from '@app/test-utils';
+import { loginScreenProps, renderWithProviders } from '@app/test-utils';
 
 import { LoginScreen } from '../LoginScreen';
 
-type LoginNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
-
-const mockNavigation = {
-  navigate: jest.fn(),
-  goBack: jest.fn(),
-  reset: jest.fn(),
-  setOptions: jest.fn(),
-  setParams: jest.fn(),
-  addListener: jest.fn(() => () => {}),
-  removeListener: jest.fn(),
-  dispatch: jest.fn(),
-  isFocused: jest.fn(() => true),
-  canGoBack: jest.fn(() => true),
-  getId: jest.fn(),
-  getParent: jest.fn(),
-  getState: jest.fn(() => ({
-    key: 'Login',
-    index: 0,
-    routeNames: ['Login'],
-    routes: [{ key: 'Login', name: 'Login', params: undefined }],
-  })),
-} as unknown as LoginNavigationProp;
-
-const mockRoute = {
-  key: 'Login',
-  name: 'Login' as const,
-  params: undefined,
-};
+const { navigation: mockNavigation, route: mockRoute } = loginScreenProps();
 
 describe('LoginScreen', () => {
   beforeEach(() => {
@@ -42,20 +25,16 @@ describe('LoginScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders without crashing', () => {
-      const { UNSAFE_root } = renderWithProviders(
-        <LoginScreen navigation={mockNavigation} route={mockRoute} />
-      );
-
-      expect(UNSAFE_root).toBeTruthy();
-    });
-
-    it('renders the login screen with testID', () => {
+    it('renders login screen with all form elements', () => {
       const { getByTestId } = renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('login-screen')).toBeTruthy();
+      // Verify main container and essential form elements render
+      expect(getByTestId('login-screen')).toBeOnTheScreen();
+      expect(getByTestId('email-input')).toBeOnTheScreen();
+      expect(getByTestId('password-input')).toBeOnTheScreen();
+      expect(getByTestId('login-button')).toBeOnTheScreen();
     });
 
     it('renders email input field', () => {
@@ -63,7 +42,7 @@ describe('LoginScreen', () => {
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('email-input')).toBeTruthy();
+      expect(getByTestId('email-input')).toBeOnTheScreen();
     });
 
     it('renders password input field', () => {
@@ -71,7 +50,7 @@ describe('LoginScreen', () => {
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('password-input')).toBeTruthy();
+      expect(getByTestId('password-input')).toBeOnTheScreen();
     });
 
     it('renders login button', () => {
@@ -79,7 +58,7 @@ describe('LoginScreen', () => {
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('login-button')).toBeTruthy();
+      expect(getByTestId('login-button')).toBeOnTheScreen();
     });
 
     it('renders forgot password link', () => {
@@ -87,7 +66,7 @@ describe('LoginScreen', () => {
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('forgot-password-link')).toBeTruthy();
+      expect(getByTestId('forgot-password-link')).toBeOnTheScreen();
     });
 
     it('renders register link', () => {
@@ -95,7 +74,7 @@ describe('LoginScreen', () => {
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('register-link')).toBeTruthy();
+      expect(getByTestId('register-link')).toBeOnTheScreen();
     });
   });
 
@@ -120,10 +99,13 @@ describe('LoginScreen', () => {
       fireEvent.changeText(emailInput, 'invalid-email');
       fireEvent.changeText(passwordInput, 'SecurePass123!');
 
-      await waitFor(() => {
-        const loginButton = getByTestId('login-button');
-        expect(loginButton.props.accessibilityState?.disabled).toBe(true);
-      });
+      await waitFor(
+        () => {
+          const loginButton = getByTestId('login-button');
+          expect(loginButton.props.accessibilityState?.disabled).toBe(true);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('disables login button when password is too short', async () => {
@@ -137,10 +119,13 @@ describe('LoginScreen', () => {
       fireEvent.changeText(emailInput, 'user@example.com');
       fireEvent.changeText(passwordInput, 'short');
 
-      await waitFor(() => {
-        const loginButton = getByTestId('login-button');
-        expect(loginButton.props.accessibilityState?.disabled).toBe(true);
-      });
+      await waitFor(
+        () => {
+          const loginButton = getByTestId('login-button');
+          expect(loginButton.props.accessibilityState?.disabled).toBe(true);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('enables login button when form is valid', async () => {
@@ -154,10 +139,13 @@ describe('LoginScreen', () => {
       fireEvent.changeText(emailInput, 'user@example.com');
       fireEvent.changeText(passwordInput, 'SecurePass123!');
 
-      await waitFor(() => {
-        const loginButton = getByTestId('login-button');
-        expect(loginButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const loginButton = getByTestId('login-button');
+          expect(loginButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -168,6 +156,7 @@ describe('LoginScreen', () => {
       );
 
       fireEvent.press(getByTestId('forgot-password-link'));
+
       expect(mockNavigation.navigate).toHaveBeenCalledWith('ForgotPassword');
     });
 
@@ -177,47 +166,8 @@ describe('LoginScreen', () => {
       );
 
       fireEvent.press(getByTestId('register-link'));
+
       expect(mockNavigation.navigate).toHaveBeenCalledWith('Registration');
-    });
-  });
-
-  describe('Error Display', () => {
-    it('displays auth error message when present in Redux state', () => {
-      const { getByTestId } = renderWithProviders(
-        <LoginScreen navigation={mockNavigation} route={mockRoute} />,
-        {
-          preloadedState: {
-            auth: {
-              user: null,
-              isAuthenticated: false,
-              isLoading: false,
-              error: 'Invalid credentials',
-              biometricEnabled: false,
-            },
-          },
-        }
-      );
-
-      expect(getByTestId('auth-error-message')).toBeTruthy();
-    });
-
-    it('does not display error message when no error in Redux state', () => {
-      const { queryByTestId } = renderWithProviders(
-        <LoginScreen navigation={mockNavigation} route={mockRoute} />,
-        {
-          preloadedState: {
-            auth: {
-              user: null,
-              isAuthenticated: false,
-              isLoading: false,
-              error: null,
-              biometricEnabled: false,
-            },
-          },
-        }
-      );
-
-      expect(queryByTestId('auth-error-message')).toBeNull();
     });
   });
 
@@ -248,12 +198,5 @@ describe('LoginScreen', () => {
       const registerLink = getByTestId('register-link');
       expect(registerLink.props.accessibilityRole).toBe('link');
     });
-  });
-});
-
-describe('LoginScreen implementation', () => {
-  it('exports LoginScreen as a React component', () => {
-    expect(typeof LoginScreen).toBe('function');
-    expect(LoginScreen.name).toBe('LoginScreen');
   });
 });

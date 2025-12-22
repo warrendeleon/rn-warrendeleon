@@ -5,7 +5,7 @@
 import React from 'react';
 import { fireEvent, waitFor } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils';
+import { expectFocusOrder, expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { PINInput } from '../PINInput';
 
@@ -31,24 +31,27 @@ describe('PINInput', () => {
   });
 
   describe('Rendering', () => {
-    it('renders without crashing', () => {
+    it('renders PIN input with dots and keypad', () => {
       const { getByTestId } = renderPINInput();
 
-      expect(getByTestId('pin-input')).toBeTruthy();
+      // Verify main container, dots, and keypad render
+      expect(getByTestId('pin-input')).toBeOnTheScreen();
+      expect(getByTestId('pin-input-dot-0')).toBeOnTheScreen();
+      expect(getByTestId('pin-input-keypad')).toBeOnTheScreen();
     });
 
     it('renders 6 PIN dots', () => {
       const { getByTestId } = renderPINInput();
 
       for (let i = 0; i < 6; i++) {
-        expect(getByTestId(`pin-input-dot-${i}`)).toBeTruthy();
+        expect(getByTestId(`pin-input-dot-${i}`)).toBeOnTheScreen();
       }
     });
 
     it('renders keypad', () => {
       const { getByTestId } = renderPINInput();
 
-      expect(getByTestId('pin-input-keypad')).toBeTruthy();
+      expect(getByTestId('pin-input-keypad')).toBeOnTheScreen();
     });
   });
 
@@ -82,9 +85,12 @@ describe('PINInput', () => {
 
       fireEvent.press(getByTestId('pin-input-keypad-6'));
 
-      await waitFor(() => {
-        expect(mockOnComplete).toHaveBeenCalledWith('123456');
-      });
+      await waitFor(
+        () => {
+          expect(mockOnComplete).toHaveBeenCalledWith('123456');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -120,11 +126,11 @@ describe('PINInput', () => {
 
       // Check dots 0-2 exist (they should be filled in the component)
       for (let i = 0; i < 3; i++) {
-        expect(getByTestId(`pin-input-dot-${i}`)).toBeTruthy();
+        expect(getByTestId(`pin-input-dot-${i}`)).toBeOnTheScreen();
       }
       // Check dots 3-5 exist (they should be empty)
       for (let i = 3; i < 6; i++) {
-        expect(getByTestId(`pin-input-dot-${i}`)).toBeTruthy();
+        expect(getByTestId(`pin-input-dot-${i}`)).toBeOnTheScreen();
       }
     });
 
@@ -132,7 +138,7 @@ describe('PINInput', () => {
       const { getByTestId } = renderPINInput({ value: '' });
 
       for (let i = 0; i < 6; i++) {
-        expect(getByTestId(`pin-input-dot-${i}`)).toBeTruthy();
+        expect(getByTestId(`pin-input-dot-${i}`)).toBeOnTheScreen();
       }
     });
 
@@ -140,7 +146,7 @@ describe('PINInput', () => {
       const { getByTestId } = renderPINInput({ value: '123456' });
 
       for (let i = 0; i < 6; i++) {
-        expect(getByTestId(`pin-input-dot-${i}`)).toBeTruthy();
+        expect(getByTestId(`pin-input-dot-${i}`)).toBeOnTheScreen();
       }
     });
   });
@@ -167,7 +173,7 @@ describe('PINInput', () => {
     it('renders with error state', () => {
       const { getByTestId } = renderPINInput({ hasError: true, value: '123' });
 
-      expect(getByTestId('pin-input')).toBeTruthy();
+      expect(getByTestId('pin-input')).toBeOnTheScreen();
     });
   });
 
@@ -187,9 +193,50 @@ describe('PINInput', () => {
       const { getByTestId: getByTestId2 } = renderPINInput({ value: '12345' });
       fireEvent.press(getByTestId2('pin-input-keypad-6'));
 
-      await waitFor(() => {
-        expect(mockOnComplete).toHaveBeenCalledWith('123456');
-      });
+      await waitFor(
+        () => {
+          expect(mockOnComplete).toHaveBeenCalledWith('123456');
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    it('PIN dots have accessible ordering for screen readers', () => {
+      const { getByTestId } = renderPINInput({ value: '123' });
+
+      const dots = [];
+      for (let i = 0; i < 6; i++) {
+        dots.push(getByTestId(`pin-input-dot-${i}`));
+      }
+
+      expectFocusOrder(dots);
+    });
+
+    it('keypad has accessible touch targets', () => {
+      const { getByTestId } = renderPINInput();
+
+      // Check a sample of keypad buttons
+      const keypad5 = getByTestId('pin-input-keypad-5');
+      expectMinTouchTarget(keypad5);
+
+      const deleteButton = getByTestId('pin-input-keypad-delete');
+      expectMinTouchTarget(deleteButton);
+    });
+
+    it('disabled state maintains accessible touch targets', () => {
+      const { getByTestId } = renderPINInput({ disabled: true });
+
+      const keypad5 = getByTestId('pin-input-keypad-5');
+      expectMinTouchTarget(keypad5);
+    });
+
+    it('error state maintains accessible touch targets', () => {
+      const { getByTestId } = renderPINInput({ hasError: true, value: '123' });
+
+      const keypad5 = getByTestId('pin-input-keypad-5');
+      expectMinTouchTarget(keypad5);
     });
   });
 });

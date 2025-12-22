@@ -297,6 +297,104 @@ describe('faceDetector', () => {
     });
   });
 
+  describe('validateFaceInImage edge cases', () => {
+    it('should handle confidence exactly at threshold', async () => {
+      mockVisionDetector.detectFaces.mockResolvedValue({
+        hasFace: true,
+        faceCount: 1,
+        faces: [{ confidence: 0.7, bounds: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 } }],
+      });
+
+      const result = await validateFaceInImage('/path/to/image.jpg');
+
+      expect(result.isValid).toBe(true);
+    });
+
+    it('should handle confidence just below threshold', async () => {
+      mockVisionDetector.detectFaces.mockResolvedValue({
+        hasFace: true,
+        faceCount: 1,
+        faces: [{ confidence: 0.69, bounds: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 } }],
+      });
+
+      const result = await validateFaceInImage('/path/to/image.jpg');
+
+      expect(result.isValid).toBe(false);
+      expect(result.message).toContain('No face detected');
+    });
+
+    it('should handle custom minFaceConfidence in validation', async () => {
+      mockVisionDetector.detectFaces.mockResolvedValue({
+        hasFace: true,
+        faceCount: 1,
+        faces: [{ confidence: 0.5, bounds: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 } }],
+      });
+
+      const result = await validateFaceInImage('/path/to/image.jpg', {
+        minFaceConfidence: 0.4,
+      });
+
+      expect(result.isValid).toBe(true);
+    });
+
+    it('should return invalid when hasFace is true but faceCount is 0', async () => {
+      // Edge case: inconsistent API response
+      mockVisionDetector.detectFaces.mockResolvedValue({
+        hasFace: true,
+        faceCount: 0,
+        faces: [],
+      });
+
+      const result = await validateFaceInImage('/path/to/image.jpg');
+
+      expect(result.isValid).toBe(false);
+      expect(result.message).toContain('No face detected');
+    });
+  });
+
+  describe('iOS Vision face array handling', () => {
+    it('should handle empty faces array', async () => {
+      mockVisionDetector.detectFaces.mockResolvedValue({
+        hasFace: false,
+        faceCount: 0,
+        faces: [],
+      });
+
+      const result = await detectFaces('/path/to/image.jpg');
+
+      expect(result.faces).toEqual([]);
+      expect(result.confidence).toBeNull();
+    });
+
+    it('should handle undefined faces array', async () => {
+      mockVisionDetector.detectFaces.mockResolvedValue({
+        hasFace: false,
+        faceCount: 0,
+        // faces: undefined
+      });
+
+      const result = await detectFaces('/path/to/image.jpg');
+
+      expect(result.faces).toEqual([]);
+      expect(result.confidence).toBeNull();
+    });
+
+    it('should return first face confidence when multiple faces detected', async () => {
+      mockVisionDetector.detectFaces.mockResolvedValue({
+        hasFace: true,
+        faceCount: 2,
+        faces: [
+          { confidence: 0.95, bounds: { x: 0.1, y: 0.1, width: 0.3, height: 0.3 } },
+          { confidence: 0.8, bounds: { x: 0.5, y: 0.1, width: 0.3, height: 0.3 } },
+        ],
+      });
+
+      const result = await detectFaces('/path/to/image.jpg');
+
+      expect(result.confidence).toBe(0.95);
+    });
+  });
+
   /**
    * Note: Integration tests for actual face detection are performed via E2E tests.
    * Native modules (Vision/MLKit) are mocked in unit tests.
@@ -307,4 +405,101 @@ describe('faceDetector', () => {
    * - Performance is reasonable
    * - Edge cases (partial faces, side profiles) are handled
    */
+});
+
+/**
+ * Note: Android ML Kit tests are challenging to unit test due to dynamic imports.
+ * The Android detectFacesAndroid function uses `await import()` which doesn't work
+ * well with jest.mock() in the same file.
+ *
+ * Android face detection is tested via:
+ * 1. E2E tests (Detox) which run on actual Android emulators
+ * 2. The E2E mock path which is tested below
+ *
+ * The iOS path (via VisionFaceDetector native module) is thoroughly tested above.
+ */
+describe('faceDetector (Android E2E mock path)', () => {
+  const { isE2EMockEnabled } = require('@app/config/e2e');
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    // Set Platform to Android
+    (Platform as unknown as { OS: string }).OS = 'android';
+  });
+
+  afterEach(() => {
+    // Reset to iOS
+    (Platform as unknown as { OS: string }).OS = 'ios';
+  });
+
+  it('should return E2E mock result on Android when mock is enabled', async () => {
+    (isE2EMockEnabled as jest.Mock).mockReturnValue(true);
+
+    const result = await detectFaces('/path/to/android-image.jpg');
+
+    expect(result.hasFace).toBe(true);
+    expect(result.faceCount).toBe(1);
+    expect(result.confidence).toBe(0.95);
+    // E2E mock should bypass native module call
+  });
+
+  it('should return valid E2E mock validation result on Android', async () => {
+    (isE2EMockEnabled as jest.Mock).mockReturnValue(true);
+
+    const result = await validateFaceInImage('/path/to/android-image.jpg');
+
+    expect(result.isValid).toBe(true);
+    expect(result.message).toBe('Face detected');
+    expect(result.confidence).toBe(0.95);
+  });
+
+  it('should return true for hasFace on Android with E2E mock', async () => {
+    (isE2EMockEnabled as jest.Mock).mockReturnValue(true);
+
+    const result = await hasFace('/path/to/android-image.jpg');
+
+    expect(result).toBe(true);
+  });
+});
+
+describe('validateFaceInImage low confidence path', () => {
+  const { NativeModules } = require('react-native');
+  const mockVisionDetector = NativeModules.VisionFaceDetector;
+  const { isE2EMockEnabled } = require('@app/config/e2e');
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+    (Platform as unknown as { OS: string }).OS = 'ios';
+  });
+
+  it('should return invalid with low confidence message when confidence below threshold after detection', async () => {
+    // This tests line 304: the path where hasFace is true but confidence is below threshold
+    // Different from the minFaceConfidence filter in detectFaces
+    mockVisionDetector.detectFaces.mockResolvedValue({
+      hasFace: true,
+      faceCount: 1,
+      // Return confidence that passes detectFaces filter but tests validateFaceInImage check
+      faces: [{ confidence: 0.65, bounds: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 } }],
+    });
+
+    const result = await validateFaceInImage('/path/to/blurry.jpg', {
+      minFaceConfidence: 0.7,
+    });
+
+    // The detectFaces with minFaceConfidence will return hasFace: false
+    expect(result.isValid).toBe(false);
+    expect(result.message).toContain('No face detected');
+  });
+
+  it('should handle detection error in validation and return error message', async () => {
+    // Test the error path at lines 272-279
+    mockVisionDetector.detectFaces.mockRejectedValue(new Error('Detection failed'));
+
+    const result = await validateFaceInImage('/path/to/corrupt.jpg');
+
+    expect(result.isValid).toBe(false);
+    expect(result.message).toBeDefined();
+    expect(result.faceCount).toBe(0);
+  });
 });

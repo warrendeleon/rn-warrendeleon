@@ -44,12 +44,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-screen')).toBeTruthy();
+      expect(getByTestId('mock-status-screen')).toBeOnTheScreen();
 
       // Wait for async auth check to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('renders all mock status items including auth', async () => {
@@ -64,15 +67,18 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-profile')).toBeTruthy();
-      expect(getByTestId('mock-status-education')).toBeTruthy();
-      expect(getByTestId('mock-status-work-experience')).toBeTruthy();
-      expect(getByTestId('mock-status-auth-api')).toBeTruthy();
+      expect(getByTestId('mock-status-profile')).toBeOnTheScreen();
+      expect(getByTestId('mock-status-education')).toBeOnTheScreen();
+      expect(getByTestId('mock-status-work-experience')).toBeOnTheScreen();
+      expect(getByTestId('mock-status-auth-api')).toBeOnTheScreen();
 
       // Wait for async auth check to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows loading spinner for auth initially', () => {
@@ -89,7 +95,7 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-auth-api-loading')).toBeTruthy();
+      expect(getByTestId('mock-status-auth-api-loading')).toBeOnTheScreen();
     });
   });
 
@@ -107,9 +113,12 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('displays "Not Mocked" when auth API returns mocked: false', async () => {
@@ -125,9 +134,12 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('displays "Not Mocked" when auth API throws error', async () => {
@@ -143,9 +155,12 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -168,12 +183,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-profile-mocked')).toBeTruthy();
+      expect(getByTestId('mock-status-profile-mocked')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('displays "Mocked" status for education when data has mocked flag', async () => {
@@ -196,12 +214,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-education-mocked')).toBeTruthy();
+      expect(getByTestId('mock-status-education-mocked')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('displays "Mocked" status for work experience when data has mocked flag', async () => {
@@ -224,12 +245,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-work-experience-mocked')).toBeTruthy();
+      expect(getByTestId('mock-status-work-experience-mocked')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -250,12 +274,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-profile-not-mocked')).toBeTruthy();
+      expect(getByTestId('mock-status-profile-not-mocked')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('displays "Not Mocked" status for education when data lacks mocked flag', async () => {
@@ -274,12 +301,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-education-not-mocked')).toBeTruthy();
+      expect(getByTestId('mock-status-education-not-mocked')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('displays "Not Mocked" status for work experience when data lacks mocked flag', async () => {
@@ -298,12 +328,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-work-experience-not-mocked')).toBeTruthy();
+      expect(getByTestId('mock-status-work-experience-not-mocked')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -325,9 +358,12 @@ describe('MockStatusScreen', () => {
       expect(noDataElements).toHaveLength(3);
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(mockVerifyMockStatus).toHaveBeenCalled();
-      });
+      await waitFor(
+        () => {
+          expect(mockVerifyMockStatus).toHaveBeenCalled();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('does not display "No data loaded" when profile has data', async () => {
@@ -358,9 +394,12 @@ describe('MockStatusScreen', () => {
       expect(queryAllByText('No data loaded')).toHaveLength(0);
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -377,12 +416,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-screen')).toBeTruthy();
+      expect(getByTestId('mock-status-screen')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('renders correctly in dark theme', async () => {
@@ -397,12 +439,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-screen')).toBeTruthy();
+      expect(getByTestId('mock-status-screen')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('renders correctly with system theme in light mode', async () => {
@@ -417,12 +462,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-screen')).toBeTruthy();
+      expect(getByTestId('mock-status-screen')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('renders correctly with system theme in dark mode', async () => {
@@ -437,12 +485,15 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByTestId('mock-status-screen')).toBeTruthy();
+      expect(getByTestId('mock-status-screen')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -459,18 +510,21 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(getByLabelText('Mock Status Screen')).toBeTruthy();
+      expect(getByLabelText('Mock Status Screen')).toBeOnTheScreen();
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('has correct accessibility role for header', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { UNSAFE_root, getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId, getAllByRole } = renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -479,12 +533,17 @@ describe('MockStatusScreen', () => {
         },
       });
 
-      expect(UNSAFE_root).toBeDefined();
+      // Verify at least one header exists (screen has section headers)
+      const headers = getAllByRole('header');
+      expect(headers.length).toBeGreaterThan(0);
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('has correct accessibility labels for mock status items', async () => {
@@ -510,9 +569,12 @@ describe('MockStatusScreen', () => {
       expect(profileItem.props.accessibilityRole).toBe('summary');
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('updates accessibility label based on mock status', async () => {
@@ -535,9 +597,12 @@ describe('MockStatusScreen', () => {
       expect(profileItem.props.accessibilityLabel).toBe('Profile Data: Not Mocked');
 
       // Wait for auth to complete
-      await waitFor(() => {
-        expect(getByTestId('mock-status-auth-api-not-mocked')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('mock-status-auth-api-not-mocked')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows Loading accessibility label for auth while checking', () => {

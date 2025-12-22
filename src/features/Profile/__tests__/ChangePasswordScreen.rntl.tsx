@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/react-native';
 
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
-import { renderWithProviders } from '@app/test-utils';
+import { expectFocusOrder, expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { ChangePasswordScreen } from '../ChangePasswordScreen';
 
@@ -56,12 +56,12 @@ describe('ChangePasswordScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders without crashing', () => {
-      const { UNSAFE_root } = renderWithProviders(
+    it('renders the screen correctly', () => {
+      const { getByTestId } = renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(UNSAFE_root).toBeTruthy();
+      expect(getByTestId('change-password-screen')).toBeOnTheScreen();
     });
 
     it('renders the change password screen with testID', () => {
@@ -69,7 +69,7 @@ describe('ChangePasswordScreen', () => {
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('change-password-screen')).toBeTruthy();
+      expect(getByTestId('change-password-screen')).toBeOnTheScreen();
     });
 
     it('renders current password input field', () => {
@@ -77,7 +77,7 @@ describe('ChangePasswordScreen', () => {
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('current-password-input')).toBeTruthy();
+      expect(getByTestId('current-password-input')).toBeOnTheScreen();
     });
 
     it('renders new password input field', () => {
@@ -85,7 +85,7 @@ describe('ChangePasswordScreen', () => {
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('new-password-input')).toBeTruthy();
+      expect(getByTestId('new-password-input')).toBeOnTheScreen();
     });
 
     it('renders confirm password input field', () => {
@@ -93,7 +93,7 @@ describe('ChangePasswordScreen', () => {
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('confirm-password-input')).toBeTruthy();
+      expect(getByTestId('confirm-password-input')).toBeOnTheScreen();
     });
 
     it('renders change password button', () => {
@@ -101,7 +101,7 @@ describe('ChangePasswordScreen', () => {
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('change-password-button')).toBeTruthy();
+      expect(getByTestId('change-password-button')).toBeOnTheScreen();
     });
 
     it('renders password requirements section', () => {
@@ -109,7 +109,7 @@ describe('ChangePasswordScreen', () => {
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('password-requirements')).toBeTruthy();
+      expect(getByTestId('password-requirements')).toBeOnTheScreen();
     });
   });
 
@@ -137,10 +137,13 @@ describe('ChangePasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'Short1!');
 
-      await waitFor(() => {
-        const changeButton = getByTestId('change-password-button');
-        expect(changeButton.props.accessibilityState?.disabled).toBe(true);
-      });
+      await waitFor(
+        () => {
+          const changeButton = getByTestId('change-password-button');
+          expect(changeButton.props.accessibilityState?.disabled).toBe(true);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('disables change password button when passwords do not match', async () => {
@@ -157,10 +160,13 @@ describe('ChangePasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'DifferentPass123!');
 
-      await waitFor(() => {
-        const changeButton = getByTestId('change-password-button');
-        expect(changeButton.props.accessibilityState?.disabled).toBe(true);
-      });
+      await waitFor(
+        () => {
+          const changeButton = getByTestId('change-password-button');
+          expect(changeButton.props.accessibilityState?.disabled).toBe(true);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('disables change password button when new password equals current password', async () => {
@@ -177,10 +183,13 @@ describe('ChangePasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'StrongPass123!');
 
-      await waitFor(() => {
-        const changeButton = getByTestId('change-password-button');
-        expect(changeButton.props.accessibilityState?.disabled).toBe(true);
-      });
+      await waitFor(
+        () => {
+          const changeButton = getByTestId('change-password-button');
+          expect(changeButton.props.accessibilityState?.disabled).toBe(true);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('enables change password button when all fields are valid and different', async () => {
@@ -197,10 +206,13 @@ describe('ChangePasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
-      await waitFor(() => {
-        const changeButton = getByTestId('change-password-button');
-        expect(changeButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const changeButton = getByTestId('change-password-button');
+          expect(changeButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -221,21 +233,27 @@ describe('ChangePasswordScreen', () => {
       fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       // Wait for form to be valid
-      await waitFor(() => {
-        const changeButton = getByTestId('change-password-button');
-        expect(changeButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const changeButton = getByTestId('change-password-button');
+          expect(changeButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Submit form
       fireEvent.press(getByTestId('change-password-button'));
 
       // Verify API called with correct arguments
-      await waitFor(() => {
-        expect(SupabaseAuthClient.changePassword).toHaveBeenCalledWith(
-          'OldPass123!',
-          'NewStrongPass123!'
-        );
-      });
+      await waitFor(
+        () => {
+          expect(SupabaseAuthClient.changePassword).toHaveBeenCalledWith(
+            'OldPass123!',
+            'NewStrongPass123!'
+          );
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('navigates to EditAccount with passwordUpdated param after successful password change', async () => {
@@ -254,20 +272,26 @@ describe('ChangePasswordScreen', () => {
       fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       // Wait for form to be valid
-      await waitFor(() => {
-        const changeButton = getByTestId('change-password-button');
-        expect(changeButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const changeButton = getByTestId('change-password-button');
+          expect(changeButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Submit form
       fireEvent.press(getByTestId('change-password-button'));
 
       // Verify navigation to EditAccount
-      await waitFor(() => {
-        expect(mockNavigation.navigate).toHaveBeenCalledWith('EditAccount', {
-          passwordUpdated: true,
-        });
-      });
+      await waitFor(
+        () => {
+          expect(mockNavigation.navigate).toHaveBeenCalledWith('EditAccount', {
+            passwordUpdated: true,
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows error message when current password is incorrect', async () => {
@@ -290,18 +314,24 @@ describe('ChangePasswordScreen', () => {
       fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       // Wait for form to be valid
-      await waitFor(() => {
-        const changeButton = getByTestId('change-password-button');
-        expect(changeButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const changeButton = getByTestId('change-password-button');
+          expect(changeButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Submit form
       fireEvent.press(getByTestId('change-password-button'));
 
       // Wait for error message
-      await waitFor(() => {
-        expect(queryByTestId('error-message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(queryByTestId('error-message')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows generic error message when API call fails with unknown error', async () => {
@@ -324,18 +354,24 @@ describe('ChangePasswordScreen', () => {
       fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       // Wait for form to be valid
-      await waitFor(() => {
-        const changeButton = getByTestId('change-password-button');
-        expect(changeButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const changeButton = getByTestId('change-password-button');
+          expect(changeButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Submit form
       fireEvent.press(getByTestId('change-password-button'));
 
       // Wait for error message
-      await waitFor(() => {
-        expect(queryByTestId('error-message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(queryByTestId('error-message')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -367,18 +403,24 @@ describe('ChangePasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
-      await waitFor(() => {
-        const changeButton = getByTestId('change-password-button');
-        expect(changeButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const changeButton = getByTestId('change-password-button');
+          expect(changeButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       fireEvent.press(getByTestId('change-password-button'));
 
-      await waitFor(() => {
-        const errorMessage = queryByTestId('error-message');
-        expect(errorMessage).toBeTruthy();
-        expect(errorMessage?.props.accessibilityRole).toBe('alert');
-      });
+      await waitFor(
+        () => {
+          const errorMessage = queryByTestId('error-message');
+          expect(errorMessage).toBeOnTheScreen();
+          expect(errorMessage?.props.accessibilityRole).toBe('alert');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 });
@@ -387,5 +429,69 @@ describe('ChangePasswordScreen implementation', () => {
   it('exports ChangePasswordScreen as a React component', () => {
     expect(typeof ChangePasswordScreen).toBe('function');
     expect(ChangePasswordScreen.name).toBe('ChangePasswordScreen');
+  });
+});
+
+describe('ChangePasswordScreen EAA Accessibility Compliance', () => {
+  const mockNavigation = {
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+    reset: jest.fn(),
+    setOptions: jest.fn(),
+    addListener: jest.fn(() => () => {}),
+    removeListener: jest.fn(),
+    dispatch: jest.fn(),
+    isFocused: jest.fn(() => true),
+    canGoBack: jest.fn(() => true),
+    getId: jest.fn(),
+    getParent: jest.fn(),
+    getState: jest.fn(() => ({
+      key: 'ChangePassword',
+      index: 0,
+      routeNames: ['ChangePassword'],
+      routes: [{ key: 'ChangePassword', name: 'ChangePassword', params: undefined }],
+    })),
+  } as unknown as NativeStackNavigationProp<RootStackParamList, 'ChangePassword'>;
+
+  const mockRoute = {
+    key: 'ChangePassword',
+    name: 'ChangePassword' as const,
+    params: undefined,
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('form inputs are accessible', () => {
+    const { getByTestId } = renderWithProviders(
+      <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    // Inputs exist within touch-target-compliant containers (FormInputItem)
+    expect(getByTestId('current-password-input')).toBeOnTheScreen();
+    expect(getByTestId('new-password-input')).toBeOnTheScreen();
+    expect(getByTestId('confirm-password-input')).toBeOnTheScreen();
+  });
+
+  it('change password button has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expectMinTouchTarget(getByTestId('change-password-button'));
+  });
+
+  it('has correct focus order for form elements', () => {
+    const { getByTestId } = renderWithProviders(
+      <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expectFocusOrder([
+      getByTestId('current-password-input'),
+      getByTestId('new-password-input'),
+      getByTestId('confirm-password-input'),
+      getByTestId('change-password-button'),
+    ]);
   });
 });

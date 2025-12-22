@@ -7,6 +7,8 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 
+import { expectMinTouchTarget } from '@app/test-utils';
+
 import { ProfilePicturePreviewScreen } from '../ProfilePicturePreviewScreen';
 
 // Track route params - must be defined before jest.mock for hoisting
@@ -105,9 +107,12 @@ describe('ProfilePicturePreviewScreen', () => {
     it('renders the preview screen', async () => {
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.getByTestId('profile-picture-preview-screen')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByTestId('profile-picture-preview-screen')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     // Note: Title is shown in navigation bar header, not in-screen
@@ -115,17 +120,23 @@ describe('ProfilePicturePreviewScreen', () => {
     it('renders the image preview', async () => {
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.getByTestId('profile-picture-preview-image')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByTestId('profile-picture-preview-image')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('renders retry button', async () => {
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.getByTestId('profile-picture-preview-retry-button')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByTestId('profile-picture-preview-retry-button')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -137,7 +148,7 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      expect(screen.getByText('Checking photo...')).toBeTruthy();
+      expect(screen.getByText('Checking photo...')).toBeOnTheScreen();
     });
 
     it('shows valid state when face detected', async () => {
@@ -149,9 +160,12 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.getByText('Face detected')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByText('Face detected')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows save button when valid', async () => {
@@ -163,9 +177,12 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.getByTestId('profile-picture-preview-save-button')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByTestId('profile-picture-preview-save-button')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows invalid state when no face detected', async () => {
@@ -177,9 +194,12 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.getByText('No face detected in the image')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByText('No face detected in the image')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('does not show save button when invalid', async () => {
@@ -191,9 +211,12 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.queryByTestId('profile-picture-preview-save-button')).toBeNull();
-      });
+      await waitFor(
+        () => {
+          expect(screen.queryByTestId('profile-picture-preview-save-button')).toBeNull();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows Try Different Photo text when invalid', async () => {
@@ -205,9 +228,12 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.getByText('Try Different Photo')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByText('Try Different Photo')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -222,9 +248,12 @@ describe('ProfilePicturePreviewScreen', () => {
       render(<ProfilePicturePreviewScreen />);
 
       // Wait for the save button to appear and verify it exists
-      await waitFor(() => {
-        expect(screen.getByTestId('profile-picture-preview-save-button')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByTestId('profile-picture-preview-save-button')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('opens library picker when retry is pressed (source is library)', async () => {
@@ -236,15 +265,21 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.getByTestId('profile-picture-preview-retry-button')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByTestId('profile-picture-preview-retry-button')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       fireEvent.press(screen.getByTestId('profile-picture-preview-retry-button'));
 
-      await waitFor(() => {
-        expect(mockOpenLibraryForProfilePicture).toHaveBeenCalled();
-      });
+      await waitFor(
+        () => {
+          expect(mockOpenLibraryForProfilePicture).toHaveBeenCalled();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -260,32 +295,41 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        const button = screen.getByTestId('profile-picture-preview-save-button');
-        expect(button.props.accessibilityRole).toBe('button');
-        expect(button.props.accessibilityLabel).toBe('Save');
-        expect(button.props.accessibilityHint).toBe('Saves this photo as your profile picture');
-      });
+      await waitFor(
+        () => {
+          const button = screen.getByTestId('profile-picture-preview-save-button');
+          expect(button.props.accessibilityRole).toBe('button');
+          expect(button.props.accessibilityLabel).toBe('Save');
+          expect(button.props.accessibilityHint).toBe('Saves this photo as your profile picture');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('has accessible retry button', async () => {
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        const button = screen.getByTestId('profile-picture-preview-retry-button');
-        expect(button.props.accessibilityRole).toBe('button');
-        expect(button.props.accessibilityLabel).toBe('Choose Different Photo');
-        expect(button.props.accessibilityHint).toBe('Returns to select a different photo');
-      });
+      await waitFor(
+        () => {
+          const button = screen.getByTestId('profile-picture-preview-retry-button');
+          expect(button.props.accessibilityRole).toBe('button');
+          expect(button.props.accessibilityLabel).toBe('Choose Different Photo');
+          expect(button.props.accessibilityHint).toBe('Returns to select a different photo');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('has accessible image', async () => {
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        const image = screen.getByTestId('profile-picture-preview-image');
-        expect(image.props.alt).toBe('Selected profile picture');
-      });
+      await waitFor(
+        () => {
+          const image = screen.getByTestId('profile-picture-preview-image');
+          expect(image.props.alt).toBe('Selected profile picture');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -294,7 +338,7 @@ describe('ProfilePicturePreviewScreen', () => {
       // The mock always provides imageUri, so we just verify the screen renders
       render(<ProfilePicturePreviewScreen />);
 
-      expect(screen.getByTestId('profile-picture-preview-screen')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-preview-screen')).toBeOnTheScreen();
     });
   });
 
@@ -308,11 +352,14 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(
-          screen.getByText('Multiple faces detected. Please use a photo with only one person.')
-        ).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(
+            screen.getByText('Multiple faces detected. Please use a photo with only one person.')
+          ).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows default error message when no message provided', async () => {
@@ -324,9 +371,12 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        expect(screen.getByText('No face detected')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByText('No face detected')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -343,14 +393,19 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        const saveButton = screen.getByTestId('profile-picture-preview-save-button');
-        expect(saveButton).toBeTruthy();
-        expect(saveButton.props.accessibilityRole).toBe('button');
-        expect(saveButton.props.accessibilityLabel).toBe('Save');
-        expect(saveButton.props.accessibilityHint).toBe('Saves this photo as your profile picture');
-        expect(saveButton.props.accessibilityState).toEqual({ disabled: false });
-      });
+      await waitFor(
+        () => {
+          const saveButton = screen.getByTestId('profile-picture-preview-save-button');
+          expect(saveButton).toBeOnTheScreen();
+          expect(saveButton.props.accessibilityRole).toBe('button');
+          expect(saveButton.props.accessibilityLabel).toBe('Save');
+          expect(saveButton.props.accessibilityHint).toBe(
+            'Saves this photo as your profile picture'
+          );
+          expect(saveButton.props.accessibilityState).toEqual({ disabled: false });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('save button is not disabled initially', async () => {
@@ -362,10 +417,13 @@ describe('ProfilePicturePreviewScreen', () => {
 
       render(<ProfilePicturePreviewScreen />);
 
-      await waitFor(() => {
-        const saveButton = screen.getByTestId('profile-picture-preview-save-button');
-        expect(saveButton.props.accessibilityState.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const saveButton = screen.getByTestId('profile-picture-preview-save-button');
+          expect(saveButton.props.accessibilityState.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('SupabaseStorageClient mock is correctly configured', async () => {
@@ -374,6 +432,36 @@ describe('ProfilePicturePreviewScreen', () => {
       expect(mockedUploadProfilePicture).toHaveBeenCalledWith('test-id', 'test-uri');
       expect(result.success).toBe(true);
       expect(result.publicUrl).toBeDefined();
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    it('save button has accessible touch target when valid', async () => {
+      mockValidateProfilePicture.mockResolvedValue({
+        isValid: true,
+        message: 'Face detected',
+        confidence: 0.95,
+      });
+
+      render(<ProfilePicturePreviewScreen />);
+
+      await waitFor(
+        () => {
+          expectMinTouchTarget(screen.getByTestId('profile-picture-preview-save-button'));
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+
+    it('retry button has accessible touch target', async () => {
+      render(<ProfilePicturePreviewScreen />);
+
+      await waitFor(
+        () => {
+          expectMinTouchTarget(screen.getByTestId('profile-picture-preview-retry-button'));
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 });

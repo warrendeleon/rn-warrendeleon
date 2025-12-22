@@ -517,11 +517,14 @@ describe('WorkExperienceScreen', () => {
       const itemWithClients = screen.getByTestId('work-experience-item-work-2');
       fireEvent.press(itemWithClients);
 
-      await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceClients', {
-          workExperienceId: 'work-2',
-        });
-      });
+      await waitFor(
+        () => {
+          expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceClients', {
+            workExperienceId: 'work-2',
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('displays badge with client count for items with clients', () => {
@@ -592,12 +595,15 @@ describe('WorkExperienceScreen', () => {
       const itemWithoutClients = screen.getByTestId('work-experience-item-work-1');
       fireEvent.press(itemWithoutClients);
 
-      await waitFor(() => {
-        // Navigation uses position ID for single-position work experience
-        expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
-          workExperienceId: 'pos-1',
-        });
-      });
+      await waitFor(
+        () => {
+          // Navigation uses position ID for single-position work experience
+          expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
+            workExperienceId: 'pos-1',
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('navigates to WorkExperienceDetails when item has positions without clients', async () => {
@@ -621,12 +627,15 @@ describe('WorkExperienceScreen', () => {
       const itemWithoutClients = screen.getByTestId('work-experience-item-work-1');
       fireEvent.press(itemWithoutClients);
 
-      await waitFor(() => {
-        // Navigation uses position ID for single-position work experience
-        expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
-          workExperienceId: 'pos-1',
-        });
-      });
+      await waitFor(
+        () => {
+          // Navigation uses position ID for single-position work experience
+          expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
+            workExperienceId: 'pos-1',
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 

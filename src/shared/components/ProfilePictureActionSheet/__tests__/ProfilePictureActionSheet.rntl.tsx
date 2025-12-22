@@ -52,33 +52,33 @@ describe('ProfilePictureActionSheet', () => {
     it('renders action sheet when isOpen is true', () => {
       render(<ProfilePictureActionSheet {...defaultProps} />);
 
-      expect(screen.getByTestId('profile-picture-action-sheet')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-sheet')).toBeOnTheScreen();
     });
 
     it('renders Take Photo option', () => {
       render(<ProfilePictureActionSheet {...defaultProps} />);
 
-      expect(screen.getByTestId('profile-picture-action-take-photo')).toBeTruthy();
-      expect(screen.getByText('Take Photo')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-take-photo')).toBeOnTheScreen();
+      expect(screen.getByText('Take Photo')).toBeOnTheScreen();
     });
 
     it('renders Choose from Library option', () => {
       render(<ProfilePictureActionSheet {...defaultProps} />);
 
-      expect(screen.getByTestId('profile-picture-action-choose-library')).toBeTruthy();
-      expect(screen.getByText('Choose from Library')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-choose-library')).toBeOnTheScreen();
+      expect(screen.getByText('Choose from Library')).toBeOnTheScreen();
     });
 
     it('renders title', () => {
       render(<ProfilePictureActionSheet {...defaultProps} />);
 
-      expect(screen.getByTestId('profile-picture-action-sheet-title')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-sheet-title')).toBeOnTheScreen();
     });
 
     it('renders backdrop', () => {
       render(<ProfilePictureActionSheet {...defaultProps} />);
 
-      expect(screen.getByTestId('profile-picture-action-sheet-backdrop')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-sheet-backdrop')).toBeOnTheScreen();
     });
   });
 
@@ -104,8 +104,8 @@ describe('ProfilePictureActionSheet', () => {
         />
       );
 
-      expect(screen.getByTestId('profile-picture-action-remove')).toBeTruthy();
-      expect(screen.getByText('Remove Photo')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-remove')).toBeOnTheScreen();
+      expect(screen.getByText('Remove Photo')).toBeOnTheScreen();
     });
   });
 
@@ -223,8 +223,84 @@ describe('ProfilePictureActionSheet', () => {
     it('renders correctly in dark mode', () => {
       render(<ProfilePictureActionSheet {...defaultProps} />);
 
-      expect(screen.getByTestId('profile-picture-action-sheet')).toBeTruthy();
-      expect(screen.getByText('Change Profile Picture')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-sheet')).toBeOnTheScreen();
+      expect(screen.getByText('Change Profile Picture')).toBeOnTheScreen();
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    it('Take Photo button has minimum touch target size', () => {
+      render(<ProfilePictureActionSheet {...defaultProps} />);
+
+      const button = screen.getByTestId('profile-picture-action-take-photo');
+      // EAA requires 44×44 minimum touch target
+      expect(button.props.style?.minHeight ?? 48).toBeGreaterThanOrEqual(44);
+    });
+
+    it('Choose from Library button has minimum touch target size', () => {
+      render(<ProfilePictureActionSheet {...defaultProps} />);
+
+      const button = screen.getByTestId('profile-picture-action-choose-library');
+      expect(button.props.style?.minHeight ?? 48).toBeGreaterThanOrEqual(44);
+    });
+
+    it('Remove Photo button has minimum touch target size when shown', () => {
+      render(
+        <ProfilePictureActionSheet
+          {...defaultProps}
+          hasExistingPhoto={true}
+          onRemovePhoto={mockOnRemovePhoto}
+        />
+      );
+
+      const button = screen.getByTestId('profile-picture-action-remove');
+      expect(button.props.style?.minHeight ?? 48).toBeGreaterThanOrEqual(44);
+    });
+
+    it('all interactive elements have button role', () => {
+      render(
+        <ProfilePictureActionSheet
+          {...defaultProps}
+          hasExistingPhoto={true}
+          onRemovePhoto={mockOnRemovePhoto}
+        />
+      );
+
+      expect(screen.getByTestId('profile-picture-action-take-photo').props.accessibilityRole).toBe(
+        'button'
+      );
+      expect(
+        screen.getByTestId('profile-picture-action-choose-library').props.accessibilityRole
+      ).toBe('button');
+      expect(screen.getByTestId('profile-picture-action-remove').props.accessibilityRole).toBe(
+        'button'
+      );
+      expect(
+        screen.getByTestId('profile-picture-action-sheet-backdrop').props.accessibilityRole
+      ).toBe('button');
+    });
+
+    it('all buttons have accessibility labels', () => {
+      render(
+        <ProfilePictureActionSheet
+          {...defaultProps}
+          hasExistingPhoto={true}
+          onRemovePhoto={mockOnRemovePhoto}
+        />
+      );
+
+      expect(
+        screen.getByTestId('profile-picture-action-take-photo').props.accessibilityLabel
+      ).toBeTruthy();
+      expect(
+        screen.getByTestId('profile-picture-action-choose-library').props.accessibilityLabel
+      ).toBeTruthy();
+      expect(
+        screen.getByTestId('profile-picture-action-remove').props.accessibilityLabel
+      ).toBeTruthy();
+      expect(
+        screen.getByTestId('profile-picture-action-sheet-backdrop').props.accessibilityLabel
+      ).toBeTruthy();
     });
   });
 });

@@ -153,6 +153,7 @@ describe('profilePictureValidator', () => {
     });
 
     it('should run both validations in parallel', async () => {
+      // Create promises that resolve after fake timers advance
       const facePromise = new Promise(resolve => {
         setTimeout(() => {
           resolve({
@@ -178,12 +179,19 @@ describe('profilePictureValidator', () => {
       validateFaceInImage.mockReturnValue(facePromise);
       validateImageContent.mockReturnValue(contentPromise);
 
-      const startTime = Date.now();
-      await validateProfilePicture('/path/to/image.jpg');
-      const elapsed = Date.now() - startTime;
+      // Start the validation (don't await yet)
+      const resultPromise = validateProfilePicture('/path/to/image.jpg');
 
-      // Both should run in parallel, so total time should be ~50ms, not ~100ms
-      expect(elapsed).toBeLessThan(100);
+      // Both validations should be called immediately (in parallel)
+      expect(validateFaceInImage).toHaveBeenCalledTimes(1);
+      expect(validateImageContent).toHaveBeenCalledTimes(1);
+
+      // Advance timers to resolve both promises
+      jest.advanceTimersByTime(50);
+
+      // Now await the result
+      const result = await resultPromise;
+      expect(result.isValid).toBe(true);
     });
 
     it('should handle validation errors gracefully', async () => {

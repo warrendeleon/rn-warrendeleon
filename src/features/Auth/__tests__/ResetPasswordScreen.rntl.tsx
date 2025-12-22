@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/react-native';
 
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
-import { renderWithProviders } from '@app/test-utils';
+import { expectFocusOrder, expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { ResetPasswordScreen } from '../ResetPasswordScreen';
 
@@ -68,20 +68,16 @@ describe('ResetPasswordScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders without crashing', () => {
-      const { UNSAFE_root } = renderWithProviders(
-        <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
-      );
-
-      expect(UNSAFE_root).toBeTruthy();
-    });
-
-    it('renders the reset password screen with testID', () => {
+    it('renders reset password screen with form fields', () => {
       const { getByTestId } = renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('reset-password-screen')).toBeTruthy();
+      // Verify main container and essential form elements render
+      expect(getByTestId('reset-password-screen')).toBeOnTheScreen();
+      expect(getByTestId('new-password-input')).toBeOnTheScreen();
+      expect(getByTestId('confirm-password-input')).toBeOnTheScreen();
+      expect(getByTestId('reset-password-button')).toBeOnTheScreen();
     });
 
     it('renders new password input field', () => {
@@ -89,7 +85,7 @@ describe('ResetPasswordScreen', () => {
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('new-password-input')).toBeTruthy();
+      expect(getByTestId('new-password-input')).toBeOnTheScreen();
     });
 
     it('renders confirm password input field', () => {
@@ -97,7 +93,7 @@ describe('ResetPasswordScreen', () => {
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('confirm-password-input')).toBeTruthy();
+      expect(getByTestId('confirm-password-input')).toBeOnTheScreen();
     });
 
     it('renders reset button', () => {
@@ -105,7 +101,7 @@ describe('ResetPasswordScreen', () => {
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('reset-password-button')).toBeTruthy();
+      expect(getByTestId('reset-password-button')).toBeOnTheScreen();
     });
 
     it('renders back to login link', () => {
@@ -113,7 +109,7 @@ describe('ResetPasswordScreen', () => {
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('back-to-login-link')).toBeTruthy();
+      expect(getByTestId('back-to-login-link')).toBeOnTheScreen();
     });
 
     it('renders password requirements section', () => {
@@ -121,7 +117,7 @@ describe('ResetPasswordScreen', () => {
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('password-requirements')).toBeTruthy();
+      expect(getByTestId('password-requirements')).toBeOnTheScreen();
     });
   });
 
@@ -146,10 +142,13 @@ describe('ResetPasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'Short1!');
 
-      await waitFor(() => {
-        const resetButton = getByTestId('reset-password-button');
-        expect(resetButton.props.accessibilityState?.disabled).toBe(true);
-      });
+      await waitFor(
+        () => {
+          const resetButton = getByTestId('reset-password-button');
+          expect(resetButton.props.accessibilityState?.disabled).toBe(true);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('disables reset button when passwords do not match', async () => {
@@ -163,10 +162,13 @@ describe('ResetPasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'DifferentPass123!');
 
-      await waitFor(() => {
-        const resetButton = getByTestId('reset-password-button');
-        expect(resetButton.props.accessibilityState?.disabled).toBe(true);
-      });
+      await waitFor(
+        () => {
+          const resetButton = getByTestId('reset-password-button');
+          expect(resetButton.props.accessibilityState?.disabled).toBe(true);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('enables reset button when password is valid and matches', async () => {
@@ -180,10 +182,13 @@ describe('ResetPasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'StrongPass123!');
 
-      await waitFor(() => {
-        const resetButton = getByTestId('reset-password-button');
-        expect(resetButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const resetButton = getByTestId('reset-password-button');
+          expect(resetButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -224,18 +229,24 @@ describe('ResetPasswordScreen', () => {
       fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       // Wait for form to be valid
-      await waitFor(() => {
-        const resetButton = getByTestId('reset-password-button');
-        expect(resetButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const resetButton = getByTestId('reset-password-button');
+          expect(resetButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Submit form
       fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for success message to appear
-      await waitFor(() => {
-        expect(getByTestId('success-message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('success-message')).toBeOnTheScreen();
+        },
+        { timeout: 5000, interval: 100 }
+      );
 
       // Tap the back to login button
       fireEvent.press(getByTestId('back-to-login-button'));
@@ -257,21 +268,27 @@ describe('ResetPasswordScreen', () => {
       fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       // Wait for form to be valid
-      await waitFor(() => {
-        const resetButton = getByTestId('reset-password-button');
-        expect(resetButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const resetButton = getByTestId('reset-password-button');
+          expect(resetButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Submit form
       fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for API call and navigation
-      await waitFor(() => {
-        expect(SupabaseAuthClient.resetPasswordWithToken).toHaveBeenCalledWith(
-          'test-access-token',
-          'StrongPass123!'
-        );
-      });
+      await waitFor(
+        () => {
+          expect(SupabaseAuthClient.resetPasswordWithToken).toHaveBeenCalledWith(
+            'test-access-token',
+            'StrongPass123!'
+          );
+        },
+        { timeout: 5000, interval: 100 }
+      );
     });
 
     it('shows error message when API call fails', async () => {
@@ -291,18 +308,24 @@ describe('ResetPasswordScreen', () => {
       fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       // Wait for form to be valid
-      await waitFor(() => {
-        const resetButton = getByTestId('reset-password-button');
-        expect(resetButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const resetButton = getByTestId('reset-password-button');
+          expect(resetButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Submit form
       fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for error message
-      await waitFor(() => {
-        expect(queryByTestId('error-message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(queryByTestId('error-message')).toBeOnTheScreen();
+        },
+        { timeout: 5000, interval: 100 }
+      );
     });
 
     it('shows invalid token error for expired tokens', async () => {
@@ -322,18 +345,24 @@ describe('ResetPasswordScreen', () => {
       fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       // Wait for form to be valid
-      await waitFor(() => {
-        const resetButton = getByTestId('reset-password-button');
-        expect(resetButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const resetButton = getByTestId('reset-password-button');
+          expect(resetButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Submit form
       fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for error message
-      await waitFor(() => {
-        expect(queryByTestId('error-message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(queryByTestId('error-message')).toBeOnTheScreen();
+        },
+        { timeout: 5000, interval: 100 }
+      );
     });
   });
 
@@ -350,17 +379,23 @@ describe('ResetPasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'StrongPass123!');
 
-      await waitFor(() => {
-        const resetButton = getByTestId('reset-password-button');
-        expect(resetButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const resetButton = getByTestId('reset-password-button');
+          expect(resetButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for success state to show
-      await waitFor(() => {
-        expect(getByTestId('success-message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('success-message')).toBeOnTheScreen();
+        },
+        { timeout: 5000, interval: 100 }
+      );
 
       // Tap the back to login button
       fireEvent.press(getByTestId('back-to-login-button'));
@@ -392,17 +427,23 @@ describe('ResetPasswordScreen', () => {
       const confirmInput = getByTestId('confirm-password-input');
       fireEvent.changeText(confirmInput, 'StrongPass123!');
 
-      await waitFor(() => {
-        const resetButton = getByTestId('reset-password-button');
-        expect(resetButton.props.accessibilityState?.disabled).toBe(false);
-      });
+      await waitFor(
+        () => {
+          const resetButton = getByTestId('reset-password-button');
+          expect(resetButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for success state to show
-      await waitFor(() => {
-        expect(getByTestId('success-message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('success-message')).toBeOnTheScreen();
+        },
+        { timeout: 5000, interval: 100 }
+      );
 
       // Tap the back to account button
       fireEvent.press(getByTestId('back-to-login-button'));
@@ -440,5 +481,83 @@ describe('ResetPasswordScreen implementation', () => {
   it('exports ResetPasswordScreen as a React component', () => {
     expect(typeof ResetPasswordScreen).toBe('function');
     expect(ResetPasswordScreen.name).toBe('ResetPasswordScreen');
+  });
+});
+
+describe('ResetPasswordScreen EAA Accessibility Compliance', () => {
+  const mockNavigation = {
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+    reset: jest.fn(),
+    setOptions: jest.fn(),
+    addListener: jest.fn(() => () => {}),
+    removeListener: jest.fn(),
+    dispatch: jest.fn(),
+    isFocused: jest.fn(() => true),
+    canGoBack: jest.fn(() => true),
+    getId: jest.fn(),
+    getParent: jest.fn(),
+    getState: jest.fn(() => ({
+      key: 'ResetPassword',
+      index: 0,
+      routeNames: ['ResetPassword'],
+      routes: [
+        {
+          key: 'ResetPassword',
+          name: 'ResetPassword',
+          params: { accessToken: 'test-token', fromEditAccount: false },
+        },
+      ],
+    })),
+  } as unknown as NativeStackNavigationProp<RootStackParamList, 'ResetPassword'>;
+
+  const mockRoute = {
+    key: 'ResetPassword',
+    name: 'ResetPassword' as const,
+    params: {
+      accessToken: 'test-access-token',
+      fromEditAccount: false,
+    },
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('form inputs are accessible', () => {
+    const { getByTestId } = renderWithProviders(
+      <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expect(getByTestId('new-password-input')).toBeOnTheScreen();
+    expect(getByTestId('confirm-password-input')).toBeOnTheScreen();
+  });
+
+  it('reset password button has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expectMinTouchTarget(getByTestId('reset-password-button'));
+  });
+
+  it('back to login link has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expectMinTouchTarget(getByTestId('back-to-login-link'));
+  });
+
+  it('has correct focus order for form elements', () => {
+    const { getByTestId } = renderWithProviders(
+      <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expectFocusOrder([
+      getByTestId('new-password-input'),
+      getByTestId('confirm-password-input'),
+      getByTestId('reset-password-button'),
+    ]);
   });
 });

@@ -1,18 +1,16 @@
 import React from 'react';
 
-import { renderWithProviders } from '@app/test-utils/renderWithProviders';
+import { renderWithProviders } from '@app/test-utils';
 
 import { ButtonGroupDivider } from '../ButtonGroupDivider';
 
 describe('ButtonGroupDivider Stories', () => {
-  it('renders Default story', () => {
-    const { toJSON } = renderWithProviders(<ButtonGroupDivider />);
-    expect(toJSON()).toBeTruthy();
-  });
-
-  it('renders divider element', () => {
+  it('renders Default story as a View element', () => {
     const { toJSON } = renderWithProviders(<ButtonGroupDivider />);
     const tree = toJSON();
-    expect(tree).toBeTruthy();
+    expect(tree).not.toBeNull();
+    if (tree && !Array.isArray(tree)) {
+      expect(tree.type).toBe('View');
+    }
   });
 });

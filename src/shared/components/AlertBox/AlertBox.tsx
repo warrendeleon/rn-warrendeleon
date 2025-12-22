@@ -84,7 +84,7 @@ export const AlertBox: React.FC<AlertBoxProps> = ({
   message,
   title,
   testID,
-  accessibilityLiveRegion,
+  accessibilityLiveRegion = 'polite',
 }) => {
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';

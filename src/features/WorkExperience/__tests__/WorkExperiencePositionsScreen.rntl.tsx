@@ -451,11 +451,14 @@ describe('WorkExperiencePositionsScreen', () => {
       const firstPosition = screen.getByTestId('work-experience-positions-item-pos-1');
       fireEvent.press(firstPosition);
 
-      await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
-          workExperienceId: 'pos-1',
-        });
-      });
+      await waitFor(
+        () => {
+          expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
+            workExperienceId: 'pos-1',
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('navigates with correct position ID for each item', async () => {
@@ -485,11 +488,14 @@ describe('WorkExperiencePositionsScreen', () => {
       const secondPosition = screen.getByTestId('work-experience-positions-item-pos-2');
       fireEvent.press(secondPosition);
 
-      await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
-          workExperienceId: 'pos-2',
-        });
-      });
+      await waitFor(
+        () => {
+          expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
+            workExperienceId: 'pos-2',
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 

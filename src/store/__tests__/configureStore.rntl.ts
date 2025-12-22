@@ -56,7 +56,7 @@ describe('configureStore', () => {
   });
 
   describe('Redux Persist Configuration', () => {
-    it('exports a persistor', () => {
+    it('exports a persistor with persist, purge, and flush methods', () => {
       expect(persistor).toBeDefined();
       expect(typeof persistor.persist).toBe('function');
       expect(typeof persistor.purge).toBe('function');

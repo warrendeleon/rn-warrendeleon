@@ -53,7 +53,7 @@ describe('withAuth HOC', () => {
   });
 
   describe('when authenticated', () => {
-    it('should render the wrapped component', () => {
+    it('displays protected content when user is authenticated', () => {
       const authContext = createMockAuthContext({
         isAuthenticated: true,
         isLoading: false,
@@ -105,9 +105,12 @@ describe('withAuth HOC', () => {
         wrapper: createWrapper(authContext),
       });
 
-      await waitFor(() => {
-        expect(screen.queryByTestId('protected-content')).toBeNull();
-      });
+      await waitFor(
+        () => {
+          expect(screen.queryByTestId('protected-content')).toBeNull();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('should save intended route', async () => {
@@ -122,9 +125,12 @@ describe('withAuth HOC', () => {
         wrapper: createWrapper(authContext),
       });
 
-      await waitFor(() => {
-        expect(setIntendedRoute).toHaveBeenCalledWith(mockRouteName);
-      });
+      await waitFor(
+        () => {
+          expect(setIntendedRoute).toHaveBeenCalledWith(mockRouteName);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('should redirect to login screen', async () => {
@@ -137,17 +143,20 @@ describe('withAuth HOC', () => {
         wrapper: createWrapper(authContext),
       });
 
-      await waitFor(() => {
-        expect(mockReset).toHaveBeenCalledWith({
-          index: 1,
-          routes: [{ name: 'Home' }, { name: 'Login' }],
-        });
-      });
+      await waitFor(
+        () => {
+          expect(mockReset).toHaveBeenCalledWith({
+            index: 1,
+            routes: [{ name: 'Home' }, { name: 'Login' }],
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
   describe('when loading', () => {
-    it('should render loading indicator', () => {
+    it('displays loading spinner while auth state is being determined', () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
@@ -224,6 +233,111 @@ describe('withAuth HOC', () => {
     });
   });
 
+  describe('session security', () => {
+    it('should immediately redirect when authentication becomes invalid', async () => {
+      // Start authenticated
+      const initialContext = createMockAuthContext({
+        isAuthenticated: true,
+        isLoading: false,
+      });
+
+      const { rerender } = render(<ProtectedScreen />, {
+        wrapper: createWrapper(initialContext),
+      });
+
+      // Content is shown
+      expect(screen.getByTestId('protected-content')).toBeTruthy();
+      expect(mockReset).not.toHaveBeenCalled();
+
+      // Session becomes invalid (e.g., token expired)
+      const invalidatedContext = createMockAuthContext({
+        isAuthenticated: false,
+        isLoading: false,
+      });
+
+      rerender(
+        <AuthContext.Provider value={invalidatedContext}>
+          <ProtectedScreen />
+        </AuthContext.Provider>
+      );
+
+      // Should redirect to login
+      await waitFor(
+        () => {
+          expect(mockReset).toHaveBeenCalled();
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+
+    it('should not render protected content during auth state transitions', () => {
+      const authContext = createMockAuthContext({
+        isAuthenticated: false,
+        isLoading: true,
+      });
+
+      render(<ProtectedScreen />, {
+        wrapper: createWrapper(authContext),
+      });
+
+      // During loading/transition, protected content should not be visible
+      expect(screen.queryByTestId('protected-content')).toBeNull();
+      // Loading indicator should be shown instead
+      expect(screen.getByTestId('auth-loading-indicator')).toBeTruthy();
+    });
+
+    it('should save intended route before redirecting', async () => {
+      const setIntendedRoute = jest.fn();
+      const authContext = createMockAuthContext({
+        isAuthenticated: false,
+        isLoading: false,
+        setIntendedRoute,
+      });
+
+      render(<ProtectedScreen />, {
+        wrapper: createWrapper(authContext),
+      });
+
+      // Should save the route user was trying to access
+      await waitFor(
+        () => {
+          expect(setIntendedRoute).toHaveBeenCalledWith(mockRouteName);
+        },
+        { timeout: 3000, interval: 100 }
+      );
+
+      // Then redirect
+      await waitFor(
+        () => {
+          expect(mockReset).toHaveBeenCalled();
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+
+    it('should redirect to login with proper navigation stack', async () => {
+      const authContext = createMockAuthContext({
+        isAuthenticated: false,
+        isLoading: false,
+      });
+
+      render(<ProtectedScreen />, {
+        wrapper: createWrapper(authContext),
+      });
+
+      await waitFor(
+        () => {
+          // Should reset to proper navigation state (Home -> Login)
+          expect(mockReset).toHaveBeenCalledWith({
+            index: 1,
+            routes: [{ name: 'Home' }, { name: 'Login' }],
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+  });
+
   describe('transition states', () => {
     it('should handle transition from loading to authenticated', async () => {
       const initialContext = createMockAuthContext({
@@ -250,9 +364,12 @@ describe('withAuth HOC', () => {
         </AuthContext.Provider>
       );
 
-      await waitFor(() => {
-        expect(screen.getByTestId('protected-content')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByTestId('protected-content')).toBeTruthy();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('should handle transition from loading to not authenticated', async () => {
@@ -280,9 +397,87 @@ describe('withAuth HOC', () => {
         </AuthContext.Provider>
       );
 
-      await waitFor(() => {
-        expect(mockReset).toHaveBeenCalled();
+      await waitFor(
+        () => {
+          expect(mockReset).toHaveBeenCalled();
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+  });
+
+  describe('focus management after navigation', () => {
+    it('should maintain accessible loading indicator during auth check', () => {
+      const authContext = createMockAuthContext({
+        isAuthenticated: false,
+        isLoading: true,
       });
+
+      render(<ProtectedScreen />, {
+        wrapper: createWrapper(authContext),
+      });
+
+      const loadingIndicator = screen.getByTestId('auth-loading-indicator');
+      // Loading indicator should be accessible for screen readers
+      expect(loadingIndicator.props.accessibilityRole).toBe('progressbar');
+      expect(loadingIndicator.props.accessibilityLabel).toBeTruthy();
+    });
+
+    it('should preserve focus context when transitioning to authenticated', async () => {
+      const initialContext = createMockAuthContext({
+        isAuthenticated: false,
+        isLoading: true,
+      });
+
+      const { rerender } = render(<ProtectedScreen />, {
+        wrapper: createWrapper(initialContext),
+      });
+
+      // Initially loading
+      expect(screen.getByTestId('auth-loading-indicator')).toBeTruthy();
+
+      // Simulate successful auth
+      const authenticatedContext = createMockAuthContext({
+        isAuthenticated: true,
+        isLoading: false,
+      });
+
+      rerender(
+        <AuthContext.Provider value={authenticatedContext}>
+          <ProtectedScreen />
+        </AuthContext.Provider>
+      );
+
+      await waitFor(
+        () => {
+          const content = screen.getByTestId('protected-content');
+          // Protected content should be accessible (not hidden from accessibility tree)
+          expect(content.props.accessible).not.toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+
+    it('should not show protected content briefly during redirect', async () => {
+      const authContext = createMockAuthContext({
+        isAuthenticated: false,
+        isLoading: false,
+      });
+
+      render(<ProtectedScreen />, {
+        wrapper: createWrapper(authContext),
+      });
+
+      // Content should never be visible during redirect
+      await waitFor(
+        () => {
+          expect(screen.queryByTestId('protected-content')).toBeNull();
+        },
+        { timeout: 3000, interval: 100 }
+      );
+
+      // Redirect should have been triggered
+      expect(mockReset).toHaveBeenCalled();
     });
   });
 });

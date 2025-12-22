@@ -7,34 +7,30 @@ import { ProfileCard } from '../ProfileCard';
 import * as stories from '../ProfileCard.stories';
 
 describe('ProfileCard Stories', () => {
-  it('renders Default story', () => {
-    const { args } = stories.Default;
-    const { toJSON } = renderWithProviders(<ProfileCard {...(args as ProfileCardProps)} />);
-    expect(toJSON()).toBeTruthy();
+  describe('story rendering', () => {
+    it.each([
+      ['Default', stories.Default],
+      ['LongName', stories.LongName],
+      ['NoAvatar', stories.NoAvatar],
+    ] as const)('renders %s story with name visible', (_storyName, story) => {
+      const { args } = story;
+      const { getByText } = renderWithProviders(<ProfileCard {...(args as ProfileCardProps)} />);
+      expect(getByText(new RegExp(args!.name!))).toBeOnTheScreen();
+    });
   });
 
-  it('renders LongName story', () => {
-    const { args } = stories.LongName;
-    const { toJSON } = renderWithProviders(<ProfileCard {...(args as ProfileCardProps)} />);
-    expect(toJSON()).toBeTruthy();
-  });
+  describe('story content validation', () => {
+    it('Default story displays full name', () => {
+      const { args } = stories.Default;
+      const { getByText } = renderWithProviders(<ProfileCard {...(args as ProfileCardProps)} />);
+      const fullName = `${args!.name} ${args!.lastName}`;
+      expect(getByText(fullName)).toBeOnTheScreen();
+    });
 
-  it('renders NoAvatar story', () => {
-    const { args } = stories.NoAvatar;
-    const { toJSON } = renderWithProviders(<ProfileCard {...(args as ProfileCardProps)} />);
-    expect(toJSON()).toBeTruthy();
-  });
-
-  it('Default story displays full name', () => {
-    const { args } = stories.Default;
-    const { getByText } = renderWithProviders(<ProfileCard {...(args as ProfileCardProps)} />);
-    const fullName = `${args!.name} ${args!.lastName}`;
-    expect(getByText(fullName)).toBeTruthy();
-  });
-
-  it('LongName story handles long names gracefully', () => {
-    const { args } = stories.LongName;
-    const { getByText } = renderWithProviders(<ProfileCard {...(args as ProfileCardProps)} />);
-    expect(getByText(/Alexander/)).toBeTruthy();
+    it('LongName story handles long names gracefully', () => {
+      const { args } = stories.LongName;
+      const { getByText } = renderWithProviders(<ProfileCard {...(args as ProfileCardProps)} />);
+      expect(getByText(/Alexander/)).toBeOnTheScreen();
+    });
   });
 });

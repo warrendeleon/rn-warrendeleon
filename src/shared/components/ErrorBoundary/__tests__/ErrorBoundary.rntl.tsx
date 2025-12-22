@@ -43,7 +43,7 @@ describe('ErrorBoundary', () => {
         </ErrorBoundary>
       );
 
-      expect(getByText('Working Component')).toBeTruthy();
+      expect(getByText('Working Component')).toBeOnTheScreen();
     });
 
     it('does not display fallback UI when children render successfully', () => {
@@ -89,8 +89,12 @@ describe('ErrorBoundary', () => {
       // Context is passed through masking as well
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         '[DEV] Error caught by ErrorBoundary',
-        expect.any(Object),
-        { errorInfo }
+        expect.objectContaining({}), // Error object (masked due to non-enumerable props)
+        expect.objectContaining({
+          errorInfo: expect.objectContaining({
+            componentStack: expect.any(String),
+          }),
+        })
       );
     });
   });
@@ -109,7 +113,142 @@ describe('ErrorBoundary', () => {
   });
 });
 
-// NOTE: FallbackUI UI testing is deferred to E2E tests (Detox)
-// Unit testing UI components with complex dependencies (GluestackUI + i18n + Navigation)
-// is challenging and better suited for E2E testing where the full app context is available.
-// The ErrorBoundary logic above has 100% coverage, ensuring error handling works correctly.
+describe('FallbackUI', () => {
+  const mockOnReset = jest.fn();
+  const mockError = new Error('Test error message');
+
+  beforeEach(() => {
+    mockOnReset.mockClear();
+    mockNavigate.mockClear();
+  });
+
+  // Import FallbackUI and renderWithProviders for testing with full context
+
+  const { FallbackUI } = require('../FallbackUI') as typeof import('../FallbackUI');
+
+  const { renderWithProviders } = require('@app/test-utils') as typeof import('@app/test-utils');
+
+  describe('rendering', () => {
+    it('renders the FallbackUI component with all elements', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={mockError} onReset={mockOnReset} />
+      );
+
+      expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
+      expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
+    });
+
+    it('renders with null error gracefully', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={null} onReset={mockOnReset} />
+      );
+
+      expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
+      expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
+    });
+  });
+
+  describe('button interactions', () => {
+    const { fireEvent } =
+      require('@testing-library/react-native') as typeof import('@testing-library/react-native');
+
+    it('calls onReset when Try Again button is pressed', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={mockError} onReset={mockOnReset} />
+      );
+
+      fireEvent.press(getByTestId('error-try-again-button'));
+
+      expect(mockOnReset).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls onReset and navigates to Home when Go Home button is pressed', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={mockError} onReset={mockOnReset} />
+      );
+
+      fireEvent.press(getByTestId('error-go-home-button'));
+
+      expect(mockOnReset).toHaveBeenCalledTimes(1);
+      expect(mockNavigate).toHaveBeenCalledWith('Home');
+    });
+
+    it('calls onReset before navigation on Go Home', () => {
+      const callOrder: string[] = [];
+      const trackingOnReset = jest.fn(() => callOrder.push('reset'));
+      mockNavigate.mockImplementation(() => callOrder.push('navigate'));
+
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={mockError} onReset={trackingOnReset} />
+      );
+
+      fireEvent.press(getByTestId('error-go-home-button'));
+
+      // onReset should be called before navigation
+      expect(callOrder).toEqual(['reset', 'navigate']);
+    });
+  });
+
+  describe('accessibility', () => {
+    it('has accessible Try Again button', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={mockError} onReset={mockOnReset} />
+      );
+
+      const tryAgainButton = getByTestId('error-try-again-button');
+      // GlueStack Button components have implicit button role
+      expect(tryAgainButton).toBeOnTheScreen();
+    });
+
+    it('has accessible Go Home button', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={mockError} onReset={mockOnReset} />
+      );
+
+      const goHomeButton = getByTestId('error-go-home-button');
+      expect(goHomeButton).toBeOnTheScreen();
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    const { expectMinTouchTarget } = require('@app/test-utils') as typeof import('@app/test-utils');
+
+    it('Try Again button has accessible touch target', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={mockError} onReset={mockOnReset} />
+      );
+
+      expectMinTouchTarget(getByTestId('error-try-again-button'));
+    });
+
+    it('Go Home button has accessible touch target', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={mockError} onReset={mockOnReset} />
+      );
+
+      expectMinTouchTarget(getByTestId('error-go-home-button'));
+    });
+
+    it('buttons are accessible when error is null', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={null} onReset={mockOnReset} />
+      );
+
+      expectMinTouchTarget(getByTestId('error-try-again-button'));
+      expectMinTouchTarget(getByTestId('error-go-home-button'));
+    });
+
+    it('buttons can receive programmatic focus', () => {
+      const { getByTestId } = renderWithProviders(
+        <FallbackUI error={mockError} onReset={mockOnReset} />
+      );
+
+      const tryAgainButton = getByTestId('error-try-again-button');
+      const goHomeButton = getByTestId('error-go-home-button');
+
+      // Buttons should not be explicitly marked as non-accessible
+      expect(tryAgainButton.props.accessible).not.toBe(false);
+      expect(goHomeButton.props.accessible).not.toBe(false);
+    });
+  });
+});

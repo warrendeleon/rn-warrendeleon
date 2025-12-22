@@ -15,9 +15,9 @@ Feature: Email Verification Screen
     And I type "john.doe@example.com" into the input with testID "email-input"
     And I type "SecurePass123!" into the input with testID "password-input"
     And I type "SecurePass123!" into the input with testID "confirmPassword-input"
+    And I scroll down
     And I toggle the switch with testID "accept-terms-switch"
     And I wait for 1 seconds
-    And I scroll down
     And I tap the element with testID "register-button"
     # Registration navigates directly to Email Verification screen
     Then I should see the "Email Verification" screen

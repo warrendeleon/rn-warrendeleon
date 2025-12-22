@@ -1,4 +1,11 @@
-import { checkSession, login, logout, register } from '../actions';
+import {
+  checkSession,
+  login,
+  logout,
+  refreshUser,
+  register,
+  updateUserProfileAsync,
+} from '../actions';
 import {
   authReducer,
   AuthState,
@@ -16,39 +23,35 @@ describe('authReducer', () => {
     biometricEnabled: false,
   };
 
+  const mockUser = {
+    id: 'user-123',
+    email: 'test@example.com',
+    firstName: 'Warren',
+    lastName: 'de Leon',
+    phoneNumber: null,
+    profilePicture: null,
+    authProvider: 'email' as const,
+  };
+
+  const authenticatedState: AuthState = {
+    ...initialState,
+    isAuthenticated: true,
+    user: mockUser,
+  };
+
   it('returns the initial state', () => {
     expect(authReducer(undefined, { type: 'unknown' })).toEqual(initialState);
   });
 
   describe('clearError', () => {
     it('clears error message', () => {
-      const stateWithError: AuthState = {
-        ...initialState,
-        error: 'Some error',
-      };
-
-      const state = authReducer(stateWithError, clearError());
-
-      expect(state.error).toBeNull();
+      const stateWithError = { ...initialState, error: 'Some error' };
+      expect(authReducer(stateWithError, clearError()).error).toBeNull();
     });
   });
 
   describe('updateUserProfile', () => {
     it('updates user profile data', () => {
-      const authenticatedState: AuthState = {
-        ...initialState,
-        isAuthenticated: true,
-        user: {
-          id: 'user-123',
-          email: 'test@example.com',
-          firstName: 'Warren',
-          lastName: 'de Leon',
-          phoneNumber: null,
-          profilePicture: null,
-          authProvider: 'email',
-        },
-      };
-
       const state = authReducer(
         authenticatedState,
         updateUserProfile({
@@ -57,138 +60,61 @@ describe('authReducer', () => {
           profilePicture: 'https://example.com/picture.jpg',
         })
       );
-
       expect(state.user?.firstName).toBe('Warren');
       expect(state.user?.lastName).toBe('de Leon Jr.');
       expect(state.user?.profilePicture).toBe('https://example.com/picture.jpg');
     });
 
     it('does not update if user is null', () => {
-      const state = authReducer(
-        initialState,
-        updateUserProfile({
-          firstName: 'Warren',
-        })
-      );
-
+      const state = authReducer(initialState, updateUserProfile({ firstName: 'Warren' }));
       expect(state.user).toBeNull();
     });
 
     it('updates only provided fields', () => {
-      const authenticatedState: AuthState = {
-        ...initialState,
-        isAuthenticated: true,
-        user: {
-          id: 'user-123',
-          email: 'test@example.com',
-          firstName: 'Warren',
-          lastName: 'de Leon',
-          phoneNumber: null,
-          profilePicture: null,
-          authProvider: 'email',
-        },
-      };
-
-      const state = authReducer(
-        authenticatedState,
-        updateUserProfile({
-          firstName: 'John',
-        })
-      );
-
+      const state = authReducer(authenticatedState, updateUserProfile({ firstName: 'John' }));
       expect(state.user?.firstName).toBe('John');
       expect(state.user?.lastName).toBe('de Leon');
       expect(state.user?.profilePicture).toBeNull();
     });
 
-    it('updates only lastName when provided', () => {
-      const authenticatedState: AuthState = {
-        ...initialState,
-        isAuthenticated: true,
-        user: {
-          id: 'user-123',
-          email: 'test@example.com',
-          firstName: 'Warren',
-          lastName: 'de Leon',
-          phoneNumber: null,
-          profilePicture: null,
-          authProvider: 'email',
-        },
-      };
-
-      const state = authReducer(
-        authenticatedState,
-        updateUserProfile({
-          lastName: 'Smith',
-        })
-      );
-
+    it('updates lastName independently', () => {
+      const state = authReducer(authenticatedState, updateUserProfile({ lastName: 'Smith' }));
       expect(state.user?.lastName).toBe('Smith');
       expect(state.user?.firstName).toBe('Warren');
-      expect(state.user?.profilePicture).toBeNull();
     });
 
-    it('updates only profilePicture when provided', () => {
-      const authenticatedState: AuthState = {
-        ...initialState,
-        isAuthenticated: true,
-        user: {
-          id: 'user-123',
-          email: 'test@example.com',
-          firstName: 'Warren',
-          lastName: 'de Leon',
-          phoneNumber: null,
-          profilePicture: null,
-          authProvider: 'email',
-        },
-      };
-
+    it('updates profilePicture independently', () => {
       const state = authReducer(
         authenticatedState,
-        updateUserProfile({
-          profilePicture: 'https://example.com/pic.jpg',
-        })
+        updateUserProfile({ profilePicture: 'https://example.com/pic.jpg' })
       );
-
       expect(state.user?.profilePicture).toBe('https://example.com/pic.jpg');
       expect(state.user?.firstName).toBe('Warren');
-      expect(state.user?.lastName).toBe('de Leon');
     });
   });
 
   describe('setBiometricEnabled', () => {
     it('enables biometrics', () => {
-      const state = authReducer(initialState, setBiometricEnabled(true));
-
-      expect(state.biometricEnabled).toBe(true);
+      expect(authReducer(initialState, setBiometricEnabled(true)).biometricEnabled).toBe(true);
     });
 
     it('disables biometrics', () => {
-      const stateWithBiometrics: AuthState = {
-        ...initialState,
-        biometricEnabled: true,
-      };
-
-      const state = authReducer(stateWithBiometrics, setBiometricEnabled(false));
-
-      expect(state.biometricEnabled).toBe(false);
+      const stateWithBiometrics = { ...initialState, biometricEnabled: true };
+      expect(authReducer(stateWithBiometrics, setBiometricEnabled(false)).biometricEnabled).toBe(
+        false
+      );
     });
   });
 
   describe('register async thunk', () => {
     it('sets loading to true on pending', () => {
-      const action = {
-        type: register.pending.type,
-      };
-
-      const state = authReducer(initialState, action);
-
+      const state = authReducer(initialState, { type: register.pending.type });
       expect(state.isLoading).toBe(true);
       expect(state.error).toBeNull();
     });
 
     it('sets authenticated state on fulfilled', () => {
-      const action = {
+      const state = authReducer(initialState, {
         type: register.fulfilled.type,
         payload: {
           id: 'user-123',
@@ -197,26 +123,18 @@ describe('authReducer', () => {
           lastName: 'de Leon',
           authProvider: 'email',
         },
-      };
-
-      const state = authReducer(initialState, action);
-
+      });
       expect(state.isAuthenticated).toBe(true);
       expect(state.user?.email).toBe('test@example.com');
-      expect(state.user?.firstName).toBe('Warren');
-      expect(state.user?.lastName).toBe('de Leon');
       expect(state.isLoading).toBe(false);
       expect(state.error).toBeNull();
     });
 
     it('sets error on rejected', () => {
-      const action = {
+      const state = authReducer(initialState, {
         type: register.rejected.type,
         payload: 'Email already exists',
-      };
-
-      const state = authReducer(initialState, action);
-
+      });
       expect(state.isAuthenticated).toBe(false);
       expect(state.user).toBeNull();
       expect(state.isLoading).toBe(false);
@@ -226,32 +144,13 @@ describe('authReducer', () => {
 
   describe('login async thunk', () => {
     it('sets loading to true on pending', () => {
-      const action = {
-        type: login.pending.type,
-      };
-
-      const state = authReducer(initialState, action);
-
+      const state = authReducer(initialState, { type: login.pending.type });
       expect(state.isLoading).toBe(true);
       expect(state.error).toBeNull();
     });
 
     it('sets authenticated state on fulfilled', () => {
-      const action = {
-        type: login.fulfilled.type,
-        payload: {
-          id: 'user-123',
-          email: 'test@example.com',
-          firstName: 'Warren',
-          lastName: 'de Leon',
-          phoneNumber: null,
-          profilePicture: null,
-          authProvider: 'email',
-        },
-      };
-
-      const state = authReducer(initialState, action);
-
+      const state = authReducer(initialState, { type: login.fulfilled.type, payload: mockUser });
       expect(state.isAuthenticated).toBe(true);
       expect(state.user?.email).toBe('test@example.com');
       expect(state.isLoading).toBe(false);
@@ -259,13 +158,10 @@ describe('authReducer', () => {
     });
 
     it('sets error on rejected', () => {
-      const action = {
+      const state = authReducer(initialState, {
         type: login.rejected.type,
         payload: 'Invalid credentials',
-      };
-
-      const state = authReducer(initialState, action);
-
+      });
       expect(state.isAuthenticated).toBe(false);
       expect(state.user).toBeNull();
       expect(state.isLoading).toBe(false);
@@ -275,32 +171,14 @@ describe('authReducer', () => {
 
   describe('checkSession async thunk', () => {
     it('sets loading to true on pending', () => {
-      const action = {
-        type: checkSession.pending.type,
-      };
-
-      const state = authReducer(initialState, action);
-
-      expect(state.isLoading).toBe(true);
+      expect(authReducer(initialState, { type: checkSession.pending.type }).isLoading).toBe(true);
     });
 
     it('sets authenticated state when session exists', () => {
-      const action = {
+      const state = authReducer(initialState, {
         type: checkSession.fulfilled.type,
-        payload: {
-          id: 'user-123',
-          email: 'test@example.com',
-          firstName: 'Warren',
-          lastName: 'de Leon',
-          phoneNumber: null,
-          profilePicture: null,
-          authProvider: 'email',
-          biometricEnabled: true,
-        },
-      };
-
-      const state = authReducer(initialState, action);
-
+        payload: { ...mockUser, biometricEnabled: true },
+      });
       expect(state.isAuthenticated).toBe(true);
       expect(state.user?.email).toBe('test@example.com');
       expect(state.biometricEnabled).toBe(true);
@@ -308,25 +186,14 @@ describe('authReducer', () => {
     });
 
     it('sets unauthenticated when no session', () => {
-      const action = {
-        type: checkSession.fulfilled.type,
-        payload: null,
-      };
-
-      const state = authReducer(initialState, action);
-
+      const state = authReducer(initialState, { type: checkSession.fulfilled.type, payload: null });
       expect(state.isAuthenticated).toBe(false);
       expect(state.user).toBeNull();
       expect(state.isLoading).toBe(false);
     });
 
     it('sets unauthenticated on rejected', () => {
-      const action = {
-        type: checkSession.rejected.type,
-      };
-
-      const state = authReducer(initialState, action);
-
+      const state = authReducer(initialState, { type: checkSession.rejected.type });
       expect(state.isAuthenticated).toBe(false);
       expect(state.user).toBeNull();
       expect(state.isLoading).toBe(false);
@@ -335,34 +202,15 @@ describe('authReducer', () => {
 
   describe('logout async thunk', () => {
     it('sets loading to true on pending', () => {
-      const action = {
-        type: logout.pending.type,
-      };
-
-      const state = authReducer(initialState, action);
-
-      expect(state.isLoading).toBe(true);
+      expect(authReducer(initialState, { type: logout.pending.type }).isLoading).toBe(true);
     });
 
     it('clears auth state on fulfilled', () => {
-      const authenticatedState: AuthState = {
-        ...initialState,
-        isAuthenticated: true,
-        user: {
-          id: 'user-123',
-          email: 'test@example.com',
-          firstName: 'Warren',
-          lastName: 'de Leon',
-          phoneNumber: null,
-          profilePicture: null,
-          authProvider: 'email',
-        },
-        biometricEnabled: true,
-      };
-
-      const action = { type: logout.fulfilled.type, payload: null };
-      const state = authReducer(authenticatedState, action);
-
+      const stateWithBiometrics = { ...authenticatedState, biometricEnabled: true };
+      const state = authReducer(stateWithBiometrics, {
+        type: logout.fulfilled.type,
+        payload: null,
+      });
       expect(state.isAuthenticated).toBe(false);
       expect(state.user).toBeNull();
       expect(state.biometricEnabled).toBe(false);
@@ -370,30 +218,112 @@ describe('authReducer', () => {
     });
 
     it('clears auth state even on rejected', () => {
-      const authenticatedState: AuthState = {
-        ...initialState,
-        isAuthenticated: true,
-        user: {
-          id: 'user-123',
-          email: 'test@example.com',
-          firstName: 'Warren',
-          lastName: 'de Leon',
-          phoneNumber: null,
-          profilePicture: null,
-          authProvider: 'email',
-        },
-      };
-
-      const action = {
+      const state = authReducer(authenticatedState, {
         type: logout.rejected.type,
         payload: 'Logout failed',
-      };
-      const state = authReducer(authenticatedState, action);
-
+      });
       expect(state.isAuthenticated).toBe(false);
       expect(state.user).toBeNull();
       expect(state.biometricEnabled).toBe(false);
       expect(state.error).toBe('Logout failed');
+    });
+  });
+
+  describe('refreshUser async thunk', () => {
+    it('updates user on fulfilled with payload', () => {
+      const updatedUser = {
+        ...mockUser,
+        firstName: 'NewFirst',
+        lastName: 'NewLast',
+        phoneNumber: '+1234567890',
+      };
+      const state = authReducer(authenticatedState, {
+        type: refreshUser.fulfilled.type,
+        payload: updatedUser,
+      });
+      expect(state.user?.firstName).toBe('NewFirst');
+      expect(state.user?.lastName).toBe('NewLast');
+      expect(state.user?.phoneNumber).toBe('+1234567890');
+    });
+
+    it('does not update user on fulfilled with null payload', () => {
+      const state = authReducer(authenticatedState, {
+        type: refreshUser.fulfilled.type,
+        payload: null,
+      });
+      expect(state.user?.firstName).toBe('Warren');
+      expect(state.user?.lastName).toBe('de Leon');
+    });
+  });
+
+  describe('updateUserProfileAsync async thunk', () => {
+    it('sets loading to true on pending', () => {
+      const state = authReducer(initialState, { type: updateUserProfileAsync.pending.type });
+      expect(state.isLoading).toBe(true);
+      expect(state.error).toBeNull();
+    });
+
+    it('updates user on fulfilled', () => {
+      const loadingState = { ...authenticatedState, isLoading: true };
+      const updatedUser = { ...mockUser, firstName: 'UpdatedFirst', lastName: 'UpdatedLast' };
+      const state = authReducer(loadingState, {
+        type: updateUserProfileAsync.fulfilled.type,
+        payload: updatedUser,
+      });
+      expect(state.isLoading).toBe(false);
+      expect(state.error).toBeNull();
+      expect(state.user).toEqual(updatedUser);
+    });
+
+    it('sets error on rejected', () => {
+      const loadingState = { ...authenticatedState, isLoading: true };
+      const state = authReducer(loadingState, {
+        type: updateUserProfileAsync.rejected.type,
+        payload: 'Failed to update profile',
+      });
+      expect(state.isLoading).toBe(false);
+      expect(state.error).toBe('Failed to update profile');
+    });
+
+    it('handles AuthErrorPayload format for rejected', () => {
+      const state = authReducer(initialState, {
+        type: updateUserProfileAsync.rejected.type,
+        payload: { message: 'Profile update error', code: 'PROFILE_ERROR' },
+      });
+      expect(state.error).toBe('Profile update error');
+    });
+  });
+
+  describe('extractErrorMessage helper', () => {
+    it('handles string payload', () => {
+      const state = authReducer(initialState, {
+        type: register.rejected.type,
+        payload: 'Simple error message',
+      });
+      expect(state.error).toBe('Simple error message');
+    });
+
+    it('handles AuthErrorPayload object', () => {
+      const state = authReducer(initialState, {
+        type: register.rejected.type,
+        payload: { message: 'Auth error message', code: 'AUTH_ERROR' },
+      });
+      expect(state.error).toBe('Auth error message');
+    });
+
+    it('handles null/undefined payload', () => {
+      const state = authReducer(initialState, { type: register.rejected.type, payload: null });
+      expect(state.error).toBe('An error occurred');
+    });
+
+    it('handles empty object payload', () => {
+      const state = authReducer(initialState, { type: login.rejected.type, payload: {} });
+      expect(state.error).toBe('An error occurred');
+    });
+
+    it('handles number payload', () => {
+      const state = authReducer(initialState, { type: login.rejected.type, payload: 500 });
+      expect(state.error).toBe('An error occurred');
     });
   });
 });

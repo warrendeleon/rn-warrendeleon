@@ -8,8 +8,24 @@ process.env.ENABLE_TEST_UI = 'true';
 
 // MSW server lifecycle
 beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }));
-afterEach(() => server.resetHandlers());
+afterEach(() => {
+  server.resetHandlers();
+  // Flush any pending timers to prevent ToastProvider animation issues
+  // Only run if fake timers are enabled for this test
+  if (jest.isMockFunction(setTimeout)) {
+    jest.runOnlyPendingTimers();
+  }
+});
 afterAll(() => server.close());
+
+// Use fake timers globally to prevent async animation issues
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
+});
 
 // Mock NativeWind and react-native-css-interop
 jest.mock('react-native-css-interop', () => ({
@@ -252,12 +268,27 @@ jest.mock('react-native-bootsplash', () => ({
 const originalError = console.error;
 
 console.error = (...args: unknown[]) => {
-  const msg = String(args[0]);
+  // Check all arguments for patterns to suppress
+  const fullMessage = args.map(arg => String(arg)).join(' ');
+
+  // Check if first arg is a TypeError (from ErrorBoundary catch)
+  if (args[0] instanceof TypeError || args[0] instanceof Error) {
+    return;
+  }
 
   if (
-    msg.includes('Symbols are not valid as a React child') ||
-    msg.includes('SafeAreaView has been deprecated') ||
-    msg.includes('not wrapped in act(')
+    fullMessage.includes('Symbols are not valid as a React child') ||
+    fullMessage.includes('SafeAreaView has been deprecated') ||
+    fullMessage.includes('not wrapped in act(') ||
+    fullMessage.includes('No reducer provided for key') ||
+    // Suppress intentional ErrorBoundary test errors
+    fullMessage.includes('[DEV] Error caught by ErrorBoundary') ||
+    fullMessage.includes("Cannot read properties of undefined (reading 'params')") ||
+    // TypeError messages start with "TypeError: ..."
+    fullMessage.startsWith('TypeError:') ||
+    // React error boundary messages about component errors
+    fullMessage.includes('The above error occurred in the') ||
+    fullMessage.includes('React will try to recreate this component tree')
   ) {
     return;
   }
@@ -275,6 +306,13 @@ console.warn = (...args: unknown[]) => {
   }
 
   originalWarn(...args);
+};
+
+// Suppress ALL console.log in tests - tests should be silent
+console.log = () => {
+  // Suppress all console.log in tests
+  // Tests should not have debug logging - if you need to debug,
+  // temporarily comment out this mock or use a debugger
 };
 
 // Mock react-native-localize to avoid native dependency issues in Jest
@@ -660,6 +698,30 @@ jest.mock('react-native-compressor', () => ({
 // Mock react-native-haptic-feedback
 jest.mock('react-native-haptic-feedback', () => ({
   trigger: jest.fn(),
+  HapticFeedbackTypes: {
+    selection: 'selection',
+    impactLight: 'impactLight',
+    impactMedium: 'impactMedium',
+    impactHeavy: 'impactHeavy',
+    rigid: 'rigid',
+    soft: 'soft',
+    notificationSuccess: 'notificationSuccess',
+    notificationWarning: 'notificationWarning',
+    notificationError: 'notificationError',
+    clockTick: 'clockTick',
+    contextClick: 'contextClick',
+    keyboardPress: 'keyboardPress',
+    keyboardRelease: 'keyboardRelease',
+    keyboardTap: 'keyboardTap',
+    longPress: 'longPress',
+    textHandleMove: 'textHandleMove',
+    virtualKey: 'virtualKey',
+    virtualKeyRelease: 'virtualKeyRelease',
+    effectClick: 'effectClick',
+    effectDoubleClick: 'effectDoubleClick',
+    effectHeavyClick: 'effectHeavyClick',
+    effectTick: 'effectTick',
+  },
 }));
 
 // Mock react-native-bcrypt

@@ -11,6 +11,7 @@
  */
 
 import { Image } from 'react-native-compressor';
+import RNFS from 'react-native-fs';
 
 import { isE2EMockEnabled } from '@app/config/e2e';
 import { logDebug, logError } from '@app/utils/logger';
@@ -199,16 +200,13 @@ export function isLocalFileUri(uri: string): boolean {
  * @returns Promise<void>
  */
 export async function cleanupTempFiles(uris: string[]): Promise<void> {
-  // Import RNFS dynamically to avoid circular dependencies
-  const RNFS = await import('react-native-fs');
-
   for (const uri of uris) {
     try {
       const cleanPath = uri.replace(/^file:\/\//, '');
-      const exists = await RNFS.default.exists(cleanPath);
+      const exists = await RNFS.exists(cleanPath);
 
       if (exists) {
-        await RNFS.default.unlink(cleanPath);
+        await RNFS.unlink(cleanPath);
         logDebug('Cleaned up temp file', { uri });
       }
     } catch (error) {

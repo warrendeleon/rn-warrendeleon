@@ -131,6 +131,7 @@ export const FormInputItem = forwardRef<FormInputItemRef, FormInputItemProps>(
             {showSecureToggle && (
               <Pressable
                 onPress={onToggleSecure}
+                testID="password-visibility-toggle"
                 accessibilityRole="button"
                 accessibilityLabel={isSecureVisible ? 'Hide password' : 'Show password'}
                 hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}

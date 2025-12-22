@@ -6,7 +6,9 @@
 import {
   getE2EMockOverride,
   getEnvE2EMockValue,
+  hasLoadedOverride,
   isE2EMockEnabled,
+  loadPersistedMockOverride,
   setE2EMockOverride,
 } from '../e2e';
 
@@ -16,8 +18,18 @@ jest.mock('react-native-config', () => ({
   ENABLE_TEST_UI: 'false',
 }));
 
+// Mock AsyncStorage
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+}));
+
 describe('e2e config', () => {
+  const mockAsyncStorage = require('@react-native-async-storage/async-storage');
+
   beforeEach(() => {
+    jest.clearAllMocks();
     // Reset runtime override before each test
     setE2EMockOverride(null);
   });
@@ -82,6 +94,107 @@ describe('e2e config', () => {
 
     it('should return false based on mocked config', () => {
       expect(getEnvE2EMockValue()).toBe(false);
+    });
+  });
+
+  describe('setE2EMockOverride with AsyncStorage', () => {
+    it('should persist true to AsyncStorage', async () => {
+      mockAsyncStorage.setItem.mockResolvedValue(undefined);
+
+      await setE2EMockOverride(true);
+
+      expect(mockAsyncStorage.setItem).toHaveBeenCalledWith('@e2e_mock_override', 'true');
+    });
+
+    it('should persist false to AsyncStorage', async () => {
+      mockAsyncStorage.setItem.mockResolvedValue(undefined);
+
+      await setE2EMockOverride(false);
+
+      expect(mockAsyncStorage.setItem).toHaveBeenCalledWith('@e2e_mock_override', 'false');
+    });
+
+    it('should remove from AsyncStorage when null', async () => {
+      mockAsyncStorage.removeItem.mockResolvedValue(undefined);
+
+      await setE2EMockOverride(null);
+
+      expect(mockAsyncStorage.removeItem).toHaveBeenCalledWith('@e2e_mock_override');
+    });
+
+    it('should handle AsyncStorage errors gracefully', async () => {
+      mockAsyncStorage.setItem.mockRejectedValue(new Error('Storage error'));
+
+      // Should not throw
+      await expect(setE2EMockOverride(true)).resolves.not.toThrow();
+
+      // Value should still be set in memory
+      expect(getE2EMockOverride()).toBe(true);
+    });
+  });
+
+  describe('loadPersistedMockOverride', () => {
+    it('should load true from AsyncStorage', async () => {
+      mockAsyncStorage.getItem.mockResolvedValue('true');
+
+      await loadPersistedMockOverride();
+
+      expect(getE2EMockOverride()).toBe(true);
+    });
+
+    it('should load false from AsyncStorage', async () => {
+      mockAsyncStorage.getItem.mockResolvedValue('false');
+
+      await loadPersistedMockOverride();
+
+      expect(getE2EMockOverride()).toBe(false);
+    });
+
+    it('should set null override when storage value is invalid', async () => {
+      // Set an override first
+      await setE2EMockOverride(true);
+      expect(getE2EMockOverride()).toBe(true);
+
+      // Load invalid value
+      mockAsyncStorage.getItem.mockResolvedValue('invalid');
+
+      await loadPersistedMockOverride();
+
+      // Should set to null (not true or false)
+      expect(getE2EMockOverride()).toBeNull();
+    });
+
+    it('should keep null override when storage has no value', async () => {
+      mockAsyncStorage.getItem.mockResolvedValue(null);
+
+      await loadPersistedMockOverride();
+
+      expect(getE2EMockOverride()).toBeNull();
+    });
+
+    it('should handle AsyncStorage errors gracefully', async () => {
+      mockAsyncStorage.getItem.mockRejectedValue(new Error('Storage error'));
+
+      // Should not throw
+      await expect(loadPersistedMockOverride()).resolves.not.toThrow();
+    });
+  });
+
+  describe('hasLoadedOverride', () => {
+    it('should return true after loading persisted override', async () => {
+      mockAsyncStorage.getItem.mockResolvedValue(null);
+
+      await loadPersistedMockOverride();
+
+      expect(hasLoadedOverride()).toBe(true);
+    });
+
+    it('should return true even after error during load', async () => {
+      mockAsyncStorage.getItem.mockRejectedValue(new Error('Storage error'));
+
+      await loadPersistedMockOverride();
+
+      expect(hasLoadedOverride()).toBe(true);
     });
   });
 });

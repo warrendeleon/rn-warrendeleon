@@ -3,11 +3,12 @@
  */
 
 import React from 'react';
+import type { ReactTestInstance } from 'react-test-renderer';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { act, fireEvent, waitFor } from '@testing-library/react-native';
 
 import type { RootStackParamList } from '@app/navigation';
-import { renderWithProviders } from '@app/test-utils';
+import { expectFocusOrder, expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { PINSetupScreen } from '../PINSetupScreen';
 
@@ -52,13 +53,14 @@ describe('PINSetupScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders without crashing', () => {
-      const { getByText } = renderWithProviders(
+    it('renders PIN setup screen with title and input', () => {
+      const { getByText, getByTestId } = renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      // SafeAreaView is mocked, so look for internal content
-      expect(getByText('Create Your PIN')).toBeTruthy();
+      // Verify main content renders
+      expect(getByText('Create Your PIN')).toBeOnTheScreen();
+      expect(getByTestId('pin-input-enter')).toBeOnTheScreen();
     });
 
     it('renders PIN input for entering PIN', () => {
@@ -66,7 +68,7 @@ describe('PINSetupScreen', () => {
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('pin-input-enter')).toBeTruthy();
+      expect(getByTestId('pin-input-enter')).toBeOnTheScreen();
     });
 
     it('renders keypad buttons', () => {
@@ -75,7 +77,7 @@ describe('PINSetupScreen', () => {
       );
 
       for (let i = 0; i <= 9; i++) {
-        expect(getByTestId(`pin-input-enter-keypad-${i}`)).toBeTruthy();
+        expect(getByTestId(`pin-input-enter-keypad-${i}`)).toBeOnTheScreen();
       }
     });
 
@@ -84,7 +86,7 @@ describe('PINSetupScreen', () => {
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      expect(getByTestId('pin-input-enter-keypad-delete')).toBeTruthy();
+      expect(getByTestId('pin-input-enter-keypad-delete')).toBeOnTheScreen();
     });
   });
 
@@ -100,7 +102,7 @@ describe('PINSetupScreen', () => {
       }
 
       const errorMessage = await findByTestId('pin-error-message');
-      expect(errorMessage).toBeTruthy();
+      expect(errorMessage).toBeOnTheScreen();
     });
 
     it('shows error for repeated PIN (000000)', async () => {
@@ -114,7 +116,7 @@ describe('PINSetupScreen', () => {
       }
 
       const errorMessage = await findByTestId('pin-error-message');
-      expect(errorMessage).toBeTruthy();
+      expect(errorMessage).toBeOnTheScreen();
     });
 
     it('shows error for repeated pairs (121212)', async () => {
@@ -128,7 +130,7 @@ describe('PINSetupScreen', () => {
       }
 
       const errorMessage = await findByTestId('pin-error-message');
-      expect(errorMessage).toBeTruthy();
+      expect(errorMessage).toBeOnTheScreen();
     });
 
     it('proceeds to confirmation step with valid PIN', async () => {
@@ -143,20 +145,20 @@ describe('PINSetupScreen', () => {
 
       // Should now show confirmation input
       const confirmInput = await findByTestId('pin-input-confirm');
-      expect(confirmInput).toBeTruthy();
+      expect(confirmInput).toBeOnTheScreen();
     });
   });
 
   describe('PIN Confirmation Flow', () => {
-    const enterValidPIN = (getByTestId: (id: string) => unknown) => {
+    const enterValidPIN = (getByTestId: (id: string) => ReactTestInstance) => {
       for (const digit of ['7', '4', '2', '5', '8', '9']) {
-        fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`) as Element);
+        fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
       }
     };
 
-    const enterConfirmPIN = (getByTestId: (id: string) => unknown, digits: string[]) => {
+    const enterConfirmPIN = (getByTestId: (id: string) => ReactTestInstance, digits: string[]) => {
       for (const digit of digits) {
-        fireEvent.press(getByTestId(`pin-input-confirm-keypad-${digit}`) as Element);
+        fireEvent.press(getByTestId(`pin-input-confirm-keypad-${digit}`));
       }
     };
 
@@ -168,7 +170,7 @@ describe('PINSetupScreen', () => {
       enterValidPIN(getByTestId);
 
       const successMessage = await findByTestId('pin-strong-message');
-      expect(successMessage).toBeTruthy();
+      expect(successMessage).toBeOnTheScreen();
     });
 
     it('shows change PIN link in confirmation step', async () => {
@@ -179,7 +181,7 @@ describe('PINSetupScreen', () => {
       enterValidPIN(getByTestId);
 
       const changePinLink = await findByTestId('change-pin-link');
-      expect(changePinLink).toBeTruthy();
+      expect(changePinLink).toBeOnTheScreen();
     });
 
     it('returns to enter step when change PIN link is pressed', async () => {
@@ -192,10 +194,13 @@ describe('PINSetupScreen', () => {
       const changePinLink = await findByTestId('change-pin-link');
       fireEvent.press(changePinLink);
 
-      await waitFor(() => {
-        expect(queryByTestId('pin-input-enter')).toBeTruthy();
-        expect(queryByTestId('pin-input-confirm')).toBeFalsy();
-      });
+      await waitFor(
+        () => {
+          expect(queryByTestId('pin-input-enter')).toBeOnTheScreen();
+          expect(queryByTestId('pin-input-confirm')).toBeFalsy();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows error when confirmation PIN does not match', async () => {
@@ -213,7 +218,7 @@ describe('PINSetupScreen', () => {
       enterConfirmPIN(getByTestId, ['1', '2', '3', '7', '8', '9']);
 
       const errorMessage = await findByTestId('pin-error-message');
-      expect(errorMessage).toBeTruthy();
+      expect(errorMessage).toBeOnTheScreen();
     });
 
     it('navigates to Home on successful PIN setup', async () => {
@@ -228,7 +233,7 @@ describe('PINSetupScreen', () => {
       await findByTestId('pin-input-confirm');
 
       // Verify we're in confirmation step
-      expect(queryByTestId('pin-input-confirm')).toBeTruthy();
+      expect(queryByTestId('pin-input-confirm')).toBeOnTheScreen();
 
       // Enter matching PIN for confirmation one digit at a time
       const confirmDigits = ['7', '4', '2', '5', '8', '9'];
@@ -282,7 +287,43 @@ describe('PINSetupScreen', () => {
       );
 
       // Check for heading with accessible label
-      expect(getByRole('header')).toBeTruthy();
+      expect(getByRole('header')).toBeOnTheScreen();
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    it('keypad buttons have accessible touch targets (44×44 minimum)', () => {
+      const { getByTestId } = renderWithProviders(
+        <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      // Check a sample of keypad buttons
+      expectMinTouchTarget(getByTestId('pin-input-enter-keypad-5'));
+      expectMinTouchTarget(getByTestId('pin-input-enter-keypad-0'));
+      expectMinTouchTarget(getByTestId('pin-input-enter-keypad-delete'));
+    });
+
+    it('has correct focus order for PIN dots', () => {
+      const { getByTestId } = renderWithProviders(
+        <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      const dots = [];
+      for (let i = 0; i < 6; i++) {
+        dots.push(getByTestId(`pin-input-enter-dot-${i}`));
+      }
+
+      expectFocusOrder(dots);
+    });
+
+    it('all digit buttons have accessible touch targets', () => {
+      const { getByTestId } = renderWithProviders(
+        <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      for (let i = 0; i <= 9; i++) {
+        expectMinTouchTarget(getByTestId(`pin-input-enter-keypad-${i}`));
+      }
     });
   });
 });

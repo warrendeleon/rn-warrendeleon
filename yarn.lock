@@ -5627,6 +5627,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-test-renderer@npm:^19.1.0":
+  version: 19.1.0
+  resolution: "@types/react-test-renderer@npm:19.1.0"
+  dependencies:
+    "@types/react": "*"
+  checksum: 2ef3aec0f2fd638902cda606d70c8531d66f8e8944334427986b99dcac9755ee60b700c5c3a19ac354680f9c45669e98077b84f79cac60e950bdb7d38aebffde
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:*":
   version: 19.2.5
   resolution: "@types/react@npm:19.2.5"
@@ -16042,6 +16051,7 @@ __metadata:
     "@types/node": ^24.10.0
     "@types/react": ^19.1.1
     "@types/react-native-vector-icons": ^6.4.18
+    "@types/react-test-renderer": ^19.1.0
     "@types/redux-mock-store": ^1.5.0
     "@types/unorm": ^1.3.31
     axios: ^1.13.2

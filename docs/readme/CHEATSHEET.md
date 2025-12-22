@@ -713,8 +713,8 @@ const apiUrl = Config.API_URL;
 ## Coverage Thresholds
 
 ```bash
-# Global thresholds:
-#   60% statements, 50% branches, 45% functions, 55% lines
+# Current Coverage: 95.73% statements, 87.50% branches, 95.94% functions, 95.85% lines
+# Global thresholds: 85% statements, 78% branches, 65% functions, 85% lines
 # Business Logic: 100% (store/, config/)
 # Excluded: Screens (*Screen.tsx), navigation, config files
 ```
@@ -726,6 +726,8 @@ const apiUrl = Config.API_URL;
 - 📚 [Architecture](./ARCHITECTURE.md) - Project structure
 - 🛠️ [Development](./DEVELOPMENT.md) - Setup & running
 - 🧪 [Testing](./TESTING.md) - Unit testing
+- 📋 [Testing Patterns](./TESTING_PATTERNS.md) - Code examples & patterns
+- ♿ [Accessibility Testing](./ACCESSIBILITY_TESTING.md) - EAA/WCAG utilities
 - 🎭 [E2E Testing](./E2E_TESTING.md) - End-to-end testing
 - 🌍 [i18n](./I18N.md) - Internationalisation
 - 📦 [State Management](./STATE_MANAGEMENT.md) - Redux Toolkit

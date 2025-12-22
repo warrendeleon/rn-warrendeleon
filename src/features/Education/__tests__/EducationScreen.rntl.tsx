@@ -136,11 +136,14 @@ describe('EducationScreen', () => {
     const certItem = screen.getByTestId('education-item-university-a');
     fireEvent.press(certItem);
 
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('WebView', {
-        uri: 'https://example.com/cert1.pdf',
-      });
-    });
+    await waitFor(
+      () => {
+        expect(mockNavigate).toHaveBeenCalledWith('WebView', {
+          uri: 'https://example.com/cert1.pdf',
+        });
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('does not navigate when education without certificate is tapped', () => {

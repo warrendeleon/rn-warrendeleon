@@ -7,6 +7,8 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 
+import { expectMinTouchTarget } from '@app/test-utils';
+
 import { PermissionDeniedScreen } from '../PermissionDeniedScreen';
 
 // Mock navigation
@@ -79,15 +81,15 @@ describe('PermissionDeniedScreen', () => {
     it('should render camera denied content', () => {
       render(<PermissionDeniedScreen />);
 
-      expect(screen.getByText('Camera Access Required')).toBeTruthy();
-      expect(screen.getByText(/Camera access has been denied/)).toBeTruthy();
+      expect(screen.getByText('Camera Access Required')).toBeOnTheScreen();
+      expect(screen.getByText(/Camera access has been denied/)).toBeOnTheScreen();
     });
 
     it('should render Open Settings and Go Back buttons', () => {
       render(<PermissionDeniedScreen />);
 
-      expect(screen.getByTestId('permission-denied-settings-button')).toBeTruthy();
-      expect(screen.getByTestId('permission-denied-back-button')).toBeTruthy();
+      expect(screen.getByTestId('permission-denied-settings-button')).toBeOnTheScreen();
+      expect(screen.getByTestId('permission-denied-back-button')).toBeOnTheScreen();
     });
 
     it('should call openAppSettings when Open Settings is pressed', async () => {
@@ -97,9 +99,12 @@ describe('PermissionDeniedScreen', () => {
 
       fireEvent.press(screen.getByTestId('permission-denied-settings-button'));
 
-      await waitFor(() => {
-        expect(mockOpenAppSettings).toHaveBeenCalled();
-      });
+      await waitFor(
+        () => {
+          expect(mockOpenAppSettings).toHaveBeenCalled();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('should go back when Go Back is pressed', () => {
@@ -122,8 +127,8 @@ describe('PermissionDeniedScreen', () => {
     it('should render photo library denied content', () => {
       render(<PermissionDeniedScreen />);
 
-      expect(screen.getByText('Photo Library Access Required')).toBeTruthy();
-      expect(screen.getByText(/Photo library access has been denied/)).toBeTruthy();
+      expect(screen.getByText('Photo Library Access Required')).toBeOnTheScreen();
+      expect(screen.getByText(/Photo library access has been denied/)).toBeOnTheScreen();
     });
   });
 
@@ -134,8 +139,8 @@ describe('PermissionDeniedScreen', () => {
       const settingsButton = screen.getByTestId('permission-denied-settings-button');
 
       expect(settingsButton.props.accessibilityRole).toBe('button');
-      expect(settingsButton.props.accessibilityLabel).toBeTruthy();
-      expect(settingsButton.props.accessibilityHint).toBeTruthy();
+      expect(settingsButton.props.accessibilityLabel).toBeDefined();
+      expect(settingsButton.props.accessibilityHint).toBeDefined();
     });
 
     it('should have accessible Go Back button', () => {
@@ -144,8 +149,8 @@ describe('PermissionDeniedScreen', () => {
       const backButton = screen.getByTestId('permission-denied-back-button');
 
       expect(backButton.props.accessibilityRole).toBe('button');
-      expect(backButton.props.accessibilityLabel).toBeTruthy();
-      expect(backButton.props.accessibilityHint).toBeTruthy();
+      expect(backButton.props.accessibilityLabel).toBeDefined();
+      expect(backButton.props.accessibilityHint).toBeDefined();
     });
   });
 
@@ -160,7 +165,25 @@ describe('PermissionDeniedScreen', () => {
     it('should default to camera permission type', () => {
       render(<PermissionDeniedScreen />);
 
-      expect(screen.getByText('Camera Access Required')).toBeTruthy();
+      expect(screen.getByText('Camera Access Required')).toBeOnTheScreen();
     });
+  });
+});
+
+describe('PermissionDeniedScreen EAA Accessibility Compliance', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('open settings button has accessible touch target', () => {
+    render(<PermissionDeniedScreen />);
+
+    expectMinTouchTarget(screen.getByTestId('permission-denied-settings-button'));
+  });
+
+  it('go back button has accessible touch target', () => {
+    render(<PermissionDeniedScreen />);
+
+    expectMinTouchTarget(screen.getByTestId('permission-denied-back-button'));
   });
 });

@@ -30,6 +30,13 @@ jest.mock('@app/config/e2e', () => ({
   isE2EMockEnabled: jest.fn(() => false),
 }));
 
+// Mock logger to suppress console output in tests
+jest.mock('@app/utils/logger', () => ({
+  logDebug: jest.fn(),
+  logWarning: jest.fn(),
+  logError: jest.fn(),
+}));
+
 describe('imageProcessor', () => {
   describe('constants', () => {
     it('should have TARGET_DIMENSION of 800', () => {
@@ -194,15 +201,158 @@ describe('imageProcessor', () => {
     });
   });
 
-  /**
-   * Note: Integration tests for actual image compression are performed via E2E tests.
-   * The react-native-compressor library requires native modules which are mocked
-   * in unit tests.
-   *
-   * E2E tests verify:
-   * - Image compression actually reduces file size
-   * - EXIF metadata is stripped
-   * - Output is valid JPEG
-   * - Dimensions are correctly resized
-   */
+  describe('processImage - Real Flow', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+      jest.resetModules();
+    });
+
+    it('calls Image.compress with correct options', async () => {
+      const { isE2EMockEnabled } = require('@app/config/e2e');
+      (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+
+      const { Image } = require('react-native-compressor');
+      (Image.compress as jest.Mock).mockResolvedValue('/compressed/path.jpg');
+
+      const { processImage } = require('../imageProcessor');
+      await processImage('/source.jpg', { maxWidth: 400, quality: 0.7 });
+
+      expect(Image.compress).toHaveBeenCalledWith('/source.jpg', {
+        maxWidth: 400,
+        maxHeight: TARGET_DIMENSION,
+        quality: 0.7,
+        output: 'jpg',
+        returnableOutputType: 'uri',
+      });
+    });
+
+    it('returns ProcessedImage with correct structure', async () => {
+      const { isE2EMockEnabled } = require('@app/config/e2e');
+      (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+
+      const { Image } = require('react-native-compressor');
+      (Image.compress as jest.Mock).mockResolvedValue('/output.jpg');
+
+      const { processImage } = require('../imageProcessor');
+      const result = await processImage('/source.jpg');
+
+      expect(result).toEqual({
+        uri: '/output.jpg',
+        width: TARGET_DIMENSION,
+        height: TARGET_DIMENSION,
+        mimeType: 'image/jpeg',
+      });
+    });
+
+    it('throws user-friendly error on compression failure', async () => {
+      const { isE2EMockEnabled } = require('@app/config/e2e');
+      (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+
+      const { Image } = require('react-native-compressor');
+      (Image.compress as jest.Mock).mockRejectedValue(new Error('Compression failed'));
+
+      const { processImage } = require('../imageProcessor');
+
+      await expect(processImage('/source.jpg')).rejects.toThrow(
+        'Failed to process image. Please try again.'
+      );
+    });
+
+    it('uses default options when not provided', async () => {
+      const { isE2EMockEnabled } = require('@app/config/e2e');
+      (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+
+      const { Image } = require('react-native-compressor');
+      (Image.compress as jest.Mock).mockResolvedValue('/output.jpg');
+
+      const { processImage } = require('../imageProcessor');
+      await processImage('/source.jpg');
+
+      expect(Image.compress).toHaveBeenCalledWith('/source.jpg', {
+        maxWidth: TARGET_DIMENSION,
+        maxHeight: TARGET_DIMENSION,
+        quality: COMPRESSION_QUALITY,
+        output: 'jpg',
+        returnableOutputType: 'uri',
+      });
+    });
+  });
+
+  describe('cleanupTempFiles', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+      jest.resetModules();
+    });
+
+    it('deletes files that exist', async () => {
+      const RNFS = require('react-native-fs');
+      (RNFS.exists as jest.Mock).mockResolvedValue(true);
+      (RNFS.unlink as jest.Mock).mockResolvedValue(undefined);
+
+      const { cleanupTempFiles } = require('../imageProcessor');
+      await cleanupTempFiles(['/temp/file1.jpg', '/temp/file2.jpg']);
+
+      expect(RNFS.unlink).toHaveBeenCalledTimes(2);
+      expect(RNFS.unlink).toHaveBeenCalledWith('/temp/file1.jpg');
+      expect(RNFS.unlink).toHaveBeenCalledWith('/temp/file2.jpg');
+    });
+
+    it('handles file:// prefix in URIs', async () => {
+      const RNFS = require('react-native-fs');
+      (RNFS.exists as jest.Mock).mockResolvedValue(true);
+      (RNFS.unlink as jest.Mock).mockResolvedValue(undefined);
+
+      const { cleanupTempFiles } = require('../imageProcessor');
+      await cleanupTempFiles(['file:///temp/file.jpg']);
+
+      expect(RNFS.exists).toHaveBeenCalledWith('/temp/file.jpg');
+      expect(RNFS.unlink).toHaveBeenCalledWith('/temp/file.jpg');
+    });
+
+    it('silently handles deletion errors (non-critical)', async () => {
+      const RNFS = require('react-native-fs');
+      (RNFS.exists as jest.Mock).mockResolvedValue(true);
+      (RNFS.unlink as jest.Mock).mockRejectedValue(new Error('Permission denied'));
+
+      const { cleanupTempFiles } = require('../imageProcessor');
+
+      // Should not throw
+      await expect(cleanupTempFiles(['/temp/file.jpg'])).resolves.toBeUndefined();
+    });
+
+    it('skips files that do not exist', async () => {
+      const RNFS = require('react-native-fs');
+      (RNFS.exists as jest.Mock).mockResolvedValue(false);
+      (RNFS.unlink as jest.Mock).mockResolvedValue(undefined);
+
+      const { cleanupTempFiles } = require('../imageProcessor');
+      await cleanupTempFiles(['/nonexistent.jpg']);
+
+      expect(RNFS.unlink).not.toHaveBeenCalled();
+    });
+
+    it('handles empty array', async () => {
+      const RNFS = require('react-native-fs');
+
+      const { cleanupTempFiles } = require('../imageProcessor');
+      await cleanupTempFiles([]);
+
+      expect(RNFS.exists).not.toHaveBeenCalled();
+      expect(RNFS.unlink).not.toHaveBeenCalled();
+    });
+
+    it('continues cleanup even if some files fail', async () => {
+      const RNFS = require('react-native-fs');
+      (RNFS.exists as jest.Mock).mockResolvedValue(true);
+      (RNFS.unlink as jest.Mock)
+        .mockRejectedValueOnce(new Error('Permission denied'))
+        .mockResolvedValueOnce(undefined);
+
+      const { cleanupTempFiles } = require('../imageProcessor');
+      await cleanupTempFiles(['/temp/file1.jpg', '/temp/file2.jpg']);
+
+      // Should still attempt to delete the second file
+      expect(RNFS.unlink).toHaveBeenCalledTimes(2);
+    });
+  });
 });

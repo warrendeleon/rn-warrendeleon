@@ -11,6 +11,8 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 
+import { expectMinTouchTarget } from '@app/test-utils';
+
 import { ProfilePictureActionSheetScreen } from '../ProfilePictureActionSheetScreen';
 
 // Mock dependencies
@@ -94,34 +96,34 @@ describe('ProfilePictureActionSheetScreen', () => {
     it('renders the action sheet container', () => {
       render(<ProfilePictureActionSheetScreen />);
 
-      expect(screen.getByTestId('profile-picture-action-sheet')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-sheet')).toBeOnTheScreen();
     });
 
     it('renders the backdrop', () => {
       render(<ProfilePictureActionSheetScreen />);
 
-      expect(screen.getByTestId('profile-picture-action-sheet-backdrop')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-sheet-backdrop')).toBeOnTheScreen();
     });
 
     it('renders the title', () => {
       render(<ProfilePictureActionSheetScreen />);
 
-      expect(screen.getByTestId('profile-picture-action-sheet-title')).toBeTruthy();
-      expect(screen.getByText('Change Profile Picture')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-sheet-title')).toBeOnTheScreen();
+      expect(screen.getByText('Change Profile Picture')).toBeOnTheScreen();
     });
 
     it('renders Take Photo option', () => {
       render(<ProfilePictureActionSheetScreen />);
 
-      expect(screen.getByTestId('profile-picture-action-take-photo')).toBeTruthy();
-      expect(screen.getByText('Take Photo')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-take-photo')).toBeOnTheScreen();
+      expect(screen.getByText('Take Photo')).toBeOnTheScreen();
     });
 
     it('renders Choose from Library option', () => {
       render(<ProfilePictureActionSheetScreen />);
 
-      expect(screen.getByTestId('profile-picture-action-choose-library')).toBeTruthy();
-      expect(screen.getByText('Choose from Library')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-choose-library')).toBeOnTheScreen();
+      expect(screen.getByText('Choose from Library')).toBeOnTheScreen();
     });
 
     it('does not render Remove Photo when no existing photo', () => {
@@ -135,8 +137,8 @@ describe('ProfilePictureActionSheetScreen', () => {
       mockParams.hasExistingPhoto = true;
       render(<ProfilePictureActionSheetScreen />);
 
-      expect(screen.getByTestId('profile-picture-action-remove')).toBeTruthy();
-      expect(screen.getByText('Remove Photo')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-action-remove')).toBeOnTheScreen();
+      expect(screen.getByText('Remove Photo')).toBeOnTheScreen();
     });
   });
 
@@ -155,9 +157,12 @@ describe('ProfilePictureActionSheetScreen', () => {
       fireEvent.press(screen.getByTestId('profile-picture-action-take-photo'));
 
       // Should show processing state (spinner)
-      await waitFor(() => {
-        expect(screen.getByTestId('profile-picture-action-sheet')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByTestId('profile-picture-action-sheet')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('shows processing state when Choose from Library is pressed', async () => {
@@ -166,9 +171,12 @@ describe('ProfilePictureActionSheetScreen', () => {
       fireEvent.press(screen.getByTestId('profile-picture-action-choose-library'));
 
       // Should show processing state (spinner)
-      await waitFor(() => {
-        expect(screen.getByTestId('profile-picture-action-sheet')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(screen.getByTestId('profile-picture-action-sheet')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('sets remove action params and goes back when Remove Photo is pressed', () => {
@@ -202,11 +210,14 @@ describe('ProfilePictureActionSheetScreen', () => {
 
       fireEvent.press(screen.getByTestId('profile-picture-action-take-photo'));
 
-      await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('PermissionDenied', {
-          permissionType: 'camera',
-        });
-      });
+      await waitFor(
+        () => {
+          expect(mockNavigate).toHaveBeenCalledWith('PermissionDenied', {
+            permissionType: 'camera',
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('navigates to PermissionDenied when photo library permission is denied', async () => {
@@ -219,11 +230,14 @@ describe('ProfilePictureActionSheetScreen', () => {
 
       fireEvent.press(screen.getByTestId('profile-picture-action-choose-library'));
 
-      await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('PermissionDenied', {
-          permissionType: 'photoLibrary',
-        });
-      });
+      await waitFor(
+        () => {
+          expect(mockNavigate).toHaveBeenCalledWith('PermissionDenied', {
+            permissionType: 'photoLibrary',
+          });
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -276,6 +290,56 @@ describe('ProfilePictureActionSheetScreen', () => {
 
       // Remove button should not be shown
       expect(screen.queryByTestId('profile-picture-action-remove')).toBeNull();
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+      jest.useFakeTimers();
+      mockParams.hasExistingPhoto = true;
+      mockGetState.mockReturnValue({
+        routes: [
+          { name: 'Home', params: {} },
+          { name: 'ProfilePictureActionSheet', params: {} },
+        ],
+      });
+      mockUseCameraPermission.mockReturnValue({
+        status: 'granted',
+        requestPermission: jest.fn().mockResolvedValue('granted'),
+      });
+      mockUsePhotoLibraryPermission.mockReturnValue({
+        status: 'granted',
+        requestPermission: jest.fn().mockResolvedValue('granted'),
+      });
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('take photo button has accessible touch target', () => {
+      render(<ProfilePictureActionSheetScreen />);
+
+      expectMinTouchTarget(screen.getByTestId('profile-picture-action-take-photo'));
+    });
+
+    it('choose library button has accessible touch target', () => {
+      render(<ProfilePictureActionSheetScreen />);
+
+      expectMinTouchTarget(screen.getByTestId('profile-picture-action-choose-library'));
+    });
+
+    it('remove photo button has accessible touch target when shown', () => {
+      render(<ProfilePictureActionSheetScreen />);
+
+      expectMinTouchTarget(screen.getByTestId('profile-picture-action-remove'));
+    });
+
+    it('backdrop has accessible touch target', () => {
+      render(<ProfilePictureActionSheetScreen />);
+
+      expectMinTouchTarget(screen.getByTestId('profile-picture-action-sheet-backdrop'));
     });
   });
 });

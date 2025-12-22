@@ -75,6 +75,63 @@ describe('validateResponse', () => {
       expect.objectContaining({ issues: expect.any(Array) })
     );
   });
+
+  it('should re-throw non-ZodError errors', () => {
+    // Create a schema that throws a non-ZodError
+    const SchemaWithCustomError = z.string().transform(() => {
+      throw new TypeError('Custom transform error');
+    });
+
+    expect(() => validateResponse(SchemaWithCustomError, 'test', 'Test')).toThrow(TypeError);
+  });
+
+  it('should handle schema with issues that have path', () => {
+    // Create a schema with a custom refinement that fails
+    const SchemaWithRefinement = z.object({
+      value: z.number().refine(val => val > 100, 'Must be greater than 100'),
+    });
+
+    expect(() => validateResponse(SchemaWithRefinement, { value: 50 }, 'Test')).toThrow(
+      'Invalid response from server'
+    );
+  });
+
+  it('should throw generic error when ZodError has no issues', () => {
+    // Test line 40 - the fallback when firstError is undefined
+    // This tests the case where ZodError.issues is empty
+    const { ZodError } = require('zod');
+
+    // Create a schema that will throw our custom ZodError with empty issues
+    const mockSchema = {
+      parse: jest.fn().mockImplementation(() => {
+        const error = new ZodError([]);
+        throw error;
+      }),
+    };
+
+    expect(() => validateResponse(mockSchema as unknown as z.ZodSchema, {}, 'Test')).toThrow(
+      'Invalid response from server'
+    );
+  });
+
+  it('should handle nested field paths', () => {
+    const NestedSchema = z.object({
+      user: z.object({
+        profile: z.object({
+          email: z.string().email(),
+        }),
+      }),
+    });
+
+    try {
+      validateResponse(NestedSchema, { user: { profile: { email: 'not-an-email' } } }, 'Test');
+      fail('Expected to throw error');
+    } catch (error) {
+      if (error instanceof Error) {
+        expect(error.message).toContain('user.profile.email');
+      }
+    }
+  });
 });
 
 describe('validateResponseSafe', () => {

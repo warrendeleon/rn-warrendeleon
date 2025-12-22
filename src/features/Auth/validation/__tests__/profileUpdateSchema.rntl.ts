@@ -181,6 +181,172 @@ describe('profileUpdateSchema', () => {
       );
     });
   });
+
+  describe('boundary tests', () => {
+    describe('firstName length boundaries', () => {
+      it('should reject firstName with 1 character (below minimum)', async () => {
+        const data = { firstName: 'A' };
+        await expect(profileUpdateSchema.validate(data)).rejects.toThrow(
+          'First name must be at least 2 characters'
+        );
+      });
+
+      it('should accept firstName with 2 characters (at minimum)', async () => {
+        const data = { firstName: 'Ab' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept firstName with 50 characters (at maximum)', async () => {
+        const data = { firstName: 'A'.repeat(50) };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should reject firstName with 51 characters (above maximum)', async () => {
+        const data = { firstName: 'A'.repeat(51) };
+        await expect(profileUpdateSchema.validate(data)).rejects.toThrow('First name is too long');
+      });
+    });
+
+    describe('lastName length boundaries', () => {
+      it('should reject lastName with 1 character (below minimum)', async () => {
+        const data = { lastName: 'A' };
+        await expect(profileUpdateSchema.validate(data)).rejects.toThrow(
+          'Last name must be at least 2 characters'
+        );
+      });
+
+      it('should accept lastName with 2 characters (at minimum)', async () => {
+        const data = { lastName: 'Ab' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept lastName with 50 characters (at maximum)', async () => {
+        const data = { lastName: 'A'.repeat(50) };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should reject lastName with 51 characters (above maximum)', async () => {
+        const data = { lastName: 'A'.repeat(51) };
+        await expect(profileUpdateSchema.validate(data)).rejects.toThrow('Last name is too long');
+      });
+    });
+
+    describe('null vs undefined handling', () => {
+      it('should accept undefined firstName (optional field)', async () => {
+        const data = { lastName: 'Smith' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept undefined lastName (optional field)', async () => {
+        const data = { firstName: 'John' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept undefined email (optional field)', async () => {
+        const data = { firstName: 'John' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept undefined phoneNumber (optional field)', async () => {
+        const data = { firstName: 'John' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept completely empty object (all fields optional)', async () => {
+        const data = {};
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should reject null firstName - Yup does not convert null to undefined', async () => {
+        const data = { firstName: null as unknown as string };
+        // Note: Unlike undefined, null is explicitly rejected by Yup
+        await expect(profileUpdateSchema.validate(data)).rejects.toThrow(
+          'firstName cannot be null'
+        );
+      });
+    });
+
+    describe('type coercion', () => {
+      it('should coerce number firstName to string', async () => {
+        const data = { firstName: 12345 as unknown as string };
+        // Yup converts to string "12345" which fails name validation
+        await expect(profileUpdateSchema.validate(data)).rejects.toThrow(
+          'First name contains invalid characters'
+        );
+      });
+
+      it('should coerce number phoneNumber to string', async () => {
+        const data = { phoneNumber: 447911123456 as unknown as string };
+        // Yup converts to string "447911123456" which lacks + prefix
+        await expect(profileUpdateSchema.validate(data)).rejects.toThrow(
+          'Please enter a valid mobile number'
+        );
+      });
+    });
+
+    describe('whitespace handling', () => {
+      it('should trim leading whitespace from firstName', async () => {
+        const data = { firstName: '   Warren' };
+        const result = await profileUpdateSchema.validate(data);
+        expect(result.firstName).toBe('Warren');
+      });
+
+      it('should trim trailing whitespace from lastName', async () => {
+        const data = { lastName: 'Smith   ' };
+        const result = await profileUpdateSchema.validate(data);
+        expect(result.lastName).toBe('Smith');
+      });
+
+      it('should reject whitespace-only firstName', async () => {
+        const data = { firstName: '   ' };
+        await expect(profileUpdateSchema.validate(data)).rejects.toThrow(
+          'First name must be at least 2 characters'
+        );
+      });
+
+      it('should lowercase and trim email', async () => {
+        const data = { email: '  TEST@EXAMPLE.COM  ' };
+        const result = await profileUpdateSchema.validate(data);
+        expect(result.email).toBe('test@example.com');
+      });
+    });
+
+    describe('unicode handling in names', () => {
+      it('should reject accented characters - caught by noHomographs', async () => {
+        const data = { firstName: 'José' };
+        await expect(profileUpdateSchema.validate(data)).rejects.toThrow(
+          'First name contains invalid characters'
+        );
+      });
+
+      it('should accept names with apostrophes', async () => {
+        const data = { lastName: "O'Brien" };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept names with hyphens', async () => {
+        const data = { firstName: 'Mary-Jane' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+    });
+
+    describe('special character handling', () => {
+      it('should accept email with plus addressing', async () => {
+        const data = { email: 'test+tag@example.com' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept email with subdomain', async () => {
+        const data = { email: 'test@mail.example.com' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept international phone numbers', async () => {
+        const data = { phoneNumber: '+12025551234' };
+        await expect(profileUpdateSchema.validate(data)).resolves.toBeDefined();
+      });
+    });
+  });
 });
 
 describe('changePasswordSchema', () => {

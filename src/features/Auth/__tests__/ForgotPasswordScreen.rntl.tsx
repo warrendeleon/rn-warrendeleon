@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/react-native';
 
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
-import { renderWithProviders } from '@app/test-utils';
+import { expectCanReceiveFocus, expectFocusOrder, renderWithProviders } from '@app/test-utils';
 
 import { ForgotPasswordScreen } from '../ForgotPasswordScreen';
 import * as rateLimiter from '../utils/rateLimiter';
@@ -61,12 +61,12 @@ describe('ForgotPasswordScreen', () => {
     (SupabaseAuthClient.requestPasswordRecovery as jest.Mock).mockResolvedValue(undefined);
   });
 
-  it('renders without crashing', () => {
-    const { UNSAFE_root } = renderWithProviders(
+  it('renders the screen correctly', () => {
+    const { getByTestId } = renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(UNSAFE_root).toBeTruthy();
+    expect(getByTestId('forgot-password-screen')).toBeOnTheScreen();
   });
 
   it('renders the forgot password screen with testID', () => {
@@ -74,7 +74,7 @@ describe('ForgotPasswordScreen', () => {
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('forgot-password-screen')).toBeTruthy();
+    expect(getByTestId('forgot-password-screen')).toBeOnTheScreen();
   });
 
   it('renders email input field', () => {
@@ -82,7 +82,7 @@ describe('ForgotPasswordScreen', () => {
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('email-input')).toBeTruthy();
+    expect(getByTestId('email-input')).toBeOnTheScreen();
   });
 
   it('renders send button', () => {
@@ -90,7 +90,7 @@ describe('ForgotPasswordScreen', () => {
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('send-reset-email-button')).toBeTruthy();
+    expect(getByTestId('send-reset-email-button')).toBeOnTheScreen();
   });
 
   it('renders back to login link', () => {
@@ -98,7 +98,7 @@ describe('ForgotPasswordScreen', () => {
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('back-to-login-link')).toBeTruthy();
+    expect(getByTestId('back-to-login-link')).toBeOnTheScreen();
   });
 
   it('renders info box', () => {
@@ -106,7 +106,7 @@ describe('ForgotPasswordScreen', () => {
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('info-box')).toBeTruthy();
+    expect(getByTestId('info-box')).toBeOnTheScreen();
   });
 
   it('disables send button when email is empty', () => {
@@ -137,18 +137,24 @@ describe('ForgotPasswordScreen', () => {
     fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
-    await waitFor(() => {
-      const sendButton = getByTestId('send-reset-email-button');
-      expect(sendButton.props.accessibilityState?.disabled).toBe(false);
-    });
+    await waitFor(
+      () => {
+        const sendButton = getByTestId('send-reset-email-button');
+        expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     // Submit form
     fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
-    await waitFor(() => {
-      expect(queryByTestId('success-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('success-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
   });
 
   it('shows error message when rate limit is exceeded', async () => {
@@ -167,18 +173,24 @@ describe('ForgotPasswordScreen', () => {
     fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
-    await waitFor(() => {
-      const sendButton = getByTestId('send-reset-email-button');
-      expect(sendButton.props.accessibilityState?.disabled).toBe(false);
-    });
+    await waitFor(
+      () => {
+        const sendButton = getByTestId('send-reset-email-button');
+        expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     // Submit form
     fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for error message
-    await waitFor(() => {
-      expect(queryByTestId('error-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('error-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
   });
 
   it('calls rate limiter check before submission', async () => {
@@ -191,17 +203,23 @@ describe('ForgotPasswordScreen', () => {
     fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
-    await waitFor(() => {
-      const sendButton = getByTestId('send-reset-email-button');
-      expect(sendButton.props.accessibilityState?.disabled).toBe(false);
-    });
+    await waitFor(
+      () => {
+        const sendButton = getByTestId('send-reset-email-button');
+        expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     // Submit form
     fireEvent.press(getByTestId('send-reset-email-button'));
 
-    await waitFor(() => {
-      expect(rateLimiter.checkPasswordResetRateLimit).toHaveBeenCalledWith('test@example.com');
-    });
+    await waitFor(
+      () => {
+        expect(rateLimiter.checkPasswordResetRateLimit).toHaveBeenCalledWith('test@example.com');
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('records request after successful submission', async () => {
@@ -214,18 +232,24 @@ describe('ForgotPasswordScreen', () => {
     fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
-    await waitFor(() => {
-      const sendButton = getByTestId('send-reset-email-button');
-      expect(sendButton.props.accessibilityState?.disabled).toBe(false);
-    });
+    await waitFor(
+      () => {
+        const sendButton = getByTestId('send-reset-email-button');
+        expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     // Submit form
     fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
-    await waitFor(() => {
-      expect(queryByTestId('success-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('success-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
 
     expect(rateLimiter.recordPasswordResetRequest).toHaveBeenCalledWith('test@example.com');
   });
@@ -240,18 +264,24 @@ describe('ForgotPasswordScreen', () => {
     fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
-    await waitFor(() => {
-      const sendButton = getByTestId('send-reset-email-button');
-      expect(sendButton.props.accessibilityState?.disabled).toBe(false);
-    });
+    await waitFor(
+      () => {
+        const sendButton = getByTestId('send-reset-email-button');
+        expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     // Submit form
     fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
-    await waitFor(() => {
-      expect(queryByTestId('success-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('success-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
 
     expect(SupabaseAuthClient.requestPasswordRecovery).toHaveBeenCalledWith('test@example.com');
   });
@@ -270,18 +300,24 @@ describe('ForgotPasswordScreen', () => {
     fireEvent.changeText(emailInput, 'nonexistent@example.com');
 
     // Wait for form to be valid
-    await waitFor(() => {
-      const sendButton = getByTestId('send-reset-email-button');
-      expect(sendButton.props.accessibilityState?.disabled).toBe(false);
-    });
+    await waitFor(
+      () => {
+        const sendButton = getByTestId('send-reset-email-button');
+        expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     // Submit form
     fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Should still show success to prevent email enumeration
-    await waitFor(() => {
-      expect(queryByTestId('success-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('success-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
   });
 
   it('success state shows back to login button', async () => {
@@ -293,20 +329,26 @@ describe('ForgotPasswordScreen', () => {
     const emailInput = getByTestId('email-input');
     fireEvent.changeText(emailInput, 'test@example.com');
 
-    await waitFor(() => {
-      const sendButton = getByTestId('send-reset-email-button');
-      expect(sendButton.props.accessibilityState?.disabled).toBe(false);
-    });
+    await waitFor(
+      () => {
+        const sendButton = getByTestId('send-reset-email-button');
+        expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
-    await waitFor(() => {
-      expect(queryByTestId('success-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('success-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
 
     // Back to login button should be visible
-    expect(getByTestId('back-to-login-button')).toBeTruthy();
+    expect(getByTestId('back-to-login-button')).toBeOnTheScreen();
   });
 
   it('navigates back when back to login button is pressed in success state', async () => {
@@ -318,17 +360,23 @@ describe('ForgotPasswordScreen', () => {
     const emailInput = getByTestId('email-input');
     fireEvent.changeText(emailInput, 'test@example.com');
 
-    await waitFor(() => {
-      const sendButton = getByTestId('send-reset-email-button');
-      expect(sendButton.props.accessibilityState?.disabled).toBe(false);
-    });
+    await waitFor(
+      () => {
+        const sendButton = getByTestId('send-reset-email-button');
+        expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
-    await waitFor(() => {
-      expect(queryByTestId('success-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('success-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
 
     // Press back to login button
     fireEvent.press(getByTestId('back-to-login-button'));
@@ -341,5 +389,141 @@ describe('ForgotPasswordScreen implementation', () => {
   it('exports ForgotPasswordScreen as a React component', () => {
     expect(typeof ForgotPasswordScreen).toBe('function');
     expect(ForgotPasswordScreen.name).toBe('ForgotPasswordScreen');
+  });
+});
+
+describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (rateLimiter.checkPasswordResetRateLimit as jest.Mock).mockResolvedValue({
+      allowed: true,
+      requestsRemaining: 3,
+    });
+  });
+
+  describe('focus order for screen readers', () => {
+    it('should have correct focus order for form elements', () => {
+      const { getByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      const emailInput = getByTestId('email-input');
+      const sendButton = getByTestId('send-reset-email-button');
+      const backToLoginLink = getByTestId('back-to-login-link');
+
+      expectFocusOrder([emailInput, sendButton, backToLoginLink]);
+    });
+
+    it('should have focusable email input', () => {
+      const { getByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      expectCanReceiveFocus(getByTestId('email-input'));
+    });
+
+    it('should have focusable send button', () => {
+      const { getByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      expectCanReceiveFocus(getByTestId('send-reset-email-button'));
+    });
+
+    it('should have focusable back to login link', () => {
+      const { getByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      expectCanReceiveFocus(getByTestId('back-to-login-link'));
+    });
+  });
+
+  describe('accessibility roles', () => {
+    it('should have button role on send button', () => {
+      const { getByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      const sendButton = getByTestId('send-reset-email-button');
+      expect(sendButton.props.accessibilityRole).toBe('button');
+    });
+
+    it('should have link role on back to login link', () => {
+      const { getByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      const backToLoginLink = getByTestId('back-to-login-link');
+      expect(backToLoginLink.props.accessibilityRole).toBe('link');
+    });
+
+    it('should announce button disabled state to screen readers', () => {
+      const { getByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      const sendButton = getByTestId('send-reset-email-button');
+      expect(sendButton.props.accessibilityState?.disabled).toBe(true);
+    });
+
+    it('should announce button enabled state when form is valid', async () => {
+      const { getByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      fireEvent.changeText(getByTestId('email-input'), 'test@example.com');
+
+      await waitFor(
+        () => {
+          const sendButton = getByTestId('send-reset-email-button');
+          expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+  });
+
+  describe('focus management after actions', () => {
+    it('should maintain focus context after form validation', () => {
+      const { getByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      const emailInput = getByTestId('email-input');
+      fireEvent.changeText(emailInput, 'invalid');
+
+      expect(getByTestId('forgot-password-screen')).toBeOnTheScreen();
+      expectCanReceiveFocus(emailInput);
+    });
+
+    it('should have focusable back to login button in success state', async () => {
+      (SupabaseAuthClient.requestPasswordRecovery as jest.Mock).mockResolvedValue(undefined);
+
+      const { getByTestId, queryByTestId } = renderWithProviders(
+        <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
+      );
+
+      fireEvent.changeText(getByTestId('email-input'), 'test@example.com');
+
+      await waitFor(
+        () => {
+          const sendButton = getByTestId('send-reset-email-button');
+          expect(sendButton.props.accessibilityState?.disabled).toBe(false);
+        },
+        { timeout: 3000, interval: 100 }
+      );
+
+      fireEvent.press(getByTestId('send-reset-email-button'));
+
+      await waitFor(
+        () => {
+          expect(queryByTestId('success-message')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
+
+      expectCanReceiveFocus(getByTestId('back-to-login-button'));
+    });
   });
 });

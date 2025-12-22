@@ -1,7 +1,12 @@
 import React from 'react';
 import * as ReactNative from 'react-native';
+import { userEvent } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils/renderWithProviders';
+import {
+  expectAccessibilityComplete,
+  expectMinTouchTarget,
+  renderWithProviders,
+} from '@app/test-utils';
 
 import { getSettingsItemStyles, SettingsItem } from '../SettingsItem';
 
@@ -12,197 +17,198 @@ describe('SettingsItem', () => {
     mockUseColorScheme.mockReset();
   });
 
-  it('renders in light mode with default props (single variant) and no icon', () => {
+  it('displays the label text', () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const { UNSAFE_root, queryByTestId } = renderWithProviders(
-      <SettingsItem label="Profile" testID="chevron-button" />
+    const { getByText } = renderWithProviders(
+      <SettingsItem label="Profile" testID="settings-item" />
     );
 
-    // Component should render
-    expect(UNSAFE_root).toBeDefined();
-
-    // No startIcon → no icon container
-    expect(queryByTestId('button-with-chevron-icon')).toBeNull();
+    expect(getByText('Profile')).toBeOnTheScreen();
   });
 
-  it('renders with a start icon when startIcon is provided', () => {
+  it('does not render icon container when no startIcon provided', () => {
+    mockUseColorScheme.mockReturnValue('light');
+
+    const { queryByTestId } = renderWithProviders(
+      <SettingsItem label="Profile" testID="settings-item" />
+    );
+
+    expect(queryByTestId('settings-item-icon')).toBeNull();
+  });
+
+  it('renders icon container when startIcon is provided', () => {
     mockUseColorScheme.mockReturnValue('light');
 
     const DummyIcon = () => null;
 
-    const { UNSAFE_root } = renderWithProviders(
-      <SettingsItem label="Settings" startIcon={DummyIcon} testID="chevron-pressable" />
+    const { getByTestId } = renderWithProviders(
+      <SettingsItem label="Settings" startIcon={DummyIcon} testID="settings-item" />
     );
 
-    // Component should render with icon
-    // Icon rendering is verified in E2E tests and implementation tests
-    expect(UNSAFE_root).toBeDefined();
+    expect(getByTestId('settings-item-icon')).toBeOnTheScreen();
   });
 
-  it('renders in dark mode with endLabel', () => {
+  it('displays endLabel text when provided', () => {
     mockUseColorScheme.mockReturnValue('dark');
 
-    const { UNSAFE_root } = renderWithProviders(
-      <SettingsItem label="Language" endLabel="English" testID="chevron-dark" />
+    const { getByText } = renderWithProviders(
+      <SettingsItem label="Language" endLabel="English" testID="settings-item" />
     );
 
-    expect(UNSAFE_root).toBeDefined();
+    expect(getByText('Language')).toBeOnTheScreen();
+    expect(getByText('English')).toBeOnTheScreen();
   });
 
-  it('supports all groupVariant values', () => {
+  it('displays all group variant items with correct labels', () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const { UNSAFE_root } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <>
-        <SettingsItem label="single" groupVariant="single" />
-        <SettingsItem label="top" groupVariant="top" />
-        <SettingsItem label="middle" groupVariant="middle" />
-        <SettingsItem label="bottom" groupVariant="bottom" />
+        <SettingsItem label="Single Item" groupVariant="single" />
+        <SettingsItem label="Top Item" groupVariant="top" />
+        <SettingsItem label="Middle Item" groupVariant="middle" />
+        <SettingsItem label="Bottom Item" groupVariant="bottom" />
       </>
     );
 
-    expect(UNSAFE_root).toBeDefined();
+    expect(getByText('Single Item')).toBeOnTheScreen();
+    expect(getByText('Top Item')).toBeOnTheScreen();
+    expect(getByText('Middle Item')).toBeOnTheScreen();
+    expect(getByText('Bottom Item')).toBeOnTheScreen();
   });
 
-  it('renders without onPress handler', () => {
+  it('renders as pressable even without onPress handler', () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const { UNSAFE_root } = renderWithProviders(<SettingsItem label="No Handler" />);
+    const { getByRole, getByText } = renderWithProviders(<SettingsItem label="No Handler" />);
 
-    expect(UNSAFE_root).toBeDefined();
+    expect(getByRole('button')).toBeOnTheScreen();
+    expect(getByText('No Handler')).toBeOnTheScreen();
   });
 
-  it('renders with startIcon and custom startIconBgColor', () => {
+  it('calls onPress when pressed', async () => {
+    mockUseColorScheme.mockReturnValue('light');
+    const onPress = jest.fn();
+    const user = userEvent.setup();
+
+    const { getByTestId } = renderWithProviders(
+      <SettingsItem label="Pressable Item" onPress={onPress} testID="settings-item" />
+    );
+
+    await user.press(getByTestId('settings-item'));
+
+    expect(onPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders icon container with custom background colour', () => {
     mockUseColorScheme.mockReturnValue('light');
 
     const DummyIcon = () => null;
 
-    const { UNSAFE_root } = renderWithProviders(
+    const { getByTestId, getByText } = renderWithProviders(
       <SettingsItem
         label="Custom Icon"
         startIcon={DummyIcon}
         startIconBgColor="$blue500"
-        testID="custom-icon-button"
+        testID="settings-item"
       />
     );
 
-    expect(UNSAFE_root).toBeDefined();
-    // Icon and color rendering verified in E2E tests
+    expect(getByText('Custom Icon')).toBeOnTheScreen();
+    expect(getByTestId('settings-item-icon')).toBeOnTheScreen();
   });
 
-  it('renders with endLabel in light mode', () => {
-    mockUseColorScheme.mockReturnValue('light');
-
-    const { UNSAFE_root } = renderWithProviders(
-      <SettingsItem label="Language" endLabel="English" />
-    );
-
-    expect(UNSAFE_root).toBeDefined();
-  });
-
-  it('renders without endLabel', () => {
+  it('displays label without endLabel when endLabel not provided', () => {
     mockUseColorScheme.mockReturnValue('dark');
 
-    const { UNSAFE_root } = renderWithProviders(<SettingsItem label="Settings" />);
+    const { getByText, queryByText } = renderWithProviders(<SettingsItem label="Settings" />);
 
-    expect(UNSAFE_root).toBeDefined();
+    expect(getByText('Settings')).toBeOnTheScreen();
+    // No secondary text should appear
+    expect(queryByText('English')).toBeNull();
   });
 });
 
-describe('SettingsItem implementation', () => {
+describe('SettingsItem groupVariant styling', () => {
   const mockUseColorScheme = jest.spyOn(ReactNative, 'useColorScheme') as jest.Mock;
 
   beforeEach(() => {
     mockUseColorScheme.mockReset();
   });
 
-  it('renders in light mode with explicit groupVariant', () => {
+  it('renders single variant in light mode', () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const { UNSAFE_root } = renderWithProviders(
+    const { getByText, getByRole } = renderWithProviders(
       <SettingsItem label="Direct light" groupVariant="single" />
     );
 
-    expect(UNSAFE_root).toBeDefined();
+    expect(getByText('Direct light')).toBeOnTheScreen();
+    expect(getByRole('button')).toBeOnTheScreen();
   });
 
-  it('renders with default groupVariant, startIcon, and custom startIconBgColor', () => {
+  it('renders with icon and custom colour in dark mode', () => {
     mockUseColorScheme.mockReturnValue('dark');
 
     const DummyIcon = () => null;
 
-    const { UNSAFE_root } = renderWithProviders(
+    const { getByText, getByTestId } = renderWithProviders(
       <SettingsItem
         label="Default groupVariant"
         startIcon={DummyIcon}
         startIconBgColor="$secondary500"
+        testID="settings-item"
       />
     );
 
-    expect(UNSAFE_root).toBeDefined();
+    expect(getByText('Default groupVariant')).toBeOnTheScreen();
+    expect(getByTestId('settings-item-icon')).toBeOnTheScreen();
   });
 });
 
 describe('getSettingsItemStyles', () => {
-  it('returns light mode styles for single variant', () => {
-    const styles = getSettingsItemStyles('light', 'single');
+  describe('theme and variant combinations', () => {
+    it.each([
+      ['light', 'single', '$white', '$black', '$textLight500', '$2xl', '$2xl'],
+      ['light', 'top', '$white', '$black', '$textLight500', '$2xl', '$none'],
+      ['light', 'middle', '$white', '$black', '$textLight500', '$none', '$none'],
+      ['light', 'bottom', '$white', '$black', '$textLight500', '$none', '$2xl'],
+      ['dark', 'single', '$backgroundDark900', '$white', '$textLight400', '$2xl', '$2xl'],
+      ['dark', 'top', '$backgroundDark900', '$white', '$textLight400', '$2xl', '$none'],
+      ['dark', 'middle', '$backgroundDark900', '$white', '$textLight400', '$none', '$none'],
+      ['dark', 'bottom', '$backgroundDark900', '$white', '$textLight400', '$none', '$2xl'],
+    ] as const)(
+      'returns correct styles for %s theme with %s variant (bg=%s, top=%s, bottom=%s)',
+      (theme, variant, expectedBg, expectedLabel, expectedChevron, expectedTop, expectedBottom) => {
+        const styles = getSettingsItemStyles(theme, variant);
 
-    expect(styles.bg).toBe('$white');
-    expect(styles.labelColor).toBe('$black');
-    expect(styles.chevronColor).toBe('$textLight500');
-    expect(styles.top).toBe('$2xl');
-    expect(styles.bottom).toBe('$2xl');
+        expect(styles.bg).toBe(expectedBg);
+        expect(styles.labelColor).toBe(expectedLabel);
+        expect(styles.chevronColor).toBe(expectedChevron);
+        expect(styles.top).toBe(expectedTop);
+        expect(styles.bottom).toBe(expectedBottom);
+      }
+    );
   });
 
-  it('returns dark mode styles for bottom variant', () => {
-    const styles = getSettingsItemStyles('dark', 'bottom');
+  describe('variant border radius consistency', () => {
+    it.each(['light', 'dark'] as const)(
+      'applies consistent theme colours across all variants in %s mode',
+      theme => {
+        const variants = ['single', 'top', 'middle', 'bottom'] as const;
+        const expectedBg = theme === 'light' ? '$white' : '$backgroundDark900';
+        const expectedLabel = theme === 'light' ? '$black' : '$white';
+        const expectedChevron = theme === 'light' ? '$textLight500' : '$textLight400';
 
-    expect(styles.bg).toBe('$backgroundDark900');
-    expect(styles.labelColor).toBe('$white');
-    expect(styles.chevronColor).toBe('$textLight400');
-    expect(styles.top).toBe('$none');
-    expect(styles.bottom).toBe('$2xl');
-  });
-
-  it('returns correct radii for middle variant', () => {
-    const styles = getSettingsItemStyles('light', 'middle');
-
-    expect(styles.top).toBe('$none');
-    expect(styles.bottom).toBe('$none');
-  });
-
-  it('returns correct radii for top variant', () => {
-    const styles = getSettingsItemStyles('light', 'top');
-
-    expect(styles.top).toBe('$2xl');
-    expect(styles.bottom).toBe('$none');
-  });
-
-  it('returns light mode styles for all variants', () => {
-    const single = getSettingsItemStyles('light', 'single');
-    const top = getSettingsItemStyles('light', 'top');
-    const middle = getSettingsItemStyles('light', 'middle');
-    const bottom = getSettingsItemStyles('light', 'bottom');
-
-    [single, top, middle, bottom].forEach(styles => {
-      expect(styles.bg).toBe('$white');
-      expect(styles.labelColor).toBe('$black');
-      expect(styles.chevronColor).toBe('$textLight500');
-    });
-  });
-
-  it('returns dark mode styles for all variants', () => {
-    const single = getSettingsItemStyles('dark', 'single');
-    const top = getSettingsItemStyles('dark', 'top');
-    const middle = getSettingsItemStyles('dark', 'middle');
-    const bottom = getSettingsItemStyles('dark', 'bottom');
-
-    [single, top, middle, bottom].forEach(styles => {
-      expect(styles.bg).toBe('$backgroundDark900');
-      expect(styles.labelColor).toBe('$white');
-      expect(styles.chevronColor).toBe('$textLight400');
-    });
+        variants.forEach(variant => {
+          const styles = getSettingsItemStyles(theme, variant);
+          expect(styles.bg).toBe(expectedBg);
+          expect(styles.labelColor).toBe(expectedLabel);
+          expect(styles.chevronColor).toBe(expectedChevron);
+        });
+      }
+    );
   });
 });
 
@@ -219,7 +225,7 @@ describe('SettingsItem accessibility', () => {
       <SettingsItem label="Settings" testID="settings-item" />
     );
 
-    expect(getByRole('button')).toBeTruthy();
+    expect(getByRole('button')).toBeOnTheScreen();
   });
 
   it('combines label and endLabel in accessibilityLabel', () => {
@@ -228,7 +234,7 @@ describe('SettingsItem accessibility', () => {
     );
 
     // Should find by combined label: "Language, English"
-    expect(getByLabelText('Language, English')).toBeTruthy();
+    expect(getByLabelText('Language, English')).toBeOnTheScreen();
   });
 
   it('uses only label as accessibilityLabel when endLabel is not provided', () => {
@@ -236,7 +242,7 @@ describe('SettingsItem accessibility', () => {
       <SettingsItem label="Settings" testID="settings-item" />
     );
 
-    expect(getByLabelText('Settings')).toBeTruthy();
+    expect(getByLabelText('Settings')).toBeOnTheScreen();
   });
 
   it('applies accessibilityHint when provided', () => {
@@ -245,7 +251,7 @@ describe('SettingsItem accessibility', () => {
       <SettingsItem label="Appearance" accessibilityHint={hint} testID="appearance-item" />
     );
 
-    expect(getByA11yHint(hint)).toBeTruthy();
+    expect(getByA11yHint(hint)).toBeOnTheScreen();
   });
 
   it('applies all accessibility props correctly', () => {
@@ -258,8 +264,101 @@ describe('SettingsItem accessibility', () => {
       />
     );
 
-    expect(getByRole('button')).toBeTruthy();
-    expect(getByLabelText('Appearance, Automatic')).toBeTruthy();
-    expect(getByA11yHint('Double tap to change theme')).toBeTruthy();
+    expect(getByRole('button')).toBeOnTheScreen();
+    expect(getByLabelText('Appearance, Automatic')).toBeOnTheScreen();
+    expect(getByA11yHint('Double tap to change theme')).toBeOnTheScreen();
+  });
+});
+
+describe('SettingsItem EAA touch targets', () => {
+  const mockUseColorScheme = jest.spyOn(ReactNative, 'useColorScheme') as jest.Mock;
+
+  beforeEach(() => {
+    mockUseColorScheme.mockReset();
+    mockUseColorScheme.mockReturnValue('light');
+  });
+
+  it('verifies touch target sizing with expectMinTouchTarget utility', () => {
+    const { getByTestId } = renderWithProviders(
+      <SettingsItem label="Settings" testID="settings-item" />
+    );
+
+    const item = getByTestId('settings-item');
+    // SettingsItem uses py="$3" (12px padding) which contributes to touch target
+    // The utility will warn if no explicit sizing is found
+    expectMinTouchTarget(item);
+  });
+
+  it('should render all interactive content within the pressable area', () => {
+    const { getByTestId } = renderWithProviders(
+      <SettingsItem label="Language" endLabel="English" testID="language-item" />
+    );
+
+    const item = getByTestId('language-item');
+    expect(item).toBeOnTheScreen();
+    expectMinTouchTarget(item);
+  });
+
+  it('should maintain touch target size with icon', () => {
+    const DummyIcon = () => null;
+
+    const { getByTestId } = renderWithProviders(
+      <SettingsItem label="Profile" startIcon={DummyIcon} testID="profile-item" />
+    );
+
+    const item = getByTestId('profile-item');
+    expect(item).toBeOnTheScreen();
+    expectMinTouchTarget(item);
+  });
+
+  it('should support pressed state feedback for accessibility', () => {
+    const onPress = jest.fn();
+
+    const { getByTestId } = renderWithProviders(
+      <SettingsItem label="Settings" onPress={onPress} testID="settings-item" />
+    );
+
+    const item = getByTestId('settings-item');
+    expect(item).toBeOnTheScreen();
+    // Pressed state styling is verified in visual/E2E tests
+  });
+});
+
+describe('SettingsItem complete accessibility verification', () => {
+  const mockUseColorScheme = jest.spyOn(ReactNative, 'useColorScheme') as jest.Mock;
+
+  beforeEach(() => {
+    mockUseColorScheme.mockReset();
+    mockUseColorScheme.mockReturnValue('light');
+  });
+
+  it('has complete accessibility properties with label only', () => {
+    const { getByTestId } = renderWithProviders(
+      <SettingsItem label="Settings" testID="settings-item" />
+    );
+
+    expectAccessibilityComplete(getByTestId('settings-item'), {
+      role: 'button',
+      label: 'Settings',
+      touchTarget: true,
+    });
+  });
+
+  it('has complete accessibility properties with combined label', () => {
+    const { getByTestId } = renderWithProviders(
+      <SettingsItem
+        label="Language"
+        endLabel="English"
+        accessibilityHint="Double tap to change language"
+        testID="language-item"
+      />
+    );
+
+    expectAccessibilityComplete(getByTestId('language-item'), {
+      role: 'button',
+      label: 'Language, English',
+      hint: 'Double tap to change language',
+      touchTarget: true,
+    });
   });
 });

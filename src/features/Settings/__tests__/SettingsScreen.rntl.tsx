@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent } from '@testing-library/react-native';
 
 import { SettingsScreen } from '@app/features';
+import { expectCanReceiveFocus, expectFocusOrder } from '@app/test-utils';
 import { renderWithProviders } from '@app/test-utils/renderWithProviders';
 
 // Mock react-navigation
@@ -67,22 +68,16 @@ describe('SettingsScreen', () => {
   });
 
   describe('Basic Rendering', () => {
-    it('renders without crashing', () => {
-      const { UNSAFE_root } = renderWithProviders(<SettingsScreen />);
+    it('renders the screen correctly', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />);
 
-      expect(UNSAFE_root).toBeTruthy();
-    });
-
-    it('renders complete component tree', () => {
-      const component = renderWithProviders(<SettingsScreen />);
-
-      expect(component.UNSAFE_root).toBeTruthy();
+      expect(getByTestId('settings-screen')).toBeOnTheScreen();
     });
 
     it('renders screen with testID', () => {
       const { getByTestId } = renderWithProviders(<SettingsScreen />);
 
-      expect(getByTestId('settings-screen')).toBeTruthy();
+      expect(getByTestId('settings-screen')).toBeOnTheScreen();
     });
   });
 
@@ -92,7 +87,7 @@ describe('SettingsScreen', () => {
         preloadedState: unauthenticatedState,
       });
 
-      expect(getByTestId('settings-sign-in-button')).toBeTruthy();
+      expect(getByTestId('settings-sign-in-button')).toBeOnTheScreen();
     });
 
     it('does not show user card when user is not authenticated', () => {
@@ -119,7 +114,7 @@ describe('SettingsScreen', () => {
         preloadedState: authenticatedState,
       });
 
-      expect(getByTestId('settings-user-card')).toBeTruthy();
+      expect(getByTestId('settings-user-card')).toBeOnTheScreen();
     });
 
     it('shows profile picture when user has one', () => {
@@ -137,7 +132,7 @@ describe('SettingsScreen', () => {
         preloadedState: stateWithPicture,
       });
 
-      expect(getByTestId('user-card-profile-picture')).toBeTruthy();
+      expect(getByTestId('user-card-profile-picture')).toBeOnTheScreen();
     });
 
     it('shows initials when user has no profile picture', () => {
@@ -145,7 +140,7 @@ describe('SettingsScreen', () => {
         preloadedState: authenticatedState,
       });
 
-      expect(getByTestId('user-card-initials')).toBeTruthy();
+      expect(getByTestId('user-card-initials')).toBeOnTheScreen();
     });
 
     it('does not show sign in button when user is authenticated', () => {
@@ -170,13 +165,13 @@ describe('SettingsScreen', () => {
     it('renders appearance button', () => {
       const { getByTestId } = renderWithProviders(<SettingsScreen />);
 
-      expect(getByTestId('settings-appearance-button')).toBeTruthy();
+      expect(getByTestId('settings-appearance-button')).toBeOnTheScreen();
     });
 
     it('renders language button', () => {
       const { getByTestId } = renderWithProviders(<SettingsScreen />);
 
-      expect(getByTestId('settings-language-button')).toBeTruthy();
+      expect(getByTestId('settings-language-button')).toBeOnTheScreen();
     });
 
     it('navigates to Appearance when appearance button is pressed', () => {
@@ -207,5 +202,90 @@ describe('SettingsScreen implementation', () => {
   it('exports SettingsScreen as a React component', () => {
     expect(typeof SettingsScreen).toBe('function');
     expect(SettingsScreen.name).toBe('SettingsScreen');
+  });
+});
+
+describe('SettingsScreen Screen Reader Accessibility', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('focus order for screen readers', () => {
+    it('should have correct focus order for settings items when authenticated', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+        preloadedState: authenticatedState,
+      });
+
+      const userCard = getByTestId('settings-user-card');
+      const appearanceButton = getByTestId('settings-appearance-button');
+      const languageButton = getByTestId('settings-language-button');
+
+      expectFocusOrder([userCard, appearanceButton, languageButton]);
+    });
+
+    it('should have correct focus order for settings items when unauthenticated', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+        preloadedState: unauthenticatedState,
+      });
+
+      const signInButton = getByTestId('settings-sign-in-button');
+      const appearanceButton = getByTestId('settings-appearance-button');
+      const languageButton = getByTestId('settings-language-button');
+
+      expectFocusOrder([signInButton, appearanceButton, languageButton]);
+    });
+
+    it('should have focusable sign in button when unauthenticated', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+        preloadedState: unauthenticatedState,
+      });
+
+      expectCanReceiveFocus(getByTestId('settings-sign-in-button'));
+    });
+
+    it('should have focusable user card when authenticated', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+        preloadedState: authenticatedState,
+      });
+
+      expectCanReceiveFocus(getByTestId('settings-user-card'));
+    });
+
+    it('should have focusable appearance button', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+
+      expectCanReceiveFocus(getByTestId('settings-appearance-button'));
+    });
+
+    it('should have focusable language button', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+
+      expectCanReceiveFocus(getByTestId('settings-language-button'));
+    });
+  });
+
+  describe('accessibility roles', () => {
+    it('should have button role on sign in button', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+        preloadedState: unauthenticatedState,
+      });
+
+      const signInButton = getByTestId('settings-sign-in-button');
+      expect(signInButton.props.accessibilityRole).toBe('button');
+    });
+
+    it('should have button role on appearance button', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+
+      const appearanceButton = getByTestId('settings-appearance-button');
+      expect(appearanceButton.props.accessibilityRole).toBe('button');
+    });
+
+    it('should have button role on language button', () => {
+      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+
+      const languageButton = getByTestId('settings-language-button');
+      expect(languageButton.props.accessibilityRole).toBe('button');
+    });
   });
 });

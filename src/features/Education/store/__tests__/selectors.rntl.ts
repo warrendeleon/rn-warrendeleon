@@ -131,4 +131,104 @@ describe('Education selectors', () => {
       expect(education).toEqual([]);
     });
   });
+
+  describe('selector consistency', () => {
+    it('selectEducation returns consistent data when state unchanged', () => {
+      const state = {
+        education: { data: educationFixture, loading: false, error: null },
+      } as unknown as RootState;
+
+      expect(selectEducation(state)).toEqual(educationFixture);
+      expect(selectEducation(state)).toEqual(educationFixture);
+    });
+
+    it('selectEducation reflects state changes', () => {
+      const state1 = {
+        education: { data: educationFixture, loading: false, error: null },
+      } as unknown as RootState;
+
+      const modifiedEducation = [...educationFixture, { ...educationFixture[0], id: 'new-id' }];
+      const state2 = {
+        education: { data: modifiedEducation, loading: false, error: null },
+      } as unknown as RootState;
+
+      expect(selectEducation(state1).length).toBe(educationFixture.length);
+      expect(selectEducation(state2).length).toBe(educationFixture.length + 1);
+    });
+
+    it('selectEducationLoading returns consistent value', () => {
+      const state = {
+        education: { data: [], loading: true, error: null },
+      } as unknown as RootState;
+
+      expect(selectEducationLoading(state)).toBe(true);
+      expect(selectEducationLoading(state)).toBe(true);
+    });
+
+    it('selectEducationError returns consistent value', () => {
+      const state = {
+        education: { data: [], loading: false, error: 'Network error' },
+      } as unknown as RootState;
+
+      expect(selectEducationError(state)).toBe('Network error');
+      expect(selectEducationError(state)).toBe('Network error');
+    });
+
+    it('selectEducationWithCertificates returns consistent filtered data', () => {
+      const state = {
+        education: { data: educationFixture, loading: false, error: null },
+      } as unknown as RootState;
+
+      const result = selectEducationWithCertificates(state);
+      expect(selectEducationWithCertificates(state)).toEqual(result);
+    });
+
+    it('selectEducationByInstitution returns consistent filtered data', () => {
+      const state = {
+        education: { data: educationFixture, loading: false, error: null },
+      } as unknown as RootState;
+
+      const stucomResults = selectEducationByInstitution(state, "Stucom Centre d'Estudis");
+      expect(selectEducationByInstitution(state, "Stucom Centre d'Estudis")).toEqual(stucomResults);
+    });
+
+    it('selectEducationByInstitution returns different data for different institutions', () => {
+      const state = {
+        education: { data: educationFixture, loading: false, error: null },
+      } as unknown as RootState;
+
+      const stucomResults = selectEducationByInstitution(state, "Stucom Centre d'Estudis");
+      const udemyResults = selectEducationByInstitution(state, 'Udemy');
+
+      expect(stucomResults).not.toEqual(udemyResults);
+    });
+
+    it('derived selectors chain correctly', () => {
+      const state = {
+        education: { data: educationFixture, loading: false, error: null },
+      } as unknown as RootState;
+
+      const education = selectEducation(state);
+      const withCerts = selectEducationWithCertificates(state);
+
+      expect(education.length).toBeGreaterThanOrEqual(withCerts.length);
+      withCerts.forEach(item => {
+        expect(item.certificateUrl).toBeDefined();
+      });
+    });
+
+    it('selector returns same data when unrelated state changes', () => {
+      const state1 = {
+        education: { data: educationFixture, loading: false, error: null },
+        settings: { theme: 'light', language: 'en' },
+      } as unknown as RootState;
+
+      const state2 = {
+        ...state1,
+        settings: { theme: 'dark', language: 'es' },
+      } as unknown as RootState;
+
+      expect(selectEducation(state1)).toEqual(selectEducation(state2));
+    });
+  });
 });

@@ -161,7 +161,7 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-screen')).toBeTruthy();
+      expect(getByTestId('work-experience-details-screen')).toBeOnTheScreen();
     });
 
     it('displays company name', () => {
@@ -233,7 +233,7 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-date-range')).toBeTruthy();
+      expect(getByTestId('work-experience-details-date-range')).toBeOnTheScreen();
     });
   });
 
@@ -259,7 +259,7 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-not-found')).toBeTruthy();
+      expect(getByTestId('work-experience-details-not-found')).toBeOnTheScreen();
     });
   });
 
@@ -285,7 +285,7 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-description-card')).toBeTruthy();
+      expect(getByTestId('work-experience-details-description-card')).toBeOnTheScreen();
       expect(getByTestId('work-experience-details-description-text')).toHaveTextContent(
         'Leading development of mobile applications'
       );
@@ -353,7 +353,7 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-tech-card')).toBeTruthy();
+      expect(getByTestId('work-experience-details-tech-card')).toBeOnTheScreen();
     });
 
     it('renders programming languages tags', () => {
@@ -377,8 +377,8 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByText('TypeScript')).toBeTruthy();
-      expect(getByText('JavaScript')).toBeTruthy();
+      expect(getByText('TypeScript')).toBeOnTheScreen();
+      expect(getByText('JavaScript')).toBeOnTheScreen();
     });
 
     it('renders framework tags', () => {
@@ -402,8 +402,8 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByText('React Native')).toBeTruthy();
-      expect(getByText('React')).toBeTruthy();
+      expect(getByText('React Native')).toBeOnTheScreen();
+      expect(getByText('React')).toBeOnTheScreen();
     });
 
     it('does not display tech card when no technologies', () => {
@@ -475,8 +475,8 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-responsibilities-card')).toBeTruthy();
-      expect(getByTestId('work-experience-details-responsibilities-section')).toBeTruthy();
+      expect(getByTestId('work-experience-details-responsibilities-card')).toBeOnTheScreen();
+      expect(getByTestId('work-experience-details-responsibilities-section')).toBeOnTheScreen();
     });
 
     it('renders all responsibility items', () => {
@@ -507,9 +507,9 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByText('Lead team of 5 engineers')).toBeTruthy();
-      expect(getByText('Conduct performance reviews')).toBeTruthy();
-      expect(getByText('Define technical strategy')).toBeTruthy();
+      expect(getByText('Lead team of 5 engineers')).toBeOnTheScreen();
+      expect(getByText('Conduct performance reviews')).toBeOnTheScreen();
+      expect(getByText('Define technical strategy')).toBeOnTheScreen();
     });
 
     it('does not display responsibilities card when not present', () => {
@@ -585,7 +585,7 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-screen')).toBeTruthy();
+      expect(getByTestId('work-experience-details-screen')).toBeOnTheScreen();
     });
 
     it('renders correctly in dark theme', () => {
@@ -609,7 +609,7 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-screen')).toBeTruthy();
+      expect(getByTestId('work-experience-details-screen')).toBeOnTheScreen();
     });
 
     it('renders correctly with system theme in light mode', () => {
@@ -633,7 +633,7 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-screen')).toBeTruthy();
+      expect(getByTestId('work-experience-details-screen')).toBeOnTheScreen();
     });
 
     it('renders correctly with system theme in dark mode', () => {
@@ -657,7 +657,7 @@ describe('WorkExperienceDetailsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-details-screen')).toBeTruthy();
+      expect(getByTestId('work-experience-details-screen')).toBeOnTheScreen();
     });
   });
 

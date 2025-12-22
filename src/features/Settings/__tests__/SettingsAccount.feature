@@ -117,7 +117,7 @@ Feature: Settings Account Section
   @ui
   Scenario: Display all Edit Account screen elements
     Given I am logged in and on the Edit Account screen
-    And I should see an element with testID "edit-account-user-card"
+    And I should see an element with testID "edit-account-screen"
     And I should see an element with testID "first-name-input"
     And I should see an element with testID "last-name-input"
     And I should see an element with testID "country-code-selector"

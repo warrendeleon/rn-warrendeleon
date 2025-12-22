@@ -60,7 +60,7 @@ describe('PDFScreen', () => {
     renderWithProviders(<PDFScreen />);
 
     const pdf = screen.getByTestId('mock-pdf');
-    expect(pdf).toBeTruthy();
+    expect(pdf).toBeOnTheScreen();
     expect(pdf.props.source).toEqual({
       uri: 'https://example.com/document.pdf',
       cache: true,
@@ -128,7 +128,7 @@ describe('PDFScreen - URL Validation', () => {
       const loading = screen.queryByTestId('pdf-loading');
       const error = screen.queryByTestId('pdf-error');
 
-      expect(loading || error).toBeTruthy();
+      expect(loading ?? error).toBeDefined();
     });
 
     it('renders error state when URL is not allowed', () => {
@@ -139,9 +139,11 @@ describe('PDFScreen - URL Validation', () => {
 
       renderWithProviders(<PDFScreen />);
 
-      expect(screen.getByTestId('pdf-error')).toBeTruthy();
-      expect(screen.getByText('This PDF URL is not allowed for security reasons')).toBeTruthy();
-      expect(screen.getByText('https://evil.com/malware.pdf')).toBeTruthy();
+      expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
+      expect(
+        screen.getByText('This PDF URL is not allowed for security reasons')
+      ).toBeOnTheScreen();
+      expect(screen.getByText('https://evil.com/malware.pdf')).toBeOnTheScreen();
     });
 
     it('renders PDF viewer when URL is allowed', () => {
@@ -152,7 +154,7 @@ describe('PDFScreen - URL Validation', () => {
 
       renderWithProviders(<PDFScreen />);
 
-      expect(screen.getByTestId('mock-pdf')).toBeTruthy();
+      expect(screen.getByTestId('mock-pdf')).toBeOnTheScreen();
     });
 
     it('validates URL against ALLOWED_PDF_DOMAINS', () => {
@@ -239,7 +241,7 @@ describe('PDFScreen - URL Validation', () => {
 
       renderWithProviders(<PDFScreen />);
 
-      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+      expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
 
     it('blocks non-whitelisted domains', () => {
@@ -250,7 +252,7 @@ describe('PDFScreen - URL Validation', () => {
 
       renderWithProviders(<PDFScreen />);
 
-      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+      expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
 
     it('allows whitelisted domains with paths', () => {
@@ -263,7 +265,7 @@ describe('PDFScreen - URL Validation', () => {
 
       renderWithProviders(<PDFScreen />);
 
-      expect(screen.getByTestId('mock-pdf')).toBeTruthy();
+      expect(screen.getByTestId('mock-pdf')).toBeOnTheScreen();
     });
 
     it('allows subdomains of whitelisted domains', () => {
@@ -274,7 +276,7 @@ describe('PDFScreen - URL Validation', () => {
 
       renderWithProviders(<PDFScreen />);
 
-      expect(screen.getByTestId('mock-pdf')).toBeTruthy();
+      expect(screen.getByTestId('mock-pdf')).toBeOnTheScreen();
     });
   });
 
@@ -287,7 +289,7 @@ describe('PDFScreen - URL Validation', () => {
 
       renderWithProviders(<PDFScreen />);
 
-      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+      expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
 
     it('handles malformed URLs', () => {
@@ -298,7 +300,7 @@ describe('PDFScreen - URL Validation', () => {
 
       renderWithProviders(<PDFScreen />);
 
-      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+      expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
 
     it('handles javascript: protocol URLs', () => {
@@ -309,7 +311,7 @@ describe('PDFScreen - URL Validation', () => {
 
       renderWithProviders(<PDFScreen />);
 
-      expect(screen.getByTestId('pdf-error')).toBeTruthy();
+      expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
   });
 });

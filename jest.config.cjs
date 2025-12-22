@@ -41,13 +41,14 @@ module.exports = {
     '!src/**/*Screen.tsx', // Exclude screen components (tested via integration/E2E)
     '!src/navigation/**/*.tsx', // Exclude navigation config
     '!src/store/configureStore.ts', // Store config (has dev/prod branches)
+    '!src/**/*.stories.tsx', // Exclude Storybook stories (interactive visual testing, not Jest)
   ],
   coverageThreshold: {
     global: {
-      statements: 60,
-      branches: 50,
-      functions: 45,
-      lines: 55,
+      statements: 85,
+      branches: 78,
+      functions: 65,
+      lines: 85,
     },
     // Business logic must have 100% coverage
     './src/**/store/**/*.ts': {

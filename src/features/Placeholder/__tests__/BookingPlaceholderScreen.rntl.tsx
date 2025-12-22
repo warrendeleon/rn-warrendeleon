@@ -13,20 +13,15 @@ describe('BookingPlaceholderScreen', () => {
   });
 
   describe('Basic Rendering', () => {
-    it('renders without crashing', () => {
-      mockUseColorScheme.mockReturnValue('light');
-
-      const { UNSAFE_root } = renderWithProviders(<BookingPlaceholderScreen />);
-
-      expect(UNSAFE_root).toBeTruthy();
-    });
-
-    it('renders screen with testID', () => {
+    it('renders booking placeholder with title and coming soon message', () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const { getByTestId } = renderWithProviders(<BookingPlaceholderScreen />);
 
-      expect(getByTestId('booking-placeholder-screen')).toBeTruthy();
+      // Verify main container and key content elements render
+      expect(getByTestId('booking-placeholder-screen')).toBeOnTheScreen();
+      expect(getByTestId('booking-placeholder-title')).toBeOnTheScreen();
+      expect(getByTestId('booking-placeholder-coming-soon')).toBeOnTheScreen();
     });
   });
 
@@ -37,7 +32,7 @@ describe('BookingPlaceholderScreen', () => {
       const { getByTestId } = renderWithProviders(<BookingPlaceholderScreen />);
 
       const title = getByTestId('booking-placeholder-title');
-      expect(title).toBeTruthy();
+      expect(title).toBeOnTheScreen();
       expect(title.props.children).toBe('Book a Call');
     });
 
@@ -47,7 +42,7 @@ describe('BookingPlaceholderScreen', () => {
       const { getByTestId } = renderWithProviders(<BookingPlaceholderScreen />);
 
       const comingSoon = getByTestId('booking-placeholder-coming-soon');
-      expect(comingSoon).toBeTruthy();
+      expect(comingSoon).toBeOnTheScreen();
       expect(comingSoon.props.children).toBe('Coming Soon');
     });
 
@@ -57,7 +52,7 @@ describe('BookingPlaceholderScreen', () => {
       const { getByTestId } = renderWithProviders(<BookingPlaceholderScreen />);
 
       const description = getByTestId('booking-placeholder-description');
-      expect(description).toBeTruthy();
+      expect(description).toBeOnTheScreen();
       expect(description.props.children).toBe(
         'Schedule a meeting or call with Warren using this feature, coming soon.'
       );
@@ -70,7 +65,7 @@ describe('BookingPlaceholderScreen', () => {
 
       const { getByTestId } = renderWithProviders(<BookingPlaceholderScreen />);
 
-      expect(getByTestId('booking-placeholder-screen')).toBeTruthy();
+      expect(getByTestId('booking-placeholder-screen')).toBeOnTheScreen();
     });
 
     it('renders correctly in dark theme', () => {
@@ -78,7 +73,7 @@ describe('BookingPlaceholderScreen', () => {
 
       const { getByTestId } = renderWithProviders(<BookingPlaceholderScreen />);
 
-      expect(getByTestId('booking-placeholder-screen')).toBeTruthy();
+      expect(getByTestId('booking-placeholder-screen')).toBeOnTheScreen();
     });
   });
 
@@ -98,7 +93,7 @@ describe('BookingPlaceholderScreen', () => {
       const { UNSAFE_root } = renderWithProviders(<BookingPlaceholderScreen />);
 
       // Icon container should have accessibilityElementsHidden set to true
-      expect(UNSAFE_root).toBeTruthy();
+      expect(UNSAFE_root).toBeDefined();
     });
   });
 });

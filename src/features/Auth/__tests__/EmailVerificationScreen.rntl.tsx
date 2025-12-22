@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/react-native';
 
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
-import { renderWithProviders } from '@app/test-utils';
+import { expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { EmailVerificationScreen } from '../EmailVerificationScreen';
 import * as emailResendRateLimiter from '../utils/emailResendRateLimiter';
@@ -73,12 +73,12 @@ describe('EmailVerificationScreen', () => {
     (SupabaseAuthClient.resendConfirmationEmail as jest.Mock).mockResolvedValue(undefined);
   });
 
-  it('renders without crashing', () => {
-    const { UNSAFE_root } = renderWithProviders(
+  it('renders the screen correctly', () => {
+    const { getByTestId } = renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(UNSAFE_root).toBeTruthy();
+    expect(getByTestId('email-verification-screen')).toBeOnTheScreen();
   });
 
   it('renders the email verification screen with testID', () => {
@@ -86,7 +86,7 @@ describe('EmailVerificationScreen', () => {
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('email-verification-screen')).toBeTruthy();
+    expect(getByTestId('email-verification-screen')).toBeOnTheScreen();
   });
 
   it('renders email icon container', () => {
@@ -94,7 +94,7 @@ describe('EmailVerificationScreen', () => {
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('email-icon-container')).toBeTruthy();
+    expect(getByTestId('email-icon-container')).toBeOnTheScreen();
   });
 
   it('renders verification title', () => {
@@ -102,7 +102,7 @@ describe('EmailVerificationScreen', () => {
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('verification-title')).toBeTruthy();
+    expect(getByTestId('verification-title')).toBeOnTheScreen();
   });
 
   it('renders verification message', () => {
@@ -110,7 +110,7 @@ describe('EmailVerificationScreen', () => {
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('verification-message')).toBeTruthy();
+    expect(getByTestId('verification-message')).toBeOnTheScreen();
   });
 
   it('renders email display with the email address', () => {
@@ -118,8 +118,8 @@ describe('EmailVerificationScreen', () => {
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('email-display')).toBeTruthy();
-    expect(getByTestId('email-address')).toBeTruthy();
+    expect(getByTestId('email-display')).toBeOnTheScreen();
+    expect(getByTestId('email-address')).toBeOnTheScreen();
   });
 
   it('displays the correct email address from route params', () => {
@@ -136,7 +136,7 @@ describe('EmailVerificationScreen', () => {
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('resend-email-button')).toBeTruthy();
+    expect(getByTestId('resend-email-button')).toBeOnTheScreen();
   });
 
   it('renders back to login button', () => {
@@ -144,7 +144,7 @@ describe('EmailVerificationScreen', () => {
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('back-to-login-button')).toBeTruthy();
+    expect(getByTestId('back-to-login-button')).toBeOnTheScreen();
   });
 
   it('renders back to login link', () => {
@@ -152,7 +152,7 @@ describe('EmailVerificationScreen', () => {
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('back-to-login-link')).toBeTruthy();
+    expect(getByTestId('back-to-login-link')).toBeOnTheScreen();
   });
 
   it('renders info box', () => {
@@ -160,7 +160,7 @@ describe('EmailVerificationScreen', () => {
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    expect(getByTestId('info-box')).toBeTruthy();
+    expect(getByTestId('info-box')).toBeOnTheScreen();
   });
 
   it('navigates to Login when back to login button is pressed', () => {
@@ -190,9 +190,12 @@ describe('EmailVerificationScreen', () => {
     fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for success message
-    await waitFor(() => {
-      expect(queryByTestId('resend-success-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('resend-success-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
   });
 
   it('shows error message when rate limit is exceeded', async () => {
@@ -210,9 +213,12 @@ describe('EmailVerificationScreen', () => {
     fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for error message
-    await waitFor(() => {
-      expect(queryByTestId('error-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('error-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
   });
 
   it('calls rate limiter check before resending email', async () => {
@@ -223,11 +229,14 @@ describe('EmailVerificationScreen', () => {
     // Press resend button
     fireEvent.press(getByTestId('resend-email-button'));
 
-    await waitFor(() => {
-      expect(emailResendRateLimiter.checkEmailResendRateLimit).toHaveBeenCalledWith(
-        'test@example.com'
-      );
-    });
+    await waitFor(
+      () => {
+        expect(emailResendRateLimiter.checkEmailResendRateLimit).toHaveBeenCalledWith(
+          'test@example.com'
+        );
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('records request after successful resend', async () => {
@@ -239,9 +248,12 @@ describe('EmailVerificationScreen', () => {
     fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for success message
-    await waitFor(() => {
-      expect(queryByTestId('resend-success-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('resend-success-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
 
     expect(emailResendRateLimiter.recordEmailResendRequest).toHaveBeenCalledWith(
       'test@example.com'
@@ -257,9 +269,12 @@ describe('EmailVerificationScreen', () => {
     fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for success message
-    await waitFor(() => {
-      expect(queryByTestId('resend-success-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('resend-success-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
 
     expect(SupabaseAuthClient.resendConfirmationEmail).toHaveBeenCalledWith('test@example.com');
   });
@@ -277,9 +292,12 @@ describe('EmailVerificationScreen', () => {
     fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for error message
-    await waitFor(() => {
-      expect(queryByTestId('error-message')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('error-message')).toBeOnTheScreen();
+      },
+      { timeout: 5000, interval: 100 }
+    );
   });
 
   it('disables resend button during cooldown period', async () => {
@@ -293,10 +311,13 @@ describe('EmailVerificationScreen', () => {
     );
 
     // Wait for initial rate limit check
-    await waitFor(() => {
-      const resendButton = getByTestId('resend-email-button');
-      expect(resendButton.props.accessibilityState?.disabled).toBe(true);
-    });
+    await waitFor(
+      () => {
+        const resendButton = getByTestId('resend-email-button');
+        expect(resendButton.props.accessibilityState?.disabled).toBe(true);
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('enables resend button when no cooldown', async () => {
@@ -305,10 +326,13 @@ describe('EmailVerificationScreen', () => {
     );
 
     // Wait for initial rate limit check to complete
-    await waitFor(() => {
-      const resendButton = getByTestId('resend-email-button');
-      expect(resendButton.props.accessibilityState?.disabled).toBe(false);
-    });
+    await waitFor(
+      () => {
+        const resendButton = getByTestId('resend-email-button');
+        expect(resendButton.props.accessibilityState?.disabled).toBe(false);
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('has proper accessibility label on resend button', () => {
@@ -358,5 +382,72 @@ describe('EmailVerificationScreen implementation', () => {
   it('exports EmailVerificationScreen as a React component', () => {
     expect(typeof EmailVerificationScreen).toBe('function');
     expect(EmailVerificationScreen.name).toBe('EmailVerificationScreen');
+  });
+});
+
+describe('EmailVerificationScreen EAA Accessibility Compliance', () => {
+  const mockNavigation = {
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+    reset: jest.fn(),
+    replace: jest.fn(),
+    setOptions: jest.fn(),
+    addListener: jest.fn(() => () => {}),
+    removeListener: jest.fn(),
+    dispatch: jest.fn(),
+    isFocused: jest.fn(() => true),
+    canGoBack: jest.fn(() => true),
+    getId: jest.fn(),
+    getParent: jest.fn(),
+    getState: jest.fn(() => ({
+      key: 'EmailVerification',
+      index: 0,
+      routeNames: ['EmailVerification'],
+      routes: [
+        {
+          key: 'EmailVerification',
+          name: 'EmailVerification',
+          params: { email: 'test@example.com' },
+        },
+      ],
+    })),
+  } as unknown as NativeStackNavigationProp<RootStackParamList, 'EmailVerification'>;
+
+  const mockRoute = {
+    key: 'EmailVerification',
+    name: 'EmailVerification' as const,
+    params: { email: 'test@example.com' },
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (emailResendRateLimiter.checkEmailResendRateLimit as jest.Mock).mockResolvedValue({
+      allowed: true,
+    });
+    (SupabaseAuthClient.resendConfirmationEmail as jest.Mock).mockResolvedValue(undefined);
+  });
+
+  it('resend email button has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expectMinTouchTarget(getByTestId('resend-email-button'));
+  });
+
+  it('back to login button has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expectMinTouchTarget(getByTestId('back-to-login-button'));
+  });
+
+  it('back to login link has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
+    );
+
+    expectMinTouchTarget(getByTestId('back-to-login-link'));
   });
 });

@@ -52,9 +52,12 @@ describe('SplashScreen', () => {
   it('renders Logo component', async () => {
     const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
-    await waitFor(() => {
-      expect(getByTestId('logo')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(getByTestId('logo')).toBeOnTheScreen();
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('renders with dark mode when colour scheme is dark', async () => {
@@ -62,9 +65,12 @@ describe('SplashScreen', () => {
 
     const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
-    await waitFor(() => {
-      expect(getByTestId('logo')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(getByTestId('logo')).toBeOnTheScreen();
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     expect(getByTestId('logo-mode')).toHaveTextContent('dark');
   });
@@ -74,9 +80,12 @@ describe('SplashScreen', () => {
 
     const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
-    await waitFor(() => {
-      expect(getByTestId('logo')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(getByTestId('logo')).toBeOnTheScreen();
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     expect(getByTestId('logo-mode')).toHaveTextContent('light');
   });
@@ -91,7 +100,7 @@ describe('SplashScreen', () => {
         expect(state.education.loading).toBe(false);
         expect(state.workExperience.loading).toBe(false);
       },
-      { timeout: 3000 }
+      { timeout: 3000, interval: 100 }
     );
 
     // Verify data was loaded successfully
@@ -110,9 +119,12 @@ describe('SplashScreen', () => {
       jest.advanceTimersByTime(1500);
     });
 
-    await waitFor(() => {
-      expect(mockOnComplete).toHaveBeenCalledTimes(1);
-    });
+    await waitFor(
+      () => {
+        expect(mockOnComplete).toHaveBeenCalledTimes(1);
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('does not call onComplete before 1.5 seconds', async () => {
@@ -131,9 +143,12 @@ describe('SplashScreen', () => {
     );
 
     // Initially, should render the splash screen
-    await waitFor(() => {
-      expect(queryByTestId('logo')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(queryByTestId('logo')).toBeOnTheScreen();
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
     // Advance timer
     await act(async () => {
@@ -175,12 +190,12 @@ describe('SplashScreen', () => {
 
       await waitFor(
         () => {
-          expect(getByTestId('splash-error-screen')).toBeTruthy();
+          expect(getByTestId('splash-error-screen')).toBeOnTheScreen();
         },
         { timeout: 3000 }
       );
 
-      expect(getByTestId('splash-retry-button')).toBeTruthy();
+      expect(getByTestId('splash-retry-button')).toBeOnTheScreen();
     });
 
     it('does not call onComplete when fetch fails', async () => {
@@ -207,7 +222,7 @@ describe('SplashScreen', () => {
 
       await waitFor(
         () => {
-          expect(getByTestId('splash-error-screen')).toBeTruthy();
+          expect(getByTestId('splash-error-screen')).toBeOnTheScreen();
         },
         { timeout: 3000 }
       );
@@ -228,6 +243,74 @@ describe('SplashScreen', () => {
       await waitFor(
         () => {
           expect(mockOnComplete).toHaveBeenCalledTimes(1);
+        },
+        { timeout: 3000 }
+      );
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has accessible loading screen label', async () => {
+      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+
+      await waitFor(
+        () => {
+          const splashScreen = getByTestId('splash-screen');
+          expect(splashScreen.props.accessibilityLabel).toBe('Loading splash screen');
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+
+    it('has accessible error screen label when fetch fails', async () => {
+      server.use(...errorHandlers);
+
+      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+
+      await act(async () => {
+        jest.runAllTimers();
+      });
+
+      await waitFor(
+        () => {
+          const errorScreen = getByTestId('splash-error-screen');
+          expect(errorScreen.props.accessibilityLabel).toBe('Error loading data screen');
+        },
+        { timeout: 3000 }
+      );
+    });
+
+    it('retry button has proper accessibility props', async () => {
+      server.use(...errorHandlers);
+
+      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+
+      await act(async () => {
+        jest.runAllTimers();
+      });
+
+      await waitFor(
+        () => {
+          const retryButton = getByTestId('splash-retry-button');
+          expect(retryButton.props.accessibilityRole).toBe('button');
+          expect(retryButton.props.accessibilityHint).toBe('Attempts to load data again');
+        },
+        { timeout: 3000, interval: 100 }
+      );
+    });
+
+    it('retry button has accessible label', async () => {
+      server.use(...errorHandlers);
+
+      const { getByRole } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+
+      await act(async () => {
+        jest.runAllTimers();
+      });
+
+      await waitFor(
+        () => {
+          expect(getByRole('button')).toBeOnTheScreen();
         },
         { timeout: 3000 }
       );

@@ -11,13 +11,14 @@ const NavigationWrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe('HeaderBackButton Stories', () => {
-  it('renders Default story', () => {
-    const { toJSON } = renderWithProviders(
+  it('renders Default story with back button visible', () => {
+    const { getByTestId } = renderWithProviders(
       <NavigationWrapper>
         <HeaderBackButton />
       </NavigationWrapper>
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByTestId('header-back-button')).toBeOnTheScreen();
+    expect(getByTestId('header-back-button').props.accessibilityRole).toBe('button');
   });
 
   it('renders with testID', () => {
@@ -26,7 +27,7 @@ describe('HeaderBackButton Stories', () => {
         <HeaderBackButton />
       </NavigationWrapper>
     );
-    expect(getByTestId('header-back-button')).toBeTruthy();
+    expect(getByTestId('header-back-button')).toBeOnTheScreen();
   });
 
   it('has correct accessibility role', () => {

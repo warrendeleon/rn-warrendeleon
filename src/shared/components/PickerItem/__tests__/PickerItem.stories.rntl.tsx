@@ -6,25 +6,26 @@ import { PickerItem } from '../PickerItem';
 import * as stories from '../PickerItem.stories';
 
 describe('PickerItem Stories', () => {
-  it('renders Default story', () => {
+  it('renders Default story with label visible', () => {
     const { args } = stories.Default;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <PickerItem label={args!.label!} isSelected={args?.isSelected} onPress={args?.onPress} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByText(args!.label!)).toBeOnTheScreen();
   });
 
-  it('renders Selected story', () => {
+  it('renders Selected story with check mark', () => {
     const { args } = stories.Selected;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <PickerItem label={args!.label!} isSelected={args?.isSelected} onPress={args?.onPress} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByText(args!.label!)).toBeOnTheScreen();
+    expect(getByText('✓')).toBeOnTheScreen();
   });
 
-  it('renders TopInGroup story', () => {
+  it('renders TopInGroup story with top variant', () => {
     const { args } = stories.TopInGroup;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <PickerItem
         label={args!.label!}
         isSelected={args?.isSelected}
@@ -32,12 +33,12 @@ describe('PickerItem Stories', () => {
         groupVariant={args?.groupVariant}
       />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByText(args!.label!)).toBeOnTheScreen();
   });
 
-  it('renders MiddleInGroup story', () => {
+  it('renders MiddleInGroup story with middle variant', () => {
     const { args } = stories.MiddleInGroup;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <PickerItem
         label={args!.label!}
         isSelected={args?.isSelected}
@@ -45,12 +46,12 @@ describe('PickerItem Stories', () => {
         groupVariant={args?.groupVariant}
       />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByText(args!.label!)).toBeOnTheScreen();
   });
 
-  it('renders BottomInGroup story', () => {
+  it('renders BottomInGroup story with bottom variant', () => {
     const { args } = stories.BottomInGroup;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <PickerItem
         label={args!.label!}
         isSelected={args?.isSelected}
@@ -58,7 +59,7 @@ describe('PickerItem Stories', () => {
         groupVariant={args?.groupVariant}
       />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByText(args!.label!)).toBeOnTheScreen();
   });
 
   it('Selected story shows check mark', () => {
@@ -66,7 +67,7 @@ describe('PickerItem Stories', () => {
     const { getByText } = renderWithProviders(
       <PickerItem label={args!.label!} isSelected={args?.isSelected} onPress={args?.onPress} />
     );
-    expect(getByText('✓')).toBeTruthy();
+    expect(getByText('✓')).toBeOnTheScreen();
   });
 
   it('Default story does not show check mark', () => {

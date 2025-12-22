@@ -151,6 +151,34 @@ describe('EncryptedStore', () => {
 
       expect(result).toBe(false);
     });
+
+    it('should handle empty items array', async () => {
+      const result = await EncryptedStore.setMultiple([]);
+
+      expect(result).toBe(true);
+      expect(EncryptedStorage.setItem).not.toHaveBeenCalled();
+    });
+
+    it('should return false when Promise.all throws unexpectedly', async () => {
+      // This tests the outer catch block (lines 104-105)
+      // Simulate a scenario where map itself throws
+      const originalSet = EncryptedStore.set.bind(EncryptedStore);
+      const mockSet = jest.fn().mockImplementation(() => {
+        throw new Error('Unexpected sync error');
+      });
+
+      // Temporarily replace the set method
+      (EncryptedStore as unknown as { set: typeof mockSet }).set = mockSet;
+
+      const items = [{ key: EncryptedStoreKey.USER_EMAIL, value: 'test@example.com' }];
+
+      const result = await EncryptedStore.setMultiple(items);
+
+      expect(result).toBe(false);
+
+      // Restore the original method
+      (EncryptedStore as unknown as { set: typeof originalSet }).set = originalSet;
+    });
   });
 
   describe('getMultiple', () => {

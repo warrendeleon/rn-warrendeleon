@@ -213,6 +213,13 @@ class SupabaseAuthClientClass {
     if (isE2EMockEnabled()) {
       this.mockState.signIn = { mocked: true, email: request.email };
 
+      // E2E: Simulate auth error for passwords starting with "Wrong"
+      // This allows E2E tests to verify error handling behaviour
+      // Matches the error format returned by handleError for invalid credentials
+      if (request.password.startsWith('Wrong')) {
+        throw new AuthError('Invalid email or password', 'invalid_credentials');
+      }
+
       // Retrieve stored user data from registration (if available)
       // Fall back to 'Test' / 'User' for fresh installs without registration
       const storedFirstName = await EncryptedStore.get(EncryptedStoreKey.USER_FIRST_NAME);

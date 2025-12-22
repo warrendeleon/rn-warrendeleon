@@ -13,6 +13,8 @@ import { formatDateRange } from '@app/utils/dateFormatter';
 
 import {
   selectWorkExperienceById,
+  selectWorkExperienceError,
+  selectWorkExperienceLoading,
   selectWorkExperiencePositionsWithClientsById,
 } from './store/selectors';
 
@@ -38,6 +40,8 @@ export const WorkExperienceClientsScreen: React.FC<WorkExperienceClientsScreenPr
   const clientPositions = useAppSelector(state =>
     selectWorkExperiencePositionsWithClientsById(state, workExperienceId)
   );
+  const loading = useAppSelector(selectWorkExperienceLoading);
+  const error = useAppSelector(selectWorkExperienceError);
 
   // Set navigation title to company name
   useLayoutEffect(() => {
@@ -88,9 +92,9 @@ export const WorkExperienceClientsScreen: React.FC<WorkExperienceClientsScreenPr
       bg={isDark ? '$black' : '$coolGray100'}
       contentInsetAdjustmentBehavior="automatic"
     >
-      <DetailListGroup items={clientItems} loading={false} error={undefined} />
+      <DetailListGroup items={clientItems} loading={loading} error={error ?? undefined} />
 
-      {clientItems.length === 0 && (
+      {clientItems.length === 0 && !loading && !error && (
         <Box p="$5" alignItems="center" testID="work-experience-clients-empty-state">
           <Text color={isDark ? '$white' : '$black'} fontSize="$md">
             {t('workExperience.clients.empty')}

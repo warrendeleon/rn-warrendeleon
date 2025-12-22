@@ -221,5 +221,17 @@ describe('e2e-error config', () => {
         expect(error?.message).toBe(expectedMessage);
       }
     );
+
+    it('should return null for unknown error mode (default case)', () => {
+      mockIsE2EMockEnabled.mockReturnValue(true);
+      // Cast to E2EErrorMode to simulate an unexpected/unknown error mode
+      mockLaunchArgumentsValue.mockReturnValue({
+        errorMode: 'unknown-mode' as E2EErrorMode,
+      });
+
+      const error = createE2EError();
+
+      expect(error).toBeNull();
+    });
   });
 });

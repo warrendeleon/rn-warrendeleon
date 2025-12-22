@@ -42,26 +42,26 @@ describe('ProfilePictureSection', () => {
     it('renders the profile picture section', () => {
       render(<ProfilePictureSection {...defaultProps} />);
 
-      expect(screen.getByTestId('profile-picture-section')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-section')).toBeOnTheScreen();
     });
 
     it('renders the edit button', () => {
       render(<ProfilePictureSection {...defaultProps} />);
 
-      expect(screen.getByTestId('profile-picture-edit-button')).toBeTruthy();
+      expect(screen.getByTestId('profile-picture-edit-button')).toBeOnTheScreen();
     });
 
     it('renders helper text', () => {
       render(<ProfilePictureSection {...defaultProps} />);
 
-      expect(screen.getByText('Tap to change')).toBeTruthy();
+      expect(screen.getByText('Tap to change')).toBeOnTheScreen();
     });
 
     it('renders avatar with initials when no profile picture', () => {
       render(<ProfilePictureSection {...defaultProps} />);
 
       // Avatar should show display name for fallback
-      expect(screen.getByText('John Doe')).toBeTruthy();
+      expect(screen.getByText('John Doe')).toBeOnTheScreen();
     });
   });
 

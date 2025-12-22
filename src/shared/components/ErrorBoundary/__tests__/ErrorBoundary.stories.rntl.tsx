@@ -13,13 +13,14 @@ const SuccessfulChild = () => (
 );
 
 describe('ErrorBoundary Stories', () => {
-  it('renders Normal story (children render successfully)', () => {
-    const { toJSON } = renderWithProviders(
+  it('renders Normal story with children visible', () => {
+    const { getByTestId, getByText } = renderWithProviders(
       <ErrorBoundary>
         <SuccessfulChild />
       </ErrorBoundary>
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByTestId('successful-child')).toBeOnTheScreen();
+    expect(getByText('Rendered successfully')).toBeOnTheScreen();
   });
 
   it('renders children when no error occurs', () => {
@@ -28,8 +29,8 @@ describe('ErrorBoundary Stories', () => {
         <SuccessfulChild />
       </ErrorBoundary>
     );
-    expect(getByTestId('successful-child')).toBeTruthy();
-    expect(getByText('Rendered successfully')).toBeTruthy();
+    expect(getByTestId('successful-child')).toBeOnTheScreen();
+    expect(getByText('Rendered successfully')).toBeOnTheScreen();
   });
 
   it('renders nested content correctly', () => {
@@ -43,7 +44,7 @@ describe('ErrorBoundary Stories', () => {
         </Box>
       </ErrorBoundary>
     );
-    expect(getByText('Parent')).toBeTruthy();
-    expect(getByText('Child')).toBeTruthy();
+    expect(getByText('Parent')).toBeOnTheScreen();
+    expect(getByText('Child')).toBeOnTheScreen();
   });
 });

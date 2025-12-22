@@ -23,10 +23,10 @@ describe('ButtonGroupDivider', () => {
       mockUseColorScheme.mockReset();
     });
 
-    it('renders with light theme preference', () => {
+    it('renders as View with light theme preference', () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { UNSAFE_root } = renderWithProviders(<ButtonGroupDivider />, {
+      const { toJSON } = renderWithProviders(<ButtonGroupDivider />, {
         preloadedState: {
           settings: {
             theme: 'light',
@@ -35,13 +35,17 @@ describe('ButtonGroupDivider', () => {
         },
       });
 
-      expect(UNSAFE_root).toBeDefined();
+      const tree = toJSON();
+      expect(tree).not.toBeNull();
+      if (tree && !Array.isArray(tree)) {
+        expect(tree.type).toBe('View');
+      }
     });
 
-    it('renders with dark theme preference', () => {
+    it('renders as View with dark theme preference', () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { UNSAFE_root } = renderWithProviders(<ButtonGroupDivider />, {
+      const { toJSON } = renderWithProviders(<ButtonGroupDivider />, {
         preloadedState: {
           settings: {
             theme: 'dark',
@@ -50,13 +54,17 @@ describe('ButtonGroupDivider', () => {
         },
       });
 
-      expect(UNSAFE_root).toBeDefined();
+      const tree = toJSON();
+      expect(tree).not.toBeNull();
+      if (tree && !Array.isArray(tree)) {
+        expect(tree.type).toBe('View');
+      }
     });
 
-    it('renders with system theme preference in light mode', () => {
+    it('renders as View with system theme in light mode', () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { UNSAFE_root } = renderWithProviders(<ButtonGroupDivider />, {
+      const { toJSON } = renderWithProviders(<ButtonGroupDivider />, {
         preloadedState: {
           settings: {
             theme: 'system',
@@ -65,13 +73,17 @@ describe('ButtonGroupDivider', () => {
         },
       });
 
-      expect(UNSAFE_root).toBeDefined();
+      const tree = toJSON();
+      expect(tree).not.toBeNull();
+      if (tree && !Array.isArray(tree)) {
+        expect(tree.type).toBe('View');
+      }
     });
 
-    it('renders with system theme preference in dark mode', () => {
+    it('renders as View with system theme in dark mode', () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { UNSAFE_root } = renderWithProviders(<ButtonGroupDivider />, {
+      const { toJSON } = renderWithProviders(<ButtonGroupDivider />, {
         preloadedState: {
           settings: {
             theme: 'system',
@@ -80,7 +92,49 @@ describe('ButtonGroupDivider', () => {
         },
       });
 
-      expect(UNSAFE_root).toBeDefined();
+      const tree = toJSON();
+      expect(tree).not.toBeNull();
+      if (tree && !Array.isArray(tree)) {
+        expect(tree.type).toBe('View');
+      }
+    });
+
+    it('uses getDividerColor to compute correct colour for light mode', () => {
+      mockUseColorScheme.mockReturnValue('light');
+
+      expect(getDividerColor(false)).toBe('#C6C6C8');
+
+      const { toJSON } = renderWithProviders(<ButtonGroupDivider />);
+      const tree = toJSON();
+      expect(tree).not.toBeNull();
+      if (tree && !Array.isArray(tree)) {
+        expect(tree.type).toBe('View');
+      }
+    });
+
+    it('uses getDividerColor to compute correct colour for dark mode', () => {
+      mockUseColorScheme.mockReturnValue('dark');
+
+      expect(getDividerColor(true)).toBe('#3A3A3C');
+
+      const { toJSON } = renderWithProviders(<ButtonGroupDivider />);
+      const tree = toJSON();
+      expect(tree).not.toBeNull();
+      if (tree && !Array.isArray(tree)) {
+        expect(tree.type).toBe('View');
+      }
+    });
+
+    it('renders as a Box element for horizontal divider', () => {
+      mockUseColorScheme.mockReturnValue('light');
+
+      const { toJSON } = renderWithProviders(<ButtonGroupDivider />);
+
+      const tree = toJSON();
+      expect(tree).not.toBeNull();
+      if (tree && !Array.isArray(tree)) {
+        expect(tree.type).toBe('View');
+      }
     });
   });
 });

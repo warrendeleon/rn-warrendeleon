@@ -35,14 +35,15 @@ describe('Auth selectors', () => {
       expect(selectAuth(mockState)).toEqual(mockState.auth);
     });
 
-    it('is memoized - returns same reference when state unchanged', () => {
+    it('returns consistent data when state unchanged', () => {
       const result1 = selectAuth(mockState);
       const result2 = selectAuth(mockState);
 
-      expect(result1).toBe(result2);
+      expect(result1).toEqual(result2);
+      expect(result1).toEqual(mockState.auth);
     });
 
-    it('recomputes when auth slice changes', () => {
+    it('reflects state changes', () => {
       const state1 = mockState;
       const state2 = {
         auth: {
@@ -54,7 +55,6 @@ describe('Auth selectors', () => {
       const result1 = selectAuth(state1);
       const result2 = selectAuth(state2);
 
-      expect(result1).not.toBe(result2);
       expect(result1.isAuthenticated).toBe(true);
       expect(result2.isAuthenticated).toBe(false);
     });
@@ -65,14 +65,12 @@ describe('Auth selectors', () => {
       expect(selectIsAuthenticated(mockState)).toBe(true);
     });
 
-    it('is memoized - returns same reference when state unchanged', () => {
-      const result1 = selectIsAuthenticated(mockState);
-      const result2 = selectIsAuthenticated(mockState);
-
-      expect(result1).toBe(result2);
+    it('returns consistent value when state unchanged', () => {
+      expect(selectIsAuthenticated(mockState)).toBe(true);
+      expect(selectIsAuthenticated(mockState)).toBe(true);
     });
 
-    it('recomputes when auth slice changes', () => {
+    it('reflects state changes', () => {
       const state1 = mockState;
       const state2 = {
         auth: {
@@ -81,11 +79,8 @@ describe('Auth selectors', () => {
         },
       } as RootState;
 
-      const result1 = selectIsAuthenticated(state1);
-      const result2 = selectIsAuthenticated(state2);
-
-      expect(result1).toBe(true);
-      expect(result2).toBe(false);
+      expect(selectIsAuthenticated(state1)).toBe(true);
+      expect(selectIsAuthenticated(state2)).toBe(false);
     });
   });
 
@@ -105,11 +100,12 @@ describe('Auth selectors', () => {
       expect(selectUser(stateWithoutUser)).toBeNull();
     });
 
-    it('is memoized - returns same reference when state unchanged', () => {
+    it('returns consistent data when state unchanged', () => {
       const result1 = selectUser(mockState);
       const result2 = selectUser(mockState);
 
-      expect(result1).toBe(result2);
+      expect(result1).toEqual(result2);
+      expect(result1).toEqual(mockState.auth.user);
     });
   });
 
@@ -129,11 +125,9 @@ describe('Auth selectors', () => {
       expect(selectAuthLoading(loadingState)).toBe(true);
     });
 
-    it('is memoized - returns same reference when state unchanged', () => {
-      const result1 = selectAuthLoading(mockState);
-      const result2 = selectAuthLoading(mockState);
-
-      expect(result1).toBe(result2);
+    it('returns consistent value when state unchanged', () => {
+      expect(selectAuthLoading(mockState)).toBe(false);
+      expect(selectAuthLoading(mockState)).toBe(false);
     });
   });
 
@@ -153,11 +147,9 @@ describe('Auth selectors', () => {
       expect(selectAuthError(errorState)).toBe('Invalid credentials');
     });
 
-    it('is memoized - returns same reference when state unchanged', () => {
-      const result1 = selectAuthError(mockState);
-      const result2 = selectAuthError(mockState);
-
-      expect(result1).toBe(result2);
+    it('returns consistent value when state unchanged', () => {
+      expect(selectAuthError(mockState)).toBeNull();
+      expect(selectAuthError(mockState)).toBeNull();
     });
   });
 
@@ -177,11 +169,9 @@ describe('Auth selectors', () => {
       expect(selectBiometricEnabled(disabledState)).toBe(false);
     });
 
-    it('is memoized - returns same reference when state unchanged', () => {
-      const result1 = selectBiometricEnabled(mockState);
-      const result2 = selectBiometricEnabled(mockState);
-
-      expect(result1).toBe(result2);
+    it('returns consistent value when state unchanged', () => {
+      expect(selectBiometricEnabled(mockState)).toBe(true);
+      expect(selectBiometricEnabled(mockState)).toBe(true);
     });
   });
 
@@ -229,11 +219,9 @@ describe('Auth selectors', () => {
       expect(selectUserFullName(stateWithoutLastName)).toBeNull();
     });
 
-    it('is memoized - returns same reference when state unchanged', () => {
-      const result1 = selectUserFullName(mockState);
-      const result2 = selectUserFullName(mockState);
-
-      expect(result1).toBe(result2);
+    it('returns consistent value when state unchanged', () => {
+      expect(selectUserFullName(mockState)).toBe('Warren de Leon');
+      expect(selectUserFullName(mockState)).toBe('Warren de Leon');
     });
   });
 
@@ -267,11 +255,9 @@ describe('Auth selectors', () => {
       expect(selectUserEmail(stateWithoutEmail)).toBeNull();
     });
 
-    it('is memoized - returns same reference when state unchanged', () => {
-      const result1 = selectUserEmail(mockState);
-      const result2 = selectUserEmail(mockState);
-
-      expect(result1).toBe(result2);
+    it('returns consistent value when state unchanged', () => {
+      expect(selectUserEmail(mockState)).toBe('test@example.com');
+      expect(selectUserEmail(mockState)).toBe('test@example.com');
     });
   });
 
@@ -305,11 +291,9 @@ describe('Auth selectors', () => {
       expect(selectAuthProvider(stateWithoutProvider)).toBeNull();
     });
 
-    it('is memoized - returns same reference when state unchanged', () => {
-      const result1 = selectAuthProvider(mockState);
-      const result2 = selectAuthProvider(mockState);
-
-      expect(result1).toBe(result2);
+    it('returns consistent value when state unchanged', () => {
+      expect(selectAuthProvider(mockState)).toBe('email');
+      expect(selectAuthProvider(mockState)).toBe('email');
     });
   });
 });

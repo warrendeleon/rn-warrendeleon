@@ -1,9 +1,13 @@
 /**
  * Tests for SupabaseStorageClient
  *
- * Tests StorageError class and documents E2E mocking behaviour.
- * Network operations are mocked in unit tests.
+ * Uses MSW (Mock Service Worker) to intercept HTTP requests.
+ * Tests StorageError class, E2E mocking, and real upload/delete flows.
  */
+
+import { http, HttpResponse } from 'msw';
+
+import { server } from '@app/test-utils/msw/server';
 
 import { StorageError, SupabaseStorageClient } from '../SupabaseStorageClient';
 
@@ -17,38 +21,6 @@ jest.mock('react-native-fs', () => ({
   readFile: jest.fn(),
   exists: jest.fn(),
 }));
-
-// Store interceptor handlers for testing - uses global to survive hoisting
-const interceptorMocks = {
-  requestHandlers: null as { success: unknown; error: unknown } | null,
-  responseHandlers: null as { success: unknown; error: unknown } | null,
-};
-
-jest.mock('axios', () => {
-  const mockAxiosInstance = {
-    post: jest.fn(),
-    delete: jest.fn(),
-    interceptors: {
-      request: {
-        use: jest.fn((successHandler, errorHandler) => {
-          interceptorMocks.requestHandlers = { success: successHandler, error: errorHandler };
-          return 0;
-        }),
-      },
-      response: {
-        use: jest.fn((successHandler, errorHandler) => {
-          interceptorMocks.responseHandlers = { success: successHandler, error: errorHandler };
-          return 0;
-        }),
-      },
-    },
-  };
-
-  return {
-    create: jest.fn(() => mockAxiosInstance),
-    isAxiosError: jest.fn(error => error?.isAxiosError === true),
-  };
-});
 
 jest.mock('@app/config/e2e', () => ({
   isE2EMockEnabled: jest.fn(() => false),
@@ -67,7 +39,7 @@ jest.mock('@app/utils/storage/EncryptedStore', () => ({
 
 jest.mock('@app/utils/storage/SecureStore', () => ({
   SecureStore: {
-    get: jest.fn(),
+    get: jest.fn().mockResolvedValue('mock-access-token'),
     set: jest.fn(),
   },
   SecureStoreKey: {
@@ -87,6 +59,9 @@ jest.mock('@app/utils/logger', () => ({
   logError: jest.fn(),
   logWarning: jest.fn(),
 }));
+
+const SUPABASE_URL = 'https://test.supabase.co';
+const BUCKET_NAME = 'profile-pictures';
 
 describe('StorageError', () => {
   describe('constructor', () => {
@@ -183,13 +158,13 @@ describe('StorageError', () => {
   });
 
   describe('serialisation', () => {
-    it('should be convertible to string', () => {
+    it('converts to formatted string with error name prefix', () => {
       const error = new StorageError('Test error', 'UPLOAD_FAILED');
 
       expect(error.toString()).toBe('StorageError: Test error');
     });
 
-    it('should work with JSON.stringify', () => {
+    it('serialises message and code properties to JSON format', () => {
       const error = new StorageError('Test error', 'UPLOAD_FAILED');
 
       expect(JSON.stringify({ message: error.message, code: error.code })).toBe(
@@ -281,6 +256,399 @@ describe('SupabaseStorageClient', () => {
   });
 });
 
+describe('SupabaseStorageClient - uploadProfilePicture', () => {
+  const mockUserId = '550e8400-e29b-41d4-a716-446655440000';
+  const mockFilePath = '/path/to/image.jpg';
+  const { isE2EMockEnabled } = require('@app/config/e2e');
+  const { EncryptedStore, EncryptedStoreKey } = require('@app/utils/storage/EncryptedStore');
+  const RNFS = require('react-native-fs');
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    SupabaseStorageClient.resetMockState();
+    server.resetHandlers();
+  });
+
+  describe('E2E Mock Mode', () => {
+    beforeEach(() => {
+      (isE2EMockEnabled as jest.Mock).mockReturnValue(true);
+    });
+
+    it('returns mock result without network call', async () => {
+      const result = await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(true);
+      expect(result.publicUrl).toContain('mock-storage.supabase.co');
+      expect(result.filePath).toContain(mockUserId);
+    });
+
+    it('stores mock URL in EncryptedStore', async () => {
+      await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      expect(EncryptedStore.set).toHaveBeenCalledWith(
+        EncryptedStoreKey.PROFILE_PICTURE_URL,
+        expect.stringContaining('mock-storage.supabase.co')
+      );
+    });
+
+    it('updates mock state tracking', async () => {
+      await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      const mockState = SupabaseStorageClient.getMockState();
+      expect(mockState.upload.mocked).toBe(true);
+      expect(mockState.upload.filePath).toContain(mockUserId);
+    });
+
+    it('generates unique filename with timestamp', async () => {
+      jest.useFakeTimers();
+
+      const result1 = await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      // Advance time to ensure different timestamps
+      jest.advanceTimersByTime(100);
+
+      const result2 = await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      expect(result1.filePath).not.toBe(result2.filePath);
+
+      jest.useRealTimers();
+    });
+  });
+
+  describe('Real Upload Flow', () => {
+    beforeEach(() => {
+      (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+      (RNFS.readFile as jest.Mock).mockResolvedValue('SGVsbG8gV29ybGQ='); // "Hello World" in base64
+
+      // Default success handler for uploads
+      server.use(
+        http.post(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+          return HttpResponse.json({ Key: 'test-key' }, { status: 200 });
+        })
+      );
+    });
+
+    it('reads file as base64', async () => {
+      await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      expect(RNFS.readFile).toHaveBeenCalledWith(mockFilePath, 'base64');
+    });
+
+    it('handles file:// prefix in path', async () => {
+      const fileUri = 'file:///path/to/image.jpg';
+
+      await SupabaseStorageClient.uploadProfilePicture(mockUserId, fileUri);
+
+      expect(RNFS.readFile).toHaveBeenCalledWith('/path/to/image.jpg', 'base64');
+    });
+
+    it('stores URL in EncryptedStore on success', async () => {
+      const result = await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(true);
+      expect(EncryptedStore.set).toHaveBeenCalledWith(
+        EncryptedStoreKey.PROFILE_PICTURE_URL,
+        expect.stringContaining('test.supabase.co')
+      );
+    });
+
+    it('returns error result on file read failure', async () => {
+      (RNFS.readFile as jest.Mock).mockRejectedValue(new Error('File not found'));
+
+      const result = await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBeDefined();
+      expect(result.publicUrl).toBeNull();
+      expect(result.filePath).toBeNull();
+    });
+
+    it('returns error result on upload failure', async () => {
+      jest.useFakeTimers();
+
+      server.use(
+        http.post(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+          return HttpResponse.json({ error: 'Server error' }, { status: 500 });
+        })
+      );
+
+      const resultPromise = SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      // Fast-forward through retry delays
+      await jest.runAllTimersAsync();
+
+      const result = await resultPromise;
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBeDefined();
+
+      jest.useRealTimers();
+    });
+  });
+
+  describe('Error Handling', () => {
+    beforeEach(() => {
+      (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+      (RNFS.readFile as jest.Mock).mockResolvedValue('SGVsbG8gV29ybGQ=');
+    });
+
+    it('returns user-friendly message for 401', async () => {
+      server.use(
+        http.post(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+          return HttpResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        })
+      );
+
+      const result = await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Session expired. Please log in again.');
+    });
+
+    it('returns user-friendly message for 403', async () => {
+      server.use(
+        http.post(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+          return HttpResponse.json({ error: 'Forbidden' }, { status: 403 });
+        })
+      );
+
+      const result = await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('You do not have permission to upload files.');
+    });
+
+    it('returns user-friendly message for 413 (file too large)', async () => {
+      server.use(
+        http.post(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+          return HttpResponse.json({ error: 'Payload too large' }, { status: 413 });
+        })
+      );
+
+      const result = await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('File is too large. Please choose a smaller image.');
+    });
+
+    it('returns user-friendly message for network error', async () => {
+      jest.useFakeTimers();
+
+      server.use(
+        http.post(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+          return HttpResponse.error();
+        })
+      );
+
+      const resultPromise = SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+      // Fast-forward through retry delays
+      await jest.runAllTimersAsync();
+
+      const result = await resultPromise;
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBeDefined();
+
+      jest.useRealTimers();
+    });
+  });
+});
+
+describe('SupabaseStorageClient - deleteProfilePicture', () => {
+  const mockUserId = '550e8400-e29b-41d4-a716-446655440000';
+  const mockFilePath = 'user123/profile-123456.jpg';
+  const { isE2EMockEnabled } = require('@app/config/e2e');
+  const { EncryptedStore, EncryptedStoreKey } = require('@app/utils/storage/EncryptedStore');
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    SupabaseStorageClient.resetMockState();
+    server.resetHandlers();
+  });
+
+  describe('E2E Mock Mode', () => {
+    beforeEach(() => {
+      (isE2EMockEnabled as jest.Mock).mockReturnValue(true);
+    });
+
+    it('returns success without network call', async () => {
+      const result = await SupabaseStorageClient.deleteProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(true);
+    });
+
+    it('clears stored URL from EncryptedStore', async () => {
+      await SupabaseStorageClient.deleteProfilePicture(mockUserId, mockFilePath);
+
+      expect(EncryptedStore.remove).toHaveBeenCalledWith(EncryptedStoreKey.PROFILE_PICTURE_URL);
+    });
+
+    it('updates mock state tracking', async () => {
+      await SupabaseStorageClient.deleteProfilePicture(mockUserId, mockFilePath);
+
+      const mockState = SupabaseStorageClient.getMockState();
+      expect(mockState.delete.mocked).toBe(true);
+      expect(mockState.delete.filePath).toBe(mockFilePath);
+    });
+  });
+
+  describe('Real Delete Flow', () => {
+    beforeEach(() => {
+      (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+    });
+
+    it('clears stored URL on success', async () => {
+      server.use(
+        http.delete(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+          return HttpResponse.json({}, { status: 200 });
+        })
+      );
+
+      const result = await SupabaseStorageClient.deleteProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(true);
+      expect(EncryptedStore.remove).toHaveBeenCalledWith(EncryptedStoreKey.PROFILE_PICTURE_URL);
+    });
+
+    it('handles 404 as success (file already deleted)', async () => {
+      server.use(
+        http.delete(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+          return HttpResponse.json({ error: 'Not found' }, { status: 404 });
+        })
+      );
+
+      const result = await SupabaseStorageClient.deleteProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(true);
+    });
+
+    it('returns error for non-404 failures', async () => {
+      server.use(
+        http.delete(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+          return HttpResponse.json({ error: 'Server error' }, { status: 500 });
+        })
+      );
+
+      const result = await SupabaseStorageClient.deleteProfilePicture(mockUserId, mockFilePath);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBeDefined();
+    });
+  });
+});
+
+describe('SupabaseStorageClient - getStoredProfilePictureUrl', () => {
+  const { EncryptedStore, EncryptedStoreKey } = require('@app/utils/storage/EncryptedStore');
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('returns stored URL when present', async () => {
+    const mockUrl =
+      'https://test.supabase.co/storage/v1/object/public/profile-pictures/user/test.jpg';
+    (EncryptedStore.get as jest.Mock).mockResolvedValue(mockUrl);
+
+    const result = await SupabaseStorageClient.getStoredProfilePictureUrl();
+
+    expect(result).toBe(mockUrl);
+    expect(EncryptedStore.get).toHaveBeenCalledWith(EncryptedStoreKey.PROFILE_PICTURE_URL);
+  });
+
+  it('returns null when no URL stored', async () => {
+    (EncryptedStore.get as jest.Mock).mockResolvedValue(null);
+
+    const result = await SupabaseStorageClient.getStoredProfilePictureUrl();
+
+    expect(result).toBeNull();
+  });
+});
+
+describe('SupabaseStorageClient - Retry Logic', () => {
+  const mockUserId = '550e8400-e29b-41d4-a716-446655440000';
+  const mockFilePath = '/path/to/image.jpg';
+  const { isE2EMockEnabled } = require('@app/config/e2e');
+  const RNFS = require('react-native-fs');
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    server.resetHandlers();
+    (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+    (RNFS.readFile as jest.Mock).mockResolvedValue('SGVsbG8gV29ybGQ=');
+  });
+
+  it('does NOT retry on 4xx errors (client errors)', async () => {
+    let attempts = 0;
+
+    server.use(
+      http.post(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+        attempts++;
+        return HttpResponse.json({ error: 'Payload too large' }, { status: 413 });
+      })
+    );
+
+    await SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+    // Should only attempt once for 4xx errors
+    expect(attempts).toBe(1);
+  });
+
+  it('retries on 5xx errors with exponential backoff', async () => {
+    jest.useFakeTimers();
+
+    let attempts = 0;
+
+    server.use(
+      http.post(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+        attempts++;
+        return HttpResponse.json({ error: 'Service unavailable' }, { status: 503 });
+      })
+    );
+
+    const resultPromise = SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+    // Fast-forward through all retry delays
+    await jest.runAllTimersAsync();
+
+    const result = await resultPromise;
+
+    // Should attempt 3 times (MAX_RETRIES)
+    expect(attempts).toBe(3);
+    expect(result.success).toBe(false);
+
+    jest.useRealTimers();
+  });
+
+  it('succeeds on retry after initial failure', async () => {
+    jest.useFakeTimers();
+
+    let attempts = 0;
+
+    server.use(
+      http.post(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/*`, () => {
+        attempts++;
+        if (attempts < 2) {
+          return HttpResponse.json({ error: 'Service unavailable' }, { status: 503 });
+        }
+        return HttpResponse.json({ Key: 'success-key' }, { status: 200 });
+      })
+    );
+
+    const resultPromise = SupabaseStorageClient.uploadProfilePicture(mockUserId, mockFilePath);
+
+    // Fast-forward through retry delay
+    await jest.runAllTimersAsync();
+
+    const result = await resultPromise;
+
+    expect(attempts).toBe(2);
+    expect(result.success).toBe(true);
+
+    jest.useRealTimers();
+  });
+});
+
 describe('SupabaseStorageClient - Token Refresh Interceptor', () => {
   /**
    * Token expiry detection logic tests.
@@ -343,38 +711,4 @@ describe('SupabaseStorageClient - Token Refresh Interceptor', () => {
       expect(isTokenExpired(undefined, {})).toBe(false);
     });
   });
-
-  describe('interceptor registration', () => {
-    it('should register request interceptor for adding access token', () => {
-      // The request interceptor is registered when the module is imported
-      expect(interceptorMocks.requestHandlers).not.toBeNull();
-
-      // Verify a function was passed as the success handler
-      expect(typeof interceptorMocks.requestHandlers?.success).toBe('function');
-    });
-
-    it('should register response interceptor for token refresh', () => {
-      // The response interceptor is registered when the module is imported
-      expect(interceptorMocks.responseHandlers).not.toBeNull();
-
-      // Verify functions were passed as handlers (success and error handlers)
-      expect(typeof interceptorMocks.responseHandlers?.success).toBe('function');
-      expect(typeof interceptorMocks.responseHandlers?.error).toBe('function');
-    });
-  });
 });
-
-/**
- * Note: Integration tests for SupabaseStorageClient are performed via E2E tests
- * with Detox/Cucumber. The E2E mock system (isE2EMockEnabled) allows testing
- * storage flows without network calls.
- *
- * Key behaviours tested via E2E:
- * - uploadProfilePicture: Uploads image, stores URL in EncryptedStore
- * - deleteProfilePicture: Deletes image from storage
- * - Retry logic with exponential backoff
- * - Token refresh on 401/403 errors
- * - Error handling for various HTTP status codes
- *
- * Production behaviours (real API calls) are tested manually and in staging.
- */

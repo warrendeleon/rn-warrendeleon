@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, waitFor } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils';
+import { expectFocusOrder, expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { EditAccountScreen } from '../EditAccountScreen';
 
@@ -131,12 +131,12 @@ describe('EditAccountScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders without crashing', () => {
-      const { UNSAFE_root } = renderWithProviders(<EditAccountScreen />, {
+    it('renders the screen correctly', () => {
+      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
-      expect(UNSAFE_root).toBeTruthy();
+      expect(getByTestId('edit-account-screen')).toBeOnTheScreen();
     });
 
     it('renders the screen with testID', () => {
@@ -144,7 +144,7 @@ describe('EditAccountScreen', () => {
         preloadedState: authenticatedState,
       });
 
-      expect(getByTestId('edit-account-screen')).toBeTruthy();
+      expect(getByTestId('edit-account-screen')).toBeOnTheScreen();
     });
 
     it('renders first name input', () => {
@@ -152,7 +152,7 @@ describe('EditAccountScreen', () => {
         preloadedState: authenticatedState,
       });
 
-      expect(getByTestId('first-name-input')).toBeTruthy();
+      expect(getByTestId('first-name-input')).toBeOnTheScreen();
     });
 
     it('renders last name input', () => {
@@ -160,7 +160,7 @@ describe('EditAccountScreen', () => {
         preloadedState: authenticatedState,
       });
 
-      expect(getByTestId('last-name-input')).toBeTruthy();
+      expect(getByTestId('last-name-input')).toBeOnTheScreen();
     });
 
     it('renders save button', () => {
@@ -168,7 +168,7 @@ describe('EditAccountScreen', () => {
         preloadedState: authenticatedState,
       });
 
-      expect(getByTestId('save-button')).toBeTruthy();
+      expect(getByTestId('save-button')).toBeOnTheScreen();
     });
 
     it('renders logout button', () => {
@@ -176,7 +176,7 @@ describe('EditAccountScreen', () => {
         preloadedState: authenticatedState,
       });
 
-      expect(getByTestId('logout-button')).toBeTruthy();
+      expect(getByTestId('logout-button')).toBeOnTheScreen();
     });
   });
 
@@ -242,12 +242,15 @@ describe('EditAccountScreen', () => {
       fireEvent.press(saveButton);
 
       // Wait for loading state to be triggered (action was dispatched)
-      await waitFor(() => {
-        const state = store.getState();
-        // Either loading is true (action in progress) or action completed
-        // This verifies the action was dispatched
-        expect(state.auth.isLoading === true || state.auth.isLoading === false).toBe(true);
-      });
+      await waitFor(
+        () => {
+          const state = store.getState();
+          // Either loading is true (action in progress) or action completed
+          // This verifies the action was dispatched
+          expect(state.auth.isLoading === true || state.auth.isLoading === false).toBe(true);
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -264,9 +267,9 @@ describe('EditAccountScreen', () => {
       fireEvent.press(getByTestId('logout-button'));
 
       // Dialog should now be visible with confirm and cancel buttons
-      expect(getByTestId('logout-dialog')).toBeTruthy();
-      expect(getByTestId('logout-confirm-button')).toBeTruthy();
-      expect(getByTestId('logout-cancel-button')).toBeTruthy();
+      expect(getByTestId('logout-dialog')).toBeOnTheScreen();
+      expect(getByTestId('logout-confirm-button')).toBeOnTheScreen();
+      expect(getByTestId('logout-cancel-button')).toBeOnTheScreen();
     });
 
     it('hides dialog when cancel button is pressed', () => {
@@ -276,7 +279,7 @@ describe('EditAccountScreen', () => {
 
       // Show dialog
       fireEvent.press(getByTestId('logout-button'));
-      expect(getByTestId('logout-dialog')).toBeTruthy();
+      expect(getByTestId('logout-dialog')).toBeOnTheScreen();
 
       // Press cancel
       fireEvent.press(getByTestId('logout-cancel-button'));
@@ -341,5 +344,59 @@ describe('EditAccountScreen implementation', () => {
   it('exports EditAccountScreen as a React component', () => {
     expect(typeof EditAccountScreen).toBe('function');
     expect(EditAccountScreen.name).toBe('EditAccountScreen');
+  });
+});
+
+describe('EditAccountScreen EAA Accessibility Compliance', () => {
+  const authenticatedState = {
+    auth: {
+      user: {
+        id: 'user-123',
+        email: 'warren@example.com',
+        firstName: 'Warren',
+        lastName: 'de Leon',
+        phoneNumber: null,
+        profilePicture: null,
+        authProvider: 'email' as const,
+      },
+      isAuthenticated: true,
+      isLoading: false,
+      error: null,
+      biometricEnabled: false,
+    },
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('form inputs have accessible touch targets', () => {
+    const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      preloadedState: authenticatedState,
+    });
+
+    expectMinTouchTarget(getByTestId('first-name-input'));
+    expectMinTouchTarget(getByTestId('last-name-input'));
+  });
+
+  it('buttons have accessible touch targets', () => {
+    const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      preloadedState: authenticatedState,
+    });
+
+    expectMinTouchTarget(getByTestId('save-button'));
+    expectMinTouchTarget(getByTestId('logout-button'));
+  });
+
+  it('has correct focus order for form elements', () => {
+    const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      preloadedState: authenticatedState,
+    });
+
+    expectFocusOrder([
+      getByTestId('first-name-input'),
+      getByTestId('last-name-input'),
+      getByTestId('save-button'),
+    ]);
   });
 });

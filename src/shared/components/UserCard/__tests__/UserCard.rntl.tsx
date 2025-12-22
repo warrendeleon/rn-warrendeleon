@@ -1,18 +1,21 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils';
+import { expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { getUserCardStyles, UserCard } from '../UserCard';
 
 describe('UserCard', () => {
   describe('Rendering', () => {
-    it('renders without crashing', () => {
-      const { UNSAFE_root } = renderWithProviders(
+    it('renders with all required elements', () => {
+      const { getByTestId, getByText } = renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
-      expect(UNSAFE_root).toBeTruthy();
+      // Verify main container and key content elements render
+      expect(getByTestId('user-card')).toBeOnTheScreen();
+      expect(getByText('Warren de Leon')).toBeOnTheScreen();
+      expect(getByText('warren@example.com')).toBeOnTheScreen();
     });
 
     it('renders with testID', () => {
@@ -20,7 +23,7 @@ describe('UserCard', () => {
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
-      expect(getByTestId('user-card')).toBeTruthy();
+      expect(getByTestId('user-card')).toBeOnTheScreen();
     });
 
     it('renders with custom testID', () => {
@@ -33,7 +36,7 @@ describe('UserCard', () => {
         />
       );
 
-      expect(getByTestId('custom-user-card')).toBeTruthy();
+      expect(getByTestId('custom-user-card')).toBeOnTheScreen();
     });
 
     it('renders avatar element', () => {
@@ -41,7 +44,7 @@ describe('UserCard', () => {
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
-      expect(getByTestId('user-card-avatar')).toBeTruthy();
+      expect(getByTestId('user-card-avatar')).toBeOnTheScreen();
     });
 
     it('renders initials in avatar', () => {
@@ -50,7 +53,7 @@ describe('UserCard', () => {
       );
 
       const initials = getByTestId('user-card-initials');
-      expect(initials).toBeTruthy();
+      expect(initials).toBeOnTheScreen();
       expect(initials.props.children).toBe('WD');
     });
 
@@ -60,7 +63,7 @@ describe('UserCard', () => {
       );
 
       const name = getByTestId('user-card-name');
-      expect(name).toBeTruthy();
+      expect(name).toBeOnTheScreen();
       expect(name.props.children).toBe('Warren de Leon');
     });
 
@@ -70,84 +73,44 @@ describe('UserCard', () => {
       );
 
       const email = getByTestId('user-card-email');
-      expect(email).toBeTruthy();
+      expect(email).toBeOnTheScreen();
       expect(email.props.children).toBe('warren@example.com');
     });
   });
 
   describe('Initials Display', () => {
-    it('displays both initials when both names provided', () => {
+    it.each([
+      { firstName: 'John', lastName: 'Smith', expected: 'JS', scenario: 'both names provided' },
+      { firstName: 'John', lastName: null, expected: 'J', scenario: 'only first name provided' },
+      { firstName: null, lastName: 'Smith', expected: 'S', scenario: 'only last name provided' },
+      { firstName: null, lastName: null, expected: 'U', scenario: 'no names provided (fallback)' },
+      { firstName: 'john', lastName: 'smith', expected: 'JS', scenario: 'lowercase names' },
+    ])('displays $expected initials when $scenario', ({ firstName, lastName, expected }) => {
       const { getByTestId } = renderWithProviders(
-        <UserCard firstName="John" lastName="Smith" email="john@example.com" />
+        <UserCard firstName={firstName} lastName={lastName} email="test@example.com" />
       );
 
-      expect(getByTestId('user-card-initials').props.children).toBe('JS');
-    });
-
-    it('displays single initial when only first name provided', () => {
-      const { getByTestId } = renderWithProviders(
-        <UserCard firstName="John" lastName={null} email="john@example.com" />
-      );
-
-      expect(getByTestId('user-card-initials').props.children).toBe('J');
-    });
-
-    it('displays single initial when only last name provided', () => {
-      const { getByTestId } = renderWithProviders(
-        <UserCard firstName={null} lastName="Smith" email="john@example.com" />
-      );
-
-      expect(getByTestId('user-card-initials').props.children).toBe('S');
-    });
-
-    it('displays fallback "U" when no names provided', () => {
-      const { getByTestId } = renderWithProviders(
-        <UserCard firstName={null} lastName={null} email="user@example.com" />
-      );
-
-      expect(getByTestId('user-card-initials').props.children).toBe('U');
-    });
-
-    it('displays uppercase initials', () => {
-      const { getByTestId } = renderWithProviders(
-        <UserCard firstName="john" lastName="smith" email="john@example.com" />
-      );
-
-      expect(getByTestId('user-card-initials').props.children).toBe('JS');
+      expect(getByTestId('user-card-initials').props.children).toBe(expected);
     });
   });
 
   describe('Name Display', () => {
-    it('displays full name when both names provided', () => {
+    it.each([
+      {
+        firstName: 'Warren',
+        lastName: 'de Leon',
+        expected: 'Warren de Leon',
+        scenario: 'both names',
+      },
+      { firstName: 'Warren', lastName: null, expected: 'Warren', scenario: 'only first name' },
+      { firstName: null, lastName: 'de Leon', expected: 'de Leon', scenario: 'only last name' },
+      { firstName: null, lastName: null, expected: 'User', scenario: 'no names (fallback)' },
+    ])('displays $expected when $scenario', ({ firstName, lastName, expected }) => {
       const { getByTestId } = renderWithProviders(
-        <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
+        <UserCard firstName={firstName} lastName={lastName} email="test@example.com" />
       );
 
-      expect(getByTestId('user-card-name').props.children).toBe('Warren de Leon');
-    });
-
-    it('displays first name only when last name is null', () => {
-      const { getByTestId } = renderWithProviders(
-        <UserCard firstName="Warren" lastName={null} email="warren@example.com" />
-      );
-
-      expect(getByTestId('user-card-name').props.children).toBe('Warren');
-    });
-
-    it('displays last name only when first name is null', () => {
-      const { getByTestId } = renderWithProviders(
-        <UserCard firstName={null} lastName="de Leon" email="warren@example.com" />
-      );
-
-      expect(getByTestId('user-card-name').props.children).toBe('de Leon');
-    });
-
-    it('displays fallback "User" when no names provided', () => {
-      const { getByTestId } = renderWithProviders(
-        <UserCard firstName={null} lastName={null} email="user@example.com" />
-      );
-
-      expect(getByTestId('user-card-name').props.children).toBe('User');
+      expect(getByTestId('user-card-name').props.children).toBe(expected);
     });
   });
 
@@ -230,54 +193,64 @@ describe('UserCard', () => {
 });
 
 describe('getUserCardStyles', () => {
-  it('returns light theme styles', () => {
-    const styles = getUserCardStyles('light', 'single');
+  describe('theme styles', () => {
+    it.each([
+      [
+        'light',
+        '$white',
+        '$black',
+        '$textLight500',
+        '$coolGray200',
+        '$textLight600',
+        '$textLight500',
+      ],
+      [
+        'dark',
+        '$backgroundDark900',
+        '$white',
+        '$textLight400',
+        '$backgroundDark700',
+        '$textLight300',
+        '$textLight400',
+      ],
+    ] as const)(
+      'returns correct colours for %s theme',
+      (
+        theme,
+        expectedBg,
+        expectedNameColor,
+        expectedEmailColor,
+        expectedAvatarBg,
+        expectedInitialsColor,
+        expectedChevronColor
+      ) => {
+        const styles = getUserCardStyles(theme, 'single');
 
-    expect(styles.bg).toBe('$white');
-    expect(styles.nameColor).toBe('$black');
-    expect(styles.emailColor).toBe('$textLight500');
-    expect(styles.avatarBg).toBe('$coolGray200');
-    expect(styles.initialsColor).toBe('$textLight600');
-    expect(styles.chevronColor).toBe('$textLight500');
+        expect(styles.bg).toBe(expectedBg);
+        expect(styles.nameColor).toBe(expectedNameColor);
+        expect(styles.emailColor).toBe(expectedEmailColor);
+        expect(styles.avatarBg).toBe(expectedAvatarBg);
+        expect(styles.initialsColor).toBe(expectedInitialsColor);
+        expect(styles.chevronColor).toBe(expectedChevronColor);
+      }
+    );
   });
 
-  it('returns dark theme styles', () => {
-    const styles = getUserCardStyles('dark', 'single');
+  describe('border radius variants', () => {
+    it.each([
+      ['single', '$2xl', '$2xl'],
+      ['top', '$2xl', '$none'],
+      ['middle', '$none', '$none'],
+      ['bottom', '$none', '$2xl'],
+    ] as const)(
+      'applies correct radius for %s variant (top: %s, bottom: %s)',
+      (variant, expectedTop, expectedBottom) => {
+        const styles = getUserCardStyles('light', variant);
 
-    expect(styles.bg).toBe('$backgroundDark900');
-    expect(styles.nameColor).toBe('$white');
-    expect(styles.emailColor).toBe('$textLight400');
-    expect(styles.avatarBg).toBe('$backgroundDark700');
-    expect(styles.initialsColor).toBe('$textLight300');
-    expect(styles.chevronColor).toBe('$textLight400');
-  });
-
-  it('applies correct radius for single variant', () => {
-    const styles = getUserCardStyles('light', 'single');
-
-    expect(styles.top).toBe('$2xl');
-    expect(styles.bottom).toBe('$2xl');
-  });
-
-  it('applies correct radius for top variant', () => {
-    const styles = getUserCardStyles('light', 'top');
-
-    expect(styles.top).toBe('$2xl');
-    expect(styles.bottom).toBe('$none');
-  });
-
-  it('applies correct radius for middle variant', () => {
-    const styles = getUserCardStyles('light', 'middle');
-
-    expect(styles.top).toBe('$none');
-    expect(styles.bottom).toBe('$none');
-  });
-
-  it('applies correct radius for bottom variant', () => {
-    const styles = getUserCardStyles('light', 'bottom');
-
-    expect(styles.top).toBe('$none');
-    expect(styles.bottom).toBe('$2xl');
+        expect(styles.top).toBe(expectedTop);
+        expect(styles.bottom).toBe(expectedBottom);
+      }
+    );
   });
 });
 
@@ -288,5 +261,48 @@ describe('UserCard implementation', () => {
 
   it('exports getUserCardStyles as a function', () => {
     expect(typeof getUserCardStyles).toBe('function');
+  });
+});
+
+describe('UserCard EAA Accessibility Compliance', () => {
+  it('card has accessible touch target (44×44 minimum)', () => {
+    const { getByTestId } = renderWithProviders(
+      <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
+    );
+
+    const card = getByTestId('user-card');
+    expectMinTouchTarget(card);
+  });
+
+  it('card with custom testID has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <UserCard
+        firstName="Warren"
+        lastName="de Leon"
+        email="warren@example.com"
+        testID="custom-user-card"
+      />
+    );
+
+    const card = getByTestId('custom-user-card');
+    expectMinTouchTarget(card);
+  });
+
+  it('card without email has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <UserCard firstName="Warren" lastName="de Leon" email={null} />
+    );
+
+    const card = getByTestId('user-card');
+    expectMinTouchTarget(card);
+  });
+
+  it('card with fallback name has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <UserCard firstName={null} lastName={null} email="user@example.com" />
+    );
+
+    const card = getByTestId('user-card');
+    expectMinTouchTarget(card);
   });
 });

@@ -6,60 +6,68 @@ import { DetailListGroup } from '../DetailListGroup';
 import * as stories from '../DetailListGroup.stories';
 
 describe('DetailListGroup Stories', () => {
-  it('renders Default story', () => {
+  it('renders Default story with item labels', () => {
     const { args } = stories.Default;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <DetailListGroup items={args!.items!} loading={args?.loading} error={args?.error} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByText('Company A')).toBeOnTheScreen();
+    expect(getByText('Company B')).toBeOnTheScreen();
   });
 
-  it('renders WithBadges story', () => {
+  it('renders WithBadges story with badge labels', () => {
     const { args } = stories.WithBadges;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <DetailListGroup items={args!.items!} loading={args?.loading} error={args?.error} />
     );
-    expect(toJSON()).toBeTruthy();
+    args!.items!.forEach(item => {
+      expect(getByText(item.label)).toBeOnTheScreen();
+    });
   });
 
-  it('renders WithoutChevrons story', () => {
+  it('renders WithoutChevrons story with item labels', () => {
     const { args } = stories.WithoutChevrons;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <DetailListGroup items={args!.items!} loading={args?.loading} error={args?.error} />
     );
-    expect(toJSON()).toBeTruthy();
+    args!.items!.forEach(item => {
+      expect(getByText(item.label)).toBeOnTheScreen();
+    });
   });
 
-  it('renders Loading story', () => {
+  it('renders Loading story with activity indicator', () => {
     const { args } = stories.Loading;
-    const { toJSON } = renderWithProviders(
+    const { getByTestId } = renderWithProviders(
       <DetailListGroup items={args?.items ?? []} loading={args?.loading} error={args?.error} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByTestId('activity-indicator')).toBeOnTheScreen();
   });
 
-  it('renders Error story', () => {
+  it('renders Error story with error message', () => {
     const { args } = stories.Error;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <DetailListGroup items={args?.items ?? []} loading={args?.loading} error={args?.error} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByText('Failed to load data. Please try again.')).toBeOnTheScreen();
   });
 
-  it('renders SingleItem story', () => {
+  it('renders SingleItem story with single label', () => {
     const { args } = stories.SingleItem;
-    const { toJSON } = renderWithProviders(
-      <DetailListGroup items={args!.items!} loading={args?.loading} error={args?.error} />
+    const items = args?.items ?? [];
+    const { getByText } = renderWithProviders(
+      <DetailListGroup items={items} loading={args?.loading} error={args?.error} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByText(items[0]?.label ?? '')).toBeOnTheScreen();
   });
 
-  it('renders ManyItems story', () => {
+  it('renders ManyItems story with all labels', () => {
     const { args } = stories.ManyItems;
-    const { toJSON } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <DetailListGroup items={args!.items!} loading={args?.loading} error={args?.error} />
     );
-    expect(toJSON()).toBeTruthy();
+    args!.items!.forEach(item => {
+      expect(getByText(item.label)).toBeOnTheScreen();
+    });
   });
 
   it('Default story displays labels', () => {
@@ -67,8 +75,8 @@ describe('DetailListGroup Stories', () => {
     const { getByText } = renderWithProviders(
       <DetailListGroup items={args!.items!} loading={args?.loading} error={args?.error} />
     );
-    expect(getByText('Company A')).toBeTruthy();
-    expect(getByText('Company B')).toBeTruthy();
+    expect(getByText('Company A')).toBeOnTheScreen();
+    expect(getByText('Company B')).toBeOnTheScreen();
   });
 
   it('Loading story shows activity indicator', () => {
@@ -76,7 +84,7 @@ describe('DetailListGroup Stories', () => {
     const { getByTestId } = renderWithProviders(
       <DetailListGroup items={args?.items ?? []} loading={args?.loading} error={args?.error} />
     );
-    expect(getByTestId('activity-indicator')).toBeTruthy();
+    expect(getByTestId('activity-indicator')).toBeOnTheScreen();
   });
 
   it('Error story displays error message', () => {
@@ -84,6 +92,6 @@ describe('DetailListGroup Stories', () => {
     const { getByText } = renderWithProviders(
       <DetailListGroup items={args?.items ?? []} loading={args?.loading} error={args?.error} />
     );
-    expect(getByText('Failed to load data. Please try again.')).toBeTruthy();
+    expect(getByText('Failed to load data. Please try again.')).toBeOnTheScreen();
   });
 });

@@ -92,7 +92,7 @@ describe('ToastProvider', () => {
         </ToastProvider>
       );
 
-      expect(getByText('Child content')).toBeTruthy();
+      expect(getByText('Child content')).toBeOnTheScreen();
     });
 
     it('does not render toast initially', () => {
@@ -119,10 +119,13 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('toast-container')).toBeTruthy();
-        expect(getByText('Hello World')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-container')).toBeOnTheScreen();
+          expect(getByText('Hello World')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('displays toast with custom testID', async () => {
@@ -134,9 +137,12 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('custom-toast')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('custom-toast')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('displays toast with title when provided', async () => {
@@ -148,12 +154,15 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('toast-title')).toBeTruthy();
-        expect(getByText('Title text')).toBeTruthy();
-        expect(getByTestId('toast-message')).toBeTruthy();
-        expect(getByText('Body text')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-title')).toBeOnTheScreen();
+          expect(getByText('Title text')).toBeOnTheScreen();
+          expect(getByTestId('toast-message')).toBeOnTheScreen();
+          expect(getByText('Body text')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('renders correct icon for each toast type', async () => {
@@ -171,13 +180,19 @@ describe('ToastProvider', () => {
           </ToastProvider>
         );
 
-        fireEvent.press(getAllByTestId('show-toast-button')[0]);
+        const showToastButtons = getAllByTestId('show-toast-button');
+        if (showToastButtons[0]) {
+          fireEvent.press(showToastButtons[0]);
+        }
 
-        await waitFor(() => {
-          // SVG icons render multiple elements with same testID, so use getAllByTestId
-          const icons = getAllByTestId(`toast-icon-${type}`);
-          expect(icons.length).toBeGreaterThan(0);
-        });
+        await waitFor(
+          () => {
+            // SVG icons render multiple elements with same testID, so use getAllByTestId
+            const icons = getAllByTestId(`toast-icon-${type}`);
+            expect(icons.length).toBeGreaterThan(0);
+          },
+          { timeout: 3000, interval: 100 }
+        );
 
         unmount();
       }
@@ -195,9 +210,12 @@ describe('ToastProvider', () => {
       // Show toast
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('toast-container')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-container')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Verify hideToast can be called without error
       // Note: Animation completion is tested in E2E tests
@@ -213,9 +231,12 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('toast-dismiss-button')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-dismiss-button')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Verify dismiss button can be pressed without error
       // Note: Animation completion is tested in E2E tests
@@ -234,9 +255,12 @@ describe('ToastProvider', () => {
       fireEvent.press(getByTestId('show-toast-button'));
 
       // Toast should appear
-      await waitFor(() => {
-        expect(getByTestId('toast-container')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-container')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Note: Auto-dismiss animation completion is tested in E2E tests
       // RNTL tests focus on verifying the toast appears with correct config
@@ -252,9 +276,12 @@ describe('ToastProvider', () => {
       fireEvent.press(getByTestId('show-toast-button'));
 
       // Toast should appear with custom duration (verified by no errors)
-      await waitFor(() => {
-        expect(getByTestId('toast-container')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-container')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('applies type-based default durations', async () => {
@@ -275,9 +302,12 @@ describe('ToastProvider', () => {
 
         fireEvent.press(getByTestId('show-toast-button'));
 
-        await waitFor(() => {
-          expect(getByTestId('toast-container')).toBeTruthy();
-        });
+        await waitFor(
+          () => {
+            expect(getByTestId('toast-container')).toBeOnTheScreen();
+          },
+          { timeout: 3000, interval: 100 }
+        );
 
         unmount();
       }
@@ -294,9 +324,12 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('toast-dismiss-button')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-dismiss-button')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('hides dismiss button when dismissible is false', async () => {
@@ -308,10 +341,13 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('toast-container')).toBeTruthy();
-        expect(queryByTestId('toast-dismiss-button')).toBeNull();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-container')).toBeOnTheScreen();
+          expect(queryByTestId('toast-dismiss-button')).toBeNull();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -325,9 +361,12 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('toast-action-button')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-action-button')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('calls action onPress when action button is pressed', async () => {
@@ -341,9 +380,12 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('toast-action-button')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-action-button')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       fireEvent.press(getByTestId('toast-action-button'));
 
@@ -364,10 +406,13 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        const container = getByTestId('toast-container');
-        expect(container.props.accessibilityRole).toBe('alert');
-      });
+      await waitFor(
+        () => {
+          const container = getByTestId('toast-container');
+          expect(container.props.accessibilityRole).toBe('alert');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('has polite live region for announcements', async () => {
@@ -379,10 +424,13 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        const container = getByTestId('toast-container');
-        expect(container.props.accessibilityLiveRegion).toBe('polite');
-      });
+      await waitFor(
+        () => {
+          const container = getByTestId('toast-container');
+          expect(container.props.accessibilityLiveRegion).toBe('polite');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('has accessibility label with message', async () => {
@@ -394,10 +442,13 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        const container = getByTestId('toast-container');
-        expect(container.props.accessibilityLabel).toBe('Test accessibility');
-      });
+      await waitFor(
+        () => {
+          const container = getByTestId('toast-container');
+          expect(container.props.accessibilityLabel).toBe('Test accessibility');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('has accessibility label with title and message when both provided', async () => {
@@ -409,10 +460,13 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        const container = getByTestId('toast-container');
-        expect(container.props.accessibilityLabel).toBe('Success: Operation completed');
-      });
+      await waitFor(
+        () => {
+          const container = getByTestId('toast-container');
+          expect(container.props.accessibilityLabel).toBe('Success: Operation completed');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('dismiss button has proper accessibility props', async () => {
@@ -424,14 +478,17 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        const dismissButton = getByTestId('toast-dismiss-button');
-        expect(dismissButton.props.accessibilityRole).toBe('button');
-        expect(dismissButton.props.accessibilityLabel).toBe('Dismiss notification');
-        expect(dismissButton.props.accessibilityHint).toBe(
-          'Double tap to dismiss this notification'
-        );
-      });
+      await waitFor(
+        () => {
+          const dismissButton = getByTestId('toast-dismiss-button');
+          expect(dismissButton.props.accessibilityRole).toBe('button');
+          expect(dismissButton.props.accessibilityLabel).toBe('Dismiss notification');
+          expect(dismissButton.props.accessibilityHint).toBe(
+            'Double tap to dismiss this notification'
+          );
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('action button has proper accessibility props', async () => {
@@ -443,11 +500,14 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        const actionButton = getByTestId('toast-action-button');
-        expect(actionButton.props.accessibilityRole).toBe('button');
-        expect(actionButton.props.accessibilityLabel).toBe('Undo');
-      });
+      await waitFor(
+        () => {
+          const actionButton = getByTestId('toast-action-button');
+          expect(actionButton.props.accessibilityRole).toBe('button');
+          expect(actionButton.props.accessibilityLabel).toBe('Undo');
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -471,9 +531,12 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByText('Test message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByText('Test message')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
 
     it('renders correctly in dark theme', async () => {
@@ -495,9 +558,12 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByText('Test message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByText('Test message')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -546,18 +612,24 @@ describe('ToastProvider', () => {
       // Show first toast
       fireEvent.press(getByTestId('show-first-toast'));
 
-      await waitFor(() => {
-        expect(getByText('First message')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByText('First message')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
 
       // Show second toast (should replace first)
       fireEvent.press(getByTestId('show-second-toast'));
 
-      await waitFor(() => {
-        expect(getByText('Second message')).toBeTruthy();
-        // First message should be replaced
-        expect(queryByText('First message')).toBeNull();
-      });
+      await waitFor(
+        () => {
+          expect(getByText('Second message')).toBeOnTheScreen();
+          // First message should be replaced
+          expect(queryByText('First message')).toBeNull();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 
@@ -566,7 +638,7 @@ describe('ToastProvider', () => {
       // Use direct render (not renderWithProviders) to avoid ToastProvider wrapper
       const { getByTestId } = render(<InvalidToastConsumer />);
 
-      expect(getByTestId('error-text')).toBeTruthy();
+      expect(getByTestId('error-text')).toBeOnTheScreen();
     });
   });
 
@@ -580,14 +652,17 @@ describe('ToastProvider', () => {
 
       fireEvent.press(getByTestId('show-toast-button'));
 
-      await waitFor(() => {
-        expect(getByTestId('toast-container')).toBeTruthy();
-        expect(getByTestId('toast-content')).toBeTruthy();
-        expect(getByTestId('toast-title')).toBeTruthy();
-        expect(getByTestId('toast-message')).toBeTruthy();
-        expect(getByTestId('toast-dismiss-button')).toBeTruthy();
-        expect(getByTestId('toast-action-button')).toBeTruthy();
-      });
+      await waitFor(
+        () => {
+          expect(getByTestId('toast-container')).toBeOnTheScreen();
+          expect(getByTestId('toast-content')).toBeOnTheScreen();
+          expect(getByTestId('toast-title')).toBeOnTheScreen();
+          expect(getByTestId('toast-message')).toBeOnTheScreen();
+          expect(getByTestId('toast-dismiss-button')).toBeOnTheScreen();
+          expect(getByTestId('toast-action-button')).toBeOnTheScreen();
+        },
+        { timeout: 3000, interval: 100 }
+      );
     });
   });
 });

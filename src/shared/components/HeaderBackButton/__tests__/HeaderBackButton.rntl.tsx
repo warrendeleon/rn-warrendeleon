@@ -2,7 +2,12 @@ import React from 'react';
 import * as ReactNative from 'react-native';
 import { fireEvent } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils';
+import {
+  expectAccessibilityComplete,
+  expectMinHitSlop,
+  expectMinTouchTarget,
+  renderWithProviders,
+} from '@app/test-utils';
 
 import { HeaderBackButton } from '../HeaderBackButton';
 
@@ -29,13 +34,13 @@ describe('HeaderBackButton', () => {
 
       const { getByTestId } = renderWithProviders(<HeaderBackButton />);
 
-      expect(getByTestId('header-back-button')).toBeTruthy();
+      expect(getByTestId('header-back-button')).toBeOnTheScreen();
     });
 
     it('renders in light theme', () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { UNSAFE_root } = renderWithProviders(<HeaderBackButton />, {
+      const { getByTestId } = renderWithProviders(<HeaderBackButton />, {
         preloadedState: {
           settings: {
             theme: 'light',
@@ -44,13 +49,13 @@ describe('HeaderBackButton', () => {
         },
       });
 
-      expect(UNSAFE_root).toBeDefined();
+      expect(getByTestId('header-back-button')).toBeOnTheScreen();
     });
 
     it('renders in dark theme', () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { UNSAFE_root } = renderWithProviders(<HeaderBackButton />, {
+      const { getByTestId } = renderWithProviders(<HeaderBackButton />, {
         preloadedState: {
           settings: {
             theme: 'dark',
@@ -59,7 +64,7 @@ describe('HeaderBackButton', () => {
         },
       });
 
-      expect(UNSAFE_root).toBeDefined();
+      expect(getByTestId('header-back-button')).toBeOnTheScreen();
     });
   });
 
@@ -103,7 +108,7 @@ describe('HeaderBackButton', () => {
 
       const { getByLabelText } = renderWithProviders(<HeaderBackButton />);
 
-      expect(getByLabelText('Go back')).toBeTruthy();
+      expect(getByLabelText('Go back')).toBeOnTheScreen();
     });
 
     it('has accessibility hint', () => {
@@ -128,104 +133,72 @@ describe('HeaderBackButton', () => {
   });
 
   describe('dark/light theme support', () => {
-    it('renders correctly with light theme preference', () => {
-      mockUseColorScheme.mockReturnValue('light');
+    it.each([
+      ['light', 'light'],
+      ['dark', 'dark'],
+      ['system', 'light'],
+      ['system', 'dark'],
+    ] as const)(
+      'renders correctly with %s theme preference (system colour scheme: %s)',
+      (themeSetting, systemColourScheme) => {
+        mockUseColorScheme.mockReturnValue(systemColourScheme);
 
-      const { UNSAFE_root } = renderWithProviders(<HeaderBackButton />, {
+        const { getByTestId } = renderWithProviders(<HeaderBackButton />, {
+          preloadedState: {
+            settings: {
+              theme: themeSetting,
+              language: 'en',
+            },
+          },
+        });
+
+        expect(getByTestId('header-back-button')).toBeOnTheScreen();
+      }
+    );
+
+    it.each(['light', 'dark'] as const)('uses correct icon colour for %s theme', colourScheme => {
+      mockUseColorScheme.mockReturnValue(colourScheme);
+
+      const { getByTestId } = renderWithProviders(<HeaderBackButton />, {
         preloadedState: {
           settings: {
-            theme: 'light',
+            theme: colourScheme,
             language: 'en',
           },
         },
       });
 
-      expect(UNSAFE_root).toBeDefined();
-    });
-
-    it('renders correctly with dark theme preference', () => {
-      mockUseColorScheme.mockReturnValue('dark');
-
-      const { UNSAFE_root } = renderWithProviders(<HeaderBackButton />, {
-        preloadedState: {
-          settings: {
-            theme: 'dark',
-            language: 'en',
-          },
-        },
-      });
-
-      expect(UNSAFE_root).toBeDefined();
-    });
-
-    it('renders correctly with system theme in light mode', () => {
-      mockUseColorScheme.mockReturnValue('light');
-
-      const { UNSAFE_root } = renderWithProviders(<HeaderBackButton />, {
-        preloadedState: {
-          settings: {
-            theme: 'system',
-            language: 'en',
-          },
-        },
-      });
-
-      expect(UNSAFE_root).toBeDefined();
-    });
-
-    it('renders correctly with system theme in dark mode', () => {
-      mockUseColorScheme.mockReturnValue('dark');
-
-      const { UNSAFE_root } = renderWithProviders(<HeaderBackButton />, {
-        preloadedState: {
-          settings: {
-            theme: 'system',
-            language: 'en',
-          },
-        },
-      });
-
-      expect(UNSAFE_root).toBeDefined();
-    });
-
-    it('uses correct icon color for light theme', () => {
-      mockUseColorScheme.mockReturnValue('light');
-
-      const { UNSAFE_root } = renderWithProviders(<HeaderBackButton />, {
-        preloadedState: {
-          settings: {
-            theme: 'light',
-            language: 'en',
-          },
-        },
-      });
-
-      expect(UNSAFE_root).toBeDefined();
-    });
-
-    it('uses correct icon color for dark theme', () => {
-      mockUseColorScheme.mockReturnValue('dark');
-
-      const { UNSAFE_root } = renderWithProviders(<HeaderBackButton />, {
-        preloadedState: {
-          settings: {
-            theme: 'dark',
-            language: 'en',
-          },
-        },
-      });
-
-      expect(UNSAFE_root).toBeDefined();
+      expect(getByTestId('header-back-button')).toBeOnTheScreen();
     });
   });
 
   describe('touch target size (EAA compliance)', () => {
-    it('has hitSlop for improved touch target', () => {
+    it('verifies touch target with expectMinTouchTarget utility', () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const { getByTestId } = renderWithProviders(<HeaderBackButton />);
 
       const button = getByTestId('header-back-button');
+      expectMinTouchTarget(button);
+    });
+
+    it('has hitSlop for improved touch target using expectMinHitSlop', () => {
+      mockUseColorScheme.mockReturnValue('light');
+
+      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+
+      const button = getByTestId('header-back-button');
+      expectMinHitSlop(button, 10);
+    });
+
+    it('maintains touch target with icon size 32', () => {
+      mockUseColorScheme.mockReturnValue('light');
+
+      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+
+      const button = getByTestId('header-back-button');
+      // Icon size 32 + hitSlop 10 on all sides = 52x52 effective touch target
+      // This exceeds the 44x44 minimum for iOS EAA compliance
       expect(button.props.hitSlop).toEqual({
         top: 10,
         bottom: 10,
@@ -233,15 +206,20 @@ describe('HeaderBackButton', () => {
         right: 10,
       });
     });
+  });
 
-    it('maintains touch target with icon size 32', () => {
+  describe('complete accessibility verification', () => {
+    it('has complete EAA-compliant accessibility properties', () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { UNSAFE_root } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
 
-      // Icon size 32 + hitSlop 10 on all sides = 52x52 effective touch target
-      // This exceeds the 44x44 minimum for iOS EAA compliance
-      expect(UNSAFE_root).toBeDefined();
+      expectAccessibilityComplete(getByTestId('header-back-button'), {
+        role: 'button',
+        label: 'Go back',
+        hint: 'Returns to the previous screen',
+        touchTarget: true,
+      });
     });
   });
 
@@ -256,11 +234,11 @@ describe('HeaderBackButton', () => {
       const { getByTestId } = renderWithProviders(<HeaderBackButton />);
 
       const firstRender = getByTestId('header-back-button');
-      expect(firstRender).toBeTruthy();
+      expect(firstRender).not.toBeNull();
 
       // Component should render consistently
       const secondRender = getByTestId('header-back-button');
-      expect(secondRender).toBeTruthy();
+      expect(secondRender).not.toBeNull();
       expect(firstRender).toBe(secondRender);
     });
   });

@@ -7,6 +7,8 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 
+import { expectMinTouchTarget } from '@app/test-utils';
+
 import { PhotoLibraryPermissionScreen } from '../PhotoLibraryPermissionScreen';
 
 // Mock navigation
@@ -72,24 +74,24 @@ describe('PhotoLibraryPermissionScreen', () => {
     jest.clearAllMocks();
   });
 
-  it('should render the screen with correct content', () => {
+  it('displays photo library access title, explanation, and privacy assurances', () => {
     render(<PhotoLibraryPermissionScreen />);
 
-    expect(screen.getByText('Photo Library Access Required')).toBeTruthy();
+    expect(screen.getByText('Photo Library Access Required')).toBeOnTheScreen();
     expect(
       screen.getByText('To choose a profile photo, we need access to your photo library.')
-    ).toBeTruthy();
-    expect(screen.getByText(/Select a photo from your library/)).toBeTruthy();
-    expect(screen.getByText(/Face detection happens on your device/)).toBeTruthy();
+    ).toBeOnTheScreen();
+    expect(screen.getByText(/Select a photo from your library/)).toBeOnTheScreen();
+    expect(screen.getByText(/Face detection happens on your device/)).toBeOnTheScreen();
     // iOS-specific bullet is conditionally rendered based on Platform.OS
-    expect(screen.getByText(/We never see your other photos/)).toBeTruthy();
+    expect(screen.getByText(/We never see your other photos/)).toBeOnTheScreen();
   });
 
-  it('should render Continue and Skip buttons', () => {
+  it('displays Continue and Skip action buttons', () => {
     render(<PhotoLibraryPermissionScreen />);
 
-    expect(screen.getByTestId('photo-library-permission-continue-button')).toBeTruthy();
-    expect(screen.getByTestId('photo-library-permission-skip-button')).toBeTruthy();
+    expect(screen.getByTestId('photo-library-permission-continue-button')).toBeOnTheScreen();
+    expect(screen.getByTestId('photo-library-permission-skip-button')).toBeOnTheScreen();
   });
 
   it('should go back when Skip is pressed', () => {
@@ -107,13 +109,19 @@ describe('PhotoLibraryPermissionScreen', () => {
 
     fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
 
-    await waitFor(() => {
-      expect(mockRequestPermission).toHaveBeenCalled();
-    });
+    await waitFor(
+      () => {
+        expect(mockRequestPermission).toHaveBeenCalled();
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
-    await waitFor(() => {
-      expect(mockGoBack).toHaveBeenCalled();
-    });
+    await waitFor(
+      () => {
+        expect(mockGoBack).toHaveBeenCalled();
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('should go back when limited (iOS 14+)', async () => {
@@ -123,13 +131,19 @@ describe('PhotoLibraryPermissionScreen', () => {
 
     fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
 
-    await waitFor(() => {
-      expect(mockRequestPermission).toHaveBeenCalled();
-    });
+    await waitFor(
+      () => {
+        expect(mockRequestPermission).toHaveBeenCalled();
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
-    await waitFor(() => {
-      expect(mockGoBack).toHaveBeenCalled();
-    });
+    await waitFor(
+      () => {
+        expect(mockGoBack).toHaveBeenCalled();
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('should navigate to PermissionDenied when denied', async () => {
@@ -139,15 +153,21 @@ describe('PhotoLibraryPermissionScreen', () => {
 
     fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
 
-    await waitFor(() => {
-      expect(mockRequestPermission).toHaveBeenCalled();
-    });
+    await waitFor(
+      () => {
+        expect(mockRequestPermission).toHaveBeenCalled();
+      },
+      { timeout: 3000, interval: 100 }
+    );
 
-    await waitFor(() => {
-      expect(mockReplace).toHaveBeenCalledWith('PermissionDenied', {
-        permissionType: 'photoLibrary',
-      });
-    });
+    await waitFor(
+      () => {
+        expect(mockReplace).toHaveBeenCalledWith('PermissionDenied', {
+          permissionType: 'photoLibrary',
+        });
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('should navigate to PermissionDenied when blocked', async () => {
@@ -157,11 +177,14 @@ describe('PhotoLibraryPermissionScreen', () => {
 
     fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
 
-    await waitFor(() => {
-      expect(mockReplace).toHaveBeenCalledWith('PermissionDenied', {
-        permissionType: 'photoLibrary',
-      });
-    });
+    await waitFor(
+      () => {
+        expect(mockReplace).toHaveBeenCalledWith('PermissionDenied', {
+          permissionType: 'photoLibrary',
+        });
+      },
+      { timeout: 3000, interval: 100 }
+    );
   });
 
   it('should have accessible Continue button', () => {
@@ -170,8 +193,10 @@ describe('PhotoLibraryPermissionScreen', () => {
     const continueButton = screen.getByTestId('photo-library-permission-continue-button');
 
     expect(continueButton.props.accessibilityRole).toBe('button');
-    expect(continueButton.props.accessibilityLabel).toBeTruthy();
-    expect(continueButton.props.accessibilityHint).toBeTruthy();
+    expect(continueButton.props.accessibilityLabel).toBe('Continue');
+    expect(continueButton.props.accessibilityHint).toBe(
+      'Requests photo library permission from your device'
+    );
   });
 
   it('should have accessible Skip button', () => {
@@ -180,7 +205,27 @@ describe('PhotoLibraryPermissionScreen', () => {
     const skipButton = screen.getByTestId('photo-library-permission-skip-button');
 
     expect(skipButton.props.accessibilityRole).toBe('button');
-    expect(skipButton.props.accessibilityLabel).toBeTruthy();
-    expect(skipButton.props.accessibilityHint).toBeTruthy();
+    expect(skipButton.props.accessibilityLabel).toBe('Skip for now');
+    expect(skipButton.props.accessibilityHint).toBe(
+      'Returns to the previous screen without requesting photo library access'
+    );
+  });
+});
+
+describe('PhotoLibraryPermissionScreen EAA Accessibility Compliance', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('continue button has accessible touch target', () => {
+    render(<PhotoLibraryPermissionScreen />);
+
+    expectMinTouchTarget(screen.getByTestId('photo-library-permission-continue-button'));
+  });
+
+  it('skip button has accessible touch target', () => {
+    render(<PhotoLibraryPermissionScreen />);
+
+    expectMinTouchTarget(screen.getByTestId('photo-library-permission-skip-button'));
   });
 });

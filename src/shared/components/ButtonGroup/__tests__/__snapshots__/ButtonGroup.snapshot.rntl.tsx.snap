@@ -1,0 +1,222 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonGroup Snapshots Content Variants renders with Unicode characters: ButtonGroup - Unicode Labels 1`] = `
+<View>
+  <Text
+    testID="item-1-top-0"
+  >
+    設定
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-2-middle-1"
+  >
+    Настройки
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-3-bottom-2"
+  >
+    הגדרות
+  </Text>
+</View>
+`;
+
+exports[`ButtonGroup Snapshots Content Variants renders with empty labels: ButtonGroup - Empty Labels 1`] = `
+<View>
+  <Text
+    testID="item-1-top-0"
+  />
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-2-bottom-1"
+  />
+</View>
+`;
+
+exports[`ButtonGroup Snapshots Content Variants renders with long labels: ButtonGroup - Long Labels 1`] = `
+<View>
+  <Text
+    testID="item-1-top-0"
+  >
+    This is a very long label that might wrap to multiple lines
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-2-bottom-1"
+  >
+    Another extraordinarily long label for testing purposes
+  </Text>
+</View>
+`;
+
+exports[`ButtonGroup Snapshots Content Variants renders with special characters: ButtonGroup - Special Characters 1`] = `
+<View>
+  <Text
+    testID="item-1-top-0"
+  >
+    Configuración 🔧
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-2-middle-1"
+  >
+    Información & Ayuda
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-3-bottom-2"
+  >
+    Términos &lt;Legal&gt;
+  </Text>
+</View>
+`;
+
+exports[`ButtonGroup Snapshots Item Count Variants renders empty list correctly: ButtonGroup - Empty 1`] = `<View />`;
+
+exports[`ButtonGroup Snapshots Item Count Variants renders many items correctly: ButtonGroup - Five Items 1`] = `
+<View>
+  <Text
+    testID="item-1-top-0"
+  >
+    Item 1
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-2-middle-1"
+  >
+    Item 2
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-3-middle-2"
+  >
+    Item 3
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-4-middle-3"
+  >
+    Item 4
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-5-bottom-4"
+  >
+    Item 5
+  </Text>
+</View>
+`;
+
+exports[`ButtonGroup Snapshots Item Count Variants renders single item correctly: ButtonGroup - Single Item 1`] = `
+<View>
+  <Text
+    testID="item-1-single-0"
+  >
+    Single Item
+  </Text>
+</View>
+`;
+
+exports[`ButtonGroup Snapshots Item Count Variants renders three items correctly: ButtonGroup - Three Items 1`] = `
+<View>
+  <Text
+    testID="item-1-top-0"
+  >
+    First Item
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-2-middle-1"
+  >
+    Middle Item
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-3-bottom-2"
+  >
+    Last Item
+  </Text>
+</View>
+`;
+
+exports[`ButtonGroup Snapshots Item Count Variants renders two items correctly: ButtonGroup - Two Items 1`] = `
+<View>
+  <Text
+    testID="item-1-top-0"
+  >
+    First Item
+  </Text>
+  <View
+    bg="#C6C6C8"
+    h={0.5}
+    ml={64}
+    mr={16}
+  />
+  <Text
+    testID="item-2-bottom-1"
+  >
+    Second Item
+  </Text>
+</View>
+`;

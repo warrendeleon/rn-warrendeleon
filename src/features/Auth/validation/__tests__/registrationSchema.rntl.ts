@@ -495,4 +495,301 @@ describe('registrationSchema', () => {
       await expect(registrationSchema.validate(data)).rejects.toThrow('Passwords must match');
     });
   });
+
+  describe('XSS and injection prevention', () => {
+    it('should reject first name with HTML script tags', async () => {
+      const data = { ...validData, firstName: '<script>alert("xss")</script>' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'First name contains invalid characters'
+      );
+    });
+
+    it('should reject last name with HTML script tags', async () => {
+      const data = { ...validData, lastName: '<script>alert("xss")</script>' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Last name contains invalid characters'
+      );
+    });
+
+    it('should reject first name with HTML event handlers', async () => {
+      const data = { ...validData, firstName: 'onload=alert(1)' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'First name contains invalid characters'
+      );
+    });
+
+    it('should reject email with javascript: protocol', async () => {
+      const data = { ...validData, email: 'javascript:alert(1)@example.com' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Please enter a valid email address'
+      );
+    });
+
+    it('should reject first name with SQL injection attempt', async () => {
+      const data = { ...validData, firstName: "'; DROP TABLE users; --" };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'First name contains invalid characters'
+      );
+    });
+
+    it('should reject last name with SQL injection attempt', async () => {
+      const data = { ...validData, lastName: "' OR '1'='1" };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Last name contains invalid characters'
+      );
+    });
+
+    it('should reject first name with null byte injection', async () => {
+      const data = { ...validData, firstName: 'Warren\x00Admin' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'First name contains invalid characters'
+      );
+    });
+
+    it('should reject email with encoded XSS', async () => {
+      const data = { ...validData, email: '%3Cscript%3Ealert(1)%3C/script%3E@example.com' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Please enter a valid email address'
+      );
+    });
+  });
+
+  describe('boundary and stress testing', () => {
+    it('should handle maximum length first name (50 chars)', async () => {
+      const data = { ...validData, firstName: 'A'.repeat(50) };
+      await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+    });
+
+    it('should handle maximum length last name (50 chars)', async () => {
+      const data = { ...validData, lastName: 'B'.repeat(50) };
+      await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+    });
+
+    it('should handle maximum length password (128 chars)', async () => {
+      const maxPassword = 'Aa1!' + 'x'.repeat(124);
+      const data = { ...validData, password: maxPassword, confirmPassword: maxPassword };
+      await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+    });
+
+    it('should reject extremely long first name (1000 chars)', async () => {
+      const data = { ...validData, firstName: 'A'.repeat(1000) };
+      await expect(registrationSchema.validate(data)).rejects.toThrow('First name is too long');
+    });
+
+    it('should reject extremely long last name (1000 chars)', async () => {
+      const data = { ...validData, lastName: 'B'.repeat(1000) };
+      await expect(registrationSchema.validate(data)).rejects.toThrow('Last name is too long');
+    });
+
+    it('should accept long emails (no max length in schema)', async () => {
+      // Note: Schema has no email max length constraint
+      // Long emails are valid if they pass email format validation
+      const data = { ...validData, email: 'a'.repeat(250) + '@example.com' };
+      await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+    });
+
+    it('should handle whitespace-only inputs', async () => {
+      const data = { ...validData, firstName: '   ' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow('First name is required');
+    });
+
+    it('should accept newline characters in names (regex uses \\s)', async () => {
+      // Note: The name regex /^[a-zA-Z\s'-]+$/ uses \s which matches all whitespace
+      // including newlines. This documents current behaviour.
+      const data = { ...validData, firstName: 'Warren\nEvil' };
+      await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+    });
+
+    it('should accept tab characters in names (regex uses \\s)', async () => {
+      // Note: The name regex /^[a-zA-Z\s'-]+$/ uses \s which matches all whitespace
+      // including tabs. This documents current behaviour.
+      const data = { ...validData, firstName: 'Warren\tEvil' };
+      await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+    });
+  });
+
+  describe('exact boundary tests', () => {
+    describe('firstName length boundaries', () => {
+      it('should reject firstName with 1 character (below minimum)', async () => {
+        const data = { ...validData, firstName: 'A' };
+        await expect(registrationSchema.validate(data)).rejects.toThrow(
+          'First name must be at least 2 characters'
+        );
+      });
+
+      it('should accept firstName with 2 characters (at minimum)', async () => {
+        const data = { ...validData, firstName: 'Ab' };
+        await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept firstName with 49 characters (below maximum)', async () => {
+        const data = { ...validData, firstName: 'A'.repeat(49) };
+        await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept firstName with 50 characters (at maximum)', async () => {
+        const data = { ...validData, firstName: 'A'.repeat(50) };
+        await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should reject firstName with 51 characters (above maximum)', async () => {
+        const data = { ...validData, firstName: 'A'.repeat(51) };
+        await expect(registrationSchema.validate(data)).rejects.toThrow('First name is too long');
+      });
+    });
+
+    describe('lastName length boundaries', () => {
+      it('should reject lastName with 1 character (below minimum)', async () => {
+        const data = { ...validData, lastName: 'A' };
+        await expect(registrationSchema.validate(data)).rejects.toThrow(
+          'Last name must be at least 2 characters'
+        );
+      });
+
+      it('should accept lastName with 2 characters (at minimum)', async () => {
+        const data = { ...validData, lastName: 'Ab' };
+        await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept lastName with 49 characters (below maximum)', async () => {
+        const data = { ...validData, lastName: 'A'.repeat(49) };
+        await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept lastName with 50 characters (at maximum)', async () => {
+        const data = { ...validData, lastName: 'A'.repeat(50) };
+        await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should reject lastName with 51 characters (above maximum)', async () => {
+        const data = { ...validData, lastName: 'A'.repeat(51) };
+        await expect(registrationSchema.validate(data)).rejects.toThrow('Last name is too long');
+      });
+    });
+
+    describe('password length boundaries', () => {
+      it('should reject password with 7 characters (below minimum)', async () => {
+        const data = { ...validData, password: 'Aa1!xxx', confirmPassword: 'Aa1!xxx' };
+        await expect(registrationSchema.validate(data)).rejects.toThrow(
+          'Password must be at least 8 characters'
+        );
+      });
+
+      it('should accept password with 8 characters (at minimum)', async () => {
+        const data = { ...validData, password: 'Aa1!xxxx', confirmPassword: 'Aa1!xxxx' };
+        await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept password with 127 characters (below maximum)', async () => {
+        const pass = 'Aa1!' + 'x'.repeat(123);
+        const data = { ...validData, password: pass, confirmPassword: pass };
+        await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should accept password with 128 characters (at maximum)', async () => {
+        const pass = 'Aa1!' + 'x'.repeat(124);
+        const data = { ...validData, password: pass, confirmPassword: pass };
+        await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+      });
+
+      it('should reject password with 129 characters (above maximum)', async () => {
+        const pass = 'Aa1!' + 'x'.repeat(125);
+        const data = { ...validData, password: pass, confirmPassword: pass };
+        await expect(registrationSchema.validate(data)).rejects.toThrow(
+          'Password must not exceed 128 characters'
+        );
+      });
+    });
+  });
+
+  describe('type coercion and null handling', () => {
+    it('should reject null firstName', async () => {
+      const data = { ...validData, firstName: null as unknown as string };
+      await expect(registrationSchema.validate(data)).rejects.toThrow();
+    });
+
+    it('should reject null lastName', async () => {
+      const data = { ...validData, lastName: null as unknown as string };
+      await expect(registrationSchema.validate(data)).rejects.toThrow();
+    });
+
+    it('should reject null email', async () => {
+      const data = { ...validData, email: null as unknown as string };
+      await expect(registrationSchema.validate(data)).rejects.toThrow();
+    });
+
+    it('should reject null phoneNumber', async () => {
+      const data = { ...validData, phoneNumber: null as unknown as string };
+      await expect(registrationSchema.validate(data)).rejects.toThrow();
+    });
+
+    it('should reject undefined acceptTerms', async () => {
+      const data = { ...validData };
+      delete (data as Partial<typeof validData>).acceptTerms;
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'You must accept the terms and conditions'
+      );
+    });
+
+    it('should handle number coercion for phoneNumber', async () => {
+      const data = { ...validData, phoneNumber: 447911123456 as unknown as string };
+      // Yup converts to string "447911123456" which lacks +
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Please enter a valid mobile number'
+      );
+    });
+  });
+
+  describe('unicode handling in names', () => {
+    it('should reject accented Latin firstName - caught by noHomographs or regex', async () => {
+      // Current schema applies noHomographs which may catch some accented chars
+      // or the matches() regex /^[a-zA-Z\s'-]+$/ fails for non-ASCII
+      const data = { ...validData, firstName: 'José', lastName: 'Smith' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'First name contains invalid characters'
+      );
+    });
+
+    it('should reject accented Latin lastName - caught by noHomographs', async () => {
+      // García contains 'í' and 'á' which are flagged by noHomographs
+      const data = { ...validData, firstName: 'John', lastName: 'García' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Last name contains invalid characters'
+      );
+    });
+
+    it('should reject mixed script names (Latin + Cyrillic) - mixed scripts rule', async () => {
+      // 'Jоhn' has Latin J and Cyrillic о - caught by containsMixedScripts check
+      const data = { ...validData, firstName: 'Jоhn', lastName: 'Smith' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'Name cannot contain mixed character sets'
+      );
+    });
+
+    it('should reject names with diacritical marks - caught by noHomographs rule', async () => {
+      // Current schema applies noHomographs which flags diacritical marks
+      const data = { ...validData, firstName: 'Renée', lastName: 'Smith' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'First name contains invalid characters'
+      );
+    });
+
+    it('should reject Nordic names - caught by noHomographs rule', async () => {
+      // Current schema applies noHomographs which flags Nordic characters
+      const data = { ...validData, firstName: 'Björk', lastName: 'Smith' };
+      await expect(registrationSchema.validate(data)).rejects.toThrow(
+        'First name contains invalid characters'
+      );
+    });
+
+    it('should accept ASCII-only names with apostrophes', async () => {
+      const data = { ...validData, firstName: "O'Brien", lastName: "D'Angelo" };
+      await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+    });
+
+    it('should accept ASCII-only names with hyphens', async () => {
+      const data = { ...validData, firstName: 'Mary-Jane', lastName: 'Smith-Jones' };
+      await expect(registrationSchema.validate(data)).resolves.toBeDefined();
+    });
+  });
 });

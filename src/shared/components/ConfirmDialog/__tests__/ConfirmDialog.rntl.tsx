@@ -6,7 +6,7 @@
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils';
+import { expectFocusOrder, expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { ConfirmDialog, type ConfirmDialogButton } from '../ConfirmDialog';
 
@@ -30,14 +30,14 @@ describe('ConfirmDialog', () => {
     it('should render when visible is true', () => {
       renderWithProviders(<ConfirmDialog {...defaultProps} testID="dialog" />);
 
-      expect(screen.getByTestId('dialog')).toBeTruthy();
+      expect(screen.getByTestId('dialog')).toBeOnTheScreen();
     });
 
     it('should render title when visible', () => {
       renderWithProviders(<ConfirmDialog {...defaultProps} testID="dialog" />);
 
-      expect(screen.getByTestId('dialog-title')).toBeTruthy();
-      expect(screen.getByText('Test Title')).toBeTruthy();
+      expect(screen.getByTestId('dialog-title')).toBeOnTheScreen();
+      expect(screen.getByText('Test Title')).toBeOnTheScreen();
     });
 
     it('should not render content when visible is false', () => {
@@ -51,7 +51,7 @@ describe('ConfirmDialog', () => {
     it('should render title', () => {
       renderWithProviders(<ConfirmDialog {...defaultProps} testID="dialog" />);
 
-      expect(screen.getByText('Test Title')).toBeTruthy();
+      expect(screen.getByText('Test Title')).toBeOnTheScreen();
     });
 
     it('should render message when provided', () => {
@@ -63,8 +63,8 @@ describe('ConfirmDialog', () => {
         />
       );
 
-      expect(screen.getByText('Are you sure you want to continue?')).toBeTruthy();
-      expect(screen.getByTestId('dialog-message')).toBeTruthy();
+      expect(screen.getByText('Are you sure you want to continue?')).toBeOnTheScreen();
+      expect(screen.getByTestId('dialog-message')).toBeOnTheScreen();
     });
 
     it('should not render message when not provided', () => {
@@ -78,8 +78,8 @@ describe('ConfirmDialog', () => {
     it('should render all buttons', () => {
       renderWithProviders(<ConfirmDialog {...defaultProps} testID="dialog" />);
 
-      expect(screen.getByText('Cancel')).toBeTruthy();
-      expect(screen.getByText('Confirm')).toBeTruthy();
+      expect(screen.getByText('Cancel')).toBeOnTheScreen();
+      expect(screen.getByText('Confirm')).toBeOnTheScreen();
     });
 
     it('should call button onPress when pressed', () => {
@@ -128,15 +128,15 @@ describe('ConfirmDialog', () => {
 
       renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
 
-      expect(screen.getByTestId('cancel-btn')).toBeTruthy();
-      expect(screen.getByTestId('confirm-btn')).toBeTruthy();
+      expect(screen.getByTestId('cancel-btn')).toBeOnTheScreen();
+      expect(screen.getByTestId('confirm-btn')).toBeOnTheScreen();
     });
 
     it('should use default testID for buttons when not provided', () => {
       renderWithProviders(<ConfirmDialog {...defaultProps} testID="dialog" />);
 
-      expect(screen.getByTestId('dialog-button-0')).toBeTruthy();
-      expect(screen.getByTestId('dialog-button-1')).toBeTruthy();
+      expect(screen.getByTestId('dialog-button-0')).toBeOnTheScreen();
+      expect(screen.getByTestId('dialog-button-1')).toBeOnTheScreen();
     });
   });
 
@@ -146,7 +146,7 @@ describe('ConfirmDialog', () => {
 
       renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
 
-      expect(screen.getByText('Cancel')).toBeTruthy();
+      expect(screen.getByText('Cancel')).toBeOnTheScreen();
     });
 
     it('should render destructive style button', () => {
@@ -154,7 +154,7 @@ describe('ConfirmDialog', () => {
 
       renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
 
-      expect(screen.getByText('Delete')).toBeTruthy();
+      expect(screen.getByText('Delete')).toBeOnTheScreen();
     });
 
     it('should render default style button', () => {
@@ -162,7 +162,7 @@ describe('ConfirmDialog', () => {
 
       renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
 
-      expect(screen.getByText('OK')).toBeTruthy();
+      expect(screen.getByText('OK')).toBeOnTheScreen();
     });
   });
 
@@ -191,8 +191,62 @@ describe('ConfirmDialog', () => {
     it('should have accessibilityLabel on buttons', () => {
       renderWithProviders(<ConfirmDialog {...defaultProps} testID="dialog" />);
 
-      expect(screen.getByLabelText('Cancel')).toBeTruthy();
-      expect(screen.getByLabelText('Confirm')).toBeTruthy();
+      expect(screen.getByLabelText('Cancel')).toBeOnTheScreen();
+      expect(screen.getByLabelText('Confirm')).toBeOnTheScreen();
+    });
+
+    it('should have accessibilityViewIsModal on modal', () => {
+      renderWithProviders(<ConfirmDialog {...defaultProps} testID="dialog" />);
+
+      const modal = screen.getByTestId('dialog');
+      expect(modal.props.accessibilityViewIsModal).toBe(true);
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    it('buttons have accessible touch targets (44×44 minimum)', () => {
+      renderWithProviders(<ConfirmDialog {...defaultProps} testID="dialog" />);
+
+      const cancelButton = screen.getByTestId('dialog-button-0');
+      const confirmButton = screen.getByTestId('dialog-button-1');
+
+      expectMinTouchTarget(cancelButton);
+      expectMinTouchTarget(confirmButton);
+    });
+
+    it('has correct focus order for dialog elements', () => {
+      renderWithProviders(<ConfirmDialog {...defaultProps} testID="dialog" />);
+
+      const title = screen.getByTestId('dialog-title');
+      const cancelButton = screen.getByTestId('dialog-button-0');
+      const confirmButton = screen.getByTestId('dialog-button-1');
+
+      expectFocusOrder([title, cancelButton, confirmButton]);
+    });
+
+    it('has correct focus order with message present', () => {
+      renderWithProviders(
+        <ConfirmDialog {...defaultProps} message="Are you sure?" testID="dialog" />
+      );
+
+      const title = screen.getByTestId('dialog-title');
+      const message = screen.getByTestId('dialog-message');
+      const cancelButton = screen.getByTestId('dialog-button-0');
+      const confirmButton = screen.getByTestId('dialog-button-1');
+
+      expectFocusOrder([title, message, cancelButton, confirmButton]);
+    });
+
+    it('destructive button has accessible touch target', () => {
+      const buttons: ConfirmDialogButton[] = [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', style: 'destructive' },
+      ];
+
+      renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
+
+      const deleteButton = screen.getByTestId('dialog-button-1');
+      expectMinTouchTarget(deleteButton);
     });
   });
 
@@ -200,16 +254,16 @@ describe('ConfirmDialog', () => {
     it('should use default testID', () => {
       renderWithProviders(<ConfirmDialog {...defaultProps} />);
 
-      expect(screen.getByTestId('confirm-dialog')).toBeTruthy();
+      expect(screen.getByTestId('confirm-dialog')).toBeOnTheScreen();
     });
 
     it('should use custom testID', () => {
       renderWithProviders(<ConfirmDialog {...defaultProps} testID="custom-dialog" />);
 
-      expect(screen.getByTestId('custom-dialog')).toBeTruthy();
-      expect(screen.getByTestId('custom-dialog-overlay')).toBeTruthy();
-      expect(screen.getByTestId('custom-dialog-content')).toBeTruthy();
-      expect(screen.getByTestId('custom-dialog-title')).toBeTruthy();
+      expect(screen.getByTestId('custom-dialog')).toBeOnTheScreen();
+      expect(screen.getByTestId('custom-dialog-overlay')).toBeOnTheScreen();
+      expect(screen.getByTestId('custom-dialog-content')).toBeOnTheScreen();
+      expect(screen.getByTestId('custom-dialog-title')).toBeOnTheScreen();
     });
   });
 
@@ -231,10 +285,10 @@ describe('ConfirmDialog', () => {
       );
 
       // Title "Log Out" appears in both title and button, use testID for specificity
-      expect(screen.getByTestId('logout-dialog-title')).toBeTruthy();
-      expect(screen.getByText('Are you sure you want to log out?')).toBeTruthy();
-      expect(screen.getByTestId('logout-cancel')).toBeTruthy();
-      expect(screen.getByTestId('logout-confirm')).toBeTruthy();
+      expect(screen.getByTestId('logout-dialog-title')).toBeOnTheScreen();
+      expect(screen.getByText('Are you sure you want to log out?')).toBeOnTheScreen();
+      expect(screen.getByTestId('logout-cancel')).toBeOnTheScreen();
+      expect(screen.getByTestId('logout-confirm')).toBeOnTheScreen();
     });
 
     it('should render delete confirmation dialog correctly', () => {

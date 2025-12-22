@@ -189,4 +189,138 @@ describe('SecureStore', () => {
       expect(type).toBeNull();
     });
   });
+
+  describe('security configuration', () => {
+    it('should use WHEN_UNLOCKED_THIS_DEVICE_ONLY accessibility level', async () => {
+      (Keychain.setGenericPassword as jest.Mock).mockResolvedValueOnce(true);
+
+      await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, 'secure_token');
+
+      expect(Keychain.setGenericPassword).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.any(String),
+        expect.objectContaining({
+          accessible: 'WHEN_UNLOCKED_THIS_DEVICE_ONLY',
+        })
+      );
+    });
+
+    it('should require biometric or device passcode for access', async () => {
+      (Keychain.setGenericPassword as jest.Mock).mockResolvedValueOnce(true);
+
+      await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, 'refresh_token');
+
+      expect(Keychain.setGenericPassword).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.any(String),
+        expect.objectContaining({
+          accessControl: 'BIOMETRY_ANY_OR_DEVICE_PASSCODE',
+        })
+      );
+    });
+
+    it('should use unique service per key to prevent overwrites', async () => {
+      (Keychain.setGenericPassword as jest.Mock).mockResolvedValue(true);
+
+      await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, 'access');
+      await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, 'refresh');
+
+      const calls = (Keychain.setGenericPassword as jest.Mock).mock.calls;
+
+      // Each key should have unique service
+      expect(calls[0][2].service).toBe('com.warrendeleon.portfolio.accessToken');
+      expect(calls[1][2].service).toBe('com.warrendeleon.portfolio.refreshToken');
+      expect(calls[0][2].service).not.toBe(calls[1][2].service);
+    });
+
+    it('should store encryption key with biometric protection', async () => {
+      (Keychain.setGenericPassword as jest.Mock).mockResolvedValueOnce(true);
+
+      await SecureStore.set(SecureStoreKey.ENCRYPTION_KEY, 'encryption_key_value');
+
+      expect(Keychain.setGenericPassword).toHaveBeenCalledWith(
+        SecureStoreKey.ENCRYPTION_KEY,
+        'encryption_key_value',
+        expect.objectContaining({
+          service: 'com.warrendeleon.portfolio.encryptionKey',
+          accessControl: 'BIOMETRY_ANY_OR_DEVICE_PASSCODE',
+        })
+      );
+    });
+
+    it('should store hashed PIN securely', async () => {
+      (Keychain.setGenericPassword as jest.Mock).mockResolvedValueOnce(true);
+
+      await SecureStore.set(SecureStoreKey.HASHED_PIN, 'hashed_pin_value');
+
+      expect(Keychain.setGenericPassword).toHaveBeenCalledWith(
+        SecureStoreKey.HASHED_PIN,
+        'hashed_pin_value',
+        expect.objectContaining({
+          service: 'com.warrendeleon.portfolio.hashedPIN',
+          accessible: 'WHEN_UNLOCKED_THIS_DEVICE_ONLY',
+        })
+      );
+    });
+  });
+
+  describe('key isolation', () => {
+    it('should retrieve correct value when multiple keys stored', async () => {
+      // Setup: different values for different keys
+      (Keychain.getGenericPassword as jest.Mock).mockImplementation(
+        ({ service }: { service: string }) => {
+          if (service.includes('accessToken')) {
+            return Promise.resolve({ password: 'access_value' });
+          }
+          if (service.includes('refreshToken')) {
+            return Promise.resolve({ password: 'refresh_value' });
+          }
+          return Promise.resolve(false);
+        }
+      );
+
+      const accessValue = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
+      const refreshValue = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
+
+      expect(accessValue).toBe('access_value');
+      expect(refreshValue).toBe('refresh_value');
+    });
+
+    it('should remove only specified key without affecting others', async () => {
+      (Keychain.resetGenericPassword as jest.Mock).mockResolvedValue(true);
+
+      await SecureStore.remove(SecureStoreKey.ACCESS_TOKEN);
+
+      // Should only be called once for the specified key
+      expect(Keychain.resetGenericPassword).toHaveBeenCalledTimes(1);
+      expect(Keychain.resetGenericPassword).toHaveBeenCalledWith({
+        service: 'com.warrendeleon.portfolio.accessToken',
+      });
+    });
+  });
+
+  describe('error handling security', () => {
+    it('should not expose sensitive data in error logs', async () => {
+      const sensitiveToken = 'super_secret_token_12345';
+      (Keychain.setGenericPassword as jest.Mock).mockRejectedValueOnce(new Error('Storage failed'));
+
+      await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, sensitiveToken);
+
+      // Check that the error was logged but NOT the sensitive value
+      expect(consoleErrorSpy).toHaveBeenCalled();
+      const loggedMessage = consoleErrorSpy.mock.calls[0].join(' ');
+      expect(loggedMessage).not.toContain(sensitiveToken);
+    });
+
+    it('should fail gracefully without crashing on Keychain errors', async () => {
+      (Keychain.getGenericPassword as jest.Mock).mockRejectedValueOnce(
+        new Error('Keychain access denied')
+      );
+
+      // Should not throw, should return null
+      const result = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
+
+      expect(result).toBeNull();
+    });
+  });
 });

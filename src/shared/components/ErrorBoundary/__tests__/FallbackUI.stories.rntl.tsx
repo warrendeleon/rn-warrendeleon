@@ -14,36 +14,43 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 describe('FallbackUI Stories', () => {
-  it('renders Default story', () => {
+  it('renders Default story with error message and action buttons', () => {
     const { args } = stories.Default;
-    const { toJSON } = renderWithProviders(
+    const { getByTestId, getAllByText } = renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
+    expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
+    // In DEV mode, error.message is shown; text may appear in both title and message
+    expect(getAllByText(/something went wrong/i).length).toBeGreaterThan(0);
   });
 
-  it('renders NetworkError story', () => {
+  it('renders NetworkError story with network error message', () => {
     const { args } = stories.NetworkError;
-    const { toJSON } = renderWithProviders(
+    const { getByTestId, getByText } = renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
+    // In DEV mode, error.message is shown
+    expect(getByText(/Network request failed/i)).toBeOnTheScreen();
   });
 
-  it('renders NullError story', () => {
+  it('renders NullError story with fallback content', () => {
     const { args } = stories.NullError;
-    const { toJSON } = renderWithProviders(
+    const { getByTestId } = renderWithProviders(
       <FallbackUI error={args!.error ?? null} onReset={args!.onReset!} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
+    expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
   });
 
-  it('renders LongErrorMessage story', () => {
+  it('renders LongErrorMessage story with truncated or full message', () => {
     const { args } = stories.LongErrorMessage;
-    const { toJSON } = renderWithProviders(
+    const { getByTestId } = renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
-    expect(toJSON()).toBeTruthy();
+    expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
+    expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
   });
 
   it('Default story has Try Again button', () => {
@@ -51,7 +58,7 @@ describe('FallbackUI Stories', () => {
     const { getByTestId } = renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
-    expect(getByTestId('error-try-again-button')).toBeTruthy();
+    expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
   });
 
   it('Default story has Go Home button', () => {
@@ -59,6 +66,6 @@ describe('FallbackUI Stories', () => {
     const { getByTestId } = renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
-    expect(getByTestId('error-go-home-button')).toBeTruthy();
+    expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
   });
 });

@@ -1,37 +1,263 @@
 # Testing Guide
 
-Unit and integration testing with Jest and React Native Testing Library.
+Unit and integration testing with Jest and React Native Testing Library (RNTL).
 
 ## Current Test Coverage
 
 | Metric          | Value |
 | --------------- | ----- |
-| **Test Suites** | 112   |
-| **Total Tests** | 1,872 |
-| **Snapshots**   | 1     |
+| **Test Suites** | 230   |
+| **Total Tests** | 5,279 |
+| **Snapshots**   | 62    |
+
+### Coverage Metrics
+
+| Metric     | Current | Threshold |
+| ---------- | ------- | --------- |
+| Statements | 95.73%  | 85%       |
+| Branches   | 87.50%  | 78%       |
+| Functions  | 95.94%  | 65%       |
+| Lines      | 95.85%  | 85%       |
 
 ### Test Distribution
 
-| Category               | Tests | Coverage |
+| Category               | Files | Coverage |
 | ---------------------- | ----- | -------- |
-| Config (100% required) | 54    | ✅       |
-| Redux Store            | 100%  | ✅       |
-| Components             | 202+  | ✅       |
-| Auth Infrastructure    | 87    | ✅       |
-| Screens (RNTL)         | 86+   | ✅       |
+| Config (100% required) | 54+   | ✅ 100%  |
+| Redux Store            | 100%  | ✅ 100%  |
+| Integration Tests      | 30+   | ✅       |
+| Auth Infrastructure    | 100+  | ✅       |
+| Security Tests         | 40+   | ✅       |
+| Accessibility Tests    | 20+   | ✅       |
+| Performance Tests      | 10+   | ✅       |
 
-_Last updated: December 2025_
+_Last updated: 22 December 2025_
 
 ## Table of Contents
 
-- [Testing Philosophy](#testing-philosophy)
-- [Test Setup](#test-setup)
-- [Running Tests](#running-tests)
-- [Writing Tests](#writing-tests)
-- [Coverage Requirements](#coverage-requirements)
-- [Best Practices](#best-practices)
-- [Test Organisation](#test-organisation)
-- [Troubleshooting](#troubleshooting)
+1. [Quick Start](#quick-start) - Running tests
+2. [Test File Naming](#test-file-naming) - `.rntl.tsx` convention
+3. [Test Structure](#test-structure) - File organisation
+4. [Common Patterns](#common-patterns) - Render, interact, assert
+5. [Accessibility Testing](#accessibility-testing-eaa) - EAA compliance utilities
+6. [Security Testing](#security-testing) - Required scenarios
+7. [Integration Testing](#integration-testing) - Cross-feature flows
+8. [MSW Usage](#msw-usage) - HTTP mocking patterns
+9. [Test Factories](#test-factories) - Creating mock data
+10. [Troubleshooting](#troubleshooting) - Common issues
+
+See also:
+
+- **[Testing Patterns](./TESTING_PATTERNS.md)** - Code examples and patterns
+- **[MSW Testing Guide](./MSW_TESTING_GUIDE.md)** - Advanced HTTP mocking
+- **[E2E Testing](./E2E_TESTING.md)** - Detox and Cucumber
+
+---
+
+## Quick Start
+
+### Run All Tests
+
+```bash
+yarn test
+```
+
+### Run Specific File
+
+```bash
+yarn test src/features/Auth/__tests__/LoginScreen.rntl.tsx
+```
+
+### Run Tests Matching Pattern
+
+```bash
+yarn test -t "renders login form"
+```
+
+### Watch Mode (Re-run on Changes)
+
+```bash
+yarn test:watch
+```
+
+### With Coverage Report
+
+```bash
+yarn test:coverage
+open coverage/lcov-report/index.html
+```
+
+### Full Validation (Pre-commit)
+
+```bash
+yarn validate  # typecheck + lint + test
+```
+
+---
+
+## Test File Naming
+
+All unit and integration tests use the `.rntl.tsx` suffix (React Native Testing Library):
+
+```
+src/
+├── features/
+│   └── Auth/
+│       ├── LoginScreen.tsx                    # Component
+│       └── __tests__/
+│           ├── LoginScreen.rntl.tsx           # Unit tests
+│           ├── LoginScreen.security.rntl.tsx  # Security tests
+│           └── LoginScreen.perf.rntl.tsx      # Performance tests
+├── shared/
+│   └── components/
+│       └── Button/
+│           ├── Button.tsx                     # Component
+│           ├── Button.stories.tsx             # Storybook
+│           └── __tests__/
+│               └── Button.rntl.tsx            # Unit tests
+```
+
+**Why `.rntl.tsx`?**
+
+- Distinguishes RNTL tests from E2E tests (`.feature`, `.cucumber.tsx`)
+- Clear identification of testing library used
+- Configured in `jest.config.cjs` via `testMatch`
+
+---
+
+## Test Structure
+
+### File Organisation
+
+```typescript
+/**
+ * LoginScreen Tests
+ *
+ * Verifies login form behaviour including:
+ * - Form rendering and accessibility
+ * - User input validation
+ * - Submit handling and navigation
+ * - Error states and recovery
+ *
+ * @requires MSW handlers: supabaseAuthHandlers
+ * @see src/test-utils/msw/handlers.ts
+ */
+
+import { renderWithProviders, TEST_CREDENTIALS } from '@app/test-utils';
+import { LoginScreen } from '../LoginScreen';
+
+describe('LoginScreen', () => {
+  // Group by behaviour, not implementation
+  describe('rendering', () => {
+    it('displays email and password inputs', () => { ... });
+    it('shows login button', () => { ... });
+    it('has correct accessibility labels', () => { ... });
+  });
+
+  describe('validation', () => {
+    it('shows error for invalid email format', () => { ... });
+    it('requires password minimum length', () => { ... });
+  });
+
+  describe('submission', () => {
+    it('navigates to Home on successful login', () => { ... });
+    it('displays error toast on failure', () => { ... });
+  });
+});
+```
+
+### Test Naming Convention
+
+Use descriptive names that explain the expected behaviour:
+
+```typescript
+// ✅ Good: Describes user-visible behaviour
+it('displays validation error when email is empty', () => { ... });
+it('navigates to Home after successful login', () => { ... });
+it('disables submit button while loading', () => { ... });
+
+// ❌ Bad: Vague or implementation-focused
+it('works', () => { ... });
+it('calls handleSubmit', () => { ... });
+it('test 1', () => { ... });
+```
+
+---
+
+## Common Patterns
+
+### Render → Interact → Assert
+
+```typescript
+import { renderWithProviders } from '@app/test-utils';
+import { fireEvent, waitFor } from '@testing-library/react-native';
+
+it('submits form and navigates to Home', async () => {
+  // RENDER: Set up the component
+  const { getByTestId, getByText } = renderWithProviders(
+    <LoginScreen navigation={mockNavigation} route={mockRoute} />
+  );
+
+  // INTERACT: Simulate user actions
+  fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+  fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+  fireEvent.press(getByTestId('login-button'));
+
+  // ASSERT: Verify expected outcome
+  await waitFor(() => {
+    expect(mockNavigation.navigate).toHaveBeenCalledWith('Home');
+  });
+});
+```
+
+### Using Test Constants
+
+```typescript
+import {
+  TEST_CREDENTIALS,
+  INVALID_CREDENTIALS,
+  SECURITY_TEST_VALUES,
+  HTTP_STATUS,
+} from '@app/test-utils';
+
+it('accepts valid credentials', () => {
+  fireEvent.changeText(emailInput, TEST_CREDENTIALS.VALID_EMAIL);
+  fireEvent.changeText(passwordInput, TEST_CREDENTIALS.VALID_PASSWORD);
+  // ...
+});
+
+it('rejects SQL injection attempts', () => {
+  fireEvent.changeText(emailInput, SECURITY_TEST_VALUES.SQL_INJECTION);
+  expect(getByText('Invalid email format')).toBeOnTheScreen();
+});
+```
+
+### Using Test Helpers
+
+```typescript
+import {
+  fillFormAndSubmit,
+  expectNavigatedTo,
+  expectAsyncSuccess,
+} from '@app/test-utils';
+
+it('completes login flow', async () => {
+  const { getByTestId, getByText, user } = renderWithProviders(<LoginScreen />);
+
+  await fillFormAndSubmit(
+    user,
+    [
+      { element: getByTestId('email-input'), value: 'user@example.com' },
+      { element: getByTestId('password-input'), value: 'SecurePass123!' },
+    ],
+    getByTestId('login-button'),
+    'Welcome',
+    getByText
+  );
+
+  expectNavigatedTo(mockNavigation, 'Home');
+});
+```
 
 ---
 
@@ -112,10 +338,10 @@ module.exports = {
   testMatch: ['**/__tests__/**/*.rntl.[jt]s?(x)'],
   coverageThreshold: {
     global: {
-      statements: 60,
-      branches: 50,
-      functions: 45,
-      lines: 55,
+      statements: 85,
+      branches: 78,
+      functions: 65,
+      lines: 85,
     },
     // Business logic requires 100% coverage
     './src/**/store/**/*.ts': {
@@ -136,6 +362,7 @@ module.exports = {
     '!src/**/__tests__/**',
     '!src/**/index.ts',
     '!src/**/*Screen.tsx',
+    '!src/**/*.stories.tsx', // Storybook stories (interactive, not Jest)
   ],
 };
 ```
@@ -144,7 +371,7 @@ module.exports = {
 
 | Scope                           | Statements | Branches | Functions | Lines |
 | ------------------------------- | ---------- | -------- | --------- | ----- |
-| Global                          | 60%        | 50%      | 45%       | 55%   |
+| Global                          | 85%        | 78%      | 65%       | 85%   |
 | Redux store (`src/**/store/**`) | 100%       | 100%     | 100%      | 100%  |
 | Config (`src/config/**`)        | 100%       | 100%     | 100%      | 100%  |
 
@@ -478,10 +705,10 @@ it('handles errors gracefully', async () => {
 
 ### Global Thresholds
 
-- **60% minimum** for statements
-- **50% minimum** for branches
-- **45% minimum** for functions
-- **55% minimum** for lines
+- **85% minimum** for statements
+- **78% minimum** for branches
+- **65% minimum** for functions
+- **85% minimum** for lines
 
 ### Business Logic (100% Coverage Required)
 
@@ -505,13 +732,14 @@ These files are excluded from coverage metrics (configured in `jest.config.cjs`)
 - Type definitions (`*.d.ts`)
 - Test utilities (`src/test-utils/`)
 - Reactotron dev config (`src/config/reactotron.ts`)
+- Storybook stories (`*.stories.tsx`) - designed for interactive visual testing, not Jest
 
 ### Per-Directory Thresholds
 
 ```javascript
 // jest.config.cjs (actual values)
 coverageThreshold: {
-  global: { statements: 60, branches: 50, functions: 45, lines: 55 },
+  global: { statements: 85, branches: 78, functions: 65, lines: 85 },
   './src/**/store/**/*.ts': { statements: 100, branches: 100, functions: 100, lines: 100 },
   './src/config/**/*.ts': { statements: 100, branches: 100, functions: 100, lines: 100 },
 }
@@ -854,10 +1082,442 @@ module.exports = {
 
 ---
 
+## Test Factories
+
+Use test factories for consistent mock data creation.
+
+### User Factories
+
+```typescript
+import { createMockUser, createVerifiedUser, createCompleteUser } from '@app/test-utils';
+
+// Basic mock user
+const user = createMockUser({ email: 'test@example.com' });
+
+// Verified user (email confirmed)
+const verifiedUser = createVerifiedUser();
+
+// User with all profile fields
+const completeUser = createCompleteUser({
+  firstName: 'Warren',
+  lastName: 'DeLeon',
+});
+```
+
+### Auth State Factories
+
+```typescript
+import {
+  createAuthenticatedState,
+  createBiometricAuthState,
+  authErrorScenarios,
+} from '@app/test-utils';
+
+// Authenticated state for testing
+const { getByText } = renderWithProviders(<MyComponent />, {
+  preloadedState: createAuthenticatedState(),
+});
+
+// Biometric-enabled auth state
+const bioState = createBiometricAuthState();
+
+// Error scenarios
+const expiredTokenState = authErrorScenarios.expiredSession();
+```
+
+### Navigation Factories
+
+```typescript
+import {
+  createMockNavigation,
+  createMockRoute,
+  createScreenProps,
+  loginScreenProps,
+} from '@app/test-utils';
+
+// Quick setup for screen tests
+const { navigation, route } = loginScreenProps();
+
+// Custom screen setup
+const { navigation, route } = createScreenProps('Profile', { userId: '123' });
+
+// Or build individually
+const mockNavigation = createMockNavigation('Settings');
+const mockRoute = createMockRoute('Settings', { tab: 'appearance' });
+```
+
+Available pre-configured screen props:
+
+- `loginScreenProps()`
+- `registrationScreenProps()`
+- `forgotPasswordScreenProps()`
+- `resetPasswordScreenProps(params?)`
+- `homeScreenProps()`
+- `profileScreenProps()`
+- `settingsScreenProps()`
+- `editAccountScreenProps()`
+
+### Test Constants
+
+```typescript
+import {
+  TEST_CREDENTIALS,
+  INVALID_CREDENTIALS,
+  SECURITY_TEST_VALUES,
+  HTTP_STATUS,
+  TOUCH_TARGET_SIZES,
+} from '@app/test-utils/constants';
+
+// Valid credentials
+fireEvent.changeText(emailInput, TEST_CREDENTIALS.VALID_EMAIL);
+fireEvent.changeText(passwordInput, TEST_CREDENTIALS.VALID_PASSWORD);
+
+// Security tests
+fireEvent.changeText(emailInput, SECURITY_TEST_VALUES.SQL_INJECTION);
+fireEvent.changeText(emailInput, SECURITY_TEST_VALUES.XSS_ATTEMPT);
+
+// HTTP status codes
+if (response.status === HTTP_STATUS.UNAUTHORIZED) { ... }
+
+// Touch target sizes
+expect(element.props.style.minHeight).toBeGreaterThanOrEqual(TOUCH_TARGET_SIZES.IOS_MINIMUM);
+```
+
+---
+
+## Integration Testing
+
+Integration tests verify cross-feature flows and real Redux state updates.
+
+### Complete User Journey Tests
+
+```typescript
+/**
+ * Auth Flow Integration Tests
+ *
+ * Tests the complete authentication user journey:
+ * 1. Navigate to login screen
+ * 2. Enter credentials
+ * 3. Submit form
+ * 4. Verify navigation to Home
+ * 5. Verify Redux state updated
+ *
+ * @requires MSW handlers: supabaseAuthHandlers
+ */
+
+import { renderWithProviders, server, handlers } from '@app/test-utils';
+
+describe('Auth Flow Integration', () => {
+  it('completes login → home navigation', async () => {
+    const { store, getByTestId, getByText } = renderWithProviders(
+      <AppNavigator />,
+      { preloadedState: loggedOutAuthState }
+    );
+
+    // Fill and submit login form
+    fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+    fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+    fireEvent.press(getByTestId('login-button'));
+
+    // Wait for Redux state update from MSW response
+    await waitFor(() => {
+      expect(store.getState().auth.isAuthenticated).toBe(true);
+    });
+
+    // Verify navigation occurred
+    expect(getByText('Welcome')).toBeOnTheScreen();
+  });
+});
+```
+
+### Cross-Feature State Tests
+
+```typescript
+it('profile update reflects in settings screen', async () => {
+  const { store, getByTestId, rerender } = renderWithProviders(
+    <ProfileScreen />,
+    { preloadedState: createAuthenticatedState() }
+  );
+
+  // Update profile
+  fireEvent.changeText(getByTestId('name-input'), 'New Name');
+  fireEvent.press(getByTestId('save-button'));
+
+  await waitFor(() => {
+    expect(store.getState().profile.data?.name).toBe('New Name');
+  });
+
+  // Render settings screen with same store
+  rerender(<SettingsScreen />);
+
+  // Verify state is shared
+  expect(getByTestId('profile-name')).toHaveTextContent('New Name');
+});
+```
+
+### Error Recovery Integration
+
+```typescript
+import { server, errorHandlers, handlers } from '@app/test-utils';
+
+it('recovers from network error with retry', async () => {
+  // Start with error state
+  server.use(...errorHandlers);
+
+  const { getByTestId, getByText, store } = renderWithProviders(<ProfileScreen />);
+
+  // Wait for error to display
+  await waitFor(() => {
+    expect(getByText('Failed to load')).toBeOnTheScreen();
+  });
+
+  // Switch to success handlers
+  server.resetHandlers();
+  server.use(...handlers);
+
+  // Press retry
+  fireEvent.press(getByTestId('retry-button'));
+
+  // Wait for success
+  await waitFor(() => {
+    expect(store.getState().profile.loading).toBe(false);
+    expect(store.getState().profile.data).toBeDefined();
+  });
+});
+```
+
+---
+
+## MSW Usage
+
+MSW (Mock Service Worker) intercepts HTTP requests at the network layer, allowing tests to use real Redux stores.
+
+### Basic Setup
+
+```typescript
+import { renderWithProviders, server } from '@app/test-utils';
+
+it('loads profile data via MSW', async () => {
+  const { store } = renderWithProviders(<ProfileScreen />);
+
+  // Wait for MSW to return mock data to Redux thunk
+  await waitFor(() => {
+    expect(store.getState().profile.loading).toBe(false);
+  });
+
+  // Verify actual Redux state (not mock calls)
+  expect(store.getState().profile.data?.fullName).toBe('Warren de Leon');
+});
+```
+
+### Using Error Handlers
+
+```typescript
+import { server, errorHandlers, unauthorizedHandlers } from '@app/test-utils';
+
+describe('Error Handling', () => {
+  it('displays error when API returns 500', async () => {
+    server.use(...errorHandlers);
+
+    const { getByText } = renderWithProviders(<ProfileScreen />);
+
+    await waitFor(() => {
+      expect(getByText('Network error')).toBeOnTheScreen();
+    });
+  });
+
+  it('redirects to login on 401', async () => {
+    server.use(...unauthorizedHandlers);
+
+    const { store } = renderWithProviders(<ProfileScreen />);
+
+    await waitFor(() => {
+      expect(store.getState().auth.isAuthenticated).toBe(false);
+    });
+  });
+});
+```
+
+### Handler Categories
+
+| Handler Set               | Purpose                       |
+| ------------------------- | ----------------------------- |
+| `handlers`                | Default success responses     |
+| `errorHandlers`           | 500 server errors             |
+| `unauthorizedHandlers`    | 401 expired/invalid tokens    |
+| `forbiddenHandlers`       | 403 banned/suspended accounts |
+| `conflictHandlers`        | 409 duplicate registration    |
+| `validationErrorHandlers` | 422 form validation errors    |
+| `rateLimitHandlers`       | 429 rate limiting             |
+| `timeoutHandlers`         | Request timeout simulation    |
+| `offlineHandlers`         | Network failure simulation    |
+
+### Per-Test Handler Override
+
+```typescript
+import { http, HttpResponse } from 'msw';
+
+it('handles custom error response', async () => {
+  // Override specific endpoint for this test only
+  server.use(
+    http.post('https://api.example.com/login', () => {
+      return HttpResponse.json(
+        { error: 'custom_error', message: 'Custom message' },
+        { status: 418 }
+      );
+    })
+  );
+
+  // Test custom error handling
+  // ...
+
+  // Handlers auto-reset after test via jest.setup.ts
+});
+```
+
+For detailed MSW patterns, see **[MSW Testing Guide](./MSW_TESTING_GUIDE.md)**.
+
+---
+
+## Security Testing
+
+Security tests validate authentication, input sanitisation, and token handling.
+
+### Token Refresh Tests
+
+```typescript
+it('handles concurrent refresh requests', async () => {
+  const refreshPromises = [
+    authClient.refreshSession(),
+    authClient.refreshSession(),
+    authClient.refreshSession(),
+  ];
+
+  const results = await Promise.all(refreshPromises);
+
+  results.forEach(result => {
+    expect(result.access_token).toBeDefined();
+  });
+});
+```
+
+### Input Sanitisation Tests
+
+```typescript
+it('rejects SQL injection in email', async () => {
+  await expect(
+    authClient.signUp({
+      email: "admin'--@example.com",
+      password: 'Password123!',
+    })
+  ).rejects.toThrow();
+});
+
+it('rejects XSS in email', async () => {
+  await expect(
+    authClient.signUp({
+      email: '<script>alert("xss")</script>@example.com',
+      password: 'Password123!',
+    })
+  ).rejects.toThrow();
+});
+```
+
+### Token Expiry Detection
+
+```typescript
+// Test the token expiry detection logic
+const isTokenExpired = (status: number, errorData: object): boolean => {
+  return (
+    status === 401 ||
+    (status === 403 &&
+      (errorData?.error_code === 'bad_jwt' || errorData?.msg?.includes('token is expired')))
+  );
+};
+
+it('detects 401 as expired', () => {
+  expect(isTokenExpired(401, {})).toBe(true);
+});
+
+it('detects 403 with bad_jwt as expired', () => {
+  expect(isTokenExpired(403, { error_code: 'bad_jwt' })).toBe(true);
+});
+```
+
+---
+
+## Accessibility Testing (EAA)
+
+All components must pass EAA (European Accessibility Act) compliance, which requires WCAG 2.1 Level AA.
+
+### Required Accessibility Properties
+
+Every interactive element needs these properties:
+
+| Property             | Purpose                         | Example                           |
+| -------------------- | ------------------------------- | --------------------------------- |
+| `accessibilityRole`  | Element type for screen readers | `"button"`, `"link"`, `"header"`  |
+| `accessibilityLabel` | Screen reader text              | `"Submit login form"`             |
+| `accessibilityHint`  | Action description              | `"Logs you in and goes to Home"`  |
+| `accessibilityState` | Current state                   | `{ disabled: false, busy: true }` |
+| `testID`             | Test targeting                  | `"login-button"`                  |
+
+### Touch Target Compliance
+
+```typescript
+import { expectTouchTargetCompliance } from '@app/test-utils';
+
+it('has accessible touch targets', () => {
+  const { getByTestId } = renderWithProviders(<MyButton />);
+
+  // Validates 44×44 (iOS) or 48×48 (Android) minimum
+  expectTouchTargetCompliance(getByTestId('my-button'));
+});
+```
+
+### Screen Reader Announcements
+
+```typescript
+import { expectScreenReaderAnnouncement, expectLiveRegionContent } from '@app/test-utils';
+
+it('announces toast to screen readers', () => {
+  const { getByTestId } = renderWithProviders(<Toast message="Saved" />);
+
+  expectScreenReaderAnnouncement(getByTestId('toast'), {
+    liveRegion: 'polite',
+    role: 'alert',
+  });
+});
+
+it('announces correct content', () => {
+  const { getByTestId } = renderWithProviders(<AlertBox message="Error occurred" />);
+
+  expectLiveRegionContent(getByTestId('alert-box'), 'Error occurred', {
+    liveRegion: 'polite',
+    role: 'alert',
+  });
+});
+```
+
+### Required Accessibility Props
+
+Every interactive element needs:
+
+| Prop                 | Purpose                  |
+| -------------------- | ------------------------ |
+| `accessibilityRole`  | Element type             |
+| `accessibilityLabel` | Screen reader label      |
+| `accessibilityHint`  | Action description       |
+| `accessibilityState` | Current state (disabled) |
+| `testID`             | Test targeting           |
+
+---
+
 ## Next Steps
 
 - **[MSW Testing Guide](./MSW_TESTING_GUIDE.md)** - Advanced Redux testing with Mock Service Worker
 - **[E2E Testing](./E2E_TESTING.md)** - End-to-end testing with Detox
+- **[Accessibility Guide](./ACCESSIBILITY.md)** - EAA compliance requirements
 - **[Architecture](./ARCHITECTURE.md)** - Project structure and patterns
 - **[Workflows](./WORKFLOWS.md)** - Common testing workflows
 - **[Cheatsheet](./CHEATSHEET.md)** - Quick testing reference

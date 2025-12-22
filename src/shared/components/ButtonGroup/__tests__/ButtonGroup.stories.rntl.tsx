@@ -14,63 +14,36 @@ const simpleRenderItem = (item: { label: string }) => (
 );
 
 describe('ButtonGroup Stories', () => {
-  it('renders SingleItem story', () => {
-    const { args } = stories.SingleItem;
-    const { toJSON } = renderWithProviders(
-      <ButtonGroup
-        items={args!.items!}
-        renderItem={item => simpleRenderItem(item as { label: string })}
-      />
-    );
-    expect(toJSON()).toBeTruthy();
+  describe('story rendering', () => {
+    it.each([
+      ['SingleItem', stories.SingleItem],
+      ['TwoItems', stories.TwoItems],
+      ['ThreeItems', stories.ThreeItems],
+      ['FiveItems', stories.FiveItems],
+    ] as const)('renders %s story with all items visible', (_storyName, story) => {
+      const { args } = story;
+      const { getByText } = renderWithProviders(
+        <ButtonGroup
+          items={args!.items!}
+          renderItem={item => simpleRenderItem(item as { label: string })}
+        />
+      );
+
+      // Verify each item label renders correctly
+      args!.items!.forEach(item => {
+        expect(getByText((item as { label: string }).label)).toBeOnTheScreen();
+      });
+    });
   });
 
-  it('renders TwoItems story', () => {
-    const { args } = stories.TwoItems;
-    const { toJSON } = renderWithProviders(
-      <ButtonGroup
-        items={args!.items!}
-        renderItem={item => simpleRenderItem(item as { label: string })}
-      />
-    );
-    expect(toJSON()).toBeTruthy();
-  });
-
-  it('renders ThreeItems story', () => {
-    const { args } = stories.ThreeItems;
-    const { toJSON } = renderWithProviders(
-      <ButtonGroup
-        items={args!.items!}
-        renderItem={item => simpleRenderItem(item as { label: string })}
-      />
-    );
-    expect(toJSON()).toBeTruthy();
-  });
-
-  it('renders FiveItems story', () => {
-    const { args } = stories.FiveItems;
-    const { toJSON } = renderWithProviders(
-      <ButtonGroup
-        items={args!.items!}
-        renderItem={item => simpleRenderItem(item as { label: string })}
-      />
-    );
-    expect(toJSON()).toBeTruthy();
-  });
-
-  it('SingleItem story has correct item count', () => {
-    expect(stories.SingleItem.args?.items).toHaveLength(1);
-  });
-
-  it('TwoItems story has correct item count', () => {
-    expect(stories.TwoItems.args?.items).toHaveLength(2);
-  });
-
-  it('ThreeItems story has correct item count', () => {
-    expect(stories.ThreeItems.args?.items).toHaveLength(3);
-  });
-
-  it('FiveItems story has correct item count', () => {
-    expect(stories.FiveItems.args?.items).toHaveLength(5);
+  describe('story item counts', () => {
+    it.each([
+      ['SingleItem', stories.SingleItem, 1],
+      ['TwoItems', stories.TwoItems, 2],
+      ['ThreeItems', stories.ThreeItems, 3],
+      ['FiveItems', stories.FiveItems, 5],
+    ] as const)('%s story has %d items', (_storyName, story, expectedCount) => {
+      expect(story.args?.items).toHaveLength(expectedCount);
+    });
   });
 });

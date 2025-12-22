@@ -4,7 +4,7 @@ import { Box, Text } from '@gluestack-ui/themed';
 
 import { ButtonGroupDivider } from '@app/shared/components/ButtonGroupDivider';
 import type { GroupVariant } from '@app/shared/components/shared/types';
-import { renderWithProviders } from '@app/test-utils';
+import { expectFocusOrder, renderWithProviders } from '@app/test-utils';
 
 import { ButtonGroup } from '../ButtonGroup';
 
@@ -40,9 +40,9 @@ describe('ButtonGroup', () => {
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
-      expect(getByTestId('item-0')).toBeTruthy();
-      expect(getByTestId('item-1')).toBeTruthy();
-      expect(getByTestId('item-2')).toBeTruthy();
+      expect(getByTestId('item-0')).toBeOnTheScreen();
+      expect(getByTestId('item-1')).toBeOnTheScreen();
+      expect(getByTestId('item-2')).toBeOnTheScreen();
     });
 
     it('renders item labels correctly', () => {
@@ -55,8 +55,8 @@ describe('ButtonGroup', () => {
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
-      expect(getByText('First')).toBeTruthy();
-      expect(getByText('Second')).toBeTruthy();
+      expect(getByText('First')).toBeOnTheScreen();
+      expect(getByText('Second')).toBeOnTheScreen();
     });
 
     it('passes correct index to renderItem', () => {
@@ -70,9 +70,9 @@ describe('ButtonGroup', () => {
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
-      expect(getByTestId('item-0')).toBeTruthy();
-      expect(getByTestId('item-1')).toBeTruthy();
-      expect(getByTestId('item-2')).toBeTruthy();
+      expect(getByTestId('item-0')).toBeOnTheScreen();
+      expect(getByTestId('item-1')).toBeOnTheScreen();
+      expect(getByTestId('item-2')).toBeOnTheScreen();
     });
   });
 
@@ -153,39 +153,37 @@ describe('ButtonGroup', () => {
   });
 
   describe('spacing between items (dividers)', () => {
-    it('renders correctly with two items', () => {
+    it('renders all items correctly for two items', () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
       ];
 
-      const { UNSAFE_root, getByText } = renderWithProviders(
+      const { getByText } = renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
-      expect(UNSAFE_root).toBeDefined();
-      expect(getByText('First')).toBeTruthy();
-      expect(getByText('Second')).toBeTruthy();
+      expect(getByText('First')).toBeOnTheScreen();
+      expect(getByText('Second')).toBeOnTheScreen();
     });
 
-    it('renders correctly with three items', () => {
+    it('renders all items correctly for three items', () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
         { id: '3', label: 'Third' },
       ];
 
-      const { UNSAFE_root, getByText } = renderWithProviders(
+      const { getByText } = renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
-      expect(UNSAFE_root).toBeDefined();
-      expect(getByText('First')).toBeTruthy();
-      expect(getByText('Second')).toBeTruthy();
-      expect(getByText('Third')).toBeTruthy();
+      expect(getByText('First')).toBeOnTheScreen();
+      expect(getByText('Second')).toBeOnTheScreen();
+      expect(getByText('Third')).toBeOnTheScreen();
     });
 
-    it('renders correctly with five items', () => {
+    it('renders all items correctly for five items', () => {
       const items: TestItem[] = [
         { id: '1', label: 'One' },
         { id: '2', label: 'Two' },
@@ -194,11 +192,15 @@ describe('ButtonGroup', () => {
         { id: '5', label: 'Five' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(
+      const { getByText } = renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
-      expect(UNSAFE_root).toBeDefined();
+      expect(getByText('One')).toBeOnTheScreen();
+      expect(getByText('Two')).toBeOnTheScreen();
+      expect(getByText('Three')).toBeOnTheScreen();
+      expect(getByText('Four')).toBeOnTheScreen();
+      expect(getByText('Five')).toBeOnTheScreen();
     });
 
     it('maintains correct item order with multiple items', () => {
@@ -212,18 +214,18 @@ describe('ButtonGroup', () => {
       );
 
       // Items should be present in order
-      expect(getByTestId('item-0')).toBeTruthy();
-      expect(getByTestId('item-1')).toBeTruthy();
+      expect(getByTestId('item-0')).toBeOnTheScreen();
+      expect(getByTestId('item-1')).toBeOnTheScreen();
     });
   });
 
   describe('dark/light theme support', () => {
-    it('renders correctly in light theme', () => {
+    it('renders items correctly in light theme', () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const items: TestItem[] = [{ id: '1', label: 'Test Item' }];
 
-      const { UNSAFE_root, getByText } = renderWithProviders(
+      const { getByText, getByTestId } = renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />,
         {
           preloadedState: {
@@ -235,16 +237,16 @@ describe('ButtonGroup', () => {
         }
       );
 
-      expect(UNSAFE_root).toBeDefined();
-      expect(getByText('Test Item')).toBeTruthy();
+      expect(getByText('Test Item')).toBeOnTheScreen();
+      expect(getByTestId('item-0')).toBeOnTheScreen();
     });
 
-    it('renders correctly in dark theme', () => {
+    it('renders items correctly in dark theme', () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const items: TestItem[] = [{ id: '1', label: 'Test Item' }];
 
-      const { UNSAFE_root, getByText } = renderWithProviders(
+      const { getByText, getByTestId } = renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />,
         {
           preloadedState: {
@@ -256,16 +258,16 @@ describe('ButtonGroup', () => {
         }
       );
 
-      expect(UNSAFE_root).toBeDefined();
-      expect(getByText('Test Item')).toBeTruthy();
+      expect(getByText('Test Item')).toBeOnTheScreen();
+      expect(getByTestId('item-0')).toBeOnTheScreen();
     });
 
-    it('renders correctly with system theme in light mode', () => {
+    it('renders items correctly with system theme in light mode', () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const items: TestItem[] = [{ id: '1', label: 'Test Item' }];
 
-      const { UNSAFE_root, getByText } = renderWithProviders(
+      const { getByText, getByTestId } = renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />,
         {
           preloadedState: {
@@ -277,16 +279,16 @@ describe('ButtonGroup', () => {
         }
       );
 
-      expect(UNSAFE_root).toBeDefined();
-      expect(getByText('Test Item')).toBeTruthy();
+      expect(getByText('Test Item')).toBeOnTheScreen();
+      expect(getByTestId('item-0')).toBeOnTheScreen();
     });
 
-    it('renders correctly with system theme in dark mode', () => {
+    it('renders items correctly with system theme in dark mode', () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const items: TestItem[] = [{ id: '1', label: 'Test Item' }];
 
-      const { UNSAFE_root, getByText } = renderWithProviders(
+      const { getByText, getByTestId } = renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />,
         {
           preloadedState: {
@@ -298,8 +300,8 @@ describe('ButtonGroup', () => {
         }
       );
 
-      expect(UNSAFE_root).toBeDefined();
-      expect(getByText('Test Item')).toBeTruthy();
+      expect(getByText('Test Item')).toBeOnTheScreen();
+      expect(getByTestId('item-0')).toBeOnTheScreen();
     });
   });
 
@@ -314,32 +316,39 @@ describe('ButtonGroup', () => {
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
-      expect(getByLabelText('Item First')).toBeTruthy();
-      expect(getByLabelText('Item Second')).toBeTruthy();
+      expect(getByLabelText('Item First')).toBeOnTheScreen();
+      expect(getByLabelText('Item Second')).toBeOnTheScreen();
     });
 
-    it('renders container Box for grouping', () => {
-      const items: TestItem[] = [{ id: '1', label: 'Test' }];
+    it('renders items in a container for visual grouping', () => {
+      const items: TestItem[] = [
+        { id: '1', label: 'First' },
+        { id: '2', label: 'Second' },
+      ];
 
-      const { UNSAFE_queryAllByType } = renderWithProviders(
+      const { getByText } = renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
-      // ButtonGroup renders a Box container
-      const boxes = UNSAFE_queryAllByType(Box);
-      expect(boxes.length).toBeGreaterThan(0);
+      // Both items should be rendered, indicating they are in a container
+      expect(getByText('First')).toBeOnTheScreen();
+      expect(getByText('Second')).toBeOnTheScreen();
     });
   });
 
   describe('edge cases', () => {
-    it('renders empty list without crashing', () => {
+    it('renders empty list without items', () => {
       const items: TestItem[] = [];
 
-      const { UNSAFE_root } = renderWithProviders(
+      const { queryByTestId, UNSAFE_queryAllByType } = renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
-      expect(UNSAFE_root).toBeDefined();
+      // No items should be rendered
+      expect(queryByTestId('item-0')).toBeNull();
+      // No dividers should be rendered
+      const dividers = UNSAFE_queryAllByType(ButtonGroupDivider);
+      expect(dividers).toHaveLength(0);
     });
 
     it('handles custom item types correctly', () => {
@@ -360,12 +369,62 @@ describe('ButtonGroup', () => {
         </Box>
       );
 
-      const { getByText } = renderWithProviders(
+      const { getByText, getByTestId } = renderWithProviders(
         <ButtonGroup items={customItems} renderItem={customRenderItem} />
       );
 
-      expect(getByText('Custom 1')).toBeTruthy();
-      expect(getByText('Custom 2')).toBeTruthy();
+      expect(getByText('Custom 1')).toBeOnTheScreen();
+      expect(getByText('Custom 2')).toBeOnTheScreen();
+      expect(getByTestId('custom-1')).toBeOnTheScreen();
+      expect(getByTestId('custom-2')).toBeOnTheScreen();
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    it('has correct focus order for button group items', () => {
+      const items: TestItem[] = [
+        { id: '1', label: 'First' },
+        { id: '2', label: 'Second' },
+        { id: '3', label: 'Third' },
+      ];
+
+      const { getByTestId } = renderWithProviders(
+        <ButtonGroup items={items} renderItem={testRenderItem} />
+      );
+
+      expectFocusOrder([getByTestId('item-0'), getByTestId('item-1'), getByTestId('item-2')]);
+    });
+
+    it('single item has correct focus order', () => {
+      const items: TestItem[] = [{ id: '1', label: 'Only Item' }];
+
+      const { getByTestId } = renderWithProviders(
+        <ButtonGroup items={items} renderItem={testRenderItem} />
+      );
+
+      expectFocusOrder([getByTestId('item-0')]);
+    });
+
+    it('maintains focus order with five items', () => {
+      const items: TestItem[] = [
+        { id: '1', label: 'One' },
+        { id: '2', label: 'Two' },
+        { id: '3', label: 'Three' },
+        { id: '4', label: 'Four' },
+        { id: '5', label: 'Five' },
+      ];
+
+      const { getByTestId } = renderWithProviders(
+        <ButtonGroup items={items} renderItem={testRenderItem} />
+      );
+
+      expectFocusOrder([
+        getByTestId('item-0'),
+        getByTestId('item-1'),
+        getByTestId('item-2'),
+        getByTestId('item-3'),
+        getByTestId('item-4'),
+      ]);
     });
   });
 });

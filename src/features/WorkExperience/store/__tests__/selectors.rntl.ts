@@ -258,6 +258,25 @@ describe('WorkExperience selectors', () => {
         const result = selectPositionById(emptyState, 'pos-1');
         expect(result).toBeNull();
       });
+
+      it('returns null when work experience entry has undefined positions', () => {
+        const stateWithUndefinedPositions: RootState = {
+          ...mockState,
+          workExperience: {
+            data: [
+              {
+                id: 'work-1',
+                company: 'Company Without Positions',
+                positions: undefined as unknown as WorkExperience['positions'],
+              },
+            ],
+            loading: false,
+            error: null,
+          },
+        };
+        const result = selectPositionById(stateWithUndefinedPositions, 'pos-1');
+        expect(result).toBeNull();
+      });
     });
 
     describe('Memoization', () => {
@@ -301,6 +320,124 @@ describe('WorkExperience selectors', () => {
       };
       const result = selectCompanyInfoByPositionId(emptyState, 'pos-1');
       expect(result).toBeNull();
+    });
+  });
+
+  describe('selector consistency', () => {
+    it('selectWorkExperience returns consistent data', () => {
+      expect(selectWorkExperience(mockState)).toEqual(mockWorkExperience);
+      expect(selectWorkExperience(mockState)).toEqual(mockWorkExperience);
+    });
+
+    it('selectWorkExperience reflects state changes', () => {
+      const state2: RootState = {
+        ...mockState,
+        workExperience: {
+          ...mockState.workExperience,
+          data: [...mockWorkExperience, { id: '4', company: 'Company D', positions: [] }],
+        },
+      };
+
+      expect(selectWorkExperience(mockState).length).toBe(3);
+      expect(selectWorkExperience(state2).length).toBe(4);
+    });
+
+    it('selectWorkExperienceLoading returns consistent value', () => {
+      const loadingState: RootState = {
+        ...mockState,
+        workExperience: { ...mockState.workExperience, loading: true },
+      };
+
+      expect(selectWorkExperienceLoading(loadingState)).toBe(true);
+      expect(selectWorkExperienceLoading(loadingState)).toBe(true);
+    });
+
+    it('selectWorkExperienceError returns consistent value', () => {
+      const errorState: RootState = {
+        ...mockState,
+        workExperience: { ...mockState.workExperience, error: 'Network error' },
+      };
+
+      expect(selectWorkExperienceError(errorState)).toBe('Network error');
+      expect(selectWorkExperienceError(errorState)).toBe('Network error');
+    });
+
+    it('selectWorkExperienceWithClients returns consistent filtered data', () => {
+      const result = selectWorkExperienceWithClients(mockState);
+      expect(selectWorkExperienceWithClients(mockState)).toEqual(result);
+    });
+
+    it('selectWorkExperienceByCompany returns consistent filtered data', () => {
+      const companyA = selectWorkExperienceByCompany(mockState, 'Company A');
+      expect(selectWorkExperienceByCompany(mockState, 'Company A')).toEqual(companyA);
+    });
+
+    it('selectWorkExperienceByCompany returns different data for different companies', () => {
+      const companyA = selectWorkExperienceByCompany(mockState, 'Company A');
+      const companyB = selectWorkExperienceByCompany(mockState, 'Company B');
+
+      expect(companyA.length).toBe(2);
+      expect(companyB.length).toBe(1);
+    });
+
+    it('selectWorkExperienceById returns consistent data', () => {
+      const result = selectWorkExperienceById(mockState, '1');
+      expect(selectWorkExperienceById(mockState, '1')).toEqual(result);
+    });
+
+    it('selectPositionById returns consistent data', () => {
+      const result = selectPositionById(mockState, 'pos-1');
+      expect(selectPositionById(mockState, 'pos-1')).toEqual(result);
+    });
+
+    it('selectCompanyInfoByPositionId returns consistent data', () => {
+      const result = selectCompanyInfoByPositionId(mockState, 'pos-1');
+      expect(selectCompanyInfoByPositionId(mockState, 'pos-1')).toEqual(result);
+    });
+
+    it('derived selectors chain correctly', () => {
+      const allData = selectWorkExperience(mockState);
+      const withClients = selectWorkExperienceWithClients(mockState);
+
+      expect(allData.length).toBeGreaterThanOrEqual(withClients.length);
+    });
+
+    it('selector returns same data when unrelated state changes', () => {
+      const state2 = {
+        ...mockState,
+        settings: { theme: 'dark', language: 'es' },
+      } as RootState;
+
+      expect(selectWorkExperience(mockState)).toEqual(selectWorkExperience(state2));
+    });
+
+    it('selector handles large datasets correctly', () => {
+      const largeData = Array.from({ length: 100 }, (_, i) => ({
+        id: `work-${i}`,
+        company: `Company ${i}`,
+        positions: [
+          {
+            id: `pos-${i}`,
+            title: `Position ${i}`,
+            startDate: '2020-01',
+            endDate: '2021-01',
+            description: `Description ${i}`,
+            responsibilities: null,
+            technologies: null,
+            client: null,
+          },
+        ],
+      }));
+
+      const largeState: RootState = {
+        workExperience: { data: largeData, loading: false, error: null },
+      } as RootState;
+
+      const result1 = selectWorkExperience(largeState);
+      const result2 = selectWorkExperience(largeState);
+
+      expect(result1.length).toBe(100);
+      expect(result1).toEqual(result2);
     });
   });
 });

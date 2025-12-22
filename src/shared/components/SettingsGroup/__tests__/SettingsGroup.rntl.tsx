@@ -1,7 +1,8 @@
 import React from 'react';
 import * as ReactNative from 'react-native';
+import { fireEvent } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils';
+import { expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import type { SettingsGroupItem } from '../SettingsGroup';
 import { SettingsGroup } from '../SettingsGroup';
@@ -16,31 +17,37 @@ describe('SettingsGroup', () => {
 
   describe('Rendering', () => {
     it('renders empty container when items array is empty', () => {
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={[]} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { queryByText } = renderWithProviders(<SettingsGroup items={[]} />);
+
+      expect(queryByText('Button')).not.toBeOnTheScreen();
     });
 
-    it('renders single button correctly', () => {
+    it('renders single button with label', () => {
       const items: SettingsGroupItem[] = [
         { label: 'Button 1', onPress: jest.fn(), testID: 'button-1' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText, getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Button 1')).toBeOnTheScreen();
+      expect(getByTestId('button-1')).toBeOnTheScreen();
     });
 
-    it('renders multiple buttons correctly', () => {
+    it('renders multiple buttons with labels', () => {
       const items: SettingsGroupItem[] = [
         { label: 'Button 1', onPress: jest.fn(), testID: 'button-1' },
         { label: 'Button 2', onPress: jest.fn(), testID: 'button-2' },
         { label: 'Button 3', onPress: jest.fn(), testID: 'button-3' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Button 1')).toBeOnTheScreen();
+      expect(getByText('Button 2')).toBeOnTheScreen();
+      expect(getByText('Button 3')).toBeOnTheScreen();
     });
 
-    it('renders button with all optional props', () => {
+    it('renders button with endLabel', () => {
       const MockIcon = () => null;
 
       const items: SettingsGroupItem[] = [
@@ -54,43 +61,51 @@ describe('SettingsGroup', () => {
         },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Complex Item')).toBeOnTheScreen();
+      expect(getByText('Detail')).toBeOnTheScreen();
     });
   });
 
   describe('GroupVariant Application', () => {
-    it('applies correct variant for single item', () => {
+    it('renders single item correctly', () => {
       const items: SettingsGroupItem[] = [
         { label: 'Only One', onPress: jest.fn(), testID: 'single-button' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Only One')).toBeOnTheScreen();
     });
 
-    it('applies correct variants for two items', () => {
+    it('renders two items correctly', () => {
       const items: SettingsGroupItem[] = [
         { label: 'First', onPress: jest.fn(), testID: 'first-button' },
         { label: 'Last', onPress: jest.fn(), testID: 'last-button' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('First')).toBeOnTheScreen();
+      expect(getByText('Last')).toBeOnTheScreen();
     });
 
-    it('applies correct variants for three items', () => {
+    it('renders three items correctly', () => {
       const items: SettingsGroupItem[] = [
         { label: 'Top Item', onPress: jest.fn(), testID: 'top-button' },
         { label: 'Middle Item', onPress: jest.fn(), testID: 'middle-button' },
         { label: 'Bottom Item', onPress: jest.fn(), testID: 'bottom-button' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Top Item')).toBeOnTheScreen();
+      expect(getByText('Middle Item')).toBeOnTheScreen();
+      expect(getByText('Bottom Item')).toBeOnTheScreen();
     });
 
-    it('applies correct variants for four items', () => {
+    it('renders four items correctly', () => {
       const items: SettingsGroupItem[] = [
         { label: 'Top', onPress: jest.fn(), testID: 'top' },
         { label: 'Middle 1', onPress: jest.fn(), testID: 'middle-1' },
@@ -98,48 +113,48 @@ describe('SettingsGroup', () => {
         { label: 'Bottom', onPress: jest.fn(), testID: 'bottom' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Top')).toBeOnTheScreen();
+      expect(getByText('Middle 1')).toBeOnTheScreen();
+      expect(getByText('Middle 2')).toBeOnTheScreen();
+      expect(getByText('Bottom')).toBeOnTheScreen();
     });
   });
 
   describe('Divider Rendering', () => {
-    it('does not render divider for single item', () => {
+    it('renders single item correctly', () => {
       const items: SettingsGroupItem[] = [{ label: 'Single', onPress: jest.fn() }];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Single')).toBeOnTheScreen();
     });
 
-    it('renders divider between two items', () => {
+    it('renders two items with labels', () => {
       const items: SettingsGroupItem[] = [
         { label: 'First', onPress: jest.fn(), testID: 'first' },
         { label: 'Second', onPress: jest.fn(), testID: 'second' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('First')).toBeOnTheScreen();
+      expect(getByText('Second')).toBeOnTheScreen();
     });
 
-    it('renders dividers between all items in a list of three', () => {
+    it('renders three items with labels', () => {
       const items: SettingsGroupItem[] = [
         { label: 'First', onPress: jest.fn(), testID: 'first' },
         { label: 'Second', onPress: jest.fn(), testID: 'second' },
         { label: 'Third', onPress: jest.fn(), testID: 'third' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
-    });
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
 
-    it('does not render divider after last item', () => {
-      const items: SettingsGroupItem[] = [
-        { label: 'First', onPress: jest.fn(), testID: 'first' },
-        { label: 'Last', onPress: jest.fn(), testID: 'last' },
-      ];
-
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      expect(getByText('First')).toBeOnTheScreen();
+      expect(getByText('Second')).toBeOnTheScreen();
+      expect(getByText('Third')).toBeOnTheScreen();
     });
   });
 
@@ -150,12 +165,14 @@ describe('SettingsGroup', () => {
         { label: 'Clickable', onPress: mockOnPress, testID: 'clickable-button' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
-      expect(mockOnPress).not.toHaveBeenCalled();
+      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+
+      fireEvent.press(getByTestId('clickable-button'));
+
+      expect(mockOnPress).toHaveBeenCalledTimes(1);
     });
 
-    it('renders multiple buttons with different handlers', () => {
+    it('calls correct handler for each button', () => {
       const mockOnPress1 = jest.fn();
       const mockOnPress2 = jest.fn();
       const mockOnPress3 = jest.fn();
@@ -166,74 +183,47 @@ describe('SettingsGroup', () => {
         { label: 'Button 3', onPress: mockOnPress3, testID: 'button-3' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+
+      fireEvent.press(getByTestId('button-2'));
+
+      expect(mockOnPress1).not.toHaveBeenCalled();
+      expect(mockOnPress2).toHaveBeenCalledTimes(1);
+      expect(mockOnPress3).not.toHaveBeenCalled();
     });
   });
 
   describe('Props Propagation', () => {
-    it('passes label prop to SettingsItem', () => {
+    it('renders label text', () => {
       const items: SettingsGroupItem[] = [{ label: 'Test Label', onPress: jest.fn() }];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Test Label')).toBeOnTheScreen();
     });
 
-    it('passes onPress prop to SettingsItem', () => {
-      const mockOnPress = jest.fn();
-      const items: SettingsGroupItem[] = [
-        { label: 'Click Me', onPress: mockOnPress, testID: 'test-button' },
-      ];
-
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
-    });
-
-    it('passes optional startIcon prop to SettingsItem', () => {
-      const MockIcon = () => null;
-      const items: SettingsGroupItem[] = [
-        { label: 'With Icon', onPress: jest.fn(), startIcon: MockIcon, testID: 'icon-button' },
-      ];
-
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
-    });
-
-    it('passes optional startIconBgColor prop to SettingsItem', () => {
-      const MockIcon = () => null;
-      const items: SettingsGroupItem[] = [
-        {
-          label: 'Colored Icon',
-          onPress: jest.fn(),
-          startIcon: MockIcon,
-          startIconBgColor: '$blue500',
-          testID: 'colored-button',
-        },
-      ];
-
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
-    });
-
-    it('passes optional endLabel prop to SettingsItem', () => {
+    it('renders endLabel text', () => {
       const items: SettingsGroupItem[] = [
         { label: 'Language', onPress: jest.fn(), endLabel: 'English' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Language')).toBeOnTheScreen();
+      expect(getByText('English')).toBeOnTheScreen();
     });
 
-    it('passes optional testID prop to SettingsItem', () => {
+    it('renders with testID', () => {
       const items: SettingsGroupItem[] = [
         { label: 'Test ID Button', onPress: jest.fn(), testID: 'custom-test-id' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByTestId('custom-test-id')).toBeOnTheScreen();
     });
 
-    it('passes all props together to SettingsItem', () => {
+    it('renders with all props', () => {
       const MockIcon = () => null;
       const mockOnPress = jest.fn();
 
@@ -248,8 +238,11 @@ describe('SettingsGroup', () => {
         },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText, getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Full Props Button')).toBeOnTheScreen();
+      expect(getByText('Detail Text')).toBeOnTheScreen();
+      expect(getByTestId('full-props-button')).toBeOnTheScreen();
     });
   });
 
@@ -271,8 +264,10 @@ describe('SettingsGroup', () => {
         },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Single Complex')).toBeOnTheScreen();
+      expect(getByText('Value')).toBeOnTheScreen();
     });
 
     it('handles items with partial optional props', () => {
@@ -287,8 +282,12 @@ describe('SettingsGroup', () => {
         { label: 'Only Label 2', onPress: jest.fn(), testID: 'only-label-2' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Only Label 1')).toBeOnTheScreen();
+      expect(getByText('With End Label')).toBeOnTheScreen();
+      expect(getByText('Detail')).toBeOnTheScreen();
+      expect(getByText('Only Label 2')).toBeOnTheScreen();
     });
   });
 
@@ -301,8 +300,84 @@ describe('SettingsGroup', () => {
         { label: 'Dark Item 2', onPress: jest.fn(), testID: 'dark-2' },
       ];
 
-      const { UNSAFE_root } = renderWithProviders(<SettingsGroup items={items} />);
-      expect(UNSAFE_root).toBeDefined();
+      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expect(getByText('Dark Item 1')).toBeOnTheScreen();
+      expect(getByText('Dark Item 2')).toBeOnTheScreen();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('items are accessible via label text', () => {
+      const items: SettingsGroupItem[] = [
+        { label: 'Settings Item', onPress: jest.fn(), endLabel: 'English' },
+      ];
+
+      const { getByLabelText } = renderWithProviders(<SettingsGroup items={items} />);
+
+      // SettingsItem uses accessibilityLabel with combined label and endLabel
+      expect(getByLabelText('Settings Item, English')).toBeOnTheScreen();
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    it('all items have accessible touch targets', () => {
+      mockUseColorScheme.mockReturnValue('light');
+
+      const items: SettingsGroupItem[] = [
+        { label: 'Button 1', onPress: jest.fn(), testID: 'button-1' },
+        { label: 'Button 2', onPress: jest.fn(), testID: 'button-2' },
+        { label: 'Button 3', onPress: jest.fn(), testID: 'button-3' },
+      ];
+
+      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expectMinTouchTarget(getByTestId('button-1'));
+      expectMinTouchTarget(getByTestId('button-2'));
+      expectMinTouchTarget(getByTestId('button-3'));
+    });
+
+    it('single item has accessible touch target', () => {
+      mockUseColorScheme.mockReturnValue('light');
+
+      const items: SettingsGroupItem[] = [
+        { label: 'Single Item', onPress: jest.fn(), testID: 'single-item' },
+      ];
+
+      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expectMinTouchTarget(getByTestId('single-item'));
+    });
+
+    it('items with icons have accessible touch targets', () => {
+      mockUseColorScheme.mockReturnValue('light');
+      const MockIcon = () => null;
+
+      const items: SettingsGroupItem[] = [
+        {
+          label: 'Icon Item',
+          onPress: jest.fn(),
+          startIcon: MockIcon,
+          startIconBgColor: '$blue500',
+          testID: 'icon-item',
+        },
+      ];
+
+      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expectMinTouchTarget(getByTestId('icon-item'));
+    });
+
+    it('items in dark mode have accessible touch targets', () => {
+      mockUseColorScheme.mockReturnValue('dark');
+
+      const items: SettingsGroupItem[] = [
+        { label: 'Dark Mode Item', onPress: jest.fn(), testID: 'dark-item' },
+      ];
+
+      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+
+      expectMinTouchTarget(getByTestId('dark-item'));
     });
   });
 });

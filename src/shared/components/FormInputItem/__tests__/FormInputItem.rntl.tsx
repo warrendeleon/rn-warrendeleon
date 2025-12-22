@@ -7,7 +7,7 @@ import React, { createRef } from 'react';
 import { Text } from 'react-native';
 import { fireEvent, screen } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils';
+import { expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { FormInputItem } from '../FormInputItem';
 
@@ -26,19 +26,19 @@ describe('FormInputItem', () => {
     it('should render with placeholder', () => {
       renderWithProviders(<FormInputItem {...defaultProps} />);
 
-      expect(screen.getByPlaceholderText('Enter text')).toBeTruthy();
+      expect(screen.getByPlaceholderText('Enter text')).toBeOnTheScreen();
     });
 
     it('should render with value', () => {
       renderWithProviders(<FormInputItem {...defaultProps} value="Test value" />);
 
-      expect(screen.getByDisplayValue('Test value')).toBeTruthy();
+      expect(screen.getByDisplayValue('Test value')).toBeOnTheScreen();
     });
 
     it('should render with testID', () => {
       renderWithProviders(<FormInputItem {...defaultProps} testID="form-input" />);
 
-      expect(screen.getByTestId('form-input')).toBeTruthy();
+      expect(screen.getByTestId('form-input')).toBeOnTheScreen();
     });
   });
 
@@ -100,7 +100,7 @@ describe('FormInputItem', () => {
         />
       );
 
-      expect(screen.getByLabelText('Show password')).toBeTruthy();
+      expect(screen.getByLabelText('Show password')).toBeOnTheScreen();
     });
 
     it('should show "Hide password" label when password is visible', () => {
@@ -114,7 +114,7 @@ describe('FormInputItem', () => {
         />
       );
 
-      expect(screen.getByLabelText('Hide password')).toBeTruthy();
+      expect(screen.getByLabelText('Hide password')).toBeOnTheScreen();
     });
 
     it('should call onToggleSecure when toggle is pressed', () => {
@@ -132,13 +132,29 @@ describe('FormInputItem', () => {
 
       expect(onToggleSecure).toHaveBeenCalled();
     });
+
+    it('should have accessible touch target on show/hide toggle', () => {
+      renderWithProviders(
+        <FormInputItem
+          {...defaultProps}
+          secureTextEntry
+          showSecureToggle
+          onToggleSecure={jest.fn()}
+        />
+      );
+
+      const toggle = screen.getByLabelText('Show password');
+      // Toggle has hitSlop (10 each side) + padding (8) which provides adequate touch area
+      expect(toggle.props.accessibilityRole).toBe('button');
+      expect(toggle.props.hitSlop).toEqual({ top: 10, bottom: 10, left: 10, right: 10 });
+    });
   });
 
   describe('error display', () => {
     it('should render error message when error prop is provided', () => {
       renderWithProviders(<FormInputItem {...defaultProps} error="This field is required" />);
 
-      expect(screen.getByText('This field is required')).toBeTruthy();
+      expect(screen.getByText('This field is required')).toBeOnTheScreen();
     });
 
     it('should not render error box when no error', () => {
@@ -154,7 +170,8 @@ describe('FormInputItem', () => {
         <FormInputItem {...defaultProps} leftContent={<Text testID="left-content">+44</Text>} />
       );
 
-      expect(screen.getByTestId('left-content')).toBeTruthy();
+      expect(screen.getByTestId('left-content')).toBeOnTheScreen();
+      expect(screen.getByText('+44')).toBeOnTheScreen();
     });
   });
 
@@ -162,7 +179,7 @@ describe('FormInputItem', () => {
     it('should use placeholder as default accessibility label', () => {
       renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
 
-      expect(screen.getByLabelText('Enter text')).toBeTruthy();
+      expect(screen.getByLabelText('Enter text')).toBeOnTheScreen();
     });
 
     it('should use custom accessibility label when provided', () => {
@@ -170,7 +187,7 @@ describe('FormInputItem', () => {
         <FormInputItem {...defaultProps} accessibilityLabel="Custom label" testID="input" />
       );
 
-      expect(screen.getByLabelText('Custom label')).toBeTruthy();
+      expect(screen.getByLabelText('Custom label')).toBeOnTheScreen();
     });
 
     it('should include accessibility hint when provided', () => {
@@ -233,8 +250,9 @@ describe('FormInputItem', () => {
       const ref = createRef<{ focus: () => void }>();
       renderWithProviders(<FormInputItem {...defaultProps} ref={ref} testID="input" />);
 
-      // The ref should be assigned
-      expect(ref.current).toBeTruthy();
+      // The ref should be assigned with focus method
+      expect(ref.current).not.toBeNull();
+      expect(typeof ref.current?.focus).toBe('function');
     });
   });
 
@@ -246,8 +264,52 @@ describe('FormInputItem', () => {
           <FormInputItem {...defaultProps} groupVariant={groupVariant} testID="input" />
         );
 
-        expect(screen.getByTestId('input')).toBeTruthy();
+        expect(screen.getByTestId('input')).toBeOnTheScreen();
       }
     );
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    it('input is accessible within touch-target container', () => {
+      renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
+
+      // FormInputItem has Box wrapper with minHeight={44} for EAA compliance
+      const input = screen.getByLabelText(defaultProps.placeholder);
+      expect(input).toBeOnTheScreen();
+    });
+
+    it('secure toggle button has accessible touch target', () => {
+      renderWithProviders(
+        <FormInputItem
+          {...defaultProps}
+          secureTextEntry
+          showSecureToggle
+          onToggleSecure={jest.fn()}
+        />
+      );
+
+      const toggle = screen.getByLabelText('Show password');
+      expectMinTouchTarget(toggle);
+    });
+
+    it('input with error is accessible', () => {
+      renderWithProviders(
+        <FormInputItem {...defaultProps} error="This field is required" testID="input" />
+      );
+
+      const input = screen.getByTestId('input');
+      expect(input).toBeOnTheScreen();
+      expect(screen.getByText('This field is required')).toBeOnTheScreen();
+    });
+
+    it('input with left content is accessible', () => {
+      renderWithProviders(
+        <FormInputItem {...defaultProps} leftContent={<Text>+44</Text>} testID="input" />
+      );
+
+      const input = screen.getByTestId('input');
+      expect(input).toBeOnTheScreen();
+      expect(screen.getByText('+44')).toBeOnTheScreen();
+    });
   });
 });

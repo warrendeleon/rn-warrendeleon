@@ -25,7 +25,30 @@ jest.mock('@app/shared/components', () => {
   const mockReact = jest.requireActual('react');
   const mockRN = jest.requireActual('react-native');
 
-  const MockDetailListGroup = ({ items }: Record<string, unknown>) => {
+  const MockDetailListGroup = ({
+    items,
+    loading,
+    error,
+  }: {
+    items: Record<string, unknown>[];
+    loading?: boolean;
+    error?: string;
+  }) => {
+    if (loading) {
+      return mockReact.createElement(mockRN.View, { testID: 'detail-list-loading' }, [
+        mockReact.createElement(mockRN.ActivityIndicator, {
+          key: 'spinner',
+          testID: 'loading-spinner',
+        }),
+      ]);
+    }
+
+    if (error) {
+      return mockReact.createElement(mockRN.View, { testID: 'detail-list-error' }, [
+        mockReact.createElement(mockRN.Text, { key: 'error', testID: 'error-message' }, error),
+      ]);
+    }
+
     if (!Array.isArray(items) || items.length === 0) {
       return mockReact.createElement(mockRN.View, { testID: 'items-container-empty' });
     }
@@ -107,6 +130,122 @@ describe('WorkExperienceClientsScreen', () => {
     jest.clearAllMocks();
   });
 
+  describe('loading state', () => {
+    it('displays loading spinner when loading is true', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: true,
+          error: null,
+        },
+        settings: {
+          theme: 'light',
+          language: 'en',
+        },
+      });
+
+      const { getByTestId } = render(
+        <Provider store={store}>
+          <WorkExperienceClientsScreen route={mockRoute} />
+        </Provider>
+      );
+
+      expect(getByTestId('detail-list-loading')).toBeOnTheScreen();
+      expect(getByTestId('loading-spinner')).toBeOnTheScreen();
+    });
+
+    it('does not display empty state when loading', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: true,
+          error: null,
+        },
+        settings: {
+          theme: 'light',
+          language: 'en',
+        },
+      });
+
+      const { queryByTestId } = render(
+        <Provider store={store}>
+          <WorkExperienceClientsScreen route={mockRoute} />
+        </Provider>
+      );
+
+      expect(queryByTestId('work-experience-clients-empty-state')).toBeNull();
+    });
+  });
+
+  describe('error state', () => {
+    it('displays error message when error exists', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: 'Failed to load work experience data',
+        },
+        settings: {
+          theme: 'light',
+          language: 'en',
+        },
+      });
+
+      const { getByTestId, getByText } = render(
+        <Provider store={store}>
+          <WorkExperienceClientsScreen route={mockRoute} />
+        </Provider>
+      );
+
+      expect(getByTestId('detail-list-error')).toBeOnTheScreen();
+      expect(getByText('Failed to load work experience data')).toBeOnTheScreen();
+    });
+
+    it('does not display empty state when error exists', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: 'Some error occurred',
+        },
+        settings: {
+          theme: 'light',
+          language: 'en',
+        },
+      });
+
+      const { queryByTestId } = render(
+        <Provider store={store}>
+          <WorkExperienceClientsScreen route={mockRoute} />
+        </Provider>
+      );
+
+      expect(queryByTestId('work-experience-clients-empty-state')).toBeNull();
+    });
+
+    it('does not display loading spinner when error exists', () => {
+      const store = mockStore({
+        workExperience: {
+          data: [],
+          loading: false,
+          error: 'Network error',
+        },
+        settings: {
+          theme: 'light',
+          language: 'en',
+        },
+      });
+
+      const { queryByTestId } = render(
+        <Provider store={store}>
+          <WorkExperienceClientsScreen route={mockRoute} />
+        </Provider>
+      );
+
+      expect(queryByTestId('detail-list-loading')).toBeNull();
+    });
+  });
+
   describe('initial render', () => {
     it('renders clients list from work experience', () => {
       const store = mockStore({
@@ -127,8 +266,8 @@ describe('WorkExperienceClientsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-clients-screen')).toBeTruthy();
-      expect(getByTestId('items-container')).toBeTruthy();
+      expect(getByTestId('work-experience-clients-screen')).toBeOnTheScreen();
+      expect(getByTestId('items-container')).toBeOnTheScreen();
     });
 
     it('sets navigation title to company name', () => {
@@ -176,10 +315,10 @@ describe('WorkExperienceClientsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-clients-item-pos-1')).toBeTruthy();
-      expect(getByTestId('work-experience-clients-item-pos-2')).toBeTruthy();
-      expect(getByText('Senior Developer')).toBeTruthy();
-      expect(getByText('Lead Developer')).toBeTruthy();
+      expect(getByTestId('work-experience-clients-item-pos-1')).toBeOnTheScreen();
+      expect(getByTestId('work-experience-clients-item-pos-2')).toBeOnTheScreen();
+      expect(getByText('Senior Developer')).toBeOnTheScreen();
+      expect(getByText('Lead Developer')).toBeOnTheScreen();
     });
 
     it('renders client names in subtitle', () => {
@@ -201,8 +340,8 @@ describe('WorkExperienceClientsScreen', () => {
         </Provider>
       );
 
-      expect(getByText(/Client A/)).toBeTruthy();
-      expect(getByText(/Client B/)).toBeTruthy();
+      expect(getByText(/Client A/)).toBeOnTheScreen();
+      expect(getByText(/Client B/)).toBeOnTheScreen();
     });
 
     it('renders date ranges in subtitle', () => {
@@ -225,10 +364,10 @@ describe('WorkExperienceClientsScreen', () => {
       );
 
       // Should have "Present" for current role
-      expect(getByText(/Present/)).toBeTruthy();
+      expect(getByText(/Present/)).toBeOnTheScreen();
       // Should have both dates for past role
-      expect(getByText(/Jan 2021/)).toBeTruthy();
-      expect(getByText(/Dec 2021/)).toBeTruthy();
+      expect(getByText(/Jan 2021/)).toBeOnTheScreen();
+      expect(getByText(/Dec 2021/)).toBeOnTheScreen();
     });
   });
 
@@ -323,7 +462,7 @@ describe('WorkExperienceClientsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-clients-empty-state')).toBeTruthy();
+      expect(getByTestId('work-experience-clients-empty-state')).toBeOnTheScreen();
     });
 
     it('does not display empty state when clients exist', () => {
@@ -370,7 +509,7 @@ describe('WorkExperienceClientsScreen', () => {
       );
 
       const firstItem = getByTestId('work-experience-clients-item-pos-1');
-      expect(firstItem.props.accessibilityLabel).toBeTruthy();
+      expect(firstItem.props.accessibilityLabel).toBeDefined();
       expect(firstItem.props.accessibilityRole).toBe('button');
     });
 
@@ -394,7 +533,7 @@ describe('WorkExperienceClientsScreen', () => {
       );
 
       const firstItem = getByTestId('work-experience-clients-item-pos-1');
-      expect(firstItem.props.accessibilityHint).toBeTruthy();
+      expect(firstItem.props.accessibilityHint).toBeDefined();
     });
   });
 
@@ -419,7 +558,7 @@ describe('WorkExperienceClientsScreen', () => {
       );
 
       const screen = getByTestId('work-experience-clients-screen');
-      expect(screen).toBeTruthy();
+      expect(screen).toBeOnTheScreen();
     });
 
     it('renders with dark theme background', () => {
@@ -442,7 +581,7 @@ describe('WorkExperienceClientsScreen', () => {
       );
 
       const screen = getByTestId('work-experience-clients-screen');
-      expect(screen).toBeTruthy();
+      expect(screen).toBeOnTheScreen();
     });
   });
 
@@ -466,7 +605,7 @@ describe('WorkExperienceClientsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-clients-empty-state')).toBeTruthy();
+      expect(getByTestId('work-experience-clients-empty-state')).toBeOnTheScreen();
     });
 
     it('handles null work experience data', () => {
@@ -488,7 +627,7 @@ describe('WorkExperienceClientsScreen', () => {
         </Provider>
       );
 
-      expect(getByTestId('work-experience-clients-empty-state')).toBeTruthy();
+      expect(getByTestId('work-experience-clients-empty-state')).toBeOnTheScreen();
     });
 
     it('filters out positions without clients', () => {
@@ -541,9 +680,9 @@ describe('WorkExperienceClientsScreen', () => {
       );
 
       // Should only show position with client
-      expect(getByTestId('work-experience-clients-item-pos-1')).toBeTruthy();
+      expect(getByTestId('work-experience-clients-item-pos-1')).toBeOnTheScreen();
       expect(queryByTestId('work-experience-clients-item-pos-2')).toBeNull();
-      expect(getByText('Senior Developer')).toBeTruthy();
+      expect(getByText('Senior Developer')).toBeOnTheScreen();
     });
   });
 });

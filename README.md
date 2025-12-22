@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/gluestack--ui-1.1.x-8B5CF6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/nativewind-4.x-38BDF8?style=for-the-badge&logo=tailwindcss" />
   <img src="https://img.shields.io/badge/storybook-10.x-FF4785?style=for-the-badge&logo=storybook" />
-  <img src="https://img.shields.io/badge/coverage-60%25+-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/coverage-95%25+-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
 </p>
 
@@ -29,7 +29,7 @@ A modern React Native application built with TypeScript, featuring a **feature-f
 - 📚 Storybook for isolated component development and documentation
 - 🧪 Comprehensive testing (Jest + React Native Testing Library + Detox E2E)
 - 📦 Redux Toolkit for state management
-- 🎯 60%+ global test coverage (100% for Redux store and config)
+- 🎯 95%+ global test coverage (100% for Redux store and config)
 
 ---
 
@@ -102,6 +102,8 @@ Comprehensive guides are available in the `/docs` folder. Here's how to navigate
 - **[Architecture](docs/readme/ARCHITECTURE.md)** - Project structure, feature-first organisation, and design decisions
 - **[Development](docs/readme/DEVELOPMENT.md)** - Setup guide, running the app, debugging, and troubleshooting
 - **[Testing](docs/readme/TESTING.md)** - Unit and integration testing with Jest and React Native Testing Library
+- **[Testing Patterns](docs/readme/TESTING_PATTERNS.md)** - Comprehensive test patterns and code examples
+- **[Accessibility Testing](docs/readme/ACCESSIBILITY_TESTING.md)** - EAA/WCAG 2.1 testing utilities reference
 - **[MSW Testing Guide](docs/readme/MSW_TESTING_GUIDE.md)** - Advanced Redux integration testing with Mock Service Worker
 - **[E2E Testing](docs/readme/E2E_TESTING.md)** - End-to-end testing with Detox, Cucumber, and MSW
 

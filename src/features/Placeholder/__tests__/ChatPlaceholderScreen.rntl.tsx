@@ -13,20 +13,15 @@ describe('ChatPlaceholderScreen', () => {
   });
 
   describe('Basic Rendering', () => {
-    it('renders without crashing', () => {
-      mockUseColorScheme.mockReturnValue('light');
-
-      const { UNSAFE_root } = renderWithProviders(<ChatPlaceholderScreen />);
-
-      expect(UNSAFE_root).toBeTruthy();
-    });
-
-    it('renders screen with testID', () => {
+    it('renders chat placeholder with title and coming soon message', () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
 
-      expect(getByTestId('chat-placeholder-screen')).toBeTruthy();
+      // Verify main container and key content elements render
+      expect(getByTestId('chat-placeholder-screen')).toBeOnTheScreen();
+      expect(getByTestId('chat-placeholder-title')).toBeOnTheScreen();
+      expect(getByTestId('chat-placeholder-coming-soon')).toBeOnTheScreen();
     });
   });
 
@@ -37,7 +32,7 @@ describe('ChatPlaceholderScreen', () => {
       const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
 
       const title = getByTestId('chat-placeholder-title');
-      expect(title).toBeTruthy();
+      expect(title).toBeOnTheScreen();
       expect(title.props.children).toBe('Contact Me');
     });
 
@@ -47,7 +42,7 @@ describe('ChatPlaceholderScreen', () => {
       const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
 
       const comingSoon = getByTestId('chat-placeholder-coming-soon');
-      expect(comingSoon).toBeTruthy();
+      expect(comingSoon).toBeOnTheScreen();
       expect(comingSoon.props.children).toBe('Coming Soon');
     });
 
@@ -57,7 +52,7 @@ describe('ChatPlaceholderScreen', () => {
       const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
 
       const description = getByTestId('chat-placeholder-description');
-      expect(description).toBeTruthy();
+      expect(description).toBeOnTheScreen();
       expect(description.props.children).toBe(
         'A messaging feature to contact Warren directly will be available here soon.'
       );
@@ -70,7 +65,7 @@ describe('ChatPlaceholderScreen', () => {
 
       const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
 
-      expect(getByTestId('chat-placeholder-screen')).toBeTruthy();
+      expect(getByTestId('chat-placeholder-screen')).toBeOnTheScreen();
     });
 
     it('renders correctly in dark theme', () => {
@@ -78,7 +73,7 @@ describe('ChatPlaceholderScreen', () => {
 
       const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
 
-      expect(getByTestId('chat-placeholder-screen')).toBeTruthy();
+      expect(getByTestId('chat-placeholder-screen')).toBeOnTheScreen();
     });
   });
 
@@ -98,7 +93,7 @@ describe('ChatPlaceholderScreen', () => {
       const { UNSAFE_root } = renderWithProviders(<ChatPlaceholderScreen />);
 
       // Icon container should have accessibilityElementsHidden set to true
-      expect(UNSAFE_root).toBeTruthy();
+      expect(UNSAFE_root).toBeDefined();
     });
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { renderWithProviders } from '@app/test-utils/renderWithProviders';
+import { expectRendersSuccessfully, renderWithProviders } from '@app/test-utils';
 
 import { RootNavigator } from '../RootNavigator';
 
@@ -18,29 +18,26 @@ describe('RootNavigator', () => {
     consoleErrorSpy.mockRestore();
   });
 
-  it('renders without crashing', () => {
+  it('renders without throwing errors', () => {
     expect(() => renderWithProviders(<RootNavigator />)).not.toThrow();
   });
 
   it('renders complete component tree', () => {
-    const component = renderWithProviders(<RootNavigator />);
-
-    // Ensure the component rendered successfully
-    expect(component.UNSAFE_root).toBeTruthy();
+    const result = renderWithProviders(<RootNavigator />);
+    expectRendersSuccessfully(result);
   });
 
-  it('renders NavigationContainer with Stack Navigator', () => {
-    const { UNSAFE_root } = renderWithProviders(<RootNavigator />);
+  it('renders NavigationContainer with Stack Navigator structure', () => {
+    const result = renderWithProviders(<RootNavigator />);
 
-    // Check that the navigator structure is rendered
-    expect(UNSAFE_root).toBeTruthy();
-    expect(UNSAFE_root.findAllByType).toBeDefined();
+    // Check that the navigator structure is rendered and accessible
+    expectRendersSuccessfully(result);
   });
 
-  it('uses translation hook for screen titles', () => {
-    const { UNSAFE_root } = renderWithProviders(<RootNavigator />);
+  it('initialises translation hook for screen titles', () => {
+    const result = renderWithProviders(<RootNavigator />);
 
     // Component renders which means useTranslation was called
-    expect(UNSAFE_root).toBeTruthy();
+    expectRendersSuccessfully(result);
   });
 });

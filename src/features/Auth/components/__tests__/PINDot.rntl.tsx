@@ -22,18 +22,18 @@ const renderPINDot = (props: Partial<Parameters<typeof PINDot>[0]> = {}) => {
 
 describe('PINDot', () => {
   describe('Rendering', () => {
-    it('renders without crashing', () => {
+    it('renders PIN dot with testID containing index', () => {
       const { getByTestId } = renderPINDot();
 
       // testID includes index: pin-dot-0
-      expect(getByTestId('pin-dot-0')).toBeTruthy();
+      expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
 
     it('renders with custom testID', () => {
       const { getByTestId } = renderPINDot({ testID: 'custom-dot' });
 
       // testID includes index: custom-dot-0
-      expect(getByTestId('custom-dot-0')).toBeTruthy();
+      expect(getByTestId('custom-dot-0')).toBeOnTheScreen();
     });
   });
 
@@ -41,25 +41,25 @@ describe('PINDot', () => {
     it('renders empty state when not filled', () => {
       const { getByTestId } = renderPINDot({ isFilled: false });
 
-      expect(getByTestId('pin-dot-0')).toBeTruthy();
+      expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
 
     it('renders filled state when filled', () => {
       const { getByTestId } = renderPINDot({ isFilled: true });
 
-      expect(getByTestId('pin-dot-0')).toBeTruthy();
+      expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
 
     it('renders error state when hasError is true', () => {
       const { getByTestId } = renderPINDot({ hasError: true });
 
-      expect(getByTestId('pin-dot-0')).toBeTruthy();
+      expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
 
     it('renders error state with filled dot', () => {
       const { getByTestId } = renderPINDot({ isFilled: true, hasError: true });
 
-      expect(getByTestId('pin-dot-0')).toBeTruthy();
+      expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
   });
 

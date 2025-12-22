@@ -5,7 +5,7 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils';
+import { expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 import { PINKeypad } from '../PINKeypad';
 
@@ -29,50 +29,47 @@ describe('PINKeypad', () => {
   });
 
   describe('Rendering', () => {
-    it('renders without crashing', () => {
+    it('renders keypad with all digit and delete buttons', () => {
       const { getByTestId } = renderPINKeypad();
 
-      expect(getByTestId('pin-keypad')).toBeTruthy();
+      // Verify main container and key buttons render
+      expect(getByTestId('pin-keypad')).toBeOnTheScreen();
+      expect(getByTestId('pin-keypad-0')).toBeOnTheScreen();
+      expect(getByTestId('pin-keypad-delete')).toBeOnTheScreen();
     });
 
     it('renders all digit buttons 0-9', () => {
       const { getByTestId } = renderPINKeypad();
 
       for (let i = 0; i <= 9; i++) {
-        expect(getByTestId(`pin-keypad-${i}`)).toBeTruthy();
+        expect(getByTestId(`pin-keypad-${i}`)).toBeOnTheScreen();
       }
     });
 
     it('renders delete button', () => {
       const { getByTestId } = renderPINKeypad();
 
-      expect(getByTestId('pin-keypad-delete')).toBeTruthy();
+      expect(getByTestId('pin-keypad-delete')).toBeOnTheScreen();
     });
   });
 
   describe('Digit Button Interactions', () => {
-    it('calls onDigitPress when digit 1 is pressed', () => {
-      const { getByTestId } = renderPINKeypad();
+    it.each(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const)(
+      'calls onDigitPress with "%s" when digit %s button is pressed',
+      digit => {
+        const { getByTestId } = renderPINKeypad();
 
-      fireEvent.press(getByTestId('pin-keypad-1'));
+        fireEvent.press(getByTestId(`pin-keypad-${digit}`));
 
-      expect(mockOnDigitPress).toHaveBeenCalledWith('1');
-    });
+        expect(mockOnDigitPress).toHaveBeenCalledWith(digit);
+      }
+    );
 
-    it('calls onDigitPress when digit 0 is pressed', () => {
-      const { getByTestId } = renderPINKeypad();
-
-      fireEvent.press(getByTestId('pin-keypad-0'));
-
-      expect(mockOnDigitPress).toHaveBeenCalledWith('0');
-    });
-
-    it('calls onDigitPress with correct digit for each button', () => {
+    it('calls onDigitPress exactly 10 times when all digit buttons pressed sequentially', () => {
       const { getByTestId } = renderPINKeypad();
 
       for (let i = 0; i <= 9; i++) {
         fireEvent.press(getByTestId(`pin-keypad-${i}`));
-        expect(mockOnDigitPress).toHaveBeenCalledWith(String(i));
       }
 
       expect(mockOnDigitPress).toHaveBeenCalledTimes(10);
@@ -151,6 +148,34 @@ describe('PINKeypad', () => {
 
       const button5 = getByTestId('pin-keypad-5');
       expect(button5.props.accessibilityState).toEqual({ disabled: true });
+    });
+  });
+
+  describe('EAA Accessibility Compliance', () => {
+    it('all digit buttons have accessible touch targets (44×44 minimum)', () => {
+      const { getByTestId } = renderPINKeypad();
+
+      for (let i = 0; i <= 9; i++) {
+        const button = getByTestId(`pin-keypad-${i}`);
+        expectMinTouchTarget(button);
+      }
+    });
+
+    it('delete button has accessible touch target', () => {
+      const { getByTestId } = renderPINKeypad();
+
+      const deleteButton = getByTestId('pin-keypad-delete');
+      expectMinTouchTarget(deleteButton);
+    });
+
+    it('disabled buttons maintain accessible touch targets', () => {
+      const { getByTestId } = renderPINKeypad({ disabled: true });
+
+      const button5 = getByTestId('pin-keypad-5');
+      expectMinTouchTarget(button5);
+
+      const deleteButton = getByTestId('pin-keypad-delete');
+      expectMinTouchTarget(deleteButton);
     });
   });
 });

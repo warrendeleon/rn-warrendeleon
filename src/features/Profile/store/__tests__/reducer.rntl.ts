@@ -132,4 +132,155 @@ describe('profileReducer', () => {
       expect(state.error).toBeNull();
     });
   });
+
+  describe('complex state transition sequences', () => {
+    it('handles fetch → clear → refetch sequence', () => {
+      // Step 1: Initial fetch
+      let state = profileReducer(initialState, { type: fetchProfile.pending.type });
+      expect(state.loading).toBe(true);
+
+      state = profileReducer(state, {
+        type: fetchProfile.fulfilled.type,
+        payload: profileFixture,
+      });
+      expect(state.data).toEqual(profileFixture);
+      expect(state.loading).toBe(false);
+
+      // Step 2: Clear profile
+      state = profileReducer(state, clearProfile());
+      expect(state.data).toBeNull();
+      expect(state.error).toBeNull();
+
+      // Step 3: Refetch
+      state = profileReducer(state, { type: fetchProfile.pending.type });
+      expect(state.loading).toBe(true);
+
+      state = profileReducer(state, {
+        type: fetchProfile.fulfilled.type,
+        payload: profileFixture,
+      });
+      expect(state.data).toEqual(profileFixture);
+    });
+
+    it('handles fetch error → retry → success sequence', () => {
+      // Step 1: Initial fetch fails
+      let state = profileReducer(initialState, { type: fetchProfile.pending.type });
+      state = profileReducer(state, {
+        type: fetchProfile.rejected.type,
+        error: { message: 'Network error' },
+      });
+      expect(state.error).toBe('Network error');
+      expect(state.data).toBeNull();
+
+      // Step 2: Retry fetch
+      state = profileReducer(state, { type: fetchProfile.pending.type });
+      expect(state.loading).toBe(true);
+      expect(state.error).toBeNull(); // Error cleared on pending
+
+      // Step 3: Retry succeeds
+      state = profileReducer(state, {
+        type: fetchProfile.fulfilled.type,
+        payload: profileFixture,
+      });
+      expect(state.data).toEqual(profileFixture);
+      expect(state.error).toBeNull();
+    });
+
+    it('handles multiple rapid fetch attempts correctly', () => {
+      // First fetch starts
+      let state = profileReducer(initialState, { type: fetchProfile.pending.type });
+
+      // Second fetch starts (overwrites first pending)
+      state = profileReducer(state, { type: fetchProfile.pending.type });
+      expect(state.loading).toBe(true);
+
+      // First fetch completes
+      state = profileReducer(state, {
+        type: fetchProfile.fulfilled.type,
+        payload: profileFixture,
+      });
+      expect(state.data).toEqual(profileFixture);
+      expect(state.loading).toBe(false);
+    });
+  });
+
+  describe('partial state updates preserve unaffected data', () => {
+    it('clearProfile only clears data and error', () => {
+      const stateWithData: ProfileState = {
+        data: profileFixture,
+        loading: true, // Should remain unchanged
+        error: 'Some error',
+      };
+
+      const state = profileReducer(stateWithData, clearProfile());
+
+      expect(state.data).toBeNull();
+      expect(state.error).toBeNull();
+      expect(state.loading).toBe(true); // Preserved
+    });
+
+    it('pending action preserves existing data', () => {
+      const stateWithData: ProfileState = {
+        data: profileFixture,
+        loading: false,
+        error: null,
+      };
+
+      const state = profileReducer(stateWithData, { type: fetchProfile.pending.type });
+
+      expect(state.data).toEqual(profileFixture); // Data preserved during loading
+      expect(state.loading).toBe(true);
+      expect(state.error).toBeNull();
+    });
+
+    it('rejected action preserves loading=false and clears data', () => {
+      const stateWithData: ProfileState = {
+        data: profileFixture,
+        loading: true,
+        error: null,
+      };
+
+      const state = profileReducer(stateWithData, {
+        type: fetchProfile.rejected.type,
+        error: { message: 'Failed' },
+      });
+
+      // Rejected sets loading to false but doesn't explicitly clear data
+      // The reducer keeps existing data on rejection
+      expect(state.loading).toBe(false);
+      expect(state.error).toBe('Failed');
+    });
+  });
+
+  describe('action payload edge cases', () => {
+    it('handles rejection without error message', () => {
+      const state = profileReducer(initialState, {
+        type: fetchProfile.rejected.type,
+        error: {},
+      });
+
+      expect(state.error).toBe('Failed to fetch profile');
+    });
+
+    it('handles rejection with empty string error message', () => {
+      const state = profileReducer(initialState, {
+        type: fetchProfile.rejected.type,
+        error: { message: '' },
+      });
+
+      expect(state.error).toBe('Failed to fetch profile');
+    });
+
+    it('handles fulfilled with complete profile data', () => {
+      const state = profileReducer(initialState, {
+        type: fetchProfile.fulfilled.type,
+        payload: profileFixture,
+      });
+
+      expect(state.data?.name).toBe('Warren');
+      expect(state.data?.lastName).toBe('de Leon');
+      expect(state.data?.location).toBeDefined();
+      expect(state.data?.headline).toBeDefined();
+    });
+  });
 });

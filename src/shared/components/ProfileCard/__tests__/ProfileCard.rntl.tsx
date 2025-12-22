@@ -2,7 +2,7 @@ import React from 'react';
 import * as ReactNative from 'react-native';
 import { fireEvent } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@app/test-utils/renderWithProviders';
+import { expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
 
 // Import directly to avoid circular dependency
 import { getProfileCardStyles, ProfileCard } from '../ProfileCard';
@@ -23,20 +23,20 @@ describe('ProfileCard', () => {
   });
 
   describe('Rendering', () => {
-    it('renders without crashing in light mode', () => {
+    it('renders in light mode with profile-card testID', () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { UNSAFE_root } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
 
-      expect(UNSAFE_root).toBeDefined();
+      expect(getByTestId('profile-card')).toBeOnTheScreen();
     });
 
-    it('renders without crashing in dark mode', () => {
+    it('renders in dark mode with profile-card testID', () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { UNSAFE_root } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
 
-      expect(UNSAFE_root).toBeDefined();
+      expect(getByTestId('profile-card')).toBeOnTheScreen();
     });
 
     it('displays the avatar image', () => {
@@ -45,7 +45,7 @@ describe('ProfileCard', () => {
       const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
 
       const avatar = getByTestId('profile-card-avatar');
-      expect(avatar).toBeDefined();
+      expect(avatar).toBeOnTheScreen();
     });
 
     it('displays full name correctly', () => {
@@ -53,7 +53,7 @@ describe('ProfileCard', () => {
 
       const { getByText } = renderWithProviders(<ProfileCard {...mockProps} />);
 
-      expect(getByText('Warren de Leon')).toBeDefined();
+      expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
     it('displays "View Profile" subtitle', () => {
@@ -61,7 +61,7 @@ describe('ProfileCard', () => {
 
       const { getByText } = renderWithProviders(<ProfileCard {...mockProps} />);
 
-      expect(getByText('View Profile')).toBeDefined();
+      expect(getByText('View Profile')).toBeOnTheScreen();
     });
 
     it('renders with custom testID', () => {
@@ -71,7 +71,7 @@ describe('ProfileCard', () => {
         <ProfileCard {...mockProps} testID="custom-profile-card" />
       );
 
-      expect(getByTestId('custom-profile-card')).toBeDefined();
+      expect(getByTestId('custom-profile-card')).toBeOnTheScreen();
     });
 
     it('renders with default testID when not provided', () => {
@@ -79,7 +79,7 @@ describe('ProfileCard', () => {
 
       const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
 
-      expect(getByTestId('profile-card')).toBeDefined();
+      expect(getByTestId('profile-card')).toBeOnTheScreen();
     });
   });
 
@@ -117,27 +117,29 @@ describe('ProfileCard', () => {
   });
 
   describe('Theme Support', () => {
-    it('applies light theme styles', () => {
+    it('applies light theme and renders correctly', () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { UNSAFE_root } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId, getByText } = renderWithProviders(<ProfileCard {...mockProps} />);
 
-      expect(UNSAFE_root).toBeDefined();
-      // Theme styling verified in getProfileCardStyles tests
+      expect(getByTestId('profile-card')).toBeOnTheScreen();
+      expect(getByText('Warren de Leon')).toBeOnTheScreen();
+      expect(getByText('View Profile')).toBeOnTheScreen();
     });
 
-    it('applies dark theme styles', () => {
+    it('applies dark theme and renders correctly', () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { UNSAFE_root } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId, getByText } = renderWithProviders(<ProfileCard {...mockProps} />);
 
-      expect(UNSAFE_root).toBeDefined();
-      // Theme styling verified in getProfileCardStyles tests
+      expect(getByTestId('profile-card')).toBeOnTheScreen();
+      expect(getByText('Warren de Leon')).toBeOnTheScreen();
+      expect(getByText('View Profile')).toBeOnTheScreen();
     });
   });
 
   describe('Edge Cases', () => {
-    it('handles very long names without crashing', () => {
+    it('handles very long names correctly', () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const longProps = {
@@ -146,12 +148,12 @@ describe('ProfileCard', () => {
         lastName: 'LongLastNameThatCouldPotentiallyCauseLayoutIssues',
       };
 
-      const { getByText, UNSAFE_root } = renderWithProviders(<ProfileCard {...longProps} />);
+      const { getByText, getByTestId } = renderWithProviders(<ProfileCard {...longProps} />);
 
-      expect(UNSAFE_root).toBeDefined();
+      expect(getByTestId('profile-card')).toBeOnTheScreen();
       expect(
         getByText('Extraordinarily LongLastNameThatCouldPotentiallyCauseLayoutIssues')
-      ).toBeDefined();
+      ).toBeOnTheScreen();
     });
 
     it('handles special characters in names', () => {
@@ -165,7 +167,7 @@ describe('ProfileCard', () => {
 
       const { getByText } = renderWithProviders(<ProfileCard {...specialProps} />);
 
-      expect(getByText('José García-Pérez')).toBeDefined();
+      expect(getByText('José García-Pérez')).toBeOnTheScreen();
     });
 
     it('handles single character names', () => {
@@ -179,7 +181,7 @@ describe('ProfileCard', () => {
 
       const { getByText } = renderWithProviders(<ProfileCard {...shortProps} />);
 
-      expect(getByText('J D')).toBeDefined();
+      expect(getByText('J D')).toBeOnTheScreen();
     });
   });
 });
@@ -234,25 +236,77 @@ describe('ProfileCard accessibility', () => {
   });
 
   it('has correct accessibilityLabel with full name and action', () => {
-    expect(() => renderWithProviders(<ProfileCard {...mockProps} />)).not.toThrow();
-    // AccessibilityLabel is "{fullName}, View Profile"
+    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+
+    const card = getByTestId('profile-card');
+    expect(card.props.accessibilityLabel).toBe('Warren de Leon, View Profile');
   });
 
   it('has correct accessibilityRole as button', () => {
-    expect(() => renderWithProviders(<ProfileCard {...mockProps} />)).not.toThrow();
-    // AccessibilityRole is "button"
+    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+
+    const card = getByTestId('profile-card');
+    expect(card.props.accessibilityRole).toBe('button');
   });
 
   it('has correct accessibilityHint', () => {
-    expect(() => renderWithProviders(<ProfileCard {...mockProps} />)).not.toThrow();
-    // AccessibilityHint is "Opens your profile details"
+    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+
+    const card = getByTestId('profile-card');
+    expect(card.props.accessibilityHint).toBe('Opens your profile details');
   });
 
-  it('avatar has correct alt text with full name', () => {
+  it('is queryable by button role', () => {
+    const { getByRole } = renderWithProviders(<ProfileCard {...mockProps} />);
+
+    expect(getByRole('button')).toBeOnTheScreen();
+  });
+
+  it('avatar has correct testID', () => {
     const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
 
     const avatar = getByTestId('profile-card-avatar');
-    expect(avatar).toBeDefined();
-    // Alt text verified in integration tests
+    expect(avatar).toBeOnTheScreen();
+  });
+});
+
+describe('ProfileCard EAA Accessibility Compliance', () => {
+  const mockUseColorScheme = jest.spyOn(ReactNative, 'useColorScheme') as jest.Mock;
+
+  const mockProps = {
+    profilePicture: 'https://example.com/avatar.jpg',
+    name: 'Warren',
+    lastName: 'de Leon',
+    onPress: jest.fn(),
+  };
+
+  beforeEach(() => {
+    mockUseColorScheme.mockReset();
+    mockUseColorScheme.mockReturnValue('light');
+  });
+
+  it('card has accessible touch target (44×44 minimum)', () => {
+    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+
+    const card = getByTestId('profile-card');
+    expectMinTouchTarget(card);
+  });
+
+  it('card maintains accessible touch target in dark mode', () => {
+    mockUseColorScheme.mockReturnValue('dark');
+
+    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+
+    const card = getByTestId('profile-card');
+    expectMinTouchTarget(card);
+  });
+
+  it('card with custom testID has accessible touch target', () => {
+    const { getByTestId } = renderWithProviders(
+      <ProfileCard {...mockProps} testID="custom-profile" />
+    );
+
+    const card = getByTestId('custom-profile');
+    expectMinTouchTarget(card);
   });
 });
