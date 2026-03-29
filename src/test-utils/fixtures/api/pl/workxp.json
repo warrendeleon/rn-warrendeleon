@@ -1,5 +1,35 @@
 [
   {
+    "id": "c8a1d2e3-f4b5-6789-abcd-0123456789ab",
+    "company": "Hargreaves Lansdown",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/hl.svg",
+    "positions": [
+      {
+        "id": "d9b2e3f4-a5c6-7890-bcde-1234567890cd",
+        "title": "Engineering Manager — Mobile Platform",
+        "startDate": "2026-03",
+        "endDate": "",
+        "description": "Kieruję squadem Mobile Platform w ramach tribu UCX-Core, części dywizji Digital Product Engineering w Hargreaves Lansdown. Mój zespół buduje nową aplikację mobilną HL w React Native od podstaw, zastępując istniejące natywne aplikacje iOS i Android. Jesteśmy właścicielami architektury platformy, z której korzystają wszystkie zespoły mobilne w HL.\n\nTo jest projekt brownfield: istniejące aplikacje, zbudowane w Swift (iOS) i Kotlin (Android) z REST API, są stopniowo migrowane do React Native z GraphQL. Zespół buduje natywne moduły mostowe do integracji ekranów React Native z istniejącymi natywnymi powłokami. HL zarządza ponad 150 miliardami funtów inwestycji klientów.",
+        "responsibilities": [
+          "Własność Platformy: Projektowanie i budowa fundamentalnej platformy mobilnej, w tym federacji modułów, komponentów systemu projektowego, potoków CI/CD i narzędzi developer experience.",
+          "Przywództwo Ludzi: Zarządzanie małym, wysoko wydajnym squadem starszych i średnio-zaawansowanych inżynierów. Skupienie na coachingu, rozwoju kariery i tworzeniu środowiska, w którym inżynierowie mogą wykonywać swoją najlepszą pracę.",
+          "Kierunek Techniczny: Definiowanie strategii architektury mobilnej, podejmowanie kluczowych decyzji technicznych dotyczących zarządzania stanem, nawigacji, infrastruktury testowej i integracji z GraphQL.",
+          "Rekrutacja i Budowanie Zespołu: Pisanie opisów stanowisk, prowadzenie procesu rekrutacji i wdrażanie nowych inżynierów do squadu.",
+          "Dostarczanie i Jakość: Śledzenie tempa dostarczania, zarządzanie długiem technicznym i utrzymywanie wysokich standardów inżynieryjnych. Budowa infrastruktury testowej w tym testów E2E, mock API i współdzielonych narzędzi testowych.",
+          "Współpraca Międzyfunkcyjna: Współpraca z Produktem, Designem i innymi squadami tribu w celu wyrównania współdzielonych możliwości platformy i szerszej mapy drogowej transformacji cyfrowej."
+        ],
+        "technologies": {
+          "languages": ["TypeScript", "Swift", "Kotlin"],
+          "frameworks": ["React Native", "React Native Bridging (Brownfield)", "Apollo Client (GraphQL)", "React Navigation"],
+          "testing": { "unit": ["Jest", "React Native Testing Library"], "e2e": ["Appium"] },
+          "tools": ["Xcode", "Android Studio", "Git"],
+          "ci": null,
+          "methodology": ["Tribe/Squad Model"]
+        }
+      }
+    ]
+  },
+  {
     "id": "75313d55-2ef2-4a68-b183-f4b32e88b397",
     "company": "Sky",
     "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/sky.svg",
@@ -8,8 +38,8 @@
         "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
         "title": "Software Engineering Manager",
         "startDate": "2023-10",
-        "endDate": null,
-        "description": "Kieruję dwoma squadami inżynieryjnymi w ramach Agile Release Train Join, Onboard, Engage (JOE ART) opartego na SAFe, będącego częścią Portfolio Cross-Product Sales Experience w Sky. Moje obowiązki obejmują własność dostaw, nadzór techniczny, zarządzanie ludźmi i współpracę międzyfunkcyjną.",
+        "endDate": "2025-12",
+        "description": "Kierowałem dwoma squadami inżynieryjnymi w ramach Agile Release Train Join, Onboard, Engage (JOE ART) opartego na SAFe, będącego częścią Portfolio Cross-Product Sales Experience w Sky. Moje obowiązki obejmują własność dostaw, nadzór techniczny, zarządzanie ludźmi i współpracę międzyfunkcyjną.",
         "responsibilities": [
           "Przywództwo Ludzi: Zarządzam 10+ inżynierami (stałymi, kontraktowymi i początkującymi), koncentrując się na coachingu, wydajności i rozwoju poprzez regularne spotkania 1:1, feedback i mentoring.",
           "Dostarczanie Agile w SAFe: Działam w ramach frameworka SAFe, prowadząc przygotowanie do PI planning, uczestnicząc w ART Syncs, współpracując z Product Management i zapewniając przewidywalność oraz wyrównanie w release train.",
