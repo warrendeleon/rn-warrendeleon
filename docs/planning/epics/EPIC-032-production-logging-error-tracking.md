@@ -111,12 +111,13 @@ Implement production-grade logging and error tracking using Sentry. The app curr
 
 ### US-068: Production Crash & Error Tracking (6h)
 
-| Task ID                                                               | Title                                          | Effort | Status   |
-| --------------------------------------------------------------------- | ---------------------------------------------- | ------ | -------- |
-| [TASK-372](../tasks/TASK-372-install-configure-sentry-sdk.md)         | Install & Configure Sentry SDK                 | 2h     | 📋 To Do |
-| [TASK-373](../tasks/TASK-373-sentry-configuration-module.md)          | Create Sentry Configuration Module             | 1.5h   | 📋 To Do |
-| [TASK-374](../tasks/TASK-374-enhance-logger-production-forwarding.md) | Enhance Logger for Production Error Forwarding | 1.5h   | 📋 To Do |
-| [TASK-375](../tasks/TASK-375-integrate-sentry-error-boundary.md)      | Integrate Sentry with ErrorBoundary            | 1h     | 📋 To Do |
+| Task ID                                                                       | Title                                            | Effort | Status   |
+| ----------------------------------------------------------------------------- | ------------------------------------------------ | ------ | -------- |
+| [TASK-372](../tasks/TASK-372-install-configure-sentry-sdk.md)                 | Install & Configure Sentry SDK                   | 2h     | 📋 To Do |
+| [TASK-399](../tasks/TASK-399-sentry-mask-sensitive-data-wiring.md) ⚠️ Blocking | Wire maskSensitiveData into beforeSend / before​Breadcrumb (same PR as TASK-372) | 1h     | 📋 To Do |
+| [TASK-373](../tasks/TASK-373-sentry-configuration-module.md)                  | Create Sentry Configuration Module               | 1.5h   | 📋 To Do |
+| [TASK-374](../tasks/TASK-374-enhance-logger-production-forwarding.md)         | Enhance Logger for Production Error Forwarding   | 1.5h   | 📋 To Do |
+| [TASK-375](../tasks/TASK-375-integrate-sentry-error-boundary.md)              | Integrate Sentry with ErrorBoundary              | 1h     | 📋 To Do |
 
 ### US-069: Application Performance Monitoring (4h)
 
