@@ -53,7 +53,7 @@ export const PositionSchema = z.object({
 
   startDate: dateSchema,
 
-  endDate: dateSchema.nullable(),
+  endDate: z.preprocess(val => (val === '' ? null : val), dateSchema.nullable()),
 
   description: z.string().min(1, 'Description is required'),
 

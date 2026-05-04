@@ -76,6 +76,25 @@ describe('PositionSchema', () => {
     expect(result.success).toBe(true);
   });
 
+  it('coerces empty-string endDate to null (current position)', () => {
+    const current = {
+      id: 'pos-current',
+      title: 'Lead Engineer',
+      startDate: '2025-01',
+      endDate: '',
+      description: 'Current role',
+      responsibilities: null,
+      technologies: null,
+      client: null,
+    };
+
+    const result = PositionSchema.safeParse(current);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.endDate).toBeNull();
+    }
+  });
+
   it('rejects position without required fields', () => {
     const invalid = {
       title: 'Developer',
