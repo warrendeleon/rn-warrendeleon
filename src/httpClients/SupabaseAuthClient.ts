@@ -36,6 +36,16 @@ class SupabaseAuthClientClass {
   // same in-flight POST to /auth/v1/token instead of racing.
   private refreshPromise: Promise<SupabaseRefreshTokenResponse> | null = null;
 
+  // In-memory access token cache. The Keychain entry uses
+  // BIOMETRY_ANY_OR_DEVICE_PASSCODE; without this cache, every authenticated
+  // HTTP call would hit the Keychain with biometric access control. The OS
+  // LAContext grace period covers most usage today, but under heavy
+  // concurrent load (e.g. home screen firing N parallel fetches at cold
+  // start) prompts can fire. The cache is the per-process source of truth
+  // after sign-in/refresh; the Keychain is the cold-start source of truth
+  // and stays authoritative across app launches.
+  private cachedAccessToken: string | null = null;
+
   // E2E mock tracking for all auth endpoints
   private mockState = {
     signUp: { mocked: false, email: null as string | null },
@@ -59,7 +69,7 @@ class SupabaseAuthClientClass {
     // Request interceptor: Add access token to headers
     this.axiosInstance.interceptors.request.use(
       async config => {
-        const accessToken = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
+        const accessToken = await this.getAccessToken();
 
         if (accessToken) {
           config.headers.Authorization = `Bearer ${accessToken}`;
@@ -120,6 +130,7 @@ class SupabaseAuthClientClass {
             // is unrecoverable, so clear local credentials. Direct callers of
             // refreshSession() do NOT clear (a transient failure shouldn't
             // log them out); only the interceptor path does.
+            this.clearAccessTokenCache();
             await SecureStore.clear();
             return Promise.reject(refreshError);
           }
@@ -669,7 +680,9 @@ class SupabaseAuthClientClass {
   }
 
   /**
-   * Reset all mock state (for E2E testing)
+   * Reset all in-memory state (for E2E and unit testing).
+   * Clears mock tracking, the access-token cache, and any in-flight
+   * refresh promise so each test starts from a clean slate.
    */
   resetMockState(): void {
     this.mockState = {
@@ -679,6 +692,8 @@ class SupabaseAuthClientClass {
       logout: { mocked: false },
       getCurrentUser: { mocked: false },
     };
+    this.cachedAccessToken = null;
+    this.refreshPromise = null;
   }
 
   /**
@@ -688,6 +703,10 @@ class SupabaseAuthClientClass {
    * @returns Promise<void>
    */
   private async storeSession(session: SupabaseSignInResponse): Promise<void> {
+    // Update the in-memory cache before the Keychain write so that any
+    // concurrent request fired immediately after refresh sees the new token
+    // without going through the Keychain.
+    this.cachedAccessToken = session.access_token;
     await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, session.access_token);
     await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, session.refresh_token);
   }
@@ -698,8 +717,35 @@ class SupabaseAuthClientClass {
    * @returns Promise<void>
    */
   private async clearSession(): Promise<void> {
+    this.cachedAccessToken = null;
     await SecureStore.clear();
     await EncryptedStore.clear();
+  }
+
+  /**
+   * Get the current access token, preferring the in-memory cache and
+   * falling back to the Keychain on cold start. Exposed so other clients
+   * (e.g. SupabaseStorageClient) get the same biometric-prompt avoidance
+   * for free.
+   */
+  async getAccessToken(): Promise<string | null> {
+    if (this.cachedAccessToken !== null) {
+      return this.cachedAccessToken;
+    }
+    const token = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
+    if (token) {
+      this.cachedAccessToken = token;
+    }
+    return token;
+  }
+
+  /**
+   * Drop the in-memory access token cache. Used by the response interceptor
+   * when refresh fails and Keychain is being cleared as part of forced
+   * sign-out, so subsequent requests don't authenticate with a stale token.
+   */
+  clearAccessTokenCache(): void {
+    this.cachedAccessToken = null;
   }
 
   /**

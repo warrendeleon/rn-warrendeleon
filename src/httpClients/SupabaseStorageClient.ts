@@ -8,7 +8,6 @@ import { SupabaseAuthClient } from '@app/httpClients/SupabaseAuthClient';
 import { type SupabaseUploadResponse, SupabaseUploadResponseSchema } from '@app/schemas';
 import { logDebug, logError, logWarning } from '@app/utils/logger';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage/EncryptedStore';
-import { SecureStore, SecureStoreKey } from '@app/utils/storage/SecureStore';
 import { validateResponse } from '@app/utils/validation/validateResponse';
 
 /**
@@ -100,10 +99,12 @@ class SupabaseStorageClientClass {
       },
     });
 
-    // Request interceptor: Add access token
+    // Request interceptor: Add access token. Goes through SupabaseAuthClient
+    // so this client benefits from the in-memory token cache and avoids
+    // hitting the Keychain (with biometric access control) on every upload.
     this.axiosInstance.interceptors.request.use(
       async config => {
-        const accessToken = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
+        const accessToken = await SupabaseAuthClient.getAccessToken();
 
         if (accessToken) {
           config.headers.Authorization = `Bearer ${accessToken}`;
@@ -147,11 +148,14 @@ class SupabaseStorageClientClass {
           try {
             logDebug('Storage: Token expired, refreshing session...');
 
-            // Refresh session using auth client
+            // Refresh session via auth client (single-flight: concurrent
+            // 401s from this client and the auth client share one POST).
             await SupabaseAuthClient.refreshSession();
 
-            // Get new access token
-            const newAccessToken = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
+            // Read the new token via getAccessToken so we hit the cache
+            // populated by storeSession() inside the refresh, not the
+            // Keychain (with biometric access control).
+            const newAccessToken = await SupabaseAuthClient.getAccessToken();
 
             if (newAccessToken) {
               originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;

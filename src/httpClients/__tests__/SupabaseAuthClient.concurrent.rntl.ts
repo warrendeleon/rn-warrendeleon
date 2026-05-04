@@ -253,8 +253,9 @@ describe('SupabaseAuthClient - Concurrent 401 via response interceptor', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     server.resetHandlers();
-    // Drain any in-flight refresh promise from a previous test
-    (SupabaseAuthClient as unknown as { refreshPromise: unknown }).refreshPromise = null;
+    // Drain any in-flight refresh promise + access-token cache from a
+    // previous test (the singleton survives across tests).
+    SupabaseAuthClient.resetMockState();
   });
 
   it('coalesces N parallel 401s into a single refresh and resolves every caller', async () => {
@@ -438,6 +439,92 @@ describe('SupabaseAuthClient - Concurrent 401 via response interceptor', () => {
     results.forEach(r => {
       expect(r.access_token).toBe('new_access_1');
     });
+  });
+});
+
+describe('SupabaseAuthClient - Access-token cache (FU-05)', () => {
+  // The cache exists so the request interceptor doesn't hit the Keychain
+  // (with biometric access control) on every authenticated call. Production
+  // behaviour: Keychain remains the source of truth across cold starts;
+  // cache is the per-process source after sign-in/refresh.
+
+  const { SecureStore, SecureStoreKey } = require('@app/utils/storage/SecureStore');
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    server.resetHandlers();
+    SupabaseAuthClient.resetMockState();
+  });
+
+  it('hits the Keychain only on the first read after a cold start', async () => {
+    (SecureStore.get as jest.Mock).mockResolvedValue('cold_start_token');
+
+    // First read: cache empty, falls back to Keychain
+    const a = await SupabaseAuthClient.getAccessToken();
+    expect(a).toBe('cold_start_token');
+
+    // Subsequent reads: served from cache, no further Keychain calls
+    const b = await SupabaseAuthClient.getAccessToken();
+    const c = await SupabaseAuthClient.getAccessToken();
+    expect(b).toBe('cold_start_token');
+    expect(c).toBe('cold_start_token');
+
+    // Exactly one Keychain hit despite three reads
+    const accessTokenReads = (SecureStore.get as jest.Mock).mock.calls.filter(
+      (args: unknown[]) => args[0] === SecureStoreKey.ACCESS_TOKEN
+    );
+    expect(accessTokenReads).toHaveLength(1);
+  });
+
+  it('updates the cache after a successful refresh without an extra Keychain read', async () => {
+    (SecureStore.get as jest.Mock).mockImplementation(async (key: string) => {
+      if (key === SecureStoreKey.REFRESH_TOKEN) return 'valid_refresh_token';
+      // Simulate empty Keychain for ACCESS_TOKEN; refresh will populate cache
+      return null;
+    });
+
+    server.use(
+      http.post(`${SUPABASE_URL}/auth/v1/token`, () =>
+        HttpResponse.json({
+          access_token: 'rotated_token',
+          refresh_token: 'rotated_refresh_token',
+          token_type: 'bearer',
+          expires_in: 3600,
+          user: mockUser,
+        })
+      )
+    );
+
+    await SupabaseAuthClient.refreshSession();
+
+    // After refresh, cache holds the rotated token. getAccessToken() must
+    // return it without reading the Keychain again.
+    (SecureStore.get as jest.Mock).mockClear();
+    const token = await SupabaseAuthClient.getAccessToken();
+
+    expect(token).toBe('rotated_token');
+    expect(SecureStore.get as jest.Mock).not.toHaveBeenCalledWith(SecureStoreKey.ACCESS_TOKEN);
+  });
+
+  it('clears the cache on logout so the next read goes to the Keychain', async () => {
+    (SecureStore.get as jest.Mock).mockResolvedValue('pre_logout_token');
+
+    // Warm the cache
+    await SupabaseAuthClient.getAccessToken();
+
+    // Logout (invokes clearSession which clears cache + Keychain)
+    server.use(
+      http.post(`${SUPABASE_URL}/auth/v1/logout`, () => HttpResponse.json({}, { status: 204 }))
+    );
+    await SupabaseAuthClient.logout();
+
+    // Next read must hit the Keychain again, not return the stale pre-logout
+    // token from the cache.
+    (SecureStore.get as jest.Mock).mockResolvedValue(null);
+    const token = await SupabaseAuthClient.getAccessToken();
+
+    expect(token).toBeNull();
+    expect(SecureStore.get as jest.Mock).toHaveBeenCalledWith(SecureStoreKey.ACCESS_TOKEN);
   });
 });
 

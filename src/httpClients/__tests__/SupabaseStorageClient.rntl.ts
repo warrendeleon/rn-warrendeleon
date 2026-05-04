@@ -50,7 +50,13 @@ jest.mock('@app/utils/storage/SecureStore', () => ({
 
 jest.mock('@app/httpClients/SupabaseAuthClient', () => ({
   SupabaseAuthClient: {
-    refreshSession: jest.fn(),
+    refreshSession: jest.fn().mockResolvedValue({
+      access_token: 'refreshed-access-token',
+      refresh_token: 'refreshed-refresh-token',
+      token_type: 'bearer',
+      expires_in: 3600,
+    }),
+    getAccessToken: jest.fn().mockResolvedValue('mock-access-token'),
   },
 }));
 
