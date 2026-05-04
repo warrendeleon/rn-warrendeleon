@@ -13,17 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var reactNativeDelegate: ReactNativeDelegate?
   var reactNativeFactory: RCTReactNativeFactory?
 
-  /// Check if running under Detox E2E testing framework
-  private var isRunningUnderDetox: Bool {
-    return ProcessInfo.processInfo.arguments.contains("-detoxServer")
-  }
-
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    // Skip TrustKit in Detox mode - SSL pinning interferes with Detox's websocket communication
-    if !isRunningUnderDetox {
+    // TrustKit is compiled OUT of Detox E2E builds via the DETOX_BUILD Swift
+    // flag (set by xcodebuild OTHER_SWIFT_FLAGS in .detoxrc.js). The previous
+    // implementation used a runtime ProcessInfo argument check, which shipped
+    // into the release IPA — anyone could launch the app with `-detoxServer`
+    // (Xcode, lldb, jailbroken device) and disable cert pinning entirely.
+    // The whole point of the pin is to defend against attackers with network
+    // access; a runtime kill-switch defeats that. Compile-time exclusion
+    // means the Detox bypass cannot exist in any artifact a user sees.
+    #if !DETOX_BUILD
       // Configure TrustKit for SSL certificate pinning
       let trustKitConfig: [String: Any] = [
         kTSKSwizzleNetworkDelegates: true,
@@ -39,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
       ]
       TrustKit.initSharedInstance(withConfiguration: trustKitConfig)
-    }
+    #endif
 
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
