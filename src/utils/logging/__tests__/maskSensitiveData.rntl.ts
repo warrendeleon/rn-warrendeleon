@@ -271,16 +271,14 @@ describe('maskSensitiveData', () => {
       expect(result.accountNumber).toBe(MASKED.PASSWORD);
     });
 
-    it('masks credit card numbers in strings', () => {
-      expect(maskSensitiveData('Card: 4111-1111-1111-1111')).toBe(`Card: ${MASKED.CREDIT_CARD}`);
-    });
-
-    it('masks credit card with spaces', () => {
-      expect(maskSensitiveData('4111 1111 1111 1111')).toBe(MASKED.CREDIT_CARD);
-    });
-
-    it('masks credit card without separators', () => {
-      expect(maskSensitiveData('4111111111111111')).toBe(MASKED.CREDIT_CARD);
+    // Card-shaped strings (16 digits in 4-4-4-4 groups) are NOT masked by
+    // pattern: the app does not collect card numbers, and a structural regex
+    // misfires on tracking IDs, build numbers, UUID slices. Card data IS
+    // still masked when it appears in a known field name (creditCard,
+    // cardNumber) — see the field-name tests above.
+    it('does not mask 16-digit card-shaped strings without context', () => {
+      expect(maskSensitiveData('Card: 4111-1111-1111-1111')).toBe('Card: 4111-1111-1111-1111');
+      expect(maskSensitiveData('4111 1111 1111 1111')).toBe('4111 1111 1111 1111');
     });
   });
 
@@ -377,6 +375,29 @@ describe('maskSensitiveData', () => {
 
     it('masks US phone with country code', () => {
       expect(maskSensitiveData('+1-555-123-4567')).toBe(MASKED.PHONE);
+    });
+
+    it('masks US phone with country code and spaces', () => {
+      expect(maskSensitiveData('+1 555 123 4567')).toBe(MASKED.PHONE);
+    });
+
+    // PHONE_US deliberately requires `+1` or area-code parens to anchor.
+    // Bare 7- and 10-digit number-with-separator strings are too common in
+    // logs (build numbers, IDs, version strings, ISO timestamps) and were
+    // causing false-positive masking before FU-09.
+    it('does not mask version strings', () => {
+      expect(maskSensitiveData('Bundle version 1.20.3-beta')).toBe('Bundle version 1.20.3-beta');
+    });
+
+    it('does not mask bare 7-digit IDs with separators', () => {
+      expect(maskSensitiveData('event-id 123-4567')).toBe('event-id 123-4567');
+    });
+
+    it('does not mask bare 10-digit NANP-shape numbers without anchor', () => {
+      // Trade-off: real US phones written as `555-123-4567` are not masked.
+      // Field-name detection (phone, cell, mobile, etc.) still catches them
+      // in structured data — see the field-name tests above.
+      expect(maskSensitiveData('build 555-123-4567')).toBe('build 555-123-4567');
     });
 
     it('masks international phone numbers', () => {

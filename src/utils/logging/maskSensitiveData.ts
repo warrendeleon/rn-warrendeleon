@@ -17,7 +17,6 @@ const MASKED = {
   PASSWORD: '[MASKED]',
   PHONE: '[MASKED_PHONE]',
   ADDRESS: '[MASKED_ADDRESS]',
-  CREDIT_CARD: '[MASKED_CARD]',
   SSN: '[MASKED_SSN]',
 } as const;
 
@@ -97,14 +96,17 @@ const PATTERNS = {
   // UK phone numbers: +44, 07, 01onal formats
   PHONE_UK: /(\+44\s?|0)(\d\s?){10,11}/g,
 
-  // US phone numbers: (xxx) xxx-xxxx, xxx-xxx-xxxx, etc.
-  PHONE_US: /(\+1[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g,
+  // US phone numbers in unambiguous form only.
+  // Matches: (xxx) xxx-xxxx | +1-xxx-xxx-xxxx | +1 xxx xxx xxxx
+  // Does NOT match: bare 7-digit `xxx-xxxx`, version strings like `1.20.3-beta`,
+  // ISO timestamps, event IDs. Bare `xxx-xxx-xxxx` without country code or
+  // parens is also intentionally not matched: too many false positives in
+  // logs (build numbers, IDs). Field-name detection still catches phones in
+  // structured data (`phone`, `cell`, etc.).
+  PHONE_US: /(?:\+1[-.\s]?\d{3}|\(\d{3}\))[-.\s]?\d{3}[-.\s]?\d{4}/g,
 
   // International phone: +country code followed by digits
   PHONE_INTL: /\+\d{1,3}[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/g,
-
-  // Credit card numbers (basic pattern)
-  CREDIT_CARD: /\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b/g,
 
   // US Social Security Number
   SSN: /\b\d{3}[-\s]?\d{2}[-\s]?\d{4}\b/g,
@@ -150,9 +152,6 @@ const maskString = (str: string): string => {
 
   // Mask email addresses
   result = result.replace(PATTERNS.EMAIL, MASKED.EMAIL);
-
-  // Mask credit card numbers
-  result = result.replace(PATTERNS.CREDIT_CARD, MASKED.CREDIT_CARD);
 
   // Mask SSN
   result = result.replace(PATTERNS.SSN, MASKED.SSN);
