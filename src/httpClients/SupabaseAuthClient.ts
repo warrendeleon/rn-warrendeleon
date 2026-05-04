@@ -31,8 +31,10 @@ interface RetryableRequest extends InternalAxiosRequestConfig {
 
 class SupabaseAuthClientClass {
   private axiosInstance: AxiosInstance;
-  private isRefreshing = false;
-  private refreshSubscribers: Array<(token: string) => void> = [];
+  // Single-flight gate for refreshSession(). Concurrent callers (auth-client
+  // interceptor, storage-client interceptor, direct callers) all share the
+  // same in-flight POST to /auth/v1/token instead of racing.
+  private refreshPromise: Promise<SupabaseRefreshTokenResponse> | null = null;
 
   // E2E mock tracking for all auth endpoints
   private mockState = {
@@ -78,6 +80,13 @@ class SupabaseAuthClientClass {
           return Promise.reject(error);
         }
 
+        // Don't recurse: a 401/403 from the refresh endpoint itself means
+        // the refresh token is dead. Let it propagate to the caller of
+        // refreshSession() rather than triggering another refresh.
+        if (originalRequest.url?.includes('grant_type=refresh_token')) {
+          return Promise.reject(error);
+        }
+
         // Check for token expiry errors (401 or 403 with jwt errors)
         const status = error.response?.status;
         const errorData = error.response?.data as
@@ -95,53 +104,24 @@ class SupabaseAuthClientClass {
               errorMessage.includes('token is expired') ||
               errorMessage.includes('exp')));
 
-        // If token expired and not already retrying
         if (isTokenExpired && !originalRequest._retry) {
-          if (this.isRefreshing) {
-            // Wait for token refresh to complete
-            return new Promise(resolve => {
-              this.refreshSubscribers.push((token: string) => {
-                originalRequest.headers.Authorization = `Bearer ${token}`;
-                resolve(this.axiosInstance(originalRequest));
-              });
-            });
-          }
-
           originalRequest._retry = true;
-          this.isRefreshing = true;
 
           try {
-            // Refresh token
-            const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
+            // Single-flight gate inside refreshSession() coalesces N concurrent
+            // 401s into one POST. All callers (this interceptor, the storage
+            // client's interceptor, direct callers) share the same promise.
+            const refreshed = await this.refreshSession();
 
-            if (!refreshToken) {
-              throw new Error('No refresh token available');
-            }
-
-            const { data } = await this.axiosInstance.post(
-              '/auth/v1/token?grant_type=refresh_token',
-              { refresh_token: refreshToken }
-            );
-
-            const newAccessToken = data.access_token;
-
-            // Store new tokens
-            await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, newAccessToken);
-            await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
-
-            // Notify all waiting requests
-            this.refreshSubscribers.forEach(callback => callback(newAccessToken));
-            this.refreshSubscribers = [];
-
-            // Retry original request
-            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+            originalRequest.headers.Authorization = `Bearer ${refreshed.access_token}`;
             return this.axiosInstance(originalRequest);
           } catch (refreshError) {
-            // Refresh failed, logout user
+            // Refresh failed during an authenticated request flow: the session
+            // is unrecoverable, so clear local credentials. Direct callers of
+            // refreshSession() do NOT clear (a transient failure shouldn't
+            // log them out); only the interceptor path does.
             await SecureStore.clear();
             return Promise.reject(refreshError);
-          } finally {
-            this.isRefreshing = false;
           }
         }
 
@@ -279,12 +259,29 @@ class SupabaseAuthClientClass {
   }
 
   /**
-   * Refresh access token using refresh token
+   * Refresh access token using refresh token.
+   *
+   * Single-flight: concurrent callers share the same in-flight POST to
+   * /auth/v1/token. This is the gate that protects every subsystem that
+   * needs to refresh (auth-client interceptor, storage-client interceptor,
+   * direct callers).
    *
    * @returns Promise<SupabaseRefreshTokenResponse> - New session data
    * @throws Error if refresh fails
    */
   async refreshSession(): Promise<SupabaseRefreshTokenResponse> {
+    if (this.refreshPromise) {
+      return this.refreshPromise;
+    }
+
+    this.refreshPromise = this.performRefresh().finally(() => {
+      this.refreshPromise = null;
+    });
+
+    return this.refreshPromise;
+  }
+
+  private async performRefresh(): Promise<SupabaseRefreshTokenResponse> {
     try {
       const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
 
@@ -296,14 +293,12 @@ class SupabaseAuthClientClass {
         refresh_token: refreshToken,
       });
 
-      // Validate response with context
       const validatedData = validateResponse(
         SupabaseRefreshTokenResponseSchema,
         data,
         'Supabase Auth refreshSession'
       );
 
-      // Store new session
       await this.storeSession(validatedData);
 
       return validatedData;
