@@ -56,5 +56,29 @@ target 'warrendeleon' do
       :mac_catalyst_enabled => false,
       :ccache_enabled => true
     )
+
+    # ─── TEMPORARY WORKAROUND ─────────────────────────────────────────
+    # Workaround: fmt + Apple Clang 17 (Xcode 26+) consteval clash.
+    # The fmt version pulled in transitively by React Native uses
+    # consteval format-string validation that fails to instantiate under
+    # Apple Clang 17. Forcing FMT_USE_CONSTEVAL=0 falls back to runtime
+    # checks. Only the fmt target is touched.
+    #
+    # REMOVAL: Drop this entire block (and TASK-402) once React Native
+    # bumps fmt to a version that compiles under Apple Clang 17. To check:
+    # comment out, run `bundle exec pod install`, build. If it succeeds,
+    # the workaround is no longer needed and should be removed.
+    # See docs/planning/tasks/TASK-402-remove-fmt-consteval-workaround.md
+    # ──────────────────────────────────────────────────────────────────
+    fmt_target = installer.pods_project.targets.find { |t| t.name == 'fmt' }
+    if fmt_target
+      Pod::UI.puts "[Podfile] ⚠️  Applying fmt FMT_USE_CONSTEVAL=0 workaround (TASK-402). Verify still needed when bumping RN or Xcode.".yellow
+      fmt_target.build_configurations.each do |config|
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
+        unless config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'].include?('FMT_USE_CONSTEVAL=0')
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'FMT_USE_CONSTEVAL=0'
+        end
+      end
+    end
   end
 end
