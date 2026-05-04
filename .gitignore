@@ -160,3 +160,7 @@ buck-out/
 vendor/bundle/
 .bundle/
 .eslintcache
+
+# --- Supabase CLI ---
+supabase/.temp/
+supabase/.branches/
