@@ -7,6 +7,7 @@
 import type { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { GithubApiClient } from '@app/httpClients';
+import { WorkExperienceSchema } from '@app/schemas';
 import workxpEN from '@app/test-utils/fixtures/api/en/workxp.json';
 import type { WorkExperience } from '@app/types/portfolio';
 
@@ -39,7 +40,9 @@ describe('WorkExperience API - E2E Mocking Logic', () => {
       const result = await fetchWorkExperienceData('en');
 
       expect(GithubApiClient.get).toHaveBeenCalledWith('/en/workxp.json');
-      expect(result.data).toEqual(workxpEN);
+      // fetchWorkExperienceData returns schema-validated data: the active HL
+      // position's empty-string endDate is coerced to null by PositionSchema.
+      expect(result.data).toEqual(WorkExperienceSchema.parse(workxpEN));
     });
 
     it('calls GithubApiClient.get with correct path for Spanish', async () => {
