@@ -9,14 +9,14 @@ import { getPickerItemStyles, PickerItem } from '../PickerItem';
 describe('PickerItem', () => {
   describe('getPickerItemStyles', () => {
     it.each([
-      ['light', 'single', '$white', '$black', '$2xl', '$2xl'],
-      ['light', 'top', '$white', '$black', '$2xl', '$none'],
-      ['light', 'middle', '$white', '$black', '$none', '$none'],
-      ['light', 'bottom', '$white', '$black', '$none', '$2xl'],
-      ['dark', 'single', '$backgroundDark900', '$white', '$2xl', '$2xl'],
-      ['dark', 'top', '$backgroundDark900', '$white', '$2xl', '$none'],
-      ['dark', 'middle', '$backgroundDark900', '$white', '$none', '$none'],
-      ['dark', 'bottom', '$backgroundDark900', '$white', '$none', '$2xl'],
+      ['light', 'single', '#FFFFFF', '#000000', 16, 16],
+      ['light', 'top', '#FFFFFF', '#000000', 16, 0],
+      ['light', 'middle', '#FFFFFF', '#000000', 0, 0],
+      ['light', 'bottom', '#FFFFFF', '#000000', 0, 16],
+      ['dark', 'single', '#262626', '#FFFFFF', 16, 16],
+      ['dark', 'top', '#262626', '#FFFFFF', 16, 0],
+      ['dark', 'middle', '#262626', '#FFFFFF', 0, 0],
+      ['dark', 'bottom', '#262626', '#FFFFFF', 0, 16],
     ] as const)(
       'returns correct styles for %s theme with %s variant (bg=%s, label=%s, top=%s, bottom=%s)',
       (theme, variant, expectedBg, expectedLabel, expectedTop, expectedBottom) => {

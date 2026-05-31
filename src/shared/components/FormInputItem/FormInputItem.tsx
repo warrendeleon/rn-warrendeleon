@@ -3,12 +3,17 @@ import type {
   KeyboardTypeOptions,
   NativeSyntheticEvent,
   ReturnKeyTypeOptions,
+  TextInput,
   TextInputProps,
   TextInputSubmitEditingEventData,
 } from 'react-native';
-import { Box, HStack, Input, InputField, Pressable, Text } from '@gluestack-ui/themed';
 import { Eye, EyeOff } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Input, InputField } from '@app/components/ui/input';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
 import { type GroupVariant, groupVariantRadius } from '@app/shared/components/shared';
 import { useAppColorScheme } from '@app/shared/hooks';
 
@@ -41,8 +46,15 @@ type FormInputItemProps = {
   onSubmitEditing?: (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void;
 };
 
-/** Ref type for FormInputItem - compatible with GlueStack InputField */
-type FormInputItemRef = { focus: () => void };
+/** Ref type for FormInputItem - the underlying TextInput exposes focus() */
+type FormInputItemRef = Pick<TextInput, 'focus'>;
+
+/**
+ * The v2 InputField (built via createInput) types its ref as the props type
+ * rather than the TextInput instance, so the forwarded ref needs narrowing to
+ * match. At runtime React assigns a real TextInput, which provides focus().
+ */
+type InputFieldRef = React.ComponentRef<typeof InputField>;
 
 /**
  * iOS-style form input item for use within ButtonGroup
@@ -81,28 +93,29 @@ export const FormInputItem = forwardRef<FormInputItemRef, FormInputItemProps>(
 
     const { top, bottom } = groupVariantRadius[groupVariant];
 
-    const bg = isDark ? '$backgroundDark900' : '$white';
-    const textColor = isDark ? '$white' : '$black';
-    const placeholderColor = isDark ? '$coolGray500' : '$coolGray400';
+    const bg = isDark ? '#262626' : '#FFFFFF';
+    const textColor = isDark ? '#FFFFFF' : '#000000';
+    const placeholderColor = isDark ? '#6b7280' : '#9ca3af';
 
     return (
       <Box>
         <Box
-          bg={bg}
-          px="$3"
-          py="$2.5"
-          minHeight={44}
-          borderTopLeftRadius={top}
-          borderTopRightRadius={top}
-          borderBottomLeftRadius={error ? '$none' : bottom}
-          borderBottomRightRadius={error ? '$none' : bottom}
+          className="px-3 py-2.5"
+          style={{
+            backgroundColor: bg,
+            minHeight: 44,
+            borderTopLeftRadius: top,
+            borderTopRightRadius: top,
+            borderBottomLeftRadius: error ? 0 : bottom,
+            borderBottomRightRadius: error ? 0 : bottom,
+          }}
         >
-          <HStack alignItems="center" space="sm">
+          <HStack space="sm" className="items-center">
             {leftContent}
-            <Box flex={1}>
-              <Input variant="outline" size="md" borderWidth={0} bg="transparent" p="$0" m="$0">
+            <Box className="flex-1">
+              <Input variant="outline" size="md" className="m-0 border-0 bg-transparent p-0">
                 <InputField
-                  ref={ref}
+                  ref={ref as React.Ref<InputFieldRef>}
                   placeholder={placeholder}
                   placeholderTextColor={placeholderColor}
                   value={value}
@@ -120,11 +133,8 @@ export const FormInputItem = forwardRef<FormInputItemRef, FormInputItemProps>(
                   returnKeyType={returnKeyType}
                   editable={editable}
                   textContentType={textContentType}
-                  color={textColor}
-                  fontSize="$md"
-                  p="$0"
-                  m="$0"
-                  style={{ minHeight: 22, padding: 0, margin: 0 }}
+                  className="m-0 p-0 text-base"
+                  style={{ minHeight: 22, padding: 0, margin: 0, color: textColor }}
                 />
               </Input>
             </Box>
@@ -148,13 +158,14 @@ export const FormInputItem = forwardRef<FormInputItemRef, FormInputItemProps>(
         </Box>
         {error && (
           <Box
-            bg={isDark ? '$red900' : '$red50'}
-            px="$4"
-            py="$2"
-            borderBottomLeftRadius={bottom}
-            borderBottomRightRadius={bottom}
+            className="px-4 py-2"
+            style={{
+              backgroundColor: isDark ? '#7f1d1d' : '#fef2f2',
+              borderBottomLeftRadius: bottom,
+              borderBottomRightRadius: bottom,
+            }}
           >
-            <Text fontSize="$xs" color={isDark ? '$red300' : '$red600'}>
+            <Text className="text-xs" style={{ color: isDark ? '#fca5a5' : '#dc2626' }}>
               {error}
             </Text>
           </Box>

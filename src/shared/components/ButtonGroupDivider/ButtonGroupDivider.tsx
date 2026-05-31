@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 /**
@@ -24,10 +24,10 @@ export const ButtonGroupDivider: React.FC = React.memo(() => {
   return (
     <Box
       testID="button-group-divider"
-      h={0.5}
-      bg={dividerColor}
-      ml={64} // Aligns with button text: padding (16px) + icon (36px) + spacing (12px)
-      mr={16} // iOS-style right inset to stop before chevron
+      // ml-16 aligns with button text: padding (16px) + icon (36px) + spacing (12px)
+      // mr-4 is the iOS-style right inset to stop before the chevron
+      className="ml-16 mr-4"
+      style={{ height: 0.5, backgroundColor: dividerColor }}
     />
   );
 });

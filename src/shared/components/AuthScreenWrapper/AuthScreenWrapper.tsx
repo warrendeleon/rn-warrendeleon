@@ -1,6 +1,5 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
-import { ScrollView } from '@gluestack-ui/themed';
+import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 
 import { useAppColorScheme } from '@app/shared/hooks';
 
@@ -36,8 +35,7 @@ export const AuthScreenWrapper: React.FC<AuthScreenWrapperProps> = ({
       style={{ flex: 1 }}
     >
       <ScrollView
-        flex={1}
-        bg={isDark ? '$black' : '$coolGray100'}
+        style={{ flex: 1, backgroundColor: isDark ? '#000000' : '#f3f4f6' }}
         contentContainerStyle={{ flexGrow: flexGrow ? 1 : undefined, paddingBottom }}
         keyboardShouldPersistTaps="handled"
         testID={testID}

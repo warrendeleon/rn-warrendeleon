@@ -35,7 +35,17 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
       }
     }
     accessible={true}
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -46,6 +56,15 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
+    states={
+      {
+        "active": false,
+        "disabled": false,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
     style={
       {
         "alignItems": "center",
@@ -90,30 +109,22 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
     >
       <Text
         style={
-          [
-            {
-              "fontSize": 16,
-              "fontWeight": "400",
-            },
-            {
-              "color": "#000000",
-            },
-          ]
+          {
+            "color": "#000000",
+            "fontSize": 16,
+            "fontWeight": "400",
+          }
         }
       >
         Test Item 1
       </Text>
       <Text
         style={
-          [
-            {
-              "fontSize": 14,
-              "marginTop": 2,
-            },
-            {
-              "color": "#8E8E93",
-            },
-          ]
+          {
+            "color": "#8E8E93",
+            "fontSize": 14,
+            "marginTop": 2,
+          }
         }
       >
         Subtitle 1
@@ -168,7 +179,17 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
       }
     }
     accessible={true}
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "true",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -179,6 +200,15 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
+    states={
+      {
+        "active": false,
+        "disabled": true,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
     style={
       {
         "alignItems": "center",
@@ -223,15 +253,11 @@ exports[`DetailListGroup matches snapshot for light mode 1`] = `
     >
       <Text
         style={
-          [
-            {
-              "fontSize": 16,
-              "fontWeight": "400",
-            },
-            {
-              "color": "#000000",
-            },
-          ]
+          {
+            "color": "#000000",
+            "fontSize": 16,
+            "fontWeight": "400",
+          }
         }
       >
         Test Item 2

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { Box } from '@gluestack-ui/themed';
 import type { NavigationProp } from '@react-navigation/native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { Box } from '@app/components/ui/box';
 import { useAuth } from '@app/features/Auth';
 import type { RootStackParamList } from '@app/navigation';
 
@@ -13,9 +13,7 @@ import type { RootStackParamList } from '@app/navigation';
  */
 const LoadingIndicator: React.FC = () => (
   <Box
-    flex={1}
-    justifyContent="center"
-    alignItems="center"
+    className="flex-1 items-center justify-center"
     accessibilityRole="progressbar"
     accessibilityLabel="Checking authentication status"
     testID="auth-loading-indicator"

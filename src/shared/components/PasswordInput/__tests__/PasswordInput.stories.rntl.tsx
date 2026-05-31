@@ -78,6 +78,6 @@ describe('PasswordInput Stories', () => {
         testID="password-input"
       />
     );
-    expect(getByTestId('password-input').props.editable).toBe(false);
+    expect(getByTestId('password-input').props.readOnly).toBe(true);
   });
 });

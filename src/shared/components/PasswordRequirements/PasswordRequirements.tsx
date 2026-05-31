@@ -1,8 +1,11 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, HStack, Text, VStack } from '@gluestack-ui/themed';
 import { Check, X } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 /**
@@ -50,15 +53,17 @@ interface RequirementItemProps {
 }
 
 const RequirementItem: React.FC<RequirementItemProps> = ({ met, text, isDark }) => (
-  <HStack space="sm" alignItems="center">
+  <HStack space="sm" className="items-center">
     {met ? (
       <Check size={16} color={isDark ? '#86EFAC' : '#16A34A'} />
     ) : (
       <X size={16} color={isDark ? '#9CA3AF' : '#6B7280'} />
     )}
     <Text
-      color={met ? (isDark ? '$green400' : '$green600') : isDark ? '$coolGray400' : '$coolGray500'}
-      fontSize="$xs"
+      className="text-xs"
+      style={{
+        color: met ? (isDark ? '#4ade80' : '#16a34a') : isDark ? '#9ca3af' : '#6b7280',
+      }}
     >
       {text}
     </Text>
@@ -101,14 +106,14 @@ export const PasswordRequirements: React.FC<PasswordRequirementsProps> = ({
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
 
-  const cardBg = isDark ? '$backgroundDark900' : '$white';
-  const textColor = isDark ? '$coolGray300' : '$coolGray700';
+  const cardBg = isDark ? '#262626' : '#FFFFFF';
+  const textColor = isDark ? '#d1d5db' : '#374151';
 
   const requirements = useMemo(() => checkPasswordRequirements(password || ''), [password]);
 
   return (
-    <Box bg={cardBg} borderRadius="$xl" p="$4" testID={testID}>
-      <Text color={textColor} fontWeight="$semibold" fontSize="$sm" mb="$3">
+    <Box className="rounded-xl p-4" style={{ backgroundColor: cardBg }} testID={testID}>
+      <Text className="mb-3 text-sm font-semibold" style={{ color: textColor }}>
         {t('auth.resetPassword.requirements.title')}
       </Text>
       <VStack space="sm">

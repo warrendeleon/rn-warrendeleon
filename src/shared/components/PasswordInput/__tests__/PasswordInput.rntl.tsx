@@ -266,7 +266,7 @@ describe('PasswordInput', () => {
     it('should be editable by default', async () => {
       await renderWithProviders(<PasswordInput {...defaultProps} testID="password-input" />);
 
-      expect(screen.getByTestId('password-input').props.editable).toBe(true);
+      expect(screen.getByTestId('password-input').props.readOnly).toBe(false);
     });
 
     it('should be non-editable when editable is false', async () => {
@@ -274,7 +274,7 @@ describe('PasswordInput', () => {
         <PasswordInput {...defaultProps} editable={false} testID="password-input" />
       );
 
-      expect(screen.getByTestId('password-input').props.editable).toBe(false);
+      expect(screen.getByTestId('password-input').props.readOnly).toBe(true);
     });
   });
 

@@ -171,6 +171,10 @@ const InputField = React.forwardRef<React.ComponentRef<typeof UIInput.Input>, II
     return (
       <UIInput.Input
         ref={ref}
+        // The core defaults aria-label to 'Input Field', which would otherwise
+        // shadow the caller's accessibilityLabel for label queries. Mirror the
+        // accessibilityLabel onto aria-label so the two stay in sync.
+        aria-label={props.accessibilityLabel}
         {...props}
         className={inputFieldStyle({
           parentVariants: {

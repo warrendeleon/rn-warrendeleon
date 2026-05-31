@@ -1,16 +1,12 @@
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  Avatar,
-  AvatarImage,
-  ChevronRightIcon,
-  HStack,
-  Icon,
-  Pressable,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
+import { ChevronRight } from 'lucide-react-native';
 
+import { Avatar, AvatarImage } from '@app/components/ui/avatar';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 export type ProfileCardProps = {
@@ -22,17 +18,18 @@ export type ProfileCardProps = {
 };
 
 /**
- * Pure helper that computes themed ProfileCard styles
+ * Pure helper that computes themed ProfileCard colours (hex, applied via style
+ * so they stay fixed regardless of the active NativeWind colour scheme).
  */
 export const getProfileCardStyles = (scheme: 'light' | 'dark') => {
   const isDark = scheme === 'dark';
 
-  const bg = isDark ? '$backgroundDark900' : '$white';
-  const nameColor = isDark ? '$white' : '$black';
-  const subtitleColor = isDark ? '$textLight400' : '$textLight500';
-  const chevronColor = isDark ? '$textLight400' : '$textLight500';
-  // Avatar fallback colors
-  const avatarBg = isDark ? '$coolGray700' : '$coolGray200';
+  const bg = isDark ? '#262626' : '#FFFFFF'; // backgroundDark900 : white
+  const nameColor = isDark ? '#FFFFFF' : '#000000'; // white : black
+  const subtitleColor = isDark ? '#A3A3A3' : '#8C8C8C'; // textLight400 : textLight500
+  const chevronColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  // Avatar fallback colours
+  const avatarBg = isDark ? '#374151' : '#E5E7EB'; // coolGray700 : coolGray200
   // Icon color as hex for MaterialCommunityIcons compatibility
   const avatarIconColor = isDark ? '#9CA3AF' : '#6B7280'; // coolGray-400 : coolGray-500
 
@@ -55,27 +52,25 @@ export const ProfileCard = React.memo<ProfileCardProps>(
         accessibilityHint="Opens your profile details"
         onPress={onPress}
         testID={testID}
-        bg={bg}
-        borderRadius="$2xl"
-        p="$3"
-        className="w-full"
+        className="w-full rounded-2xl p-3"
+        style={{ backgroundColor: bg }}
       >
-        <HStack space="md" alignItems="center">
-          <Avatar size="md" testID="profile-card-avatar" bg={avatarBg}>
+        <HStack space="md" className="items-center">
+          <Avatar size="md" testID="profile-card-avatar" style={{ backgroundColor: avatarBg }}>
             <MaterialCommunityIcons name="account" size={28} color={avatarIconColor} />
             <AvatarImage source={{ uri: profilePicture }} alt={fullName} />
           </Avatar>
 
-          <VStack flex={1} space="xs">
-            <Text color={nameColor} fontWeight="$semibold" fontSize="$md" lineHeight="$lg">
+          <VStack space="xs" className="flex-1">
+            <Text className="text-base font-semibold leading-[24px]" style={{ color: nameColor }}>
               {fullName}
             </Text>
-            <Text color={subtitleColor} fontSize="$sm" lineHeight="$sm">
+            <Text className="text-sm leading-[20px]" style={{ color: subtitleColor }}>
               View Profile
             </Text>
           </VStack>
 
-          <Icon as={ChevronRightIcon} color={chevronColor} size="lg" />
+          <ChevronRight color={chevronColor} size={20} />
         </HStack>
       </Pressable>
     );

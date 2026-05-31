@@ -1,9 +1,12 @@
 import React from 'react';
-import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ChevronRight } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppColorScheme } from '@app/shared/hooks';
 
@@ -42,7 +45,7 @@ export const CountryCodeSelector: React.FC<CountryCodeSelectorProps> = ({
   };
 
   return (
-    <HStack alignItems="center">
+    <HStack className="items-center">
       <Pressable
         onPress={handlePress}
         disabled={isDisabled}
@@ -51,20 +54,23 @@ export const CountryCodeSelector: React.FC<CountryCodeSelectorProps> = ({
         accessibilityLabel={`Country code selector. Currently selected: ${selectedCountry.name}, ${selectedCountry.callingCode}`}
         accessibilityHint="Double tap to open country selector"
         accessibilityState={{ disabled: isDisabled }}
-        opacity={isDisabled ? 0.5 : 1}
-        py="$1"
+        style={{ opacity: isDisabled ? 0.5 : 1 }}
+        className="py-1"
         hitSlop={{ top: 10, bottom: 10, left: 5, right: 5 }}
       >
-        <HStack space="xs" alignItems="center">
-          <Text fontSize="$md">{selectedCountry.flag}</Text>
-          <Text fontSize="$sm" color={isDark ? '$coolGray300' : '$coolGray600'}>
+        <HStack space="xs" className="items-center">
+          <Text className="text-base">{selectedCountry.flag}</Text>
+          <Text className="text-sm" style={{ color: isDark ? '#d1d5db' : '#4b5563' }}>
             {selectedCountry.callingCode}
           </Text>
           <ChevronRight size={14} color={isDark ? '#9CA3AF' : '#C7C7CC'} />
         </HStack>
       </Pressable>
       {/* Vertical separator */}
-      <Box h={20} w={1} bg={isDark ? '$coolGray700' : '$coolGray300'} ml="$2" mr="$2" />
+      <Box
+        className="mx-2 h-[20px] w-[1px]"
+        style={{ backgroundColor: isDark ? '#374151' : '#d1d5db' }}
+      />
     </HStack>
   );
 };

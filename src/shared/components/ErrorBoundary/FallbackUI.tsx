@@ -1,9 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, ButtonText, Heading, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { Box } from '@app/components/ui/box';
+import { Button, ButtonText } from '@app/components/ui/button';
+import { Heading } from '@app/components/ui/heading';
+import { Text } from '@app/components/ui/text';
 import type { RootStackParamList } from '@app/navigation/RootNavigator/RootNavigator';
 
 interface FallbackUIProps {
@@ -21,17 +24,17 @@ export const FallbackUI: React.FC<FallbackUIProps> = ({ error, onReset }) => {
   };
 
   return (
-    <Box flex={1} justifyContent="center" alignItems="center" px="$6" bg="$backgroundLight0">
-      <Heading size="xl" mb="$4" textAlign="center">
+    <Box className="flex-1 items-center justify-center bg-[#FCFCFC] px-6">
+      <Heading size="xl" className="mb-4 text-center">
         {t('error.title')}
       </Heading>
 
-      <Text size="md" mb="$8" textAlign="center" color="$textLight500">
+      <Text size="md" className="mb-8 text-center text-[#8C8C8C]">
         {__DEV__ ? error?.message : t('error.message')}
       </Text>
 
-      <Box w="$full" maxWidth={300}>
-        <Button onPress={onReset} mb="$4" testID="error-try-again-button">
+      <Box className="w-full max-w-[300px]">
+        <Button onPress={onReset} className="mb-4" testID="error-try-again-button">
           <ButtonText>{t('error.tryAgain')}</ButtonText>
         </Button>
 

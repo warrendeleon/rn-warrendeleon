@@ -1,9 +1,12 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Input, InputField, ScrollView, Text } from '@gluestack-ui/themed';
+import { ScrollView } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Search } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Input, InputField } from '@app/components/ui/input';
+import { Text } from '@app/components/ui/text';
 import type { RootStackParamList } from '@app/navigation';
 import { ButtonGroup, PickerItem } from '@app/shared/components';
 import { useAppColorScheme } from '@app/shared/hooks';
@@ -60,15 +63,15 @@ export const CountryCodeSelectorScreen: React.FC<CountryCodeSelectorScreenProps>
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      flex={1}
-      bg={isDark ? '$black' : '$coolGray100'}
+      className="flex-1"
+      style={{ backgroundColor: isDark ? '#000000' : '#f3f4f6' }}
       testID="country-code-selector-screen"
       accessibilityLabel={t('auth.registration.selectCountry')}
     >
-      <Box p="$4">
+      <Box className="p-4">
         {/* Search Input */}
-        <Input variant="outline" size="md" mb="$4">
-          <Box pl="$3" justifyContent="center">
+        <Input variant="outline" size="md" className="mb-4">
+          <Box className="justify-center pl-3">
             <Search size={18} color="#9CA3AF" />
           </Box>
           <InputField
@@ -85,8 +88,8 @@ export const CountryCodeSelectorScreen: React.FC<CountryCodeSelectorScreenProps>
 
         {/* Country List */}
         {filteredCountries.length === 0 ? (
-          <Box p="$4" alignItems="center">
-            <Text color="$coolGray500">{t('auth.registration.noCountriesFound')}</Text>
+          <Box className="items-center p-4">
+            <Text className="text-gray-500">{t('auth.registration.noCountriesFound')}</Text>
           </Box>
         ) : (
           <ButtonGroup

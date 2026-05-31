@@ -479,8 +479,8 @@ describe('RegistrationScreen Network Scenarios', () => {
       const firstNameInput = getByTestId('firstName-input');
       const emailInput = getByTestId('email-input');
 
-      expect(firstNameInput.props.editable).not.toBe(false);
-      expect(emailInput.props.editable).not.toBe(false);
+      expect(firstNameInput.props.readOnly).not.toBe(true);
+      expect(emailInput.props.readOnly).not.toBe(true);
     });
   });
 

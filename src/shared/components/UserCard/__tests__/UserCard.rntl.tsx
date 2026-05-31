@@ -195,24 +195,8 @@ describe('UserCard', () => {
 describe('getUserCardStyles', () => {
   describe('theme styles', () => {
     it.each([
-      [
-        'light',
-        '$white',
-        '$black',
-        '$textLight500',
-        '$coolGray200',
-        '$textLight600',
-        '$textLight500',
-      ],
-      [
-        'dark',
-        '$backgroundDark900',
-        '$white',
-        '$textLight400',
-        '$backgroundDark700',
-        '$textLight300',
-        '$textLight400',
-      ],
+      ['light', '#FFFFFF', '#000000', '#8C8C8C', '#e5e7eb', '#737373', '#8C8C8C'],
+      ['dark', '#262626', '#FFFFFF', '#A3A3A3', '#525252', '#D4D4D4', '#A3A3A3'],
     ] as const)(
       'returns correct colours for %s theme',
       (
@@ -238,10 +222,10 @@ describe('getUserCardStyles', () => {
 
   describe('border radius variants', () => {
     it.each([
-      ['single', '$2xl', '$2xl'],
-      ['top', '$2xl', '$none'],
-      ['middle', '$none', '$none'],
-      ['bottom', '$none', '$2xl'],
+      ['single', 16, 16],
+      ['top', 16, 0],
+      ['middle', 0, 0],
+      ['bottom', 0, 16],
     ] as const)(
       'applies correct radius for %s variant (top: %s, bottom: %s)',
       (variant, expectedTop, expectedBottom) => {

@@ -17,37 +17,37 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders error toast in dark 
   }
 >
   <View
-    bg="$error900"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#991B1B",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <AlertCircle
         color="#FCA5A5"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$error200"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#FCA5A5",
+            }
+          }
         >
           Something went wrong
         </Text>
@@ -74,7 +74,16 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders error toast in dark 
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -84,9 +93,6 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders error toast in dark 
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -94,7 +100,21 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders error toast in dark 
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#FCA5A5"
@@ -123,37 +143,37 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders info toast in dark m
   }
 >
   <View
-    bg="$info900"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#0c4a6e",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <Info
         color="#93C5FD"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$info200"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#bae6fd",
+            }
+          }
         >
           Here is some information
         </Text>
@@ -180,7 +200,16 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders info toast in dark m
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -190,9 +219,6 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders info toast in dark m
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -200,7 +226,21 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders info toast in dark m
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#93C5FD"
@@ -229,37 +269,37 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders success toast in dar
   }
 >
   <View
-    bg="$success900"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#14532D",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <CheckCircle
         color="#86EFAC"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$success200"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#84D3A2",
+            }
+          }
         >
           Operation completed!
         </Text>
@@ -286,7 +326,16 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders success toast in dar
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -296,9 +345,6 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders success toast in dar
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -306,7 +352,21 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders success toast in dar
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#86EFAC"
@@ -335,37 +395,37 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders warning toast in dar
   }
 >
   <View
-    bg="$warning900"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#7c2d12",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <AlertTriangle
         color="#FDE68A"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$warning200"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#fed7aa",
+            }
+          }
         >
           Please be careful
         </Text>
@@ -392,7 +452,16 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders warning toast in dar
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -402,9 +471,6 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders warning toast in dar
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -412,7 +478,21 @@ exports[`Toast Type Snapshots Dark Mode Toast Types renders warning toast in dar
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#FDE68A"
@@ -441,37 +521,37 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders error toast in ligh
   }
 >
   <View
-    bg="$error100"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#FECACA",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <AlertCircle
         color="#EF4444"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$error700"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#B91C1C",
+            }
+          }
         >
           Something went wrong
         </Text>
@@ -498,7 +578,16 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders error toast in ligh
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -508,9 +597,6 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders error toast in ligh
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -518,7 +604,21 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders error toast in ligh
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#EF4444"
@@ -547,37 +647,37 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders info toast in light
   }
 >
   <View
-    bg="$info100"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#e0f2fe",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <Info
         color="#3B82F6"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$info700"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#0369a1",
+            }
+          }
         >
           Here is some information
         </Text>
@@ -604,7 +704,16 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders info toast in light
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -614,9 +723,6 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders info toast in light
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -624,7 +730,21 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders info toast in light
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#3B82F6"
@@ -653,37 +773,37 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders success toast in li
   }
 >
   <View
-    bg="$success100"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#A2F1C0",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <CheckCircle
         color="#22C55E"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$success700"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#206F3E",
+            }
+          }
         >
           Operation completed!
         </Text>
@@ -710,7 +830,16 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders success toast in li
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -720,9 +849,6 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders success toast in li
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -730,7 +856,21 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders success toast in li
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#22C55E"
@@ -759,37 +899,37 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders warning toast in li
   }
 >
   <View
-    bg="$warning100"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#ffedd5",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <AlertTriangle
         color="#F59E0B"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$warning700"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#c2410c",
+            }
+          }
         >
           Please be careful
         </Text>
@@ -816,7 +956,16 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders warning toast in li
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -826,9 +975,6 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders warning toast in li
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -836,7 +982,21 @@ exports[`Toast Type Snapshots Light Mode Toast Types renders warning toast in li
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#F59E0B"
@@ -865,37 +1025,37 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with long mes
   }
 >
   <View
-    bg="$warning100"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#ffedd5",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <AlertTriangle
         color="#F59E0B"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$warning700"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#c2410c",
+            }
+          }
         >
           This is a very long message that might wrap to multiple lines on smaller screen sizes to ensure proper text handling
         </Text>
@@ -922,7 +1082,16 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with long mes
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -932,9 +1101,6 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with long mes
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -942,7 +1108,21 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with long mes
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#F59E0B"
@@ -971,37 +1151,37 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with short me
   }
 >
   <View
-    bg="$info100"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#e0f2fe",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <Info
         color="#3B82F6"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$info700"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#0369a1",
+            }
+          }
         >
           Done
         </Text>
@@ -1028,7 +1208,16 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with short me
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -1038,9 +1227,6 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with short me
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -1048,7 +1234,21 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with short me
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#3B82F6"
@@ -1077,37 +1277,37 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with special 
   }
 >
   <View
-    bg="$info100"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#e0f2fe",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <Info
         color="#3B82F6"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$info700"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#0369a1",
+            }
+          }
         >
           Operación completada con éxito 🎉
         </Text>
@@ -1134,7 +1334,16 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with special 
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -1144,9 +1353,6 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with special 
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -1154,7 +1360,21 @@ exports[`Toast Type Snapshots Toast Content Variants renders toast with special 
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#3B82F6"
@@ -1183,44 +1403,46 @@ exports[`Toast Type Snapshots Toast with Title renders error toast with title: T
   }
 >
   <View
-    bg="$error100"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#FECACA",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <AlertCircle
         color="#EF4444"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$error700"
-          fontSize="$sm"
-          fontWeight="$bold"
+          style={
+            {
+              "color": "#B91C1C",
+            }
+          }
         >
           Error
         </Text>
         <Text
-          color="$error700"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#B91C1C",
+            }
+          }
         >
           Please try again later
         </Text>
@@ -1247,7 +1469,16 @@ exports[`Toast Type Snapshots Toast with Title renders error toast with title: T
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -1257,9 +1488,6 @@ exports[`Toast Type Snapshots Toast with Title renders error toast with title: T
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -1267,7 +1495,21 @@ exports[`Toast Type Snapshots Toast with Title renders error toast with title: T
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#EF4444"
@@ -1296,44 +1538,46 @@ exports[`Toast Type Snapshots Toast with Title renders toast with title and mess
   }
 >
   <View
-    bg="$success100"
-    borderRadius="$xl"
-    elevation={5}
-    p="$3"
-    shadowColor="$black"
-    shadowOffset={
+    className="rounded-xl p-3"
+    style={
       {
-        "height": 2,
-        "width": 0,
+        "backgroundColor": "#A2F1C0",
+        "elevation": 5,
+        "shadowColor": "#000000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.15,
+        "shadowRadius": 8,
       }
     }
-    shadowOpacity={0.15}
-    shadowRadius={8}
   >
     <View
-      alignItems="center"
-      flex={1}
-      space="sm"
+      className="flex-row gap-2 flex-1 items-center"
     >
       <CheckCircle
         color="#22C55E"
         size={20}
       />
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$success700"
-          fontSize="$sm"
-          fontWeight="$bold"
+          style={
+            {
+              "color": "#206F3E",
+            }
+          }
         >
           Success!
         </Text>
         <Text
-          color="$success700"
-          fontSize="$sm"
-          fontWeight="$medium"
+          style={
+            {
+              "color": "#206F3E",
+            }
+          }
         >
           Your changes have been saved
         </Text>
@@ -1360,7 +1604,16 @@ exports[`Toast Type Snapshots Toast with Title renders toast with title and mess
           }
         }
         accessible={true}
-        alignItems="center"
+        className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 items-center justify-center p-1"
+        dataSet={
+          {
+            "active": "false",
+            "disabled": "false",
+            "focus": "false",
+            "focusVisible": "false",
+            "hover": "false",
+          }
+        }
         focusable={true}
         hitSlop={
           {
@@ -1370,9 +1623,6 @@ exports[`Toast Type Snapshots Toast with Title renders toast with title and mess
             "top": 10,
           }
         }
-        justifyContent="center"
-        minHeight={44}
-        minWidth={44}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -1380,7 +1630,21 @@ exports[`Toast Type Snapshots Toast with Title renders toast with title and mess
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        p="$1"
+        states={
+          {
+            "active": false,
+            "disabled": undefined,
+            "focus": false,
+            "focusVisible": false,
+            "hover": false,
+          }
+        }
+        style={
+          {
+            "minHeight": 44,
+            "minWidth": 44,
+          }
+        }
       >
         <X
           color="#22C55E"

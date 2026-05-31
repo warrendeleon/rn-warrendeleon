@@ -60,8 +60,8 @@ describe('LoginScreen Network Scenarios', () => {
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');
 
-      expect(emailInput.props.editable).not.toBe(false);
-      expect(passwordInput.props.editable).not.toBe(false);
+      expect(emailInput.props.readOnly).not.toBe(true);
+      expect(passwordInput.props.readOnly).not.toBe(true);
     });
 
     it('should allow form resubmission after timeout', async () => {

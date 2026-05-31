@@ -1,15 +1,12 @@
 import React, { useMemo } from 'react';
-import {
-  Box,
-  ChevronRightIcon,
-  HStack,
-  Icon,
-  Image,
-  Pressable,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
+import { ChevronRight } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Image } from '@app/components/ui/image';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { type GroupVariant, groupVariantRadius } from '@app/shared/components/shared';
 import { useAppColorScheme } from '@app/shared/hooks';
 
@@ -36,12 +33,12 @@ export interface UserCardProps {
 export const getUserCardStyles = (scheme: 'light' | 'dark', groupVariant: GroupVariant) => {
   const isDark = scheme === 'dark';
 
-  const bg = isDark ? '$backgroundDark900' : '$white';
-  const nameColor = isDark ? '$white' : '$black';
-  const emailColor = isDark ? '$textLight400' : '$textLight500';
-  const avatarBg = isDark ? '$backgroundDark700' : '$coolGray200';
-  const initialsColor = isDark ? '$textLight300' : '$textLight600';
-  const chevronColor = isDark ? '$textLight400' : '$textLight500';
+  const bg = isDark ? '#262626' : '#FFFFFF';
+  const nameColor = isDark ? '#FFFFFF' : '#000000';
+  const emailColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  const avatarBg = isDark ? '#525252' : '#e5e7eb';
+  const initialsColor = isDark ? '#D4D4D4' : '#737373';
+  const chevronColor = isDark ? '#A3A3A3' : '#8C8C8C';
 
   const { top, bottom } = groupVariantRadius[groupVariant];
 
@@ -98,41 +95,35 @@ export const UserCard = React.memo<UserCardProps>(
         accessibilityRole="button"
         accessibilityLabel={`Account for ${fullName}`}
         accessibilityHint="Opens account settings"
-        className="w-full flex-row items-center justify-between px-4"
-        py="$3"
-        bg={bg}
-        borderTopLeftRadius={top}
-        borderTopRightRadius={top}
-        borderBottomLeftRadius={bottom}
-        borderBottomRightRadius={bottom}
+        className="w-full flex-row items-center justify-between px-4 py-3"
+        style={{
+          backgroundColor: bg,
+          borderTopLeftRadius: top,
+          borderTopRightRadius: top,
+          borderBottomLeftRadius: bottom,
+          borderBottomRightRadius: bottom,
+        }}
       >
-        <HStack space="md" alignItems="center" flex={1}>
+        <HStack space="md" className="flex-1 items-center">
           {/* Avatar with profile picture or initials */}
           <Box
             testID="user-card-avatar"
-            w="$12"
-            h="$12"
-            borderRadius="$full"
-            alignItems="center"
-            justifyContent="center"
-            bg={avatarBg}
-            overflow="hidden"
+            className="h-12 w-12 items-center justify-center overflow-hidden rounded-full"
+            style={{ backgroundColor: avatarBg }}
           >
             {profilePictureUri ? (
               <Image
+                size="none"
                 source={{ uri: profilePictureUri }}
                 alt={fullName}
-                w="$12"
-                h="$12"
-                borderRadius={24}
+                className="h-12 w-12 rounded-[24px]"
                 testID="user-card-profile-picture"
               />
             ) : (
               <Text
                 testID="user-card-initials"
-                color={initialsColor}
-                fontSize="$lg"
-                fontWeight="$semibold"
+                className="text-lg font-semibold"
+                style={{ color: initialsColor }}
               >
                 {initials}
               </Text>
@@ -140,12 +131,11 @@ export const UserCard = React.memo<UserCardProps>(
           </Box>
 
           {/* User info */}
-          <VStack flex={1}>
+          <VStack className="flex-1">
             <Text
               testID="user-card-name"
-              color={nameColor}
-              fontWeight="$semibold"
-              fontSize="$md"
+              className="text-base font-semibold"
+              style={{ color: nameColor }}
               numberOfLines={1}
             >
               {fullName}
@@ -153,10 +143,9 @@ export const UserCard = React.memo<UserCardProps>(
             {email && (
               <Text
                 testID="user-card-email"
-                color={emailColor}
-                fontSize="$sm"
+                className="mt-0.5 text-sm"
+                style={{ color: emailColor }}
                 numberOfLines={1}
-                mt="$0.5"
               >
                 {email}
               </Text>
@@ -165,7 +154,7 @@ export const UserCard = React.memo<UserCardProps>(
         </HStack>
 
         {/* Chevron */}
-        {onPress && <Icon as={ChevronRightIcon} color={chevronColor} size="lg" />}
+        {onPress && <ChevronRight color={chevronColor} size={20} />}
       </Pressable>
     );
   }

@@ -21,10 +21,13 @@ exports[`ButtonGroup Snapshots Content Variants renders with Unicode characters:
       設定
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -33,10 +36,13 @@ exports[`ButtonGroup Snapshots Content Variants renders with Unicode characters:
       Настройки
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -67,10 +73,13 @@ exports[`ButtonGroup Snapshots Content Variants renders with empty labels: Butto
       testID="item-1-top-0"
     />
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -101,10 +110,13 @@ exports[`ButtonGroup Snapshots Content Variants renders with long labels: Button
       This is a very long label that might wrap to multiple lines
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -137,10 +149,13 @@ exports[`ButtonGroup Snapshots Content Variants renders with special characters:
       Configuración 🔧
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -149,10 +164,13 @@ exports[`ButtonGroup Snapshots Content Variants renders with special characters:
       Información & Ayuda
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -203,10 +221,13 @@ exports[`ButtonGroup Snapshots Item Count Variants renders many items correctly:
       Item 1
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -215,10 +236,13 @@ exports[`ButtonGroup Snapshots Item Count Variants renders many items correctly:
       Item 2
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -227,10 +251,13 @@ exports[`ButtonGroup Snapshots Item Count Variants renders many items correctly:
       Item 3
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -239,10 +266,13 @@ exports[`ButtonGroup Snapshots Item Count Variants renders many items correctly:
       Item 4
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -299,10 +329,13 @@ exports[`ButtonGroup Snapshots Item Count Variants renders three items correctly
       First Item
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -311,10 +344,13 @@ exports[`ButtonGroup Snapshots Item Count Variants renders three items correctly
       Middle Item
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text
@@ -347,10 +383,13 @@ exports[`ButtonGroup Snapshots Item Count Variants renders two items correctly: 
       First Item
     </Text>
     <View
-      bg="#C6C6C8"
-      h={0.5}
-      ml={64}
-      mr={16}
+      className="ml-16 mr-4"
+      style={
+        {
+          "backgroundColor": "#C6C6C8",
+          "height": 0.5,
+        }
+      }
       testID="button-group-divider"
     />
     <Text

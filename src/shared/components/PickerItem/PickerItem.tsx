@@ -1,6 +1,8 @@
 import React from 'react';
-import { HStack, Pressable, Text } from '@gluestack-ui/themed';
 
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
 import { type GroupVariant, groupVariantRadius } from '@app/shared/components/shared';
 import { useAppColorScheme } from '@app/shared/hooks';
 
@@ -21,8 +23,8 @@ type PickerItemProps = {
 export const getPickerItemStyles = (scheme: 'light' | 'dark', groupVariant: GroupVariant) => {
   const isDark = scheme === 'dark';
 
-  const bg = isDark ? '$backgroundDark900' : '$white';
-  const labelColor = isDark ? '$white' : '$black';
+  const bg = isDark ? '#262626' : '#FFFFFF'; // backgroundDark900 : white
+  const labelColor = isDark ? '#FFFFFF' : '#000000'; // white : black
 
   const { top, bottom } = groupVariantRadius[groupVariant];
 
@@ -47,25 +49,22 @@ export const PickerItem = React.memo<PickerItemProps>(
         accessibilityState={{ selected: isSelected }}
         onPress={onPress}
         testID={testID}
-        className="w-full flex-row items-center justify-between px-4"
-        py="$3"
-        bg={bg}
-        borderTopLeftRadius={top}
-        borderTopRightRadius={top}
-        borderBottomLeftRadius={bottom}
-        borderBottomRightRadius={bottom}
+        className="w-full flex-row items-center justify-between px-4 py-3"
+        style={{
+          backgroundColor: bg,
+          borderTopLeftRadius: top,
+          borderTopRightRadius: top,
+          borderBottomLeftRadius: bottom,
+          borderBottomRightRadius: bottom,
+        }}
       >
-        <HStack space="md" alignItems="center" flex={1}>
-          <Text color={labelColor} fontWeight="$semibold" lineHeight="$xl">
+        <HStack space="md" className="flex-1 items-center">
+          <Text className="font-semibold leading-[28px]" style={{ color: labelColor }}>
             {label}
           </Text>
         </HStack>
 
-        {isSelected && (
-          <Text className="text-xl" color="$blue600" fontWeight="$bold">
-            ✓
-          </Text>
-        )}
+        {isSelected && <Text className="text-xl font-bold text-blue-600">✓</Text>}
       </Pressable>
     );
   }

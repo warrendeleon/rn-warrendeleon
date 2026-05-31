@@ -77,6 +77,6 @@ describe('PhoneInput Stories', () => {
     const { getByTestId } = await renderWithProviders(
       <PhoneInput {...(args as PhoneInputProps)} onChangeText={jest.fn()} testID="phone-input" />
     );
-    expect(getByTestId('phone-input').props.editable).toBe(false);
+    expect(getByTestId('phone-input').props.readOnly).toBe(true);
   });
 });

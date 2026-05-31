@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Pressable } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 
+import { Pressable } from '@app/components/ui/pressable';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 export const HeaderBackButton: React.FC = React.memo(() => {

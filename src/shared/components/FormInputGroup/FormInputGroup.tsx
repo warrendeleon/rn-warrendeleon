@@ -1,10 +1,11 @@
-import type { ComponentProps } from 'react';
 import React from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 import { useAppColorScheme } from '@app/shared/hooks';
 
-type BoxProps = ComponentProps<typeof Box>;
+/** Spacing token (e.g. '$4') used for margin overrides. */
+type SpacingToken = `$${number}`;
 
 export type FormInputGroupProps = {
   /** Group title displayed above the inputs */
@@ -14,9 +15,9 @@ export type FormInputGroupProps = {
   /** Test ID for testing */
   testID?: string;
   /** Horizontal margin (default: '$4') */
-  mx?: BoxProps['mx'];
+  mx?: SpacingToken;
   /** Top margin (default: '$6') */
-  mt?: BoxProps['mt'];
+  mt?: SpacingToken;
 };
 
 /**
@@ -62,15 +63,17 @@ export const FormInputGroup: React.FC<FormInputGroupProps> = ({
   const isDark = colorScheme === 'dark';
 
   return (
-    <Box mx={mx} mt={mt} testID={testID}>
+    <Box
+      style={{
+        marginHorizontal: Number(mx.slice(1)) * 4,
+        marginTop: Number(mt.slice(1)) * 4,
+      }}
+      testID={testID}
+    >
       {title && (
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={isDark ? '$textDark400' : '$textLight500'}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
           accessibilityRole="header"
         >
           {title}

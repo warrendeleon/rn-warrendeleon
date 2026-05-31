@@ -1,7 +1,10 @@
 import React from 'react';
-import { Box, HStack, Text, VStack } from '@gluestack-ui/themed';
 import { AlertCircle, CheckCircle, Info } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 export type AlertBoxVariant = 'error' | 'success' | 'info';
@@ -22,52 +25,52 @@ export interface AlertBoxProps {
 const VARIANT_CONFIG = {
   error: {
     light: {
-      bg: '$red100',
-      border: '$red300',
+      bg: '#fee2e2',
+      border: '#fca5a5',
       iconColor: '#DC2626',
-      titleColor: '$red800',
-      textColor: '$red700',
+      titleColor: '#991b1b',
+      textColor: '#b91c1c',
     },
     dark: {
-      bg: '$red900',
-      border: '$red700',
+      bg: '#7f1d1d',
+      border: '#b91c1c',
       iconColor: '#FCA5A5',
-      titleColor: '$red200',
-      textColor: '$red300',
+      titleColor: '#fecaca',
+      textColor: '#fca5a5',
     },
     Icon: AlertCircle,
   },
   success: {
     light: {
-      bg: '$green100',
-      border: '$green300',
+      bg: '#dcfce7',
+      border: '#86efac',
       iconColor: '#16A34A',
-      titleColor: '$green800',
-      textColor: '$green700',
+      titleColor: '#166534',
+      textColor: '#15803d',
     },
     dark: {
-      bg: '$green900',
-      border: '$green700',
+      bg: '#14532d',
+      border: '#15803d',
       iconColor: '#86EFAC',
-      titleColor: '$green200',
-      textColor: '$green300',
+      titleColor: '#bbf7d0',
+      textColor: '#86efac',
     },
     Icon: CheckCircle,
   },
   info: {
     light: {
-      bg: '$blue100',
-      border: '$blue300',
+      bg: '#dbeafe',
+      border: '#93c5fd',
       iconColor: '#2563EB',
-      titleColor: '$blue800',
-      textColor: '$blue700',
+      titleColor: '#1e40af',
+      textColor: '#1d4ed8',
     },
     dark: {
-      bg: '$blue900',
-      border: '$blue700',
+      bg: '#1e3a8a',
+      border: '#1d4ed8',
       iconColor: '#93C5FD',
-      titleColor: '$blue200',
-      textColor: '$blue300',
+      titleColor: '#bfdbfe',
+      textColor: '#93c5fd',
     },
     Icon: Info,
   },
@@ -96,29 +99,26 @@ export const AlertBox: React.FC<AlertBoxProps> = ({
 
   return (
     <Box
-      bg={colors.bg}
-      borderRadius="$xl"
-      p={title ? '$4' : '$3'}
-      borderWidth={1}
-      borderColor={colors.border}
+      className={`rounded-xl border ${title ? 'p-4' : 'p-3'}`}
+      style={{ backgroundColor: colors.bg, borderColor: colors.border }}
       testID={testID}
       accessibilityRole="alert"
       accessibilityLabel={title ? `${title}: ${message}` : message}
       accessibilityLiveRegion={accessibilityLiveRegion}
     >
-      <HStack space={title ? 'md' : 'sm'} alignItems={title ? 'flex-start' : 'center'}>
+      <HStack space={title ? 'md' : 'sm'} className={title ? 'items-start' : 'items-center'}>
         <IconComponent size={iconSize} color={colors.iconColor} />
         {title ? (
-          <VStack flex={1} space="xs">
-            <Text color={colors.titleColor} fontWeight="$semibold" fontSize="$md">
+          <VStack space="xs" className="flex-1">
+            <Text className="text-base font-semibold" style={{ color: colors.titleColor }}>
               {title}
             </Text>
-            <Text color={colors.textColor} fontSize="$sm">
+            <Text className="text-sm" style={{ color: colors.textColor }}>
               {message}
             </Text>
           </VStack>
         ) : (
-          <Text color={colors.textColor} flex={1} fontSize="$sm">
+          <Text className="flex-1 text-sm" style={{ color: colors.textColor }}>
             {message}
           </Text>
         )}

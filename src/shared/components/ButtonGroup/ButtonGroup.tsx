@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { Box } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
 import {
   ButtonGroupDivider,
   getButtonGroupVariant,

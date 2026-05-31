@@ -1,8 +1,12 @@
 import React from 'react';
 import { Modal, StyleSheet } from 'react-native';
-import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { BlurView } from '@react-native-community/blur';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 export interface ConfirmDialogButton {
@@ -65,23 +69,19 @@ export function ConfirmDialog({
       accessibilityViewIsModal
     >
       <Box
-        flex={1}
-        bg="rgba(0, 0, 0, 0.4)"
-        justifyContent="center"
-        alignItems="center"
-        px="$10"
+        className="flex-1 items-center justify-center px-10"
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
         testID={`${testID}-overlay`}
       >
         <Box
-          w="$full"
-          maxWidth={270}
-          borderRadius={28}
-          overflow="hidden"
-          shadowColor="$black"
-          shadowOffset={{ width: 0, height: 2 }}
-          shadowOpacity={0.25}
-          shadowRadius={10}
-          elevation={5}
+          className="w-full max-w-[270px] overflow-hidden rounded-[28px]"
+          style={{
+            shadowColor: '#000000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.25,
+            shadowRadius: 10,
+            elevation: 5,
+          }}
           testID={`${testID}-content`}
           accessibilityRole="alert"
         >
@@ -94,11 +94,10 @@ export function ConfirmDialog({
           />
 
           {/* Title and Message - Left aligned like iOS 18+ */}
-          <VStack px="$5" pt="$4" pb="$3">
+          <VStack className="px-5 pb-3 pt-4">
             <Text
-              fontSize={17}
-              fontWeight="$semibold"
-              color={isDark ? '$white' : '$black'}
+              className="text-[17px] font-semibold"
+              style={{ color: isDark ? '#FFFFFF' : '#000000' }}
               testID={`${testID}-title`}
               accessibilityRole="header"
             >
@@ -106,9 +105,8 @@ export function ConfirmDialog({
             </Text>
             {message && (
               <Text
-                fontSize={13}
-                color={isDark ? '$textDark400' : '$textLight600'}
-                mt="$0.5"
+                className="mt-0.5 text-[13px]"
+                style={{ color: isDark ? '#A3A3A3' : '#737373' }}
                 testID={`${testID}-message`}
               >
                 {message}
@@ -117,7 +115,7 @@ export function ConfirmDialog({
           </VStack>
 
           {/* Buttons - Pill shaped like iOS 18+ */}
-          <HStack px="$3" pb="$3" space="sm">
+          <HStack space="sm" className="px-3 pb-3">
             {buttons.map((button, index) => (
               <DialogButton
                 key={button.text}
@@ -150,27 +148,24 @@ function DialogButton({ button, onPress, testID, isDark }: DialogButtonProps) {
   const defaultBg = isDark ? 'rgba(99, 99, 102, 0.24)' : 'rgba(120, 120, 128, 0.12)';
 
   // Text color for non-destructive buttons
-  const textColor = isDestructive ? '$error500' : isDark ? '$white' : '$textLight900';
+  const textColor = isDestructive ? '#E63535' : isDark ? '#FFFFFF' : '#262626';
 
   return (
     <Pressable
-      flex={1}
-      alignItems="center"
-      justifyContent="center"
-      py="$2.5"
-      borderRadius="$full"
-      bg={isCancel ? cancelBg : defaultBg}
+      className="flex-1 items-center justify-center rounded-full py-2.5"
+      style={({ pressed }) => ({
+        backgroundColor: isCancel ? cancelBg : defaultBg,
+        opacity: pressed ? 0.7 : 1,
+      })}
       onPress={onPress}
       testID={testID}
       accessibilityRole="button"
       accessibilityLabel={button.text}
-      sx={{
-        ':pressed': {
-          opacity: 0.7,
-        },
-      }}
     >
-      <Text fontSize={17} fontWeight={isCancel ? '$semibold' : '$normal'} color={textColor}>
+      <Text
+        className={isCancel ? 'text-[17px] font-semibold' : 'text-[17px] font-normal'}
+        style={{ color: textColor }}
+      >
         {button.text}
       </Text>
     </Pressable>

@@ -15,9 +15,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Platform } from 'react-native';
-import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { Camera, ImageIcon, Trash2 } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 export interface ProfilePictureActionSheetProps {
@@ -52,6 +56,7 @@ const ActionItem: React.FC<ActionItemProps> = ({
 }) => {
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
+  const [pressed, setPressed] = useState(false);
 
   // iOS 26 style colours
   const textColor = destructive ? '#FF453A' : isDark ? '#FFFFFF' : '#000000';
@@ -61,23 +66,20 @@ const ActionItem: React.FC<ActionItemProps> = ({
   return (
     <Pressable
       onPress={onPress}
-      py="$3.5"
-      px="$5"
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+      className="rounded-[25px] px-5 py-3.5"
       accessibilityRole="button"
       accessibilityLabel={label}
       testID={testID}
-      minHeight={Platform.OS === 'ios' ? 50 : 48}
-      borderRadius={25}
-      bg={bgColor}
-      sx={{
-        ':active': {
-          bg: pressedBg,
-        },
+      style={{
+        minHeight: Platform.OS === 'ios' ? 50 : 48,
+        backgroundColor: pressed ? pressedBg : bgColor,
       }}
     >
-      <HStack alignItems="center" justifyContent="center" space="sm">
+      <HStack space="sm" className="items-center justify-center">
         {icon}
-        <Text size="md" fontWeight="$medium" color={textColor}>
+        <Text size="md" className="font-medium" style={{ color: textColor }}>
           {label}
         </Text>
       </HStack>
@@ -191,15 +193,11 @@ export const ProfilePictureActionSheet: React.FC<ProfilePictureActionSheetProps>
       onRequestClose={handleBackdropPress}
       statusBarTranslucent
     >
-      <Box flex={1} justifyContent="center" alignItems="center">
+      <Box className="flex-1 items-center justify-center">
         {/* Backdrop - tap to dismiss */}
         <Pressable
-          position="absolute"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          bg="rgba(0, 0, 0, 0.3)"
+          className="absolute inset-0"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
           onPress={handleBackdropPress}
           accessibilityRole="button"
           accessibilityLabel={t('common.close', 'Close')}
@@ -208,24 +206,22 @@ export const ProfilePictureActionSheet: React.FC<ProfilePictureActionSheetProps>
 
         {/* Action Sheet - Floating Card */}
         <Box
-          bg={isDark ? 'rgba(28, 28, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)'}
-          borderRadius={20}
-          p="$4"
-          mx="$6"
-          maxWidth={300}
+          className="mx-6 max-w-[300px] rounded-[20px] p-4"
+          style={{
+            backgroundColor: isDark ? 'rgba(28, 28, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+            shadowColor: '#000000',
+            shadowOffset: { width: 0, height: 8 },
+            shadowOpacity: 0.15,
+            shadowRadius: 24,
+            elevation: 8,
+          }}
           testID="profile-picture-action-sheet"
-          shadowColor="$black"
-          shadowOffset={{ width: 0, height: 8 }}
-          shadowOpacity={0.15}
-          shadowRadius={24}
-          elevation={8}
         >
           {/* Title */}
           <Text
             size="sm"
-            color={isDark ? '#8E8E93' : '#6C6C70'}
-            textAlign="center"
-            mb="$3"
+            className="mb-3 text-center"
+            style={{ color: isDark ? '#8E8E93' : '#6C6C70' }}
             accessibilityRole="header"
             testID="profile-picture-action-sheet-title"
           >

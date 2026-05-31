@@ -15,18 +15,21 @@ exports[`FormInputGroup Snapshots Children Variants renders with multiple childr
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Multiple Children
     </Text>
@@ -58,24 +61,31 @@ exports[`FormInputGroup Snapshots Children Variants renders with nested componen
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Nested
     </Text>
     <View
-      mt="$6"
-      mx="$4"
+      style={
+        {
+          "marginHorizontal": 16,
+          "marginTop": 24,
+        }
+      }
       testID="nested-group"
     >
       <Text>
@@ -101,18 +111,21 @@ exports[`FormInputGroup Snapshots Children Variants renders with single child: F
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Single Child
     </Text>
@@ -138,18 +151,21 @@ exports[`FormInputGroup Snapshots Dark Mode renders with title in dark mode: For
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textDark400"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#A3A3A3",
+        }
+      }
     >
       Account Details
     </Text>
@@ -175,8 +191,12 @@ exports[`FormInputGroup Snapshots Dark Mode renders without title in dark mode: 
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text>
@@ -201,18 +221,21 @@ exports[`FormInputGroup Snapshots Light Mode renders with title in light mode: F
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Account Details
     </Text>
@@ -238,8 +261,12 @@ exports[`FormInputGroup Snapshots Light Mode renders without title in light mode
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text>
@@ -264,18 +291,21 @@ exports[`FormInputGroup Snapshots Spacing Variants renders with custom horizonta
   }
 >
   <View
-    mt="$6"
-    mx="$8"
+    style={
+      {
+        "marginHorizontal": 32,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Custom Margin
     </Text>
@@ -301,18 +331,21 @@ exports[`FormInputGroup Snapshots Spacing Variants renders with custom top margi
   }
 >
   <View
-    mt="$10"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 40,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Custom Top
     </Text>
@@ -338,18 +371,21 @@ exports[`FormInputGroup Snapshots Spacing Variants renders with default spacing:
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Default Spacing
     </Text>
@@ -375,18 +411,21 @@ exports[`FormInputGroup Snapshots Spacing Variants renders with zero margins: Fo
   }
 >
   <View
-    mt="$0"
-    mx="$0"
+    style={
+      {
+        "marginHorizontal": 0,
+        "marginTop": 0,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Zero Margins
     </Text>
@@ -412,18 +451,21 @@ exports[`FormInputGroup Snapshots Title Variants renders with long title: FormIn
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Personal Information and Contact Details
     </Text>
@@ -449,18 +491,21 @@ exports[`FormInputGroup Snapshots Title Variants renders with lowercase title (g
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       account details
     </Text>
@@ -486,18 +531,21 @@ exports[`FormInputGroup Snapshots Title Variants renders with short title: FormI
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Info
     </Text>
@@ -523,18 +571,21 @@ exports[`FormInputGroup Snapshots Title Variants renders with special characters
   }
 >
   <View
-    mt="$6"
-    mx="$4"
+    style={
+      {
+        "marginHorizontal": 16,
+        "marginTop": 24,
+      }
+    }
     testID="form-group"
   >
     <Text
       accessibilityRole="header"
-      color="$textLight500"
-      fontSize="$xs"
-      fontWeight="$medium"
-      mb="$2"
-      ml="$4"
-      textTransform="uppercase"
+      style={
+        {
+          "color": "#8C8C8C",
+        }
+      }
     >
       Información Personal
     </Text>

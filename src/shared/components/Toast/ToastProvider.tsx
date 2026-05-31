@@ -1,9 +1,13 @@
 import React, { createContext, useCallback, useContext, useRef, useState } from 'react';
 import { Animated, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import { AlertCircle, AlertTriangle, CheckCircle, Info, X } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 /**
@@ -69,8 +73,7 @@ const DEFAULT_DURATIONS: Record<ToastType, number> = {
 };
 
 /**
- * GlueStack UI token-based color configurations for each toast type
- * Uses semantic color tokens that automatically adapt to light/dark mode
+ * Color configurations for each toast type, resolved to hex per light/dark mode.
  */
 const TOAST_STYLES: Record<
   ToastType,
@@ -80,20 +83,20 @@ const TOAST_STYLES: Record<
   }
 > = {
   success: {
-    light: { bg: '$success100', text: '$success700', iconColor: '$success500' },
-    dark: { bg: '$success900', text: '$success200', iconColor: '$success300' },
+    light: { bg: '#A2F1C0', text: '#206F3E', iconColor: '#348352' },
+    dark: { bg: '#14532D', text: '#84D3A2', iconColor: '#66B584' },
   },
   error: {
-    light: { bg: '$error100', text: '$error700', iconColor: '$error500' },
-    dark: { bg: '$error900', text: '$error200', iconColor: '$error300' },
+    light: { bg: '#FECACA', text: '#B91C1C', iconColor: '#E63535' },
+    dark: { bg: '#991B1B', text: '#FCA5A5', iconColor: '#F87171' },
   },
   info: {
-    light: { bg: '$info100', text: '$info700', iconColor: '$info500' },
-    dark: { bg: '$info900', text: '$info200', iconColor: '$info300' },
+    light: { bg: '#e0f2fe', text: '#0369a1', iconColor: '#0ea5e9' },
+    dark: { bg: '#0c4a6e', text: '#bae6fd', iconColor: '#7dd3fc' },
   },
   warning: {
-    light: { bg: '$warning100', text: '$warning700', iconColor: '$warning500' },
-    dark: { bg: '$warning900', text: '$warning200', iconColor: '$warning300' },
+    light: { bg: '#ffedd5', text: '#c2410c', iconColor: '#f97316' },
+    dark: { bg: '#7c2d12', text: '#fed7aa', iconColor: '#fdba74' },
   },
 };
 
@@ -219,28 +222,32 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
           accessibilityLabel={accessibilityLabel}
         >
           <Box
-            bg={styles.bg}
-            borderRadius="$xl"
-            p="$3"
-            shadowColor="$black"
-            shadowOffset={{ width: 0, height: 2 }}
-            shadowOpacity={0.15}
-            shadowRadius={8}
-            elevation={5}
+            className="rounded-xl p-3"
+            style={{
+              backgroundColor: styles.bg,
+              shadowColor: '#000000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.15,
+              shadowRadius: 8,
+              elevation: 5,
+            }}
             testID="toast-content"
           >
-            <HStack space="sm" alignItems="center" flex={1}>
+            <HStack space="sm" className="flex-1 items-center">
               <ToastIcon type={type} isDark={isDark} />
-              <VStack flex={1} space="xs">
+              <VStack space="xs" className="flex-1">
                 {toastConfig.title && (
-                  <Text color={styles.text} fontSize="$sm" fontWeight="$bold" testID="toast-title">
+                  <Text
+                    className="text-sm font-bold"
+                    style={{ color: styles.text }}
+                    testID="toast-title"
+                  >
                     {toastConfig.title}
                   </Text>
                 )}
                 <Text
-                  color={styles.text}
-                  fontSize="$sm"
-                  fontWeight="$medium"
+                  className="text-sm font-medium"
+                  style={{ color: styles.text }}
                   testID="toast-message"
                 >
                   {toastConfig.message}
@@ -251,19 +258,13 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
                       toastConfig.action?.onPress();
                       hideToast();
                     }}
-                    minHeight={44}
-                    justifyContent="center"
-                    mt="$1"
+                    className="mt-1 justify-center"
+                    style={{ minHeight: 44 }}
                     accessibilityRole="button"
                     accessibilityLabel={toastConfig.action.label}
                     testID={toastConfig.action.testID ?? 'toast-action-button'}
                   >
-                    <Text
-                      color={styles.text}
-                      fontSize="$sm"
-                      fontWeight="$bold"
-                      textDecorationLine="underline"
-                    >
+                    <Text className="text-sm font-bold underline" style={{ color: styles.text }}>
                       {toastConfig.action.label}
                     </Text>
                   </Pressable>
@@ -276,11 +277,8 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
                   accessibilityRole="button"
                   accessibilityLabel="Dismiss notification"
                   accessibilityHint="Double tap to dismiss this notification"
-                  p="$1"
-                  minWidth={44}
-                  minHeight={44}
-                  justifyContent="center"
-                  alignItems="center"
+                  className="items-center justify-center p-1"
+                  style={{ minWidth: 44, minHeight: 44 }}
                   testID="toast-dismiss-button"
                 >
                   <X size={18} color={iconColor} />

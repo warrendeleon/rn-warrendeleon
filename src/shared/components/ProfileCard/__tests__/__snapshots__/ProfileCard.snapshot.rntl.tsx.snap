@@ -36,10 +36,17 @@ exports[`ProfileCard Snapshots Avatar Variants renders with empty avatar URL: Pr
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -50,16 +57,32 @@ exports[`ProfileCard Snapshots Avatar Variants renders with empty avatar URL: Pr
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -69,6 +92,8 @@ exports[`ProfileCard Snapshots Avatar Variants renders with empty avatar URL: Pr
         />
         <Image
           alt="Warren de Leon"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "",
@@ -77,30 +102,104 @@ exports[`ProfileCard Snapshots Avatar Variants renders with empty avatar URL: Pr
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           Warren de Leon
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -142,10 +241,17 @@ exports[`ProfileCard Snapshots Avatar Variants renders with placeholder avatar U
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -156,16 +262,32 @@ exports[`ProfileCard Snapshots Avatar Variants renders with placeholder avatar U
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -175,6 +297,8 @@ exports[`ProfileCard Snapshots Avatar Variants renders with placeholder avatar U
         />
         <Image
           alt="Warren de Leon"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://via.placeholder.com/150",
@@ -183,30 +307,104 @@ exports[`ProfileCard Snapshots Avatar Variants renders with placeholder avatar U
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           Warren de Leon
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -248,10 +446,17 @@ exports[`ProfileCard Snapshots Avatar Variants renders with valid avatar URL: Pr
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -262,16 +467,32 @@ exports[`ProfileCard Snapshots Avatar Variants renders with valid avatar URL: Pr
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -281,6 +502,8 @@ exports[`ProfileCard Snapshots Avatar Variants renders with valid avatar URL: Pr
         />
         <Image
           alt="Warren de Leon"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://example.com/avatar.png",
@@ -289,30 +512,104 @@ exports[`ProfileCard Snapshots Avatar Variants renders with valid avatar URL: Pr
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           Warren de Leon
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -354,10 +651,17 @@ exports[`ProfileCard Snapshots Dark Mode renders default state in dark mode: Pro
       }
     }
     accessible={true}
-    bg="$backgroundDark900"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -368,16 +672,32 @@ exports[`ProfileCard Snapshots Dark Mode renders default state in dark mode: Pro
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#262626",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray700"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#374151",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -387,6 +707,8 @@ exports[`ProfileCard Snapshots Dark Mode renders default state in dark mode: Pro
         />
         <Image
           alt="Warren de Leon"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://example.com/avatar.jpg",
@@ -395,30 +717,104 @@ exports[`ProfileCard Snapshots Dark Mode renders default state in dark mode: Pro
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$white"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#FFFFFF",
+            }
+          }
         >
           Warren de Leon
         </Text>
         <Text
-          color="$textLight400"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#A3A3A3",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight400"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#A3A3A3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4288914339,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4288914339,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -460,10 +856,17 @@ exports[`ProfileCard Snapshots Light Mode renders default state in light mode: P
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -474,16 +877,32 @@ exports[`ProfileCard Snapshots Light Mode renders default state in light mode: P
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -493,6 +912,8 @@ exports[`ProfileCard Snapshots Light Mode renders default state in light mode: P
         />
         <Image
           alt="Warren de Leon"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://example.com/avatar.jpg",
@@ -501,30 +922,104 @@ exports[`ProfileCard Snapshots Light Mode renders default state in light mode: P
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           Warren de Leon
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -566,10 +1061,17 @@ exports[`ProfileCard Snapshots Light Mode renders with custom testID in light mo
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -580,16 +1082,32 @@ exports[`ProfileCard Snapshots Light Mode renders with custom testID in light mo
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="custom-profile"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -599,6 +1117,8 @@ exports[`ProfileCard Snapshots Light Mode renders with custom testID in light mo
         />
         <Image
           alt="Warren de Leon"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://example.com/avatar.jpg",
@@ -607,30 +1127,104 @@ exports[`ProfileCard Snapshots Light Mode renders with custom testID in light mo
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           Warren de Leon
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -672,10 +1266,17 @@ exports[`ProfileCard Snapshots Name Variants renders with Unicode characters: Pr
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -686,16 +1287,32 @@ exports[`ProfileCard Snapshots Name Variants renders with Unicode characters: Pr
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -705,6 +1322,8 @@ exports[`ProfileCard Snapshots Name Variants renders with Unicode characters: Pr
         />
         <Image
           alt="田中 太郎"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://example.com/avatar.jpg",
@@ -713,30 +1332,104 @@ exports[`ProfileCard Snapshots Name Variants renders with Unicode characters: Pr
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           田中 太郎
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -778,10 +1471,17 @@ exports[`ProfileCard Snapshots Name Variants renders with emoji in name: Profile
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -792,16 +1492,32 @@ exports[`ProfileCard Snapshots Name Variants renders with emoji in name: Profile
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -811,6 +1527,8 @@ exports[`ProfileCard Snapshots Name Variants renders with emoji in name: Profile
         />
         <Image
           alt="John 👨‍💻 Doe"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://example.com/avatar.jpg",
@@ -819,30 +1537,104 @@ exports[`ProfileCard Snapshots Name Variants renders with emoji in name: Profile
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           John 👨‍💻 Doe
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -884,10 +1676,17 @@ exports[`ProfileCard Snapshots Name Variants renders with long name: ProfileCard
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -898,16 +1697,32 @@ exports[`ProfileCard Snapshots Name Variants renders with long name: ProfileCard
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -917,6 +1732,8 @@ exports[`ProfileCard Snapshots Name Variants renders with long name: ProfileCard
         />
         <Image
           alt="Extraordinarily LongLastNameThatCouldPotentiallyCauseLayoutIssues"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://example.com/avatar.jpg",
@@ -925,30 +1742,104 @@ exports[`ProfileCard Snapshots Name Variants renders with long name: ProfileCard
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           Extraordinarily LongLastNameThatCouldPotentiallyCauseLayoutIssues
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -990,10 +1881,17 @@ exports[`ProfileCard Snapshots Name Variants renders with short name: ProfileCar
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -1004,16 +1902,32 @@ exports[`ProfileCard Snapshots Name Variants renders with short name: ProfileCar
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -1023,6 +1937,8 @@ exports[`ProfileCard Snapshots Name Variants renders with short name: ProfileCar
         />
         <Image
           alt="J D"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://example.com/avatar.jpg",
@@ -1031,30 +1947,104 @@ exports[`ProfileCard Snapshots Name Variants renders with short name: ProfileCar
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           J D
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -1096,10 +2086,17 @@ exports[`ProfileCard Snapshots Name Variants renders with special characters in 
       }
     }
     accessible={true}
-    bg="$white"
-    borderRadius="$2xl"
-    className="w-full"
+    className="data-[focus-visible=true]:outline-none data-[focus-visible=true]:ring-indicator-info data-[focus-visible=true]:ring-2 data-[disabled=true]:opacity-40 w-full rounded-2xl p-3"
     collapsable={false}
+    dataSet={
+      {
+        "active": "false",
+        "disabled": "false",
+        "focus": "false",
+        "focusVisible": "false",
+        "hover": "false",
+      }
+    }
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -1110,16 +2107,32 @@ exports[`ProfileCard Snapshots Name Variants renders with special characters in 
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    p="$3"
+    states={
+      {
+        "active": false,
+        "disabled": undefined,
+        "focus": false,
+        "focusVisible": false,
+        "hover": false,
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#FFFFFF",
+      }
+    }
     testID="profile-card"
   >
     <View
-      alignItems="center"
-      space="md"
+      className="flex-row gap-3 items-center"
     >
       <View
-        bg="$coolGray200"
-        size="md"
+        className="rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5 w-12 h-12"
+        style={
+          {
+            "backgroundColor": "#E5E7EB",
+          }
+        }
         testID="profile-card-avatar"
       >
         <MaterialCommunityIcons
@@ -1129,6 +2142,8 @@ exports[`ProfileCard Snapshots Name Variants renders with special characters in 
         />
         <Image
           alt="José García-Pérez"
+          className="h-full w-full rounded-full absolute z-10"
+          onError={[Function]}
           source={
             {
               "uri": "https://example.com/avatar.jpg",
@@ -1137,30 +2152,104 @@ exports[`ProfileCard Snapshots Name Variants renders with special characters in 
         />
       </View>
       <View
-        flex={1}
-        space="xs"
+        className="flex-col gap-1 flex-1"
       >
         <Text
-          color="$black"
-          fontSize="$md"
-          fontWeight="$semibold"
-          lineHeight="$lg"
+          style={
+            {
+              "color": "#000000",
+            }
+          }
         >
           José García-Pérez
         </Text>
         <Text
-          color="$textLight500"
-          fontSize="$sm"
-          lineHeight="$sm"
+          style={
+            {
+              "color": "#8C8C8C",
+            }
+          }
         >
           View Profile
         </Text>
       </View>
-      <View
-        as={[Function]}
-        color="$textLight500"
-        size="lg"
-      />
+      <RNSVGSvgView
+        align="xMidYMid"
+        bbHeight={20}
+        bbWidth={20}
+        fill="none"
+        focusable={false}
+        height={20}
+        meetOrSlice={0}
+        minX={0}
+        minY={0}
+        stroke="#8C8C8C"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        style={
+          [
+            {
+              "backgroundColor": "transparent",
+              "borderWidth": 0,
+            },
+            {
+              "flex": 0,
+              "height": 20,
+              "width": 20,
+            },
+          ]
+        }
+        vbHeight={24}
+        vbWidth={24}
+        width={20}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <RNSVGGroup
+          fill={null}
+          propList={
+            [
+              "fill",
+              "stroke",
+              "strokeWidth",
+              "strokeLinecap",
+              "strokeLinejoin",
+            ]
+          }
+          stroke={
+            {
+              "payload": 4287401100,
+              "type": 0,
+            }
+          }
+          strokeLinecap={1}
+          strokeLinejoin={1}
+          strokeWidth={2}
+        >
+          <RNSVGPath
+            d="m9 18 6-6-6-6"
+            fill={null}
+            propList={
+              [
+                "fill",
+                "stroke",
+                "strokeWidth",
+                "strokeLinecap",
+                "strokeLinejoin",
+              ]
+            }
+            stroke={
+              {
+                "payload": 4287401100,
+                "type": 0,
+              }
+            }
+            strokeLinecap={1}
+            strokeLinejoin={1}
+            strokeWidth={2}
+          />
+        </RNSVGGroup>
+      </RNSVGSvgView>
     </View>
   </View>
 </View>
@@ -1168,22 +2257,22 @@ exports[`ProfileCard Snapshots Name Variants renders with special characters in 
 
 exports[`getProfileCardStyles Snapshots dark mode styles match snapshot: getProfileCardStyles - Dark Mode 1`] = `
 {
-  "avatarBg": "$coolGray700",
+  "avatarBg": "#374151",
   "avatarIconColor": "#9CA3AF",
-  "bg": "$backgroundDark900",
-  "chevronColor": "$textLight400",
-  "nameColor": "$white",
-  "subtitleColor": "$textLight400",
+  "bg": "#262626",
+  "chevronColor": "#A3A3A3",
+  "nameColor": "#FFFFFF",
+  "subtitleColor": "#A3A3A3",
 }
 `;
 
 exports[`getProfileCardStyles Snapshots light mode styles match snapshot: getProfileCardStyles - Light Mode 1`] = `
 {
-  "avatarBg": "$coolGray200",
+  "avatarBg": "#E5E7EB",
   "avatarIconColor": "#6B7280",
-  "bg": "$white",
-  "chevronColor": "$textLight500",
-  "nameColor": "$black",
-  "subtitleColor": "$textLight500",
+  "bg": "#FFFFFF",
+  "chevronColor": "#8C8C8C",
+  "nameColor": "#000000",
+  "subtitleColor": "#8C8C8C",
 }
 `;

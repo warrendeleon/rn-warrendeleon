@@ -1,9 +1,12 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SvgUri } from 'react-native-svg';
-import { Box, Pressable, Spinner, Text } from '@gluestack-ui/themed';
 import { ChevronRight } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Pressable } from '@app/components/ui/pressable';
+import { Spinner } from '@app/components/ui/spinner';
+import { Text } from '@app/components/ui/text';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 export interface DetailListGroupItem {
@@ -32,7 +35,7 @@ export const DetailListGroup = React.memo<DetailListGroupProps>(({ items, loadin
   if (loading) {
     return (
       <Box style={[styles.container, { backgroundColor: isDark ? '#1C1C1E' : '#FFFFFF' }]}>
-        <Spinner testID="activity-indicator" size="large" color={isDark ? '$white' : '$black'} />
+        <Spinner testID="activity-indicator" size="large" color={isDark ? '#FFFFFF' : '#000000'} />
       </Box>
     );
   }

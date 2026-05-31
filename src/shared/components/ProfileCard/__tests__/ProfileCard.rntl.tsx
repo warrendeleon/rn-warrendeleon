@@ -191,19 +191,19 @@ describe('getProfileCardStyles', () => {
   it('returns light mode styles', () => {
     const styles = getProfileCardStyles('light');
 
-    expect(styles.bg).toBe('$white');
-    expect(styles.nameColor).toBe('$black');
-    expect(styles.subtitleColor).toBe('$textLight500');
-    expect(styles.chevronColor).toBe('$textLight500');
+    expect(styles.bg).toBe('#FFFFFF');
+    expect(styles.nameColor).toBe('#000000');
+    expect(styles.subtitleColor).toBe('#8C8C8C');
+    expect(styles.chevronColor).toBe('#8C8C8C');
   });
 
   it('returns dark mode styles', () => {
     const styles = getProfileCardStyles('dark');
 
-    expect(styles.bg).toBe('$backgroundDark900');
-    expect(styles.nameColor).toBe('$white');
-    expect(styles.subtitleColor).toBe('$textLight400');
-    expect(styles.chevronColor).toBe('$textLight400');
+    expect(styles.bg).toBe('#262626');
+    expect(styles.nameColor).toBe('#FFFFFF');
+    expect(styles.subtitleColor).toBe('#A3A3A3');
+    expect(styles.chevronColor).toBe('#A3A3A3');
   });
 
   it('returns different background colors for light and dark modes', () => {

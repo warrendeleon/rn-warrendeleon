@@ -60,6 +60,6 @@ describe('EmailInput Stories', () => {
     const { getByTestId } = await renderWithProviders(
       <EmailInput {...(args as EmailInputProps)} onChangeText={jest.fn()} testID="email-input" />
     );
-    expect(getByTestId('email-input').props.editable).toBe(false);
+    expect(getByTestId('email-input').props.readOnly).toBe(true);
   });
 });

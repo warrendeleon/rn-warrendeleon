@@ -241,7 +241,8 @@ describe('FormInputItem', () => {
     it('should be editable by default', async () => {
       await renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
 
-      expect(screen.getByTestId('input').props.editable).toBe(true);
+      // v2 InputField maps `editable` to RN's `readOnly`; editable by default => readOnly false.
+      expect(screen.getByTestId('input').props.readOnly).toBe(false);
     });
 
     it('should be non-editable when editable is false', async () => {
@@ -249,7 +250,7 @@ describe('FormInputItem', () => {
         <FormInputItem {...defaultProps} editable={false} testID="input" />
       );
 
-      expect(screen.getByTestId('input').props.editable).toBe(false);
+      expect(screen.getByTestId('input').props.readOnly).toBe(true);
     });
   });
 

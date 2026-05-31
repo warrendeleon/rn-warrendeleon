@@ -170,14 +170,14 @@ describe('SettingsItem groupVariant styling', () => {
 describe('getSettingsItemStyles', () => {
   describe('theme and variant combinations', () => {
     it.each([
-      ['light', 'single', '$white', '$black', '$textLight500', '$2xl', '$2xl'],
-      ['light', 'top', '$white', '$black', '$textLight500', '$2xl', '$none'],
-      ['light', 'middle', '$white', '$black', '$textLight500', '$none', '$none'],
-      ['light', 'bottom', '$white', '$black', '$textLight500', '$none', '$2xl'],
-      ['dark', 'single', '$backgroundDark900', '$white', '$textLight400', '$2xl', '$2xl'],
-      ['dark', 'top', '$backgroundDark900', '$white', '$textLight400', '$2xl', '$none'],
-      ['dark', 'middle', '$backgroundDark900', '$white', '$textLight400', '$none', '$none'],
-      ['dark', 'bottom', '$backgroundDark900', '$white', '$textLight400', '$none', '$2xl'],
+      ['light', 'single', '#FFFFFF', '#000000', '#8C8C8C', 16, 16],
+      ['light', 'top', '#FFFFFF', '#000000', '#8C8C8C', 16, 0],
+      ['light', 'middle', '#FFFFFF', '#000000', '#8C8C8C', 0, 0],
+      ['light', 'bottom', '#FFFFFF', '#000000', '#8C8C8C', 0, 16],
+      ['dark', 'single', '#262626', '#FFFFFF', '#A3A3A3', 16, 16],
+      ['dark', 'top', '#262626', '#FFFFFF', '#A3A3A3', 16, 0],
+      ['dark', 'middle', '#262626', '#FFFFFF', '#A3A3A3', 0, 0],
+      ['dark', 'bottom', '#262626', '#FFFFFF', '#A3A3A3', 0, 16],
     ] as const)(
       'returns correct styles for %s theme with %s variant (bg=%s, top=%s, bottom=%s)',
       (theme, variant, expectedBg, expectedLabel, expectedChevron, expectedTop, expectedBottom) => {
@@ -197,9 +197,9 @@ describe('getSettingsItemStyles', () => {
       'applies consistent theme colours across all variants in %s mode',
       theme => {
         const variants = ['single', 'top', 'middle', 'bottom'] as const;
-        const expectedBg = theme === 'light' ? '$white' : '$backgroundDark900';
-        const expectedLabel = theme === 'light' ? '$black' : '$white';
-        const expectedChevron = theme === 'light' ? '$textLight500' : '$textLight400';
+        const expectedBg = theme === 'light' ? '#FFFFFF' : '#262626';
+        const expectedLabel = theme === 'light' ? '#000000' : '#FFFFFF';
+        const expectedChevron = theme === 'light' ? '#8C8C8C' : '#A3A3A3';
 
         variants.forEach(variant => {
           const styles = getSettingsItemStyles(theme, variant);

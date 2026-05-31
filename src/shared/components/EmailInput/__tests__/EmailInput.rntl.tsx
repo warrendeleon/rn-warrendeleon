@@ -172,7 +172,7 @@ describe('EmailInput', () => {
     it('should be editable by default', async () => {
       await renderWithProviders(<EmailInput {...defaultProps} testID="email-input" />);
 
-      expect(screen.getByTestId('email-input').props.editable).toBe(true);
+      expect(screen.getByTestId('email-input').props.readOnly).toBe(false);
     });
 
     it('should be non-editable when editable is false', async () => {
@@ -180,7 +180,7 @@ describe('EmailInput', () => {
         <EmailInput {...defaultProps} editable={false} testID="email-input" />
       );
 
-      expect(screen.getByTestId('email-input').props.editable).toBe(false);
+      expect(screen.getByTestId('email-input').props.readOnly).toBe(true);
     });
   });
 
@@ -324,7 +324,7 @@ describe('EmailInput', () => {
       );
 
       const input = screen.getByTestId('email-input');
-      expect(input.props.editable).toBe(false);
+      expect(input.props.readOnly).toBe(true);
     });
 
     it('meets minimum touch target requirements', async () => {
