@@ -589,7 +589,7 @@ describe('WorkExperiencePositionsScreen', () => {
       );
 
       const scrollView = screen.getByTestId('work-experience-positions-screen');
-      expect(scrollView.props.bg).toBe('$black');
+      expect(scrollView.props.style.backgroundColor).toBe('#000000');
     });
 
     it('renders with light theme background', async () => {
@@ -618,7 +618,7 @@ describe('WorkExperiencePositionsScreen', () => {
       );
 
       const scrollView = screen.getByTestId('work-experience-positions-screen');
-      expect(scrollView.props.bg).toBe('$coolGray100');
+      expect(scrollView.props.style.backgroundColor).toBe('#f3f4f6');
     });
 
     it('applies dark mode to empty state text', async () => {
@@ -654,7 +654,7 @@ describe('WorkExperiencePositionsScreen', () => {
       );
 
       const emptyText = screen.getByText('No positions available');
-      expect(emptyText.props.color).toBe('$white');
+      expect(emptyText.props.style.color).toBe('#FFFFFF');
     });
 
     it('applies light mode to empty state text', async () => {
@@ -690,7 +690,7 @@ describe('WorkExperiencePositionsScreen', () => {
       );
 
       const emptyText = screen.getByText('No positions available');
-      expect(emptyText.props.color).toBe('$black');
+      expect(emptyText.props.style.color).toBe('#000000');
     });
   });
 

@@ -1,18 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Button,
-  ButtonSpinner,
-  ButtonText,
-  HStack,
-  Pressable,
-  Text,
-} from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { Box } from '@app/components/ui/box';
+import { Button, ButtonSpinner, ButtonText } from '@app/components/ui/button';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
 import type { RootStackParamList } from '@app/navigation';
 import {
   AlertBox,
@@ -141,7 +137,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation, route }) =
     <AuthScreenWrapper testID="login-screen">
       {/* Error Message */}
       {authError && (
-        <Box mx="$4" mt="$4">
+        <Box className="mx-4 mt-4">
           <AlertBox variant="error" message={authError} testID="auth-error-message" />
         </Box>
       )}
@@ -197,17 +193,13 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation, route }) =
         accessibilityRole="link"
         accessibilityLabel={t('auth.login.forgotPassword')}
         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-        mx="$4"
-        mt="$3"
-        alignSelf="flex-end"
+        className="mx-4 mt-3 self-end"
       >
-        <Text color="$primary500" fontSize="$sm">
-          {t('auth.login.forgotPassword')}
-        </Text>
+        <Text className="text-sm text-primary-500">{t('auth.login.forgotPassword')}</Text>
       </Pressable>
 
       {/* Login Button */}
-      <Box mx="$4" mt="$6">
+      <Box className="mx-4 mt-6">
         <Button
           onPress={handleSubmit(onSubmit)}
           isDisabled={!isValid || isSubmitting}
@@ -217,20 +209,20 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation, route }) =
           accessibilityLabel={t('auth.login.loginButton')}
           accessibilityHint={t('auth.login.loginButtonHint')}
           accessibilityState={{ disabled: !isValid || isSubmitting }}
-          borderRadius="$xl"
+          className="rounded-xl"
           style={{ minHeight: 50 }}
         >
           {isSubmitting ? (
-            <ButtonSpinner color="$white" />
+            <ButtonSpinner color="#FFFFFF" />
           ) : (
-            <ButtonText fontWeight="$semibold">{t('auth.login.loginButton')}</ButtonText>
+            <ButtonText className="font-semibold">{t('auth.login.loginButton')}</ButtonText>
           )}
         </Button>
       </Box>
 
       {/* Register Link */}
-      <HStack justifyContent="center" alignItems="center" mt="$6">
-        <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$sm">
+      <HStack className="mt-6 items-center justify-center">
+        <Text className="text-sm" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
           {t('auth.login.noAccount')}{' '}
         </Text>
         <Pressable
@@ -240,7 +232,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation, route }) =
           accessibilityLabel={t('auth.login.registerLink')}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
-          <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+          <Text className="text-sm font-semibold text-primary-500">
             {t('auth.login.registerLink')}
           </Text>
         </Pressable>

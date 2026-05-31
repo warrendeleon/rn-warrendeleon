@@ -184,8 +184,8 @@ describe('PDFScreen Accessibility', () => {
       await renderWithProviders(<PDFScreen />);
 
       const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
-      // GlueStack UI uses $error400 for dark mode which provides sufficient contrast
-      expect(errorText.props.color).toBe('$error400');
+      // error400 (#EF4444) is used for dark mode which provides sufficient contrast
+      expect(errorText).toHaveStyle({ color: '#EF4444' });
     });
 
     it('maintains sufficient contrast in light mode error state', async () => {
@@ -198,8 +198,8 @@ describe('PDFScreen Accessibility', () => {
       await renderWithProviders(<PDFScreen />);
 
       const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
-      // GlueStack UI uses $error600 for light mode which provides sufficient contrast
-      expect(errorText.props.color).toBe('$error600');
+      // error600 (#DC2626) is used for light mode which provides sufficient contrast
+      expect(errorText).toHaveStyle({ color: '#DC2626' });
     });
   });
 

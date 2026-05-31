@@ -1,18 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Button,
-  ButtonSpinner,
-  ButtonText,
-  HStack,
-  Pressable,
-  Text,
-} from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { Box } from '@app/components/ui/box';
+import { Button, ButtonSpinner, ButtonText } from '@app/components/ui/button';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
 import {
@@ -118,7 +114,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({ naviga
     return (
       <AuthScreenWrapper testID="reset-password-screen">
         {/* Success Message */}
-        <Box mx="$4" mt="$6">
+        <Box className="mx-4 mt-6">
           <AlertBox
             variant="success"
             title={t('auth.resetPassword.successTitle')}
@@ -132,7 +128,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({ naviga
         </Box>
 
         {/* Navigate Away Button */}
-        <Box mx="$4" mt="$8">
+        <Box className="mx-4 mt-8">
           <Button
             onPress={handleNavigateAway}
             size="lg"
@@ -148,10 +144,10 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({ naviga
                 ? t('auth.resetPassword.backToAccountHint')
                 : t('auth.resetPassword.backToLoginHint')
             }
-            borderRadius="$xl"
+            className="rounded-xl"
             style={{ minHeight: 50 }}
           >
-            <ButtonText fontWeight="$semibold">
+            <ButtonText className="font-semibold">
               {fromEditAccount
                 ? t('auth.resetPassword.backToAccount')
                 : t('auth.resetPassword.backToLogin')}
@@ -165,13 +161,13 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({ naviga
   return (
     <AuthScreenWrapper testID="reset-password-screen">
       {/* Subtitle */}
-      <Box mx="$4" mt="$4">
-        <Text fontSize="$sm">{t('auth.resetPassword.subtitle')}</Text>
+      <Box className="mx-4 mt-4">
+        <Text className="text-sm">{t('auth.resetPassword.subtitle')}</Text>
       </Box>
 
       {/* Error Message */}
       {error && (
-        <Box mx="$4" mt="$4">
+        <Box className="mx-4 mt-4">
           <AlertBox variant="error" message={error} testID="error-message" />
         </Box>
       )}
@@ -223,12 +219,12 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({ naviga
       </FormInputGroup>
 
       {/* Password Requirements */}
-      <Box mx="$4" mt="$4">
+      <Box className="mx-4 mt-4">
         <PasswordRequirements password={password} testID="password-requirements" />
       </Box>
 
       {/* Reset Button */}
-      <Box mx="$4" mt="$6">
+      <Box className="mx-4 mt-6">
         <Button
           onPress={handleSubmit(onSubmit)}
           isDisabled={!isValid || isSubmitting}
@@ -238,20 +234,20 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({ naviga
           accessibilityLabel={t('auth.resetPassword.resetButton')}
           accessibilityHint={t('auth.resetPassword.resetButtonHint')}
           accessibilityState={{ disabled: !isValid || isSubmitting }}
-          borderRadius="$xl"
+          className="rounded-xl"
           style={{ minHeight: 50 }}
         >
           {isSubmitting ? (
-            <ButtonSpinner color="$white" />
+            <ButtonSpinner color="#FFFFFF" />
           ) : (
-            <ButtonText fontWeight="$semibold">{t('auth.resetPassword.resetButton')}</ButtonText>
+            <ButtonText className="font-semibold">{t('auth.resetPassword.resetButton')}</ButtonText>
           )}
         </Button>
       </Box>
 
       {/* Back to Login Link - only show for deep link flow, not when coming from Edit Account */}
       {!fromEditAccount && (
-        <HStack justifyContent="center" alignItems="center" mt="$6">
+        <HStack className="mt-6 items-center justify-center">
           <Pressable
             onPress={handleBackToLogin}
             testID="back-to-login-link"
@@ -260,7 +256,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({ naviga
             accessibilityHint={t('auth.resetPassword.backToLoginHint')}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
-            <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+            <Text className="text-sm font-semibold text-primary-500">
               {t('auth.resetPassword.backToLogin')}
             </Text>
           </Pressable>

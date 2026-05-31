@@ -8,18 +8,14 @@
 
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Avatar,
-  AvatarFallbackText,
-  AvatarImage,
-  Box,
-  Pressable,
-  Text,
-} from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Camera, Pencil } from 'lucide-react-native';
 
+import { Avatar, AvatarFallbackText, AvatarImage } from '@app/components/ui/avatar';
+import { Box } from '@app/components/ui/box';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppColorScheme } from '@app/shared/hooks';
 
@@ -71,7 +67,7 @@ export const ProfilePictureSection: React.FC<ProfilePictureSectionProps> = ({
   }, [isLoading, navigation, profilePictureUrl]);
 
   return (
-    <Box alignItems="center" pt="$2" pb="$4" testID="profile-picture-section">
+    <Box className="items-center pb-4 pt-2" testID="profile-picture-section">
       {/* Avatar with edit button */}
       <Pressable
         onPress={handleAvatarPress}
@@ -83,11 +79,11 @@ export const ProfilePictureSection: React.FC<ProfilePictureSectionProps> = ({
         )}
         testID="profile-picture-edit-button"
         disabled={isLoading}
-        opacity={isLoading ? 0.5 : 1}
+        style={{ opacity: isLoading ? 0.5 : 1 }}
       >
-        <Box position="relative">
+        <Box className="relative">
           {/* Avatar */}
-          <Avatar size="2xl" bg="$primary500" borderRadius="$full">
+          <Avatar size="2xl" className="rounded-full bg-primary-500">
             {profilePictureUrl ? (
               <AvatarImage source={{ uri: profilePictureUrl }} alt={displayName} />
             ) : (
@@ -97,14 +93,11 @@ export const ProfilePictureSection: React.FC<ProfilePictureSectionProps> = ({
 
           {/* Edit badge */}
           <Box
-            position="absolute"
-            bottom={0}
-            right={0}
-            bg={isDark ? '$backgroundDark700' : '$white'}
-            borderRadius="$full"
-            p="$2"
-            borderWidth={2}
-            borderColor={isDark ? '$backgroundDark900' : '$coolGray100'}
+            className="absolute bottom-0 right-0 rounded-full border-2 p-2"
+            style={{
+              backgroundColor: isDark ? '#525252' : '#FFFFFF',
+              borderColor: isDark ? '#262626' : '#f3f4f6',
+            }}
             accessibilityElementsHidden
           >
             {profilePictureUrl ? (
@@ -119,8 +112,7 @@ export const ProfilePictureSection: React.FC<ProfilePictureSectionProps> = ({
       {/* Helper text */}
       <Text
         size="sm"
-        color="$textLight500"
-        mt="$2"
+        className="mt-2 text-[#8C8C8C]"
         accessibilityLabel={t('profilePicture.tapToChange', 'Tap to change')}
       >
         {t('profilePicture.tapToChange', 'Tap to change')}

@@ -1,10 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ScrollView } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 import { selectProfile } from '@app/features/Profile';
 import type { RootStackParamList } from '@app/navigation';
 import { ProfileCard, SettingsGroup, type SettingsGroupItem } from '@app/shared/components';
@@ -172,14 +174,13 @@ export const HomeScreen: React.FC = () => {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      flex={1}
-      p="$4"
-      bg={isDark ? '$black' : '$coolGray100'}
+      className="flex-1 p-4"
+      style={{ backgroundColor: isDark ? '#000000' : '#f3f4f6' }}
       testID="home-screen"
       accessibilityLabel={t('home.title')}
     >
       {profile && (
-        <Box mb="$4">
+        <Box className="mb-4">
           <ProfileCard
             profilePicture={profile.profilePicture}
             name={profile.name}
@@ -189,14 +190,10 @@ export const HomeScreen: React.FC = () => {
         </Box>
       )}
 
-      <Box mt="$2">
+      <Box className="mt-2">
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={isDark ? '$textDark400' : '$textLight500'}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
           accessibilityRole="header"
         >
           Work & Learning
@@ -204,14 +201,10 @@ export const HomeScreen: React.FC = () => {
         <SettingsGroup items={workLearningItems} />
       </Box>
 
-      <Box mt="$6">
+      <Box className="mt-6">
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={isDark ? '$textDark400' : '$textLight500'}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
           accessibilityRole="header"
         >
           {t('home.contactWarren')}
@@ -219,14 +212,10 @@ export const HomeScreen: React.FC = () => {
         <SettingsGroup items={contactItems} />
       </Box>
 
-      <Box mt="$6">
+      <Box className="mt-6">
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={isDark ? '$textDark400' : '$textLight500'}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
           accessibilityRole="header"
         >
           Settings

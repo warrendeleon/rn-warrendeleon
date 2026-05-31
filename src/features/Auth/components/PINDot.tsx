@@ -7,8 +7,8 @@
 
 import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, ViewStyle } from 'react-native';
-import { Box } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 interface PINDotProps {

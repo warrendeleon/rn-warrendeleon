@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image } from 'react-native';
+import { Image, ScrollView } from 'react-native';
 import { SvgUri } from 'react-native-svg';
-import { Box, ScrollView, Text } from '@gluestack-ui/themed';
 import type { RouteProp } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppColorScheme } from '@app/shared/hooks';
 import { useAppSelector } from '@app/store';
@@ -194,24 +195,23 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
     return (
       <ScrollView
         testID="work-experience-details-screen"
-        bg={isDark ? '$black' : '$coolGray100'}
+        style={{ backgroundColor: isDark ? '#000000' : '#f3f4f6' }}
         contentInsetAdjustmentBehavior="automatic"
       >
         <Box
-          flex={1}
-          p="$5"
-          alignItems="center"
-          justifyContent="center"
-          minHeight={300}
+          className="min-h-[300px] flex-1 items-center justify-center p-5"
           testID="work-experience-details-not-found"
           accessible={true}
           accessibilityRole="alert"
           accessibilityLabel="Work experience not found"
         >
-          <Text fontSize="$md" fontWeight="$medium" mb="$2" color={isDark ? '$white' : '$black'}>
+          <Text
+            className="mb-2 text-base font-medium"
+            style={{ color: isDark ? '#FFFFFF' : '#000000' }}
+          >
             {t('workExperience.notFound')}
           </Text>
-          <Text fontSize="$sm" textAlign="center" color={isDark ? '$coolGray400' : '$coolGray600'}>
+          <Text className="text-center text-sm" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
             {t('workExperience.notFoundMessage')}
           </Text>
         </Box>
@@ -222,9 +222,8 @@ export const WorkExperienceDetailsScreen: React.FC = () => {
   return (
     <ScrollView
       testID="work-experience-details-screen"
-      flex={1}
-      p="$4"
-      bg={isDark ? '$black' : '$coolGray100'}
+      className="flex-1 p-4"
+      style={{ backgroundColor: isDark ? '#000000' : '#f3f4f6' }}
       contentInsetAdjustmentBehavior="automatic"
     >
       {/* Company Logo Card */}

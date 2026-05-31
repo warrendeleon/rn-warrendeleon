@@ -1,10 +1,12 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, GlobeIcon, MoonIcon, ScrollView, Text } from '@gluestack-ui/themed';
+import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Activity, LogIn, ShieldAlert } from 'lucide-react-native';
+import { Activity, Globe, LogIn, Moon, ShieldAlert } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 import { isTestUIEnabled } from '@app/config/e2e';
 import { selectUser, useAuth } from '@app/features/Auth';
 import type { RootStackParamList } from '@app/navigation';
@@ -80,7 +82,7 @@ export const SettingsScreen: React.FC = () => {
         label: t('settings.appearance'),
         onPress: handleAppearancePress,
         endLabel: getThemeLabel(),
-        startIcon: MoonIcon,
+        startIcon: Moon,
         startIconBgColor: '#6366f1',
         testID: 'settings-appearance-button',
       },
@@ -88,7 +90,7 @@ export const SettingsScreen: React.FC = () => {
         label: t('settings.language'),
         onPress: handleLanguagePress,
         endLabel: getLanguageLabel(),
-        startIcon: GlobeIcon,
+        startIcon: Globe,
         startIconBgColor: '#3b82f6',
         testID: 'settings-language-button',
       },
@@ -135,21 +137,16 @@ export const SettingsScreen: React.FC = () => {
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      flex={1}
-      p="$4"
-      bg={isDark ? '$black' : '$coolGray100'}
+      className="flex-1 p-4"
+      style={{ backgroundColor: isDark ? '#000000' : '#f3f4f6' }}
       testID="settings-screen"
       accessibilityLabel={t('settings.title')}
     >
       {/* Account Section */}
-      <Box mt="$2">
+      <Box className="mt-2">
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={isDark ? '$textDark400' : '$textLight500'}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
           accessibilityRole="header"
         >
           {t('settings.account')}
@@ -170,14 +167,10 @@ export const SettingsScreen: React.FC = () => {
       </Box>
 
       {/* General Section */}
-      <Box mt="$6">
+      <Box className="mt-6">
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={isDark ? '$textDark400' : '$textLight500'}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
           accessibilityRole="header"
         >
           {t('settings.general')}
@@ -186,14 +179,10 @@ export const SettingsScreen: React.FC = () => {
       </Box>
 
       {isTestUIEnabled && (
-        <Box mt="$6">
+        <Box className="mt-6">
           <Text
-            mb="$2"
-            ml="$4"
-            fontSize="$xs"
-            fontWeight="$medium"
-            textTransform="uppercase"
-            color={isDark ? '$textDark400' : '$textLight500'}
+            className="mb-2 ml-4 text-xs font-medium uppercase"
+            style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
             accessibilityRole="header"
           >
             Testing

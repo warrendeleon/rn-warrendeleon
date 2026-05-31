@@ -212,8 +212,8 @@ describe('PDFScreen - URL Validation', () => {
       await renderWithProviders(<PDFScreen />);
 
       const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
-      // Check for GlueStack UI color token instead of hex color
-      expect(errorText.props.color).toBe('$error400');
+      // error400 hex applied via style in dark mode
+      expect(errorText).toHaveStyle({ color: '#EF4444' });
     });
 
     it('applies light colors when light mode is active', async () => {
@@ -226,8 +226,8 @@ describe('PDFScreen - URL Validation', () => {
       await renderWithProviders(<PDFScreen />);
 
       const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
-      // Check for GlueStack UI color token instead of hex color
-      expect(errorText.props.color).toBe('$error600');
+      // error600 hex applied via style in light mode
+      expect(errorText).toHaveStyle({ color: '#DC2626' });
     });
   });
 

@@ -1,18 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Button,
-  ButtonSpinner,
-  ButtonText,
-  HStack,
-  Pressable,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Mail } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Button, ButtonSpinner, ButtonText } from '@app/components/ui/button';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
 import { AlertBox, AuthScreenWrapper, useToast } from '@app/shared/components';
@@ -141,11 +137,10 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
   return (
     <AuthScreenWrapper testID="email-verification-screen">
       {/* Email Icon */}
-      <Box alignItems="center" mt="$8">
+      <Box className="mt-8 items-center">
         <Box
-          bg={isDark ? '$primary900' : '$primary100'}
-          borderRadius="$full"
-          p="$6"
+          className="rounded-full p-6"
+          style={{ backgroundColor: isDark ? '#011838' : '#ADDBFF' }}
           testID="email-icon-container"
         >
           <Mail size={48} color={isDark ? '#93C5FD' : '#2563EB'} />
@@ -153,20 +148,17 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
       </Box>
 
       {/* Title and Message */}
-      <VStack mx="$4" mt="$6" space="sm" alignItems="center">
+      <VStack space="sm" className="mx-4 mt-6 items-center">
         <Text
-          fontSize="$2xl"
-          fontWeight="$bold"
-          color={isDark ? '$white' : '$coolGray900'}
-          textAlign="center"
+          className="text-center text-2xl font-bold"
+          style={{ color: isDark ? '#FFFFFF' : '#111827' }}
           testID="verification-title"
         >
           {t('auth.emailVerification.title')}
         </Text>
         <Text
-          fontSize="$md"
-          color={isDark ? '$coolGray400' : '$coolGray600'}
-          textAlign="center"
+          className="text-center text-base"
+          style={{ color: isDark ? '#9ca3af' : '#4b5563' }}
           testID="verification-message"
         >
           {t('auth.emailVerification.message')}
@@ -174,20 +166,18 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
       </VStack>
 
       {/* Email Display */}
-      <Box mx="$4" mt="$6">
+      <Box className="mx-4 mt-6">
         <Box
-          bg={isDark ? '$backgroundDark900' : '$white'}
-          borderRadius="$xl"
-          p="$4"
+          className="rounded-xl p-4"
+          style={{ backgroundColor: isDark ? '#262626' : '#FFFFFF' }}
           testID="email-display"
           accessibilityLabel={t('auth.emailVerification.emailSentTo', { email })}
         >
-          <HStack space="md" alignItems="center" justifyContent="center">
+          <HStack space="md" className="items-center justify-center">
             <Mail size={20} color={isDark ? '#9CA3AF' : '#6B7280'} />
             <Text
-              fontSize="$md"
-              fontWeight="$semibold"
-              color={isDark ? '$white' : '$coolGray900'}
+              className="text-base font-semibold"
+              style={{ color: isDark ? '#FFFFFF' : '#111827' }}
               testID="email-address"
             >
               {email}
@@ -198,14 +188,14 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
 
       {/* Error Message */}
       {error && (
-        <Box mx="$4" mt="$4">
+        <Box className="mx-4 mt-4">
           <AlertBox variant="error" message={error} testID="error-message" />
         </Box>
       )}
 
       {/* Resend Success Message */}
       {resendSuccess && (
-        <Box mx="$4" mt="$4">
+        <Box className="mx-4 mt-4">
           <AlertBox
             variant="success"
             message={t('auth.emailVerification.resendSuccess')}
@@ -215,7 +205,7 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
       )}
 
       {/* Resend Button */}
-      <Box mx="$4" mt="$6">
+      <Box className="mx-4 mt-6">
         <Button
           onPress={handleResendEmail}
           isDisabled={isResendDisabled}
@@ -230,13 +220,13 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
           }
           accessibilityHint={t('auth.emailVerification.resendButtonHint')}
           accessibilityState={{ disabled: isResendDisabled }}
-          borderRadius="$xl"
+          className="rounded-xl"
           style={{ minHeight: 50 }}
         >
           {isResending ? (
-            <ButtonSpinner color="$primary500" />
+            <ButtonSpinner color="#0077E6" />
           ) : (
-            <ButtonText fontWeight="$semibold">
+            <ButtonText className="font-semibold">
               {cooldownSeconds > 0
                 ? t('auth.emailVerification.resendButtonCooldown', { seconds: cooldownSeconds })
                 : t('auth.emailVerification.resendButton')}
@@ -246,7 +236,7 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
       </Box>
 
       {/* Back to Login Button */}
-      <Box mx="$4" mt="$4">
+      <Box className="mx-4 mt-4">
         <Button
           onPress={handleBackToLogin}
           size="lg"
@@ -254,15 +244,17 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
           accessibilityRole="button"
           accessibilityLabel={t('auth.emailVerification.backToLogin')}
           accessibilityHint={t('auth.emailVerification.backToLoginHint')}
-          borderRadius="$xl"
+          className="rounded-xl"
           style={{ minHeight: 50 }}
         >
-          <ButtonText fontWeight="$semibold">{t('auth.emailVerification.backToLogin')}</ButtonText>
+          <ButtonText className="font-semibold">
+            {t('auth.emailVerification.backToLogin')}
+          </ButtonText>
         </Button>
       </Box>
 
       {/* Back to Login Link (secondary) */}
-      <HStack justifyContent="center" alignItems="center" mt="$6">
+      <HStack className="mt-6 items-center justify-center">
         <Pressable
           onPress={handleBackToLogin}
           testID="back-to-login-link"
@@ -271,36 +263,34 @@ export const EmailVerificationScreen: React.FC<EmailVerificationScreenProps> = (
           accessibilityHint={t('auth.emailVerification.backToLoginHint')}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
-          <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+          <Text className="text-sm font-semibold text-primary-500">
             {t('auth.emailVerification.loginInstead')}
           </Text>
         </Pressable>
       </HStack>
 
       {/* Information Box */}
-      <Box mx="$4" mt="$8">
+      <Box className="mx-4 mt-8">
         <Box
-          bg={isDark ? '$backgroundDark900' : '$white'}
-          borderRadius="$xl"
-          p="$4"
+          className="rounded-xl p-4"
+          style={{ backgroundColor: isDark ? '#262626' : '#FFFFFF' }}
           testID="info-box"
         >
           <VStack space="sm">
             <Text
-              color={isDark ? '$coolGray300' : '$coolGray700'}
-              fontWeight="$semibold"
-              fontSize="$sm"
+              className="text-sm font-semibold"
+              style={{ color: isDark ? '#d1d5db' : '#374151' }}
             >
               {t('auth.emailVerification.infoTitle')}
             </Text>
             <VStack space="xs">
-              <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+              <Text className="text-xs" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
                 {t('auth.emailVerification.infoStep1')}
               </Text>
-              <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+              <Text className="text-xs" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
                 {t('auth.emailVerification.infoStep2')}
               </Text>
-              <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+              <Text className="text-xs" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
                 {t('auth.emailVerification.infoStep3')}
               </Text>
             </VStack>

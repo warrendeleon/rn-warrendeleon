@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Box, Text, VStack } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 export const ChatPlaceholderScreen: React.FC = () => {
@@ -12,37 +14,39 @@ export const ChatPlaceholderScreen: React.FC = () => {
 
   return (
     <Box
-      flex={1}
-      bg={isDark ? '$black' : '$coolGray100'}
-      justifyContent="center"
-      alignItems="center"
-      p="$6"
+      className="flex-1 items-center justify-center p-6"
+      style={{ backgroundColor: isDark ? '#000000' : '#f3f4f6' }}
       testID="chat-placeholder-screen"
       accessibilityLabel={t('placeholder.chat.title')}
     >
-      <VStack space="lg" alignItems="center">
-        <Box bg="$green500" p="$6" borderRadius="$full" accessibilityElementsHidden>
+      <VStack space="lg" className="items-center">
+        <Box
+          className="rounded-full p-6"
+          style={{ backgroundColor: '#22c55e' }}
+          accessibilityElementsHidden
+        >
           <MaterialCommunityIcons name="chat" size={48} color="#FFFFFF" />
         </Box>
 
         <Text
-          fontSize="$2xl"
-          fontWeight="$bold"
-          color={isDark ? '$white' : '$black'}
+          className="text-2xl font-bold"
+          style={{ color: isDark ? '#FFFFFF' : '#000000' }}
           testID="chat-placeholder-title"
         >
           {t('placeholder.chat.title')}
         </Text>
 
-        <Text fontSize="$lg" color="$coolGray500" testID="chat-placeholder-coming-soon">
+        <Text
+          className="text-lg"
+          style={{ color: '#6b7280' }}
+          testID="chat-placeholder-coming-soon"
+        >
           {t('placeholder.chat.comingSoon')}
         </Text>
 
         <Text
-          fontSize="$md"
-          color={isDark ? '$coolGray400' : '$coolGray600'}
-          textAlign="center"
-          maxWidth="$80"
+          className="max-w-[320px] text-center text-base"
+          style={{ color: isDark ? '#9ca3af' : '#4b5563' }}
           testID="chat-placeholder-description"
         >
           {t('placeholder.chat.description')}

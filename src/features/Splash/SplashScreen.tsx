@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
-import { Box, Button, ButtonText, Heading, Text } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
+import { Button, ButtonText } from '@app/components/ui/button';
+import { Heading } from '@app/components/ui/heading';
+import { Text } from '@app/components/ui/text';
 import { incrementRetryAttempts } from '@app/config';
 import { Logo } from '@app/shared/components';
 import { useAppColorScheme } from '@app/shared/hooks';
@@ -125,24 +128,21 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
       >
         <Heading
           size="xl"
-          mb="$4"
-          textAlign="center"
-          color={colorScheme === 'dark' ? '$white' : '$black'}
+          className="mb-4 text-center"
+          style={{ color: colorScheme === 'dark' ? '#FFFFFF' : '#000000' }}
         >
           {t('error.title')}
         </Heading>
 
         <Text
           size="md"
-          mb="$8"
-          textAlign="center"
-          color={colorScheme === 'dark' ? '$textLight400' : '$textLight500'}
-          px="$6"
+          className="mb-8 px-6 text-center"
+          style={{ color: colorScheme === 'dark' ? '#A3A3A3' : '#8C8C8C' }}
         >
           {__DEV__ && combinedError ? combinedError : t('error.loadingFailed')}
         </Text>
 
-        <Box w="$full" maxWidth={300} px="$6">
+        <Box className="w-full max-w-[300px] px-6">
           <Button
             onPress={handleRetry}
             testID="splash-retry-button"

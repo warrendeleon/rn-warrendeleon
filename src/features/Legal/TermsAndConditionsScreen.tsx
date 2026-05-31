@@ -1,8 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Heading, ScrollView, Text, VStack } from '@gluestack-ui/themed';
+import { ScrollView } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { Box } from '@app/components/ui/box';
+import { Heading } from '@app/components/ui/heading';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppColorScheme } from '@app/shared/hooks';
 
@@ -22,14 +26,14 @@ export const TermsAndConditionsScreen: React.FC<TermsAndConditionsScreenProps> =
   const colorScheme = useAppColorScheme();
   const isDark = colorScheme === 'dark';
 
-  const bg = isDark ? '$black' : '$coolGray100';
-  const cardBg = isDark ? '$backgroundDark900' : '$white';
-  const textColor = isDark ? '$coolGray300' : '$coolGray700';
-  const headingColor = isDark ? '$white' : '$black';
+  const bg = isDark ? '#000000' : '#f3f4f6';
+  const cardBg = isDark ? '#262626' : '#FFFFFF';
+  const textColor = isDark ? '#d1d5db' : '#374151';
+  const headingColor = isDark ? '#FFFFFF' : '#000000';
 
   const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
-    <Box bg={cardBg} borderRadius="$xl" p="$4" mb="$4">
-      <Heading size="sm" color={headingColor} mb="$2">
+    <Box className="mb-4 rounded-xl p-4" style={{ backgroundColor: cardBg }}>
+      <Heading size="sm" className="mb-2" style={{ color: headingColor }}>
         {title}
       </Heading>
       {children}
@@ -37,23 +41,22 @@ export const TermsAndConditionsScreen: React.FC<TermsAndConditionsScreenProps> =
   );
 
   const Paragraph: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <Text fontSize="$sm" color={textColor} lineHeight="$lg" mb="$2">
+    <Text className="mb-2 text-sm leading-[24px]" style={{ color: textColor }}>
       {children}
     </Text>
   );
 
   return (
     <ScrollView
-      flex={1}
-      bg={bg}
+      style={{ flex: 1, backgroundColor: bg }}
       contentContainerStyle={{ paddingBottom: 40 }}
       testID="terms-and-conditions-screen"
       accessibilityRole="scrollbar"
       accessibilityLabel={t('legal.terms.title')}
     >
-      <VStack px="$4" pt="$4">
+      <VStack className="px-4 pt-4">
         {/* Last Updated */}
-        <Text fontSize="$xs" color="$coolGray500" mb="$4" textAlign="center">
+        <Text className="mb-4 text-center text-xs" style={{ color: '#6b7280' }}>
           {t('legal.lastUpdated', { date: '25 November 2025' })}
         </Text>
 

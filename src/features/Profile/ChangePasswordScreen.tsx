@@ -1,10 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, ButtonSpinner, ButtonText, Text } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { Box } from '@app/components/ui/box';
+import { Button, ButtonSpinner, ButtonText } from '@app/components/ui/button';
+import { Text } from '@app/components/ui/text';
 import type { ChangePasswordFormData } from '@app/features/Auth/validation/passwordRecoverySchema';
 import { changePasswordSchema } from '@app/features/Auth/validation/passwordRecoverySchema';
 import { SupabaseAuthClient } from '@app/httpClients';
@@ -81,15 +83,15 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({ navi
   return (
     <AuthScreenWrapper testID="change-password-screen">
       {/* Subtitle */}
-      <Box mx="$4" mt="$4">
-        <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$sm">
+      <Box className="mx-4 mt-4">
+        <Text className="text-sm" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
           {t('auth.changePassword.subtitle')}
         </Text>
       </Box>
 
       {/* Error Message */}
       {error && (
-        <Box mx="$4" mt="$4">
+        <Box className="mx-4 mt-4">
           <AlertBox variant="error" message={error} testID="error-message" />
         </Box>
       )}
@@ -164,7 +166,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({ navi
       </FormInputGroup>
 
       {/* Password Requirements */}
-      <Box mx="$4" mt="$4">
+      <Box className="mx-4 mt-4">
         <PasswordRequirements
           password={newPassword}
           testID="password-requirements"
@@ -179,7 +181,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({ navi
       </Box>
 
       {/* Change Password Button */}
-      <Box mx="$4" mt="$6">
+      <Box className="mx-4 mt-6">
         <Button
           onPress={handleSubmit(onSubmit)}
           isDisabled={!isValid || isSubmitting}
@@ -189,13 +191,15 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({ navi
           accessibilityLabel={t('auth.changePassword.changeButton')}
           accessibilityHint={t('auth.changePassword.changeButtonHint')}
           accessibilityState={{ disabled: !isValid || isSubmitting }}
-          borderRadius="$xl"
+          className="rounded-xl"
           style={{ minHeight: 50 }}
         >
           {isSubmitting ? (
-            <ButtonSpinner color="$white" />
+            <ButtonSpinner color="#FFFFFF" />
           ) : (
-            <ButtonText fontWeight="$semibold">{t('auth.changePassword.changeButton')}</ButtonText>
+            <ButtonText className="font-semibold">
+              {t('auth.changePassword.changeButton')}
+            </ButtonText>
           )}
         </Button>
       </Box>

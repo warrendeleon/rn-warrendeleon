@@ -6,7 +6,10 @@
  */
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { Box, HStack, VStack } from '@gluestack-ui/themed';
+
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { VStack } from '@app/components/ui/vstack';
 
 import { PINDot } from './PINDot';
 import { PINKeypad } from './PINKeypad';
@@ -92,7 +95,7 @@ export const PINInput: React.FC<PINInputProps> = ({
   }, [disabled, internalPin, onChange]);
 
   return (
-    <VStack space="2xl" alignItems="center" testID={testID}>
+    <VStack space="2xl" className="items-center" testID={testID}>
       {/* PIN Dots Display */}
       <HStack space="lg" testID={`${testID}-dots`}>
         {Array.from({ length }).map((_, index) => (
@@ -108,7 +111,7 @@ export const PINInput: React.FC<PINInputProps> = ({
       </HStack>
 
       {/* Spacer */}
-      <Box h="$4" />
+      <Box className="h-4" />
 
       {/* Keypad */}
       <PINKeypad

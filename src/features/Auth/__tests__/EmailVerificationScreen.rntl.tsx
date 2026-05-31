@@ -199,11 +199,16 @@ describe('EmailVerificationScreen', () => {
   });
 
   it('shows error message when rate limit is exceeded', async () => {
-    (emailResendRateLimiter.checkEmailResendRateLimit as jest.Mock).mockResolvedValue({
-      allowed: false,
-      secondsRemaining: 45,
-      error: 'Rate limit exceeded. Please wait before trying again.',
-    });
+    // Mount check passes (button stays enabled); the resend itself hits the
+    // limit. The v2 Button blocks onPress while disabled, so the rate-limited
+    // state must be reached via the handler, not a pre-set cooldown.
+    (emailResendRateLimiter.checkEmailResendRateLimit as jest.Mock)
+      .mockResolvedValueOnce({ allowed: true, secondsRemaining: 0 })
+      .mockResolvedValue({
+        allowed: false,
+        secondsRemaining: 45,
+        error: 'Rate limit exceeded. Please wait before trying again.',
+      });
 
     const { getByTestId, queryByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />

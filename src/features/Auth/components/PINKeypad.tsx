@@ -8,8 +8,12 @@
 import React, { useCallback } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 interface PINKeypadProps {
@@ -69,7 +73,7 @@ const KeypadButton: React.FC<KeypadButtonProps> = ({
 
   const backgroundColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
   const pressedColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.1)';
-  const textColor = isDark ? '$white' : '$black';
+  const textColor = isDark ? '#FFFFFF' : '#000000';
 
   return (
     <Pressable
@@ -88,12 +92,15 @@ const KeypadButton: React.FC<KeypadButtonProps> = ({
         },
       ]}
     >
-      <VStack alignItems="center" justifyContent="center">
-        <Text fontSize="$3xl" fontWeight="$medium" color={textColor}>
+      <VStack className="items-center justify-center">
+        <Text className="text-3xl font-medium" style={{ color: textColor }}>
           {label}
         </Text>
         {sublabel && (
-          <Text fontSize="$xs" color={isDark ? '$coolGray400' : '$coolGray600'} mt={-4}>
+          <Text
+            className="text-xs"
+            style={{ color: isDark ? '#9ca3af' : '#4b5563', marginTop: -4 }}
+          >
             {sublabel}
           </Text>
         )}
@@ -147,7 +154,7 @@ export const PINKeypad: React.FC<PINKeypadProps> = ({
   return (
     <VStack space="md" testID={testID} accessibilityRole="none" accessibilityLabel="PIN keypad">
       {/* Row 1: 1, 2, 3 */}
-      <HStack space="lg" justifyContent="center">
+      <HStack space="lg" className="justify-center">
         <KeypadButton
           label="1"
           onPress={createDigitHandler('1')}
@@ -174,7 +181,7 @@ export const PINKeypad: React.FC<PINKeypadProps> = ({
       </HStack>
 
       {/* Row 2: 4, 5, 6 */}
-      <HStack space="lg" justifyContent="center">
+      <HStack space="lg" className="justify-center">
         <KeypadButton
           label="4"
           sublabel={sublabels['4']}
@@ -202,7 +209,7 @@ export const PINKeypad: React.FC<PINKeypadProps> = ({
       </HStack>
 
       {/* Row 3: 7, 8, 9 */}
-      <HStack space="lg" justifyContent="center">
+      <HStack space="lg" className="justify-center">
         <KeypadButton
           label="7"
           sublabel={sublabels['7']}
@@ -230,7 +237,7 @@ export const PINKeypad: React.FC<PINKeypadProps> = ({
       </HStack>
 
       {/* Row 4: empty, 0, delete */}
-      <HStack space="lg" justifyContent="center">
+      <HStack space="lg" className="justify-center">
         <EmptySpace />
         <KeypadButton
           label="0"

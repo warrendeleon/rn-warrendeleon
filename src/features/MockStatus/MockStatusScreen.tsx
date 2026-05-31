@@ -1,10 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Alert } from 'react-native';
-import { Box, Button, ButtonText, Heading, ScrollView, Spinner, Text } from '@gluestack-ui/themed';
+import { Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { CheckCircle, XCircle } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Button, ButtonText } from '@app/components/ui/button';
+import { Heading } from '@app/components/ui/heading';
+import { Spinner } from '@app/components/ui/spinner';
+import { Text } from '@app/components/ui/text';
 import {
   getE2EMockOverride,
   getEnvE2EMockValue,
@@ -145,45 +149,36 @@ export const MockStatusScreen: React.FC = () => {
   const isWorkExperienceMocked =
     Array.isArray(workExperienceData) && workExperienceData[0]?.mocked === true;
 
-  const cardBg = isDark ? '$backgroundDark900' : '$white';
-  const textColor = isDark ? '$white' : '$black';
-  const labelColor = isDark ? '$textDark400' : '$textLight500';
+  const cardBg = isDark ? '#262626' : '#FFFFFF';
+  const textColor = isDark ? '#FFFFFF' : '#000000';
+  const labelColor = isDark ? '#A3A3A3' : '#8C8C8C';
 
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      flex={1}
-      p="$4"
-      bg={isDark ? '$black' : '$coolGray100'}
+      className="flex-1 p-4"
+      style={{ backgroundColor: isDark ? '#000000' : '#f3f4f6' }}
       testID="mock-status-screen"
       accessibilityLabel="Mock Status Screen"
     >
       {/* Developer Mock Toggle */}
-      <Box mt="$2" mb="$6">
+      <Box className="mb-6 mt-2">
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={labelColor}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: labelColor }}
           accessibilityRole="header"
         >
           Developer Mock Control
         </Text>
         <Box
-          p="$4"
-          borderRadius="$lg"
-          bg={cardBg}
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="space-between"
+          className="flex-row items-center justify-between rounded-lg p-4"
+          style={{ backgroundColor: cardBg }}
         >
-          <Box flex={1}>
-            <Text fontSize="$md" fontWeight="$semibold" color={textColor}>
+          <Box className="flex-1">
+            <Text className="text-base font-semibold" style={{ color: textColor }}>
               E2E Mock Status
             </Text>
-            <Text fontSize="$xs" color={labelColor} mt="$1">
+            <Text className="mt-1 text-xs" style={{ color: labelColor }}>
               .env: {envValue ? 'true' : 'false'}
               {overrideValue !== null && ` → Override: ${overrideValue}`}
             </Text>
@@ -196,7 +191,7 @@ export const MockStatusScreen: React.FC = () => {
             testID="mock-toggle-button"
           >
             {isToggling ? (
-              <Spinner size="small" color="$white" />
+              <Spinner size="small" color="#FFFFFF" />
             ) : (
               <ButtonText>{mockEnabled ? 'DISABLE' : 'ENABLE'}</ButtonText>
             )}
@@ -206,23 +201,19 @@ export const MockStatusScreen: React.FC = () => {
 
       <Box>
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={labelColor}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: labelColor }}
           accessibilityRole="header"
         >
           API Mock Status Verification
         </Text>
-        <Text mb="$6" fontSize="$sm" color={labelColor}>
+        <Text className="mb-6 text-sm" style={{ color: labelColor }}>
           Verifies that API responses contain mocked data with the mocked=true flag during E2E
           tests.
         </Text>
 
         {/* Portfolio API Section */}
-        <Heading size="sm" mb="$3" color={textColor}>
+        <Heading size="sm" className="mb-3" style={{ color: textColor }}>
           Portfolio API (GitHub)
         </Heading>
 
@@ -257,10 +248,10 @@ export const MockStatusScreen: React.FC = () => {
         />
 
         {/* Auth API Section */}
-        <Heading size="sm" mt="$4" mb="$3" color={textColor}>
+        <Heading size="sm" className="mb-3 mt-4" style={{ color: textColor }}>
           Supabase Auth API
         </Heading>
-        <Text mb="$3" fontSize="$xs" color={labelColor}>
+        <Text className="mb-3 text-xs" style={{ color: labelColor }}>
           Makes actual API call to verify mocking returns response with mocked=true.
         </Text>
 
@@ -302,43 +293,33 @@ const MockStatusItem: React.FC<MockStatusItemProps> = ({
   testID,
 }) => {
   const status = isMocked ? 'Mocked' : 'Not Mocked';
-  const statusColorToken = isMocked ? '$green600' : '$red600';
+  const statusColor = isMocked ? '#16a34a' : '#dc2626'; // green-600, red-600
   const iconColor = isMocked ? '#16a34a' : '#dc2626'; // green-600, red-600
   const Icon = isMocked ? CheckCircle : XCircle;
 
   return (
     <Box
-      mb="$4"
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="space-between"
-      borderRadius="$lg"
-      p="$4"
-      bg={bgColor}
+      className="mb-4 flex-row items-center justify-between rounded-lg p-4"
+      style={{ backgroundColor: bgColor }}
       testID={testID}
       accessibilityRole="summary"
       accessibilityLabel={`${label}: ${isLoading ? 'Loading' : status}`}
     >
-      <Box flex={1}>
-        <Text mb="$1" fontSize="$md" fontWeight="$semibold" color={textColor}>
+      <Box className="flex-1">
+        <Text className="mb-1 text-base font-semibold" style={{ color: textColor }}>
           {label}
         </Text>
-        {!hasData && !isLoading && (
-          <Text fontSize="$xs" color="$amber600">
-            No data loaded
-          </Text>
-        )}
+        {!hasData && !isLoading && <Text className="text-xs text-amber-600">No data loaded</Text>}
       </Box>
 
-      <Box flexDirection="row" alignItems="center" gap="$2">
+      <Box className="flex-row items-center gap-2">
         {isLoading ? (
           <Spinner size="small" testID={`${testID}-loading`} />
         ) : (
           <>
             <Text
-              fontSize="$sm"
-              fontWeight="$medium"
-              color={statusColorToken}
+              className="text-sm font-medium"
+              style={{ color: statusColor }}
               testID={`${testID}-${isMocked ? 'mocked' : 'not-mocked'}`}
             >
               {status}

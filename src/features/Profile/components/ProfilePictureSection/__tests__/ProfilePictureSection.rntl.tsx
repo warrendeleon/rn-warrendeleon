@@ -60,8 +60,8 @@ describe('ProfilePictureSection', () => {
     it('renders avatar with initials when no profile picture', async () => {
       await render(<ProfilePictureSection {...defaultProps} />);
 
-      // Avatar should show display name for fallback
-      expect(screen.getByText('John Doe')).toBeOnTheScreen();
+      // Avatar shows initials derived from the display name as fallback
+      expect(screen.getByText('JD')).toBeOnTheScreen();
     });
   });
 
@@ -123,8 +123,8 @@ describe('ProfilePictureSection', () => {
       await render(<ProfilePictureSection {...defaultProps} isLoading={true} />);
 
       const button = screen.getByTestId('profile-picture-edit-button');
-      // GlueStack UI applies opacity prop directly
-      expect(button.props.opacity).toBe(0.5);
+      // Opacity is applied via inline style on the v2 Pressable
+      expect(button.props.style).toEqual(expect.objectContaining({ opacity: 0.5 }));
     });
   });
 });

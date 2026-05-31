@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import RNWebView from 'react-native-webview';
-import { Box, Spinner, Text } from '@gluestack-ui/themed';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 
+import { Box } from '@app/components/ui/box';
+import { Spinner } from '@app/components/ui/spinner';
+import { Text } from '@app/components/ui/text';
 import { ALLOWED_WEBVIEW_DOMAINS } from '@app/config/constants';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppColorScheme } from '@app/shared/hooks';
@@ -80,16 +82,16 @@ export const WebViewScreen = () => {
   if (!isValidUrl && !error) {
     return (
       <Box
-        flex={1}
-        justifyContent="center"
-        alignItems="center"
-        p="$5"
+        className="flex-1 items-center justify-center p-5"
         testID="webview-loading"
         accessibilityRole="progressbar"
         accessibilityLabel="Validating URL"
       >
-        <Spinner size="large" color={isDark ? '$white' : '$black'} />
-        <Text mt="$4" fontSize="$md" textAlign="center" color={isDark ? '$white' : '$black'}>
+        <Spinner size="large" color={isDark ? '#FFFFFF' : '#000000'} />
+        <Text
+          className="mt-4 text-center text-base"
+          style={{ color: isDark ? '#FFFFFF' : '#000000' }}
+        >
           Validating URL...
         </Text>
       </Box>
@@ -100,28 +102,20 @@ export const WebViewScreen = () => {
   if (error) {
     return (
       <Box
-        flex={1}
-        justifyContent="center"
-        alignItems="center"
-        p="$5"
+        className="flex-1 items-center justify-center p-5"
         testID="webview-error"
         accessibilityRole="alert"
         accessibilityLabel={error}
       >
         <Text
-          fontSize="$lg"
-          fontWeight="$semibold"
-          textAlign="center"
-          mb="$3"
-          color={isDark ? '$red400' : '$red600'}
+          className="mb-3 text-center text-lg font-semibold"
+          style={{ color: isDark ? '#f87171' : '#dc2626' }}
         >
           {error}
         </Text>
         <Text
-          fontSize="$sm"
-          textAlign="center"
-          fontStyle="italic"
-          color={isDark ? '$coolGray300' : '$coolGray600'}
+          className="text-center text-sm italic"
+          style={{ color: isDark ? '#d1d5db' : '#4b5563' }}
         >
           {url}
         </Text>

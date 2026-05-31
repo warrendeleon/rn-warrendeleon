@@ -1,19 +1,15 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Button,
-  ButtonSpinner,
-  ButtonText,
-  HStack,
-  Pressable,
-  Switch,
-  Text,
-} from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { Box } from '@app/components/ui/box';
+import { Button, ButtonSpinner, ButtonText } from '@app/components/ui/button';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Switch } from '@app/components/ui/switch';
+import { Text } from '@app/components/ui/text';
 import type { RootStackParamList } from '@app/navigation';
 import {
   AlertBox,
@@ -121,7 +117,7 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
     <AuthScreenWrapper testID="registration-screen">
       {/* Error Message */}
       {authError && (
-        <Box mx="$4" mt="$4">
+        <Box className="mx-4 mt-4">
           <AlertBox variant="error" message={authError} testID="auth-error-message" />
         </Box>
       )}
@@ -268,23 +264,26 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
       </FormInputGroup>
 
       {/* Password Requirements */}
-      <Box mx="$4" mt="$4">
+      <Box className="mx-4 mt-4">
         <PasswordRequirements password={password} testID="password-requirements" />
       </Box>
 
       {/* Terms Toggle */}
-      <Box mx="$4" mt="$6">
+      <Box className="mx-4 mt-6">
         <Controller
           control={control}
           name="acceptTerms"
           render={({ field: { onChange, value } }) => (
-            <Box bg={isDark ? '$backgroundDark900' : '$white'} borderRadius="$xl" p="$4">
-              <Box flexDirection="row" alignItems="stretch" justifyContent="space-between">
-                <Box flex={1} pr="$3" justifyContent="center">
-                  <Text fontSize="$sm" color={isDark ? '$coolGray300' : '$coolGray700'}>
+            <Box
+              className="rounded-xl p-4"
+              style={{ backgroundColor: isDark ? '#262626' : '#FFFFFF' }}
+            >
+              <Box className="flex-row items-stretch justify-between">
+                <Box className="flex-1 justify-center pr-3">
+                  <Text className="text-sm" style={{ color: isDark ? '#d1d5db' : '#374151' }}>
                     {t('auth.registration.acceptTermsText')}{' '}
                   </Text>
-                  <HStack flexWrap="wrap" alignItems="center">
+                  <HStack className="flex-wrap items-center">
                     <Pressable
                       onPress={() => navigation.navigate('TermsAndConditions')}
                       testID="terms-link"
@@ -292,11 +291,11 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
                       accessibilityLabel={t('auth.registration.termsLink')}
                       hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
                     >
-                      <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+                      <Text className="text-sm font-semibold text-primary-500">
                         {t('auth.registration.termsLink')}
                       </Text>
                     </Pressable>
-                    <Text fontSize="$sm" color={isDark ? '$coolGray300' : '$coolGray700'}>
+                    <Text className="text-sm" style={{ color: isDark ? '#d1d5db' : '#374151' }}>
                       {' '}
                       {t('auth.registration.andThe')}{' '}
                     </Text>
@@ -307,13 +306,13 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
                       accessibilityLabel={t('auth.registration.privacyLink')}
                       hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
                     >
-                      <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+                      <Text className="text-sm font-semibold text-primary-500">
                         {t('auth.registration.privacyLink')}
                       </Text>
                     </Pressable>
                   </HStack>
                 </Box>
-                <Box justifyContent="center">
+                <Box className="justify-center">
                   <Switch
                     value={value}
                     onValueChange={onChange}
@@ -326,9 +325,7 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
                 </Box>
               </Box>
               {errors.acceptTerms && (
-                <Text fontSize="$xs" color="$red600" mt="$2">
-                  {errors.acceptTerms.message}
-                </Text>
+                <Text className="mt-2 text-xs text-red-600">{errors.acceptTerms.message}</Text>
               )}
             </Box>
           )}
@@ -336,7 +333,7 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
       </Box>
 
       {/* Submit Button */}
-      <Box mx="$4" mt="$8">
+      <Box className="mx-4 mt-8">
         <Button
           onPress={handleSubmit(onSubmit)}
           isDisabled={!isValid || isSubmitting}
@@ -346,20 +343,22 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
           accessibilityLabel={t('auth.registration.registerButton')}
           accessibilityHint={t('auth.registration.registerButtonHint')}
           accessibilityState={{ disabled: !isValid || isSubmitting }}
-          borderRadius="$xl"
+          className="rounded-xl"
           style={{ minHeight: 50 }}
         >
           {isSubmitting ? (
-            <ButtonSpinner color="$white" />
+            <ButtonSpinner color="#FFFFFF" />
           ) : (
-            <ButtonText fontWeight="$semibold">{t('auth.registration.registerButton')}</ButtonText>
+            <ButtonText className="font-semibold">
+              {t('auth.registration.registerButton')}
+            </ButtonText>
           )}
         </Button>
       </Box>
 
       {/* Login Link */}
-      <HStack justifyContent="center" alignItems="center" mt="$6">
-        <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$sm">
+      <HStack className="mt-6 items-center justify-center">
+        <Text className="text-sm" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
           {t('auth.registration.haveAccount')}{' '}
         </Text>
         <Pressable
@@ -369,7 +368,7 @@ export const RegistrationScreen: React.FC<RegistrationScreenProps> = ({ navigati
           accessibilityLabel={t('auth.registration.loginLink')}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
-          <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+          <Text className="text-sm font-semibold text-primary-500">
             {t('auth.registration.loginLink')}
           </Text>
         </Pressable>

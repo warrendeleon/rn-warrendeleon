@@ -13,7 +13,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
-import { Box, Center, HStack, Image, Pressable, Spinner, Text, VStack } from '@gluestack-ui/themed';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { CommonActions } from '@react-navigation/native';
 import type {
@@ -22,6 +21,14 @@ import type {
 } from '@react-navigation/native-stack';
 import { AlertCircle, CheckCircle, ChevronLeft, Loader } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Center } from '@app/components/ui/center';
+import { HStack } from '@app/components/ui/hstack';
+import { Image } from '@app/components/ui/image';
+import { Pressable } from '@app/components/ui/pressable';
+import { Spinner } from '@app/components/ui/spinner';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { selectUser } from '@app/features/Auth';
 import { SupabaseStorageClient } from '@app/httpClients/SupabaseStorageClient';
 import type { RootStackParamList } from '@app/navigation';
@@ -72,7 +79,6 @@ export const ProfilePicturePreviewScreen: React.FC = () => {
 
   // iOS-style colours
   const cardBg = isDark ? 'rgba(44, 44, 46, 0.8)' : 'rgba(120, 120, 128, 0.16)';
-  const primaryButtonBg = '#0066FF';
   const textColor = isDark ? '#FFFFFF' : '#000000';
   const subtleTextColor = isDark ? '#8E8E93' : '#6C6C70';
 
@@ -156,7 +162,7 @@ export const ProfilePicturePreviewScreen: React.FC = () => {
           hitSlop={8}
           accessibilityRole="button"
           accessibilityLabel={t('common.back', 'Back')}
-          ml="$1"
+          className="ml-1"
         >
           <ChevronLeft size={28} color={isDark ? '#FFFFFF' : '#007AFF'} />
         </Pressable>
@@ -170,9 +176,9 @@ export const ProfilePicturePreviewScreen: React.FC = () => {
     switch (validationState) {
       case 'validating':
         return (
-          <HStack alignItems="center" justifyContent="center" space="sm">
+          <HStack space="sm" className="items-center justify-center">
             <Loader size={iconSize} color={subtleTextColor} />
-            <Text size="sm" color={subtleTextColor}>
+            <Text size="sm" style={{ color: subtleTextColor }}>
               {t('profilePicture.preview.validating', 'Checking photo...')}
             </Text>
           </HStack>
@@ -180,9 +186,9 @@ export const ProfilePicturePreviewScreen: React.FC = () => {
 
       case 'valid':
         return (
-          <HStack alignItems="center" justifyContent="center" space="sm">
+          <HStack space="sm" className="items-center justify-center">
             <CheckCircle size={iconSize} color="#34C759" />
-            <Text size="sm" color="#34C759">
+            <Text size="sm" style={{ color: '#34C759' }}>
               {t('profilePicture.preview.faceDetected', 'Face detected')}
             </Text>
           </HStack>
@@ -190,9 +196,9 @@ export const ProfilePicturePreviewScreen: React.FC = () => {
 
       case 'invalid':
         return (
-          <HStack alignItems="center" justifyContent="center" space="sm">
+          <HStack space="sm" className="items-center justify-center">
             <AlertCircle size={iconSize} color="#FF453A" />
-            <Text size="sm" color="#FF453A">
+            <Text size="sm" style={{ color: '#FF453A' }}>
               {validationResult?.message || t('profilePicture.preview.noFace', 'No face detected')}
             </Text>
           </HStack>
@@ -202,43 +208,40 @@ export const ProfilePicturePreviewScreen: React.FC = () => {
 
   return (
     <AuthScreenWrapper testID="profile-picture-preview-screen">
-      <VStack flex={1} px="$6" pt="$4" pb="$8">
+      <VStack className="flex-1 px-6 pb-8 pt-4">
         {/* Image Preview - Larger, clean circle */}
-        <Center flex={1}>
+        <Center className="flex-1">
           <Box
-            borderRadius={150}
-            overflow="hidden"
-            shadowColor="$black"
-            shadowOffset={{ width: 0, height: 4 }}
-            shadowOpacity={0.1}
-            shadowRadius={12}
-            elevation={4}
+            className="overflow-hidden rounded-[150px]"
+            style={{
+              shadowColor: '#000000',
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.1,
+              shadowRadius: 12,
+              elevation: 4,
+            }}
           >
             <Image
               source={{ uri: imageUri }}
               alt={t('profilePicture.preview.imageAlt', 'Selected profile picture')}
-              w={280}
-              h={280}
-              borderRadius={140}
+              size="none"
+              className="h-[280px] w-[280px] rounded-[140px]"
               testID="profile-picture-preview-image"
             />
           </Box>
         </Center>
 
         {/* Validation Status - Subtle, centered text */}
-        <Box py="$4">{renderValidationStatus()}</Box>
+        <Box className="py-4">{renderValidationStatus()}</Box>
 
         {/* iOS-style pill buttons */}
-        <VStack space="sm" px="$2">
+        <VStack space="sm" className="px-2">
           {validationState === 'valid' && (
             <Pressable
               onPress={handleSave}
               disabled={isSaving}
-              bg={primaryButtonBg}
-              py="$3.5"
-              px="$6"
-              borderRadius={25}
-              opacity={isSaving ? 0.6 : 1}
+              className="rounded-[25px] bg-[#0066FF] px-6 py-3.5"
+              style={{ opacity: isSaving ? 0.6 : 1, minHeight: Platform.OS === 'ios' ? 50 : 48 }}
               accessibilityRole="button"
               accessibilityLabel={t('profilePicture.preview.save', 'Save')}
               accessibilityHint={t(
@@ -246,13 +249,12 @@ export const ProfilePicturePreviewScreen: React.FC = () => {
                 'Saves this photo as your profile picture'
               )}
               testID="profile-picture-preview-save-button"
-              minHeight={Platform.OS === 'ios' ? 50 : 48}
             >
               <Center>
                 {isSaving ? (
                   <Spinner size="small" color="#FFFFFF" />
                 ) : (
-                  <Text size="md" fontWeight="$semibold" color="#FFFFFF">
+                  <Text size="md" className="font-semibold text-white">
                     {t('profilePicture.preview.save', 'Save')}
                   </Text>
                 )}
@@ -263,11 +265,12 @@ export const ProfilePicturePreviewScreen: React.FC = () => {
           <Pressable
             onPress={handleRetry}
             disabled={isSaving}
-            bg={cardBg}
-            py="$3.5"
-            px="$6"
-            borderRadius={25}
-            opacity={isSaving ? 0.6 : 1}
+            className="rounded-[25px] px-6 py-3.5"
+            style={{
+              backgroundColor: cardBg,
+              opacity: isSaving ? 0.6 : 1,
+              minHeight: Platform.OS === 'ios' ? 50 : 48,
+            }}
             accessibilityRole="button"
             accessibilityLabel={t('profilePicture.preview.retry', 'Choose Different Photo')}
             accessibilityHint={t(
@@ -275,10 +278,9 @@ export const ProfilePicturePreviewScreen: React.FC = () => {
               'Returns to select a different photo'
             )}
             testID="profile-picture-preview-retry-button"
-            minHeight={Platform.OS === 'ios' ? 50 : 48}
           >
             <Center>
-              <Text size="md" fontWeight="$medium" color={textColor}>
+              <Text size="md" className="font-medium" style={{ color: textColor }}>
                 {validationState === 'invalid'
                   ? t('profilePicture.preview.tryAgain', 'Try Different Photo')
                   : t('profilePicture.preview.chooseDifferent', 'Choose Different Photo')}

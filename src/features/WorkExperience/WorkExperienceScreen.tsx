@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, ScrollView, Text } from '@gluestack-ui/themed';
+import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 import type { RootStackParamList } from '@app/navigation';
 import { DetailListGroup, type DetailListGroupItem } from '@app/shared/components';
 import { useAppColorScheme } from '@app/shared/hooks';
@@ -138,9 +140,8 @@ export const WorkExperienceScreen: React.FC = () => {
   return (
     <ScrollView
       testID="work-experience-screen"
-      flex={1}
-      p="$4"
-      bg={isDark ? '$black' : '$coolGray100'}
+      className="flex-1 p-4"
+      style={{ backgroundColor: isDark ? '#000000' : '#f3f4f6' }}
       contentInsetAdjustmentBehavior="automatic"
     >
       <DetailListGroup
@@ -150,8 +151,8 @@ export const WorkExperienceScreen: React.FC = () => {
       />
 
       {!loading && !error && workExperienceItems.length === 0 && (
-        <Box p="$5" alignItems="center" testID="work-experience-empty-state">
-          <Text color={isDark ? '$white' : '$black'} fontSize="$md">
+        <Box className="items-center p-5" testID="work-experience-empty-state">
+          <Text className="text-base" style={{ color: isDark ? '#FFFFFF' : '#000000' }}>
             {t('workExperience.empty')}
           </Text>
         </Box>

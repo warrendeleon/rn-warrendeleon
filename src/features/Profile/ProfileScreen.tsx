@@ -1,20 +1,17 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Linking, StyleSheet, useWindowDimensions } from 'react-native';
+import { Linking, ScrollView, StyleSheet, useWindowDimensions } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  Avatar,
-  Box,
-  Divider,
-  Heading,
-  HStack,
-  Image,
-  Pressable,
-  ScrollView,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
 
+import { Avatar } from '@app/components/ui/avatar';
+import { Box } from '@app/components/ui/box';
+import { Divider } from '@app/components/ui/divider';
+import { Heading } from '@app/components/ui/heading';
+import { HStack } from '@app/components/ui/hstack';
+import { Image } from '@app/components/ui/image';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { CAROUSEL_HEIGHT_RATIO, TOUCH_TARGET_SIZE } from '@app/config/constants';
 import { useAppColorScheme } from '@app/shared/hooks';
 import { useAppSelector } from '@app/store';
@@ -67,19 +64,19 @@ const ContactRow: React.FC<ContactRowProps> = ({
   const isDark = colorScheme === 'dark';
 
   const iconColor = isDark ? '#007AFF' : '#007AFF'; // iOS blue
-  const labelColor = isDark ? '$textLight400' : '$textLight500';
-  const valueColor = isDark ? '$white' : '$black';
+  const labelColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  const valueColor = isDark ? '#FFFFFF' : '#000000';
 
   const content = (
-    <HStack space="md" alignItems="center" py="$3" px="$4">
-      <Box w="$8" alignItems="center">
+    <HStack space="md" className="items-center px-4 py-3">
+      <Box className="w-8 items-center">
         <MaterialCommunityIcons name={icon} size={24} color={iconColor} />
       </Box>
-      <VStack flex={1} space="xs">
-        <Text color={labelColor} fontSize="$xs" lineHeight="$xs">
+      <VStack space="xs" className="flex-1">
+        <Text className="text-xs leading-[18px]" style={{ color: labelColor }}>
           {label}
         </Text>
-        <Text color={valueColor} fontSize="$md" lineHeight="$md">
+        <Text className="text-base leading-[22px]" style={{ color: valueColor }}>
           {value}
         </Text>
       </VStack>
@@ -133,7 +130,7 @@ const SocialIcon: React.FC<SocialIconProps> = ({ platform, url, onPress, isDark 
     linkedin: '#0A66C2',
   };
 
-  const bgColor = isDark ? '$backgroundDark800' : '$white';
+  const bgColor = isDark ? '#404040' : '#FFFFFF';
   const iconColor = colorMap[platform];
 
   return (
@@ -143,10 +140,8 @@ const SocialIcon: React.FC<SocialIconProps> = ({ platform, url, onPress, isDark 
       accessibilityRole="button"
       accessibilityLabel={`Open ${platform} profile`}
       accessibilityHint={`Opens ${platform} in browser`}
-      bg={bgColor}
-      borderRadius="$full"
-      p="$3"
-      style={styles.socialIcon}
+      className="rounded-full p-3"
+      style={[styles.socialIcon, { backgroundColor: bgColor }]}
     >
       <MaterialCommunityIcons name={iconMap[platform]} size={28} color={iconColor} />
     </Pressable>
@@ -169,9 +164,9 @@ export const ProfileScreen: React.FC = () => {
   const CAROUSEL_HEIGHT = WINDOW_HEIGHT * CAROUSEL_HEIGHT_RATIO;
 
   const backgroundColor = isDark ? '#000000' : '#F2F2F7';
-  const cardBgColor = isDark ? '$backgroundDark900' : '$white';
-  const nameColor = isDark ? '$white' : '$black';
-  const headlineColor = isDark ? '$textLight400' : '$textLight500';
+  const cardBgColor = isDark ? '#262626' : '#FFFFFF';
+  const nameColor = isDark ? '#FFFFFF' : '#000000';
+  const headlineColor = isDark ? '#A3A3A3' : '#8C8C8C';
 
   const handlePhonePress = useCallback(() => {
     if (profile?.phone) {
@@ -217,8 +212,8 @@ export const ProfileScreen: React.FC = () => {
         <Box style={styles.centeredContent}>
           <Text
             testID="profile-loading"
-            color={nameColor}
-            fontSize="$md"
+            className="text-base"
+            style={{ color: nameColor }}
             accessibilityRole="text"
             accessibilityLabel={t('profile.states.loading')}
           >
@@ -236,8 +231,7 @@ export const ProfileScreen: React.FC = () => {
         <Box style={styles.centeredContent}>
           <Text
             testID="profile-error"
-            color="$error500"
-            fontSize="$md"
+            className="text-base text-[#E63535]"
             accessibilityRole="alert"
             accessibilityLabel={t('profile.states.error', { error })}
           >
@@ -255,8 +249,8 @@ export const ProfileScreen: React.FC = () => {
         <Box style={styles.centeredContent}>
           <Text
             testID="profile-empty"
-            color={nameColor}
-            fontSize="$md"
+            className="text-base"
+            style={{ color: nameColor }}
             accessibilityRole="text"
             accessibilityLabel={t('profile.states.empty')}
           >
@@ -283,8 +277,8 @@ export const ProfileScreen: React.FC = () => {
             accessibilityLabel={`Profile photo of ${fullName}`}
           />
         ) : (
-          <Box flex={1} alignItems="center" justifyContent="center" bg="$coolGray700">
-            <Avatar size="2xl" bg="$coolGray500" testID="profile-avatar-fallback">
+          <Box className="flex-1 items-center justify-center bg-gray-700">
+            <Avatar size="2xl" className="bg-gray-500" testID="profile-avatar-fallback">
               <MaterialCommunityIcons name="account" size={80} color="#9CA3AF" />
             </Avatar>
           </Box>
@@ -293,7 +287,7 @@ export const ProfileScreen: React.FC = () => {
 
       {/* Scrollable Content */}
       <ScrollView
-        flex={1}
+        className="flex-1"
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
         testID="profile-screen"
@@ -302,13 +296,13 @@ export const ProfileScreen: React.FC = () => {
         <Box style={{ height: CAROUSEL_HEIGHT - 20 }} />
 
         {/* Main Content Card */}
-        <Box bg={cardBgColor} borderTopLeftRadius="$3xl" borderTopRightRadius="$3xl">
+        <Box className="rounded-tl-3xl rounded-tr-3xl" style={{ backgroundColor: cardBgColor }}>
           {/* Profile Name Section */}
-          <VStack space="xs" alignItems="center" pt="$6" pb="$4" px="$4">
+          <VStack space="xs" className="items-center px-4 pb-4 pt-6">
             <Heading
-              color={nameColor}
               size="2xl"
-              textAlign="center"
+              className="text-center"
+              style={{ color: nameColor }}
               testID="profile-name"
               accessibilityRole="header"
               accessibilityLabel={fullName}
@@ -317,9 +311,8 @@ export const ProfileScreen: React.FC = () => {
             </Heading>
             {profile.headline && (
               <Text
-                color={headlineColor}
-                fontSize="$md"
-                textAlign="center"
+                className="text-center text-base"
+                style={{ color: headlineColor }}
                 testID="profile-headline"
                 accessibilityRole="text"
                 accessibilityLabel={`Headline: ${profile.headline}`}
@@ -329,10 +322,10 @@ export const ProfileScreen: React.FC = () => {
             )}
           </VStack>
 
-          <Divider my="$2" />
+          <Divider className="my-2" />
 
           {/* Contact Information Section */}
-          <VStack py="$2">
+          <VStack className="py-2">
             <ContactRow
               icon="phone"
               label={t('profile.contact.phone')}
@@ -360,23 +353,20 @@ export const ProfileScreen: React.FC = () => {
             />
           </VStack>
 
-          <Divider my="$2" />
+          <Divider className="my-2" />
 
           {/* Social Media Section */}
           {profile.socials && (
-            <VStack space="md" py="$4" px="$4">
+            <VStack space="md" className="px-4 py-4">
               <Text
-                mb="$2"
-                fontSize="$xs"
-                fontWeight="$medium"
-                textTransform="uppercase"
-                color={isDark ? '$textDark400' : '$textLight500'}
+                className="mb-2 text-xs font-medium uppercase"
+                style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
                 testID="profile-social-header"
                 accessibilityRole="header"
               >
                 {t('profile.social.header')}
               </Text>
-              <HStack space="md" justifyContent="center" flexWrap="wrap">
+              <HStack space="md" className="flex-wrap justify-center">
                 {profile.socials.facebook && (
                   <SocialIcon
                     platform="facebook"

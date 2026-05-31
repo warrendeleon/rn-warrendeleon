@@ -14,7 +14,6 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform } from 'react-native';
 import { RESULTS } from 'react-native-permissions';
-import { Box, HStack, Pressable, Spinner, Text, VStack } from '@gluestack-ui/themed';
 import { CommonActions, useNavigation, useRoute } from '@react-navigation/native';
 import type {
   NativeStackNavigationProp,
@@ -22,6 +21,12 @@ import type {
 } from '@react-navigation/native-stack';
 import { Camera, ImageIcon, Trash2 } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Spinner } from '@app/components/ui/spinner';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import type { RootStackParamList } from '@app/navigation';
 import {
   useAppColorScheme,
@@ -69,23 +74,18 @@ const ActionItem: React.FC<ActionItemProps> = ({
   return (
     <Pressable
       onPress={onPress}
-      py="$3.5"
-      px="$5"
+      className="rounded-[25px] px-5 py-3.5"
       accessibilityRole="button"
       accessibilityLabel={label}
       testID={testID}
-      minHeight={Platform.OS === 'ios' ? 50 : 48}
-      borderRadius={25}
-      bg={bgColor}
-      sx={{
-        ':active': {
-          bg: pressedBg,
-        },
-      }}
+      style={({ pressed }) => ({
+        minHeight: Platform.OS === 'ios' ? 50 : 48,
+        backgroundColor: pressed ? pressedBg : bgColor,
+      })}
     >
-      <HStack alignItems="center" justifyContent="center" space="sm">
+      <HStack space="sm" className="items-center justify-center">
         {icon}
-        <Text size="md" fontWeight="$medium" color={textColor}>
+        <Text size="md" className="font-medium" style={{ color: textColor }}>
           {label}
         </Text>
       </HStack>
@@ -235,27 +235,21 @@ export const ProfilePictureActionSheetScreen: React.FC = () => {
   if (isProcessing) {
     return (
       <Box
-        flex={1}
-        bg={isDark ? '#000000' : '#FFFFFF'}
-        justifyContent="center"
-        alignItems="center"
+        className="flex-1 items-center justify-center"
+        style={{ backgroundColor: isDark ? '#000000' : '#FFFFFF' }}
         testID="profile-picture-action-sheet"
       >
-        <Spinner size="large" color={isDark ? '$white' : '$primary500'} />
+        <Spinner size="large" color={isDark ? '#FFFFFF' : '#0077E6'} />
       </Box>
     );
   }
 
   return (
-    <Box flex={1} justifyContent="center" alignItems="center">
+    <Box className="flex-1 items-center justify-center">
       {/* Backdrop - tap to dismiss */}
       <Pressable
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        bg="rgba(0, 0, 0, 0.3)"
+        className="absolute inset-0"
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}
         onPress={handleDismiss}
         accessibilityRole="button"
         accessibilityLabel={t('common.close', 'Close')}
@@ -264,24 +258,22 @@ export const ProfilePictureActionSheetScreen: React.FC = () => {
 
       {/* Action Sheet - Floating Card */}
       <Box
-        bg={isDark ? 'rgba(28, 28, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)'}
-        borderRadius={20}
-        p="$4"
-        mx="$6"
-        maxWidth={300}
+        className="mx-6 max-w-[300px] rounded-[20px] p-4"
+        style={{
+          backgroundColor: isDark ? 'rgba(28, 28, 30, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+          shadowColor: '#000000',
+          shadowOffset: { width: 0, height: 8 },
+          shadowOpacity: 0.15,
+          shadowRadius: 24,
+          elevation: 8,
+        }}
         testID="profile-picture-action-sheet"
-        shadowColor="$black"
-        shadowOffset={{ width: 0, height: 8 }}
-        shadowOpacity={0.15}
-        shadowRadius={24}
-        elevation={8}
       >
         {/* Title */}
         <Text
           size="sm"
-          color={isDark ? '#8E8E93' : '#6C6C70'}
-          textAlign="center"
-          mb="$3"
+          className="mb-3 text-center"
+          style={{ color: isDark ? '#8E8E93' : '#6C6C70' }}
           accessibilityRole="header"
           testID="profile-picture-action-sheet-title"
         >

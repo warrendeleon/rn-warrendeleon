@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TextInput } from 'react-native';
-import { Box, HStack, Pressable, Spinner, Text, VStack } from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import type {
@@ -11,6 +10,12 @@ import type {
 } from '@react-navigation/native-stack';
 import * as yup from 'yup';
 
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Spinner } from '@app/components/ui/spinner';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { refreshUser, selectUser, updateUserProfileAsync } from '@app/features/Auth';
 import type { RootStackParamList } from '@app/navigation';
 import { AlertBox, AuthScreenWrapper, ConfirmDialog, useToast } from '@app/shared/components';
@@ -202,7 +207,7 @@ export const EditAccountScreen: React.FC = () => {
     <AuthScreenWrapper testID="edit-account-screen">
       {/* Error Message */}
       {saveError && (
-        <Box mx="$4" mt="$4">
+        <Box className="mx-4 mt-4">
           <AlertBox variant="error" message={saveError} testID="save-error-message" />
         </Box>
       )}
@@ -214,35 +219,27 @@ export const EditAccountScreen: React.FC = () => {
       />
 
       {/* Name Section */}
-      <VStack mt="$6" px="$4">
+      <VStack className="mt-6 px-4">
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={labelColor}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: labelColor }}
           accessibilityRole="header"
         >
           {t('account.personalInfo')}
         </Text>
 
         {/* iOS 26 style grouped input card */}
-        <Box bg={cardBg} borderRadius={20} overflow="hidden">
+        <Box className="overflow-hidden rounded-[20px]" style={{ backgroundColor: cardBg }}>
           {/* First Name Row */}
           <Controller
             control={control}
             name="firstName"
             render={({ field: { onChange, onBlur, value } }) => (
               <HStack
-                px="$4"
-                py="$3"
-                alignItems="center"
-                justifyContent="space-between"
-                borderBottomWidth={1}
-                borderBottomColor={separatorColor}
+                className="items-center justify-between border-b px-4 py-3"
+                style={{ borderBottomColor: separatorColor }}
               >
-                <Text fontSize="$md" color={textColor} minWidth="$24">
+                <Text className="min-w-24 text-base" style={{ color: textColor }}>
                   {t('account.firstName')}
                 </Text>
                 <TextInput
@@ -274,8 +271,8 @@ export const EditAccountScreen: React.FC = () => {
             control={control}
             name="lastName"
             render={({ field: { onChange, onBlur, value } }) => (
-              <HStack px="$4" py="$3" alignItems="center" justifyContent="space-between">
-                <Text fontSize="$md" color={textColor} minWidth="$24">
+              <HStack className="items-center justify-between px-4 py-3">
+                <Text className="min-w-24 text-base" style={{ color: textColor }}>
                   {t('account.lastName')}
                 </Text>
                 <TextInput
@@ -305,28 +302,24 @@ export const EditAccountScreen: React.FC = () => {
 
         {/* Validation errors */}
         {(errors.firstName || errors.lastName || errors.phoneNumber) && (
-          <Text fontSize="$xs" color="$red500" mt="$2" ml="$4">
+          <Text className="ml-4 mt-2 text-xs text-red-500">
             {errors.firstName?.message || errors.lastName?.message || errors.phoneNumber?.message}
           </Text>
         )}
       </VStack>
 
       {/* Contact Information Section */}
-      <VStack mt="$6" px="$4">
+      <VStack className="mt-6 px-4">
         <Text
-          mb="$2"
-          ml="$4"
-          fontSize="$xs"
-          fontWeight="$medium"
-          textTransform="uppercase"
-          color={labelColor}
+          className="mb-2 ml-4 text-xs font-medium uppercase"
+          style={{ color: labelColor }}
           accessibilityRole="header"
         >
           {t('account.contactInfo')}
         </Text>
 
         {/* iOS 26 style grouped card for contact info */}
-        <Box bg={cardBg} borderRadius={20} overflow="hidden">
+        <Box className="overflow-hidden rounded-[20px]" style={{ backgroundColor: cardBg }}>
           {/* Phone Number Row */}
           <Controller
             control={control}
@@ -360,12 +353,8 @@ export const EditAccountScreen: React.FC = () => {
 
               return (
                 <HStack
-                  px="$4"
-                  py="$3"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                  borderBottomWidth={1}
-                  borderBottomColor={separatorColor}
+                  className="items-center justify-end border-b px-4 py-3"
+                  style={{ borderBottomColor: separatorColor }}
                 >
                   <CountryCodeSelector
                     selectedCountry={selectedCountry}
@@ -400,15 +389,13 @@ export const EditAccountScreen: React.FC = () => {
           />
 
           {/* Email Row (Read-only) */}
-          <HStack px="$4" py="$3" alignItems="center" justifyContent="space-between">
-            <Text fontSize="$md" color={textColor} minWidth="$24">
+          <HStack className="items-center justify-between px-4 py-3">
+            <Text className="min-w-24 text-base" style={{ color: textColor }}>
               {t('account.email')}
             </Text>
             <Text
-              fontSize="$md"
-              color={labelColor}
-              flex={1}
-              textAlign="right"
+              className="flex-1 text-right text-base"
+              style={{ color: labelColor }}
               accessibilityLabel={t('account.email')}
               accessibilityHint={t('account.emailHint')}
               testID="email-display"
@@ -420,16 +407,16 @@ export const EditAccountScreen: React.FC = () => {
       </VStack>
 
       {/* Save Button - iOS 26 pill style */}
-      <VStack mt="$6" px="$4">
+      <VStack className="mt-6 px-4">
         <Pressable
           onPress={handleSubmit(onSubmit)}
           disabled={!isDirty || isSaving}
-          bg={isDirty ? primaryButtonBg : pillBg}
-          borderRadius={25}
-          py="$3.5"
-          alignItems="center"
-          opacity={isDirty ? 1 : 0.6}
-          minHeight={50}
+          className="items-center rounded-[25px] py-3.5"
+          style={{
+            backgroundColor: isDirty ? primaryButtonBg : pillBg,
+            opacity: isDirty ? 1 : 0.6,
+            minHeight: 50,
+          }}
           accessibilityRole="button"
           accessibilityLabel={t('account.save')}
           accessibilityHint={t('account.saveHint')}
@@ -439,7 +426,10 @@ export const EditAccountScreen: React.FC = () => {
           {isSaving ? (
             <Spinner size="small" color="#FFFFFF" />
           ) : (
-            <Text fontSize="$md" fontWeight="$semibold" color={isDirty ? '#FFFFFF' : labelColor}>
+            <Text
+              className="text-base font-semibold"
+              style={{ color: isDirty ? '#FFFFFF' : labelColor }}
+            >
               {t('account.save')}
             </Text>
           )}
@@ -447,36 +437,29 @@ export const EditAccountScreen: React.FC = () => {
       </VStack>
 
       {/* Change Password - iOS 26 pill style */}
-      <VStack mt="$6" px="$4">
+      <VStack className="mt-6 px-4">
         <Pressable
           onPress={handleChangePassword}
-          bg={pillBg}
-          borderRadius={25}
-          py="$3.5"
-          alignItems="center"
-          minHeight={50}
+          className="items-center rounded-[25px] py-3.5"
+          style={{ backgroundColor: pillBg, minHeight: 50 }}
           accessibilityRole="button"
           accessibilityLabel={t('account.changePassword')}
           accessibilityHint={t('account.changePasswordHint')}
           testID="change-password-button"
         >
-          <Text fontSize="$md" fontWeight="$medium" color={textColor}>
+          <Text className="text-base font-medium" style={{ color: textColor }}>
             {t('account.changePassword')}
           </Text>
         </Pressable>
       </VStack>
 
       {/* Logout - iOS 26 pill style */}
-      <VStack mt="$4" px="$4" pb="$8">
+      <VStack className="mt-4 px-4 pb-8">
         <Pressable
           onPress={handleLogout}
           disabled={isLoggingOut}
-          bg={pillBg}
-          borderRadius={25}
-          py="$3.5"
-          alignItems="center"
-          minHeight={50}
-          opacity={isLoggingOut ? 0.6 : 1}
+          className="items-center rounded-[25px] py-3.5"
+          style={{ backgroundColor: pillBg, opacity: isLoggingOut ? 0.6 : 1, minHeight: 50 }}
           accessibilityRole="button"
           accessibilityLabel={t('settings.logout')}
           accessibilityHint={t('account.logoutHint')}
@@ -485,9 +468,7 @@ export const EditAccountScreen: React.FC = () => {
           {isLoggingOut ? (
             <Spinner size="small" color="#FF453A" />
           ) : (
-            <Text fontSize="$md" fontWeight="$medium" color="#FF453A">
-              {t('settings.logout')}
-            </Text>
+            <Text className="text-base font-medium text-[#FF453A]">{t('settings.logout')}</Text>
           )}
         </Pressable>
       </VStack>

@@ -17,9 +17,13 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Box, Heading, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { Box } from '@app/components/ui/box';
+import { Heading } from '@app/components/ui/heading';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import type { RootStackParamList } from '@app/navigation';
 import { AlertBox } from '@app/shared/components';
 import { useAppColorScheme } from '@app/shared/hooks';
@@ -152,13 +156,13 @@ export const PINSetupScreen: React.FC<PINSetupScreenProps> = ({ navigation }) =>
       }}
       testID="pin-setup-screen"
     >
-      <VStack flex={1} px="$6" justifyContent="center" alignItems="center">
+      <VStack className="flex-1 items-center justify-center px-6">
         {/* Header */}
-        <VStack space="sm" alignItems="center" mb="$8">
+        <VStack space="sm" className="mb-8 items-center">
           <Heading
             size="2xl"
-            color={isDark ? '$white' : '$black'}
-            textAlign="center"
+            className="text-center"
+            style={{ color: isDark ? '#FFFFFF' : '#000000' }}
             accessibilityRole="header"
             accessibilityLabel={
               step === 'enter' ? t('auth.pin.createTitle') : t('auth.pin.confirmTitle')
@@ -168,10 +172,8 @@ export const PINSetupScreen: React.FC<PINSetupScreenProps> = ({ navigation }) =>
           </Heading>
 
           <Text
-            fontSize="$md"
-            color={isDark ? '$coolGray400' : '$coolGray600'}
-            textAlign="center"
-            px="$4"
+            className="px-4 text-center text-base"
+            style={{ color: isDark ? '#9ca3af' : '#4b5563' }}
           >
             {step === 'enter' ? t('auth.pin.createSubtitle') : t('auth.pin.confirmSubtitle')}
           </Text>
@@ -179,7 +181,7 @@ export const PINSetupScreen: React.FC<PINSetupScreenProps> = ({ navigation }) =>
 
         {/* Error Message */}
         {error && (
-          <Box w="$full" mb="$4">
+          <Box className="mb-4 w-full">
             <AlertBox
               variant="error"
               message={error}
@@ -191,7 +193,7 @@ export const PINSetupScreen: React.FC<PINSetupScreenProps> = ({ navigation }) =>
 
         {/* Success Message (confirmation step only, before error) */}
         {step === 'confirm' && !error && !isSubmitting && (
-          <Box w="$full" mb="$4">
+          <Box className="mb-4 w-full">
             <AlertBox
               variant="success"
               message={t('auth.pin.pinStrong')}
@@ -215,22 +217,19 @@ export const PINSetupScreen: React.FC<PINSetupScreenProps> = ({ navigation }) =>
           <Pressable
             onPress={handleBack}
             disabled={isSubmitting}
-            mt="$6"
-            p="$2"
+            className="mt-6 p-2"
             testID="change-pin-link"
             accessibilityRole="button"
             accessibilityLabel={t('auth.pin.changePin')}
             accessibilityHint={t('auth.pin.changePinHint')}
           >
-            <Text color="$primary500" fontWeight="$medium">
-              {t('auth.pin.changePin')}
-            </Text>
+            <Text className="font-medium text-primary-500">{t('auth.pin.changePin')}</Text>
           </Pressable>
         )}
 
         {/* Info Box */}
-        <Box mt="$8" px="$4">
-          <Text fontSize="$sm" color={isDark ? '$coolGray500' : '$coolGray600'} textAlign="center">
+        <Box className="mt-8 px-4">
+          <Text className="text-center text-sm" style={{ color: isDark ? '#6b7280' : '#4b5563' }}>
             {t('auth.pin.infoText')}
           </Text>
         </Box>
@@ -238,10 +237,8 @@ export const PINSetupScreen: React.FC<PINSetupScreenProps> = ({ navigation }) =>
         {/* Submitting State */}
         {isSubmitting && (
           <Text
-            mt="$4"
-            fontSize="$sm"
-            color={isDark ? '$coolGray400' : '$coolGray600'}
-            textAlign="center"
+            className="mt-4 text-center text-sm"
+            style={{ color: isDark ? '#9ca3af' : '#4b5563' }}
           >
             {t('auth.pin.settingUp')}
           </Text>

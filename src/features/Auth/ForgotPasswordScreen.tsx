@@ -1,20 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Button,
-  ButtonSpinner,
-  ButtonText,
-  HStack,
-  Pressable,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Info } from 'lucide-react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Button, ButtonSpinner, ButtonText } from '@app/components/ui/button';
+import { HStack } from '@app/components/ui/hstack';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
 import { AlertBox, AuthScreenWrapper, EmailInput, FormInputGroup } from '@app/shared/components';
@@ -100,7 +96,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({ navi
     return (
       <AuthScreenWrapper testID="forgot-password-screen">
         {/* Success Message */}
-        <Box mx="$4" mt="$6">
+        <Box className="mx-4 mt-6">
           <AlertBox
             variant="success"
             title={t('auth.forgotPassword.successTitle')}
@@ -110,7 +106,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({ navi
         </Box>
 
         {/* Back to Login Button */}
-        <Box mx="$4" mt="$8">
+        <Box className="mx-4 mt-8">
           <Button
             onPress={handleBackToLogin}
             size="lg"
@@ -118,10 +114,12 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({ navi
             accessibilityRole="button"
             accessibilityLabel={t('auth.forgotPassword.backToLogin')}
             accessibilityHint={t('auth.forgotPassword.backToLoginHint')}
-            borderRadius="$xl"
+            className="rounded-xl"
             style={{ minHeight: 50 }}
           >
-            <ButtonText fontWeight="$semibold">{t('auth.forgotPassword.backToLogin')}</ButtonText>
+            <ButtonText className="font-semibold">
+              {t('auth.forgotPassword.backToLogin')}
+            </ButtonText>
           </Button>
         </Box>
       </AuthScreenWrapper>
@@ -131,15 +129,15 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({ navi
   return (
     <AuthScreenWrapper testID="forgot-password-screen">
       {/* Subtitle */}
-      <Box mx="$4" mt="$4">
-        <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$sm">
+      <Box className="mx-4 mt-4">
+        <Text className="text-sm" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
           {t('auth.forgotPassword.subtitle')}
         </Text>
       </Box>
 
       {/* Error Message */}
       {error && (
-        <Box mx="$4" mt="$4">
+        <Box className="mx-4 mt-4">
           <AlertBox variant="error" message={error} testID="error-message" />
         </Box>
       )}
@@ -167,7 +165,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({ navi
       </FormInputGroup>
 
       {/* Send Button */}
-      <Box mx="$4" mt="$6">
+      <Box className="mx-4 mt-6">
         <Button
           onPress={handleSubmit(onSubmit)}
           isDisabled={!isValid || isSubmitting}
@@ -177,19 +175,19 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({ navi
           accessibilityLabel={t('auth.forgotPassword.sendButton')}
           accessibilityHint={t('auth.forgotPassword.sendButtonHint')}
           accessibilityState={{ disabled: !isValid || isSubmitting }}
-          borderRadius="$xl"
+          className="rounded-xl"
           style={{ minHeight: 50 }}
         >
           {isSubmitting ? (
-            <ButtonSpinner color="$white" />
+            <ButtonSpinner color="#FFFFFF" />
           ) : (
-            <ButtonText fontWeight="$semibold">{t('auth.forgotPassword.sendButton')}</ButtonText>
+            <ButtonText className="font-semibold">{t('auth.forgotPassword.sendButton')}</ButtonText>
           )}
         </Button>
       </Box>
 
       {/* Back to Login Link */}
-      <HStack justifyContent="center" alignItems="center" mt="$6">
+      <HStack className="mt-6 items-center justify-center">
         <Pressable
           onPress={handleBackToLogin}
           testID="back-to-login-link"
@@ -198,38 +196,36 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({ navi
           accessibilityHint={t('auth.forgotPassword.backToLoginHint')}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
-          <Text color="$primary500" fontWeight="$semibold" fontSize="$sm">
+          <Text className="text-sm font-semibold text-primary-500">
             {t('auth.forgotPassword.backToLogin')}
           </Text>
         </Pressable>
       </HStack>
 
       {/* Information Box */}
-      <Box mx="$4" mt="$8">
+      <Box className="mx-4 mt-8">
         <Box
-          bg={isDark ? '$backgroundDark900' : '$white'}
-          borderRadius="$xl"
-          p="$4"
+          className="rounded-xl p-4"
+          style={{ backgroundColor: isDark ? '#262626' : '#FFFFFF' }}
           testID="info-box"
         >
-          <HStack space="md" alignItems="flex-start">
+          <HStack space="md" className="items-start">
             <Info size={20} color={isDark ? '#9CA3AF' : '#6B7280'} />
-            <VStack flex={1} space="sm">
+            <VStack space="sm" className="flex-1">
               <Text
-                color={isDark ? '$coolGray300' : '$coolGray700'}
-                fontWeight="$semibold"
-                fontSize="$sm"
+                className="text-sm font-semibold"
+                style={{ color: isDark ? '#d1d5db' : '#374151' }}
               >
                 {t('auth.forgotPassword.infoTitle')}
               </Text>
               <VStack space="xs">
-                <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+                <Text className="text-xs" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
                   • {t('auth.forgotPassword.infoStep1')}
                 </Text>
-                <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+                <Text className="text-xs" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
                   • {t('auth.forgotPassword.infoStep2')}
                 </Text>
-                <Text color={isDark ? '$coolGray400' : '$coolGray600'} fontSize="$xs">
+                <Text className="text-xs" style={{ color: isDark ? '#9ca3af' : '#4b5563' }}>
                   • {t('auth.forgotPassword.infoStep3')}
                 </Text>
               </VStack>
