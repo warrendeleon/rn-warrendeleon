@@ -635,7 +635,7 @@ class SupabaseAuthClientClass {
     } catch (error) {
       // Provide user-friendly error message for incorrect password
       if (axios.isAxiosError(error) && error.response?.status === 400) {
-        throw new Error('Current password is incorrect');
+        throw new Error('Current password is incorrect', { cause: error });
       }
       throw this.handleError(error);
     }

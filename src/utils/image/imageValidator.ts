@@ -82,7 +82,7 @@ async function readMagicBytes(filePath: string, numBytes: number): Promise<numbe
     return bytes;
   } catch (error) {
     logError('Failed to read magic bytes', error);
-    throw new Error('Failed to read file for validation');
+    throw new Error('Failed to read file for validation', { cause: error });
   }
 }
 
@@ -130,7 +130,7 @@ async function getFileSize(filePath: string): Promise<number> {
     return stat.size;
   } catch (error) {
     logError('Failed to get file size', error);
-    throw new Error('Failed to read file size');
+    throw new Error('Failed to read file size', { cause: error });
   }
 }
 

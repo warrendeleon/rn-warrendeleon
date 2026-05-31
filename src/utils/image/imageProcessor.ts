@@ -123,7 +123,7 @@ export async function processImage(
     };
   } catch (error) {
     logError('Failed to process image', error);
-    throw new Error('Failed to process image. Please try again.');
+    throw new Error('Failed to process image. Please try again.', { cause: error });
   }
 }
 

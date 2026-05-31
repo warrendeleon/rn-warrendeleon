@@ -583,7 +583,6 @@ describe('Navigation Error Boundary', () => {
     });
 
     it('allows restoring to previous screen after crash recovery', async () => {
-      let currentScreen = 'DetailsScreen';
       const screenHistory: string[] = ['HomeScreen', 'ListScreen', 'DetailsScreen'];
       let shouldCrash = true;
 
@@ -604,7 +603,7 @@ describe('Navigation Error Boundary', () => {
       expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
 
       // Simulate restoring to previous screen
-      currentScreen = screenHistory[screenHistory.length - 2] ?? 'HomeScreen'; // Go back to ListScreen
+      const currentScreen = screenHistory[screenHistory.length - 2] ?? 'HomeScreen'; // Go back to ListScreen
 
       // Press Go Home to recover
       mockNavigate.mockClear();

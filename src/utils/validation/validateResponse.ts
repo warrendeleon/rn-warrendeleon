@@ -34,10 +34,12 @@ export function validateResponse<T>(schema: z.ZodSchema<T>, data: unknown, conte
       const firstError = error.issues[0];
       if (firstError) {
         const fieldPath = firstError.path.join('.');
-        throw new Error(`Invalid response from server: ${fieldPath} ${firstError.message}`);
+        throw new Error(`Invalid response from server: ${fieldPath} ${firstError.message}`, {
+          cause: error,
+        });
       }
 
-      throw new Error('Invalid response from server');
+      throw new Error('Invalid response from server', { cause: error });
     }
 
     throw error;

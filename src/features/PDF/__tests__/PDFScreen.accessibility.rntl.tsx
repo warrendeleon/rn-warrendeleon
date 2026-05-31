@@ -16,7 +16,6 @@ import { PDFScreen } from '../PDFScreen';
 
 // Mock dependencies
 jest.mock('react-native-pdf', () => {
-  const React = require('react');
   const { View } = require('react-native');
   return {
     __esModule: true,
