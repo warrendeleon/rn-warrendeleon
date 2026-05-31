@@ -193,8 +193,8 @@ describe('getProfileCardStyles', () => {
 
     expect(styles.bg).toBe('#FFFFFF');
     expect(styles.nameColor).toBe('#000000');
-    expect(styles.subtitleColor).toBe('#8C8C8C');
-    expect(styles.chevronColor).toBe('#8C8C8C');
+    expect(styles.subtitleColor).toBe('#6B6B6B');
+    expect(styles.chevronColor).toBe('#6B6B6B');
   });
 
   it('returns dark mode styles', () => {

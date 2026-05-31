@@ -170,10 +170,10 @@ describe('SettingsItem groupVariant styling', () => {
 describe('getSettingsItemStyles', () => {
   describe('theme and variant combinations', () => {
     it.each([
-      ['light', 'single', '#FFFFFF', '#000000', '#8C8C8C', 16, 16],
-      ['light', 'top', '#FFFFFF', '#000000', '#8C8C8C', 16, 0],
-      ['light', 'middle', '#FFFFFF', '#000000', '#8C8C8C', 0, 0],
-      ['light', 'bottom', '#FFFFFF', '#000000', '#8C8C8C', 0, 16],
+      ['light', 'single', '#FFFFFF', '#000000', '#6B6B6B', 16, 16],
+      ['light', 'top', '#FFFFFF', '#000000', '#6B6B6B', 16, 0],
+      ['light', 'middle', '#FFFFFF', '#000000', '#6B6B6B', 0, 0],
+      ['light', 'bottom', '#FFFFFF', '#000000', '#6B6B6B', 0, 16],
       ['dark', 'single', '#262626', '#FFFFFF', '#A3A3A3', 16, 16],
       ['dark', 'top', '#262626', '#FFFFFF', '#A3A3A3', 16, 0],
       ['dark', 'middle', '#262626', '#FFFFFF', '#A3A3A3', 0, 0],
@@ -199,7 +199,7 @@ describe('getSettingsItemStyles', () => {
         const variants = ['single', 'top', 'middle', 'bottom'] as const;
         const expectedBg = theme === 'light' ? '#FFFFFF' : '#262626';
         const expectedLabel = theme === 'light' ? '#000000' : '#FFFFFF';
-        const expectedChevron = theme === 'light' ? '#8C8C8C' : '#A3A3A3';
+        const expectedChevron = theme === 'light' ? '#6B6B6B' : '#A3A3A3';
 
         variants.forEach(variant => {
           const styles = getSettingsItemStyles(theme, variant);

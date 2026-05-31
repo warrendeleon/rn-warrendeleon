@@ -137,7 +137,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
         <Text
           size="md"
           className="mb-8 px-6 text-center"
-          style={{ color: colorScheme === 'dark' ? '#A3A3A3' : '#8C8C8C' }}
+          style={{ color: colorScheme === 'dark' ? '#A3A3A3' : '#6B6B6B' }}
         >
           {__DEV__ && combinedError ? combinedError : t('error.loadingFailed')}
         </Text>

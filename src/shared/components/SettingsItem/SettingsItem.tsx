@@ -34,7 +34,7 @@ export const getSettingsItemStyles = (scheme: 'light' | 'dark', groupVariant: Gr
 
   const bg = isDark ? '#262626' : '#FFFFFF';
   const labelColor = isDark ? '#FFFFFF' : '#000000';
-  const chevronColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  const chevronColor = isDark ? '#A3A3A3' : '#6B6B6B';
 
   const { top, bottom } = groupVariantRadius[groupVariant];
 

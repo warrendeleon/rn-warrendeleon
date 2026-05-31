@@ -27,7 +27,7 @@ exports[`FormInputGroup Snapshots Children Variants renders with multiple childr
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -73,7 +73,7 @@ exports[`FormInputGroup Snapshots Children Variants renders with nested componen
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -123,7 +123,7 @@ exports[`FormInputGroup Snapshots Children Variants renders with single child: F
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -233,7 +233,7 @@ exports[`FormInputGroup Snapshots Light Mode renders with title in light mode: F
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -303,7 +303,7 @@ exports[`FormInputGroup Snapshots Spacing Variants renders with custom horizonta
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -343,7 +343,7 @@ exports[`FormInputGroup Snapshots Spacing Variants renders with custom top margi
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -383,7 +383,7 @@ exports[`FormInputGroup Snapshots Spacing Variants renders with default spacing:
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -423,7 +423,7 @@ exports[`FormInputGroup Snapshots Spacing Variants renders with zero margins: Fo
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -463,7 +463,7 @@ exports[`FormInputGroup Snapshots Title Variants renders with long title: FormIn
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -503,7 +503,7 @@ exports[`FormInputGroup Snapshots Title Variants renders with lowercase title (g
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -543,7 +543,7 @@ exports[`FormInputGroup Snapshots Title Variants renders with short title: FormI
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >
@@ -583,7 +583,7 @@ exports[`FormInputGroup Snapshots Title Variants renders with special characters
       accessibilityRole="header"
       style={
         {
-          "color": "#8C8C8C",
+          "color": "#6B6B6B",
         }
       }
     >

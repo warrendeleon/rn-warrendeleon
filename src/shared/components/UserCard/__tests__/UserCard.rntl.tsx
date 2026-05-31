@@ -195,7 +195,7 @@ describe('UserCard', () => {
 describe('getUserCardStyles', () => {
   describe('theme styles', () => {
     it.each([
-      ['light', '#FFFFFF', '#000000', '#8C8C8C', '#e5e7eb', '#737373', '#8C8C8C'],
+      ['light', '#FFFFFF', '#000000', '#6B6B6B', '#e5e7eb', '#737373', '#6B6B6B'],
       ['dark', '#262626', '#FFFFFF', '#A3A3A3', '#525252', '#D4D4D4', '#A3A3A3'],
     ] as const)(
       'returns correct colours for %s theme',

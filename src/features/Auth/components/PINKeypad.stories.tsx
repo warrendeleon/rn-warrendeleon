@@ -65,7 +65,7 @@ const InteractiveKeypad = () => {
     <Box className="items-center">
       <Box className="mb-4 w-[200px] rounded-md bg-[#DBDBDB] p-2">
         <Text className="text-center text-lg">Pressed: {lastPressed || '-'}</Text>
-        <Text className="text-center text-sm text-[#8C8C8C]">Sequence: {sequence || 'none'}</Text>
+        <Text className="text-center text-sm text-[#6B6B6B]">Sequence: {sequence || 'none'}</Text>
       </Box>
       <PINKeypad
         onDigitPress={digit => {

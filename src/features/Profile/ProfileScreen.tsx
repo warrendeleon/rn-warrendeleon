@@ -64,7 +64,7 @@ const ContactRow: React.FC<ContactRowProps> = ({
   const isDark = colorScheme === 'dark';
 
   const iconColor = isDark ? '#007AFF' : '#007AFF'; // iOS blue
-  const labelColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  const labelColor = isDark ? '#A3A3A3' : '#6B6B6B';
   const valueColor = isDark ? '#FFFFFF' : '#000000';
 
   const content = (
@@ -166,7 +166,7 @@ export const ProfileScreen: React.FC = () => {
   const backgroundColor = isDark ? '#000000' : '#F2F2F7';
   const cardBgColor = isDark ? '#262626' : '#FFFFFF';
   const nameColor = isDark ? '#FFFFFF' : '#000000';
-  const headlineColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  const headlineColor = isDark ? '#A3A3A3' : '#6B6B6B';
 
   const handlePhonePress = useCallback(() => {
     if (profile?.phone) {
@@ -360,7 +360,7 @@ export const ProfileScreen: React.FC = () => {
             <VStack space="md" className="px-4 py-4">
               <Text
                 className="mb-2 text-xs font-medium uppercase"
-                style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
+                style={{ color: isDark ? '#A3A3A3' : '#6B6B6B' }}
                 testID="profile-social-header"
                 accessibilityRole="header"
               >

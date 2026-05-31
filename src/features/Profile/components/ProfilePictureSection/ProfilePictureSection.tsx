@@ -112,7 +112,7 @@ export const ProfilePictureSection: React.FC<ProfilePictureSectionProps> = ({
       {/* Helper text */}
       <Text
         size="sm"
-        className="mt-2 text-[#8C8C8C]"
+        className="mt-2 text-[#6B6B6B]"
         accessibilityLabel={t('profilePicture.tapToChange', 'Tap to change')}
       >
         {t('profilePicture.tapToChange', 'Tap to change')}

@@ -334,7 +334,7 @@ const NonDismissibleDemo = () => {
           }
         />
       </VStack>
-      <Text className="mt-4 text-sm" style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}>
+      <Text className="mt-4 text-sm" style={{ color: isDark ? '#A3A3A3' : '#6B6B6B' }}>
         Note: This toast will auto-dismiss after 3 seconds but has no X button.
       </Text>
     </Box>
@@ -380,7 +380,7 @@ const CustomDurationDemo = () => {
           }
         />
       </VStack>
-      <Text className="mt-4 text-sm" style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}>
+      <Text className="mt-4 text-sm" style={{ color: isDark ? '#A3A3A3' : '#6B6B6B' }}>
         Default durations: Success (4s), Info (5s), Warning (6s), Error (7s)
       </Text>
     </Box>

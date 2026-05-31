@@ -29,7 +29,7 @@ export const FallbackUI: React.FC<FallbackUIProps> = ({ error, onReset }) => {
         {t('error.title')}
       </Heading>
 
-      <Text size="md" className="mb-8 text-center text-[#8C8C8C]">
+      <Text size="md" className="mb-8 text-center text-[#6B6B6B]">
         {__DEV__ ? error?.message : t('error.message')}
       </Text>
 

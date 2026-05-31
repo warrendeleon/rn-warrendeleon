@@ -116,7 +116,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with empty avatar URL: Pr
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -133,7 +133,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with empty avatar URL: Pr
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -168,7 +168,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with empty avatar URL: Pr
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -190,7 +190,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with empty avatar URL: Pr
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -321,7 +321,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with placeholder avatar U
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -338,7 +338,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with placeholder avatar U
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -373,7 +373,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with placeholder avatar U
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -395,7 +395,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with placeholder avatar U
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -526,7 +526,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with valid avatar URL: Pr
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -543,7 +543,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with valid avatar URL: Pr
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -578,7 +578,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with valid avatar URL: Pr
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -600,7 +600,7 @@ exports[`ProfileCard Snapshots Avatar Variants renders with valid avatar URL: Pr
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -936,7 +936,7 @@ exports[`ProfileCard Snapshots Light Mode renders default state in light mode: P
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -953,7 +953,7 @@ exports[`ProfileCard Snapshots Light Mode renders default state in light mode: P
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -988,7 +988,7 @@ exports[`ProfileCard Snapshots Light Mode renders default state in light mode: P
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -1010,7 +1010,7 @@ exports[`ProfileCard Snapshots Light Mode renders default state in light mode: P
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -1141,7 +1141,7 @@ exports[`ProfileCard Snapshots Light Mode renders with custom testID in light mo
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -1158,7 +1158,7 @@ exports[`ProfileCard Snapshots Light Mode renders with custom testID in light mo
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -1193,7 +1193,7 @@ exports[`ProfileCard Snapshots Light Mode renders with custom testID in light mo
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -1215,7 +1215,7 @@ exports[`ProfileCard Snapshots Light Mode renders with custom testID in light mo
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -1346,7 +1346,7 @@ exports[`ProfileCard Snapshots Name Variants renders with Unicode characters: Pr
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -1363,7 +1363,7 @@ exports[`ProfileCard Snapshots Name Variants renders with Unicode characters: Pr
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -1398,7 +1398,7 @@ exports[`ProfileCard Snapshots Name Variants renders with Unicode characters: Pr
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -1420,7 +1420,7 @@ exports[`ProfileCard Snapshots Name Variants renders with Unicode characters: Pr
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -1551,7 +1551,7 @@ exports[`ProfileCard Snapshots Name Variants renders with emoji in name: Profile
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -1568,7 +1568,7 @@ exports[`ProfileCard Snapshots Name Variants renders with emoji in name: Profile
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -1603,7 +1603,7 @@ exports[`ProfileCard Snapshots Name Variants renders with emoji in name: Profile
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -1625,7 +1625,7 @@ exports[`ProfileCard Snapshots Name Variants renders with emoji in name: Profile
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -1756,7 +1756,7 @@ exports[`ProfileCard Snapshots Name Variants renders with long name: ProfileCard
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -1773,7 +1773,7 @@ exports[`ProfileCard Snapshots Name Variants renders with long name: ProfileCard
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -1808,7 +1808,7 @@ exports[`ProfileCard Snapshots Name Variants renders with long name: ProfileCard
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -1830,7 +1830,7 @@ exports[`ProfileCard Snapshots Name Variants renders with long name: ProfileCard
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -1961,7 +1961,7 @@ exports[`ProfileCard Snapshots Name Variants renders with short name: ProfileCar
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -1978,7 +1978,7 @@ exports[`ProfileCard Snapshots Name Variants renders with short name: ProfileCar
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -2013,7 +2013,7 @@ exports[`ProfileCard Snapshots Name Variants renders with short name: ProfileCar
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -2035,7 +2035,7 @@ exports[`ProfileCard Snapshots Name Variants renders with short name: ProfileCar
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -2166,7 +2166,7 @@ exports[`ProfileCard Snapshots Name Variants renders with special characters in 
         <Text
           style={
             {
-              "color": "#8C8C8C",
+              "color": "#6B6B6B",
             }
           }
         >
@@ -2183,7 +2183,7 @@ exports[`ProfileCard Snapshots Name Variants renders with special characters in 
         meetOrSlice={0}
         minX={0}
         minY={0}
-        stroke="#8C8C8C"
+        stroke="#6B6B6B"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
@@ -2218,7 +2218,7 @@ exports[`ProfileCard Snapshots Name Variants renders with special characters in 
           }
           stroke={
             {
-              "payload": 4287401100,
+              "payload": 4285229931,
               "type": 0,
             }
           }
@@ -2240,7 +2240,7 @@ exports[`ProfileCard Snapshots Name Variants renders with special characters in 
             }
             stroke={
               {
-                "payload": 4287401100,
+                "payload": 4285229931,
                 "type": 0,
               }
             }
@@ -2271,8 +2271,8 @@ exports[`getProfileCardStyles Snapshots light mode styles match snapshot: getPro
   "avatarBg": "#E5E7EB",
   "avatarIconColor": "#6B7280",
   "bg": "#FFFFFF",
-  "chevronColor": "#8C8C8C",
+  "chevronColor": "#6B6B6B",
   "nameColor": "#000000",
-  "subtitleColor": "#8C8C8C",
+  "subtitleColor": "#6B6B6B",
 }
 `;

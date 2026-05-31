@@ -69,7 +69,7 @@ describe('WCAG 1.4.11 - Non-text Contrast: SettingsItem start icon', () => {
 });
 
 describe('WCAG 1.4.3 - Contrast (Minimum): SettingsItem secondary text', () => {
-  it('endLabel grey falls short of 4.5:1 in light mode (known: pending a darker secondary grey)', async () => {
+  it('endLabel secondary text meets 4.5:1 against the row background in light mode', async () => {
     const { screen } = await renderForA11y(
       <SettingsItem label="Theme" endLabel="Dark" testID="row" />,
       settings('light')
@@ -77,13 +77,10 @@ describe('WCAG 1.4.3 - Contrast (Minimum): SettingsItem secondary text', () => {
     const rowBg = (screen.getByTestId('row').props.style as Style).backgroundColor as string;
     const endLabelColor = (screen.getByText('Dark').props.style as Style).color as string;
 
-    // #8C8C8C on #FFFFFF is ~3.36:1: it clears the 3:1 a UI element/large text needs but
-    // not the 4.5:1 minimum for normal-size body text. Recorded as a known, accepted
-    // finding so the report flags it honestly rather than claiming a clean pass. When the
-    // secondary grey is darkened to meet AA, the upper bound below fails and forces an update.
-    const ratio = calculateContrastRatio(endLabelColor, rowBg);
-    expect(ratio).toBeGreaterThanOrEqual(3);
-    expect(ratio).toBeLessThan(4.5);
+    // The secondary grey (#6B6B6B) is dark enough to clear the 4.5:1 normal-text minimum on
+    // white rows and also on the grey page backgrounds the section headers sit on.
+    expect(calculateContrastRatio(endLabelColor, rowBg)).toBeGreaterThanOrEqual(4.5);
+    expectColorContrast(endLabelColor, rowBg, { type: 'normalText' });
   });
 });
 

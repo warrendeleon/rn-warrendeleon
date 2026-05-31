@@ -26,8 +26,8 @@ export const getProfileCardStyles = (scheme: 'light' | 'dark') => {
 
   const bg = isDark ? '#262626' : '#FFFFFF'; // backgroundDark900 : white
   const nameColor = isDark ? '#FFFFFF' : '#000000'; // white : black
-  const subtitleColor = isDark ? '#A3A3A3' : '#8C8C8C'; // textLight400 : textLight500
-  const chevronColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  const subtitleColor = isDark ? '#A3A3A3' : '#6B6B6B'; // secondary text: meets 4.5:1 on light surfaces
+  const chevronColor = isDark ? '#A3A3A3' : '#6B6B6B';
   // Avatar fallback colours
   const avatarBg = isDark ? '#374151' : '#E5E7EB'; // coolGray700 : coolGray200
   // Icon color as hex for MaterialCommunityIcons compatibility

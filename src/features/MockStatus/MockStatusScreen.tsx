@@ -151,7 +151,7 @@ export const MockStatusScreen: React.FC = () => {
 
   const cardBg = isDark ? '#262626' : '#FFFFFF';
   const textColor = isDark ? '#FFFFFF' : '#000000';
-  const labelColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  const labelColor = isDark ? '#A3A3A3' : '#6B6B6B';
 
   return (
     <ScrollView

@@ -35,10 +35,10 @@ export const getUserCardStyles = (scheme: 'light' | 'dark', groupVariant: GroupV
 
   const bg = isDark ? '#262626' : '#FFFFFF';
   const nameColor = isDark ? '#FFFFFF' : '#000000';
-  const emailColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  const emailColor = isDark ? '#A3A3A3' : '#6B6B6B';
   const avatarBg = isDark ? '#525252' : '#e5e7eb';
   const initialsColor = isDark ? '#D4D4D4' : '#737373';
-  const chevronColor = isDark ? '#A3A3A3' : '#8C8C8C';
+  const chevronColor = isDark ? '#A3A3A3' : '#6B6B6B';
 
   const { top, bottom } = groupVariantRadius[groupVariant];
 

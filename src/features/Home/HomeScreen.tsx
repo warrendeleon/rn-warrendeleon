@@ -193,7 +193,7 @@ export const HomeScreen: React.FC = () => {
       <Box className="mt-2">
         <Text
           className="mb-2 ml-4 text-xs font-medium uppercase"
-          style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
+          style={{ color: isDark ? '#A3A3A3' : '#6B6B6B' }}
           accessibilityRole="header"
         >
           Work & Learning
@@ -204,7 +204,7 @@ export const HomeScreen: React.FC = () => {
       <Box className="mt-6">
         <Text
           className="mb-2 ml-4 text-xs font-medium uppercase"
-          style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
+          style={{ color: isDark ? '#A3A3A3' : '#6B6B6B' }}
           accessibilityRole="header"
         >
           {t('home.contactWarren')}
@@ -215,7 +215,7 @@ export const HomeScreen: React.FC = () => {
       <Box className="mt-6">
         <Text
           className="mb-2 ml-4 text-xs font-medium uppercase"
-          style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}
+          style={{ color: isDark ? '#A3A3A3' : '#6B6B6B' }}
           accessibilityRole="header"
         >
           Settings
