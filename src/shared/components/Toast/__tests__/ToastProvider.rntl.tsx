@@ -1,6 +1,6 @@
 import React from 'react';
-import { Pressable } from 'react-native';
 import * as ReactNative from 'react-native';
+import { Pressable } from 'react-native';
 import { Text } from '@gluestack-ui/themed';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
