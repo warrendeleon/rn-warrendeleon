@@ -32,20 +32,20 @@ describe('TestErrorButton', () => {
       getGlobal().__DEV__ = true;
     });
 
-    it('renders in DEV mode', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('renders in DEV mode', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       expect(screen.getByTestId('test-error-button')).toBeOnTheScreen();
     });
 
-    it('displays DEV indicator in button text', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('displays DEV indicator in button text', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       expect(screen.getByText('[DEV] Trigger Error')).toBeOnTheScreen();
     });
 
-    it('has correct testID', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('has correct testID', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       expect(screen.getByTestId('test-error-button')).toBeOnTheScreen();
     });
@@ -56,14 +56,14 @@ describe('TestErrorButton', () => {
       getGlobal().__DEV__ = false;
     });
 
-    it('returns null in production mode', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('returns null in production mode', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       expect(screen.queryByTestId('test-error-button')).toBeNull();
     });
 
-    it('does not render any content in production', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('does not render any content in production', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       expect(screen.queryByText('[DEV] Trigger Error')).toBeNull();
     });
@@ -74,49 +74,49 @@ describe('TestErrorButton', () => {
       getGlobal().__DEV__ = true;
     });
 
-    it('renders interactive button for triggering errors', () => {
+    it('renders interactive button for triggering errors', async () => {
       // The component uses internal state to trigger error on re-render
       // We verify the button exists and is accessible
       // Actual error throwing is tested via ErrorBoundary in integration tests
-      renderWithProviders(<TestErrorButton />);
+      await renderWithProviders(<TestErrorButton />);
 
       const button = screen.getByTestId('test-error-button');
       expect(button).toBeOnTheScreen();
     });
 
-    it('button is pressable element', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('button is pressable element', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       // The button should be a pressable component with the correct text
       expect(screen.getByText('[DEV] Trigger Error')).toBeOnTheScreen();
       expect(screen.getByTestId('test-error-button')).toBeOnTheScreen();
     });
 
-    it('does not throw before being pressed', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('does not throw before being pressed', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       // Should render without throwing
       expect(screen.getByTestId('test-error-button')).toBeOnTheScreen();
     });
 
-    it('throws error when button is pressed', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('throws error when button is pressed', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       const button = screen.getByTestId('test-error-button');
 
       // Pressing the button should trigger state change that causes throw on next render
-      expect(() => {
-        fireEvent.press(button);
-      }).toThrow('Test error triggered by TestErrorButton');
+      await expect(fireEvent.press(button)).rejects.toThrow(
+        'Test error triggered by TestErrorButton'
+      );
     });
 
-    it('throws with the correct error message', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('throws with the correct error message', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       const button = screen.getByTestId('test-error-button');
 
       try {
-        fireEvent.press(button);
+        await fireEvent.press(button);
         // Should not reach here
         expect(true).toBe(false);
       } catch (error) {
@@ -131,15 +131,15 @@ describe('TestErrorButton', () => {
       getGlobal().__DEV__ = true;
     });
 
-    it('is a pressable button', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('is a pressable button', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       const button = screen.getByTestId('test-error-button');
       expect(button).toBeOnTheScreen();
     });
 
-    it('has negative action styling', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('has negative action styling', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       // The button uses action="negative" which applies red styling
       // We verify the button renders correctly
@@ -152,15 +152,15 @@ describe('TestErrorButton', () => {
       getGlobal().__DEV__ = true;
     });
 
-    it('button is accessible', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('button is accessible', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       // Button should be findable
       expect(screen.getByTestId('test-error-button')).toBeOnTheScreen();
     });
 
-    it('button text is visible', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('button text is visible', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       expect(screen.getByText('[DEV] Trigger Error')).toBeOnTheScreen();
     });
@@ -171,22 +171,22 @@ describe('TestErrorButton', () => {
       getGlobal().__DEV__ = true;
     });
 
-    it('meets minimum touch target requirements', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('meets minimum touch target requirements', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       const button = screen.getByTestId('test-error-button');
       expectMinTouchTarget(button);
     });
 
-    it('can receive programmatic focus', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('can receive programmatic focus', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       const button = screen.getByTestId('test-error-button');
       expectCanReceiveFocus(button);
     });
 
-    it('is accessible to screen readers', () => {
-      renderWithProviders(<TestErrorButton />);
+    it('is accessible to screen readers', async () => {
+      await renderWithProviders(<TestErrorButton />);
 
       const button = screen.getByTestId('test-error-button');
       // GlueStack Button component renders with button behaviour
@@ -200,8 +200,8 @@ describe('TestErrorButton', () => {
       getGlobal().__DEV__ = true;
     });
 
-    it('can be rendered multiple times', () => {
-      renderWithProviders(
+    it('can be rendered multiple times', async () => {
+      await renderWithProviders(
         <>
           <TestErrorButton />
           <TestErrorButton />
@@ -212,12 +212,12 @@ describe('TestErrorButton', () => {
       expect(buttons).toHaveLength(2);
     });
 
-    it('handles rapid re-renders', () => {
-      const { rerender } = renderWithProviders(<TestErrorButton />);
+    it('handles rapid re-renders', async () => {
+      const { rerender } = await renderWithProviders(<TestErrorButton />);
 
-      rerender(<TestErrorButton />);
-      rerender(<TestErrorButton />);
-      rerender(<TestErrorButton />);
+      await rerender(<TestErrorButton />);
+      await rerender(<TestErrorButton />);
+      await rerender(<TestErrorButton />);
 
       expect(screen.getByTestId('test-error-button')).toBeOnTheScreen();
     });

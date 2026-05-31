@@ -137,7 +137,7 @@ describe('Push Notification Integration', () => {
 
       notificationService.setInitialNotification(mockNotification);
 
-      const { getByTestId } = renderWithProviders(<NotificationTestComponent />);
+      const { getByTestId } = await renderWithProviders(<NotificationTestComponent />);
 
       expect(getByTestId('notification-test-screen')).toBeOnTheScreen();
 
@@ -152,7 +152,7 @@ describe('Push Notification Integration', () => {
         receivedMessages.push(message);
       });
 
-      const { getByTestId } = renderWithProviders(<NotificationTestComponent />);
+      const { getByTestId } = await renderWithProviders(<NotificationTestComponent />);
 
       expect(getByTestId('notification-test-screen')).toBeOnTheScreen();
 
@@ -188,7 +188,7 @@ describe('Push Notification Integration', () => {
 
       notificationService.setInitialNotification(mockInitialNotification);
 
-      renderWithProviders(<NotificationTestComponent />);
+      await renderWithProviders(<NotificationTestComponent />);
 
       const initialNotification = await notificationService.getInitialNotification();
       expect(initialNotification).toEqual(mockInitialNotification);
@@ -199,7 +199,7 @@ describe('Push Notification Integration', () => {
     it('requests permission on first launch', async () => {
       notificationService.setPermissionStatus(AuthorizationStatus.AUTHORIZED);
 
-      renderWithProviders(<NotificationTestComponent />);
+      await renderWithProviders(<NotificationTestComponent />);
 
       const result = await notificationService.requestPermission();
       expect(result.authorizationStatus).toBe(AuthorizationStatus.AUTHORIZED);
@@ -208,7 +208,7 @@ describe('Push Notification Integration', () => {
     it('handles permission denial gracefully', async () => {
       notificationService.setPermissionStatus(AuthorizationStatus.DENIED);
 
-      const { getByTestId } = renderWithProviders(<NotificationTestComponent />);
+      const { getByTestId } = await renderWithProviders(<NotificationTestComponent />);
 
       const result = await notificationService.requestPermission();
       expect(result.authorizationStatus).toBe(AuthorizationStatus.DENIED);
@@ -220,16 +220,16 @@ describe('Push Notification Integration', () => {
     it('handles provisional permission (iOS)', async () => {
       notificationService.setPermissionStatus(AuthorizationStatus.PROVISIONAL);
 
-      renderWithProviders(<NotificationTestComponent />);
+      await renderWithProviders(<NotificationTestComponent />);
 
       const result = await notificationService.requestPermission();
       expect(result.authorizationStatus).toBe(AuthorizationStatus.PROVISIONAL);
     });
 
-    it('provides alternative for users who deny permissions', () => {
+    it('provides alternative for users who deny permissions', async () => {
       notificationService.setPermissionStatus(AuthorizationStatus.DENIED);
 
-      const { getByTestId } = renderWithProviders(<NotificationTestComponent />);
+      const { getByTestId } = await renderWithProviders(<NotificationTestComponent />);
 
       // Even with denied permissions, core app functionality should work
       expect(getByTestId('notification-test-screen')).toBeOnTheScreen();
@@ -246,7 +246,7 @@ describe('Push Notification Integration', () => {
 
       notificationService.setInitialNotification(notification);
 
-      renderWithProviders(<NotificationTestComponent />);
+      await renderWithProviders(<NotificationTestComponent />);
 
       const initialNotification = await notificationService.getInitialNotification();
       expect(initialNotification).toEqual(notification);
@@ -281,7 +281,7 @@ describe('Push Notification Integration', () => {
 
       notificationService.setInitialNotification(notification);
 
-      const { getByTestId } = renderWithProviders(<NotificationTestComponent />);
+      const { getByTestId } = await renderWithProviders(<NotificationTestComponent />);
 
       const initialNotification = await notificationService.getInitialNotification();
       expect(initialNotification).toEqual(notification);
@@ -301,7 +301,7 @@ describe('Push Notification Integration', () => {
 
       notificationService.setInitialNotification(notification);
 
-      const { getByTestId } = renderWithProviders(<NotificationTestComponent />);
+      const { getByTestId } = await renderWithProviders(<NotificationTestComponent />);
 
       const initialNotification = await notificationService.getInitialNotification();
       expect(initialNotification).toEqual(notification);
@@ -339,7 +339,7 @@ describe('Push Notification Integration', () => {
 
       notificationService.setInitialNotification(malformedPayload);
 
-      const { getByTestId } = renderWithProviders(<NotificationTestComponent />);
+      const { getByTestId } = await renderWithProviders(<NotificationTestComponent />);
 
       const initialNotification = await notificationService.getInitialNotification();
       expect(initialNotification).toEqual(malformedPayload);
@@ -351,14 +351,14 @@ describe('Push Notification Integration', () => {
 
   describe('Token Management', () => {
     it('retrieves FCM token on app start', async () => {
-      renderWithProviders(<NotificationTestComponent />);
+      await renderWithProviders(<NotificationTestComponent />);
 
       const token = await notificationService.getToken();
       expect(token).toBe('mock-fcm-token');
     });
 
-    it('handles token refresh', () => {
-      renderWithProviders(<NotificationTestComponent />);
+    it('handles token refresh', async () => {
+      await renderWithProviders(<NotificationTestComponent />);
 
       let refreshedToken: string | null = null;
       const unsubscribe = notificationService.onTokenRefresh(token => {
@@ -384,7 +384,7 @@ describe('Push Notification Integration', () => {
 
       notificationService.setInitialNotification(notification);
 
-      renderWithProviders(<NotificationTestComponent />);
+      await renderWithProviders(<NotificationTestComponent />);
 
       // In real implementation, badge count would be cleared here
       const initialNotification = await notificationService.getInitialNotification();
@@ -399,7 +399,7 @@ describe('Push Notification Integration', () => {
         requestPermission: jest.fn().mockRejectedValue(new Error('Permission request failed')),
       };
 
-      const { getByTestId } = renderWithProviders(<NotificationTestComponent />);
+      const { getByTestId } = await renderWithProviders(<NotificationTestComponent />);
 
       await expect(failingService.requestPermission()).rejects.toThrow('Permission request failed');
 
@@ -414,7 +414,7 @@ describe('Push Notification Integration', () => {
           .mockRejectedValue(new Error('Failed to get notification')),
       };
 
-      const { getByTestId } = renderWithProviders(<NotificationTestComponent />);
+      const { getByTestId } = await renderWithProviders(<NotificationTestComponent />);
 
       await expect(failingService.getInitialNotification()).rejects.toThrow(
         'Failed to get notification'

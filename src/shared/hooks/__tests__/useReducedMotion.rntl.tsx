@@ -48,10 +48,10 @@ describe('useReducedMotion', () => {
   });
 
   describe('initial state', () => {
-    it('starts with loading true', () => {
+    it('starts with loading true', async () => {
       mockIsReduceMotionEnabled.mockReturnValue(new Promise(() => {})); // Never resolves
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       expect(result.current.isLoading).toBe(true);
       expect(result.current.prefersReducedMotion).toBe(false);
@@ -60,7 +60,7 @@ describe('useReducedMotion', () => {
     it('sets loading to false after initial check', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -75,7 +75,7 @@ describe('useReducedMotion', () => {
     it('detects when reduced motion is enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -88,7 +88,7 @@ describe('useReducedMotion', () => {
     it('detects when reduced motion is disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -100,8 +100,8 @@ describe('useReducedMotion', () => {
   });
 
   describe('event listener', () => {
-    it('subscribes to reduceMotionChanged event on mount', () => {
-      renderHook(() => useReducedMotion());
+    it('subscribes to reduceMotionChanged event on mount', async () => {
+      await renderHook(() => useReducedMotion());
 
       expect(mockAddEventListener).toHaveBeenCalledWith(
         'reduceMotionChanged',
@@ -109,10 +109,10 @@ describe('useReducedMotion', () => {
       );
     });
 
-    it('unsubscribes on unmount', () => {
-      const { unmount } = renderHook(() => useReducedMotion());
+    it('unsubscribes on unmount', async () => {
+      const { unmount } = await renderHook(() => useReducedMotion());
 
-      unmount();
+      await unmount();
 
       expect(mockRemove).toHaveBeenCalled();
     });
@@ -120,7 +120,7 @@ describe('useReducedMotion', () => {
     it('updates state when reduced motion changes to enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -132,7 +132,7 @@ describe('useReducedMotion', () => {
       expect(result.current.prefersReducedMotion).toBe(false);
 
       // Simulate user enabling reduced motion
-      act(() => {
+      await act(() => {
         reduceMotionChangeHandler?.(true);
       });
 
@@ -142,7 +142,7 @@ describe('useReducedMotion', () => {
     it('updates state when reduced motion changes to disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -154,7 +154,7 @@ describe('useReducedMotion', () => {
       expect(result.current.prefersReducedMotion).toBe(true);
 
       // Simulate user disabling reduced motion
-      act(() => {
+      await act(() => {
         reduceMotionChangeHandler?.(false);
       });
 
@@ -166,7 +166,7 @@ describe('useReducedMotion', () => {
     it('defaults to false when AccessibilityInfo check fails', async () => {
       mockIsReduceMotionEnabled.mockRejectedValue(new Error('AccessibilityInfo not available'));
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -181,7 +181,7 @@ describe('useReducedMotion', () => {
     it('sets loading to false even after error', async () => {
       mockIsReduceMotionEnabled.mockRejectedValue(new Error('Test error'));
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -216,7 +216,7 @@ describe('useReducedMotion', () => {
     it('renders loading state initially', async () => {
       mockIsReduceMotionEnabled.mockReturnValue(new Promise(() => {})); // Never resolves
 
-      render(<MotionAwareComponent />);
+      await render(<MotionAwareComponent />);
 
       expect(screen.getByTestId('loading')).toBeOnTheScreen();
     });
@@ -224,7 +224,7 @@ describe('useReducedMotion', () => {
     it('shows animations disabled when reduced motion is enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<MotionAwareComponent />);
+      await render(<MotionAwareComponent />);
 
       await waitFor(
         () => {
@@ -237,7 +237,7 @@ describe('useReducedMotion', () => {
     it('shows animations enabled when reduced motion is disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<MotionAwareComponent />);
+      await render(<MotionAwareComponent />);
 
       await waitFor(
         () => {
@@ -250,7 +250,7 @@ describe('useReducedMotion', () => {
     it('updates UI when preference changes at runtime', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<MotionAwareComponent />);
+      await render(<MotionAwareComponent />);
 
       await waitFor(
         () => {
@@ -260,7 +260,7 @@ describe('useReducedMotion', () => {
       );
 
       // Simulate preference change
-      act(() => {
+      await act(() => {
         reduceMotionChangeHandler?.(true);
       });
 
@@ -281,7 +281,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
       // iOS: Settings > Accessibility > Motion > Reduce Motion
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -297,7 +297,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
       // Android: Settings > Accessibility > Remove Animations
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -312,7 +312,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('hook returns false by default when preference not set', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -347,7 +347,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('allows essential animations when reduced motion is enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<AnimatedComponent essentialAnimation={true} />);
+      await render(<AnimatedComponent essentialAnimation={true} />);
 
       await waitFor(
         () => {
@@ -360,7 +360,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('disables decorative animations when reduced motion is enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<AnimatedComponent essentialAnimation={false} />);
+      await render(<AnimatedComponent essentialAnimation={false} />);
 
       await waitFor(
         () => {
@@ -373,7 +373,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('allows all animations when reduced motion is disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<AnimatedComponent essentialAnimation={false} />);
+      await render(<AnimatedComponent essentialAnimation={false} />);
 
       await waitFor(
         () => {
@@ -408,7 +408,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('uses fade transition instead of slide when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<TransitionComponent />);
+      await render(<TransitionComponent />);
 
       await waitFor(
         () => {
@@ -421,7 +421,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('uses instant duration (0) when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<TransitionComponent />);
+      await render(<TransitionComponent />);
 
       await waitFor(
         () => {
@@ -434,7 +434,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('uses slide transition when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<TransitionComponent />);
+      await render(<TransitionComponent />);
 
       await waitFor(
         () => {
@@ -447,7 +447,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('uses animated duration (300) when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<TransitionComponent />);
+      await render(<TransitionComponent />);
 
       await waitFor(
         () => {
@@ -478,7 +478,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('stops auto-playing content when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<AutoPlayingContent />);
+      await render(<AutoPlayingContent />);
 
       await waitFor(
         () => {
@@ -491,7 +491,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('allows auto-playing when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<AutoPlayingContent />);
+      await render(<AutoPlayingContent />);
 
       await waitFor(
         () => {
@@ -522,7 +522,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('disables parallax when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<ParallaxComponent />);
+      await render(<ParallaxComponent />);
 
       await waitFor(
         () => {
@@ -535,7 +535,7 @@ describe('useReducedMotion EAA compliance scenarios', () => {
     it('enables parallax when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<ParallaxComponent />);
+      await render(<ParallaxComponent />);
 
       await waitFor(
         () => {
@@ -563,7 +563,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
       // iOS: Settings > Accessibility > Motion > Reduce Motion = ON
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -580,7 +580,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
       // Android: Settings > Accessibility > Remove Animations = ON
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -596,7 +596,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('correctly reports when motion preference is not set', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -619,7 +619,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
         return { remove: mockRemove };
       });
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -629,17 +629,17 @@ describe('useReducedMotion advanced motion preference tests', () => {
       );
 
       // Simulate rapid changes (user toggling setting multiple times)
-      act(() => {
+      await act(() => {
         changeHandler?.(true);
       });
       expect(result.current.prefersReducedMotion).toBe(true);
 
-      act(() => {
+      await act(() => {
         changeHandler?.(false);
       });
       expect(result.current.prefersReducedMotion).toBe(false);
 
-      act(() => {
+      await act(() => {
         changeHandler?.(true);
       });
       expect(result.current.prefersReducedMotion).toBe(true);
@@ -672,7 +672,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('provides static text for loading indicator when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<FeedbackComponent />);
+      await render(<FeedbackComponent />);
 
       await waitFor(
         () => {
@@ -685,7 +685,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('provides static checkmark for success when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<FeedbackComponent />);
+      await render(<FeedbackComponent />);
 
       await waitFor(
         () => {
@@ -698,7 +698,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('provides static error indicator when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<FeedbackComponent />);
+      await render(<FeedbackComponent />);
 
       await waitFor(
         () => {
@@ -711,7 +711,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('shows animated indicators when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<FeedbackComponent />);
+      await render(<FeedbackComponent />);
 
       await waitFor(
         () => {
@@ -747,7 +747,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses no animation for navigation when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<NavigationTransition isNavigating={true} />);
+      await render(<NavigationTransition isNavigating={true} />);
 
       await waitFor(
         () => {
@@ -760,7 +760,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses zero duration for transitions when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<NavigationTransition isNavigating={true} />);
+      await render(<NavigationTransition isNavigating={true} />);
 
       await waitFor(
         () => {
@@ -773,7 +773,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses slide animation when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<NavigationTransition isNavigating={true} />);
+      await render(<NavigationTransition isNavigating={true} />);
 
       await waitFor(
         () => {
@@ -816,7 +816,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('displays static text loading indicator when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<LoadingStateComponent isLoading={true} />);
+      await render(<LoadingStateComponent isLoading={true} />);
 
       await waitFor(
         () => {
@@ -829,7 +829,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('shows descriptive loading message when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<LoadingStateComponent isLoading={true} />);
+      await render(<LoadingStateComponent isLoading={true} />);
 
       await waitFor(
         () => {
@@ -844,7 +844,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses appropriate accessibility label for loading indicator', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<LoadingStateComponent isLoading={true} />);
+      await render(<LoadingStateComponent isLoading={true} />);
 
       await waitFor(
         () => {
@@ -879,7 +879,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses highlight feedback instead of slide when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<SwipeableItem />);
+      await render(<SwipeableItem />);
 
       await waitFor(
         () => {
@@ -892,7 +892,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('makes actions always visible when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<SwipeableItem />);
+      await render(<SwipeableItem />);
 
       await waitFor(
         () => {
@@ -907,7 +907,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses slide-reveal feedback when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<SwipeableItem />);
+      await render(<SwipeableItem />);
 
       await waitFor(
         () => {
@@ -948,7 +948,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses static placeholder when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<SkeletonLoader />);
+      await render(<SkeletonLoader />);
 
       await waitFor(
         () => {
@@ -961,7 +961,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses static background colour for skeleton when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<SkeletonLoader />);
+      await render(<SkeletonLoader />);
 
       await waitFor(
         () => {
@@ -975,7 +975,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('provides descriptive aria label for loading state', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<SkeletonLoader />);
+      await render(<SkeletonLoader />);
 
       await waitFor(
         () => {
@@ -988,7 +988,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses shimmer animation when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<SkeletonLoader />);
+      await render(<SkeletonLoader />);
 
       await waitFor(
         () => {
@@ -1021,7 +1021,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses instant transitions when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<ToggleSwitch />);
+      await render(<ToggleSwitch />);
 
       await waitFor(
         () => {
@@ -1034,7 +1034,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses instant transition type when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<ToggleSwitch />);
+      await render(<ToggleSwitch />);
 
       await waitFor(
         () => {
@@ -1047,7 +1047,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses colour change only for feedback when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<ToggleSwitch />);
+      await render(<ToggleSwitch />);
 
       await waitFor(
         () => {
@@ -1060,7 +1060,7 @@ describe('useReducedMotion advanced motion preference tests', () => {
     it('uses spring animation when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<ToggleSwitch />);
+      await render(<ToggleSwitch />);
 
       await waitFor(
         () => {
@@ -1086,7 +1086,7 @@ describe('useReducedMotion edge cases and timing', () => {
         () => new Promise(resolve => setTimeout(() => resolve(true), 500))
       );
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       expect(result.current.isLoading).toBe(true);
 
@@ -1104,12 +1104,12 @@ describe('useReducedMotion edge cases and timing', () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
       // Mount and unmount rapidly
-      const { unmount: unmount1 } = renderHook(() => useReducedMotion());
-      const { unmount: unmount2 } = renderHook(() => useReducedMotion());
-      const { result: result3 } = renderHook(() => useReducedMotion());
+      const { unmount: unmount1 } = await renderHook(() => useReducedMotion());
+      const { unmount: unmount2 } = await renderHook(() => useReducedMotion());
+      const { result: result3 } = await renderHook(() => useReducedMotion());
 
-      unmount1();
-      unmount2();
+      await unmount1();
+      await unmount2();
 
       await waitFor(
         () => {
@@ -1128,12 +1128,12 @@ describe('useReducedMotion edge cases and timing', () => {
           })
       );
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       expect(result.current.isLoading).toBe(true);
 
       // Resolve after a delay
-      act(() => {
+      await act(() => {
         resolvePromise!(true);
       });
 
@@ -1159,7 +1159,7 @@ describe('useReducedMotion edge cases and timing', () => {
 
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      const { unmount } = renderHook(() => useReducedMotion());
+      const { unmount } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -1168,7 +1168,7 @@ describe('useReducedMotion edge cases and timing', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      unmount();
+      await unmount();
 
       // Should not throw when handler is called after unmount
       expect(() => {
@@ -1176,27 +1176,27 @@ describe('useReducedMotion edge cases and timing', () => {
       }).not.toThrow();
     });
 
-    it('should clean up subscription on unmount', () => {
-      const { unmount } = renderHook(() => useReducedMotion());
+    it('should clean up subscription on unmount', async () => {
+      const { unmount } = await renderHook(() => useReducedMotion());
 
       expect(mockAddEventListener).toHaveBeenCalledWith(
         'reduceMotionChanged',
         expect.any(Function)
       );
 
-      unmount();
+      await unmount();
 
       expect(mockRemove).toHaveBeenCalled();
     });
 
-    it('should handle multiple mounts and unmounts cleanly', () => {
-      const { unmount: unmount1 } = renderHook(() => useReducedMotion());
-      const { unmount: unmount2 } = renderHook(() => useReducedMotion());
-      const { unmount: unmount3 } = renderHook(() => useReducedMotion());
+    it('should handle multiple mounts and unmounts cleanly', async () => {
+      const { unmount: unmount1 } = await renderHook(() => useReducedMotion());
+      const { unmount: unmount2 } = await renderHook(() => useReducedMotion());
+      const { unmount: unmount3 } = await renderHook(() => useReducedMotion());
 
-      unmount1();
-      unmount2();
-      unmount3();
+      await unmount1();
+      await unmount2();
+      await unmount3();
 
       expect(mockRemove).toHaveBeenCalledTimes(3);
     });
@@ -1206,7 +1206,7 @@ describe('useReducedMotion edge cases and timing', () => {
     it('should maintain consistent state across rerenders', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      const { result, rerender } = renderHook(() => useReducedMotion());
+      const { result, rerender } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -1217,9 +1217,9 @@ describe('useReducedMotion edge cases and timing', () => {
 
       const initialValue = result.current.prefersReducedMotion;
 
-      rerender({});
-      rerender({});
-      rerender({});
+      await rerender({});
+      await rerender({});
+      await rerender({});
 
       expect(result.current.prefersReducedMotion).toBe(initialValue);
     });
@@ -1229,7 +1229,7 @@ describe('useReducedMotion edge cases and timing', () => {
 
       const states: boolean[] = [];
 
-      const { result, rerender } = renderHook(() => {
+      const { result, rerender } = await renderHook(() => {
         const hook = useReducedMotion();
         if (!hook.isLoading) {
           states.push(hook.prefersReducedMotion);
@@ -1244,8 +1244,8 @@ describe('useReducedMotion edge cases and timing', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      rerender({});
-      rerender({});
+      await rerender({});
+      await rerender({});
 
       // All non-loading states should be the same (no flickering)
       const uniqueStates = [...new Set(states)];
@@ -1255,7 +1255,7 @@ describe('useReducedMotion edge cases and timing', () => {
     it('should handle transition from loading to loaded smoothly', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       // Initially loading
       expect(result.current.isLoading).toBe(true);
@@ -1278,7 +1278,7 @@ describe('useReducedMotion edge cases and timing', () => {
       // When API returns a falsy value, treat as "no reduced motion"
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -1293,7 +1293,7 @@ describe('useReducedMotion edge cases and timing', () => {
     it('should handle AccessibilityInfo returning truthy values as true', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -1309,7 +1309,7 @@ describe('useReducedMotion edge cases and timing', () => {
       // After an error, the hook should still resolve to a stable state
       mockIsReduceMotionEnabled.mockRejectedValueOnce(new Error('API unavailable'));
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -1325,7 +1325,7 @@ describe('useReducedMotion edge cases and timing', () => {
     it('should maintain subscription after initial load', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      const { result } = renderHook(() => useReducedMotion());
+      const { result } = await renderHook(() => useReducedMotion());
 
       await waitFor(
         () => {
@@ -1360,7 +1360,7 @@ describe('useReducedMotion edge cases and timing', () => {
         );
       };
 
-      render(<MultiHookComponent />);
+      await render(<MultiHookComponent />);
 
       await waitFor(
         () => {
@@ -1390,7 +1390,7 @@ describe('useReducedMotion edge cases and timing', () => {
         );
       };
 
-      render(<ParentComponent />);
+      await render(<ParentComponent />);
 
       await waitFor(
         () => {

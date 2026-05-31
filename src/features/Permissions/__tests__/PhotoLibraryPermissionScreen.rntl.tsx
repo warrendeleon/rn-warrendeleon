@@ -74,8 +74,8 @@ describe('PhotoLibraryPermissionScreen', () => {
     jest.clearAllMocks();
   });
 
-  it('displays photo library access title, explanation, and privacy assurances', () => {
-    render(<PhotoLibraryPermissionScreen />);
+  it('displays photo library access title, explanation, and privacy assurances', async () => {
+    await render(<PhotoLibraryPermissionScreen />);
 
     expect(screen.getByText('Photo Library Access Required')).toBeOnTheScreen();
     expect(
@@ -87,17 +87,17 @@ describe('PhotoLibraryPermissionScreen', () => {
     expect(screen.getByText(/We never see your other photos/)).toBeOnTheScreen();
   });
 
-  it('displays Continue and Skip action buttons', () => {
-    render(<PhotoLibraryPermissionScreen />);
+  it('displays Continue and Skip action buttons', async () => {
+    await render(<PhotoLibraryPermissionScreen />);
 
     expect(screen.getByTestId('photo-library-permission-continue-button')).toBeOnTheScreen();
     expect(screen.getByTestId('photo-library-permission-skip-button')).toBeOnTheScreen();
   });
 
-  it('should go back when Skip is pressed', () => {
-    render(<PhotoLibraryPermissionScreen />);
+  it('should go back when Skip is pressed', async () => {
+    await render(<PhotoLibraryPermissionScreen />);
 
-    fireEvent.press(screen.getByTestId('photo-library-permission-skip-button'));
+    await fireEvent.press(screen.getByTestId('photo-library-permission-skip-button'));
 
     expect(mockGoBack).toHaveBeenCalled();
   });
@@ -105,9 +105,9 @@ describe('PhotoLibraryPermissionScreen', () => {
   it('should request permission and go back when granted', async () => {
     mockRequestPermission.mockResolvedValue('granted');
 
-    render(<PhotoLibraryPermissionScreen />);
+    await render(<PhotoLibraryPermissionScreen />);
 
-    fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
+    await fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
 
     await waitFor(
       () => {
@@ -127,9 +127,9 @@ describe('PhotoLibraryPermissionScreen', () => {
   it('should go back when limited (iOS 14+)', async () => {
     mockRequestPermission.mockResolvedValue('limited');
 
-    render(<PhotoLibraryPermissionScreen />);
+    await render(<PhotoLibraryPermissionScreen />);
 
-    fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
+    await fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
 
     await waitFor(
       () => {
@@ -149,9 +149,9 @@ describe('PhotoLibraryPermissionScreen', () => {
   it('should navigate to PermissionDenied when denied', async () => {
     mockRequestPermission.mockResolvedValue('denied');
 
-    render(<PhotoLibraryPermissionScreen />);
+    await render(<PhotoLibraryPermissionScreen />);
 
-    fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
+    await fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
 
     await waitFor(
       () => {
@@ -173,9 +173,9 @@ describe('PhotoLibraryPermissionScreen', () => {
   it('should navigate to PermissionDenied when blocked', async () => {
     mockRequestPermission.mockResolvedValue('blocked');
 
-    render(<PhotoLibraryPermissionScreen />);
+    await render(<PhotoLibraryPermissionScreen />);
 
-    fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
+    await fireEvent.press(screen.getByTestId('photo-library-permission-continue-button'));
 
     await waitFor(
       () => {
@@ -187,8 +187,8 @@ describe('PhotoLibraryPermissionScreen', () => {
     );
   });
 
-  it('should have accessible Continue button', () => {
-    render(<PhotoLibraryPermissionScreen />);
+  it('should have accessible Continue button', async () => {
+    await render(<PhotoLibraryPermissionScreen />);
 
     const continueButton = screen.getByTestId('photo-library-permission-continue-button');
 
@@ -199,8 +199,8 @@ describe('PhotoLibraryPermissionScreen', () => {
     );
   });
 
-  it('should have accessible Skip button', () => {
-    render(<PhotoLibraryPermissionScreen />);
+  it('should have accessible Skip button', async () => {
+    await render(<PhotoLibraryPermissionScreen />);
 
     const skipButton = screen.getByTestId('photo-library-permission-skip-button');
 
@@ -217,14 +217,14 @@ describe('PhotoLibraryPermissionScreen EAA Accessibility Compliance', () => {
     jest.clearAllMocks();
   });
 
-  it('continue button has accessible touch target', () => {
-    render(<PhotoLibraryPermissionScreen />);
+  it('continue button has accessible touch target', async () => {
+    await render(<PhotoLibraryPermissionScreen />);
 
     expectMinTouchTarget(screen.getByTestId('photo-library-permission-continue-button'));
   });
 
-  it('skip button has accessible touch target', () => {
-    render(<PhotoLibraryPermissionScreen />);
+  it('skip button has accessible touch target', async () => {
+    await render(<PhotoLibraryPermissionScreen />);
 
     expectMinTouchTarget(screen.getByTestId('photo-library-permission-skip-button'));
   });

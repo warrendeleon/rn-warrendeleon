@@ -40,13 +40,13 @@ const mockProfile: Profile = {
 };
 
 describe('ProfileScreen', () => {
-  const renderProfileScreen = (state: {
+  const renderProfileScreen = async (state: {
     data: Profile | null;
     loading: boolean;
     error: string | null;
   }) => {
     const store = mockStore({ profile: state, settings: { theme: 'light', language: 'en' } });
-    return render(
+    return await render(
       <Provider store={store}>
         <ProfileScreen />
       </Provider>
@@ -57,28 +57,28 @@ describe('ProfileScreen', () => {
     renderProfileScreen({ data: mockProfile, loading: false, error: null });
 
   describe('Component Rendering', () => {
-    it('renders profile screen with data', () => {
-      const { getByTestId, getByText } = renderWithProfile();
+    it('renders profile screen with data', async () => {
+      const { getByTestId, getByText } = await renderWithProfile();
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByTestId('profile-name')).toBeOnTheScreen();
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
       expect(getByText('Senior React Native Developer')).toBeOnTheScreen();
     });
 
-    it('displays profile photo from carousel', () => {
-      const { getByTestId } = renderWithProfile();
+    it('displays profile photo from carousel', async () => {
+      const { getByTestId } = await renderWithProfile();
       const carouselImage = getByTestId('profile-carousel-image');
       expect(carouselImage).toBeOnTheScreen();
       expect(carouselImage.props.source.uri).toBe('https://example.com/profile-01.jpg');
     });
 
-    it('displays avatar fallback when no images', () => {
+    it('displays avatar fallback when no images', async () => {
       const profileWithoutImages = {
         ...mockProfile,
         galleryImages: [],
         profilePicture: undefined,
       } as unknown as Profile;
-      const { queryByTestId, getByTestId } = renderProfileScreen({
+      const { queryByTestId, getByTestId } = await renderProfileScreen({
         data: profileWithoutImages,
         loading: false,
         error: null,
@@ -87,8 +87,8 @@ describe('ProfileScreen', () => {
       expect(getByTestId('profile-avatar-fallback')).toBeOnTheScreen();
     });
 
-    it('displays contact information rows', () => {
-      const { getByTestId, getByText } = renderWithProfile();
+    it('displays contact information rows', async () => {
+      const { getByTestId, getByText } = await renderWithProfile();
       expect(getByTestId('profile-phone')).toBeOnTheScreen();
       expect(getByText('+447510084239')).toBeOnTheScreen();
       expect(getByTestId('profile-email')).toBeOnTheScreen();
@@ -97,8 +97,8 @@ describe('ProfileScreen', () => {
       expect(getByText('11 May 1990')).toBeOnTheScreen();
     });
 
-    it('displays social media section when available', () => {
-      const { getByTestId, getByText } = renderWithProfile();
+    it('displays social media section when available', async () => {
+      const { getByTestId, getByText } = await renderWithProfile();
       expect(getByTestId('profile-social-header')).toBeOnTheScreen();
       expect(getByText('Social Media')).toBeOnTheScreen();
       expect(getByTestId('profile-social-facebook')).toBeOnTheScreen();
@@ -107,9 +107,9 @@ describe('ProfileScreen', () => {
       expect(getByTestId('profile-social-linkedin')).toBeOnTheScreen();
     });
 
-    it('hides social section when no socials', () => {
+    it('hides social section when no socials', async () => {
       const profileWithoutSocials = { ...mockProfile, socials: undefined } as unknown as Profile;
-      const { queryByTestId } = renderProfileScreen({
+      const { queryByTestId } = await renderProfileScreen({
         data: profileWithoutSocials,
         loading: false,
         error: null,
@@ -120,14 +120,14 @@ describe('ProfileScreen', () => {
   });
 
   describe('User Interactions', () => {
-    it('renders phone and email buttons as pressable', () => {
-      const { getByTestId } = renderWithProfile();
+    it('renders phone and email buttons as pressable', async () => {
+      const { getByTestId } = await renderWithProfile();
       expect(getByTestId('profile-phone').props.accessibilityRole).toBe('button');
       expect(getByTestId('profile-email').props.accessibilityRole).toBe('button');
     });
 
-    it('renders social media buttons as pressable', () => {
-      const { getByTestId } = renderWithProfile();
+    it('renders social media buttons as pressable', async () => {
+      const { getByTestId } = await renderWithProfile();
       expect(getByTestId('profile-social-facebook').props.accessibilityRole).toBe('button');
       expect(getByTestId('profile-social-twitter').props.accessibilityRole).toBe('button');
       expect(getByTestId('profile-social-instagram').props.accessibilityRole).toBe('button');
@@ -136,8 +136,8 @@ describe('ProfileScreen', () => {
   });
 
   describe('State Management', () => {
-    it('displays loading indicator', () => {
-      const { getByTestId, getByText } = renderProfileScreen({
+    it('displays loading indicator', async () => {
+      const { getByTestId, getByText } = await renderProfileScreen({
         data: null,
         loading: true,
         error: null,
@@ -146,8 +146,8 @@ describe('ProfileScreen', () => {
       expect(getByText('Loading...')).toBeOnTheScreen();
     });
 
-    it('displays error message', () => {
-      const { getByTestId, getByText } = renderProfileScreen({
+    it('displays error message', async () => {
+      const { getByTestId, getByText } = await renderProfileScreen({
         data: null,
         loading: false,
         error: 'Failed to load profile data',
@@ -156,8 +156,8 @@ describe('ProfileScreen', () => {
       expect(getByText('Error: Failed to load profile data')).toBeOnTheScreen();
     });
 
-    it('displays empty state when no data', () => {
-      const { getByTestId, getByText } = renderProfileScreen({
+    it('displays empty state when no data', async () => {
+      const { getByTestId, getByText } = await renderProfileScreen({
         data: null,
         loading: false,
         error: null,
@@ -166,8 +166,8 @@ describe('ProfileScreen', () => {
       expect(getByText('No profile data available')).toBeOnTheScreen();
     });
 
-    it('prioritizes loading state over error', () => {
-      const { getByTestId, queryByTestId } = renderProfileScreen({
+    it('prioritizes loading state over error', async () => {
+      const { getByTestId, queryByTestId } = await renderProfileScreen({
         data: null,
         loading: true,
         error: 'Network error',
@@ -178,31 +178,31 @@ describe('ProfileScreen', () => {
   });
 
   describe('Accessibility (EAA Compliance)', () => {
-    it('has proper accessibility for phone button', () => {
-      const { getByTestId } = renderWithProfile();
+    it('has proper accessibility for phone button', async () => {
+      const { getByTestId } = await renderWithProfile();
       const phoneButton = getByTestId('profile-phone');
       expect(phoneButton.props.accessibilityRole).toBe('button');
       expect(phoneButton.props.accessibilityLabel).toBe('Phone: +447510084239');
       expect(phoneButton.props.accessibilityHint).toBe('Double tap to call');
     });
 
-    it('has proper accessibility for email button', () => {
-      const { getByTestId } = renderWithProfile();
+    it('has proper accessibility for email button', async () => {
+      const { getByTestId } = await renderWithProfile();
       const emailButton = getByTestId('profile-email');
       expect(emailButton.props.accessibilityRole).toBe('button');
       expect(emailButton.props.accessibilityLabel).toBe('Email: hi@warrendeleon.com');
       expect(emailButton.props.accessibilityHint).toBe('Double tap to send email');
     });
 
-    it('has proper accessibility for birthday row', () => {
-      const { getByTestId } = renderWithProfile();
+    it('has proper accessibility for birthday row', async () => {
+      const { getByTestId } = await renderWithProfile();
       const birthdayRow = getByTestId('profile-birthday');
       expect(birthdayRow.props.accessibilityRole).toBe('text');
       expect(birthdayRow.props.accessibilityLabel).toBe('Birthday: 11 May 1990');
     });
 
-    it('has proper accessibility for social media buttons', () => {
-      const { getByTestId } = renderWithProfile();
+    it('has proper accessibility for social media buttons', async () => {
+      const { getByTestId } = await renderWithProfile();
       expect(getByTestId('profile-social-facebook').props.accessibilityLabel).toBe(
         'Open facebook profile'
       );
@@ -217,43 +217,43 @@ describe('ProfileScreen', () => {
       );
     });
 
-    it('has proper accessibility for profile image', () => {
-      const { getByTestId } = renderWithProfile();
+    it('has proper accessibility for profile image', async () => {
+      const { getByTestId } = await renderWithProfile();
       const profileImage = getByTestId('profile-carousel-image');
       expect(profileImage.props.accessibilityRole).toBe('image');
       expect(profileImage.props.accessibilityLabel).toBe('Profile photo of Warren de Leon');
     });
 
-    it('has proper accessibility for heading', () => {
-      const { getByTestId } = renderWithProfile();
+    it('has proper accessibility for heading', async () => {
+      const { getByTestId } = await renderWithProfile();
       const nameHeading = getByTestId('profile-name');
       expect(nameHeading.props.accessibilityRole).toBe('header');
       expect(nameHeading.props.accessibilityLabel).toBe('Warren de Leon');
     });
 
-    it('meets minimum touch target size (44px)', () => {
-      const { getByTestId } = renderWithProfile();
+    it('meets minimum touch target size (44px)', async () => {
+      const { getByTestId } = await renderWithProfile();
       expect(getByTestId('profile-phone').props.style.minHeight).toBe(44);
       expect(getByTestId('profile-email').props.style.minHeight).toBe(44);
     });
   });
 
   describe('Redux Integration', () => {
-    it('displays data from Redux selector', () => {
-      const { getByText } = renderWithProfile();
+    it('displays data from Redux selector', async () => {
+      const { getByText } = await renderWithProfile();
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
       expect(getByText('Senior React Native Developer')).toBeOnTheScreen();
       expect(getByText('+447510084239')).toBeOnTheScreen();
       expect(getByText('hi@warrendeleon.com')).toBeOnTheScreen();
     });
 
-    it('reflects loading state from Redux', () => {
-      const { getByTestId } = renderProfileScreen({ data: null, loading: true, error: null });
+    it('reflects loading state from Redux', async () => {
+      const { getByTestId } = await renderProfileScreen({ data: null, loading: true, error: null });
       expect(getByTestId('profile-loading')).toBeOnTheScreen();
     });
 
-    it('reflects error state from Redux', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('reflects error state from Redux', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: null,
         loading: false,
         error: 'Redux error message',
@@ -263,9 +263,9 @@ describe('ProfileScreen', () => {
   });
 
   describe('Edge Cases', () => {
-    it('handles missing headline', () => {
+    it('handles missing headline', async () => {
       const profileWithoutHeadline = { ...mockProfile, headline: undefined } as unknown as Profile;
-      const { getByTestId, queryByTestId } = renderProfileScreen({
+      const { getByTestId, queryByTestId } = await renderProfileScreen({
         data: profileWithoutHeadline,
         loading: false,
         error: null,
@@ -274,7 +274,7 @@ describe('ProfileScreen', () => {
       expect(queryByTestId('profile-headline')).toBeNull();
     });
 
-    it('handles partial social links', () => {
+    it('handles partial social links', async () => {
       const profileWithPartialSocials = {
         ...mockProfile,
         socials: {
@@ -284,7 +284,7 @@ describe('ProfileScreen', () => {
           linkedIn: undefined,
         },
       } as unknown as Profile;
-      const { getByTestId, queryByTestId } = renderProfileScreen({
+      const { getByTestId, queryByTestId } = await renderProfileScreen({
         data: profileWithPartialSocials,
         loading: false,
         error: null,
@@ -295,13 +295,13 @@ describe('ProfileScreen', () => {
       expect(queryByTestId('profile-social-linkedin')).toBeNull();
     });
 
-    it('handles missing profilePicture with empty gallery', () => {
+    it('handles missing profilePicture with empty gallery', async () => {
       const profileWithoutPicture = {
         ...mockProfile,
         profilePicture: undefined,
         galleryImages: [],
       } as unknown as Profile;
-      const { queryByTestId, getByTestId } = renderProfileScreen({
+      const { queryByTestId, getByTestId } = await renderProfileScreen({
         data: profileWithoutPicture,
         loading: false,
         error: null,
@@ -310,9 +310,9 @@ describe('ProfileScreen', () => {
       expect(getByTestId('profile-avatar-fallback')).toBeOnTheScreen();
     });
 
-    it('uses profilePicture as fallback when carousel empty', () => {
+    it('uses profilePicture as fallback when carousel empty', async () => {
       const profileWithEmptyCarousel = { ...mockProfile, galleryImages: [] };
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: profileWithEmptyCarousel,
         loading: false,
         error: null,

@@ -23,75 +23,75 @@ describe('FormInputItem', () => {
   });
 
   describe('rendering', () => {
-    it('should render with placeholder', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} />);
+    it('should render with placeholder', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} />);
 
       expect(screen.getByPlaceholderText('Enter text')).toBeOnTheScreen();
     });
 
-    it('should render with value', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} value="Test value" />);
+    it('should render with value', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} value="Test value" />);
 
       expect(screen.getByDisplayValue('Test value')).toBeOnTheScreen();
     });
 
-    it('should render with testID', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} testID="form-input" />);
+    it('should render with testID', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} testID="form-input" />);
 
       expect(screen.getByTestId('form-input')).toBeOnTheScreen();
     });
   });
 
   describe('interaction', () => {
-    it('should call onChangeText when text changes', () => {
+    it('should call onChangeText when text changes', async () => {
       const onChangeText = jest.fn();
-      renderWithProviders(
+      await renderWithProviders(
         <FormInputItem {...defaultProps} onChangeText={onChangeText} testID="input" />
       );
 
-      fireEvent.changeText(screen.getByTestId('input'), 'new value');
+      await fireEvent.changeText(screen.getByTestId('input'), 'new value');
 
       expect(onChangeText).toHaveBeenCalledWith('new value');
     });
 
-    it('should call onBlur when input loses focus', () => {
+    it('should call onBlur when input loses focus', async () => {
       const onBlur = jest.fn();
-      renderWithProviders(<FormInputItem {...defaultProps} onBlur={onBlur} testID="input" />);
+      await renderWithProviders(<FormInputItem {...defaultProps} onBlur={onBlur} testID="input" />);
 
-      fireEvent(screen.getByTestId('input'), 'blur');
+      await fireEvent(screen.getByTestId('input'), 'blur');
 
       expect(onBlur).toHaveBeenCalled();
     });
 
-    it('should call onSubmitEditing when return key is pressed', () => {
+    it('should call onSubmitEditing when return key is pressed', async () => {
       const onSubmitEditing = jest.fn();
-      renderWithProviders(
+      await renderWithProviders(
         <FormInputItem {...defaultProps} onSubmitEditing={onSubmitEditing} testID="input" />
       );
 
-      fireEvent(screen.getByTestId('input'), 'submitEditing');
+      await fireEvent(screen.getByTestId('input'), 'submitEditing');
 
       expect(onSubmitEditing).toHaveBeenCalled();
     });
   });
 
   describe('secure text entry', () => {
-    it('should hide text when secureTextEntry is true', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} secureTextEntry testID="input" />);
+    it('should hide text when secureTextEntry is true', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} secureTextEntry testID="input" />);
 
       expect(screen.getByTestId('input').props.secureTextEntry).toBe(true);
     });
 
-    it('should show text when secureTextEntry is true but isSecureVisible is true', () => {
-      renderWithProviders(
+    it('should show text when secureTextEntry is true but isSecureVisible is true', async () => {
+      await renderWithProviders(
         <FormInputItem {...defaultProps} secureTextEntry isSecureVisible testID="input" />
       );
 
       expect(screen.getByTestId('input').props.secureTextEntry).toBe(false);
     });
 
-    it('should render show/hide toggle when showSecureToggle is true', () => {
-      renderWithProviders(
+    it('should render show/hide toggle when showSecureToggle is true', async () => {
+      await renderWithProviders(
         <FormInputItem
           {...defaultProps}
           secureTextEntry
@@ -103,8 +103,8 @@ describe('FormInputItem', () => {
       expect(screen.getByLabelText('Show password')).toBeOnTheScreen();
     });
 
-    it('should show "Hide password" label when password is visible', () => {
-      renderWithProviders(
+    it('should show "Hide password" label when password is visible', async () => {
+      await renderWithProviders(
         <FormInputItem
           {...defaultProps}
           secureTextEntry
@@ -117,9 +117,9 @@ describe('FormInputItem', () => {
       expect(screen.getByLabelText('Hide password')).toBeOnTheScreen();
     });
 
-    it('should call onToggleSecure when toggle is pressed', () => {
+    it('should call onToggleSecure when toggle is pressed', async () => {
       const onToggleSecure = jest.fn();
-      renderWithProviders(
+      await renderWithProviders(
         <FormInputItem
           {...defaultProps}
           secureTextEntry
@@ -128,13 +128,13 @@ describe('FormInputItem', () => {
         />
       );
 
-      fireEvent.press(screen.getByLabelText('Show password'));
+      await fireEvent.press(screen.getByLabelText('Show password'));
 
       expect(onToggleSecure).toHaveBeenCalled();
     });
 
-    it('should have accessible touch target on show/hide toggle', () => {
-      renderWithProviders(
+    it('should have accessible touch target on show/hide toggle', async () => {
+      await renderWithProviders(
         <FormInputItem
           {...defaultProps}
           secureTextEntry
@@ -151,22 +151,22 @@ describe('FormInputItem', () => {
   });
 
   describe('error display', () => {
-    it('should render error message when error prop is provided', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} error="This field is required" />);
+    it('should render error message when error prop is provided', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} error="This field is required" />);
 
       expect(screen.getByText('This field is required')).toBeOnTheScreen();
     });
 
-    it('should not render error box when no error', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
+    it('should not render error box when no error', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
 
       expect(screen.queryByText(/required/)).toBeNull();
     });
   });
 
   describe('left content', () => {
-    it('should render left content when provided', () => {
-      renderWithProviders(
+    it('should render left content when provided', async () => {
+      await renderWithProviders(
         <FormInputItem {...defaultProps} leftContent={<Text testID="left-content">+44</Text>} />
       );
 
@@ -176,22 +176,22 @@ describe('FormInputItem', () => {
   });
 
   describe('accessibility', () => {
-    it('should use placeholder as default accessibility label', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
+    it('should use placeholder as default accessibility label', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
 
       expect(screen.getByLabelText('Enter text')).toBeOnTheScreen();
     });
 
-    it('should use custom accessibility label when provided', () => {
-      renderWithProviders(
+    it('should use custom accessibility label when provided', async () => {
+      await renderWithProviders(
         <FormInputItem {...defaultProps} accessibilityLabel="Custom label" testID="input" />
       );
 
       expect(screen.getByLabelText('Custom label')).toBeOnTheScreen();
     });
 
-    it('should include accessibility hint when provided', () => {
-      renderWithProviders(
+    it('should include accessibility hint when provided', async () => {
+      await renderWithProviders(
         <FormInputItem
           {...defaultProps}
           accessibilityHint="Enter your email address"
@@ -204,51 +204,51 @@ describe('FormInputItem', () => {
   });
 
   describe('keyboard and input types', () => {
-    it('should apply keyboard type', () => {
-      renderWithProviders(
+    it('should apply keyboard type', async () => {
+      await renderWithProviders(
         <FormInputItem {...defaultProps} keyboardType="email-address" testID="input" />
       );
 
       expect(screen.getByTestId('input').props.keyboardType).toBe('email-address');
     });
 
-    it('should apply return key type', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} returnKeyType="done" testID="input" />);
+    it('should apply return key type', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} returnKeyType="done" testID="input" />);
 
       expect(screen.getByTestId('input').props.returnKeyType).toBe('done');
     });
 
-    it('should disable auto capitalisation when specified', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} autoCapitalize="none" testID="input" />);
+    it('should disable auto capitalisation when specified', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} autoCapitalize="none" testID="input" />);
 
       expect(screen.getByTestId('input').props.autoCapitalize).toBe('none');
     });
 
-    it('should disable auto correct when specified', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} autoCorrect={false} testID="input" />);
+    it('should disable auto correct when specified', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} autoCorrect={false} testID="input" />);
 
       expect(screen.getByTestId('input').props.autoCorrect).toBe(false);
     });
   });
 
   describe('editable state', () => {
-    it('should be editable by default', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
+    it('should be editable by default', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
 
       expect(screen.getByTestId('input').props.editable).toBe(true);
     });
 
-    it('should be non-editable when editable is false', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} editable={false} testID="input" />);
+    it('should be non-editable when editable is false', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} editable={false} testID="input" />);
 
       expect(screen.getByTestId('input').props.editable).toBe(false);
     });
   });
 
   describe('ref forwarding', () => {
-    it('should forward ref for focus functionality', () => {
+    it('should forward ref for focus functionality', async () => {
       const ref = createRef<{ focus: () => void }>();
-      renderWithProviders(<FormInputItem {...defaultProps} ref={ref} testID="input" />);
+      await renderWithProviders(<FormInputItem {...defaultProps} ref={ref} testID="input" />);
 
       // The ref should be assigned with focus method
       expect(ref.current).not.toBeNull();
@@ -259,8 +259,8 @@ describe('FormInputItem', () => {
   describe('group variants', () => {
     it.each(['single', 'top', 'middle', 'bottom'] as const)(
       'should render with groupVariant=%s',
-      groupVariant => {
-        renderWithProviders(
+      async groupVariant => {
+        await renderWithProviders(
           <FormInputItem {...defaultProps} groupVariant={groupVariant} testID="input" />
         );
 
@@ -270,16 +270,16 @@ describe('FormInputItem', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('input is accessible within touch-target container', () => {
-      renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
+    it('input is accessible within touch-target container', async () => {
+      await renderWithProviders(<FormInputItem {...defaultProps} testID="input" />);
 
       // FormInputItem has Box wrapper with minHeight={44} for EAA compliance
       const input = screen.getByLabelText(defaultProps.placeholder);
       expect(input).toBeOnTheScreen();
     });
 
-    it('secure toggle button has accessible touch target', () => {
-      renderWithProviders(
+    it('secure toggle button has accessible touch target', async () => {
+      await renderWithProviders(
         <FormInputItem
           {...defaultProps}
           secureTextEntry
@@ -292,8 +292,8 @@ describe('FormInputItem', () => {
       expectMinTouchTarget(toggle);
     });
 
-    it('input with error is accessible', () => {
-      renderWithProviders(
+    it('input with error is accessible', async () => {
+      await renderWithProviders(
         <FormInputItem {...defaultProps} error="This field is required" testID="input" />
       );
 
@@ -302,8 +302,8 @@ describe('FormInputItem', () => {
       expect(screen.getByText('This field is required')).toBeOnTheScreen();
     });
 
-    it('input with left content is accessible', () => {
-      renderWithProviders(
+    it('input with left content is accessible', async () => {
+      await renderWithProviders(
         <FormInputItem {...defaultProps} leftContent={<Text>+44</Text>} testID="input" />
       );
 

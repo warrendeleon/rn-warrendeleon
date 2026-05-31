@@ -79,16 +79,16 @@ describe('Profile Edit Flow Integration', () => {
   });
 
   describe('Edit Account Screen - form pre-population', () => {
-    it('should display edit account screen', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('should display edit account screen', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('edit-account-screen')).toBeOnTheScreen();
     });
 
-    it('should pre-populate form with current user data', () => {
-      renderWithProviders(<EditAccountScreen />, {
+    it('should pre-populate form with current user data', async () => {
+      await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -96,8 +96,8 @@ describe('Profile Edit Flow Integration', () => {
       expect(screen.getByDisplayValue('Doe')).toBeOnTheScreen();
     });
 
-    it('should display email as read-only', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('should display email as read-only', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -108,32 +108,32 @@ describe('Profile Edit Flow Integration', () => {
 
   describe('Edit Account Screen - form editing', () => {
     it('should allow editing first name', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.changeText(getByTestId('first-name-input'), 'Jonathan');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Jonathan');
 
       expect(screen.getByDisplayValue('Jonathan')).toBeOnTheScreen();
     });
 
     it('should allow editing last name', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.changeText(getByTestId('last-name-input'), 'Smith');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'Smith');
 
       expect(screen.getByDisplayValue('Smith')).toBeOnTheScreen();
     });
 
     it('should enable save button when form is dirty', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       // Make a change
-      fireEvent.changeText(getByTestId('first-name-input'), 'Jonathan');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Jonathan');
 
       // Save button should become enabled when form is dirty
       await waitFor(
@@ -148,22 +148,22 @@ describe('Profile Edit Flow Integration', () => {
   });
 
   describe('Edit Account Screen - navigation', () => {
-    it('should navigate to change password when pressed', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('should navigate to change password when pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('ChangePassword');
     });
 
     it('should show logout dialog when logout pressed', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.press(getByTestId('logout-button'));
+      await fireEvent.press(getByTestId('logout-button'));
 
       await waitFor(
         () => {
@@ -176,24 +176,24 @@ describe('Profile Edit Flow Integration', () => {
 
   describe('Edit Account Screen - validation', () => {
     it('should validate first name minimum length', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       // Clear first name
-      fireEvent.changeText(getByTestId('first-name-input'), '');
+      await fireEvent.changeText(getByTestId('first-name-input'), '');
 
       // Form should not be valid with empty first name
       expect(screen.getByDisplayValue('')).toBeOnTheScreen();
     });
 
     it('should validate last name minimum length', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       // Clear last name
-      fireEvent.changeText(getByTestId('last-name-input'), '');
+      await fireEvent.changeText(getByTestId('last-name-input'), '');
 
       // Form should not be valid with empty last name
       expect(screen.getByDisplayValue('')).toBeOnTheScreen();
@@ -201,8 +201,8 @@ describe('Profile Edit Flow Integration', () => {
   });
 
   describe('accessibility during profile edit flow', () => {
-    it('should have accessible first name input', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('should have accessible first name input', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -210,8 +210,8 @@ describe('Profile Edit Flow Integration', () => {
       expect(firstNameInput).toBeOnTheScreen();
     });
 
-    it('should have accessible last name input', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('should have accessible last name input', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -219,8 +219,8 @@ describe('Profile Edit Flow Integration', () => {
       expect(lastNameInput).toBeOnTheScreen();
     });
 
-    it('should have accessible buttons with correct roles', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('should have accessible buttons with correct roles', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -229,8 +229,8 @@ describe('Profile Edit Flow Integration', () => {
       expect(getByTestId('logout-button').props.accessibilityRole).toBe('button');
     });
 
-    it('should have focus order for form fields and actions', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('should have focus order for form fields and actions', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -244,17 +244,17 @@ describe('Profile Edit Flow Integration', () => {
 
   describe('form field chaining', () => {
     it('should support keyboard navigation through edit form', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       // Edit first name and submit
-      fireEvent.changeText(getByTestId('first-name-input'), 'Jonathan');
-      fireEvent(getByTestId('first-name-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Jonathan');
+      await fireEvent(getByTestId('first-name-input'), 'submitEditing');
 
       // Edit last name and submit
-      fireEvent.changeText(getByTestId('last-name-input'), 'Smith');
-      fireEvent(getByTestId('last-name-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'Smith');
+      await fireEvent(getByTestId('last-name-input'), 'submitEditing');
 
       // Form should have both changes
       expect(screen.getByDisplayValue('Jonathan')).toBeOnTheScreen();
@@ -263,19 +263,19 @@ describe('Profile Edit Flow Integration', () => {
   });
 
   describe('data persistence during editing', () => {
-    it('should preserve changes when re-rendering', () => {
-      const { getByTestId, rerender } = renderWithProviders(<EditAccountScreen />, {
+    it('should preserve changes when re-rendering', async () => {
+      const { getByTestId, rerender } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       // Make changes
-      fireEvent.changeText(getByTestId('first-name-input'), 'NewName');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'NewName');
 
       // Changes should be preserved
       expect(screen.getByDisplayValue('NewName')).toBeOnTheScreen();
 
       // Re-render (simulating state update)
-      rerender(<EditAccountScreen />);
+      await rerender(<EditAccountScreen />);
 
       // Form state should be preserved
       expect(screen.getByDisplayValue('NewName')).toBeOnTheScreen();
@@ -283,10 +283,10 @@ describe('Profile Edit Flow Integration', () => {
   });
 
   describe('error states', () => {
-    it('should display save error when present', () => {
+    it('should display save error when present', async () => {
       // Note: Save errors are handled via local state, not redux auth.error
       // This tests the initial state without errors
-      const { queryByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { queryByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -297,12 +297,12 @@ describe('Profile Edit Flow Integration', () => {
 
   describe('logout confirmation flow', () => {
     it('should show logout dialog with confirm and cancel options', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       // Open logout dialog
-      fireEvent.press(getByTestId('logout-button'));
+      await fireEvent.press(getByTestId('logout-button'));
 
       await waitFor(
         () => {

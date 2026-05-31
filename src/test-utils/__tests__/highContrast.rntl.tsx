@@ -205,24 +205,24 @@ describe('high contrast component patterns', () => {
     );
   };
 
-  it('uses high contrast colours when mode is enabled', () => {
-    render(<HighContrastAwareButton label="Submit" highContrastMode={true} />);
+  it('uses high contrast colours when mode is enabled', async () => {
+    await render(<HighContrastAwareButton label="Submit" highContrastMode={true} />);
 
     expect(screen.getByTestId('bg-color')).toHaveTextContent('#000000');
     expect(screen.getByTestId('text-color')).toHaveTextContent('#FFFFFF');
     expect(screen.getByTestId('border-color')).toHaveTextContent('#FFFFFF');
   });
 
-  it('uses standard colours when mode is disabled', () => {
-    render(<HighContrastAwareButton label="Submit" highContrastMode={false} />);
+  it('uses standard colours when mode is disabled', async () => {
+    await render(<HighContrastAwareButton label="Submit" highContrastMode={false} />);
 
     expect(screen.getByTestId('bg-color')).toHaveTextContent('#0066CC');
     expect(screen.getByTestId('text-color')).toHaveTextContent('#FFFFFF');
     expect(screen.getByTestId('border-color')).toHaveTextContent('transparent');
   });
 
-  it('maintains proper accessibility label', () => {
-    render(<HighContrastAwareButton label="Submit form" highContrastMode={true} />);
+  it('maintains proper accessibility label', async () => {
+    await render(<HighContrastAwareButton label="Submit form" highContrastMode={true} />);
 
     expect(screen.getByTestId('button')).toHaveAccessibleName('Submit form');
   });
@@ -276,8 +276,8 @@ describe('colour blindness considerations', () => {
       );
     };
 
-    it('provides multiple indicators for error state', () => {
-      render(<AccessibleErrorField hasError={true} errorMessage="This field is required" />);
+    it('provides multiple indicators for error state', async () => {
+      await render(<AccessibleErrorField hasError={true} errorMessage="This field is required" />);
 
       // Error is conveyed through:
       // 1. Border colour change
@@ -288,23 +288,23 @@ describe('colour blindness considerations', () => {
       expect(screen.getByTestId('error-text')).toHaveTextContent('This field is required');
     });
 
-    it('marks field error state in UI', () => {
-      render(<AccessibleErrorField hasError={true} errorMessage="Required" />);
+    it('marks field error state in UI', async () => {
+      await render(<AccessibleErrorField hasError={true} errorMessage="Required" />);
 
       const hasError = screen.getByTestId('has-error');
       expect(hasError).toHaveTextContent('true');
     });
 
-    it('provides error as live region for screen readers', () => {
-      render(<AccessibleErrorField hasError={true} errorMessage="Invalid email format" />);
+    it('provides error as live region for screen readers', async () => {
+      await render(<AccessibleErrorField hasError={true} errorMessage="Invalid email format" />);
 
       const errorContainer = screen.getByTestId('error-container');
       expect(errorContainer.props.accessibilityRole).toBe('alert');
       expect(errorContainer.props.accessibilityLiveRegion).toBe('polite');
     });
 
-    it('does not show error indicators when valid', () => {
-      render(<AccessibleErrorField hasError={false} />);
+    it('does not show error indicators when valid', async () => {
+      await render(<AccessibleErrorField hasError={false} />);
 
       expect(screen.queryByTestId('error-container')).not.toBeOnTheScreen();
       expect(screen.queryByTestId('error-icon')).not.toBeOnTheScreen();
@@ -337,29 +337,29 @@ describe('colour blindness considerations', () => {
       );
     };
 
-    it('success status has icon and label', () => {
-      render(<StatusBadge status="success" />);
+    it('success status has icon and label', async () => {
+      await render(<StatusBadge status="success" />);
 
       expect(screen.getByTestId('status-icon')).toHaveTextContent('✓');
       expect(screen.getByTestId('status-label')).toHaveTextContent('Success');
     });
 
-    it('warning status has icon and label', () => {
-      render(<StatusBadge status="warning" />);
+    it('warning status has icon and label', async () => {
+      await render(<StatusBadge status="warning" />);
 
       expect(screen.getByTestId('status-icon')).toHaveTextContent('⚠');
       expect(screen.getByTestId('status-label')).toHaveTextContent('Warning');
     });
 
-    it('error status has icon and label', () => {
-      render(<StatusBadge status="error" />);
+    it('error status has icon and label', async () => {
+      await render(<StatusBadge status="error" />);
 
       expect(screen.getByTestId('status-icon')).toHaveTextContent('✕');
       expect(screen.getByTestId('status-label')).toHaveTextContent('Error');
     });
 
-    it('has accessible name for screen readers', () => {
-      render(<StatusBadge status="error" />);
+    it('has accessible name for screen readers', async () => {
+      await render(<StatusBadge status="error" />);
 
       expect(screen.getByTestId('status-badge')).toHaveAccessibleName('Error');
     });
@@ -399,29 +399,29 @@ describe('focus indicators', () => {
     );
   };
 
-  it('shows visible focus indicator when focused', () => {
-    render(<FocusableElement isFocused={true} />);
+  it('shows visible focus indicator when focused', async () => {
+    await render(<FocusableElement isFocused={true} />);
 
     expect(screen.getByTestId('border-width')).toHaveTextContent('3');
     expect(screen.getByTestId('border-color')).toHaveTextContent('#0066CC');
   });
 
-  it('shows enhanced focus indicator in high contrast mode', () => {
-    render(<FocusableElement isFocused={true} highContrast={true} />);
+  it('shows enhanced focus indicator in high contrast mode', async () => {
+    await render(<FocusableElement isFocused={true} highContrast={true} />);
 
     expect(screen.getByTestId('border-width')).toHaveTextContent('3');
     expect(screen.getByTestId('border-color')).toHaveTextContent('#000000');
   });
 
-  it('shows minimal border when not focused', () => {
-    render(<FocusableElement isFocused={false} />);
+  it('shows minimal border when not focused', async () => {
+    await render(<FocusableElement isFocused={false} />);
 
     expect(screen.getByTestId('border-width')).toHaveTextContent('1');
     expect(screen.getByTestId('border-color')).toHaveTextContent('#CCCCCC');
   });
 
-  it('sets accessibility state for screen readers', () => {
-    render(<FocusableElement isFocused={true} />);
+  it('sets accessibility state for screen readers', async () => {
+    await render(<FocusableElement isFocused={true} />);
 
     const element = screen.getByTestId('focusable-element');
     expect(element.props.accessibilityState?.selected).toBe(true);
@@ -447,21 +447,21 @@ describe('text sizing and readability', () => {
       );
     };
 
-    it('scales text size based on preference', () => {
-      render(<ScalableText scale={1.5} baseSize={16} />);
+    it('scales text size based on preference', async () => {
+      await render(<ScalableText scale={1.5} baseSize={16} />);
 
       expect(screen.getByTestId('font-size')).toHaveTextContent('24');
     });
 
-    it('maintains readability at 200% scale', () => {
-      render(<ScalableText scale={2} baseSize={16} />);
+    it('maintains readability at 200% scale', async () => {
+      await render(<ScalableText scale={2} baseSize={16} />);
 
       expect(screen.getByTestId('font-size')).toHaveTextContent('32');
       expect(screen.getByTestId('scaled-text')).toBeOnTheScreen();
     });
 
-    it('uses base size by default', () => {
-      render(<ScalableText />);
+    it('uses base size by default', async () => {
+      await render(<ScalableText />);
 
       expect(screen.getByTestId('font-size')).toHaveTextContent('16');
     });
@@ -486,19 +486,19 @@ describe('text sizing and readability', () => {
       );
     };
 
-    it('body text is at least 16px', () => {
-      render(<TextWithMinimums type="body" />);
+    it('body text is at least 16px', async () => {
+      await render(<TextWithMinimums type="body" />);
       // Visual check - text should be readable
       expect(screen.getByTestId('body-text')).toBeOnTheScreen();
     });
 
-    it('secondary text is at least 14px', () => {
-      render(<TextWithMinimums type="secondary" />);
+    it('secondary text is at least 14px', async () => {
+      await render(<TextWithMinimums type="secondary" />);
       expect(screen.getByTestId('secondary-text')).toBeOnTheScreen();
     });
 
-    it('caption text exists but may be smaller', () => {
-      render(<TextWithMinimums type="caption" />);
+    it('caption text exists but may be smaller', async () => {
+      await render(<TextWithMinimums type="caption" />);
       // Captions at 12px are acceptable for non-essential info
       expect(screen.getByTestId('caption-text')).toBeOnTheScreen();
     });

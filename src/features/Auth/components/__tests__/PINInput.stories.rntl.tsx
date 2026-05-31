@@ -14,52 +14,52 @@ describe('PINInput Stories', () => {
     jest.clearAllMocks();
   });
 
-  it('renders Default story with keypad and dots', () => {
+  it('renders Default story with keypad and dots', async () => {
     const Story = stories.Default.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/pin-input-dot-\d/).length).toBeGreaterThan(0);
     expect(getAllByTestId(/pin-input-keypad-\d/).length).toBeGreaterThan(0);
   });
 
-  it('renders WithDisplay story with dots visible', () => {
+  it('renders WithDisplay story with dots visible', async () => {
     const Story = stories.WithDisplay.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/pin-input-dot-\d/).length).toBeGreaterThan(0);
   });
 
-  it('renders FourDigit story with 4 dots', () => {
+  it('renders FourDigit story with 4 dots', async () => {
     const Story = stories.FourDigit.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/pin-input-dot-\d/).length).toBe(4);
   });
 
-  it('renders ErrorState story with dots visible', () => {
+  it('renders ErrorState story with dots visible', async () => {
     const Story = stories.ErrorState.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/pin-input-dot-\d/).length).toBeGreaterThan(0);
   });
 
-  it('renders Disabled story with keypad present', () => {
+  it('renders Disabled story with keypad present', async () => {
     const Story = stories.Disabled.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/pin-input-keypad-\d/).length).toBe(10);
   });
 
-  it('renders PartiallyFilled story with some filled dots', () => {
+  it('renders PartiallyFilled story with some filled dots', async () => {
     const Story = stories.PartiallyFilled.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/pin-input-dot-\d/).length).toBeGreaterThan(0);
   });
 
-  it('renders FullWithError story with all dots', () => {
+  it('renders FullWithError story with all dots', async () => {
     const Story = stories.FullWithError.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/pin-input-dot-\d/).length).toBeGreaterThan(0);
   });
 
   describe('PIN input functionality', () => {
-    it('displays correct number of dots for default length', () => {
-      const { getByTestId } = renderWithProviders(
+    it('displays correct number of dots for default length', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINInput value="" onChange={mockOnChange} onComplete={mockOnComplete} testID="pin" />
       );
 
@@ -69,8 +69,8 @@ describe('PINInput Stories', () => {
       }
     });
 
-    it('displays correct number of dots for custom length', () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(
+    it('displays correct number of dots for custom length', async () => {
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <PINInput
           value=""
           onChange={mockOnChange}
@@ -88,8 +88,8 @@ describe('PINInput Stories', () => {
       expect(queryByTestId('pin-dot-4')).toBeNull();
     });
 
-    it('fills dots as digits are entered', () => {
-      const { getByTestId, rerender } = renderWithProviders(
+    it('fills dots as digits are entered', async () => {
+      const { getByTestId, rerender } = await renderWithProviders(
         <PINInput value="" onChange={mockOnChange} onComplete={mockOnComplete} testID="pin" />
       );
 
@@ -98,7 +98,7 @@ describe('PINInput Stories', () => {
       expect(dot0.props.accessibilityLabel).toContain('empty');
 
       // Rerender with value "12"
-      rerender(
+      await rerender(
         <PINInput value="12" onChange={mockOnChange} onComplete={mockOnComplete} testID="pin" />
       );
 
@@ -109,11 +109,11 @@ describe('PINInput Stories', () => {
     });
 
     it('calls onChange when digit is pressed', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <PINInput value="" onChange={mockOnChange} onComplete={mockOnComplete} testID="pin" />
       );
 
-      fireEvent.press(getByTestId('pin-keypad-5'));
+      await fireEvent.press(getByTestId('pin-keypad-5'));
 
       await waitFor(
         () => {
@@ -124,11 +124,11 @@ describe('PINInput Stories', () => {
     });
 
     it('calls onChange when delete is pressed', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <PINInput value="123" onChange={mockOnChange} onComplete={mockOnComplete} testID="pin" />
       );
 
-      fireEvent.press(getByTestId('pin-keypad-delete'));
+      await fireEvent.press(getByTestId('pin-keypad-delete'));
 
       await waitFor(
         () => {
@@ -141,7 +141,7 @@ describe('PINInput Stories', () => {
     it('calls onComplete when all digits entered', async () => {
       jest.useFakeTimers();
 
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <PINInput
           value="12345"
           onChange={mockOnChange}
@@ -152,10 +152,10 @@ describe('PINInput Stories', () => {
       );
 
       // Enter final digit
-      fireEvent.press(getByTestId('pin-keypad-6'));
+      await fireEvent.press(getByTestId('pin-keypad-6'));
 
       // Rerender with full value to simulate state update
-      rerender(
+      await rerender(
         <PINInput
           value="123456"
           onChange={mockOnChange}
@@ -179,7 +179,7 @@ describe('PINInput Stories', () => {
     });
 
     it('does not allow input when disabled', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <PINInput
           value=""
           onChange={mockOnChange}
@@ -189,7 +189,7 @@ describe('PINInput Stories', () => {
         />
       );
 
-      fireEvent.press(getByTestId('pin-keypad-5'));
+      await fireEvent.press(getByTestId('pin-keypad-5'));
 
       // onChange should not be called
       await waitFor(
@@ -202,8 +202,8 @@ describe('PINInput Stories', () => {
   });
 
   describe('error state', () => {
-    it('shows error state on all filled dots when hasError is true', () => {
-      const { getByTestId } = renderWithProviders(
+    it('shows error state on all filled dots when hasError is true', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINInput
           value="123456"
           onChange={mockOnChange}
@@ -222,8 +222,8 @@ describe('PINInput Stories', () => {
   });
 
   describe('accessibility', () => {
-    it('keypad has correct accessibility props', () => {
-      const { getByTestId } = renderWithProviders(
+    it('keypad has correct accessibility props', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINInput value="" onChange={mockOnChange} onComplete={mockOnComplete} testID="pin" />
       );
 
@@ -231,8 +231,8 @@ describe('PINInput Stories', () => {
       expect(keypad.props.accessibilityLabel).toBe('PIN keypad');
     });
 
-    it('dots container is accessible', () => {
-      const { getByTestId } = renderWithProviders(
+    it('dots container is accessible', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINInput value="" onChange={mockOnChange} onComplete={mockOnComplete} testID="pin" />
       );
 

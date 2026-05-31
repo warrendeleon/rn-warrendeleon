@@ -79,7 +79,7 @@ const incompleteProfile: Profile = {
   },
 };
 
-const renderProfileScreen = (
+const renderProfileScreen = async (
   profileData: Profile | null,
   loading = false,
   error: string | null = null
@@ -89,7 +89,7 @@ const renderProfileScreen = (
     settings: { theme: 'light', language: 'en' },
   });
 
-  return render(
+  return await render(
     <Provider store={store}>
       <ProfileScreen />
     </Provider>
@@ -107,73 +107,73 @@ describe('Profile Completion Journey', () => {
   });
 
   describe('profile display states', () => {
-    it('should display complete profile data', () => {
-      const { getByTestId, getByText } = renderProfileScreen(completeProfile);
+    it('should display complete profile data', async () => {
+      const { getByTestId, getByText } = await renderProfileScreen(completeProfile);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should display incomplete profile data', () => {
-      const { getByTestId, getByText } = renderProfileScreen(incompleteProfile);
+    it('should display incomplete profile data', async () => {
+      const { getByTestId, getByText } = await renderProfileScreen(incompleteProfile);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle loading state', () => {
-      const { getByTestId } = renderProfileScreen(null, true);
+    it('should handle loading state', async () => {
+      const { getByTestId } = await renderProfileScreen(null, true);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle error state', () => {
-      const { getByTestId } = renderProfileScreen(null, false, 'Failed to load profile');
+    it('should handle error state', async () => {
+      const { getByTestId } = await renderProfileScreen(null, false, 'Failed to load profile');
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
   });
 
   describe('profile completion percentage calculation', () => {
-    it('should consider profile with all fields as complete', () => {
-      const { getByTestId } = renderProfileScreen(completeProfile);
+    it('should consider profile with all fields as complete', async () => {
+      const { getByTestId } = await renderProfileScreen(completeProfile);
 
       // Profile screen renders successfully with complete data
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByTestId('profile-name')).toBeOnTheScreen();
     });
 
-    it('should identify incomplete profile', () => {
-      const { getByTestId } = renderProfileScreen(incompleteProfile);
+    it('should identify incomplete profile', async () => {
+      const { getByTestId } = await renderProfileScreen(incompleteProfile);
 
       // Profile screen renders with incomplete data
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle profile with some fields complete', () => {
+    it('should handle profile with some fields complete', async () => {
       const partialProfile: Profile = {
         ...incompleteProfile,
         headline: 'Developer',
         phone: '+447123456789',
       };
 
-      const { getByTestId } = renderProfileScreen(partialProfile);
+      const { getByTestId } = await renderProfileScreen(partialProfile);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle profile picture completion', () => {
+    it('should handle profile picture completion', async () => {
       const profileWithPicture: Profile = {
         ...incompleteProfile,
         profilePicture: 'https://example.com/photo.jpg',
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithPicture);
+      const { getByTestId } = await renderProfileScreen(profileWithPicture);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle social links completion', () => {
+    it('should handle social links completion', async () => {
       const profileWithSocials: Profile = {
         ...incompleteProfile,
         socials: {
@@ -181,58 +181,58 @@ describe('Profile Completion Journey', () => {
         },
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithSocials);
+      const { getByTestId } = await renderProfileScreen(profileWithSocials);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
   });
 
   describe('missing field handling', () => {
-    it('should render profile without profile picture', () => {
+    it('should render profile without profile picture', async () => {
       const profileWithoutPicture: Profile = {
         ...completeProfile,
         profilePicture: null as unknown as string,
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithoutPicture);
+      const { getByTestId } = await renderProfileScreen(profileWithoutPicture);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should render profile without headline', () => {
+    it('should render profile without headline', async () => {
       const profileWithoutHeadline: Profile = {
         ...completeProfile,
         headline: null as unknown as string,
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithoutHeadline);
+      const { getByTestId } = await renderProfileScreen(profileWithoutHeadline);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should render profile without phone number', () => {
+    it('should render profile without phone number', async () => {
       const profileWithoutPhone: Profile = {
         ...completeProfile,
         phone: null as unknown as string,
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithoutPhone);
+      const { getByTestId } = await renderProfileScreen(profileWithoutPhone);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should render profile without birthday', () => {
+    it('should render profile without birthday', async () => {
       const profileWithoutBirthday: Profile = {
         ...completeProfile,
         birthday: null as unknown as string,
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithoutBirthday);
+      const { getByTestId } = await renderProfileScreen(profileWithoutBirthday);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should render profile without location details', () => {
+    it('should render profile without location details', async () => {
       const profileWithoutLocation: Profile = {
         ...completeProfile,
         location: {
@@ -246,23 +246,23 @@ describe('Profile Completion Journey', () => {
         },
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithoutLocation);
+      const { getByTestId } = await renderProfileScreen(profileWithoutLocation);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should render profile without gallery images', () => {
+    it('should render profile without gallery images', async () => {
       const profileWithoutGallery: Profile = {
         ...completeProfile,
         galleryImages: [],
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithoutGallery);
+      const { getByTestId } = await renderProfileScreen(profileWithoutGallery);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should render profile without social links', () => {
+    it('should render profile without social links', async () => {
       const profileWithoutSocials: Profile = {
         ...completeProfile,
         socials: {
@@ -273,22 +273,22 @@ describe('Profile Completion Journey', () => {
         },
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithoutSocials);
+      const { getByTestId } = await renderProfileScreen(profileWithoutSocials);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
   });
 
   describe('profile strength indicator', () => {
-    it('should indicate strong profile when all fields complete', () => {
-      const { getByTestId } = renderProfileScreen(completeProfile);
+    it('should indicate strong profile when all fields complete', async () => {
+      const { getByTestId } = await renderProfileScreen(completeProfile);
 
       // Full profile renders with all data
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByTestId('profile-name')).toBeOnTheScreen();
     });
 
-    it('should indicate weak profile when minimal fields complete', () => {
+    it('should indicate weak profile when minimal fields complete', async () => {
       const minimalProfile: Profile = {
         ...incompleteProfile,
         name: 'John',
@@ -296,12 +296,12 @@ describe('Profile Completion Journey', () => {
         email: 'john@example.com',
       };
 
-      const { getByTestId } = renderProfileScreen(minimalProfile);
+      const { getByTestId } = await renderProfileScreen(minimalProfile);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should indicate medium profile when some fields complete', () => {
+    it('should indicate medium profile when some fields complete', async () => {
       const mediumProfile: Profile = {
         ...incompleteProfile,
         headline: 'Developer',
@@ -309,7 +309,7 @@ describe('Profile Completion Journey', () => {
         profilePicture: 'https://example.com/photo.jpg',
       };
 
-      const { getByTestId } = renderProfileScreen(mediumProfile);
+      const { getByTestId } = await renderProfileScreen(mediumProfile);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
@@ -317,7 +317,7 @@ describe('Profile Completion Journey', () => {
 
   describe('profile data transitions', () => {
     it('should handle transition from loading to data', async () => {
-      const { rerender, getByText } = renderProfileScreen(null, true);
+      const { rerender, getByText } = await renderProfileScreen(null, true);
 
       // Update with loaded data
       const store = mockStore({
@@ -325,7 +325,7 @@ describe('Profile Completion Journey', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={store}>
           <ProfileScreen />
         </Provider>
@@ -340,7 +340,7 @@ describe('Profile Completion Journey', () => {
     });
 
     it('should handle transition from error to data', async () => {
-      const { rerender, getByTestId, getByText } = renderProfileScreen(
+      const { rerender, getByTestId, getByText } = await renderProfileScreen(
         null,
         false,
         'Network error'
@@ -354,7 +354,7 @@ describe('Profile Completion Journey', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={store}>
           <ProfileScreen />
         </Provider>
@@ -369,7 +369,7 @@ describe('Profile Completion Journey', () => {
     });
 
     it('should handle profile update', async () => {
-      const { rerender, getByText } = renderProfileScreen(incompleteProfile);
+      const { rerender, getByText } = await renderProfileScreen(incompleteProfile);
 
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
 
@@ -385,7 +385,7 @@ describe('Profile Completion Journey', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={store}>
           <ProfileScreen />
         </Provider>
@@ -396,7 +396,7 @@ describe('Profile Completion Journey', () => {
   });
 
   describe('profile completion journey steps', () => {
-    it('should display profile with only basic info', () => {
+    it('should display profile with only basic info', async () => {
       const basicProfile: Profile = {
         ...incompleteProfile,
         name: 'John',
@@ -404,47 +404,47 @@ describe('Profile Completion Journey', () => {
         email: 'john@example.com',
       };
 
-      const { getByTestId, getByText } = renderProfileScreen(basicProfile);
+      const { getByTestId, getByText } = await renderProfileScreen(basicProfile);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByText('John Doe')).toBeOnTheScreen();
     });
 
-    it('should display profile after adding headline', () => {
+    it('should display profile after adding headline', async () => {
       const profileWithHeadline: Profile = {
         ...incompleteProfile,
         headline: 'Software Developer',
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithHeadline);
+      const { getByTestId } = await renderProfileScreen(profileWithHeadline);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should display profile after adding profile picture', () => {
+    it('should display profile after adding profile picture', async () => {
       const profileWithPhoto: Profile = {
         ...incompleteProfile,
         profilePicture: 'https://example.com/photo.jpg',
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithPhoto);
+      const { getByTestId } = await renderProfileScreen(profileWithPhoto);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should display profile after adding contact details', () => {
+    it('should display profile after adding contact details', async () => {
       const profileWithContact: Profile = {
         ...incompleteProfile,
         phone: '+447123456789',
         email: 'updated@example.com',
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithContact);
+      const { getByTestId } = await renderProfileScreen(profileWithContact);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should display profile after adding location', () => {
+    it('should display profile after adding location', async () => {
       const profileWithLocation: Profile = {
         ...incompleteProfile,
         location: {
@@ -458,13 +458,13 @@ describe('Profile Completion Journey', () => {
         },
       };
 
-      const { getByTestId } = renderProfileScreen(profileWithLocation);
+      const { getByTestId } = await renderProfileScreen(profileWithLocation);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should display fully completed profile', () => {
-      const { getByTestId, getByText } = renderProfileScreen(completeProfile);
+    it('should display fully completed profile', async () => {
+      const { getByTestId, getByText } = await renderProfileScreen(completeProfile);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
@@ -473,7 +473,7 @@ describe('Profile Completion Journey', () => {
 
   describe('rapid state changes during completion', () => {
     it('should handle multiple rapid profile updates', async () => {
-      const { rerender, getByTestId } = renderProfileScreen(incompleteProfile);
+      const { rerender, getByTestId } = await renderProfileScreen(incompleteProfile);
 
       // Simulate rapid updates as user completes profile
       const profiles = [
@@ -488,7 +488,7 @@ describe('Profile Completion Journey', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={store}>
             <ProfileScreen />
           </Provider>
@@ -499,7 +499,7 @@ describe('Profile Completion Journey', () => {
     });
 
     it('should handle intermittent loading states during completion', async () => {
-      const { rerender, getByTestId } = renderProfileScreen(incompleteProfile);
+      const { rerender, getByTestId } = await renderProfileScreen(incompleteProfile);
 
       // Simulate loading between updates
       const states = [
@@ -515,7 +515,7 @@ describe('Profile Completion Journey', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={store}>
             <ProfileScreen />
           </Provider>
@@ -527,14 +527,14 @@ describe('Profile Completion Journey', () => {
   });
 
   describe('error handling during profile completion', () => {
-    it('should handle save error during profile update', () => {
-      const { getByTestId } = renderProfileScreen(incompleteProfile, false, 'Failed to save');
+    it('should handle save error during profile update', async () => {
+      const { getByTestId } = await renderProfileScreen(incompleteProfile, false, 'Failed to save');
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
     it('should recover from error and show updated profile', async () => {
-      const { rerender, getByText } = renderProfileScreen(incompleteProfile, false, 'Save failed');
+      const { rerender, getByText } = await renderProfileScreen(incompleteProfile, false, 'Save failed');
 
       // Recover with successful save
       const store = mockStore({
@@ -542,7 +542,7 @@ describe('Profile Completion Journey', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={store}>
           <ProfileScreen />
         </Provider>
@@ -556,13 +556,13 @@ describe('Profile Completion Journey', () => {
       );
     });
 
-    it('should preserve partial data on error', () => {
+    it('should preserve partial data on error', async () => {
       const partialProfile: Profile = {
         ...incompleteProfile,
         headline: 'Partially updated',
       };
 
-      const { getByTestId } = renderProfileScreen(partialProfile, false, 'Network error');
+      const { getByTestId } = await renderProfileScreen(partialProfile, false, 'Network error');
 
       // Profile should still render with partial data
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
@@ -570,22 +570,22 @@ describe('Profile Completion Journey', () => {
   });
 
   describe('accessibility during profile completion', () => {
-    it('should have accessible profile screen', () => {
-      const { getByTestId } = renderProfileScreen(completeProfile);
+    it('should have accessible profile screen', async () => {
+      const { getByTestId } = await renderProfileScreen(completeProfile);
 
       const profileScreen = getByTestId('profile-screen');
       expect(profileScreen).toBeOnTheScreen();
     });
 
-    it('should have accessible profile name', () => {
-      const { getByTestId } = renderProfileScreen(completeProfile);
+    it('should have accessible profile name', async () => {
+      const { getByTestId } = await renderProfileScreen(completeProfile);
 
       const profileName = getByTestId('profile-name');
       expect(profileName.props.accessibilityRole).toBe('header');
     });
 
-    it('should maintain accessibility with incomplete profile', () => {
-      const { getByTestId } = renderProfileScreen(incompleteProfile);
+    it('should maintain accessibility with incomplete profile', async () => {
+      const { getByTestId } = await renderProfileScreen(incompleteProfile);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByTestId('profile-name')).toBeOnTheScreen();

@@ -76,7 +76,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'wrapper'> {
  * expect(getByText('Warren de Leon')).toBeTruthy();
  * ```
  */
-export function renderWithProviders(
+export async function renderWithProviders(
   ui: React.ReactElement,
   { preloadedState, store, ...renderOptions }: ExtendedRenderOptions = {}
 ) {
@@ -97,5 +97,5 @@ export function renderWithProviders(
     );
   }
 
-  return { store: createdStore, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+  return { store: createdStore, ...await render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }

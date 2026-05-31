@@ -65,32 +65,32 @@ describe('PDFScreen Accessibility', () => {
   });
 
   describe('EAA Compliance - Screen Reader Support', () => {
-    it('has accessible container with proper role', () => {
-      renderWithProviders(<PDFScreen />);
+    it('has accessible container with proper role', async () => {
+      await renderWithProviders(<PDFScreen />);
 
       const pdf = screen.getByTestId('mock-pdf');
       expect(pdf).toBeOnTheScreen();
     });
 
-    it('error state has alert role for screen readers', () => {
+    it('error state has alert role for screen readers', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const errorContainer = screen.getByTestId('pdf-error');
       expect(errorContainer.props.accessibilityRole).toBe('alert');
     });
 
-    it('error state has descriptive accessibility label', () => {
+    it('error state has descriptive accessibility label', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const errorContainer = screen.getByTestId('pdf-error');
       expect(errorContainer.props.accessibilityLabel).toBe(
@@ -98,13 +98,13 @@ describe('PDFScreen Accessibility', () => {
       );
     });
 
-    it('loading state has progressbar role', () => {
+    it('loading state has progressbar role', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://warrendeleon.com/cv.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const loading = screen.queryByTestId('pdf-loading');
       if (loading) {
@@ -112,13 +112,13 @@ describe('PDFScreen Accessibility', () => {
       }
     });
 
-    it('loading state has descriptive accessibility label', () => {
+    it('loading state has descriptive accessibility label', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://warrendeleon.com/cv.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const loading = screen.queryByTestId('pdf-loading');
       if (loading) {
@@ -134,7 +134,7 @@ describe('PDFScreen Accessibility', () => {
         setOptions: mockSetOptions,
       });
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       // The share button is rendered via headerRight
       expect(mockSetOptions).toHaveBeenCalled();
@@ -151,22 +151,22 @@ describe('PDFScreen Accessibility', () => {
       mockIsUrlAllowed.mockReturnValue(false);
     });
 
-    it('displays error message text for screen readers', () => {
-      renderWithProviders(<PDFScreen />);
+    it('displays error message text for screen readers', async () => {
+      await renderWithProviders(<PDFScreen />);
 
       const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
       expect(errorText).toBeOnTheScreen();
     });
 
-    it('displays blocked URL for user awareness', () => {
-      renderWithProviders(<PDFScreen />);
+    it('displays blocked URL for user awareness', async () => {
+      await renderWithProviders(<PDFScreen />);
 
       const urlText = screen.getByText('https://evil.com/malware.pdf');
       expect(urlText).toBeOnTheScreen();
     });
 
-    it('error container is focusable for keyboard navigation', () => {
-      renderWithProviders(<PDFScreen />);
+    it('error container is focusable for keyboard navigation', async () => {
+      await renderWithProviders(<PDFScreen />);
 
       const errorContainer = screen.getByTestId('pdf-error');
       // Alert role elements are typically focusable
@@ -175,28 +175,28 @@ describe('PDFScreen Accessibility', () => {
   });
 
   describe('EAA Compliance - Dark Mode Accessibility', () => {
-    it('maintains sufficient contrast in dark mode error state', () => {
+    it('maintains sufficient contrast in dark mode error state', async () => {
       mockUseAppColorScheme.mockReturnValue('dark');
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
       // GlueStack UI uses $error400 for dark mode which provides sufficient contrast
       expect(errorText.props.color).toBe('$error400');
     });
 
-    it('maintains sufficient contrast in light mode error state', () => {
+    it('maintains sufficient contrast in light mode error state', async () => {
       mockUseAppColorScheme.mockReturnValue('light');
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
       // GlueStack UI uses $error600 for light mode which provides sufficient contrast
@@ -205,23 +205,23 @@ describe('PDFScreen Accessibility', () => {
   });
 
   describe('EAA Compliance - Focus Management', () => {
-    it('focuses error container when URL validation fails', () => {
+    it('focuses error container when URL validation fails', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const errorContainer = screen.getByTestId('pdf-error');
       // Error container with alert role should be announced to screen readers
       expect(errorContainer.props.accessibilityRole).toBe('alert');
     });
 
-    it('PDF viewer receives focus when URL is valid', () => {
+    it('PDF viewer receives focus when URL is valid', async () => {
       mockIsUrlAllowed.mockReturnValue(true);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const pdf = screen.getByTestId('mock-pdf');
       expect(pdf).toBeOnTheScreen();
@@ -229,13 +229,13 @@ describe('PDFScreen Accessibility', () => {
   });
 
   describe('EAA Compliance - Security Error Scenarios', () => {
-    it('provides accessible feedback for HTTP URLs', () => {
+    it('provides accessible feedback for HTTP URLs', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'http://example.com/document.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
       expect(
@@ -243,37 +243,37 @@ describe('PDFScreen Accessibility', () => {
       ).toBeOnTheScreen();
     });
 
-    it('provides accessible feedback for javascript: protocol', () => {
+    it('provides accessible feedback for javascript: protocol', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'javascript:alert(1)' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
 
-    it('provides accessible feedback for empty URL', () => {
+    it('provides accessible feedback for empty URL', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: '' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
   });
 
   describe('EAA Compliance - State Announcements', () => {
-    it('announces loading state to screen readers', () => {
+    it('announces loading state to screen readers', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://warrendeleon.com/cv.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const loading = screen.queryByTestId('pdf-loading');
       const error = screen.queryByTestId('pdf-error');
@@ -287,13 +287,13 @@ describe('PDFScreen Accessibility', () => {
       }
     });
 
-    it('error state is announced immediately (live region)', () => {
+    it('error state is announced immediately (live region)', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const errorContainer = screen.getByTestId('pdf-error');
       // Alert role implies live region behaviour
@@ -302,18 +302,18 @@ describe('PDFScreen Accessibility', () => {
   });
 
   describe('EAA Compliance - PDF Content Accessibility', () => {
-    it('renders PDF viewer with accessible testID', () => {
+    it('renders PDF viewer with accessible testID', async () => {
       mockIsUrlAllowed.mockReturnValue(true);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('mock-pdf')).toBeOnTheScreen();
     });
 
-    it('passes correct source to PDF viewer', () => {
+    it('passes correct source to PDF viewer', async () => {
       mockIsUrlAllowed.mockReturnValue(true);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const pdf = screen.getByTestId('mock-pdf');
       expect(pdf.props.source).toEqual({
@@ -322,10 +322,10 @@ describe('PDFScreen Accessibility', () => {
       });
     });
 
-    it('disables trust all certs for security', () => {
+    it('disables trust all certs for security', async () => {
       mockIsUrlAllowed.mockReturnValue(true);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const pdf = screen.getByTestId('mock-pdf');
       expect(pdf.props.trustAllCerts).toBe(false);
@@ -333,27 +333,27 @@ describe('PDFScreen Accessibility', () => {
   });
 
   describe('EAA Compliance - Header Actions', () => {
-    it('configures header with share button', () => {
+    it('configures header with share button', async () => {
       const mockSetOptions = jest.fn();
       (ReactNavigation.useNavigation as jest.Mock).mockReturnValue({
         setOptions: mockSetOptions,
       });
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(mockSetOptions).toHaveBeenCalled();
       const options = mockSetOptions.mock.calls[0][0];
       expect(options.headerRight).toBeDefined();
     });
 
-    it('provides share button with accessible label for screen readers', () => {
+    it('provides share button with accessible label for screen readers', async () => {
       const mockSetOptions = jest.fn();
       (ReactNavigation.useNavigation as jest.Mock).mockReturnValue({
         setOptions: mockSetOptions,
       });
       mockIsUrlAllowed.mockReturnValue(true);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(mockSetOptions).toHaveBeenCalled();
       const options = mockSetOptions.mock.calls[0][0];

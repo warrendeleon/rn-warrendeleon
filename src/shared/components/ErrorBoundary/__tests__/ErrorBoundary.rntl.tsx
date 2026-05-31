@@ -36,8 +36,8 @@ describe('ErrorBoundary', () => {
   });
 
   describe('Normal Operation', () => {
-    it('renders children when no error occurs', () => {
-      const { getByText } = render(
+    it('renders children when no error occurs', async () => {
+      const { getByText } = await render(
         <ErrorBoundary>
           <WorkingComponent />
         </ErrorBoundary>
@@ -46,8 +46,8 @@ describe('ErrorBoundary', () => {
       expect(getByText('Working Component')).toBeOnTheScreen();
     });
 
-    it('does not display fallback UI when children render successfully', () => {
-      const { queryByText } = render(
+    it('does not display fallback UI when children render successfully', async () => {
+      const { queryByText } = await render(
         <ErrorBoundary>
           <WorkingComponent />
         </ErrorBoundary>
@@ -129,8 +129,8 @@ describe('FallbackUI', () => {
   const { renderWithProviders } = require('@app/test-utils') as typeof import('@app/test-utils');
 
   describe('rendering', () => {
-    it('renders the FallbackUI component with all elements', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders the FallbackUI component with all elements', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 
@@ -138,8 +138,8 @@ describe('FallbackUI', () => {
       expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
     });
 
-    it('renders with null error gracefully', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders with null error gracefully', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={null} onReset={mockOnReset} />
       );
 
@@ -152,8 +152,8 @@ describe('FallbackUI', () => {
     const { fireEvent } =
       require('@testing-library/react-native') as typeof import('@testing-library/react-native');
 
-    it('calls onReset when Try Again button is pressed', () => {
-      const { getByTestId } = renderWithProviders(
+    it('calls onReset when Try Again button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 
@@ -162,8 +162,8 @@ describe('FallbackUI', () => {
       expect(mockOnReset).toHaveBeenCalledTimes(1);
     });
 
-    it('calls onReset and navigates to Home when Go Home button is pressed', () => {
-      const { getByTestId } = renderWithProviders(
+    it('calls onReset and navigates to Home when Go Home button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 
@@ -173,12 +173,12 @@ describe('FallbackUI', () => {
       expect(mockNavigate).toHaveBeenCalledWith('Home');
     });
 
-    it('calls onReset before navigation on Go Home', () => {
+    it('calls onReset before navigation on Go Home', async () => {
       const callOrder: string[] = [];
       const trackingOnReset = jest.fn(() => callOrder.push('reset'));
       mockNavigate.mockImplementation(() => callOrder.push('navigate'));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={mockError} onReset={trackingOnReset} />
       );
 
@@ -190,8 +190,8 @@ describe('FallbackUI', () => {
   });
 
   describe('accessibility', () => {
-    it('has accessible Try Again button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has accessible Try Again button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 
@@ -200,8 +200,8 @@ describe('FallbackUI', () => {
       expect(tryAgainButton).toBeOnTheScreen();
     });
 
-    it('has accessible Go Home button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has accessible Go Home button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 
@@ -213,24 +213,24 @@ describe('FallbackUI', () => {
   describe('EAA Accessibility Compliance', () => {
     const { expectMinTouchTarget } = require('@app/test-utils') as typeof import('@app/test-utils');
 
-    it('Try Again button has accessible touch target', () => {
-      const { getByTestId } = renderWithProviders(
+    it('Try Again button has accessible touch target', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 
       expectMinTouchTarget(getByTestId('error-try-again-button'));
     });
 
-    it('Go Home button has accessible touch target', () => {
-      const { getByTestId } = renderWithProviders(
+    it('Go Home button has accessible touch target', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 
       expectMinTouchTarget(getByTestId('error-go-home-button'));
     });
 
-    it('buttons are accessible when error is null', () => {
-      const { getByTestId } = renderWithProviders(
+    it('buttons are accessible when error is null', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={null} onReset={mockOnReset} />
       );
 
@@ -238,8 +238,8 @@ describe('FallbackUI', () => {
       expectMinTouchTarget(getByTestId('error-go-home-button'));
     });
 
-    it('buttons can receive programmatic focus', () => {
-      const { getByTestId } = renderWithProviders(
+    it('buttons can receive programmatic focus', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 

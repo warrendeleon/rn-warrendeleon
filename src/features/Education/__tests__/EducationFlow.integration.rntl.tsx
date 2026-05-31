@@ -132,7 +132,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <EducationScreen />
         </Provider>
@@ -145,7 +145,7 @@ describe('Education Flow Integration', () => {
 
       // Step 2: Tap on education item with certificate
       const mitItem = screen.getByTestId('education-item-mit');
-      fireEvent.press(mitItem);
+      await fireEvent.press(mitItem);
 
       // Step 3: Navigation to WebView occurs with certificate URL
       await waitFor(
@@ -170,7 +170,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <EducationScreen />
         </Provider>
@@ -178,7 +178,7 @@ describe('Education Flow Integration', () => {
 
       // View first certificate
       const mitItem = screen.getByTestId('education-item-mit');
-      fireEvent.press(mitItem);
+      await fireEvent.press(mitItem);
 
       await waitFor(
         () => {
@@ -194,7 +194,7 @@ describe('Education Flow Integration', () => {
 
       // View second certificate
       const stanfordItem = screen.getByTestId('education-item-stanford-online');
-      fireEvent.press(stanfordItem);
+      await fireEvent.press(stanfordItem);
 
       await waitFor(
         () => {
@@ -221,7 +221,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      const { rerender } = render(
+      const { rerender } = await render(
         <Provider store={loadingStore}>
           <EducationScreen />
         </Provider>
@@ -242,7 +242,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      rerender(
+      await rerender(
         <Provider store={loadedStore}>
           <EducationScreen />
         </Provider>
@@ -259,7 +259,7 @@ describe('Education Flow Integration', () => {
   });
 
   describe('error recovery flow', () => {
-    it('should display error state when data fetch fails', () => {
+    it('should display error state when data fetch fails', async () => {
       const store = mockStore({
         education: {
           data: null,
@@ -271,7 +271,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <EducationScreen />
         </Provider>
@@ -294,7 +294,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      const { rerender } = render(
+      const { rerender } = await render(
         <Provider store={errorStore}>
           <EducationScreen />
         </Provider>
@@ -314,7 +314,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      rerender(
+      await rerender(
         <Provider store={successStore}>
           <EducationScreen />
         </Provider>
@@ -330,7 +330,7 @@ describe('Education Flow Integration', () => {
   });
 
   describe('language change flow', () => {
-    it('should refetch data when language changes', () => {
+    it('should refetch data when language changes', async () => {
       const store = mockStore({
         education: {
           data: mockEducationData,
@@ -344,7 +344,7 @@ describe('Education Flow Integration', () => {
 
       const dispatchSpy = jest.spyOn(store, 'dispatch');
 
-      const { rerender } = render(
+      const { rerender } = await render(
         <Provider store={store}>
           <EducationScreen />
         </Provider>
@@ -367,7 +367,7 @@ describe('Education Flow Integration', () => {
 
       const spanishDispatchSpy = jest.spyOn(spanishStore, 'dispatch');
 
-      rerender(
+      await rerender(
         <Provider store={spanishStore}>
           <EducationScreen />
         </Provider>
@@ -379,7 +379,7 @@ describe('Education Flow Integration', () => {
   });
 
   describe('items without certificates', () => {
-    it('should not navigate when tapping item without certificate URL', () => {
+    it('should not navigate when tapping item without certificate URL', async () => {
       const store = mockStore({
         education: {
           data: mockEducationData,
@@ -391,7 +391,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <EducationScreen />
         </Provider>
@@ -399,13 +399,13 @@ describe('Education Flow Integration', () => {
 
       // Tap on item without certificate
       const collegeItem = screen.getByTestId('education-item-local-community-college');
-      fireEvent.press(collegeItem);
+      await fireEvent.press(collegeItem);
 
       // Navigation should not occur
       expect(mockNavigate).not.toHaveBeenCalled();
     });
 
-    it('should visually differentiate items with and without certificates', () => {
+    it('should visually differentiate items with and without certificates', async () => {
       const store = mockStore({
         education: {
           data: mockEducationData,
@@ -417,7 +417,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <EducationScreen />
         </Provider>
@@ -433,7 +433,7 @@ describe('Education Flow Integration', () => {
   });
 
   describe('empty state flow', () => {
-    it('should display empty state when no education data exists', () => {
+    it('should display empty state when no education data exists', async () => {
       const store = mockStore({
         education: {
           data: [],
@@ -445,7 +445,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <EducationScreen />
         </Provider>
@@ -467,7 +467,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      const { rerender } = render(
+      const { rerender } = await render(
         <Provider store={emptyStore}>
           <EducationScreen />
         </Provider>
@@ -487,7 +487,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      rerender(
+      await rerender(
         <Provider store={dataStore}>
           <EducationScreen />
         </Provider>
@@ -503,7 +503,7 @@ describe('Education Flow Integration', () => {
   });
 
   describe('accessibility', () => {
-    it('should have accessible education items', () => {
+    it('should have accessible education items', async () => {
       const store = mockStore({
         education: {
           data: mockEducationData,
@@ -515,7 +515,7 @@ describe('Education Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <EducationScreen />
         </Provider>

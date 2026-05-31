@@ -53,13 +53,13 @@ describe('withAuth HOC', () => {
   });
 
   describe('when authenticated', () => {
-    it('displays protected content when user is authenticated', () => {
+    it('displays protected content when user is authenticated', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: true,
         isLoading: false,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -67,26 +67,26 @@ describe('withAuth HOC', () => {
       expect(screen.getByText('Protected Content')).toBeTruthy();
     });
 
-    it('should pass props to wrapped component', () => {
+    it('should pass props to wrapped component', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: true,
         isLoading: false,
       });
 
-      render(<ProtectedScreen message="Custom Message" />, {
+      await render(<ProtectedScreen message="Custom Message" />, {
         wrapper: createWrapper(authContext),
       });
 
       expect(screen.getByText('Custom Message')).toBeTruthy();
     });
 
-    it('should not redirect to login', () => {
+    it('should not redirect to login', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: true,
         isLoading: false,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -101,7 +101,7 @@ describe('withAuth HOC', () => {
         isLoading: false,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -121,7 +121,7 @@ describe('withAuth HOC', () => {
         setIntendedRoute,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -139,7 +139,7 @@ describe('withAuth HOC', () => {
         isLoading: false,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -156,52 +156,52 @@ describe('withAuth HOC', () => {
   });
 
   describe('when loading', () => {
-    it('displays loading spinner while auth state is being determined', () => {
+    it('displays loading spinner while auth state is being determined', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
       expect(screen.getByTestId('auth-loading-indicator')).toBeTruthy();
     });
 
-    it('should not render protected content while loading', () => {
+    it('should not render protected content while loading', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
       expect(screen.queryByTestId('protected-content')).toBeNull();
     });
 
-    it('should not redirect while loading', () => {
+    it('should not redirect while loading', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
       expect(mockReset).not.toHaveBeenCalled();
     });
 
-    it('should have accessible loading indicator', () => {
+    it('should have accessible loading indicator', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -241,7 +241,7 @@ describe('withAuth HOC', () => {
         isLoading: false,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(initialContext),
       });
 
@@ -255,7 +255,7 @@ describe('withAuth HOC', () => {
         isLoading: false,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={invalidatedContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -270,13 +270,13 @@ describe('withAuth HOC', () => {
       );
     });
 
-    it('should not render protected content during auth state transitions', () => {
+    it('should not render protected content during auth state transitions', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -294,7 +294,7 @@ describe('withAuth HOC', () => {
         setIntendedRoute,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -321,7 +321,7 @@ describe('withAuth HOC', () => {
         isLoading: false,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -345,7 +345,7 @@ describe('withAuth HOC', () => {
         isLoading: true,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(initialContext),
       });
 
@@ -358,7 +358,7 @@ describe('withAuth HOC', () => {
         isLoading: false,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={authenticatedContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -378,7 +378,7 @@ describe('withAuth HOC', () => {
         isLoading: true,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(initialContext),
       });
 
@@ -391,7 +391,7 @@ describe('withAuth HOC', () => {
         isLoading: false,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={unauthenticatedContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -407,13 +407,13 @@ describe('withAuth HOC', () => {
   });
 
   describe('focus management after navigation', () => {
-    it('should maintain accessible loading indicator during auth check', () => {
+    it('should maintain accessible loading indicator during auth check', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -429,7 +429,7 @@ describe('withAuth HOC', () => {
         isLoading: true,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(initialContext),
       });
 
@@ -442,7 +442,7 @@ describe('withAuth HOC', () => {
         isLoading: false,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={authenticatedContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -464,7 +464,7 @@ describe('withAuth HOC', () => {
         isLoading: false,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 

@@ -39,26 +39,26 @@ describe('ProfilePictureSection', () => {
   });
 
   describe('rendering', () => {
-    it('renders the profile picture section', () => {
-      render(<ProfilePictureSection {...defaultProps} />);
+    it('renders the profile picture section', async () => {
+      await render(<ProfilePictureSection {...defaultProps} />);
 
       expect(screen.getByTestId('profile-picture-section')).toBeOnTheScreen();
     });
 
-    it('renders the edit button', () => {
-      render(<ProfilePictureSection {...defaultProps} />);
+    it('renders the edit button', async () => {
+      await render(<ProfilePictureSection {...defaultProps} />);
 
       expect(screen.getByTestId('profile-picture-edit-button')).toBeOnTheScreen();
     });
 
-    it('renders helper text', () => {
-      render(<ProfilePictureSection {...defaultProps} />);
+    it('renders helper text', async () => {
+      await render(<ProfilePictureSection {...defaultProps} />);
 
       expect(screen.getByText('Tap to change')).toBeOnTheScreen();
     });
 
-    it('renders avatar with initials when no profile picture', () => {
-      render(<ProfilePictureSection {...defaultProps} />);
+    it('renders avatar with initials when no profile picture', async () => {
+      await render(<ProfilePictureSection {...defaultProps} />);
 
       // Avatar should show display name for fallback
       expect(screen.getByText('John Doe')).toBeOnTheScreen();
@@ -66,43 +66,43 @@ describe('ProfilePictureSection', () => {
   });
 
   describe('navigation', () => {
-    it('navigates to action sheet when avatar is pressed', () => {
-      render(<ProfilePictureSection {...defaultProps} />);
+    it('navigates to action sheet when avatar is pressed', async () => {
+      await render(<ProfilePictureSection {...defaultProps} />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-edit-button'));
+      await fireEvent.press(screen.getByTestId('profile-picture-edit-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('ProfilePictureActionSheet', {
         hasExistingPhoto: false,
       });
     });
 
-    it('passes hasExistingPhoto=true when profile picture URL exists', () => {
-      render(
+    it('passes hasExistingPhoto=true when profile picture URL exists', async () => {
+      await render(
         <ProfilePictureSection
           {...defaultProps}
           profilePictureUrl="https://example.com/photo.jpg"
         />
       );
 
-      fireEvent.press(screen.getByTestId('profile-picture-edit-button'));
+      await fireEvent.press(screen.getByTestId('profile-picture-edit-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('ProfilePictureActionSheet', {
         hasExistingPhoto: true,
       });
     });
 
-    it('does not navigate when loading', () => {
-      render(<ProfilePictureSection {...defaultProps} isLoading={true} />);
+    it('does not navigate when loading', async () => {
+      await render(<ProfilePictureSection {...defaultProps} isLoading={true} />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-edit-button'));
+      await fireEvent.press(screen.getByTestId('profile-picture-edit-button'));
 
       expect(mockNavigate).not.toHaveBeenCalled();
     });
   });
 
   describe('accessibility', () => {
-    it('has accessible edit button', () => {
-      render(<ProfilePictureSection {...defaultProps} />);
+    it('has accessible edit button', async () => {
+      await render(<ProfilePictureSection {...defaultProps} />);
 
       const button = screen.getByTestId('profile-picture-edit-button');
       expect(button.props.accessibilityRole).toBe('button');
@@ -110,8 +110,8 @@ describe('ProfilePictureSection', () => {
       expect(button.props.accessibilityHint).toBe('Opens options to change your profile picture');
     });
 
-    it('has accessible helper text', () => {
-      render(<ProfilePictureSection {...defaultProps} />);
+    it('has accessible helper text', async () => {
+      await render(<ProfilePictureSection {...defaultProps} />);
 
       const helperText = screen.getByText('Tap to change');
       expect(helperText.props.accessibilityLabel).toBe('Tap to change');
@@ -119,8 +119,8 @@ describe('ProfilePictureSection', () => {
   });
 
   describe('loading state', () => {
-    it('reduces opacity when loading', () => {
-      render(<ProfilePictureSection {...defaultProps} isLoading={true} />);
+    it('reduces opacity when loading', async () => {
+      await render(<ProfilePictureSection {...defaultProps} isLoading={true} />);
 
       const button = screen.getByTestId('profile-picture-edit-button');
       // GlueStack UI applies opacity prop directly

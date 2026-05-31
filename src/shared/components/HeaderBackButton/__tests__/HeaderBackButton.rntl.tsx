@@ -29,18 +29,18 @@ describe('HeaderBackButton', () => {
   });
 
   describe('renders back icon correctly', () => {
-    it('renders chevron-left icon', () => {
+    it('renders chevron-left icon', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       expect(getByTestId('header-back-button')).toBeOnTheScreen();
     });
 
-    it('renders in light theme', () => {
+    it('renders in light theme', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />, {
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />, {
         preloadedState: {
           settings: {
             theme: 'light',
@@ -52,10 +52,10 @@ describe('HeaderBackButton', () => {
       expect(getByTestId('header-back-button')).toBeOnTheScreen();
     });
 
-    it('renders in dark theme', () => {
+    it('renders in dark theme', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />, {
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />, {
         preloadedState: {
           settings: {
             theme: 'dark',
@@ -69,64 +69,64 @@ describe('HeaderBackButton', () => {
   });
 
   describe('onPress handler', () => {
-    it('calls navigation.goBack when pressed', () => {
+    it('calls navigation.goBack when pressed', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       const button = getByTestId('header-back-button');
-      fireEvent.press(button);
+      await fireEvent.press(button);
 
       expect(mockGoBack).toHaveBeenCalledTimes(1);
     });
 
-    it('calls goBack only once per press', () => {
+    it('calls goBack only once per press', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       const button = getByTestId('header-back-button');
-      fireEvent.press(button);
-      fireEvent.press(button);
+      await fireEvent.press(button);
+      await fireEvent.press(button);
 
       expect(mockGoBack).toHaveBeenCalledTimes(2);
     });
   });
 
   describe('accessibility', () => {
-    it('has correct accessibility role', () => {
+    it('has correct accessibility role', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       const button = getByTestId('header-back-button');
       expect(button.props.accessibilityRole).toBe('button');
     });
 
-    it('has correct accessibility label', () => {
+    it('has correct accessibility label', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByLabelText } = renderWithProviders(<HeaderBackButton />);
+      const { getByLabelText } = await renderWithProviders(<HeaderBackButton />);
 
       expect(getByLabelText('Go back')).toBeOnTheScreen();
     });
 
-    it('has accessibility hint', () => {
+    it('has accessibility hint', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       const button = getByTestId('header-back-button');
       expect(button.props.accessibilityHint).toBe('Returns to the previous screen');
     });
 
-    it('is accessible via label', () => {
+    it('is accessible via label', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByLabelText } = renderWithProviders(<HeaderBackButton />);
+      const { getByLabelText } = await renderWithProviders(<HeaderBackButton />);
 
       const button = getByLabelText('Go back');
-      fireEvent.press(button);
+      await fireEvent.press(button);
 
       expect(mockGoBack).toHaveBeenCalled();
     });
@@ -140,10 +140,10 @@ describe('HeaderBackButton', () => {
       ['system', 'dark'],
     ] as const)(
       'renders correctly with %s theme preference (system colour scheme: %s)',
-      (themeSetting, systemColourScheme) => {
+      async (themeSetting, systemColourScheme) => {
         mockUseColorScheme.mockReturnValue(systemColourScheme);
 
-        const { getByTestId } = renderWithProviders(<HeaderBackButton />, {
+        const { getByTestId } = await renderWithProviders(<HeaderBackButton />, {
           preloadedState: {
             settings: {
               theme: themeSetting,
@@ -156,10 +156,10 @@ describe('HeaderBackButton', () => {
       }
     );
 
-    it.each(['light', 'dark'] as const)('uses correct icon colour for %s theme', colourScheme => {
+    it.each(['light', 'dark'] as const)('uses correct icon colour for %s theme', async colourScheme => {
       mockUseColorScheme.mockReturnValue(colourScheme);
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />, {
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />, {
         preloadedState: {
           settings: {
             theme: colourScheme,
@@ -173,28 +173,28 @@ describe('HeaderBackButton', () => {
   });
 
   describe('touch target size (EAA compliance)', () => {
-    it('verifies touch target with expectMinTouchTarget utility', () => {
+    it('verifies touch target with expectMinTouchTarget utility', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       const button = getByTestId('header-back-button');
       expectMinTouchTarget(button);
     });
 
-    it('has hitSlop for improved touch target using expectMinHitSlop', () => {
+    it('has hitSlop for improved touch target using expectMinHitSlop', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       const button = getByTestId('header-back-button');
       expectMinHitSlop(button, 10);
     });
 
-    it('maintains touch target with icon size 32', () => {
+    it('maintains touch target with icon size 32', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       const button = getByTestId('header-back-button');
       // Icon size 32 + hitSlop 10 on all sides = 52x52 effective touch target
@@ -209,10 +209,10 @@ describe('HeaderBackButton', () => {
   });
 
   describe('complete accessibility verification', () => {
-    it('has complete EAA-compliant accessibility properties', () => {
+    it('has complete EAA-compliant accessibility properties', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       expectAccessibilityComplete(getByTestId('header-back-button'), {
         role: 'button',
@@ -228,10 +228,10 @@ describe('HeaderBackButton', () => {
       expect(HeaderBackButton.displayName).toBe('HeaderBackButton');
     });
 
-    it('renders consistently across multiple renders', () => {
+    it('renders consistently across multiple renders', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<HeaderBackButton />);
+      const { getByTestId } = await renderWithProviders(<HeaderBackButton />);
 
       const firstRender = getByTestId('header-back-button');
       expect(firstRender).not.toBeNull();

@@ -179,8 +179,8 @@ describe('Provider Composition', () => {
   });
 
   describe('provider order matters verification', () => {
-    it('should access nested context values correctly', () => {
-      const { getByTestId } = render(
+    it('should access nested context values correctly', async () => {
+      const { getByTestId } = await render(
         <OuterProvider value="outer-provided">
           <MiddleProvider value="middle-provided">
             <InnerProvider value="inner-provided">
@@ -195,8 +195,8 @@ describe('Provider Composition', () => {
       expect(getByTestId('inner-value')).toHaveTextContent('inner-provided');
     });
 
-    it('should use default values when providers are missing', () => {
-      const { getByTestId } = render(
+    it('should use default values when providers are missing', async () => {
+      const { getByTestId } = await render(
         <OuterProvider value="only-outer">
           <ContextReaderComponent />
         </OuterProvider>
@@ -207,8 +207,8 @@ describe('Provider Composition', () => {
       expect(getByTestId('inner-value')).toHaveTextContent('inner-default');
     });
 
-    it('should override parent context when nested', () => {
-      const { getByTestId } = render(
+    it('should override parent context when nested', async () => {
+      const { getByTestId } = await render(
         <OuterProvider value="first-outer">
           <OuterProvider value="second-outer">
             <ContextReaderComponent />
@@ -220,10 +220,10 @@ describe('Provider Composition', () => {
       expect(getByTestId('outer-value')).toHaveTextContent('second-outer');
     });
 
-    it('should maintain correct order with Redux and I18n providers', () => {
+    it('should maintain correct order with Redux and I18n providers', async () => {
       const store = createTestStore();
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <I18nextProvider i18n={i18n}>
             <GluestackUIProvider config={config}>
@@ -240,11 +240,11 @@ describe('Provider Composition', () => {
   });
 
   describe('provider error boundary isolation', () => {
-    it('should catch errors within error boundary', () => {
+    it('should catch errors within error boundary', async () => {
       // Suppress console.error for this test
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { getByTestId, queryByTestId } = render(
+      const { getByTestId, queryByTestId } = await render(
         <TestErrorBoundary fallback={<Text testID="error-fallback">Error occurred</Text>}>
           <ErrorThrowingComponent shouldThrow={true} />
         </TestErrorBoundary>
@@ -256,11 +256,11 @@ describe('Provider Composition', () => {
       consoleSpy.mockRestore();
     });
 
-    it('should not affect sibling components outside boundary', () => {
+    it('should not affect sibling components outside boundary', async () => {
       // Suppress console.error for this test
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Box testID="parent">
           <TestErrorBoundary fallback={<Text testID="error-fallback">Error</Text>}>
             <ErrorThrowingComponent shouldThrow={true} />
@@ -275,8 +275,8 @@ describe('Provider Composition', () => {
       consoleSpy.mockRestore();
     });
 
-    it('should render children when no error occurs', () => {
-      const { getByTestId } = render(
+    it('should render children when no error occurs', async () => {
+      const { getByTestId } = await render(
         <TestErrorBoundary fallback={<Text testID="error-fallback">Error</Text>}>
           <ErrorThrowingComponent shouldThrow={false} />
         </TestErrorBoundary>
@@ -285,11 +285,11 @@ describe('Provider Composition', () => {
       expect(getByTestId('no-error-text')).toHaveTextContent('No error');
     });
 
-    it('should isolate provider-level errors', () => {
+    it('should isolate provider-level errors', async () => {
       // Suppress console.error for this test
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <GluestackUIProvider config={config}>
           <Box testID="outer-container">
             <TestErrorBoundary fallback={<Text testID="inner-error">Inner Error</Text>}>
@@ -311,7 +311,7 @@ describe('Provider Composition', () => {
 
   describe('provider state sharing', () => {
     it('should share state between sibling consumers', async () => {
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <SharedStateProvider>
           <SharedStateReader id="1" />
           <SharedStateReader id="2" />
@@ -323,7 +323,7 @@ describe('Provider Composition', () => {
     });
 
     it('should propagate state updates to all consumers', async () => {
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <SharedStateProvider>
           <SharedStateReader id="before" />
           <SharedStateWriter />
@@ -340,8 +340,8 @@ describe('Provider Composition', () => {
       );
     });
 
-    it('should not share state across separate providers', () => {
-      const { getByTestId } = render(
+    it('should not share state across separate providers', async () => {
+      const { getByTestId } = await render(
         <Box testID="container">
           <SharedStateProvider>
             <SharedStateReader id="provider-1" />
@@ -358,7 +358,7 @@ describe('Provider Composition', () => {
     });
 
     it('should share Redux state across components', async () => {
-      const { getByTestId, store } = renderWithProviders(
+      const { getByTestId, store } = await renderWithProviders(
         <Box testID="redux-container">
           <StateConsumerA />
           <StateConsumerB />
@@ -380,10 +380,10 @@ describe('Provider Composition', () => {
   });
 
   describe('provider hot reload (dev)', () => {
-    it('should maintain state during rerender', () => {
+    it('should maintain state during rerender', async () => {
       const store = createTestStore();
 
-      const { getByTestId, rerender } = render(
+      const { getByTestId, rerender } = await render(
         <Provider store={store}>
           <GluestackUIProvider config={config}>
             <Text testID="hot-reload-text">Initial</Text>
@@ -394,7 +394,7 @@ describe('Provider Composition', () => {
       expect(getByTestId('hot-reload-text')).toHaveTextContent('Initial');
 
       // Simulate hot reload by rerendering with same providers
-      rerender(
+      await rerender(
         <Provider store={store}>
           <GluestackUIProvider config={config}>
             <Text testID="hot-reload-text">After Reload</Text>
@@ -405,18 +405,18 @@ describe('Provider Composition', () => {
       expect(getByTestId('hot-reload-text')).toHaveTextContent('After Reload');
     });
 
-    it('should preserve Redux state across rerenders', () => {
+    it('should preserve Redux state across rerenders', async () => {
       const store = createTestStore();
       store.dispatch({ type: 'settings/setTheme', payload: 'dark' });
 
-      const { rerender } = render(
+      const { rerender } = await render(
         <Provider store={store}>
           <Text>First render</Text>
         </Provider>
       );
 
       // Rerender (simulating hot reload)
-      rerender(
+      await rerender(
         <Provider store={store}>
           <Text>Second render</Text>
         </Provider>
@@ -426,14 +426,14 @@ describe('Provider Composition', () => {
       expect(store.getState().settings.theme).toBe('dark');
     });
 
-    it('should handle provider prop changes', () => {
+    it('should handle provider prop changes', async () => {
       // Component that reads context - defined outside render
       const ContextDisplay: React.FC = () => {
         const value = useContext(OuterContext);
         return <Text testID="context-display">{value}</Text>;
       };
 
-      const { getByTestId, rerender } = render(
+      const { getByTestId, rerender } = await render(
         <OuterProvider value="value-1">
           <ContextDisplay />
         </OuterProvider>
@@ -441,7 +441,7 @@ describe('Provider Composition', () => {
 
       expect(getByTestId('context-display')).toHaveTextContent('value-1');
 
-      rerender(
+      await rerender(
         <OuterProvider value="value-2">
           <ContextDisplay />
         </OuterProvider>
@@ -452,23 +452,23 @@ describe('Provider Composition', () => {
   });
 
   describe('provider memory cleanup', () => {
-    it('should call cleanup function on unmount', () => {
+    it('should call cleanup function on unmount', async () => {
       const onMount = jest.fn();
       const onUnmount = jest.fn();
 
-      const { unmount } = render(
+      const { unmount } = await render(
         <CleanupTrackingComponent onMount={onMount} onUnmount={onUnmount} />
       );
 
       expect(onMount).toHaveBeenCalledTimes(1);
       expect(onUnmount).not.toHaveBeenCalled();
 
-      unmount();
+      await unmount();
 
       expect(onUnmount).toHaveBeenCalledTimes(1);
     });
 
-    it('should cleanup nested provider resources', () => {
+    it('should cleanup nested provider resources', async () => {
       const outerCleanup = jest.fn();
       const innerCleanup = jest.fn();
 
@@ -482,7 +482,7 @@ describe('Provider Composition', () => {
         return <>{children}</>;
       };
 
-      const { unmount } = render(
+      const { unmount } = await render(
         <CleanupProvider onCleanup={outerCleanup}>
           <CleanupProvider onCleanup={innerCleanup}>
             <Text>Content</Text>
@@ -493,13 +493,13 @@ describe('Provider Composition', () => {
       expect(outerCleanup).not.toHaveBeenCalled();
       expect(innerCleanup).not.toHaveBeenCalled();
 
-      unmount();
+      await unmount();
 
       expect(innerCleanup).toHaveBeenCalled();
       expect(outerCleanup).toHaveBeenCalled();
     });
 
-    it('should not leak subscriptions', () => {
+    it('should not leak subscriptions', async () => {
       const subscriptions: Set<number> = new Set();
       let subscriptionCounter = 0;
 
@@ -514,7 +514,7 @@ describe('Provider Composition', () => {
         return <Text>Subscriber</Text>;
       };
 
-      const { unmount, rerender } = render(
+      const { unmount, rerender } = await render(
         <Box>
           <SubscriptionComponent />
           <SubscriptionComponent />
@@ -524,7 +524,7 @@ describe('Provider Composition', () => {
       expect(subscriptions.size).toBe(2);
 
       // Rerender with one less subscriber
-      rerender(
+      await rerender(
         <Box>
           <SubscriptionComponent />
         </Box>
@@ -533,18 +533,18 @@ describe('Provider Composition', () => {
       // Original subscriptions should be cleaned up
       expect(subscriptions.size).toBe(1);
 
-      unmount();
+      await unmount();
 
       expect(subscriptions.size).toBe(0);
     });
 
-    it('should prevent excessive rerenders', () => {
+    it('should prevent excessive rerenders', async () => {
       let renderCount = 0;
       const onRender = () => {
         renderCount++;
       };
 
-      const { rerender } = render(
+      const { rerender } = await render(
         <SharedStateProvider>
           <RenderCounterComponent onRender={onRender} />
         </SharedStateProvider>
@@ -553,7 +553,7 @@ describe('Provider Composition', () => {
       const initialRenderCount = renderCount;
 
       // Rerender with same props should not cause additional renders
-      rerender(
+      await rerender(
         <SharedStateProvider>
           <RenderCounterComponent onRender={onRender} />
         </SharedStateProvider>
@@ -565,16 +565,16 @@ describe('Provider Composition', () => {
   });
 
   describe('integration with app providers', () => {
-    it('should render correctly with all app providers', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should render correctly with all app providers', async () => {
+      const { getByTestId } = await renderWithProviders(
         <Text testID="provider-test">Provider Test</Text>
       );
 
       expect(getByTestId('provider-test')).toHaveTextContent('Provider Test');
     });
 
-    it('should access Redux store from any nested component', () => {
-      const { store, getByTestId } = renderWithProviders(
+    it('should access Redux store from any nested component', async () => {
+      const { store, getByTestId } = await renderWithProviders(
         <Box testID="nested-container">
           <Box>
             <Box>
@@ -589,8 +589,8 @@ describe('Provider Composition', () => {
       expect(store.getState().settings).toBeDefined();
     });
 
-    it('should maintain provider hierarchy integrity', () => {
-      const { getByTestId, store } = renderWithProviders(
+    it('should maintain provider hierarchy integrity', async () => {
+      const { getByTestId, store } = await renderWithProviders(
         <OuterProvider value="custom-outer">
           <MiddleProvider value="custom-middle">
             <Box testID="hierarchy-test">

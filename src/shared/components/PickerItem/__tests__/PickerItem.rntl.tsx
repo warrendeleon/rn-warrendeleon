@@ -37,30 +37,30 @@ describe('PickerItem', () => {
       mockUseColorScheme.mockReset();
     });
 
-    it('renders label text in light mode', () => {
+    it('renders label text in light mode', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <PickerItem label="Test Button" testID="test-button" />
       );
 
       expect(getByText('Test Button')).toBeOnTheScreen();
     });
 
-    it('renders label text in dark mode', () => {
+    it('renders label text in dark mode', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <PickerItem label="Dark Mode Item" testID="dark-button" />
       );
 
       expect(getByText('Dark Mode Item')).toBeOnTheScreen();
     });
 
-    it('shows check mark when selected', () => {
+    it('shows check mark when selected', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <PickerItem label="Selected" isSelected={true} testID="selected-button" />
       );
 
@@ -68,10 +68,10 @@ describe('PickerItem', () => {
       expect(getByText('✓')).toBeOnTheScreen();
     });
 
-    it('does not show check mark when not selected', () => {
+    it('does not show check mark when not selected', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByText, queryByText } = renderWithProviders(
+      const { getByText, queryByText } = await renderWithProviders(
         <PickerItem label="Unselected" isSelected={false} testID="unselected-button" />
       );
 
@@ -79,10 +79,10 @@ describe('PickerItem', () => {
       expect(queryByText('✓')).not.toBeOnTheScreen();
     });
 
-    it('supports all groupVariant values', () => {
+    it('supports all groupVariant values', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <>
           <PickerItem label="single" groupVariant="single" />
           <PickerItem label="top" groupVariant="top" />
@@ -97,28 +97,28 @@ describe('PickerItem', () => {
       expect(getByText('bottom')).toBeOnTheScreen();
     });
 
-    it('calls onPress when pressed', () => {
+    it('calls onPress when pressed', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const mockOnPress = jest.fn();
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <PickerItem label="Clickable" onPress={mockOnPress} testID="clickable-button" />
       );
 
-      fireEvent.press(getByTestId('clickable-button'));
+      await fireEvent.press(getByTestId('clickable-button'));
 
       expect(mockOnPress).toHaveBeenCalledTimes(1);
     });
 
-    it('does not crash when pressed without onPress handler', () => {
+    it('does not crash when pressed without onPress handler', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <PickerItem label="No Handler" testID="no-handler-button" />
       );
 
       // Should not throw
-      fireEvent.press(getByTestId('no-handler-button'));
+      await fireEvent.press(getByTestId('no-handler-button'));
     });
   });
 
@@ -133,8 +133,8 @@ describe('PickerItem', () => {
     // in the test renderer tree. However, accessibilityLabel IS accessible via getByLabelText.
     // The props ARE correctly passed and WILL work at runtime with VoiceOver/TalkBack.
 
-    it('has accessible label for unselected item', () => {
-      const { getByLabelText } = renderWithProviders(
+    it('has accessible label for unselected item', async () => {
+      const { getByLabelText } = await renderWithProviders(
         <PickerItem label="English" isSelected={false} testID="english-button" />
       );
 
@@ -142,8 +142,8 @@ describe('PickerItem', () => {
       expect(getByLabelText('English')).toBeOnTheScreen();
     });
 
-    it('has accessible label with selected suffix when selected', () => {
-      const { getByLabelText } = renderWithProviders(
+    it('has accessible label with selected suffix when selected', async () => {
+      const { getByLabelText } = await renderWithProviders(
         <PickerItem label="English" isSelected={true} testID="english-selected" />
       );
 
@@ -151,8 +151,8 @@ describe('PickerItem', () => {
       expect(getByLabelText('English, selected')).toBeOnTheScreen();
     });
 
-    it('renders multiple items with correct accessible labels', () => {
-      const { getByLabelText } = renderWithProviders(
+    it('renders multiple items with correct accessible labels', async () => {
+      const { getByLabelText } = await renderWithProviders(
         <>
           <PickerItem label="Option 1" isSelected={false} />
           <PickerItem label="Option 2" isSelected={true} />
@@ -165,8 +165,8 @@ describe('PickerItem', () => {
       expect(getByLabelText('Option 3')).toBeOnTheScreen();
     });
 
-    it('is accessible by testID', () => {
-      const { getByTestId } = renderWithProviders(
+    it('is accessible by testID', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PickerItem label="Test Item" testID="test-item" />
       );
 
@@ -181,34 +181,34 @@ describe('PickerItem', () => {
       mockUseColorScheme.mockReturnValue('light');
     });
 
-    it('item has accessible touch target (44×44 minimum)', () => {
-      const { getByTestId } = renderWithProviders(
+    it('item has accessible touch target (44×44 minimum)', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PickerItem label="Test Item" testID="picker-item" />
       );
 
       expectMinTouchTarget(getByTestId('picker-item'));
     });
 
-    it('selected item has accessible touch target', () => {
-      const { getByTestId } = renderWithProviders(
+    it('selected item has accessible touch target', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PickerItem label="Selected Item" isSelected={true} testID="selected-item" />
       );
 
       expectMinTouchTarget(getByTestId('selected-item'));
     });
 
-    it('item with onPress has accessible touch target', () => {
-      const { getByTestId } = renderWithProviders(
+    it('item with onPress has accessible touch target', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PickerItem label="Pressable Item" onPress={jest.fn()} testID="pressable-item" />
       );
 
       expectMinTouchTarget(getByTestId('pressable-item'));
     });
 
-    it('item in dark mode has accessible touch target', () => {
+    it('item in dark mode has accessible touch target', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <PickerItem label="Dark Item" testID="dark-item" />
       );
 

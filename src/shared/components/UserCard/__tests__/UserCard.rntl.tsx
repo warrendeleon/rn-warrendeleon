@@ -7,8 +7,8 @@ import { getUserCardStyles, UserCard } from '../UserCard';
 
 describe('UserCard', () => {
   describe('Rendering', () => {
-    it('renders with all required elements', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('renders with all required elements', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
@@ -18,16 +18,16 @@ describe('UserCard', () => {
       expect(getByText('warren@example.com')).toBeOnTheScreen();
     });
 
-    it('renders with testID', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders with testID', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
       expect(getByTestId('user-card')).toBeOnTheScreen();
     });
 
-    it('renders with custom testID', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders with custom testID', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard
           firstName="Warren"
           lastName="de Leon"
@@ -39,16 +39,16 @@ describe('UserCard', () => {
       expect(getByTestId('custom-user-card')).toBeOnTheScreen();
     });
 
-    it('renders avatar element', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders avatar element', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
       expect(getByTestId('user-card-avatar')).toBeOnTheScreen();
     });
 
-    it('renders initials in avatar', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders initials in avatar', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
@@ -57,8 +57,8 @@ describe('UserCard', () => {
       expect(initials.props.children).toBe('WD');
     });
 
-    it('renders name element', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders name element', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
@@ -67,8 +67,8 @@ describe('UserCard', () => {
       expect(name.props.children).toBe('Warren de Leon');
     });
 
-    it('renders email element', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders email element', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
@@ -85,8 +85,8 @@ describe('UserCard', () => {
       { firstName: null, lastName: 'Smith', expected: 'S', scenario: 'only last name provided' },
       { firstName: null, lastName: null, expected: 'U', scenario: 'no names provided (fallback)' },
       { firstName: 'john', lastName: 'smith', expected: 'JS', scenario: 'lowercase names' },
-    ])('displays $expected initials when $scenario', ({ firstName, lastName, expected }) => {
-      const { getByTestId } = renderWithProviders(
+    ])('displays $expected initials when $scenario', async ({ firstName, lastName, expected }) => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName={firstName} lastName={lastName} email="test@example.com" />
       );
 
@@ -105,8 +105,8 @@ describe('UserCard', () => {
       { firstName: 'Warren', lastName: null, expected: 'Warren', scenario: 'only first name' },
       { firstName: null, lastName: 'de Leon', expected: 'de Leon', scenario: 'only last name' },
       { firstName: null, lastName: null, expected: 'User', scenario: 'no names (fallback)' },
-    ])('displays $expected when $scenario', ({ firstName, lastName, expected }) => {
-      const { getByTestId } = renderWithProviders(
+    ])('displays $expected when $scenario', async ({ firstName, lastName, expected }) => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName={firstName} lastName={lastName} email="test@example.com" />
       );
 
@@ -115,16 +115,16 @@ describe('UserCard', () => {
   });
 
   describe('Email Display', () => {
-    it('renders email when provided', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders email when provided', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
       expect(getByTestId('user-card-email').props.children).toBe('warren@example.com');
     });
 
-    it('does not render email element when email is null', () => {
-      const { queryByTestId } = renderWithProviders(
+    it('does not render email element when email is null', async () => {
+      const { queryByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email={null} />
       );
 
@@ -133,9 +133,9 @@ describe('UserCard', () => {
   });
 
   describe('Press Handler', () => {
-    it('calls onPress when card is pressed', () => {
+    it('calls onPress when card is pressed', async () => {
       const mockOnPress = jest.fn();
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <UserCard
           firstName="Warren"
           lastName="de Leon"
@@ -144,46 +144,46 @@ describe('UserCard', () => {
         />
       );
 
-      fireEvent.press(getByTestId('user-card'));
+      await fireEvent.press(getByTestId('user-card'));
       expect(mockOnPress).toHaveBeenCalledTimes(1);
     });
 
-    it('does not crash when pressed without onPress handler', () => {
-      const { getByTestId } = renderWithProviders(
+    it('does not crash when pressed without onPress handler', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
-      expect(() => fireEvent.press(getByTestId('user-card'))).not.toThrow();
+      await expect(fireEvent.press(getByTestId('user-card'))).resolves.toBeUndefined();
     });
   });
 
   describe('Accessibility', () => {
-    it('has button accessibility role', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has button accessibility role', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
       expect(getByTestId('user-card').props.accessibilityRole).toBe('button');
     });
 
-    it('has accessibility label with user name', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has accessibility label with user name', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
       expect(getByTestId('user-card').props.accessibilityLabel).toBe('Account for Warren de Leon');
     });
 
-    it('has accessibility hint', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has accessibility hint', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
       );
 
       expect(getByTestId('user-card').props.accessibilityHint).toBe('Opens account settings');
     });
 
-    it('uses fallback name in accessibility label when no names provided', () => {
-      const { getByTestId } = renderWithProviders(
+    it('uses fallback name in accessibility label when no names provided', async () => {
+      const { getByTestId } = await renderWithProviders(
         <UserCard firstName={null} lastName={null} email="user@example.com" />
       );
 
@@ -265,8 +265,8 @@ describe('UserCard implementation', () => {
 });
 
 describe('UserCard EAA Accessibility Compliance', () => {
-  it('card has accessible touch target (44×44 minimum)', () => {
-    const { getByTestId } = renderWithProviders(
+  it('card has accessible touch target (44×44 minimum)', async () => {
+    const { getByTestId } = await renderWithProviders(
       <UserCard firstName="Warren" lastName="de Leon" email="warren@example.com" />
     );
 
@@ -274,8 +274,8 @@ describe('UserCard EAA Accessibility Compliance', () => {
     expectMinTouchTarget(card);
   });
 
-  it('card with custom testID has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('card with custom testID has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <UserCard
         firstName="Warren"
         lastName="de Leon"
@@ -288,8 +288,8 @@ describe('UserCard EAA Accessibility Compliance', () => {
     expectMinTouchTarget(card);
   });
 
-  it('card without email has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('card without email has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <UserCard firstName="Warren" lastName="de Leon" email={null} />
     );
 
@@ -297,8 +297,8 @@ describe('UserCard EAA Accessibility Compliance', () => {
     expectMinTouchTarget(card);
   });
 
-  it('card with fallback name has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('card with fallback name has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <UserCard firstName={null} lastName={null} email="user@example.com" />
     );
 

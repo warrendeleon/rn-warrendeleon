@@ -50,7 +50,7 @@ describe('Authentication Flow Integration', () => {
 
   describe('login flow - form entry → validation → navigation', () => {
     it('should complete valid form entry and enable submission', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -60,11 +60,11 @@ describe('Authentication Flow Integration', () => {
 
       // Step 2: Enter email
       const emailInput = getByTestId('email-input');
-      fireEvent.changeText(emailInput, 'user@example.com');
+      await fireEvent.changeText(emailInput, 'user@example.com');
 
       // Step 3: Enter password
       const passwordInput = getByTestId('password-input');
-      fireEvent.changeText(passwordInput, 'SecurePass123!');
+      await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
       // Step 4: Button should now be enabled
       await waitFor(
@@ -76,7 +76,7 @@ describe('Authentication Flow Integration', () => {
     });
 
     it('should handle invalid credentials → error display flow', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -97,28 +97,28 @@ describe('Authentication Flow Integration', () => {
 
       // User can still attempt retry by editing form
       const emailInput = getByTestId('email-input');
-      fireEvent.changeText(emailInput, 'different@example.com');
+      await fireEvent.changeText(emailInput, 'different@example.com');
 
       // Form should remain functional
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should navigate to registration when register link is pressed', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should navigate to registration when register link is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.press(getByTestId('register-link'));
+      await fireEvent.press(getByTestId('register-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('Registration');
     });
 
-    it('should navigate to forgot password when link is pressed', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should navigate to forgot password when link is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.press(getByTestId('forgot-password-link'));
+      await fireEvent.press(getByTestId('forgot-password-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('ForgotPassword');
     });
@@ -126,7 +126,7 @@ describe('Authentication Flow Integration', () => {
 
   describe('form field chaining', () => {
     it('should allow form field traversal via submitEditing', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -134,11 +134,11 @@ describe('Authentication Flow Integration', () => {
       const passwordInput = getByTestId('password-input');
 
       // Fill email and trigger submit (simulating pressing "next" on keyboard)
-      fireEvent.changeText(emailInput, 'user@example.com');
-      fireEvent(emailInput, 'submitEditing');
+      await fireEvent.changeText(emailInput, 'user@example.com');
+      await fireEvent(emailInput, 'submitEditing');
 
       // Fill password
-      fireEvent.changeText(passwordInput, 'SecurePass123!');
+      await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
       // Form should be valid
       await waitFor(
@@ -153,7 +153,7 @@ describe('Authentication Flow Integration', () => {
 
   describe('error recovery', () => {
     it('should allow retry after API error by modifying form', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -173,14 +173,14 @@ describe('Authentication Flow Integration', () => {
 
       // User modifies email (retry attempt)
       const emailInput = getByTestId('email-input');
-      fireEvent.changeText(emailInput, 'retry@example.com');
+      await fireEvent.changeText(emailInput, 'retry@example.com');
 
       // Form should still be functional
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should preserve email value during error state for retry', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -197,7 +197,7 @@ describe('Authentication Flow Integration', () => {
 
       // Enter email before error was shown
       const emailInput = getByTestId('email-input');
-      fireEvent.changeText(emailInput, 'user@example.com');
+      await fireEvent.changeText(emailInput, 'user@example.com');
 
       // Email should be preserved
       expect(screen.getByDisplayValue('user@example.com')).toBeOnTheScreen();
@@ -205,8 +205,8 @@ describe('Authentication Flow Integration', () => {
   });
 
   describe('loading state handling', () => {
-    it('should disable form during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should disable form during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -228,7 +228,7 @@ describe('Authentication Flow Integration', () => {
 
   describe('accessibility during auth flow', () => {
     it('should maintain accessibility roles throughout form interaction', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -244,8 +244,8 @@ describe('Authentication Flow Integration', () => {
       expect(registerLink.props.accessibilityRole).toBe('link');
 
       // Fill form and verify roles are maintained
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -256,8 +256,8 @@ describe('Authentication Flow Integration', () => {
       );
     });
 
-    it('should have accessible disabled state during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have accessible disabled state during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -279,8 +279,8 @@ describe('Authentication Flow Integration', () => {
   });
 
   describe('session handling', () => {
-    it('should display user info when authenticated', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should display user info when authenticated', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -308,8 +308,8 @@ describe('Authentication Flow Integration', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle session expiry gracefully', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle session expiry gracefully', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -330,12 +330,12 @@ describe('Authentication Flow Integration', () => {
 
       // Form should remain functional for re-login
       const emailInput = getByTestId('email-input');
-      fireEvent.changeText(emailInput, 'user@example.com');
+      await fireEvent.changeText(emailInput, 'user@example.com');
       expect(screen.getByDisplayValue('user@example.com')).toBeOnTheScreen();
     });
 
-    it('should handle 401 unauthorized error', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle 401 unauthorized error', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -355,20 +355,20 @@ describe('Authentication Flow Integration', () => {
       expect(getByText('Your session has expired. Please sign in again.')).toBeOnTheScreen();
 
       // User should be able to re-enter credentials
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'NewPassword123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'NewPassword123!');
 
       expect(screen.getByDisplayValue('user@example.com')).toBeOnTheScreen();
     });
 
     it('should preserve form state after token refresh attempt', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Verify form values are preserved
       expect(screen.getByDisplayValue('user@example.com')).toBeOnTheScreen();
@@ -384,8 +384,8 @@ describe('Authentication Flow Integration', () => {
   });
 
   describe('biometric authentication state', () => {
-    it('should recognise biometric enabled state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should recognise biometric enabled state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -403,8 +403,8 @@ describe('Authentication Flow Integration', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle biometric disabled to enabled transition', () => {
-      const { getByTestId, rerender } = renderWithProviders(
+    it('should handle biometric disabled to enabled transition', async () => {
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -422,15 +422,15 @@ describe('Authentication Flow Integration', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
 
       // Re-render with biometric enabled (simulating state change)
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
   });
 
   describe('navigation during async operations', () => {
-    it('should allow back navigation during login loading state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should allow back navigation during login loading state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -446,16 +446,16 @@ describe('Authentication Flow Integration', () => {
       );
 
       // User presses forgot password link during loading
-      fireEvent.press(getByTestId('forgot-password-link'));
+      await fireEvent.press(getByTestId('forgot-password-link'));
 
       // Navigation should still work
       expect(mockNavigation.navigate).toHaveBeenCalledWith('ForgotPassword');
     });
 
-    it('should handle unmount during loading without memory leaks', () => {
+    it('should handle unmount during loading without memory leaks', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -473,7 +473,7 @@ describe('Authentication Flow Integration', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
 
       // Simulate navigation away while loading (unmount)
-      unmount();
+      await unmount();
 
       // Check no React state update warnings
       const stateUpdateWarnings = consoleErrorSpy.mock.calls.filter(call =>
@@ -484,8 +484,8 @@ describe('Authentication Flow Integration', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should allow register navigation during loading state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should allow register navigation during loading state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -501,19 +501,19 @@ describe('Authentication Flow Integration', () => {
       );
 
       // User decides to register instead during loading
-      fireEvent.press(getByTestId('register-link'));
+      await fireEvent.press(getByTestId('register-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('Registration');
     });
 
     it('should maintain form accessibility during async state transitions', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -524,13 +524,13 @@ describe('Authentication Flow Integration', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Re-render with loading state (simulating Redux update)
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Accessibility should be maintained - navigation links should work
-      fireEvent.press(getByTestId('forgot-password-link'));
+      await fireEvent.press(getByTestId('forgot-password-link'));
       expect(mockNavigation.navigate).toHaveBeenCalledWith('ForgotPassword');
     });
   });

@@ -74,7 +74,7 @@ describe('Device Orientation Changes', () => {
 
   describe('Form Layout Adaptation', () => {
     it('should maintain form state during orientation change', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -82,8 +82,8 @@ describe('Device Orientation Changes', () => {
       const emailInput = screen.getByTestId('email-input');
       const passwordInput = screen.getByTestId('password-input');
 
-      fireEvent.changeText(emailInput, TEST_CREDENTIALS.VALID_EMAIL);
-      fireEvent.changeText(passwordInput, TEST_CREDENTIALS.VALID_PASSWORD);
+      await fireEvent.changeText(emailInput, TEST_CREDENTIALS.VALID_EMAIL);
+      await fireEvent.changeText(passwordInput, TEST_CREDENTIALS.VALID_PASSWORD);
 
       // Verify values before orientation change
       expect(emailInput.props.value).toBe(TEST_CREDENTIALS.VALID_EMAIL);
@@ -102,14 +102,14 @@ describe('Device Orientation Changes', () => {
     });
 
     it('should preserve focus position after rotation', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
       const emailInput = screen.getByTestId('email-input');
 
       // Focus on email input
-      fireEvent(emailInput, 'focus');
+      await fireEvent(emailInput, 'focus');
 
       // Simulate orientation change
       simulateOrientationChange('landscape');
@@ -121,7 +121,7 @@ describe('Device Orientation Changes', () => {
     });
 
     it('should reflow form layout correctly in landscape', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -138,7 +138,7 @@ describe('Device Orientation Changes', () => {
     });
 
     it('should maintain touch targets in both orientations', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -158,13 +158,13 @@ describe('Device Orientation Changes', () => {
     });
 
     it('should preserve validation errors during orientation change', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
       // Trigger validation by blurring empty fields
       const emailInput = screen.getByTestId('email-input');
-      fireEvent(emailInput, 'blur');
+      await fireEvent(emailInput, 'blur');
 
       // Wait for validation error
       await waitFor(() => {
@@ -184,7 +184,7 @@ describe('Device Orientation Changes', () => {
 
   describe('Navigation During Rotation', () => {
     it('should not lose navigation state during rotation', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -214,7 +214,7 @@ describe('Device Orientation Changes', () => {
         params: { email: 'prefilled@example.com' },
       };
 
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={routeWithParams as never} />
       );
 
@@ -232,7 +232,7 @@ describe('Device Orientation Changes', () => {
 
   describe('Complex Form State During Rotation', () => {
     it('should preserve registration form state through orientation changes', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -253,7 +253,7 @@ describe('Device Orientation Changes', () => {
     });
 
     it('should handle rapid orientation changes gracefully', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -274,7 +274,7 @@ describe('Device Orientation Changes', () => {
 
   describe('Accessibility During Rotation', () => {
     it('should maintain accessibility properties after orientation change', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -291,7 +291,7 @@ describe('Device Orientation Changes', () => {
     });
 
     it('should preserve accessibility hints after rotation', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 

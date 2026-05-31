@@ -73,48 +73,48 @@ describe('EmailVerificationScreen', () => {
     (SupabaseAuthClient.resendConfirmationEmail as jest.Mock).mockResolvedValue(undefined);
   });
 
-  it('renders the screen correctly', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders the screen correctly', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('email-verification-screen')).toBeOnTheScreen();
   });
 
-  it('renders the email verification screen with testID', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders the email verification screen with testID', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('email-verification-screen')).toBeOnTheScreen();
   });
 
-  it('renders email icon container', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders email icon container', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('email-icon-container')).toBeOnTheScreen();
   });
 
-  it('renders verification title', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders verification title', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('verification-title')).toBeOnTheScreen();
   });
 
-  it('renders verification message', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders verification message', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('verification-message')).toBeOnTheScreen();
   });
 
-  it('renders email display with the email address', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders email display with the email address', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -122,8 +122,8 @@ describe('EmailVerificationScreen', () => {
     expect(getByTestId('email-address')).toBeOnTheScreen();
   });
 
-  it('displays the correct email address from route params', () => {
-    const { getByTestId } = renderWithProviders(
+  it('displays the correct email address from route params', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -131,63 +131,63 @@ describe('EmailVerificationScreen', () => {
     expect(emailAddress.props.children).toBe('test@example.com');
   });
 
-  it('renders resend email button', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders resend email button', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('resend-email-button')).toBeOnTheScreen();
   });
 
-  it('renders back to login button', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders back to login button', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('back-to-login-button')).toBeOnTheScreen();
   });
 
-  it('renders back to login link', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders back to login link', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('back-to-login-link')).toBeOnTheScreen();
   });
 
-  it('renders info box', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders info box', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('info-box')).toBeOnTheScreen();
   });
 
-  it('navigates to Login when back to login button is pressed', () => {
-    const { getByTestId } = renderWithProviders(
+  it('navigates to Login when back to login button is pressed', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    fireEvent.press(getByTestId('back-to-login-button'));
+    await fireEvent.press(getByTestId('back-to-login-button'));
     expect(mockNavigation.replace as jest.Mock).toHaveBeenCalledWith('Login');
   });
 
-  it('navigates to Login when back to login link is pressed', () => {
-    const { getByTestId } = renderWithProviders(
+  it('navigates to Login when back to login link is pressed', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    fireEvent.press(getByTestId('back-to-login-link'));
+    await fireEvent.press(getByTestId('back-to-login-link'));
     expect(mockNavigation.replace as jest.Mock).toHaveBeenCalledWith('Login');
   });
 
   it('shows success message after successful resend', async () => {
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Press resend button
-    fireEvent.press(getByTestId('resend-email-button'));
+    await fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for success message
     await waitFor(
@@ -205,12 +205,12 @@ describe('EmailVerificationScreen', () => {
       error: 'Rate limit exceeded. Please wait before trying again.',
     });
 
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Press resend button
-    fireEvent.press(getByTestId('resend-email-button'));
+    await fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for error message
     await waitFor(
@@ -222,12 +222,12 @@ describe('EmailVerificationScreen', () => {
   });
 
   it('calls rate limiter check before resending email', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Press resend button
-    fireEvent.press(getByTestId('resend-email-button'));
+    await fireEvent.press(getByTestId('resend-email-button'));
 
     await waitFor(
       () => {
@@ -240,12 +240,12 @@ describe('EmailVerificationScreen', () => {
   });
 
   it('records request after successful resend', async () => {
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Press resend button
-    fireEvent.press(getByTestId('resend-email-button'));
+    await fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for success message
     await waitFor(
@@ -261,12 +261,12 @@ describe('EmailVerificationScreen', () => {
   });
 
   it('calls Supabase API to resend confirmation email', async () => {
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Press resend button
-    fireEvent.press(getByTestId('resend-email-button'));
+    await fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for success message
     await waitFor(
@@ -284,12 +284,12 @@ describe('EmailVerificationScreen', () => {
       new Error('Network error')
     );
 
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Press resend button
-    fireEvent.press(getByTestId('resend-email-button'));
+    await fireEvent.press(getByTestId('resend-email-button'));
 
     // Wait for error message
     await waitFor(
@@ -306,7 +306,7 @@ describe('EmailVerificationScreen', () => {
       secondsRemaining: 30,
     });
 
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -321,7 +321,7 @@ describe('EmailVerificationScreen', () => {
   });
 
   it('enables resend button when no cooldown', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -335,8 +335,8 @@ describe('EmailVerificationScreen', () => {
     );
   });
 
-  it('has proper accessibility label on resend button', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has proper accessibility label on resend button', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -344,8 +344,8 @@ describe('EmailVerificationScreen', () => {
     expect(resendButton.props.accessibilityRole).toBe('button');
   });
 
-  it('has proper accessibility label on back to login button', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has proper accessibility label on back to login button', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -353,8 +353,8 @@ describe('EmailVerificationScreen', () => {
     expect(backButton.props.accessibilityRole).toBe('button');
   });
 
-  it('has proper accessibility role on back to login link', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has proper accessibility role on back to login link', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -362,14 +362,14 @@ describe('EmailVerificationScreen', () => {
     expect(backLink.props.accessibilityRole).toBe('link');
   });
 
-  it('displays different email address when provided in route params', () => {
+  it('displays different email address when provided in route params', async () => {
     const customRoute = {
       key: 'EmailVerification',
       name: 'EmailVerification' as const,
       params: { email: 'different@example.com' },
     };
 
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={customRoute} />
     );
 
@@ -427,24 +427,24 @@ describe('EmailVerificationScreen EAA Accessibility Compliance', () => {
     (SupabaseAuthClient.resendConfirmationEmail as jest.Mock).mockResolvedValue(undefined);
   });
 
-  it('resend email button has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('resend email button has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expectMinTouchTarget(getByTestId('resend-email-button'));
   });
 
-  it('back to login button has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('back to login button has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expectMinTouchTarget(getByTestId('back-to-login-button'));
   });
 
-  it('back to login link has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('back to login link has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <EmailVerificationScreen navigation={mockNavigation} route={mockRoute} />
     );
 

@@ -41,8 +41,8 @@ describe('RegistrationScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders registration screen with all form fields', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders registration screen with all form fields', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -55,88 +55,88 @@ describe('RegistrationScreen', () => {
       expect(getByTestId('register-button')).toBeOnTheScreen();
     });
 
-    it('renders first name input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders first name input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('firstName-input')).toBeOnTheScreen();
     });
 
-    it('renders last name input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders last name input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('lastName-input')).toBeOnTheScreen();
     });
 
-    it('renders phone number input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders phone number input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('phone-number-input')).toBeOnTheScreen();
     });
 
-    it('renders email input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders email input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('email-input')).toBeOnTheScreen();
     });
 
-    it('renders password input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders password input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('password-input')).toBeOnTheScreen();
     });
 
-    it('renders confirm password input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders confirm password input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('confirmPassword-input')).toBeOnTheScreen();
     });
 
-    it('renders accept terms switch', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders accept terms switch', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('accept-terms-switch')).toBeOnTheScreen();
     });
 
-    it('renders register button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders register button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('register-button')).toBeOnTheScreen();
     });
 
-    it('renders login link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders login link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('login-link')).toBeOnTheScreen();
     });
 
-    it('renders terms link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders terms link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('terms-link')).toBeOnTheScreen();
     });
 
-    it('renders privacy link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders privacy link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -145,8 +145,8 @@ describe('RegistrationScreen', () => {
   });
 
   describe('Form Validation', () => {
-    it('disables register button when form is empty', () => {
-      const { getByTestId } = renderWithProviders(
+    it('disables register button when form is empty', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -155,17 +155,17 @@ describe('RegistrationScreen', () => {
     });
 
     it('disables register button when first name is too short', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'J');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'J');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -177,17 +177,17 @@ describe('RegistrationScreen', () => {
     });
 
     it('disables register button when last name is too short', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'D');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'D');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -199,17 +199,17 @@ describe('RegistrationScreen', () => {
     });
 
     it('disables register button when email is invalid', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'invalid-email');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'invalid-email');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -221,17 +221,17 @@ describe('RegistrationScreen', () => {
     });
 
     it('disables register button when password is weak', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'weak');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'weak');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'weak');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'weak');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -243,17 +243,17 @@ describe('RegistrationScreen', () => {
     });
 
     it('disables register button when passwords do not match', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'DifferentPass456!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'DifferentPass456!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -265,16 +265,16 @@ describe('RegistrationScreen', () => {
     });
 
     it('disables register button when terms are not accepted', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
       // Don't toggle terms switch
 
       await waitFor(
@@ -287,17 +287,17 @@ describe('RegistrationScreen', () => {
     });
 
     it('enables register button when form is valid', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -310,37 +310,37 @@ describe('RegistrationScreen', () => {
   });
 
   describe('Navigation', () => {
-    it('navigates to Login when login link is pressed', () => {
-      const { getByTestId } = renderWithProviders(
+    it('navigates to Login when login link is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.press(getByTestId('login-link'));
+      await fireEvent.press(getByTestId('login-link'));
       expect(mockNavigation.navigate).toHaveBeenCalledWith('Login');
     });
 
-    it('navigates to TermsAndConditions when terms link is pressed', () => {
-      const { getByTestId } = renderWithProviders(
+    it('navigates to TermsAndConditions when terms link is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.press(getByTestId('terms-link'));
+      await fireEvent.press(getByTestId('terms-link'));
       expect(mockNavigation.navigate).toHaveBeenCalledWith('TermsAndConditions');
     });
 
-    it('navigates to PrivacyPolicy when privacy link is pressed', () => {
-      const { getByTestId } = renderWithProviders(
+    it('navigates to PrivacyPolicy when privacy link is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.press(getByTestId('privacy-link'));
+      await fireEvent.press(getByTestId('privacy-link'));
       expect(mockNavigation.navigate).toHaveBeenCalledWith('PrivacyPolicy');
     });
   });
 
   describe('Error Display', () => {
-    it('displays auth error message when present in Redux state', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('displays auth error message when present in Redux state', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -359,8 +359,8 @@ describe('RegistrationScreen', () => {
       expect(getByText('Email already registered')).toBeOnTheScreen();
     });
 
-    it('does not display error message when no error in Redux state', () => {
-      const { queryByTestId } = renderWithProviders(
+    it('does not display error message when no error in Redux state', async () => {
+      const { queryByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -380,8 +380,8 @@ describe('RegistrationScreen', () => {
   });
 
   describe('Accessibility', () => {
-    it('has proper accessibility role on register button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility role on register button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -389,8 +389,8 @@ describe('RegistrationScreen', () => {
       expect(registerButton.props.accessibilityRole).toBe('button');
     });
 
-    it('has proper accessibility role on login link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility role on login link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -398,8 +398,8 @@ describe('RegistrationScreen', () => {
       expect(loginLink.props.accessibilityRole).toBe('link');
     });
 
-    it('has proper accessibility role on terms link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility role on terms link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -407,8 +407,8 @@ describe('RegistrationScreen', () => {
       expect(termsLink.props.accessibilityRole).toBe('link');
     });
 
-    it('has proper accessibility role on privacy link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility role on privacy link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -416,8 +416,8 @@ describe('RegistrationScreen', () => {
       expect(privacyLink.props.accessibilityRole).toBe('link');
     });
 
-    it('has proper accessibility role on terms switch', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility role on terms switch', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -440,8 +440,8 @@ describe('RegistrationScreen Network Scenarios', () => {
   });
 
   describe('timeout handling', () => {
-    it('should display timeout error message when network times out', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display timeout error message when network times out', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -460,8 +460,8 @@ describe('RegistrationScreen Network Scenarios', () => {
       expect(getByText('Request timed out. Please try again.')).toBeOnTheScreen();
     });
 
-    it('should keep form interactive after timeout error', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should keep form interactive after timeout error', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -485,8 +485,8 @@ describe('RegistrationScreen Network Scenarios', () => {
   });
 
   describe('offline mode behaviour', () => {
-    it('should display offline error message when network unavailable', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display offline error message when network unavailable', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -506,7 +506,7 @@ describe('RegistrationScreen Network Scenarios', () => {
     });
 
     it('should preserve form data during offline state', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -521,8 +521,8 @@ describe('RegistrationScreen Network Scenarios', () => {
         }
       );
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
 
       expect(getByDisplayValue('John')).toBeOnTheScreen();
       expect(getByDisplayValue('john@example.com')).toBeOnTheScreen();
@@ -536,8 +536,8 @@ describe('RegistrationScreen Screen Reader Accessibility', () => {
   });
 
   describe('focus order for screen readers', () => {
-    it('should have correct focus order for form elements', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have correct focus order for form elements', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -551,32 +551,32 @@ describe('RegistrationScreen Screen Reader Accessibility', () => {
       expectFocusOrder([firstName, lastName, phone, email, password, confirmPassword]);
     });
 
-    it('should have focusable first name input', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable first name input', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expectCanReceiveFocus(getByTestId('firstName-input'));
     });
 
-    it('should have focusable email input', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable email input', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expectCanReceiveFocus(getByTestId('email-input'));
     });
 
-    it('should have focusable register button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable register button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expectCanReceiveFocus(getByTestId('register-button'));
     });
 
-    it('should have focusable navigation links', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable navigation links', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -587,8 +587,8 @@ describe('RegistrationScreen Screen Reader Accessibility', () => {
   });
 
   describe('screen reader announcements', () => {
-    it('should have accessible labels on all form fields', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have accessible labels on all form fields', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -608,8 +608,8 @@ describe('RegistrationScreen Screen Reader Accessibility', () => {
       });
     });
 
-    it('should announce button disabled state to screen readers', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should announce button disabled state to screen readers', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -618,17 +618,17 @@ describe('RegistrationScreen Screen Reader Accessibility', () => {
     });
 
     it('should announce button enabled state when form is valid', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -642,19 +642,19 @@ describe('RegistrationScreen Screen Reader Accessibility', () => {
 
   describe('focus management after actions', () => {
     it('should maintain focus context after form validation', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const emailInput = getByTestId('email-input');
-      fireEvent.changeText(emailInput, 'invalid');
+      await fireEvent.changeText(emailInput, 'invalid');
 
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
       expectCanReceiveFocus(emailInput);
     });
 
-    it('should keep form accessible during loading state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should keep form accessible during loading state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -674,8 +674,8 @@ describe('RegistrationScreen Screen Reader Accessibility', () => {
       expect(registerButton.props.accessibilityState?.disabled).toBe(true);
     });
 
-    it('should preserve accessibility after error display', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should preserve accessibility after error display', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -703,48 +703,48 @@ describe('RegistrationScreen Keyboard Navigation', () => {
   });
 
   describe('return key types', () => {
-    it('should have next return key type on firstName field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have next return key type on firstName field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('firstName-input').props.returnKeyType).toBe('next');
     });
 
-    it('should have next return key type on lastName field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have next return key type on lastName field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('lastName-input').props.returnKeyType).toBe('next');
     });
 
-    it('should have next return key type on phone field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have next return key type on phone field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('phone-number-input').props.returnKeyType).toBe('next');
     });
 
-    it('should have next return key type on email field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have next return key type on email field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('email-input').props.returnKeyType).toBe('next');
     });
 
-    it('should have next return key type on password field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have next return key type on password field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('password-input').props.returnKeyType).toBe('next');
     });
 
-    it('should have done return key type on confirmPassword field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have done return key type on confirmPassword field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -753,8 +753,8 @@ describe('RegistrationScreen Keyboard Navigation', () => {
   });
 
   describe('submitEditing handlers', () => {
-    it('should have onSubmitEditing handler on firstName field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have onSubmitEditing handler on firstName field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -762,60 +762,60 @@ describe('RegistrationScreen Keyboard Navigation', () => {
       expect(firstNameInput.props.onSubmitEditing).toBeDefined();
 
       // Should not crash when triggered
-      fireEvent(firstNameInput, 'submitEditing');
+      await fireEvent(firstNameInput, 'submitEditing');
       expect(getByTestId('lastName-input')).toBeOnTheScreen();
     });
 
-    it('should have onSubmitEditing handler on lastName field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have onSubmitEditing handler on lastName field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const lastNameInput = getByTestId('lastName-input');
       expect(lastNameInput.props.onSubmitEditing).toBeDefined();
 
-      fireEvent(lastNameInput, 'submitEditing');
+      await fireEvent(lastNameInput, 'submitEditing');
       expect(getByTestId('phone-number-input')).toBeOnTheScreen();
     });
 
-    it('should have onSubmitEditing handler on phone field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have onSubmitEditing handler on phone field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const phoneInput = getByTestId('phone-number-input');
       expect(phoneInput.props.onSubmitEditing).toBeDefined();
 
-      fireEvent(phoneInput, 'submitEditing');
+      await fireEvent(phoneInput, 'submitEditing');
       expect(getByTestId('email-input')).toBeOnTheScreen();
     });
 
-    it('should have onSubmitEditing handler on email field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have onSubmitEditing handler on email field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const emailInput = getByTestId('email-input');
       expect(emailInput.props.onSubmitEditing).toBeDefined();
 
-      fireEvent(emailInput, 'submitEditing');
+      await fireEvent(emailInput, 'submitEditing');
       expect(getByTestId('password-input')).toBeOnTheScreen();
     });
 
-    it('should have onSubmitEditing handler on password field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have onSubmitEditing handler on password field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const passwordInput = getByTestId('password-input');
       expect(passwordInput.props.onSubmitEditing).toBeDefined();
 
-      fireEvent(passwordInput, 'submitEditing');
+      await fireEvent(passwordInput, 'submitEditing');
       expect(getByTestId('confirmPassword-input')).toBeOnTheScreen();
     });
 
-    it('should have onSubmitEditing handler on confirmPassword field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have onSubmitEditing handler on confirmPassword field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -823,42 +823,42 @@ describe('RegistrationScreen Keyboard Navigation', () => {
       expect(confirmPasswordInput.props.onSubmitEditing).toBeDefined();
 
       // Should attempt form submission when pressing done
-      fireEvent(confirmPasswordInput, 'submitEditing');
+      await fireEvent(confirmPasswordInput, 'submitEditing');
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
     });
   });
 
   describe('keyboard-only form completion', () => {
     it('should allow completing entire form using only keyboard', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // firstName → next → lastName
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent(getByTestId('firstName-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent(getByTestId('firstName-input'), 'submitEditing');
 
       // lastName → next → phone
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent(getByTestId('lastName-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent(getByTestId('lastName-input'), 'submitEditing');
 
       // phone → next → email
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent(getByTestId('phone-number-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent(getByTestId('phone-number-input'), 'submitEditing');
 
       // email → next → password
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent(getByTestId('email-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent(getByTestId('email-input'), 'submitEditing');
 
       // password → next → confirmPassword
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent(getByTestId('password-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('password-input'), 'submitEditing');
 
       // confirmPassword → done
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
 
       // Accept terms (this must be done separately from keyboard flow)
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       // Form should be valid
       await waitFor(
@@ -870,22 +870,22 @@ describe('RegistrationScreen Keyboard Navigation', () => {
       );
 
       // Press done on confirmPassword should attempt submission
-      fireEvent(getByTestId('confirmPassword-input'), 'submitEditing');
+      await fireEvent(getByTestId('confirmPassword-input'), 'submitEditing');
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
     });
 
     it('should maintain form data when navigating between fields', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill firstName and press next
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent(getByTestId('firstName-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent(getByTestId('firstName-input'), 'submitEditing');
 
       // Fill lastName and press next
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent(getByTestId('lastName-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent(getByTestId('lastName-input'), 'submitEditing');
 
       // Verify data is preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -900,18 +900,18 @@ describe('RegistrationScreen Form Submission', () => {
   });
 
   it('should submit form when register button is pressed with valid data', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Fill all required fields
-    fireEvent.changeText(getByTestId('firstName-input'), 'John');
-    fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-    fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-    fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-    fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-    fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-    fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+    await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+    await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+    await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+    await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+    await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+    await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+    await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
     // Wait for form to be valid
     await waitFor(
@@ -922,14 +922,14 @@ describe('RegistrationScreen Form Submission', () => {
     );
 
     // Press register button
-    fireEvent.press(getByTestId('register-button'));
+    await fireEvent.press(getByTestId('register-button'));
 
     // Form should remain on screen (submission is async)
     expect(getByTestId('registration-screen')).toBeOnTheScreen();
   });
 
-  it('should show loading state during form submission', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should show loading state during form submission', async () => {
+    const { getByTestId } = await renderWithProviders(
       <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -950,18 +950,18 @@ describe('RegistrationScreen Form Submission', () => {
   });
 
   it('should prevent double submission', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Fill form
-    fireEvent.changeText(getByTestId('firstName-input'), 'John');
-    fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-    fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-    fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-    fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-    fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-    fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+    await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+    await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+    await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+    await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+    await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+    await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+    await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
     await waitFor(
       () => {
@@ -971,7 +971,7 @@ describe('RegistrationScreen Form Submission', () => {
     );
 
     // First submission
-    fireEvent.press(getByTestId('register-button'));
+    await fireEvent.press(getByTestId('register-button'));
 
     // Screen should remain stable (no crash from multiple submissions)
     expect(getByTestId('registration-screen')).toBeOnTheScreen();
@@ -983,8 +983,8 @@ describe('RegistrationScreen Password Requirements', () => {
     jest.clearAllMocks();
   });
 
-  it('should render password requirements component', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should render password requirements component', async () => {
+    const { getByTestId } = await renderWithProviders(
       <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -992,7 +992,7 @@ describe('RegistrationScreen Password Requirements', () => {
   });
 
   it('should update password requirements as user types', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -1002,13 +1002,13 @@ describe('RegistrationScreen Password Requirements', () => {
     expect(getByTestId('password-requirements')).toBeOnTheScreen();
 
     // Type a weak password
-    fireEvent.changeText(passwordInput, 'weak');
+    await fireEvent.changeText(passwordInput, 'weak');
 
     // Requirements component should still be visible
     expect(getByTestId('password-requirements')).toBeOnTheScreen();
 
     // Type a strong password
-    fireEvent.changeText(passwordInput, 'SecurePass123!');
+    await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
     // Requirements component should still be visible with updated state
     expect(getByTestId('password-requirements')).toBeOnTheScreen();

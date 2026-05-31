@@ -140,7 +140,7 @@ describe('WorkExperienceDetailsScreen', () => {
   });
 
   describe('initial render', () => {
-    it('renders work experience details screen', () => {
+    it('renders work experience details screen', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -155,7 +155,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -164,7 +164,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByTestId('work-experience-details-screen')).toBeOnTheScreen();
     });
 
-    it('displays company name', () => {
+    it('displays company name', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -179,7 +179,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -188,7 +188,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByTestId('work-experience-details-company-name')).toHaveTextContent('Tech Company');
     });
 
-    it('displays position title', () => {
+    it('displays position title', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -203,7 +203,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -212,7 +212,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByTestId('work-experience-details-position')).toHaveTextContent('Senior Developer');
     });
 
-    it('displays date range', () => {
+    it('displays date range', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -227,7 +227,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -238,7 +238,7 @@ describe('WorkExperienceDetailsScreen', () => {
   });
 
   describe('not found state', () => {
-    it('displays not found message when position does not exist', () => {
+    it('displays not found message when position does not exist', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -253,7 +253,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -264,7 +264,7 @@ describe('WorkExperienceDetailsScreen', () => {
   });
 
   describe('description card', () => {
-    it('displays description when present', () => {
+    it('displays description when present', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -279,7 +279,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -291,7 +291,7 @@ describe('WorkExperienceDetailsScreen', () => {
       );
     });
 
-    it('does not display description card when not present', () => {
+    it('does not display description card when not present', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const basePosition = mockWorkExperienceWithTech.positions[0]!;
@@ -321,7 +321,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { queryByTestId } = render(
+      const { queryByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -332,7 +332,7 @@ describe('WorkExperienceDetailsScreen', () => {
   });
 
   describe('technology sections', () => {
-    it('displays tech card when technologies exist', () => {
+    it('displays tech card when technologies exist', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -347,7 +347,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -356,7 +356,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByTestId('work-experience-details-tech-card')).toBeOnTheScreen();
     });
 
-    it('renders programming languages tags', () => {
+    it('renders programming languages tags', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -371,7 +371,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByText } = render(
+      const { getByText } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -381,7 +381,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByText('JavaScript')).toBeOnTheScreen();
     });
 
-    it('renders framework tags', () => {
+    it('renders framework tags', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -396,7 +396,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByText } = render(
+      const { getByText } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -406,7 +406,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByText('React')).toBeOnTheScreen();
     });
 
-    it('does not display tech card when no technologies', () => {
+    it('does not display tech card when no technologies', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const basePosition = mockWorkExperienceWithTech.positions[0]!;
@@ -436,7 +436,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { queryByTestId } = render(
+      const { queryByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -447,7 +447,7 @@ describe('WorkExperienceDetailsScreen', () => {
   });
 
   describe('responsibilities section', () => {
-    it('displays responsibilities card when present', () => {
+    it('displays responsibilities card when present', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const routeWithManager = {
@@ -469,7 +469,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -479,7 +479,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByTestId('work-experience-details-responsibilities-section')).toBeOnTheScreen();
     });
 
-    it('renders all responsibility items', () => {
+    it('renders all responsibility items', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const routeWithManager = {
@@ -501,7 +501,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByText } = render(
+      const { getByText } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -512,7 +512,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByText('Define technical strategy')).toBeOnTheScreen();
     });
 
-    it('does not display responsibilities card when not present', () => {
+    it('does not display responsibilities card when not present', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -527,7 +527,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { queryByTestId } = render(
+      const { queryByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -538,7 +538,7 @@ describe('WorkExperienceDetailsScreen', () => {
   });
 
   describe('logo rendering', () => {
-    it('does not display logo card when logo not present', () => {
+    it('does not display logo card when logo not present', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -553,7 +553,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { queryByTestId } = render(
+      const { queryByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -564,7 +564,7 @@ describe('WorkExperienceDetailsScreen', () => {
   });
 
   describe('dark/light theme support', () => {
-    it('renders correctly in light theme', () => {
+    it('renders correctly in light theme', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -579,7 +579,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -588,7 +588,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByTestId('work-experience-details-screen')).toBeOnTheScreen();
     });
 
-    it('renders correctly in dark theme', () => {
+    it('renders correctly in dark theme', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const store = mockStore({
@@ -603,7 +603,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -612,7 +612,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByTestId('work-experience-details-screen')).toBeOnTheScreen();
     });
 
-    it('renders correctly with system theme in light mode', () => {
+    it('renders correctly with system theme in light mode', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -627,7 +627,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -636,7 +636,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(getByTestId('work-experience-details-screen')).toBeOnTheScreen();
     });
 
-    it('renders correctly with system theme in dark mode', () => {
+    it('renders correctly with system theme in dark mode', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const store = mockStore({
@@ -651,7 +651,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -662,7 +662,7 @@ describe('WorkExperienceDetailsScreen', () => {
   });
 
   describe('accessibility - EAA compliance', () => {
-    it('has correct accessibility role for header card', () => {
+    it('has correct accessibility role for header card', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -677,7 +677,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -687,7 +687,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(headerCard.props.accessibilityRole).toBe('header');
     });
 
-    it('has correct accessibility label for company name', () => {
+    it('has correct accessibility label for company name', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -702,7 +702,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -713,7 +713,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(companyName.props.accessibilityLabel).toBe('Tech Company');
     });
 
-    it('has correct accessibility label for position', () => {
+    it('has correct accessibility label for position', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -728,7 +728,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>
@@ -739,7 +739,7 @@ describe('WorkExperienceDetailsScreen', () => {
       expect(position.props.accessibilityLabel).toBe('Position: Senior Developer');
     });
 
-    it('has correct accessibility role for not found state', () => {
+    it('has correct accessibility role for not found state', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const store = mockStore({
@@ -754,7 +754,7 @@ describe('WorkExperienceDetailsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceDetailsScreen />
         </Provider>

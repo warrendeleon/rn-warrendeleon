@@ -121,8 +121,8 @@ describe('accessibility test utilities', () => {
   });
 
   describe('expectMinTouchTarget', () => {
-    it('should pass for element with minWidth and minHeight >= 44', () => {
-      render(
+    it('should pass for element with minWidth and minHeight >= 44', async () => {
+      await render(
         <Pressable testID="button" style={{ minWidth: 44, minHeight: 44 }}>
           <Text>Button</Text>
         </Pressable>
@@ -132,8 +132,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should pass for element larger than 44×44', () => {
-      render(
+    it('should pass for element larger than 44×44', async () => {
+      await render(
         <Pressable testID="button" style={{ minWidth: 100, minHeight: 60 }}>
           <Text>Large Button</Text>
         </Pressable>
@@ -143,8 +143,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should fail for element smaller than 44×44 when explicitly sized', () => {
-      render(
+    it('should fail for element smaller than 44×44 when explicitly sized', async () => {
+      await render(
         <Pressable testID="button" style={{ minWidth: 30, minHeight: 30 }}>
           <Text>Small</Text>
         </Pressable>
@@ -154,8 +154,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).toThrow();
     });
 
-    it('should account for padding in touch target calculation', () => {
-      render(
+    it('should account for padding in touch target calculation', async () => {
+      await render(
         <Pressable testID="button" style={{ width: 30, height: 30, padding: 8 }}>
           <Text>Padded</Text>
         </Pressable>
@@ -166,8 +166,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should accept custom minimum sizes', () => {
-      render(
+    it('should accept custom minimum sizes', async () => {
+      await render(
         <Pressable testID="button" style={{ minWidth: 48, minHeight: 48 }}>
           <Text>Android</Text>
         </Pressable>
@@ -178,8 +178,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button, 48, 48)).not.toThrow();
     });
 
-    it('should pass for element using width and height instead of min', () => {
-      render(
+    it('should pass for element using width and height instead of min', async () => {
+      await render(
         <Pressable testID="button" style={{ width: 50, height: 50 }}>
           <Text>Fixed</Text>
         </Pressable>
@@ -189,8 +189,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should handle style arrays', () => {
-      render(
+    it('should handle style arrays', async () => {
+      await render(
         <Pressable testID="button" style={[{ minWidth: 44 }, { minHeight: 44 }]}>
           <Text>Array Styles</Text>
         </Pressable>
@@ -200,8 +200,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should not fail for element without explicit sizes (parent controlled)', () => {
-      render(
+    it('should not fail for element without explicit sizes (parent controlled)', async () => {
+      await render(
         <Pressable testID="button">
           <Text>No Size</Text>
         </Pressable>
@@ -212,10 +212,10 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should handle string values with px suffix', () => {
+    it('should handle string values with px suffix', async () => {
       // Use type assertion to test edge case where runtime receives string values
       const stringStyle = { minWidth: '50px', minHeight: '50px' } as unknown as ViewStyle;
-      render(
+      await render(
         <Pressable testID="button" style={stringStyle}>
           <Text>String Size</Text>
         </Pressable>
@@ -226,8 +226,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should handle paddingHorizontal for touch target', () => {
-      render(
+    it('should handle paddingHorizontal for touch target', async () => {
+      await render(
         <Pressable testID="button" style={{ width: 30, height: 44, paddingHorizontal: 14 }}>
           <Text>Padded H</Text>
         </Pressable>
@@ -238,8 +238,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should handle paddingVertical for touch target', () => {
-      render(
+    it('should handle paddingVertical for touch target', async () => {
+      await render(
         <Pressable testID="button" style={{ width: 44, height: 30, paddingVertical: 14 }}>
           <Text>Padded V</Text>
         </Pressable>
@@ -250,8 +250,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should handle paddingLeft and paddingRight separately', () => {
-      render(
+    it('should handle paddingLeft and paddingRight separately', async () => {
+      await render(
         <Pressable
           testID="button"
           style={{ width: 30, height: 44, paddingLeft: 7, paddingRight: 7 }}
@@ -265,8 +265,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinTouchTarget(button)).not.toThrow();
     });
 
-    it('should handle paddingTop and paddingBottom separately', () => {
-      render(
+    it('should handle paddingTop and paddingBottom separately', async () => {
+      await render(
         <Pressable
           testID="button"
           style={{ width: 44, height: 30, paddingTop: 7, paddingBottom: 7 }}
@@ -282,8 +282,8 @@ describe('accessibility test utilities', () => {
   });
 
   describe('expectMinHitSlop', () => {
-    it('should pass when hitSlop meets minimum', () => {
-      render(
+    it('should pass when hitSlop meets minimum', async () => {
+      await render(
         <Pressable testID="button" hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Text>Icon</Text>
         </Pressable>
@@ -293,8 +293,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinHitSlop(button, 8)).not.toThrow();
     });
 
-    it('should pass when hitSlop is a number', () => {
-      render(
+    it('should pass when hitSlop is a number', async () => {
+      await render(
         <Pressable testID="button" hitSlop={12}>
           <Text>Icon</Text>
         </Pressable>
@@ -304,8 +304,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinHitSlop(button, 10)).not.toThrow();
     });
 
-    it('should fail when no hitSlop defined', () => {
-      render(
+    it('should fail when no hitSlop defined', async () => {
+      await render(
         <Pressable testID="button">
           <Text>No HitSlop</Text>
         </Pressable>
@@ -315,8 +315,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectMinHitSlop(button)).toThrow(/no hitSlop defined/i);
     });
 
-    it('should fail when hitSlop is too small', () => {
-      render(
+    it('should fail when hitSlop is too small', async () => {
+      await render(
         <Pressable testID="button" hitSlop={{ top: 4, bottom: 4, left: 4, right: 4 }}>
           <Text>Small HitSlop</Text>
         </Pressable>
@@ -401,8 +401,8 @@ describe('accessibility test utilities', () => {
   });
 
   describe('expectAccessibilityProps', () => {
-    it('should pass when role matches', () => {
-      render(
+    it('should pass when role matches', async () => {
+      await render(
         <Pressable testID="button" accessibilityRole="button">
           <Text>Button</Text>
         </Pressable>
@@ -412,8 +412,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectAccessibilityProps(button, { role: 'button' })).not.toThrow();
     });
 
-    it('should pass when label is truthy', () => {
-      render(
+    it('should pass when label is truthy', async () => {
+      await render(
         <Pressable testID="button" accessibilityLabel="Submit form">
           <Text>Submit</Text>
         </Pressable>
@@ -423,8 +423,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectAccessibilityProps(button, { label: true })).not.toThrow();
     });
 
-    it('should pass when label matches exact string', () => {
-      render(
+    it('should pass when label matches exact string', async () => {
+      await render(
         <Pressable testID="button" accessibilityLabel="Submit form">
           <Text>Submit</Text>
         </Pressable>
@@ -434,8 +434,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectAccessibilityProps(button, { label: 'Submit form' })).not.toThrow();
     });
 
-    it('should pass when hint matches', () => {
-      render(
+    it('should pass when hint matches', async () => {
+      await render(
         <Pressable testID="button" accessibilityHint="Saves your changes">
           <Text>Save</Text>
         </Pressable>
@@ -445,8 +445,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectAccessibilityProps(button, { hint: 'Saves your changes' })).not.toThrow();
     });
 
-    it('should verify accessibility state', () => {
-      render(
+    it('should verify accessibility state', async () => {
+      await render(
         <Pressable testID="button" accessibilityState={{ disabled: true }}>
           <Text>Disabled</Text>
         </Pressable>
@@ -456,8 +456,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectAccessibilityProps(button, { state: { disabled: true } })).not.toThrow();
     });
 
-    it('should fail when role does not match', () => {
-      render(
+    it('should fail when role does not match', async () => {
+      await render(
         <Pressable testID="button" accessibilityRole="link">
           <Text>Button</Text>
         </Pressable>
@@ -469,8 +469,8 @@ describe('accessibility test utilities', () => {
   });
 
   describe('expectScreenReaderAnnouncement', () => {
-    it('should verify liveRegion is set', () => {
-      render(
+    it('should verify liveRegion is set', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="polite">
           <Text>Error</Text>
         </View>
@@ -480,8 +480,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectScreenReaderAnnouncement(alert, { liveRegion: 'polite' })).not.toThrow();
     });
 
-    it('should verify assertive live region', () => {
-      render(
+    it('should verify assertive live region', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="assertive">
           <Text>Critical</Text>
         </View>
@@ -493,8 +493,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should verify role if specified', () => {
-      render(
+    it('should verify role if specified', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="polite" accessibilityRole="alert">
           <Text>Error</Text>
         </View>
@@ -506,8 +506,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should verify atomic option when true (element not hidden)', () => {
-      render(
+    it('should verify atomic option when true (element not hidden)', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="polite" accessibilityElementsHidden={false}>
           <Text>Atomic content</Text>
         </View>
@@ -519,29 +519,29 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should verify atomic option when false (element hidden)', () => {
-      const { UNSAFE_getByProps } = render(
+    it('should verify atomic option when false (element hidden)', async () => {
+      const { getByTestId } = await render(
         <View testID="alert" accessibilityLiveRegion="polite" accessibilityElementsHidden={true}>
           <Text>Non-atomic content</Text>
         </View>
       );
 
-      // Use UNSAFE_getByProps since accessibilityElementsHidden hides from normal queries
-      const alert = UNSAFE_getByProps({ testID: 'alert' });
+      // Use includeHiddenElements since accessibilityElementsHidden hides from normal queries
+      const alert = getByTestId('alert', { includeHiddenElements: true });
       expect(() =>
         expectScreenReaderAnnouncement(alert, { liveRegion: 'polite', atomic: false })
       ).not.toThrow();
     });
 
-    it('should fail atomic check when hidden state does not match', () => {
-      const { UNSAFE_getByProps } = render(
+    it('should fail atomic check when hidden state does not match', async () => {
+      const { getByTestId } = await render(
         <View testID="alert" accessibilityLiveRegion="polite" accessibilityElementsHidden={true}>
           <Text>Content</Text>
         </View>
       );
 
-      // Use UNSAFE_getByProps since accessibilityElementsHidden hides from normal queries
-      const alert = UNSAFE_getByProps({ testID: 'alert' });
+      // Use includeHiddenElements since accessibilityElementsHidden hides from normal queries
+      const alert = getByTestId('alert', { includeHiddenElements: true });
       // atomic: true expects accessibilityElementsHidden to be false
       expect(() =>
         expectScreenReaderAnnouncement(alert, { liveRegion: 'polite', atomic: true })
@@ -550,8 +550,8 @@ describe('accessibility test utilities', () => {
   });
 
   describe('expectFocusOrder', () => {
-    it('should pass for correctly ordered focusable elements', () => {
-      render(
+    it('should pass for correctly ordered focusable elements', async () => {
+      await render(
         <View>
           <Pressable testID="first" accessible={true}>
             <Text>First</Text>
@@ -572,8 +572,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectFocusOrder([first, second, third])).not.toThrow();
     });
 
-    it('should fail if element is not accessible', () => {
-      render(
+    it('should fail if element is not accessible', async () => {
+      await render(
         <View>
           <Pressable testID="first" accessible={true}>
             <Text>First</Text>
@@ -590,8 +590,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectFocusOrder([first, second])).toThrow();
     });
 
-    it('should fail if element is hidden from accessibility', () => {
-      const { UNSAFE_getByProps } = render(
+    it('should fail if element is hidden from accessibility', async () => {
+      const { getByTestId } = await render(
         <View>
           <Pressable testID="first">
             <Text>First</Text>
@@ -603,14 +603,14 @@ describe('accessibility test utilities', () => {
       );
 
       const first = screen.getByTestId('first');
-      // Use UNSAFE_getByProps since accessibilityElementsHidden hides from normal queries
-      const second = UNSAFE_getByProps({ testID: 'second' });
+      // Use includeHiddenElements since accessibilityElementsHidden hides from normal queries
+      const second = getByTestId('second', { includeHiddenElements: true });
 
       expect(() => expectFocusOrder([first, second])).toThrow();
     });
 
-    it('should accept elements with accessibilityViewIsModal (creates own focus context)', () => {
-      const { UNSAFE_getByProps } = render(
+    it('should accept elements with accessibilityViewIsModal (creates own focus context)', async () => {
+      const { getByTestId } = await render(
         <View>
           <Pressable testID="first" accessible={true}>
             <Text>First</Text>
@@ -621,16 +621,16 @@ describe('accessibility test utilities', () => {
         </View>
       );
 
-      // accessibilityViewIsModal may hide siblings, so use UNSAFE_getByProps for both
-      const first = UNSAFE_getByProps({ testID: 'first' });
-      const modal = UNSAFE_getByProps({ testID: 'modal' });
+      // accessibilityViewIsModal may hide siblings, so include hidden elements for both
+      const first = getByTestId('first', { includeHiddenElements: true });
+      const modal = getByTestId('modal', { includeHiddenElements: true });
 
       // Modal elements create their own focus context so should not throw
       expect(() => expectFocusOrder([first, modal])).not.toThrow();
     });
 
-    it('should verify accessibilityOrder matches expected sequence', () => {
-      render(
+    it('should verify accessibilityOrder matches expected sequence', async () => {
+      await render(
         <View>
           <TestPressable testID="first" accessible={true} accessibilityOrder={0}>
             <Text>First</Text>
@@ -647,8 +647,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectFocusOrder([first, second])).not.toThrow();
     });
 
-    it('should fail when accessibilityOrder does not match sequence', () => {
-      render(
+    it('should fail when accessibilityOrder does not match sequence', async () => {
+      await render(
         <View>
           <TestPressable testID="first" accessible={true} accessibilityOrder={1}>
             <Text>First</Text>
@@ -666,8 +666,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectFocusOrder([first, second])).toThrow();
     });
 
-    it('should fail for element with importantForAccessibility no-hide-descendants', () => {
-      const { UNSAFE_getByProps } = render(
+    it('should fail for element with importantForAccessibility no-hide-descendants', async () => {
+      const { getByTestId } = await render(
         <View>
           <Pressable testID="first" accessible={true}>
             <Text>First</Text>
@@ -679,16 +679,16 @@ describe('accessibility test utilities', () => {
       );
 
       const first = screen.getByTestId('first');
-      // Use UNSAFE_getByProps since importantForAccessibility hides from normal queries
-      const hidden = UNSAFE_getByProps({ testID: 'hidden' });
+      // Use includeHiddenElements since importantForAccessibility hides from normal queries
+      const hidden = getByTestId('hidden', { includeHiddenElements: true });
 
       expect(() => expectFocusOrder([first, hidden])).toThrow();
     });
   });
 
   describe('expectCanReceiveFocus', () => {
-    it('should pass for accessible element', () => {
-      render(
+    it('should pass for accessible element', async () => {
+      await render(
         <Pressable testID="button" accessible={true}>
           <Text>Button</Text>
         </Pressable>
@@ -698,8 +698,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectCanReceiveFocus(button)).not.toThrow();
     });
 
-    it('should fail for non-accessible element', () => {
-      render(
+    it('should fail for non-accessible element', async () => {
+      await render(
         <Pressable testID="button" accessible={false}>
           <Text>Hidden</Text>
         </Pressable>
@@ -709,20 +709,20 @@ describe('accessibility test utilities', () => {
       expect(() => expectCanReceiveFocus(button)).toThrow();
     });
 
-    it('should fail for element hidden from accessibility tree', () => {
-      const { UNSAFE_getByProps } = render(
+    it('should fail for element hidden from accessibility tree', async () => {
+      const { getByTestId } = await render(
         <Pressable testID="button" accessibilityElementsHidden={true}>
           <Text>Hidden</Text>
         </Pressable>
       );
 
-      // Use UNSAFE_getByProps since accessibilityElementsHidden hides from normal queries
-      const button = UNSAFE_getByProps({ testID: 'button' });
+      // Use includeHiddenElements since accessibilityElementsHidden hides from normal queries
+      const button = getByTestId('button', { includeHiddenElements: true });
       expect(() => expectCanReceiveFocus(button)).toThrow();
     });
 
-    it('should verify autoFocus when requested', () => {
-      render(
+    it('should verify autoFocus when requested', async () => {
+      await render(
         <TestPressable testID="button" autoFocus={true}>
           <Text>AutoFocus</Text>
         </TestPressable>
@@ -732,8 +732,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectCanReceiveFocus(button, { autoFocus: true })).not.toThrow();
     });
 
-    it('should fail autoFocus check when not set', () => {
-      render(
+    it('should fail autoFocus check when not set', async () => {
+      await render(
         <Pressable testID="button">
           <Text>No AutoFocus</Text>
         </Pressable>
@@ -745,8 +745,8 @@ describe('accessibility test utilities', () => {
   });
 
   describe('expectAccessibilityComplete', () => {
-    it('should pass when all required props present', () => {
-      render(
+    it('should pass when all required props present', async () => {
+      await render(
         <Pressable
           testID="button"
           accessibilityRole="button"
@@ -768,8 +768,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should fail when role is missing', () => {
-      render(
+    it('should fail when role is missing', async () => {
+      await render(
         <Pressable testID="button" accessibilityLabel="Submit">
           <Text>Submit</Text>
         </Pressable>
@@ -781,8 +781,8 @@ describe('accessibility test utilities', () => {
       ).toThrow();
     });
 
-    it('should fail when label is missing', () => {
-      render(
+    it('should fail when label is missing', async () => {
+      await render(
         <Pressable testID="button" accessibilityRole="button">
           <Text>Submit</Text>
         </Pressable>
@@ -794,8 +794,8 @@ describe('accessibility test utilities', () => {
       ).toThrow();
     });
 
-    it('should verify state when provided', () => {
-      render(
+    it('should verify state when provided', async () => {
+      await render(
         <Pressable
           testID="button"
           accessibilityRole="button"
@@ -816,8 +816,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should check touch target by default', () => {
-      render(
+    it('should check touch target by default', async () => {
+      await render(
         <Pressable
           testID="button"
           accessibilityRole="button"
@@ -834,8 +834,8 @@ describe('accessibility test utilities', () => {
       ).toThrow();
     });
 
-    it('should skip touch target check when disabled', () => {
-      render(
+    it('should skip touch target check when disabled', async () => {
+      await render(
         <Pressable
           testID="button"
           accessibilityRole="button"
@@ -856,8 +856,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should accept element with hitSlop for touch target', () => {
-      render(
+    it('should accept element with hitSlop for touch target', async () => {
+      await render(
         <Pressable
           testID="button"
           accessibilityRole="button"
@@ -878,8 +878,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should accept element with padding for touch target', () => {
-      render(
+    it('should accept element with padding for touch target', async () => {
+      await render(
         <Pressable
           testID="button"
           accessibilityRole="button"
@@ -900,8 +900,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should verify multiple state values', () => {
-      render(
+    it('should verify multiple state values', async () => {
+      await render(
         <Pressable
           testID="checkbox"
           accessibilityRole="checkbox"
@@ -925,8 +925,8 @@ describe('accessibility test utilities', () => {
   });
 
   describe('expectLiveRegionContent', () => {
-    it('should verify live region has expected content in children', () => {
-      render(
+    it('should verify live region has expected content in children', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="polite">
           <Text>Error message here</Text>
         </View>
@@ -938,8 +938,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should verify content in accessibilityLabel', () => {
-      render(
+    it('should verify content in accessibilityLabel', async () => {
+      await render(
         <View
           testID="alert"
           accessibilityLiveRegion="polite"
@@ -953,8 +953,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should verify role when specified', () => {
-      render(
+    it('should verify role when specified', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="assertive" accessibilityRole="alert">
           <Text>Critical error</Text>
         </View>
@@ -969,8 +969,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should fail if content not found', () => {
-      render(
+    it('should fail if content not found', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="polite">
           <Text>Different message</Text>
         </View>
@@ -982,8 +982,8 @@ describe('accessibility test utilities', () => {
       ).toThrow();
     });
 
-    it('should verify content in accessibilityValue.text', () => {
-      render(
+    it('should verify content in accessibilityValue.text', async () => {
+      await render(
         <View
           testID="alert"
           accessibilityLiveRegion="polite"
@@ -997,8 +997,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should handle nested children with props.children', () => {
-      render(
+    it('should handle nested children with props.children', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="assertive">
           <View>
             <Text>Nested error message</Text>
@@ -1012,8 +1012,8 @@ describe('accessibility test utilities', () => {
       ).not.toThrow();
     });
 
-    it('should handle numeric children content', () => {
-      render(
+    it('should handle numeric children content', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="polite">
           <Text>{42}</Text>
         </View>
@@ -1023,8 +1023,8 @@ describe('accessibility test utilities', () => {
       expect(() => expectLiveRegionContent(alert, '42', { liveRegion: 'polite' })).not.toThrow();
     });
 
-    it('should handle array children content', () => {
-      render(
+    it('should handle array children content', async () => {
+      await render(
         <View testID="alert" accessibilityLiveRegion="polite">
           <Text>Error: </Text>
           <Text>Invalid input</Text>
@@ -1039,8 +1039,8 @@ describe('accessibility test utilities', () => {
   });
 
   describe('hasAccessibilityProps', () => {
-    it('should return true when element has role and label', () => {
-      render(
+    it('should return true when element has role and label', async () => {
+      await render(
         <Pressable testID="button" accessibilityRole="button" accessibilityLabel="Submit">
           <Text>Submit</Text>
         </Pressable>
@@ -1050,8 +1050,8 @@ describe('accessibility test utilities', () => {
       expect(hasAccessibilityProps(button)).toBe(true);
     });
 
-    it('should return false when missing role', () => {
-      render(
+    it('should return false when missing role', async () => {
+      await render(
         <Pressable testID="button" accessibilityLabel="Submit">
           <Text>Submit</Text>
         </Pressable>
@@ -1061,8 +1061,8 @@ describe('accessibility test utilities', () => {
       expect(hasAccessibilityProps(button)).toBe(false);
     });
 
-    it('should return false when missing label', () => {
-      render(
+    it('should return false when missing label', async () => {
+      await render(
         <Pressable testID="button" accessibilityRole="button">
           <Text>Submit</Text>
         </Pressable>
@@ -1072,8 +1072,8 @@ describe('accessibility test utilities', () => {
       expect(hasAccessibilityProps(button)).toBe(false);
     });
 
-    it('should return false when both missing', () => {
-      render(
+    it('should return false when both missing', async () => {
+      await render(
         <Pressable testID="button">
           <Text>Submit</Text>
         </Pressable>
@@ -1095,8 +1095,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
   describe('1. Perceivable', () => {
     describe('1.1 Text Alternatives', () => {
       describe('1.1.1 Non-text Content (Level A)', () => {
-        it('images have accessible text alternatives', () => {
-          render(
+        it('images have accessible text alternatives', async () => {
+          await render(
             <View testID="image-container">
               <View
                 testID="profile-image"
@@ -1111,8 +1111,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
           expect(image.props.accessibilityLabel).toBe('Profile picture of John Doe');
         });
 
-        it('decorative images are hidden from screen readers', () => {
-          const { UNSAFE_getByProps } = render(
+        it('decorative images are hidden from screen readers', async () => {
+          const { getByTestId } = await render(
             <View testID="container">
               <View
                 testID="decorative-image"
@@ -1123,12 +1123,12 @@ describe('WCAG 2.1 Level AA Checklist', () => {
             </View>
           );
 
-          const image = UNSAFE_getByProps({ testID: 'decorative-image' });
+          const image = getByTestId('decorative-image', { includeHiddenElements: true });
           expect(image.props.accessibilityElementsHidden).toBe(true);
         });
 
-        it('icon buttons have accessible labels', () => {
-          render(
+        it('icon buttons have accessible labels', async () => {
+          await render(
             <Pressable
               testID="icon-button"
               accessibilityRole="button"
@@ -1147,8 +1147,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
 
     describe('1.3 Adaptable', () => {
       describe('1.3.1 Info and Relationships (Level A)', () => {
-        it('headings use appropriate accessibility role', () => {
-          render(
+        it('headings use appropriate accessibility role', async () => {
+          await render(
             <View>
               <Text testID="heading" accessibilityRole="header">
                 Section Title
@@ -1160,8 +1160,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
           expect(heading.props.accessibilityRole).toBe('header');
         });
 
-        it('form fields have associated labels', () => {
-          render(
+        it('form fields have associated labels', async () => {
+          await render(
             <View accessibilityLabel="Email input">
               <Text>Email</Text>
               <View testID="email-input" accessibilityLabel="Email" accessibilityRole="none" />
@@ -1172,8 +1172,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
           expect(input.props.accessibilityLabel).toBe('Email');
         });
 
-        it('grouped content is semantically grouped', () => {
-          render(
+        it('grouped content is semantically grouped', async () => {
+          await render(
             <View
               testID="card"
               accessible={true}
@@ -1192,10 +1192,10 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('1.3.4 Orientation (Level AA)', () => {
-        it('content does not restrict orientation programmatically', () => {
+        it('content does not restrict orientation programmatically', async () => {
           // This is verified by not using orientation-locking APIs
           // Test verifies component renders without orientation restrictions
-          render(
+          await render(
             <View testID="content" style={{ flex: 1 }}>
               <Text>Content available in any orientation</Text>
             </View>
@@ -1206,8 +1206,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('1.3.5 Identify Input Purpose (Level AA)', () => {
-        it('text fields specify input purpose with accessible hints', () => {
-          render(
+        it('text fields specify input purpose with accessible hints', async () => {
+          await render(
             <View
               testID="email-field"
               accessibilityRole="none"
@@ -1225,8 +1225,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
 
     describe('1.4 Distinguishable', () => {
       describe('1.4.1 Use of Colour (Level A)', () => {
-        it('error states have multiple indicators beyond colour', () => {
-          render(
+        it('error states have multiple indicators beyond colour', async () => {
+          await render(
             <View testID="error-field">
               <Text testID="error-icon">⚠️</Text>
               <Text testID="error-message">Error: This field is required</Text>
@@ -1260,10 +1260,10 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('1.4.4 Resize Text (Level AA)', () => {
-        it('text can scale up to 200% without loss of content', () => {
+        it('text can scale up to 200% without loss of content', async () => {
           // In RN, this is typically handled by respecting system font scaling
           // Test verifies component doesn't use fixed pixel sizes inappropriately
-          render(
+          await render(
             <View testID="content">
               <Text style={{ fontSize: 16 }}>Scalable text</Text>
             </View>
@@ -1274,9 +1274,9 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('1.4.10 Reflow (Level AA)', () => {
-        it('content reflows at 320px viewport width', () => {
+        it('content reflows at 320px viewport width', async () => {
           // Verified by flexible layout that adapts to screen size
-          render(
+          await render(
             <View testID="container" style={{ flex: 1, flexWrap: 'wrap' }}>
               <Text>Content that reflows</Text>
             </View>
@@ -1287,9 +1287,9 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('1.4.11 Non-text Contrast (Level AA)', () => {
-        it('focus indicators have sufficient contrast', () => {
+        it('focus indicators have sufficient contrast', async () => {
           // Focus indicator with 3:1 contrast against background
-          render(
+          await render(
             <Pressable
               testID="focused-element"
               style={{
@@ -1307,9 +1307,9 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('1.4.12 Text Spacing (Level AA)', () => {
-        it('content handles increased text spacing', () => {
+        it('content handles increased text spacing', async () => {
           // Verified by not using fixed heights that truncate text
-          render(
+          await render(
             <View testID="text-container" style={{ minHeight: 'auto' }}>
               <Text style={{ lineHeight: 24 }}>Text with adequate spacing</Text>
             </View>
@@ -1320,9 +1320,9 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('1.4.13 Content on Hover or Focus (Level AA)', () => {
-        it('hover/focus content is dismissible, hoverable, persistent', () => {
+        it('hover/focus content is dismissible, hoverable, persistent', async () => {
           // In RN, tooltips should be dismissible and persistent
-          render(
+          await render(
             <View testID="tooltip-trigger" accessibilityHint="Long press for more information">
               <Text>Info</Text>
             </View>
@@ -1338,8 +1338,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
   describe('2. Operable', () => {
     describe('2.1 Keyboard Accessible', () => {
       describe('2.1.1 Keyboard (Level A)', () => {
-        it('all interactive elements are focusable', () => {
-          render(
+        it('all interactive elements are focusable', async () => {
+          await render(
             <Pressable testID="button" accessible={true} accessibilityRole="button">
               <Text>Click me</Text>
             </Pressable>
@@ -1351,8 +1351,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('2.1.2 No Keyboard Trap (Level A)', () => {
-        it('focus can move away from all interactive elements', () => {
-          render(
+        it('focus can move away from all interactive elements', async () => {
+          await render(
             <View>
               <Pressable testID="first" accessible={true}>
                 <Text>First</Text>
@@ -1372,8 +1372,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
 
     describe('2.4 Navigable', () => {
       describe('2.4.3 Focus Order (Level A)', () => {
-        it('focus order follows logical reading sequence', () => {
-          render(
+        it('focus order follows logical reading sequence', async () => {
+          await render(
             <View>
               <Pressable testID="nav-1" accessible={true}>
                 <Text>1</Text>
@@ -1396,8 +1396,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('2.4.6 Headings and Labels (Level AA)', () => {
-        it('headings describe topic or purpose', () => {
-          render(
+        it('headings describe topic or purpose', async () => {
+          await render(
             <View>
               <Text testID="section-heading" accessibilityRole="header">
                 Account Settings
@@ -1413,8 +1413,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
           expect(heading).toHaveTextContent('Account Settings');
         });
 
-        it('labels describe input purpose', () => {
-          render(
+        it('labels describe input purpose', async () => {
+          await render(
             <View>
               <Text>Username</Text>
               <View
@@ -1431,8 +1431,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('2.4.7 Focus Visible (Level AA)', () => {
-        it('focus indicator is visible', () => {
-          render(
+        it('focus indicator is visible', async () => {
+          await render(
             <Pressable
               testID="focusable"
               style={({ pressed }) => ({
@@ -1451,9 +1451,9 @@ describe('WCAG 2.1 Level AA Checklist', () => {
 
     describe('2.5 Input Modalities', () => {
       describe('2.5.1 Pointer Gestures (Level A)', () => {
-        it('complex gestures have simple alternatives', () => {
+        it('complex gestures have simple alternatives', async () => {
           // Pinch-to-zoom has button alternatives
-          render(
+          await render(
             <View>
               <Pressable testID="zoom-in" accessibilityRole="button" accessibilityLabel="Zoom in">
                 <Text>+</Text>
@@ -1470,8 +1470,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('2.5.3 Label in Name (Level A)', () => {
-        it('accessible name contains visible label text', () => {
-          render(
+        it('accessible name contains visible label text', async () => {
+          await render(
             <Pressable
               testID="submit-button"
               accessibilityRole="button"
@@ -1488,8 +1488,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('2.5.4 Motion Actuation (Level A)', () => {
-        it('motion-triggered actions have UI alternatives', () => {
-          render(
+        it('motion-triggered actions have UI alternatives', async () => {
+          await render(
             <View>
               <Pressable testID="undo-button" accessibilityRole="button" accessibilityLabel="Undo">
                 <Text>Undo</Text>
@@ -1507,9 +1507,9 @@ describe('WCAG 2.1 Level AA Checklist', () => {
   describe('3. Understandable', () => {
     describe('3.2 Predictable', () => {
       describe('3.2.1 On Focus (Level A)', () => {
-        it('focus does not trigger context change', () => {
+        it('focus does not trigger context change', async () => {
           // Verified by not having onFocus handlers that navigate/submit
-          render(
+          await render(
             <Pressable testID="input" accessibilityRole="button">
               <Text>Focus me</Text>
             </Pressable>
@@ -1520,9 +1520,9 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('3.2.2 On Input (Level A)', () => {
-        it('input does not automatically trigger context change', () => {
+        it('input does not automatically trigger context change', async () => {
           // Form inputs wait for explicit submission
-          render(
+          await render(
             <View>
               <View testID="form-field" />
               <Pressable testID="submit" accessibilityRole="button">
@@ -1538,8 +1538,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
 
     describe('3.3 Input Assistance', () => {
       describe('3.3.1 Error Identification (Level A)', () => {
-        it('errors are identified and described in text', () => {
-          render(
+        it('errors are identified and described in text', async () => {
+          await render(
             <View testID="error-message" accessibilityRole="alert" accessibilityLiveRegion="polite">
               <Text>Email address is invalid</Text>
             </View>
@@ -1552,8 +1552,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('3.3.2 Labels or Instructions (Level A)', () => {
-        it('form fields have labels and instructions', () => {
-          render(
+        it('form fields have labels and instructions', async () => {
+          await render(
             <View>
               <Text>Password</Text>
               <View
@@ -1571,8 +1571,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('3.3.3 Error Suggestion (Level AA)', () => {
-        it('error messages suggest corrections', () => {
-          render(
+        it('error messages suggest corrections', async () => {
+          await render(
             <View testID="error" accessibilityRole="alert">
               <Text>Invalid email. Please enter a valid email address like name@example.com</Text>
             </View>
@@ -1584,8 +1584,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('3.3.4 Error Prevention (Legal, Financial, Data) (Level AA)', () => {
-        it('destructive actions require confirmation', () => {
-          render(
+        it('destructive actions require confirmation', async () => {
+          await render(
             <View testID="delete-confirmation">
               <Text>Are you sure you want to delete your account?</Text>
               <Pressable testID="confirm-delete" accessibilityRole="button">
@@ -1607,8 +1607,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
   describe('4. Robust', () => {
     describe('4.1 Compatible', () => {
       describe('4.1.2 Name, Role, Value (Level A)', () => {
-        it('custom components expose name, role, and value', () => {
-          render(
+        it('custom components expose name, role, and value', async () => {
+          await render(
             <Pressable
               testID="custom-switch"
               accessibilityRole="switch"
@@ -1627,8 +1627,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
       });
 
       describe('4.1.3 Status Messages (Level AA)', () => {
-        it('status messages use live regions', () => {
-          render(
+        it('status messages use live regions', async () => {
+          await render(
             <View testID="status" accessibilityRole="alert" accessibilityLiveRegion="polite">
               <Text>Form submitted successfully</Text>
             </View>
@@ -1638,8 +1638,8 @@ describe('WCAG 2.1 Level AA Checklist', () => {
           expect(status.props.accessibilityLiveRegion).toBe('polite');
         });
 
-        it('error messages use assertive live region', () => {
-          render(
+        it('error messages use assertive live region', async () => {
+          await render(
             <View
               testID="critical-error"
               accessibilityRole="alert"
@@ -1678,8 +1678,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
   });
 
   describe('expectNoTimingDependence', () => {
-    it('passes for element without timing dependencies', () => {
-      render(
+    it('passes for element without timing dependencies', async () => {
+      await render(
         <Pressable testID="button" accessibilityRole="button">
           <Text>Submit</Text>
         </Pressable>
@@ -1689,66 +1689,66 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       expect(() => expectNoTimingDependence(button)).not.toThrow();
     });
 
-    it('fails when element has timeout prop', () => {
+    it('fails when element has timeout prop', async () => {
       const TimeoutComponent = () => (
         <View testID="timeout-element" {...({ timeout: 5000 } as object)}>
           <Text>Expires soon</Text>
         </View>
       );
 
-      render(<TimeoutComponent />);
+      await render(<TimeoutComponent />);
       const element = screen.getByTestId('timeout-element');
 
       expect(() => expectNoTimingDependence(element)).toThrow();
     });
 
-    it('fails when element has onTimeout handler', () => {
+    it('fails when element has onTimeout handler', async () => {
       const TimeoutHandlerComponent = () => (
         <View testID="timeout-handler" {...({ onTimeout: jest.fn() } as object)}>
           <Text>Has timeout handler</Text>
         </View>
       );
 
-      render(<TimeoutHandlerComponent />);
+      await render(<TimeoutHandlerComponent />);
       const element = screen.getByTestId('timeout-handler');
 
       expect(() => expectNoTimingDependence(element)).toThrow();
     });
 
-    it('allows timeout when explicitly permitted', () => {
+    it('allows timeout when explicitly permitted', async () => {
       const TimeLimitComponent = () => (
         <View testID="time-limit" {...({ timeLimit: 30000 } as object)}>
           <Text>Has time limit</Text>
         </View>
       );
 
-      render(<TimeLimitComponent />);
+      await render(<TimeLimitComponent />);
       const element = screen.getByTestId('time-limit');
 
       expect(() => expectNoTimingDependence(element, { allowTimeLimits: true })).not.toThrow();
     });
 
-    it('fails when element has autoSubmit', () => {
+    it('fails when element has autoSubmit', async () => {
       const AutoSubmitComponent = () => (
         <View testID="auto-submit" {...({ autoSubmit: true } as object)}>
           <Text>Auto-submits</Text>
         </View>
       );
 
-      render(<AutoSubmitComponent />);
+      await render(<AutoSubmitComponent />);
       const element = screen.getByTestId('auto-submit');
 
       expect(() => expectNoTimingDependence(element)).toThrow();
     });
 
-    it('allows autoSubmit when explicitly permitted', () => {
+    it('allows autoSubmit when explicitly permitted', async () => {
       const AutoSubmitComponent = () => (
         <View testID="auto-submit" {...({ autoSubmit: true } as object)}>
           <Text>Auto-submits</Text>
         </View>
       );
 
-      render(<AutoSubmitComponent />);
+      await render(<AutoSubmitComponent />);
       const element = screen.getByTestId('auto-submit');
 
       expect(() => expectNoTimingDependence(element, { allowAutoSubmit: true })).not.toThrow();
@@ -1756,8 +1756,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
   });
 
   describe('expectPauseStopHide', () => {
-    it('passes when pause control is provided for auto-playing content', () => {
-      render(
+    it('passes when pause control is provided for auto-playing content', async () => {
+      await render(
         <View>
           <View testID="carousel">
             <Text>Auto-playing carousel</Text>
@@ -1779,8 +1779,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('fails when no control provided for auto-playing content', () => {
-      render(
+    it('fails when no control provided for auto-playing content', async () => {
+      await render(
         <View testID="carousel">
           <Text>Auto-playing carousel with no controls</Text>
         </View>
@@ -1795,8 +1795,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).toThrow(/must have at least one control mechanism/);
     });
 
-    it('passes when stop control is provided', () => {
-      render(
+    it('passes when stop control is provided', async () => {
+      await render(
         <View>
           <View testID="video-player">
             <Text>Video player</Text>
@@ -1818,8 +1818,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('passes when hide control is provided', () => {
-      render(
+    it('passes when hide control is provided', async () => {
+      await render(
         <View>
           <View testID="banner">
             <Text>Animated banner</Text>
@@ -1841,8 +1841,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('passes when content does not auto-play', () => {
-      render(
+    it('passes when content does not auto-play', async () => {
+      await render(
         <View testID="static-content">
           <Text>Static content</Text>
         </View>
@@ -1857,8 +1857,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('verifies hidden content is hidden from accessibility tree', () => {
-      const { UNSAFE_getByProps } = render(
+    it('verifies hidden content is hidden from accessibility tree', async () => {
+      const { getByTestId } = await render(
         <View>
           <View
             testID="hidden-content"
@@ -1873,7 +1873,7 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
         </View>
       );
 
-      const content = UNSAFE_getByProps({ testID: 'hidden-content' });
+      const content = getByTestId('hidden-content', { includeHiddenElements: true });
       const showButton = screen.getByTestId('show-button');
 
       expect(() =>
@@ -1887,8 +1887,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
   });
 
   describe('expectNoFlashing', () => {
-    it('passes for element without flashing', () => {
-      render(
+    it('passes for element without flashing', async () => {
+      await render(
         <View testID="static-element">
           <Text>Static content</Text>
         </View>
@@ -1898,59 +1898,59 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       expect(() => expectNoFlashing(element)).not.toThrow();
     });
 
-    it('fails for element with blinking prop', () => {
+    it('fails for element with blinking prop', async () => {
       const BlinkingComponent = () => (
         <View testID="blinking" {...({ blinking: true } as object)}>
           <Text>Blinking!</Text>
         </View>
       );
 
-      render(<BlinkingComponent />);
+      await render(<BlinkingComponent />);
       const element = screen.getByTestId('blinking');
 
       expect(() => expectNoFlashing(element)).toThrow(/flashing content/);
     });
 
-    it('fails for element with strobe effect', () => {
+    it('fails for element with strobe effect', async () => {
       const StrobeComponent = () => (
         <View testID="strobe" {...({ strobe: true } as object)}>
           <Text>Strobe effect!</Text>
         </View>
       );
 
-      render(<StrobeComponent />);
+      await render(<StrobeComponent />);
       const element = screen.getByTestId('strobe');
 
       expect(() => expectNoFlashing(element)).toThrow(/flashing content/);
     });
 
-    it('fails for element with rapid pulse interval', () => {
+    it('fails for element with rapid pulse interval', async () => {
       const RapidPulseComponent = () => (
         <View testID="rapid-pulse" {...({ pulseInterval: 100 } as object)}>
           <Text>Rapid pulse!</Text>
         </View>
       );
 
-      render(<RapidPulseComponent />);
+      await render(<RapidPulseComponent />);
       const element = screen.getByTestId('rapid-pulse');
 
       expect(() => expectNoFlashing(element)).toThrow(/flashing content/);
     });
 
-    it('passes for element with safe pulse interval', () => {
+    it('passes for element with safe pulse interval', async () => {
       const SafePulseComponent = () => (
         <View testID="safe-pulse" {...({ pulseInterval: 500 } as object)}>
           <Text>Safe pulse</Text>
         </View>
       );
 
-      render(<SafePulseComponent />);
+      await render(<SafePulseComponent />);
       const element = screen.getByTestId('safe-pulse');
 
       expect(() => expectNoFlashing(element)).not.toThrow();
     });
 
-    it('checks children recursively by default', () => {
+    it('checks children recursively by default', async () => {
       const NestedBlinkComponent = () => (
         <View testID="parent">
           <View testID="child" {...({ blink: true } as object)}>
@@ -1959,13 +1959,13 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
         </View>
       );
 
-      render(<NestedBlinkComponent />);
+      await render(<NestedBlinkComponent />);
       const parent = screen.getByTestId('parent');
 
       expect(() => expectNoFlashing(parent)).toThrow(/flashing content/);
     });
 
-    it('skips children when recursive is false', () => {
+    it('skips children when recursive is false', async () => {
       const NestedBlinkComponent = () => (
         <View testID="parent">
           <View testID="child" {...({ blink: true } as object)}>
@@ -1974,7 +1974,7 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
         </View>
       );
 
-      render(<NestedBlinkComponent />);
+      await render(<NestedBlinkComponent />);
       const parent = screen.getByTestId('parent');
 
       expect(() => expectNoFlashing(parent, { recursive: false })).not.toThrow();
@@ -1982,8 +1982,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
   });
 
   describe('expectConsistentNavigation', () => {
-    it('passes when navigation order matches expected', () => {
-      render(
+    it('passes when navigation order matches expected', async () => {
+      await render(
         <View>
           <Pressable testID="nav-home" accessibilityRole="button" accessible={true}>
             <Text>Home</Text>
@@ -2008,8 +2008,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('fails when navigation order does not match', () => {
-      render(
+    it('fails when navigation order does not match', async () => {
+      await render(
         <View>
           <Pressable testID="nav-home" accessibilityRole="button" accessible={true}>
             <Text>Home</Text>
@@ -2026,8 +2026,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       expect(() => expectConsistentNavigation(navItems, ['nav-search', 'nav-home'])).toThrow();
     });
 
-    it('fails when element count does not match', () => {
-      render(
+    it('fails when element count does not match', async () => {
+      await render(
         <View>
           <Pressable testID="nav-home" accessibilityRole="button" accessible={true}>
             <Text>Home</Text>
@@ -2042,8 +2042,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).toThrow();
     });
 
-    it('verifies all elements have accessibility role', () => {
-      render(
+    it('verifies all elements have accessibility role', async () => {
+      await render(
         <View>
           <Pressable testID="nav-home" accessibilityRole="button" accessible={true}>
             <Text>Home</Text>
@@ -2061,7 +2061,7 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
   });
 
   describe('expectErrorIdentification', () => {
-    it('passes when error state is properly indicated', () => {
+    it('passes when error state is properly indicated', async () => {
       // Use object spread to pass custom invalid state (not in standard AccessibilityState)
       const InvalidFieldComponent = () => (
         <View testID="email-field" {...({ accessibilityState: { invalid: true } } as object)}>
@@ -2069,7 +2069,7 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
         </View>
       );
 
-      render(
+      await render(
         <View>
           <InvalidFieldComponent />
           <View testID="error-message" accessibilityLiveRegion="polite" accessibilityRole="alert">
@@ -2090,14 +2090,14 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('passes when no error and field indicates valid', () => {
+    it('passes when no error and field indicates valid', async () => {
       const ValidFieldComponent = () => (
         <View testID="email-field" {...({ accessibilityState: { invalid: false } } as object)}>
           <Text>Email</Text>
         </View>
       );
 
-      render(<ValidFieldComponent />);
+      await render(<ValidFieldComponent />);
 
       const field = screen.getByTestId('email-field');
 
@@ -2108,8 +2108,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('fails when error state but field not marked invalid', () => {
-      render(
+    it('fails when error state but field not marked invalid', async () => {
+      await render(
         <View testID="email-field">
           <Text>Email</Text>
         </View>
@@ -2124,14 +2124,14 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).toThrow();
     });
 
-    it('fails when no error but field marked invalid', () => {
+    it('fails when no error but field marked invalid', async () => {
       const InvalidFieldComponent = () => (
         <View testID="email-field" {...({ accessibilityState: { invalid: true } } as object)}>
           <Text>Email</Text>
         </View>
       );
 
-      render(<InvalidFieldComponent />);
+      await render(<InvalidFieldComponent />);
 
       const field = screen.getByTestId('email-field');
 
@@ -2142,14 +2142,14 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).toThrow();
     });
 
-    it('verifies error element has proper accessibility role', () => {
+    it('verifies error element has proper accessibility role', async () => {
       const InvalidFieldComponent = () => (
         <View testID="email-field" {...({ accessibilityState: { invalid: true } } as object)}>
           <Text>Email</Text>
         </View>
       );
 
-      render(
+      await render(
         <View>
           <InvalidFieldComponent />
           <View testID="error-message" accessibilityLiveRegion="polite" accessibilityRole="text">
@@ -2170,8 +2170,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).toThrow();
     });
 
-    it('accepts aria-invalid attribute', () => {
-      render(
+    it('accepts aria-invalid attribute', async () => {
+      await render(
         <View testID="email-field" aria-invalid={true}>
           <Text>Email</Text>
         </View>
@@ -2188,8 +2188,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
   });
 
   describe('expectLabelInstructions', () => {
-    it('passes when label matches', () => {
-      render(
+    it('passes when label matches', async () => {
+      await render(
         <View testID="password-field" accessibilityLabel="Password">
           <Text>Password field</Text>
         </View>
@@ -2204,8 +2204,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('passes when label and hint match', () => {
-      render(
+    it('passes when label and hint match', async () => {
+      await render(
         <View
           testID="password-field"
           accessibilityLabel="Password"
@@ -2225,8 +2225,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('fails when label does not match', () => {
-      render(
+    it('fails when label does not match', async () => {
+      await render(
         <View testID="password-field" accessibilityLabel="Password">
           <Text>Password field</Text>
         </View>
@@ -2241,8 +2241,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).toThrow();
     });
 
-    it('fails when hint does not match', () => {
-      render(
+    it('fails when hint does not match', async () => {
+      await render(
         <View
           testID="password-field"
           accessibilityLabel="Password"
@@ -2262,8 +2262,8 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).toThrow();
     });
 
-    it('verifies required state when specified', () => {
-      render(
+    it('verifies required state when specified', async () => {
+      await render(
         <View
           testID="email-field"
           accessibilityLabel="Email (required)"
@@ -2283,7 +2283,7 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('verifies placeholder does not replace label', () => {
+    it('verifies placeholder does not replace label', async () => {
       const SearchFieldComponent = () => (
         <View
           testID="search-field"
@@ -2294,7 +2294,7 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
         </View>
       );
 
-      render(<SearchFieldComponent />);
+      await render(<SearchFieldComponent />);
 
       const field = screen.getByTestId('search-field');
 
@@ -2306,7 +2306,7 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
       ).not.toThrow();
     });
 
-    it('fails when placeholder equals label', () => {
+    it('fails when placeholder equals label', async () => {
       const SearchFieldComponent = () => (
         <View
           testID="search-field"
@@ -2317,7 +2317,7 @@ describe('WCAG 2.1 Level AA Additional Test Utilities', () => {
         </View>
       );
 
-      render(<SearchFieldComponent />);
+      await render(<SearchFieldComponent />);
 
       const field = screen.getByTestId('search-field');
 

@@ -28,34 +28,34 @@ describe('useAuth', () => {
   };
 
   describe('when used within AuthProvider', () => {
-    it('should return auth context value', () => {
+    it('should return auth context value', async () => {
       const mockContext = createMockAuthContext();
-      const { result } = renderHook(() => useAuth(), {
+      const { result } = await renderHook(() => useAuth(), {
         wrapper: createWrapper(mockContext),
       });
 
       expect(result.current).toBe(mockContext);
     });
 
-    it('should return isAuthenticated state', () => {
+    it('should return isAuthenticated state', async () => {
       const mockContext = createMockAuthContext({ isAuthenticated: true });
-      const { result } = renderHook(() => useAuth(), {
+      const { result } = await renderHook(() => useAuth(), {
         wrapper: createWrapper(mockContext),
       });
 
       expect(result.current.isAuthenticated).toBe(true);
     });
 
-    it('should return isLoading state', () => {
+    it('should return isLoading state', async () => {
       const mockContext = createMockAuthContext({ isLoading: true });
-      const { result } = renderHook(() => useAuth(), {
+      const { result } = await renderHook(() => useAuth(), {
         wrapper: createWrapper(mockContext),
       });
 
       expect(result.current.isLoading).toBe(true);
     });
 
-    it('should return user when authenticated', () => {
+    it('should return user when authenticated', async () => {
       const mockUser = {
         id: '550e8400-e29b-41d4-a716-446655440000',
         email: 'test@example.com',
@@ -69,38 +69,38 @@ describe('useAuth', () => {
         isAuthenticated: true,
         user: mockUser,
       });
-      const { result } = renderHook(() => useAuth(), {
+      const { result } = await renderHook(() => useAuth(), {
         wrapper: createWrapper(mockContext),
       });
 
       expect(result.current.user).toEqual(mockUser);
     });
 
-    it('should return null user when not authenticated', () => {
+    it('should return null user when not authenticated', async () => {
       const mockContext = createMockAuthContext({
         isAuthenticated: false,
         user: null,
       });
-      const { result } = renderHook(() => useAuth(), {
+      const { result } = await renderHook(() => useAuth(), {
         wrapper: createWrapper(mockContext),
       });
 
       expect(result.current.user).toBeNull();
     });
 
-    it('should return intendedRoute', () => {
+    it('should return intendedRoute', async () => {
       const mockContext = createMockAuthContext({ intendedRoute: 'BookACall' });
-      const { result } = renderHook(() => useAuth(), {
+      const { result } = await renderHook(() => useAuth(), {
         wrapper: createWrapper(mockContext),
       });
 
       expect(result.current.intendedRoute).toBe('BookACall');
     });
 
-    it('should return setIntendedRoute function', () => {
+    it('should return setIntendedRoute function', async () => {
       const setIntendedRoute = jest.fn();
       const mockContext = createMockAuthContext({ setIntendedRoute });
-      const { result } = renderHook(() => useAuth(), {
+      const { result } = await renderHook(() => useAuth(), {
         wrapper: createWrapper(mockContext),
       });
 
@@ -109,10 +109,10 @@ describe('useAuth', () => {
       expect(setIntendedRoute).toHaveBeenCalledWith('Profile');
     });
 
-    it('should return clearIntendedRoute function', () => {
+    it('should return clearIntendedRoute function', async () => {
       const clearIntendedRoute = jest.fn();
       const mockContext = createMockAuthContext({ clearIntendedRoute });
-      const { result } = renderHook(() => useAuth(), {
+      const { result } = await renderHook(() => useAuth(), {
         wrapper: createWrapper(mockContext),
       });
 
@@ -123,22 +123,22 @@ describe('useAuth', () => {
   });
 
   describe('when used outside AuthProvider', () => {
-    it('should throw error', () => {
+    it('should throw error', async () => {
       // Suppress console.error for this test as React will log the error
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      expect(() => {
-        renderHook(() => useAuth());
-      }).toThrow('useAuth must be used within an AuthProvider');
+      await expect(renderHook(() => useAuth())).rejects.toThrow(
+        'useAuth must be used within an AuthProvider'
+      );
 
       consoleSpy.mockRestore();
     });
   });
 
   describe('context value updates', () => {
-    it('should reflect updated authentication state', () => {
+    it('should reflect updated authentication state', async () => {
       const initialContext = createMockAuthContext({ isAuthenticated: false });
-      const { result, rerender } = renderHook(() => useAuth(), {
+      const { result, rerender } = await renderHook(() => useAuth(), {
         wrapper: createWrapper(initialContext),
       });
 
@@ -146,7 +146,7 @@ describe('useAuth', () => {
 
       // Simulate context update by creating a new wrapper
       const updatedContext = createMockAuthContext({ isAuthenticated: true });
-      rerender({ wrapper: createWrapper(updatedContext) });
+      await rerender({ wrapper: createWrapper(updatedContext) });
 
       // Note: In a real scenario, the context update would trigger re-render
       // This test verifies the hook returns what the context provides

@@ -18,24 +18,24 @@ describe('RootNavigator', () => {
     consoleErrorSpy.mockRestore();
   });
 
-  it('renders without throwing errors', () => {
-    expect(() => renderWithProviders(<RootNavigator />)).not.toThrow();
+  it('renders without throwing errors', async () => {
+    await expect(renderWithProviders(<RootNavigator />)).resolves.toBeDefined();
   });
 
-  it('renders complete component tree', () => {
-    const result = renderWithProviders(<RootNavigator />);
+  it('renders complete component tree', async () => {
+    const result = await renderWithProviders(<RootNavigator />);
     expectRendersSuccessfully(result);
   });
 
-  it('renders NavigationContainer with Stack Navigator structure', () => {
-    const result = renderWithProviders(<RootNavigator />);
+  it('renders NavigationContainer with Stack Navigator structure', async () => {
+    const result = await renderWithProviders(<RootNavigator />);
 
     // Check that the navigator structure is rendered and accessible
     expectRendersSuccessfully(result);
   });
 
-  it('initialises translation hook for screen titles', () => {
-    const result = renderWithProviders(<RootNavigator />);
+  it('initialises translation hook for screen titles', async () => {
+    const result = await renderWithProviders(<RootNavigator />);
 
     // Component renders which means useTranslation was called
     expectRendersSuccessfully(result);

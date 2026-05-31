@@ -42,9 +42,9 @@ describe('DetailListGroup', () => {
       },
     });
 
-  it('renders all items correctly', () => {
+  it('renders all items correctly', async () => {
     const store = createMockStore();
-    render(
+    await render(
       <Provider store={store}>
         <DetailListGroup items={mockItems} />
       </Provider>
@@ -55,7 +55,7 @@ describe('DetailListGroup', () => {
     expect(screen.getByText('Test Item 2')).toBeOnTheScreen();
   });
 
-  it('calls onPress when item is tapped', () => {
+  it('calls onPress when item is tapped', async () => {
     const store = createMockStore();
     const onPressMock = jest.fn();
     const items: DetailListGroupItem[] = [
@@ -68,19 +68,19 @@ describe('DetailListGroup', () => {
       },
     ];
 
-    render(
+    await render(
       <Provider store={store}>
         <DetailListGroup items={items} />
       </Provider>
     );
 
-    fireEvent.press(screen.getByTestId('clickable-item'));
+    await fireEvent.press(screen.getByTestId('clickable-item'));
     expect(onPressMock).toHaveBeenCalledTimes(1);
   });
 
-  it('supports accessibility labels', () => {
+  it('supports accessibility labels', async () => {
     const store = createMockStore();
-    render(
+    await render(
       <Provider store={store}>
         <DetailListGroup
           items={[
@@ -101,9 +101,9 @@ describe('DetailListGroup', () => {
     expect(screen.getByLabelText('Senior Engineer at Sky')).toBeOnTheScreen();
   });
 
-  it('uses label as default accessibility label when not specified', () => {
+  it('uses label as default accessibility label when not specified', async () => {
     const store = createMockStore();
-    render(
+    await render(
       <Provider store={store}>
         <DetailListGroup
           items={[
@@ -123,9 +123,9 @@ describe('DetailListGroup', () => {
     expect(screen.getByLabelText('Default Label Item')).toBeOnTheScreen();
   });
 
-  it('has accessibilityRole button when onPress is provided', () => {
+  it('has accessibilityRole button when onPress is provided', async () => {
     const store = createMockStore();
-    render(
+    await render(
       <Provider store={store}>
         <DetailListGroup
           items={[
@@ -145,7 +145,7 @@ describe('DetailListGroup', () => {
     expect(screen.getByTestId('pressable-item')).toBeOnTheScreen();
   });
 
-  it('renders badge chips when provided and hides chevron when showChevron is false', () => {
+  it('renders badge chips when provided and hides chevron when showChevron is false', async () => {
     const store = createMockStore();
     const items: DetailListGroupItem[] = [
       {
@@ -159,7 +159,7 @@ describe('DetailListGroup', () => {
       },
     ];
 
-    render(
+    await render(
       <Provider store={store}>
         <DetailListGroup items={items} />
       </Provider>
@@ -168,9 +168,9 @@ describe('DetailListGroup', () => {
     expect(screen.getByText('3')).toBeOnTheScreen();
   });
 
-  it('displays loading indicator when loading', () => {
+  it('displays loading indicator when loading', async () => {
     const store = createMockStore();
-    render(
+    await render(
       <Provider store={store}>
         <DetailListGroup items={mockItems} loading />
       </Provider>
@@ -180,10 +180,10 @@ describe('DetailListGroup', () => {
     expect(screen.queryByText('Test Item 1')).not.toBeOnTheScreen();
   });
 
-  it('displays error message when error exists', () => {
+  it('displays error message when error exists', async () => {
     const store = createMockStore();
     const errorMessage = 'Failed to load data';
-    render(
+    await render(
       <Provider store={store}>
         <DetailListGroup items={mockItems} error={errorMessage} />
       </Provider>
@@ -193,9 +193,9 @@ describe('DetailListGroup', () => {
     expect(screen.queryByText('Test Item 1')).not.toBeOnTheScreen();
   });
 
-  it('renders dividers between items', () => {
+  it('renders dividers between items', async () => {
     const store = createMockStore();
-    render(
+    await render(
       <Provider store={store}>
         <DetailListGroup items={mockItems} />
       </Provider>
@@ -205,9 +205,9 @@ describe('DetailListGroup', () => {
     // Verify via snapshot
   });
 
-  it('matches snapshot for light mode', () => {
+  it('matches snapshot for light mode', async () => {
     const store = createMockStore();
-    const { toJSON } = render(
+    const { toJSON } = await render(
       <Provider store={store}>
         <DetailListGroup items={mockItems} />
       </Provider>
@@ -216,7 +216,7 @@ describe('DetailListGroup', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('interactive items can receive focus', () => {
+    it('interactive items can receive focus', async () => {
       const store = createMockStore();
       const items: DetailListGroupItem[] = [
         {
@@ -228,7 +228,7 @@ describe('DetailListGroup', () => {
         },
       ];
 
-      render(
+      await render(
         <Provider store={store}>
           <DetailListGroup items={items} />
         </Provider>
@@ -239,7 +239,7 @@ describe('DetailListGroup', () => {
       expect(item.props.accessible).not.toBe(false);
     });
 
-    it('items with onPress have button role', () => {
+    it('items with onPress have button role', async () => {
       const store = createMockStore();
       const items: DetailListGroupItem[] = [
         {
@@ -251,7 +251,7 @@ describe('DetailListGroup', () => {
         },
       ];
 
-      render(
+      await render(
         <Provider store={store}>
           <DetailListGroup items={items} />
         </Provider>
@@ -261,7 +261,7 @@ describe('DetailListGroup', () => {
       expect(item.props.accessibilityRole).toBe('button');
     });
 
-    it('all items have accessible labels', () => {
+    it('all items have accessible labels', async () => {
       const store = createMockStore();
       const items: DetailListGroupItem[] = [
         {
@@ -279,7 +279,7 @@ describe('DetailListGroup', () => {
         },
       ];
 
-      render(
+      await render(
         <Provider store={store}>
           <DetailListGroup items={items} />
         </Provider>
@@ -291,7 +291,7 @@ describe('DetailListGroup', () => {
       expect(screen.getByLabelText('Custom Label')).toBeOnTheScreen();
     });
 
-    it('interactive items meet minimum touch target requirements', () => {
+    it('interactive items meet minimum touch target requirements', async () => {
       const store = createMockStore();
       const items: DetailListGroupItem[] = [
         {
@@ -303,7 +303,7 @@ describe('DetailListGroup', () => {
         },
       ];
 
-      render(
+      await render(
         <Provider store={store}>
           <DetailListGroup items={items} />
         </Provider>

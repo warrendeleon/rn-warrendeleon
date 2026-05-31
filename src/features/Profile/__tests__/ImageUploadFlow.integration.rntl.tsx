@@ -167,7 +167,7 @@ describe('Image Upload Flow Integration', () => {
         () => new Promise(() => {}) // Never resolves
       );
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       expect(screen.getByText('Checking photo...')).toBeOnTheScreen();
     });
@@ -179,7 +179,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -196,7 +196,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -213,7 +213,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -232,7 +232,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -249,7 +249,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -276,7 +276,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -285,7 +285,7 @@ describe('Image Upload Flow Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(screen.getByTestId('profile-picture-preview-retry-button'));
+      await fireEvent.press(screen.getByTestId('profile-picture-preview-retry-button'));
 
       await waitFor(
         () => {
@@ -303,7 +303,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -320,7 +320,7 @@ describe('Image Upload Flow Integration', () => {
       });
 
       // User picks new image (mocked to succeed)
-      fireEvent.press(screen.getByTestId('profile-picture-preview-retry-button'));
+      await fireEvent.press(screen.getByTestId('profile-picture-preview-retry-button'));
 
       await waitFor(
         () => {
@@ -347,7 +347,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -363,7 +363,7 @@ describe('Image Upload Flow Integration', () => {
     });
 
     it('preview retry button has accessible props', async () => {
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -377,7 +377,7 @@ describe('Image Upload Flow Integration', () => {
     });
 
     it('preview image has accessible alt text', async () => {
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -405,7 +405,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -416,7 +416,7 @@ describe('Image Upload Flow Integration', () => {
     });
 
     it('retry button meets touch target requirements', async () => {
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -443,7 +443,7 @@ describe('Image Upload Flow Integration', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -537,7 +537,7 @@ describe('Image Upload Flow - Camera Source', () => {
   });
 
   it('opens camera when retry is pressed for camera source', async () => {
-    render(<ProfilePicturePreviewScreen />);
+    await render(<ProfilePicturePreviewScreen />);
 
     await waitFor(
       () => {
@@ -546,7 +546,7 @@ describe('Image Upload Flow - Camera Source', () => {
       { timeout: 3000, interval: 100 }
     );
 
-    fireEvent.press(screen.getByTestId('profile-picture-preview-retry-button'));
+    await fireEvent.press(screen.getByTestId('profile-picture-preview-retry-button'));
 
     await waitFor(
       () => {

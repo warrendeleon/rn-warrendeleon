@@ -102,8 +102,8 @@ describe('Password Reset Flow Integration', () => {
   });
 
   describe('Forgot Password Screen - email entry flow', () => {
-    it('should render forgot password screen', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should render forgot password screen', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen
           navigation={mockForgotPasswordNavigation}
           route={forgotPasswordRoute}
@@ -114,7 +114,7 @@ describe('Password Reset Flow Integration', () => {
     });
 
     it('should complete email entry and enable submission', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen
           navigation={mockForgotPasswordNavigation}
           route={forgotPasswordRoute}
@@ -126,7 +126,7 @@ describe('Password Reset Flow Integration', () => {
       expect(submitButton.props.accessibilityState?.disabled).toBe(true);
 
       // Step 2: Enter valid email
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
 
       // Step 3: Button should now be enabled
       await waitFor(
@@ -138,7 +138,7 @@ describe('Password Reset Flow Integration', () => {
     });
 
     it('should keep button disabled for invalid email', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen
           navigation={mockForgotPasswordNavigation}
           route={forgotPasswordRoute}
@@ -146,7 +146,7 @@ describe('Password Reset Flow Integration', () => {
       );
 
       // Enter invalid email
-      fireEvent.changeText(getByTestId('email-input'), 'invalid-email');
+      await fireEvent.changeText(getByTestId('email-input'), 'invalid-email');
 
       // Button should remain disabled
       await waitFor(
@@ -158,21 +158,21 @@ describe('Password Reset Flow Integration', () => {
       );
     });
 
-    it('should navigate back to login', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should navigate back to login', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen
           navigation={mockForgotPasswordNavigation}
           route={forgotPasswordRoute}
         />
       );
 
-      fireEvent.press(getByTestId('back-to-login-link'));
+      await fireEvent.press(getByTestId('back-to-login-link'));
 
       expect(mockForgotPasswordNavigation.goBack).toHaveBeenCalled();
     });
 
-    it('should disable form during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should disable form during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen
           navigation={mockForgotPasswordNavigation}
           route={forgotPasswordRoute}
@@ -196,8 +196,8 @@ describe('Password Reset Flow Integration', () => {
   });
 
   describe('Reset Password Screen - new password flow', () => {
-    it('should render reset password screen', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should render reset password screen', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockResetPasswordNavigation} route={resetPasswordRoute} />
       );
 
@@ -205,7 +205,7 @@ describe('Password Reset Flow Integration', () => {
     });
 
     it('should validate new password requirements', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockResetPasswordNavigation} route={resetPasswordRoute} />
       );
 
@@ -215,8 +215,8 @@ describe('Password Reset Flow Integration', () => {
       expect(submitButton.props.accessibilityState?.disabled).toBe(true);
 
       // Enter matching strong passwords
-      fireEvent.changeText(getByTestId('new-password-input'), 'NewSecurePass123!');
-      fireEvent.changeText(getByTestId('confirm-password-input'), 'NewSecurePass123!');
+      await fireEvent.changeText(getByTestId('new-password-input'), 'NewSecurePass123!');
+      await fireEvent.changeText(getByTestId('confirm-password-input'), 'NewSecurePass123!');
 
       // Button should be enabled
       await waitFor(
@@ -228,12 +228,12 @@ describe('Password Reset Flow Integration', () => {
     });
 
     it('should reject mismatched passwords', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockResetPasswordNavigation} route={resetPasswordRoute} />
       );
 
-      fireEvent.changeText(getByTestId('new-password-input'), 'NewSecurePass123!');
-      fireEvent.changeText(getByTestId('confirm-password-input'), 'DifferentPass456!');
+      await fireEvent.changeText(getByTestId('new-password-input'), 'NewSecurePass123!');
+      await fireEvent.changeText(getByTestId('confirm-password-input'), 'DifferentPass456!');
 
       await waitFor(
         () => {
@@ -245,12 +245,12 @@ describe('Password Reset Flow Integration', () => {
     });
 
     it('should reject weak passwords', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockResetPasswordNavigation} route={resetPasswordRoute} />
       );
 
-      fireEvent.changeText(getByTestId('new-password-input'), 'weak');
-      fireEvent.changeText(getByTestId('confirm-password-input'), 'weak');
+      await fireEvent.changeText(getByTestId('new-password-input'), 'weak');
+      await fireEvent.changeText(getByTestId('confirm-password-input'), 'weak');
 
       await waitFor(
         () => {
@@ -261,8 +261,8 @@ describe('Password Reset Flow Integration', () => {
       );
     });
 
-    it('should disable form during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should disable form during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockResetPasswordNavigation} route={resetPasswordRoute} />,
         {
           preloadedState: {
@@ -283,8 +283,8 @@ describe('Password Reset Flow Integration', () => {
   });
 
   describe('accessibility throughout reset flow', () => {
-    it('should have correct focus order on forgot password screen', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have correct focus order on forgot password screen', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen
           navigation={mockForgotPasswordNavigation}
           route={forgotPasswordRoute}
@@ -298,8 +298,8 @@ describe('Password Reset Flow Integration', () => {
       expectFocusOrder([emailInput, submitButton, backLink]);
     });
 
-    it('should have proper accessibility roles on forgot password screen', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have proper accessibility roles on forgot password screen', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen
           navigation={mockForgotPasswordNavigation}
           route={forgotPasswordRoute}
@@ -313,16 +313,16 @@ describe('Password Reset Flow Integration', () => {
 
   describe('form field chaining', () => {
     it('should support keyboard flow on reset password screen', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockResetPasswordNavigation} route={resetPasswordRoute} />
       );
 
       // Fill password and use submitEditing to move to confirm
-      fireEvent.changeText(getByTestId('new-password-input'), 'NewSecurePass123!');
-      fireEvent(getByTestId('new-password-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('new-password-input'), 'NewSecurePass123!');
+      await fireEvent(getByTestId('new-password-input'), 'submitEditing');
 
       // Fill confirm password
-      fireEvent.changeText(getByTestId('confirm-password-input'), 'NewSecurePass123!');
+      await fireEvent.changeText(getByTestId('confirm-password-input'), 'NewSecurePass123!');
 
       // Form should be valid
       await waitFor(
@@ -337,7 +337,7 @@ describe('Password Reset Flow Integration', () => {
 
   describe('error recovery', () => {
     it('should allow form editing after entering email', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen
           navigation={mockForgotPasswordNavigation}
           route={forgotPasswordRoute}
@@ -345,7 +345,7 @@ describe('Password Reset Flow Integration', () => {
       );
 
       // User enters email
-      fireEvent.changeText(getByTestId('email-input'), 'retry@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'retry@example.com');
 
       // Form should still work
       expect(screen.getByDisplayValue('retry@example.com')).toBeOnTheScreen();

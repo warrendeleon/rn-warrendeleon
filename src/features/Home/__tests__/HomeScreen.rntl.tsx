@@ -34,29 +34,29 @@ describe('HomeScreen', () => {
   });
 
   describe('rendering', () => {
-    it('renders home screen with correct testID', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('renders home screen with correct testID', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expect(getByTestId('home-screen')).toBeOnTheScreen();
     });
 
-    it('renders all Work & Learning buttons', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('renders all Work & Learning buttons', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expect(getByTestId('home-work-experience-button')).toBeOnTheScreen();
       expect(getByTestId('home-education-button')).toBeOnTheScreen();
       expect(getByTestId('home-cv-button')).toBeOnTheScreen();
     });
 
-    it('renders all Contact buttons', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('renders all Contact buttons', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expect(getByTestId('home-contact-me-button')).toBeOnTheScreen();
       expect(getByTestId('home-book-a-call-button')).toBeOnTheScreen();
     });
 
-    it('renders Settings section buttons', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('renders Settings section buttons', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expect(getByTestId('home-github-button')).toBeOnTheScreen();
       expect(getByTestId('home-settings-button')).toBeOnTheScreen();
@@ -64,44 +64,44 @@ describe('HomeScreen', () => {
   });
 
   describe('navigation - user interactions', () => {
-    it('navigates to Settings when settings button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('navigates to Settings when settings button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-settings-button'));
+      await fireEvent.press(getByTestId('home-settings-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('Settings');
     });
 
-    it('navigates to WebView with GitHub URI when github button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('navigates to WebView with GitHub URI when github button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-github-button'));
+      await fireEvent.press(getByTestId('home-github-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('WebView', {
         uri: 'https://github.com/warrendeleon/rn-warrendeleon',
       });
     });
 
-    it('navigates to WorkExperience when work experience button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('navigates to WorkExperience when work experience button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-work-experience-button'));
+      await fireEvent.press(getByTestId('home-work-experience-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('WorkExperience');
     });
 
-    it('navigates to Education when education button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('navigates to Education when education button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-education-button'));
+      await fireEvent.press(getByTestId('home-education-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('Education');
     });
 
-    it('navigates to PDF with CV URL when CV button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('navigates to PDF with CV URL when CV button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-cv-button'));
+      await fireEvent.press(getByTestId('home-cv-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('PDF', {
         uri: 'https://warrendeleon.com/wp-content/uploads/2025/06/CV_WARRENDELEON_2025.pdf',
@@ -109,24 +109,24 @@ describe('HomeScreen', () => {
       });
     });
 
-    it('navigates to ChatPlaceholder when contact me button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('navigates to ChatPlaceholder when contact me button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-contact-me-button'));
+      await fireEvent.press(getByTestId('home-contact-me-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('ChatPlaceholder');
     });
 
-    it('navigates to BookingPlaceholder when book a call button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('navigates to BookingPlaceholder when book a call button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-book-a-call-button'));
+      await fireEvent.press(getByTestId('home-book-a-call-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('BookingPlaceholder');
     });
 
-    it('navigates to Profile when profile card is pressed', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+    it('navigates to Profile when profile card is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -150,29 +150,29 @@ describe('HomeScreen', () => {
         },
       });
 
-      fireEvent.press(getByTestId('profile-card'));
+      await fireEvent.press(getByTestId('profile-card'));
 
       expect(mockNavigate).toHaveBeenCalledWith('Profile');
     });
   });
 
   describe('accessibility', () => {
-    it('has accessible screen label', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('has accessible screen label', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       const screen = getByTestId('home-screen');
       expect(screen.props.accessibilityLabel).toBeDefined();
     });
 
-    it('has accessible section headers', () => {
-      const { getAllByRole } = renderWithProviders(<HomeScreen />);
+    it('has accessible section headers', async () => {
+      const { getAllByRole } = await renderWithProviders(<HomeScreen />);
 
       const headers = getAllByRole('header');
       expect(headers.length).toBeGreaterThanOrEqual(3);
     });
 
-    it('all buttons are rendered and accessible', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('all buttons are rendered and accessible', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       // All buttons should be accessible
       expect(getByTestId('home-work-experience-button')).toBeOnTheScreen();
@@ -186,8 +186,8 @@ describe('HomeScreen', () => {
   });
 
   describe('focus order for screen readers', () => {
-    it('should have correct focus order for Work & Learning section', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('should have correct focus order for Work & Learning section', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       const workExperience = getByTestId('home-work-experience-button');
       const education = getByTestId('home-education-button');
@@ -196,8 +196,8 @@ describe('HomeScreen', () => {
       expectFocusOrder([workExperience, education, cv]);
     });
 
-    it('should have correct focus order for Contact section', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('should have correct focus order for Contact section', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       const contactMe = getByTestId('home-contact-me-button');
       const bookACall = getByTestId('home-book-a-call-button');
@@ -205,50 +205,50 @@ describe('HomeScreen', () => {
       expectFocusOrder([contactMe, bookACall]);
     });
 
-    it('should have focusable work experience button', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('should have focusable work experience button', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expectCanReceiveFocus(getByTestId('home-work-experience-button'));
     });
 
-    it('should have focusable education button', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('should have focusable education button', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expectCanReceiveFocus(getByTestId('home-education-button'));
     });
 
-    it('should have focusable cv button', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('should have focusable cv button', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expectCanReceiveFocus(getByTestId('home-cv-button'));
     });
 
-    it('should have focusable contact me button', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('should have focusable contact me button', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expectCanReceiveFocus(getByTestId('home-contact-me-button'));
     });
 
-    it('should have focusable book a call button', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('should have focusable book a call button', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expectCanReceiveFocus(getByTestId('home-book-a-call-button'));
     });
 
-    it('should have focusable github button', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('should have focusable github button', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expectCanReceiveFocus(getByTestId('home-github-button'));
     });
 
-    it('should have focusable settings button', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+    it('should have focusable settings button', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       expectCanReceiveFocus(getByTestId('home-settings-button'));
     });
 
-    it('should have focusable profile card when profile data exists', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+    it('should have focusable profile card when profile data exists', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -277,8 +277,8 @@ describe('HomeScreen', () => {
   });
 
   describe('ProfileCard', () => {
-    it('renders ProfileCard when profile data exists', () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+    it('renders ProfileCard when profile data exists', async () => {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -306,8 +306,8 @@ describe('HomeScreen', () => {
       expect(getByTestId('profile-card')).toBeOnTheScreen();
     });
 
-    it('does not render ProfileCard when profile data is null', () => {
-      const { queryByTestId, getByTestId } = renderWithProviders(<HomeScreen />, {
+    it('does not render ProfileCard when profile data is null', async () => {
+      const { queryByTestId, getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: null,
@@ -337,8 +337,8 @@ describe('HomeScreen', () => {
       expect(queryByTestId('profile-card')).toBeNull();
     });
 
-    it('still renders all menu sections when profile is loading', () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<HomeScreen />, {
+    it('still renders all menu sections when profile is loading', async () => {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: null,
@@ -370,8 +370,8 @@ describe('HomeScreen', () => {
       expect(queryByTestId('profile-card')).toBeNull();
     });
 
-    it('still renders all menu sections when profile has error', () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<HomeScreen />, {
+    it('still renders all menu sections when profile has error', async () => {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: null,

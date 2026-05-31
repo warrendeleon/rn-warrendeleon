@@ -14,7 +14,7 @@ describe('PickerGroup', () => {
       mockUseColorScheme.mockReset();
     });
 
-    it('renders a single item with label text in light mode', () => {
+    it('renders a single item with label text in light mode', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const items = [
@@ -24,12 +24,12 @@ describe('PickerGroup', () => {
         },
       ];
 
-      const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+      const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
       expect(getByText('Single Item')).toBeOnTheScreen();
     });
 
-    it('renders multiple items with label text in dark mode', () => {
+    it('renders multiple items with label text in dark mode', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const items = [
@@ -38,14 +38,14 @@ describe('PickerGroup', () => {
         { label: 'Third Item', onPress: jest.fn() },
       ];
 
-      const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+      const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
       expect(getByText('First Item')).toBeOnTheScreen();
       expect(getByText('Second Item')).toBeOnTheScreen();
       expect(getByText('Third Item')).toBeOnTheScreen();
     });
 
-    it('shows check mark for selected item only', () => {
+    it('shows check mark for selected item only', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const items = [
@@ -63,7 +63,7 @@ describe('PickerGroup', () => {
         },
       ];
 
-      const { getByText, getAllByText } = renderWithProviders(<PickerGroup items={items} />);
+      const { getByText, getAllByText } = await renderWithProviders(<PickerGroup items={items} />);
 
       expect(getByText('Selected Item')).toBeOnTheScreen();
       expect(getByText('Unselected Item')).toBeOnTheScreen();
@@ -71,7 +71,7 @@ describe('PickerGroup', () => {
       expect(getAllByText('✓')).toHaveLength(1);
     });
 
-    it('renders with two items (top and bottom variants)', () => {
+    it('renders with two items (top and bottom variants)', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const items = [
@@ -79,13 +79,13 @@ describe('PickerGroup', () => {
         { label: 'Last', onPress: jest.fn() },
       ];
 
-      const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+      const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
       expect(getByText('First')).toBeOnTheScreen();
       expect(getByText('Last')).toBeOnTheScreen();
     });
 
-    it('renders with four items (top, middle, middle, bottom)', () => {
+    it('renders with four items (top, middle, middle, bottom)', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const items = [
@@ -95,7 +95,7 @@ describe('PickerGroup', () => {
         { label: 'Bottom Item', onPress: jest.fn() },
       ];
 
-      const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+      const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
       expect(getByText('Top Item')).toBeOnTheScreen();
       expect(getByText('Middle 1')).toBeOnTheScreen();
@@ -104,7 +104,7 @@ describe('PickerGroup', () => {
     });
 
     describe('Selection State Logic', () => {
-      it('shows check mark when item is selected', () => {
+      it('shows check mark when item is selected', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -116,13 +116,13 @@ describe('PickerGroup', () => {
           },
         ];
 
-        const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Selected Option')).toBeOnTheScreen();
         expect(getByText('✓')).toBeOnTheScreen();
       });
 
-      it('does not show check mark when item is not selected', () => {
+      it('does not show check mark when item is not selected', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -134,13 +134,13 @@ describe('PickerGroup', () => {
           },
         ];
 
-        const { getByText, queryByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText, queryByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Unselected Option')).toBeOnTheScreen();
         expect(queryByText('✓')).not.toBeOnTheScreen();
       });
 
-      it('shows correct number of check marks for mixed selection states', () => {
+      it('shows correct number of check marks for mixed selection states', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -149,13 +149,13 @@ describe('PickerGroup', () => {
           { label: 'Option 3', onPress: jest.fn(), isSelected: true },
         ];
 
-        const { getAllByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getAllByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         // Two items selected = two check marks
         expect(getAllByText('✓')).toHaveLength(2);
       });
 
-      it('shows no check marks when all items are unselected', () => {
+      it('shows no check marks when all items are unselected', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -163,12 +163,12 @@ describe('PickerGroup', () => {
           { label: 'Option 2', onPress: jest.fn(), isSelected: false },
         ];
 
-        const { queryByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { queryByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(queryByText('✓')).not.toBeOnTheScreen();
       });
 
-      it('shows check marks for all items when all are selected', () => {
+      it('shows check marks for all items when all are selected', async () => {
         mockUseColorScheme.mockReturnValue('dark');
 
         const items = [
@@ -177,12 +177,12 @@ describe('PickerGroup', () => {
           { label: 'Option 3', onPress: jest.fn(), isSelected: true },
         ];
 
-        const { getAllByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getAllByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getAllByText('✓')).toHaveLength(3);
       });
 
-      it('defaults to no check mark when isSelected is undefined', () => {
+      it('defaults to no check mark when isSelected is undefined', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -193,7 +193,7 @@ describe('PickerGroup', () => {
           },
         ];
 
-        const { getByText, queryByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText, queryByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Option without isSelected')).toBeOnTheScreen();
         expect(queryByText('✓')).not.toBeOnTheScreen();
@@ -201,7 +201,7 @@ describe('PickerGroup', () => {
     });
 
     describe('Event Handlers', () => {
-      it('calls onPress when item is pressed', () => {
+      it('calls onPress when item is pressed', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const mockOnPress = jest.fn();
@@ -213,14 +213,14 @@ describe('PickerGroup', () => {
           },
         ];
 
-        const { getByTestId } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByTestId } = await renderWithProviders(<PickerGroup items={items} />);
 
-        fireEvent.press(getByTestId('pressable-button'));
+        await fireEvent.press(getByTestId('pressable-button'));
 
         expect(mockOnPress).toHaveBeenCalledTimes(1);
       });
 
-      it('calls correct onPress handler for each item', () => {
+      it('calls correct onPress handler for each item', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const mockOnPress1 = jest.fn();
@@ -233,9 +233,9 @@ describe('PickerGroup', () => {
           { label: 'Button 3', onPress: mockOnPress3, testID: 'button-3' },
         ];
 
-        const { getByTestId } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByTestId } = await renderWithProviders(<PickerGroup items={items} />);
 
-        fireEvent.press(getByTestId('button-2'));
+        await fireEvent.press(getByTestId('button-2'));
 
         expect(mockOnPress1).not.toHaveBeenCalled();
         expect(mockOnPress2).toHaveBeenCalledTimes(1);
@@ -247,17 +247,17 @@ describe('PickerGroup', () => {
       // GroupVariant is calculated by getButtonGroupVariant based on position
       // These tests verify the component renders correctly with different list sizes
 
-      it('renders single item (single variant)', () => {
+      it('renders single item (single variant)', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [{ label: 'Single Item', onPress: jest.fn(), testID: 'single-item' }];
 
-        const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Single Item')).toBeOnTheScreen();
       });
 
-      it('renders two items (top and bottom variants)', () => {
+      it('renders two items (top and bottom variants)', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -265,13 +265,13 @@ describe('PickerGroup', () => {
           { label: 'Second Item', onPress: jest.fn() },
         ];
 
-        const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('First Item')).toBeOnTheScreen();
         expect(getByText('Second Item')).toBeOnTheScreen();
       });
 
-      it('renders three items (top, middle, bottom variants)', () => {
+      it('renders three items (top, middle, bottom variants)', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -280,14 +280,14 @@ describe('PickerGroup', () => {
           { label: 'Bottom Item', onPress: jest.fn() },
         ];
 
-        const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Top Item')).toBeOnTheScreen();
         expect(getByText('Middle Item')).toBeOnTheScreen();
         expect(getByText('Bottom Item')).toBeOnTheScreen();
       });
 
-      it('renders five items (multiple middle variants)', () => {
+      it('renders five items (multiple middle variants)', async () => {
         mockUseColorScheme.mockReturnValue('dark');
 
         const items = [
@@ -298,7 +298,7 @@ describe('PickerGroup', () => {
           { label: 'Item 5', onPress: jest.fn() },
         ];
 
-        const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Item 1')).toBeOnTheScreen();
         expect(getByText('Item 2')).toBeOnTheScreen();
@@ -312,18 +312,18 @@ describe('PickerGroup', () => {
       // Dividers are rendered between items using ButtonGroupDivider
       // The logic: !isLastItem && <ButtonGroupDivider />
 
-      it('renders single item without divider', () => {
+      it('renders single item without divider', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [{ label: 'Single Item', onPress: jest.fn() }];
 
-        const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Single Item')).toBeOnTheScreen();
         // Dividers don't have testIDs, but we can verify the component rendered
       });
 
-      it('renders multiple items with labels visible', () => {
+      it('renders multiple items with labels visible', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -332,7 +332,7 @@ describe('PickerGroup', () => {
           { label: 'Third Item', onPress: jest.fn() },
         ];
 
-        const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('First Item')).toBeOnTheScreen();
         expect(getByText('Second Item')).toBeOnTheScreen();
@@ -341,28 +341,28 @@ describe('PickerGroup', () => {
     });
 
     describe('Edge Cases', () => {
-      it('renders empty list without crashing', () => {
+      it('renders empty list without crashing', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items: never[] = [];
 
-        const { queryByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { queryByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         // Empty list should render nothing
         expect(queryByText('Item')).not.toBeOnTheScreen();
       });
 
-      it('renders items without testID using label text', () => {
+      it('renders items without testID using label text', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [{ label: 'Item without testID', onPress: jest.fn() }];
 
-        const { getByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Item without testID')).toBeOnTheScreen();
       });
 
-      it('renders with all props and shows check mark', () => {
+      it('renders with all props and shows check mark', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const mockOnPress = jest.fn();
@@ -375,25 +375,25 @@ describe('PickerGroup', () => {
           },
         ];
 
-        const { getByText, getByTestId } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText, getByTestId } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Complete Props')).toBeOnTheScreen();
         expect(getByText('✓')).toBeOnTheScreen();
         expect(getByTestId('complete-props-button')).toBeOnTheScreen();
       });
 
-      it('renders items with minimal props', () => {
+      it('renders items with minimal props', async () => {
         mockUseColorScheme.mockReturnValue('dark');
 
         const items = [{ label: 'Minimal Props', onPress: jest.fn() }];
 
-        const { getByText, queryByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText, queryByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Minimal Props')).toBeOnTheScreen();
         expect(queryByText('✓')).not.toBeOnTheScreen();
       });
 
-      it('renders large list (10 items) with correct selection', () => {
+      it('renders large list (10 items) with correct selection', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = Array.from({ length: 10 }, (_, i) => ({
@@ -402,7 +402,7 @@ describe('PickerGroup', () => {
           isSelected: i % 3 === 0, // Items 1, 4, 7, 10 selected
         }));
 
-        const { getByText, getAllByText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByText, getAllByText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByText('Item 1')).toBeOnTheScreen();
         expect(getByText('Item 10')).toBeOnTheScreen();
@@ -412,7 +412,7 @@ describe('PickerGroup', () => {
     });
 
     describe('Accessibility', () => {
-      it('items have accessible labels', () => {
+      it('items have accessible labels', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -420,7 +420,7 @@ describe('PickerGroup', () => {
           { label: 'Spanish', onPress: jest.fn(), isSelected: false },
         ];
 
-        const { getByLabelText } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByLabelText } = await renderWithProviders(<PickerGroup items={items} />);
 
         expect(getByLabelText('English, selected')).toBeOnTheScreen();
         expect(getByLabelText('Spanish')).toBeOnTheScreen();
@@ -428,7 +428,7 @@ describe('PickerGroup', () => {
     });
 
     describe('EAA Accessibility Compliance', () => {
-      it('all items have accessible touch targets (44×44 minimum)', () => {
+      it('all items have accessible touch targets (44×44 minimum)', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -437,14 +437,14 @@ describe('PickerGroup', () => {
           { label: 'Option 3', onPress: jest.fn(), testID: 'option-3' },
         ];
 
-        const { getByTestId } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByTestId } = await renderWithProviders(<PickerGroup items={items} />);
 
         expectMinTouchTarget(getByTestId('option-1'));
         expectMinTouchTarget(getByTestId('option-2'));
         expectMinTouchTarget(getByTestId('option-3'));
       });
 
-      it('has correct focus order for picker items', () => {
+      it('has correct focus order for picker items', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
@@ -453,19 +453,19 @@ describe('PickerGroup', () => {
           { label: 'Third', onPress: jest.fn(), testID: 'third' },
         ];
 
-        const { getByTestId } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByTestId } = await renderWithProviders(<PickerGroup items={items} />);
 
         expectFocusOrder([getByTestId('first'), getByTestId('second'), getByTestId('third')]);
       });
 
-      it('selected items maintain accessible touch targets', () => {
+      it('selected items maintain accessible touch targets', async () => {
         mockUseColorScheme.mockReturnValue('light');
 
         const items = [
           { label: 'Selected', onPress: jest.fn(), isSelected: true, testID: 'selected-item' },
         ];
 
-        const { getByTestId } = renderWithProviders(<PickerGroup items={items} />);
+        const { getByTestId } = await renderWithProviders(<PickerGroup items={items} />);
 
         expectMinTouchTarget(getByTestId('selected-item'));
       });

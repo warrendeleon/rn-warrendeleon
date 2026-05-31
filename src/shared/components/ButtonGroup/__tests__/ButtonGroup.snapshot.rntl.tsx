@@ -26,41 +26,41 @@ const renderTestItem = (item: TestItem, groupVariant: GroupVariant, index: numbe
 
 describe('ButtonGroup Snapshots', () => {
   describe('Item Count Variants', () => {
-    it('renders single item correctly', () => {
+    it('renders single item correctly', async () => {
       const items: TestItem[] = [{ id: '1', label: 'Single Item' }];
 
-      const { toJSON } = renderWithProviders(
+      const { toJSON } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={renderTestItem} />
       );
       expect(toJSON()).toMatchSnapshot('ButtonGroup - Single Item');
     });
 
-    it('renders two items correctly', () => {
+    it('renders two items correctly', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First Item' },
         { id: '2', label: 'Second Item' },
       ];
 
-      const { toJSON } = renderWithProviders(
+      const { toJSON } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={renderTestItem} />
       );
       expect(toJSON()).toMatchSnapshot('ButtonGroup - Two Items');
     });
 
-    it('renders three items correctly', () => {
+    it('renders three items correctly', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First Item' },
         { id: '2', label: 'Middle Item' },
         { id: '3', label: 'Last Item' },
       ];
 
-      const { toJSON } = renderWithProviders(
+      const { toJSON } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={renderTestItem} />
       );
       expect(toJSON()).toMatchSnapshot('ButtonGroup - Three Items');
     });
 
-    it('renders many items correctly', () => {
+    it('renders many items correctly', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'Item 1' },
         { id: '2', label: 'Item 2' },
@@ -69,16 +69,16 @@ describe('ButtonGroup Snapshots', () => {
         { id: '5', label: 'Item 5' },
       ];
 
-      const { toJSON } = renderWithProviders(
+      const { toJSON } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={renderTestItem} />
       );
       expect(toJSON()).toMatchSnapshot('ButtonGroup - Five Items');
     });
 
-    it('renders empty list correctly', () => {
+    it('renders empty list correctly', async () => {
       const items: TestItem[] = [];
 
-      const { toJSON } = renderWithProviders(
+      const { toJSON } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={renderTestItem} />
       );
       expect(toJSON()).toMatchSnapshot('ButtonGroup - Empty');
@@ -86,51 +86,51 @@ describe('ButtonGroup Snapshots', () => {
   });
 
   describe('Content Variants', () => {
-    it('renders with long labels', () => {
+    it('renders with long labels', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'This is a very long label that might wrap to multiple lines' },
         { id: '2', label: 'Another extraordinarily long label for testing purposes' },
       ];
 
-      const { toJSON } = renderWithProviders(
+      const { toJSON } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={renderTestItem} />
       );
       expect(toJSON()).toMatchSnapshot('ButtonGroup - Long Labels');
     });
 
-    it('renders with special characters', () => {
+    it('renders with special characters', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'Configuración 🔧' },
         { id: '2', label: 'Información & Ayuda' },
         { id: '3', label: 'Términos <Legal>' },
       ];
 
-      const { toJSON } = renderWithProviders(
+      const { toJSON } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={renderTestItem} />
       );
       expect(toJSON()).toMatchSnapshot('ButtonGroup - Special Characters');
     });
 
-    it('renders with Unicode characters', () => {
+    it('renders with Unicode characters', async () => {
       const items: TestItem[] = [
         { id: '1', label: '設定' },
         { id: '2', label: 'Настройки' },
         { id: '3', label: 'הגדרות' },
       ];
 
-      const { toJSON } = renderWithProviders(
+      const { toJSON } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={renderTestItem} />
       );
       expect(toJSON()).toMatchSnapshot('ButtonGroup - Unicode Labels');
     });
 
-    it('renders with empty labels', () => {
+    it('renders with empty labels', async () => {
       const items: TestItem[] = [
         { id: '1', label: '' },
         { id: '2', label: '' },
       ];
 
-      const { toJSON } = renderWithProviders(
+      const { toJSON } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={renderTestItem} />
       );
       expect(toJSON()).toMatchSnapshot('ButtonGroup - Empty Labels');
@@ -145,11 +145,11 @@ describe('ButtonGroup Snapshot Consistency', () => {
     { id: '3', label: 'Third' },
   ];
 
-  it('produces consistent output between renders', () => {
-    const { toJSON: toJSON1 } = renderWithProviders(
+  it('produces consistent output between renders', async () => {
+    const { toJSON: toJSON1 } = await renderWithProviders(
       <ButtonGroup items={testItems} renderItem={renderTestItem} />
     );
-    const { toJSON: toJSON2 } = renderWithProviders(
+    const { toJSON: toJSON2 } = await renderWithProviders(
       <ButtonGroup items={testItems} renderItem={renderTestItem} />
     );
 
@@ -157,7 +157,7 @@ describe('ButtonGroup Snapshot Consistency', () => {
     expect(JSON.stringify(toJSON1())).toBe(JSON.stringify(toJSON2()));
   });
 
-  it('item order affects output', () => {
+  it('item order affects output', async () => {
     const forwardItems: TestItem[] = [
       { id: '1', label: 'A' },
       { id: '2', label: 'B' },
@@ -167,10 +167,10 @@ describe('ButtonGroup Snapshot Consistency', () => {
       { id: '1', label: 'A' },
     ];
 
-    const { toJSON: forwardJSON } = renderWithProviders(
+    const { toJSON: forwardJSON } = await renderWithProviders(
       <ButtonGroup items={forwardItems} renderItem={renderTestItem} />
     );
-    const { toJSON: reverseJSON } = renderWithProviders(
+    const { toJSON: reverseJSON } = await renderWithProviders(
       <ButtonGroup items={reverseItems} renderItem={renderTestItem} />
     );
 

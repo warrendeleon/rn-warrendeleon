@@ -131,7 +131,7 @@ describe('WorkExperienceClientsScreen', () => {
   });
 
   describe('loading state', () => {
-    it('displays loading spinner when loading is true', () => {
+    it('displays loading spinner when loading is true', async () => {
       const store = mockStore({
         workExperience: {
           data: [],
@@ -144,7 +144,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -154,7 +154,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(getByTestId('loading-spinner')).toBeOnTheScreen();
     });
 
-    it('does not display empty state when loading', () => {
+    it('does not display empty state when loading', async () => {
       const store = mockStore({
         workExperience: {
           data: [],
@@ -167,7 +167,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { queryByTestId } = render(
+      const { queryByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -178,7 +178,7 @@ describe('WorkExperienceClientsScreen', () => {
   });
 
   describe('error state', () => {
-    it('displays error message when error exists', () => {
+    it('displays error message when error exists', async () => {
       const store = mockStore({
         workExperience: {
           data: [],
@@ -191,7 +191,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId, getByText } = render(
+      const { getByTestId, getByText } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -201,7 +201,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(getByText('Failed to load work experience data')).toBeOnTheScreen();
     });
 
-    it('does not display empty state when error exists', () => {
+    it('does not display empty state when error exists', async () => {
       const store = mockStore({
         workExperience: {
           data: [],
@@ -214,7 +214,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { queryByTestId } = render(
+      const { queryByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -223,7 +223,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(queryByTestId('work-experience-clients-empty-state')).toBeNull();
     });
 
-    it('does not display loading spinner when error exists', () => {
+    it('does not display loading spinner when error exists', async () => {
       const store = mockStore({
         workExperience: {
           data: [],
@@ -236,7 +236,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { queryByTestId } = render(
+      const { queryByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -247,7 +247,7 @@ describe('WorkExperienceClientsScreen', () => {
   });
 
   describe('initial render', () => {
-    it('renders clients list from work experience', () => {
+    it('renders clients list from work experience', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -260,7 +260,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -270,7 +270,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(getByTestId('items-container')).toBeOnTheScreen();
     });
 
-    it('sets navigation title to company name', () => {
+    it('sets navigation title to company name', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -283,7 +283,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -296,7 +296,7 @@ describe('WorkExperienceClientsScreen', () => {
   });
 
   describe('client items rendering', () => {
-    it('renders client position items with correct details', () => {
+    it('renders client position items with correct details', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -309,7 +309,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId, getByText } = render(
+      const { getByTestId, getByText } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -321,7 +321,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(getByText('Lead Developer')).toBeOnTheScreen();
     });
 
-    it('renders client names in subtitle', () => {
+    it('renders client names in subtitle', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -334,7 +334,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByText } = render(
+      const { getByText } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -344,7 +344,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(getByText(/Client B/)).toBeOnTheScreen();
     });
 
-    it('renders date ranges in subtitle', () => {
+    it('renders date ranges in subtitle', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -357,7 +357,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByText } = render(
+      const { getByText } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -372,7 +372,7 @@ describe('WorkExperienceClientsScreen', () => {
   });
 
   describe('navigation to details', () => {
-    it('navigates to WorkExperienceDetails when client item is tapped', () => {
+    it('navigates to WorkExperienceDetails when client item is tapped', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -385,21 +385,21 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
       );
 
       const clientItem = getByTestId('work-experience-clients-item-pos-1');
-      fireEvent.press(clientItem);
+      await fireEvent.press(clientItem);
 
       expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
         workExperienceId: 'pos-1',
       });
     });
 
-    it('navigates with correct position ID for each client', () => {
+    it('navigates with correct position ID for each client', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -412,14 +412,14 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
       );
 
       const firstClient = getByTestId('work-experience-clients-item-pos-1');
-      fireEvent.press(firstClient);
+      await fireEvent.press(firstClient);
 
       expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
         workExperienceId: 'pos-1',
@@ -428,7 +428,7 @@ describe('WorkExperienceClientsScreen', () => {
       mockNavigate.mockClear();
 
       const secondClient = getByTestId('work-experience-clients-item-pos-2');
-      fireEvent.press(secondClient);
+      await fireEvent.press(secondClient);
 
       expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', {
         workExperienceId: 'pos-2',
@@ -437,7 +437,7 @@ describe('WorkExperienceClientsScreen', () => {
   });
 
   describe('empty state', () => {
-    it('displays empty state when no client positions', () => {
+    it('displays empty state when no client positions', async () => {
       const emptyWorkExperience: WorkExperience = {
         id: mockWorkExperienceId,
         company: 'Tech Company',
@@ -456,7 +456,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -465,7 +465,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(getByTestId('work-experience-clients-empty-state')).toBeOnTheScreen();
     });
 
-    it('does not display empty state when clients exist', () => {
+    it('does not display empty state when clients exist', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -478,7 +478,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { queryByTestId } = render(
+      const { queryByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -489,7 +489,7 @@ describe('WorkExperienceClientsScreen', () => {
   });
 
   describe('accessibility - EAA compliance', () => {
-    it('has correct accessibility labels for client items', () => {
+    it('has correct accessibility labels for client items', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -502,7 +502,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -513,7 +513,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(firstItem.props.accessibilityRole).toBe('button');
     });
 
-    it('has accessibility hints for navigation', () => {
+    it('has accessibility hints for navigation', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -526,7 +526,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -538,7 +538,7 @@ describe('WorkExperienceClientsScreen', () => {
   });
 
   describe('theme support', () => {
-    it('renders with light theme background', () => {
+    it('renders with light theme background', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -551,7 +551,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -561,7 +561,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(screen).toBeOnTheScreen();
     });
 
-    it('renders with dark theme background', () => {
+    it('renders with dark theme background', async () => {
       const store = mockStore({
         workExperience: {
           data: [mockWorkExperienceWithClients],
@@ -574,7 +574,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -586,7 +586,7 @@ describe('WorkExperienceClientsScreen', () => {
   });
 
   describe('edge cases', () => {
-    it('handles work experience not found', () => {
+    it('handles work experience not found', async () => {
       const store = mockStore({
         workExperience: {
           data: [],
@@ -599,7 +599,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -608,7 +608,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(getByTestId('work-experience-clients-empty-state')).toBeOnTheScreen();
     });
 
-    it('handles null work experience data', () => {
+    it('handles null work experience data', async () => {
       const store = mockStore({
         workExperience: {
           data: [],
@@ -621,7 +621,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>
@@ -630,7 +630,7 @@ describe('WorkExperienceClientsScreen', () => {
       expect(getByTestId('work-experience-clients-empty-state')).toBeOnTheScreen();
     });
 
-    it('filters out positions without clients', () => {
+    it('filters out positions without clients', async () => {
       const mixedWorkExperience: WorkExperience = {
         id: mockWorkExperienceId,
         company: 'Tech Company',
@@ -673,7 +673,7 @@ describe('WorkExperienceClientsScreen', () => {
         },
       });
 
-      const { getByTestId, queryByTestId, getByText } = render(
+      const { getByTestId, queryByTestId, getByText } = await render(
         <Provider store={store}>
           <WorkExperienceClientsScreen route={mockRoute} />
         </Provider>

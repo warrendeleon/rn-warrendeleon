@@ -52,7 +52,7 @@ const mockProfile: Profile = {
   },
 };
 
-const renderProfileScreen = (state: {
+const renderProfileScreen = async (state: {
   data: Profile | null;
   loading: boolean;
   error: string | null;
@@ -62,7 +62,7 @@ const renderProfileScreen = (state: {
     settings: { theme: 'light', language: 'en' },
   });
 
-  return render(
+  return await render(
     <Provider store={store}>
       <ProfileScreen />
     </Provider>
@@ -81,7 +81,7 @@ describe('Profile Race Conditions', () => {
 
   describe('concurrent fetch requests', () => {
     it('should handle rapid data fetches without crashing', async () => {
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -90,8 +90,8 @@ describe('Profile Race Conditions', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should display loading state during data fetch', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should display loading state during data fetch', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: null,
         loading: true,
         error: null,
@@ -102,7 +102,7 @@ describe('Profile Race Conditions', () => {
 
     it('should handle loading to data transition', async () => {
       // Start with loading state
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: null,
         loading: true,
         error: null,
@@ -116,7 +116,7 @@ describe('Profile Race Conditions', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -133,10 +133,10 @@ describe('Profile Race Conditions', () => {
   });
 
   describe('request cancellation on unmount', () => {
-    it('should handle unmount during loading state', () => {
+    it('should handle unmount during loading state', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderProfileScreen({
+      const { unmount, getByTestId } = await renderProfileScreen({
         data: null,
         loading: true,
         error: null,
@@ -145,7 +145,7 @@ describe('Profile Race Conditions', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // Unmount during loading
-      unmount();
+      await unmount();
 
       // Advance timers
       jest.runAllTimers();
@@ -159,18 +159,18 @@ describe('Profile Race Conditions', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should handle rapid mount/unmount cycles', () => {
+    it('should handle rapid mount/unmount cycles', async () => {
       for (let i = 0; i < 5; i++) {
-        const { unmount } = renderProfileScreen({
+        const { unmount } = await renderProfileScreen({
           data: mockProfile,
           loading: false,
           error: null,
         });
-        unmount();
+        await unmount();
       }
 
       // Final mount should work correctly
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -179,8 +179,8 @@ describe('Profile Race Conditions', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should not crash when state changes after unmount', () => {
-      const { unmount, getByTestId } = renderProfileScreen({
+    it('should not crash when state changes after unmount', async () => {
+      const { unmount, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -198,7 +198,7 @@ describe('Profile Race Conditions', () => {
 
   describe('state transitions during async flow', () => {
     it('should handle null to data transition', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: null,
         loading: false,
         error: null,
@@ -212,7 +212,7 @@ describe('Profile Race Conditions', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -227,7 +227,7 @@ describe('Profile Race Conditions', () => {
     });
 
     it('should handle data to error transition', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -241,7 +241,7 @@ describe('Profile Race Conditions', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -252,7 +252,7 @@ describe('Profile Race Conditions', () => {
     });
 
     it('should handle error to data recovery', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: null,
         loading: false,
         error: 'Network error',
@@ -266,7 +266,7 @@ describe('Profile Race Conditions', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -281,7 +281,7 @@ describe('Profile Race Conditions', () => {
     });
 
     it('should handle rapid state changes', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: null,
         loading: true,
         error: null,
@@ -295,7 +295,7 @@ describe('Profile Race Conditions', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={loadingStore}>
             <ProfileScreen />
           </Provider>
@@ -306,7 +306,7 @@ describe('Profile Race Conditions', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={loadedStore}>
             <ProfileScreen />
           </Provider>
@@ -320,7 +320,7 @@ describe('Profile Race Conditions', () => {
 
   describe('profile data refresh consistency', () => {
     it('should handle profile update with different data', async () => {
-      const { rerender, getByText } = renderProfileScreen({
+      const { rerender, getByText } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -335,7 +335,7 @@ describe('Profile Race Conditions', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -349,14 +349,14 @@ describe('Profile Race Conditions', () => {
       );
     });
 
-    it('should handle partial profile data', () => {
+    it('should handle partial profile data', async () => {
       const partialProfile = {
         ...mockProfile,
         socials: undefined,
         galleryImages: [],
       };
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: partialProfile as unknown as Profile,
         loading: false,
         error: null,
@@ -365,7 +365,7 @@ describe('Profile Race Conditions', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle profile with null nested fields', () => {
+    it('should handle profile with null nested fields', async () => {
       const profileWithNulls = {
         ...mockProfile,
         location: {
@@ -374,7 +374,7 @@ describe('Profile Race Conditions', () => {
         },
       };
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: profileWithNulls,
         loading: false,
         error: null,
@@ -386,7 +386,7 @@ describe('Profile Race Conditions', () => {
 
   describe('concurrent store updates', () => {
     it('should handle settings change during profile load', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -398,7 +398,7 @@ describe('Profile Race Conditions', () => {
         settings: { theme: 'dark', language: 'es' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -410,7 +410,7 @@ describe('Profile Race Conditions', () => {
     });
 
     it('should handle multiple slice updates simultaneously', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: null,
         loading: true,
         error: null,
@@ -422,7 +422,7 @@ describe('Profile Race Conditions', () => {
         settings: { theme: 'dark', language: 'es' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>

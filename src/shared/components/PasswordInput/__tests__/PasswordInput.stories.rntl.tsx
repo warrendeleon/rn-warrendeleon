@@ -15,63 +15,63 @@ import * as stories from '../PasswordInput.stories';
 type PasswordInputProps = ComponentProps<typeof PasswordInput>;
 
 describe('PasswordInput Stories', () => {
-  it('renders Default story with placeholder', () => {
+  it('renders Default story with placeholder', async () => {
     const { args } = stories.Default;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PasswordInput {...(args as PasswordInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/password/i)).toBeOnTheScreen();
   });
 
-  it('renders WithValue story with masked input', () => {
+  it('renders WithValue story with masked input', async () => {
     const { args } = stories.WithValue;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PasswordInput {...(args as PasswordInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/password/i)).toBeOnTheScreen();
   });
 
-  it('renders NewPassword story with new password placeholder', () => {
+  it('renders NewPassword story with new password placeholder', async () => {
     const { args } = stories.NewPassword;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PasswordInput {...(args as PasswordInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/password/i)).toBeOnTheScreen();
   });
 
-  it('renders WithError story with error message', () => {
+  it('renders WithError story with error message', async () => {
     const { args } = stories.WithError;
-    const { getByText } = renderWithProviders(
+    const { getByText } = await renderWithProviders(
       <PasswordInput {...(args as PasswordInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByText('Password must be at least 8 characters')).toBeOnTheScreen();
   });
 
-  it('renders InGroupTop story with top variant', () => {
+  it('renders InGroupTop story with top variant', async () => {
     const { args } = stories.InGroupTop;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PasswordInput {...(args as PasswordInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/password/i)).toBeOnTheScreen();
   });
 
-  it('renders InGroupBottom story with bottom variant', () => {
+  it('renders InGroupBottom story with bottom variant', async () => {
     const { args } = stories.InGroupBottom;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PasswordInput {...(args as PasswordInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/password/i)).toBeOnTheScreen();
   });
 
-  it('renders PasswordGroup story with multiple fields', () => {
+  it('renders PasswordGroup story with multiple fields', async () => {
     const StoryComponent = stories.PasswordGroup.render as React.FC;
-    const { getAllByPlaceholderText } = renderWithProviders(<StoryComponent />);
+    const { getAllByPlaceholderText } = await renderWithProviders(<StoryComponent />);
     expect(getAllByPlaceholderText(/password/i).length).toBeGreaterThan(0);
   });
 
-  it('renders Disabled story with input disabled', () => {
+  it('renders Disabled story with input disabled', async () => {
     const { args } = stories.Disabled;
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <PasswordInput
         {...(args as PasswordInputProps)}
         onChangeText={jest.fn()}

@@ -78,8 +78,8 @@ describe('Session Flow Integration', () => {
       params: undefined,
     };
 
-    it('should display session expired message and allow re-login', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display session expired message and allow re-login', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -105,7 +105,7 @@ describe('Session Flow Integration', () => {
     });
 
     it('should allow form entry after session expiry', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -121,8 +121,8 @@ describe('Session Flow Integration', () => {
       );
 
       // Enter credentials
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Form should be valid
       await waitFor(
@@ -134,8 +134,8 @@ describe('Session Flow Integration', () => {
       );
     });
 
-    it('should handle 401 unauthorized gracefully', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle 401 unauthorized gracefully', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -163,8 +163,8 @@ describe('Session Flow Integration', () => {
       params: undefined,
     };
 
-    it('should handle token refresh failure', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle token refresh failure', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -183,24 +183,24 @@ describe('Session Flow Integration', () => {
       expect(getByText('Unable to refresh session. Please sign in again.')).toBeOnTheScreen();
 
       // Form should be functional
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
       expect(screen.getByDisplayValue('user@example.com')).toBeOnTheScreen();
     });
 
     it('should preserve form state during loading', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Verify values are there
       expect(screen.getByDisplayValue('user@example.com')).toBeOnTheScreen();
 
       // Re-render (simulating state update)
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Form state should be preserved
       expect(screen.getByDisplayValue('user@example.com')).toBeOnTheScreen();
@@ -215,8 +215,8 @@ describe('Session Flow Integration', () => {
       params: undefined,
     };
 
-    it('should show clean login screen after logout', () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(
+    it('should show clean login screen after logout', async () => {
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -242,8 +242,8 @@ describe('Session Flow Integration', () => {
       expect(emailInput.props.value).toBeFalsy();
     });
 
-    it('should display logout confirmation message if provided', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display logout confirmation message if provided', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -272,8 +272,8 @@ describe('Session Flow Integration', () => {
       params: undefined,
     };
 
-    it('should recognise biometric enabled state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should recognise biometric enabled state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -292,8 +292,8 @@ describe('Session Flow Integration', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle biometric session expiry', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle biometric session expiry', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -321,8 +321,8 @@ describe('Session Flow Integration', () => {
       params: undefined,
     };
 
-    it('should handle logged in elsewhere error', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle logged in elsewhere error', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -353,7 +353,7 @@ describe('Session Flow Integration', () => {
     };
 
     it('should allow retry after network error during session check', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -373,8 +373,8 @@ describe('Session Flow Integration', () => {
       expect(getByText('Network error. Please check your connection.')).toBeOnTheScreen();
 
       // User can retry by filling form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -385,8 +385,8 @@ describe('Session Flow Integration', () => {
       );
     });
 
-    it('should handle timeout during session validation', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle timeout during session validation', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -414,8 +414,8 @@ describe('Session Flow Integration', () => {
       params: undefined,
     };
 
-    it('should announce error messages to screen readers', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should announce error messages to screen readers', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -435,8 +435,8 @@ describe('Session Flow Integration', () => {
       expect(errorMessage).toBeOnTheScreen();
     });
 
-    it('should maintain proper accessibility state during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should maintain proper accessibility state during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -465,8 +465,8 @@ describe('Session Flow Integration', () => {
       params: undefined,
     };
 
-    it('should handle session invalidation after privilege escalation attempt', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle session invalidation after privilege escalation attempt', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -491,8 +491,8 @@ describe('Session Flow Integration', () => {
       expect(getByTestId('password-input')).toBeOnTheScreen();
     });
 
-    it('should handle session device mismatch error', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle session device mismatch error', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -513,8 +513,8 @@ describe('Session Flow Integration', () => {
       ).toBeOnTheScreen();
     });
 
-    it('should handle concurrent session limit exceeded', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle concurrent session limit exceeded', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -536,7 +536,7 @@ describe('Session Flow Integration', () => {
     });
 
     it('should handle session timeout warning state', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -555,8 +555,8 @@ describe('Session Flow Integration', () => {
       expect(getByText('Your session will expire soon. Please save your work.')).toBeOnTheScreen();
     });
 
-    it('should handle forced logout due to inactivity', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle forced logout due to inactivity', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -575,8 +575,8 @@ describe('Session Flow Integration', () => {
       expect(getByText('You have been signed out due to inactivity.')).toBeOnTheScreen();
     });
 
-    it('should handle secure storage unavailable error', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle secure storage unavailable error', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -595,8 +595,8 @@ describe('Session Flow Integration', () => {
       expect(getByText('Secure storage unavailable. Please restart the app.')).toBeOnTheScreen();
     });
 
-    it('should handle session hijack detection', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle session hijack detection', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -618,7 +618,7 @@ describe('Session Flow Integration', () => {
     });
 
     it('should allow form interaction after security-related logout', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -634,8 +634,8 @@ describe('Session Flow Integration', () => {
       );
 
       // User should be able to enter credentials and attempt re-login
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -646,8 +646,8 @@ describe('Session Flow Integration', () => {
       );
     });
 
-    it('should handle token tampering detection', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle token tampering detection', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -666,8 +666,8 @@ describe('Session Flow Integration', () => {
       expect(getByText('Authentication token invalid. Please sign in again.')).toBeOnTheScreen();
     });
 
-    it('should handle server-side session revocation', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle server-side session revocation', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {

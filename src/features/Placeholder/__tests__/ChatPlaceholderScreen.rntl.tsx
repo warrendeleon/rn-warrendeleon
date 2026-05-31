@@ -13,10 +13,10 @@ describe('ChatPlaceholderScreen', () => {
   });
 
   describe('Basic Rendering', () => {
-    it('renders chat placeholder with title and coming soon message', () => {
+    it('renders chat placeholder with title and coming soon message', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
+      const { getByTestId } = await renderWithProviders(<ChatPlaceholderScreen />);
 
       // Verify main container and key content elements render
       expect(getByTestId('chat-placeholder-screen')).toBeOnTheScreen();
@@ -26,30 +26,30 @@ describe('ChatPlaceholderScreen', () => {
   });
 
   describe('Content Display', () => {
-    it('renders title text', () => {
+    it('renders title text', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
+      const { getByTestId } = await renderWithProviders(<ChatPlaceholderScreen />);
 
       const title = getByTestId('chat-placeholder-title');
       expect(title).toBeOnTheScreen();
       expect(title.props.children).toBe('Contact Me');
     });
 
-    it('renders coming soon text', () => {
+    it('renders coming soon text', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
+      const { getByTestId } = await renderWithProviders(<ChatPlaceholderScreen />);
 
       const comingSoon = getByTestId('chat-placeholder-coming-soon');
       expect(comingSoon).toBeOnTheScreen();
       expect(comingSoon.props.children).toBe('Coming Soon');
     });
 
-    it('renders description text', () => {
+    it('renders description text', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
+      const { getByTestId } = await renderWithProviders(<ChatPlaceholderScreen />);
 
       const description = getByTestId('chat-placeholder-description');
       expect(description).toBeOnTheScreen();
@@ -60,40 +60,40 @@ describe('ChatPlaceholderScreen', () => {
   });
 
   describe('Theme Support', () => {
-    it('renders correctly in light theme', () => {
+    it('renders correctly in light theme', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
+      const { getByTestId } = await renderWithProviders(<ChatPlaceholderScreen />);
 
       expect(getByTestId('chat-placeholder-screen')).toBeOnTheScreen();
     });
 
-    it('renders correctly in dark theme', () => {
+    it('renders correctly in dark theme', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
+      const { getByTestId } = await renderWithProviders(<ChatPlaceholderScreen />);
 
       expect(getByTestId('chat-placeholder-screen')).toBeOnTheScreen();
     });
   });
 
   describe('Accessibility', () => {
-    it('has correct accessibility label for screen', () => {
+    it('has correct accessibility label for screen', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<ChatPlaceholderScreen />);
+      const { getByTestId } = await renderWithProviders(<ChatPlaceholderScreen />);
 
       const screen = getByTestId('chat-placeholder-screen');
       expect(screen.props.accessibilityLabel).toBe('Contact Me');
     });
 
-    it('has accessibility elements hidden for icon container', () => {
+    it('has accessibility elements hidden for icon container', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { UNSAFE_root } = renderWithProviders(<ChatPlaceholderScreen />);
+      const { root } = await renderWithProviders(<ChatPlaceholderScreen />);
 
       // Icon container should have accessibilityElementsHidden set to true
-      expect(UNSAFE_root).toBeDefined();
+      expect(root).toBeDefined();
     });
   });
 });

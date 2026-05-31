@@ -25,8 +25,8 @@ describe('FormInputGroup Snapshots', () => {
       mockUseColorScheme.mockReturnValue('light');
     });
 
-    it('renders with title in light mode', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with title in light mode', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Account Details" testID="form-group">
           <Text>Input placeholder</Text>
         </FormInputGroup>
@@ -34,8 +34,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Light Mode With Title');
     });
 
-    it('renders without title in light mode', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders without title in light mode', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup testID="form-group">
           <Text>Input placeholder</Text>
         </FormInputGroup>
@@ -49,8 +49,8 @@ describe('FormInputGroup Snapshots', () => {
       mockUseColorScheme.mockReturnValue('dark');
     });
 
-    it('renders with title in dark mode', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with title in dark mode', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Account Details" testID="form-group">
           <Text>Input placeholder</Text>
         </FormInputGroup>
@@ -58,8 +58,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Dark Mode With Title');
     });
 
-    it('renders without title in dark mode', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders without title in dark mode', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup testID="form-group">
           <Text>Input placeholder</Text>
         </FormInputGroup>
@@ -73,8 +73,8 @@ describe('FormInputGroup Snapshots', () => {
       mockUseColorScheme.mockReturnValue('light');
     });
 
-    it('renders with short title', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with short title', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Info" testID="form-group">
           <Text>Content</Text>
         </FormInputGroup>
@@ -82,8 +82,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Short Title');
     });
 
-    it('renders with long title', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with long title', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Personal Information and Contact Details" testID="form-group">
           <Text>Content</Text>
         </FormInputGroup>
@@ -91,8 +91,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Long Title');
     });
 
-    it('renders with special characters in title', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with special characters in title', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Información Personal" testID="form-group">
           <Text>Content</Text>
         </FormInputGroup>
@@ -100,8 +100,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Special Characters Title');
     });
 
-    it('renders with lowercase title (gets uppercased)', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with lowercase title (gets uppercased)', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="account details" testID="form-group">
           <Text>Content</Text>
         </FormInputGroup>
@@ -115,8 +115,8 @@ describe('FormInputGroup Snapshots', () => {
       mockUseColorScheme.mockReturnValue('light');
     });
 
-    it('renders with default spacing', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with default spacing', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Default Spacing" testID="form-group">
           <Text>Content</Text>
         </FormInputGroup>
@@ -124,8 +124,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Default Spacing');
     });
 
-    it('renders with custom horizontal margin', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with custom horizontal margin', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Custom Margin" mx="$8" testID="form-group">
           <Text>Content</Text>
         </FormInputGroup>
@@ -133,8 +133,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Custom Horizontal Margin');
     });
 
-    it('renders with custom top margin', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with custom top margin', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Custom Top" mt="$10" testID="form-group">
           <Text>Content</Text>
         </FormInputGroup>
@@ -142,8 +142,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Custom Top Margin');
     });
 
-    it('renders with zero margins', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with zero margins', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Zero Margins" mx="$0" mt="$0" testID="form-group">
           <Text>Content</Text>
         </FormInputGroup>
@@ -157,8 +157,8 @@ describe('FormInputGroup Snapshots', () => {
       mockUseColorScheme.mockReturnValue('light');
     });
 
-    it('renders with single child', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with single child', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Single Child" testID="form-group">
           <Text>Single input</Text>
         </FormInputGroup>
@@ -166,8 +166,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Single Child');
     });
 
-    it('renders with multiple children', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with multiple children', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Multiple Children" testID="form-group">
           <Text>First input</Text>
           <Text>Second input</Text>
@@ -177,8 +177,8 @@ describe('FormInputGroup Snapshots', () => {
       expect(toJSON()).toMatchSnapshot('FormInputGroup - Multiple Children');
     });
 
-    it('renders with nested components', () => {
-      const { toJSON } = renderWithProviders(
+    it('renders with nested components', async () => {
+      const { toJSON } = await renderWithProviders(
         <FormInputGroup title="Nested" testID="form-group">
           <FormInputGroup testID="nested-group">
             <Text>Nested content</Text>
@@ -198,13 +198,13 @@ describe('FormInputGroup Snapshot Consistency', () => {
     mockUseColorScheme.mockReturnValue('light');
   });
 
-  it('produces consistent output between renders', () => {
-    const { toJSON: toJSON1 } = renderWithProviders(
+  it('produces consistent output between renders', async () => {
+    const { toJSON: toJSON1 } = await renderWithProviders(
       <FormInputGroup title="Test" testID="form-group">
         <Text>Content</Text>
       </FormInputGroup>
     );
-    const { toJSON: toJSON2 } = renderWithProviders(
+    const { toJSON: toJSON2 } = await renderWithProviders(
       <FormInputGroup title="Test" testID="form-group">
         <Text>Content</Text>
       </FormInputGroup>
@@ -214,16 +214,16 @@ describe('FormInputGroup Snapshot Consistency', () => {
     expect(JSON.stringify(toJSON1())).toBe(JSON.stringify(toJSON2()));
   });
 
-  it('light and dark modes produce different outputs', () => {
+  it('light and dark modes produce different outputs', async () => {
     mockUseColorScheme.mockReturnValue('light');
-    const { toJSON: lightJSON } = renderWithProviders(
+    const { toJSON: lightJSON } = await renderWithProviders(
       <FormInputGroup title="Test" testID="form-group">
         <Text>Content</Text>
       </FormInputGroup>
     );
 
     mockUseColorScheme.mockReturnValue('dark');
-    const { toJSON: darkJSON } = renderWithProviders(
+    const { toJSON: darkJSON } = await renderWithProviders(
       <FormInputGroup title="Test" testID="form-group">
         <Text>Content</Text>
       </FormInputGroup>

@@ -48,26 +48,26 @@ describe('LanguageScreen', () => {
   });
 
   describe('rendering', () => {
-    it('renders screen with correct testID', () => {
+    it('renders screen with correct testID', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />);
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />);
 
       expect(getByTestId('language-screen')).toBeOnTheScreen();
     });
 
-    it('renders section header', () => {
+    it('renders section header', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByRole } = renderWithProviders(<LanguageScreen />);
+      const { getByRole } = await renderWithProviders(<LanguageScreen />);
 
       expect(getByRole('header')).toBeOnTheScreen();
     });
 
-    it('renders all language options', () => {
+    it('renders all language options', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />);
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />);
 
       expect(getByTestId('language-option-en')).toBeOnTheScreen();
       expect(getByTestId('language-option-es')).toBeOnTheScreen();
@@ -76,10 +76,10 @@ describe('LanguageScreen', () => {
       expect(getByTestId('language-option-tl')).toBeOnTheScreen();
     });
 
-    it('renders language labels', () => {
+    it('renders language labels', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByText } = renderWithProviders(<LanguageScreen />);
+      const { getByText } = await renderWithProviders(<LanguageScreen />);
 
       expect(getByText('English')).toBeOnTheScreen();
       expect(getByText('Spanish')).toBeOnTheScreen();
@@ -90,10 +90,10 @@ describe('LanguageScreen', () => {
   });
 
   describe('language selection', () => {
-    it('shows English as selected by default', () => {
+    it('shows English as selected by default', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
@@ -102,10 +102,10 @@ describe('LanguageScreen', () => {
       expect(getByTestId('language-option-en')).toBeOnTheScreen();
     });
 
-    it('shows Spanish as selected when set', () => {
+    it('shows Spanish as selected when set', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'es' },
         },
@@ -117,13 +117,13 @@ describe('LanguageScreen', () => {
     it('dispatches setLanguage, changes i18n, and navigates back when language is selected', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, store } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
       });
 
-      fireEvent.press(getByTestId('language-option-es'));
+      await fireEvent.press(getByTestId('language-option-es'));
 
       await waitFor(
         () => {
@@ -143,13 +143,13 @@ describe('LanguageScreen', () => {
     it('updates Redux state when selecting Catalan', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, store } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
       });
 
-      fireEvent.press(getByTestId('language-option-ca'));
+      await fireEvent.press(getByTestId('language-option-ca'));
 
       await waitFor(
         () => {
@@ -162,13 +162,13 @@ describe('LanguageScreen', () => {
     it('updates Redux state when selecting Polish', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, store } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
       });
 
-      fireEvent.press(getByTestId('language-option-pl'));
+      await fireEvent.press(getByTestId('language-option-pl'));
 
       await waitFor(
         () => {
@@ -181,13 +181,13 @@ describe('LanguageScreen', () => {
     it('updates Redux state when selecting Tagalog', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, store } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
       });
 
-      fireEvent.press(getByTestId('language-option-tl'));
+      await fireEvent.press(getByTestId('language-option-tl'));
 
       await waitFor(
         () => {
@@ -200,13 +200,13 @@ describe('LanguageScreen', () => {
     it('calls i18n.changeLanguage with correct language code', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
       });
 
-      fireEvent.press(getByTestId('language-option-ca'));
+      await fireEvent.press(getByTestId('language-option-ca'));
 
       await waitFor(
         () => {
@@ -218,10 +218,10 @@ describe('LanguageScreen', () => {
   });
 
   describe('theme appearance', () => {
-    it('renders correctly in light mode', () => {
+    it('renders correctly in light mode', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
@@ -230,10 +230,10 @@ describe('LanguageScreen', () => {
       expect(getByTestId('language-screen')).toBeOnTheScreen();
     });
 
-    it('renders correctly in dark mode', () => {
+    it('renders correctly in dark mode', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'dark', language: 'en' },
         },
@@ -242,10 +242,10 @@ describe('LanguageScreen', () => {
       expect(getByTestId('language-screen')).toBeOnTheScreen();
     });
 
-    it('renders correctly with system theme in light mode', () => {
+    it('renders correctly with system theme in light mode', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'system', language: 'en' },
         },
@@ -254,10 +254,10 @@ describe('LanguageScreen', () => {
       expect(getByTestId('language-screen')).toBeOnTheScreen();
     });
 
-    it('renders correctly with system theme in dark mode', () => {
+    it('renders correctly with system theme in dark mode', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'system', language: 'en' },
         },
@@ -268,27 +268,27 @@ describe('LanguageScreen', () => {
   });
 
   describe('accessibility', () => {
-    it('has accessible screen label', () => {
+    it('has accessible screen label', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />);
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />);
 
       const screen = getByTestId('language-screen');
       expect(screen.props.accessibilityLabel).toBeDefined();
     });
 
-    it('has accessible header role for section title', () => {
+    it('has accessible header role for section title', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByRole } = renderWithProviders(<LanguageScreen />);
+      const { getByRole } = await renderWithProviders(<LanguageScreen />);
 
       expect(getByRole('header')).toBeOnTheScreen();
     });
 
-    it('language options are accessible via PickerGroup', () => {
+    it('language options are accessible via PickerGroup', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />);
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />);
 
       // All language options should be accessible
       expect(getByTestId('language-option-en')).toBeOnTheScreen();
@@ -298,10 +298,10 @@ describe('LanguageScreen', () => {
       expect(getByTestId('language-option-tl')).toBeOnTheScreen();
     });
 
-    it('has correct focus order for language options', () => {
+    it('has correct focus order for language options', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />);
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />);
 
       const english = getByTestId('language-option-en');
       const spanish = getByTestId('language-option-es');
@@ -312,10 +312,10 @@ describe('LanguageScreen', () => {
       expectFocusOrder([english, spanish, catalan, polish, tagalog]);
     });
 
-    it('all language options are focusable', () => {
+    it('all language options are focusable', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />);
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />);
 
       expectCanReceiveFocus(getByTestId('language-option-en'));
       expectCanReceiveFocus(getByTestId('language-option-es'));
@@ -329,7 +329,7 @@ describe('LanguageScreen', () => {
     it('maintains UI state during language switch', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, store } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
@@ -339,7 +339,7 @@ describe('LanguageScreen', () => {
       expect(getByTestId('language-screen')).toBeOnTheScreen();
 
       // Switch language
-      fireEvent.press(getByTestId('language-option-es'));
+      await fireEvent.press(getByTestId('language-option-es'));
 
       await waitFor(
         () => {
@@ -355,7 +355,7 @@ describe('LanguageScreen', () => {
     it('persists language preference in Redux after selection', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, store } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
@@ -365,7 +365,7 @@ describe('LanguageScreen', () => {
       expect(store.getState().settings.language).toBe('en');
 
       // Switch to Polish
-      fireEvent.press(getByTestId('language-option-pl'));
+      await fireEvent.press(getByTestId('language-option-pl'));
 
       await waitFor(
         () => {
@@ -381,16 +381,16 @@ describe('LanguageScreen', () => {
     it('handles rapid language switching', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, store } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
       });
 
       // Rapidly switch languages
-      fireEvent.press(getByTestId('language-option-es'));
-      fireEvent.press(getByTestId('language-option-ca'));
-      fireEvent.press(getByTestId('language-option-pl'));
+      await fireEvent.press(getByTestId('language-option-es'));
+      await fireEvent.press(getByTestId('language-option-ca'));
+      await fireEvent.press(getByTestId('language-option-pl'));
 
       await waitFor(
         () => {
@@ -404,14 +404,14 @@ describe('LanguageScreen', () => {
     it('syncs i18n with Redux on language change', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
       });
 
       // Change language
-      fireEvent.press(getByTestId('language-option-tl'));
+      await fireEvent.press(getByTestId('language-option-tl'));
 
       await waitFor(
         () => {
@@ -425,13 +425,13 @@ describe('LanguageScreen', () => {
     it('navigates back after successful language change', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: {
           settings: { theme: 'light', language: 'en' },
         },
       });
 
-      fireEvent.press(getByTestId('language-option-ca'));
+      await fireEvent.press(getByTestId('language-option-ca'));
 
       await waitFor(
         () => {

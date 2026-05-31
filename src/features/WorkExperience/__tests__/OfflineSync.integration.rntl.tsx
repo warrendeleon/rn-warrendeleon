@@ -134,7 +134,7 @@ const mockWorkExperienceData: WorkExperience[] = [
   },
 ];
 
-const renderWorkExperienceScreen = (state: {
+const renderWorkExperienceScreen = async (state: {
   data: WorkExperience[] | null;
   loading: boolean;
   error: string | null;
@@ -144,7 +144,7 @@ const renderWorkExperienceScreen = (state: {
     settings: { theme: 'light', language: 'en' },
   });
 
-  return render(
+  return await render(
     <Provider store={store}>
       <WorkExperienceScreen />
     </Provider>
@@ -162,8 +162,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
   });
 
   describe('offline state handling', () => {
-    it('should display cached work experience data when offline', () => {
-      const { getByTestId, getByText } = renderWorkExperienceScreen({
+    it('should display cached work experience data when offline', async () => {
+      const { getByTestId, getByText } = await renderWorkExperienceScreen({
         data: mockWorkExperienceData,
         loading: false,
         error: null,
@@ -175,8 +175,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
       expect(getByText('React Native Developer')).toBeOnTheScreen();
     });
 
-    it('should show loading state when no cached data and offline', () => {
-      const { getByTestId } = renderWorkExperienceScreen({
+    it('should show loading state when no cached data and offline', async () => {
+      const { getByTestId } = await renderWorkExperienceScreen({
         data: null,
         loading: true,
         error: null,
@@ -185,8 +185,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
       expect(getByTestId('loading-state')).toBeOnTheScreen();
     });
 
-    it('should display error when offline with no cached data', () => {
-      const { getByTestId } = renderWorkExperienceScreen({
+    it('should display error when offline with no cached data', async () => {
+      const { getByTestId } = await renderWorkExperienceScreen({
         data: null,
         loading: false,
         error: 'Network error',
@@ -196,8 +196,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
       expect(getByTestId('error-state')).toBeOnTheScreen();
     });
 
-    it('should show cached data when offline', () => {
-      const { getByTestId, getByText } = renderWorkExperienceScreen({
+    it('should show cached data when offline', async () => {
+      const { getByTestId, getByText } = await renderWorkExperienceScreen({
         data: mockWorkExperienceData,
         loading: false,
         error: null,
@@ -210,7 +210,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
 
   describe('network recovery transitions', () => {
     it('should handle transition from loading to data', async () => {
-      const { rerender, getByText } = renderWorkExperienceScreen({
+      const { rerender, getByText } = await renderWorkExperienceScreen({
         data: null,
         loading: true,
         error: null,
@@ -222,7 +222,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <WorkExperienceScreen />
         </Provider>
@@ -237,7 +237,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
     });
 
     it('should handle transition from error to data', async () => {
-      const { rerender, getByTestId, getByText } = renderWorkExperienceScreen({
+      const { rerender, getByTestId, getByText } = await renderWorkExperienceScreen({
         data: null,
         loading: false,
         error: 'Network error',
@@ -251,7 +251,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <WorkExperienceScreen />
         </Provider>
@@ -265,8 +265,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
       );
     });
 
-    it('should handle transition from data to error gracefully', () => {
-      const { rerender, getByTestId, getByText } = renderWorkExperienceScreen({
+    it('should handle transition from data to error gracefully', async () => {
+      const { rerender, getByTestId, getByText } = await renderWorkExperienceScreen({
         data: mockWorkExperienceData,
         loading: false,
         error: null,
@@ -280,7 +280,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <WorkExperienceScreen />
         </Provider>
@@ -292,19 +292,19 @@ describe('Offline Sync Integration - WorkExperience', () => {
   });
 
   describe('offline data persistence', () => {
-    it('should handle component remount with cached data', () => {
+    it('should handle component remount with cached data', async () => {
       // First mount
-      const { unmount, getByText } = renderWorkExperienceScreen({
+      const { unmount, getByText } = await renderWorkExperienceScreen({
         data: mockWorkExperienceData,
         loading: false,
         error: null,
       });
 
       expect(getByText('Senior React Native Developer')).toBeOnTheScreen();
-      unmount();
+      await unmount();
 
       // Remount with same cached data
-      const { getByText: getByTextNew } = renderWorkExperienceScreen({
+      const { getByText: getByTextNew } = await renderWorkExperienceScreen({
         data: mockWorkExperienceData,
         loading: false,
         error: null,
@@ -313,8 +313,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
       expect(getByTextNew('Senior React Native Developer')).toBeOnTheScreen();
     });
 
-    it('should preserve work experience state across rerenders', () => {
-      const { rerender, getByText } = renderWorkExperienceScreen({
+    it('should preserve work experience state across rerenders', async () => {
+      const { rerender, getByText } = await renderWorkExperienceScreen({
         data: mockWorkExperienceData,
         loading: false,
         error: null,
@@ -329,7 +329,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={store}>
             <WorkExperienceScreen />
           </Provider>
@@ -343,10 +343,10 @@ describe('Offline Sync Integration - WorkExperience', () => {
   });
 
   describe('MSW offline handler simulation', () => {
-    it('should handle offline response from MSW', () => {
+    it('should handle offline response from MSW', async () => {
       server.use(...offlineHandlers);
 
-      const { getByTestId } = renderWorkExperienceScreen({
+      const { getByTestId } = await renderWorkExperienceScreen({
         data: null,
         loading: false,
         error: 'Network error',
@@ -357,8 +357,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
   });
 
   describe('rapid network state changes', () => {
-    it('should handle rapid online/offline transitions', () => {
-      const { rerender, getByTestId } = renderWorkExperienceScreen({
+    it('should handle rapid online/offline transitions', async () => {
+      const { rerender, getByTestId } = await renderWorkExperienceScreen({
         data: mockWorkExperienceData,
         loading: false,
         error: null,
@@ -372,7 +372,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={offlineStore}>
             <WorkExperienceScreen />
           </Provider>
@@ -384,7 +384,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={onlineStore}>
             <WorkExperienceScreen />
           </Provider>
@@ -394,8 +394,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
       expect(getByTestId('work-experience-screen')).toBeOnTheScreen();
     });
 
-    it('should handle loading interrupted by offline', () => {
-      const { rerender, getByTestId } = renderWorkExperienceScreen({
+    it('should handle loading interrupted by offline', async () => {
+      const { rerender, getByTestId } = await renderWorkExperienceScreen({
         data: null,
         loading: true,
         error: null,
@@ -407,7 +407,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={errorStore}>
           <WorkExperienceScreen />
         </Provider>
@@ -418,7 +418,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
   });
 
   describe('partial data scenarios', () => {
-    it('should handle work experience with empty positions', () => {
+    it('should handle work experience with empty positions', async () => {
       const emptyPositionsData: WorkExperience[] = [
         {
           id: 'work-1',
@@ -428,7 +428,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
         },
       ];
 
-      const { getByTestId } = renderWorkExperienceScreen({
+      const { getByTestId } = await renderWorkExperienceScreen({
         data: emptyPositionsData,
         loading: false,
         error: null,
@@ -439,14 +439,14 @@ describe('Offline Sync Integration - WorkExperience', () => {
       expect(getByTestId('items-container')).toBeOnTheScreen();
     });
 
-    it('should handle single work experience entry', () => {
+    it('should handle single work experience entry', async () => {
       const firstEntry = mockWorkExperienceData[0];
       if (!firstEntry) {
         throw new Error('Mock data not available');
       }
       const singleEntry: WorkExperience[] = [firstEntry];
 
-      const { getByTestId, getByText, queryByText } = renderWorkExperienceScreen({
+      const { getByTestId, getByText, queryByText } = await renderWorkExperienceScreen({
         data: singleEntry,
         loading: false,
         error: null,
@@ -457,8 +457,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
       expect(queryByText('React Native Developer')).toBeNull();
     });
 
-    it('should handle empty work experience array', () => {
-      const { getByTestId } = renderWorkExperienceScreen({
+    it('should handle empty work experience array', async () => {
+      const { getByTestId } = await renderWorkExperienceScreen({
         data: [],
         loading: false,
         error: null,
@@ -469,8 +469,8 @@ describe('Offline Sync Integration - WorkExperience', () => {
   });
 
   describe('concurrent state updates', () => {
-    it('should handle settings change while offline', () => {
-      const { rerender, getByTestId } = renderWorkExperienceScreen({
+    it('should handle settings change while offline', async () => {
+      const { rerender, getByTestId } = await renderWorkExperienceScreen({
         data: mockWorkExperienceData,
         loading: false,
         error: 'Network error',
@@ -482,7 +482,7 @@ describe('Offline Sync Integration - WorkExperience', () => {
         settings: { theme: 'dark', language: 'es' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <WorkExperienceScreen />
         </Provider>

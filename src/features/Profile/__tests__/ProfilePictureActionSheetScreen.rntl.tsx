@@ -93,49 +93,49 @@ describe('ProfilePictureActionSheetScreen', () => {
   });
 
   describe('rendering', () => {
-    it('renders the action sheet container', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('renders the action sheet container', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       expect(screen.getByTestId('profile-picture-action-sheet')).toBeOnTheScreen();
     });
 
-    it('renders the backdrop', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('renders the backdrop', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       expect(screen.getByTestId('profile-picture-action-sheet-backdrop')).toBeOnTheScreen();
     });
 
-    it('renders the title', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('renders the title', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       expect(screen.getByTestId('profile-picture-action-sheet-title')).toBeOnTheScreen();
       expect(screen.getByText('Change Profile Picture')).toBeOnTheScreen();
     });
 
-    it('renders Take Photo option', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('renders Take Photo option', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       expect(screen.getByTestId('profile-picture-action-take-photo')).toBeOnTheScreen();
       expect(screen.getByText('Take Photo')).toBeOnTheScreen();
     });
 
-    it('renders Choose from Library option', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('renders Choose from Library option', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       expect(screen.getByTestId('profile-picture-action-choose-library')).toBeOnTheScreen();
       expect(screen.getByText('Choose from Library')).toBeOnTheScreen();
     });
 
-    it('does not render Remove Photo when no existing photo', () => {
+    it('does not render Remove Photo when no existing photo', async () => {
       mockParams.hasExistingPhoto = false;
-      render(<ProfilePictureActionSheetScreen />);
+      await render(<ProfilePictureActionSheetScreen />);
 
       expect(screen.queryByTestId('profile-picture-action-remove')).toBeNull();
     });
 
-    it('renders Remove Photo when existing photo exists', () => {
+    it('renders Remove Photo when existing photo exists', async () => {
       mockParams.hasExistingPhoto = true;
-      render(<ProfilePictureActionSheetScreen />);
+      await render(<ProfilePictureActionSheetScreen />);
 
       expect(screen.getByTestId('profile-picture-action-remove')).toBeOnTheScreen();
       expect(screen.getByText('Remove Photo')).toBeOnTheScreen();
@@ -143,18 +143,18 @@ describe('ProfilePictureActionSheetScreen', () => {
   });
 
   describe('navigation', () => {
-    it('dismisses when backdrop is pressed', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('dismisses when backdrop is pressed', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-sheet-backdrop'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-sheet-backdrop'));
 
       expect(mockGoBack).toHaveBeenCalledTimes(1);
     });
 
     it('shows processing state when Take Photo is pressed', async () => {
-      render(<ProfilePictureActionSheetScreen />);
+      await render(<ProfilePictureActionSheetScreen />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-take-photo'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-take-photo'));
 
       // Should show processing state (spinner)
       await waitFor(
@@ -166,9 +166,9 @@ describe('ProfilePictureActionSheetScreen', () => {
     });
 
     it('shows processing state when Choose from Library is pressed', async () => {
-      render(<ProfilePictureActionSheetScreen />);
+      await render(<ProfilePictureActionSheetScreen />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-choose-library'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-choose-library'));
 
       // Should show processing state (spinner)
       await waitFor(
@@ -179,7 +179,7 @@ describe('ProfilePictureActionSheetScreen', () => {
       );
     });
 
-    it('sets remove action params and goes back when Remove Photo is pressed', () => {
+    it('sets remove action params and goes back when Remove Photo is pressed', async () => {
       mockParams.hasExistingPhoto = true;
       mockGetState.mockReturnValue({
         routes: [
@@ -189,9 +189,9 @@ describe('ProfilePictureActionSheetScreen', () => {
           { name: 'ProfilePictureActionSheet', key: 'actionsheet-1' },
         ],
       });
-      render(<ProfilePictureActionSheetScreen />);
+      await render(<ProfilePictureActionSheetScreen />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-remove'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-remove'));
 
       // Should dispatch setParams to EditAccount and then goBack
       expect(mockDispatch).toHaveBeenCalled();
@@ -206,9 +206,9 @@ describe('ProfilePictureActionSheetScreen', () => {
         requestPermission: jest.fn(),
       });
 
-      render(<ProfilePictureActionSheetScreen />);
+      await render(<ProfilePictureActionSheetScreen />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-take-photo'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-take-photo'));
 
       await waitFor(
         () => {
@@ -226,9 +226,9 @@ describe('ProfilePictureActionSheetScreen', () => {
         requestPermission: jest.fn(),
       });
 
-      render(<ProfilePictureActionSheetScreen />);
+      await render(<ProfilePictureActionSheetScreen />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-choose-library'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-choose-library'));
 
       await waitFor(
         () => {
@@ -242,41 +242,41 @@ describe('ProfilePictureActionSheetScreen', () => {
   });
 
   describe('accessibility', () => {
-    it('has accessible backdrop close button', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('has accessible backdrop close button', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       const backdrop = screen.getByTestId('profile-picture-action-sheet-backdrop');
       expect(backdrop.props.accessibilityRole).toBe('button');
       expect(backdrop.props.accessibilityLabel).toBe('Close');
     });
 
-    it('has accessible Take Photo button', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('has accessible Take Photo button', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       const button = screen.getByTestId('profile-picture-action-take-photo');
       expect(button.props.accessibilityRole).toBe('button');
       expect(button.props.accessibilityLabel).toBe('Take Photo');
     });
 
-    it('has accessible Choose from Library button', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('has accessible Choose from Library button', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       const button = screen.getByTestId('profile-picture-action-choose-library');
       expect(button.props.accessibilityRole).toBe('button');
       expect(button.props.accessibilityLabel).toBe('Choose from Library');
     });
 
-    it('has accessible Remove Photo button when shown', () => {
+    it('has accessible Remove Photo button when shown', async () => {
       mockParams.hasExistingPhoto = true;
-      render(<ProfilePictureActionSheetScreen />);
+      await render(<ProfilePictureActionSheetScreen />);
 
       const button = screen.getByTestId('profile-picture-action-remove');
       expect(button.props.accessibilityRole).toBe('button');
       expect(button.props.accessibilityLabel).toBe('Remove Photo');
     });
 
-    it('has accessible title as header', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('has accessible title as header', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       const title = screen.getByTestId('profile-picture-action-sheet-title');
       expect(title.props.accessibilityRole).toBe('header');
@@ -284,9 +284,9 @@ describe('ProfilePictureActionSheetScreen', () => {
   });
 
   describe('with no route params', () => {
-    it('defaults hasExistingPhoto to false', () => {
+    it('defaults hasExistingPhoto to false', async () => {
       mockParams.hasExistingPhoto = undefined;
-      render(<ProfilePictureActionSheetScreen />);
+      await render(<ProfilePictureActionSheetScreen />);
 
       // Remove button should not be shown
       expect(screen.queryByTestId('profile-picture-action-remove')).toBeNull();
@@ -318,26 +318,26 @@ describe('ProfilePictureActionSheetScreen', () => {
       jest.useRealTimers();
     });
 
-    it('take photo button has accessible touch target', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('take photo button has accessible touch target', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       expectMinTouchTarget(screen.getByTestId('profile-picture-action-take-photo'));
     });
 
-    it('choose library button has accessible touch target', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('choose library button has accessible touch target', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       expectMinTouchTarget(screen.getByTestId('profile-picture-action-choose-library'));
     });
 
-    it('remove photo button has accessible touch target when shown', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('remove photo button has accessible touch target when shown', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       expectMinTouchTarget(screen.getByTestId('profile-picture-action-remove'));
     });
 
-    it('backdrop has accessible touch target', () => {
-      render(<ProfilePictureActionSheetScreen />);
+    it('backdrop has accessible touch target', async () => {
+      await render(<ProfilePictureActionSheetScreen />);
 
       expectMinTouchTarget(screen.getByTestId('profile-picture-action-sheet-backdrop'));
     });

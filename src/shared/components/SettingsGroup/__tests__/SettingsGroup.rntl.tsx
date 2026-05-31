@@ -16,38 +16,38 @@ describe('SettingsGroup', () => {
   });
 
   describe('Rendering', () => {
-    it('renders empty container when items array is empty', () => {
-      const { queryByText } = renderWithProviders(<SettingsGroup items={[]} />);
+    it('renders empty container when items array is empty', async () => {
+      const { queryByText } = await renderWithProviders(<SettingsGroup items={[]} />);
 
       expect(queryByText('Button')).not.toBeOnTheScreen();
     });
 
-    it('renders single button with label', () => {
+    it('renders single button with label', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'Button 1', onPress: jest.fn(), testID: 'button-1' },
       ];
 
-      const { getByText, getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText, getByTestId } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Button 1')).toBeOnTheScreen();
       expect(getByTestId('button-1')).toBeOnTheScreen();
     });
 
-    it('renders multiple buttons with labels', () => {
+    it('renders multiple buttons with labels', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'Button 1', onPress: jest.fn(), testID: 'button-1' },
         { label: 'Button 2', onPress: jest.fn(), testID: 'button-2' },
         { label: 'Button 3', onPress: jest.fn(), testID: 'button-3' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Button 1')).toBeOnTheScreen();
       expect(getByText('Button 2')).toBeOnTheScreen();
       expect(getByText('Button 3')).toBeOnTheScreen();
     });
 
-    it('renders button with endLabel', () => {
+    it('renders button with endLabel', async () => {
       const MockIcon = () => null;
 
       const items: SettingsGroupItem[] = [
@@ -61,7 +61,7 @@ describe('SettingsGroup', () => {
         },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Complex Item')).toBeOnTheScreen();
       expect(getByText('Detail')).toBeOnTheScreen();
@@ -69,43 +69,43 @@ describe('SettingsGroup', () => {
   });
 
   describe('GroupVariant Application', () => {
-    it('renders single item correctly', () => {
+    it('renders single item correctly', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'Only One', onPress: jest.fn(), testID: 'single-button' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Only One')).toBeOnTheScreen();
     });
 
-    it('renders two items correctly', () => {
+    it('renders two items correctly', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'First', onPress: jest.fn(), testID: 'first-button' },
         { label: 'Last', onPress: jest.fn(), testID: 'last-button' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('First')).toBeOnTheScreen();
       expect(getByText('Last')).toBeOnTheScreen();
     });
 
-    it('renders three items correctly', () => {
+    it('renders three items correctly', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'Top Item', onPress: jest.fn(), testID: 'top-button' },
         { label: 'Middle Item', onPress: jest.fn(), testID: 'middle-button' },
         { label: 'Bottom Item', onPress: jest.fn(), testID: 'bottom-button' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Top Item')).toBeOnTheScreen();
       expect(getByText('Middle Item')).toBeOnTheScreen();
       expect(getByText('Bottom Item')).toBeOnTheScreen();
     });
 
-    it('renders four items correctly', () => {
+    it('renders four items correctly', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'Top', onPress: jest.fn(), testID: 'top' },
         { label: 'Middle 1', onPress: jest.fn(), testID: 'middle-1' },
@@ -113,7 +113,7 @@ describe('SettingsGroup', () => {
         { label: 'Bottom', onPress: jest.fn(), testID: 'bottom' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Top')).toBeOnTheScreen();
       expect(getByText('Middle 1')).toBeOnTheScreen();
@@ -123,34 +123,34 @@ describe('SettingsGroup', () => {
   });
 
   describe('Divider Rendering', () => {
-    it('renders single item correctly', () => {
+    it('renders single item correctly', async () => {
       const items: SettingsGroupItem[] = [{ label: 'Single', onPress: jest.fn() }];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Single')).toBeOnTheScreen();
     });
 
-    it('renders two items with labels', () => {
+    it('renders two items with labels', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'First', onPress: jest.fn(), testID: 'first' },
         { label: 'Second', onPress: jest.fn(), testID: 'second' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('First')).toBeOnTheScreen();
       expect(getByText('Second')).toBeOnTheScreen();
     });
 
-    it('renders three items with labels', () => {
+    it('renders three items with labels', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'First', onPress: jest.fn(), testID: 'first' },
         { label: 'Second', onPress: jest.fn(), testID: 'second' },
         { label: 'Third', onPress: jest.fn(), testID: 'third' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('First')).toBeOnTheScreen();
       expect(getByText('Second')).toBeOnTheScreen();
@@ -159,20 +159,20 @@ describe('SettingsGroup', () => {
   });
 
   describe('Event Handlers', () => {
-    it('calls onPress handler when button is pressed', () => {
+    it('calls onPress handler when button is pressed', async () => {
       const mockOnPress = jest.fn();
       const items: SettingsGroupItem[] = [
         { label: 'Clickable', onPress: mockOnPress, testID: 'clickable-button' },
       ];
 
-      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByTestId } = await renderWithProviders(<SettingsGroup items={items} />);
 
-      fireEvent.press(getByTestId('clickable-button'));
+      await fireEvent.press(getByTestId('clickable-button'));
 
       expect(mockOnPress).toHaveBeenCalledTimes(1);
     });
 
-    it('calls correct handler for each button', () => {
+    it('calls correct handler for each button', async () => {
       const mockOnPress1 = jest.fn();
       const mockOnPress2 = jest.fn();
       const mockOnPress3 = jest.fn();
@@ -183,9 +183,9 @@ describe('SettingsGroup', () => {
         { label: 'Button 3', onPress: mockOnPress3, testID: 'button-3' },
       ];
 
-      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByTestId } = await renderWithProviders(<SettingsGroup items={items} />);
 
-      fireEvent.press(getByTestId('button-2'));
+      await fireEvent.press(getByTestId('button-2'));
 
       expect(mockOnPress1).not.toHaveBeenCalled();
       expect(mockOnPress2).toHaveBeenCalledTimes(1);
@@ -194,36 +194,36 @@ describe('SettingsGroup', () => {
   });
 
   describe('Props Propagation', () => {
-    it('renders label text', () => {
+    it('renders label text', async () => {
       const items: SettingsGroupItem[] = [{ label: 'Test Label', onPress: jest.fn() }];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Test Label')).toBeOnTheScreen();
     });
 
-    it('renders endLabel text', () => {
+    it('renders endLabel text', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'Language', onPress: jest.fn(), endLabel: 'English' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Language')).toBeOnTheScreen();
       expect(getByText('English')).toBeOnTheScreen();
     });
 
-    it('renders with testID', () => {
+    it('renders with testID', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'Test ID Button', onPress: jest.fn(), testID: 'custom-test-id' },
       ];
 
-      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByTestId } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByTestId('custom-test-id')).toBeOnTheScreen();
     });
 
-    it('renders with all props', () => {
+    it('renders with all props', async () => {
       const MockIcon = () => null;
       const mockOnPress = jest.fn();
 
@@ -238,7 +238,7 @@ describe('SettingsGroup', () => {
         },
       ];
 
-      const { getByText, getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText, getByTestId } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Full Props Button')).toBeOnTheScreen();
       expect(getByText('Detail Text')).toBeOnTheScreen();
@@ -247,11 +247,11 @@ describe('SettingsGroup', () => {
   });
 
   describe('Edge Cases', () => {
-    it('handles empty items array gracefully', () => {
-      expect(() => renderWithProviders(<SettingsGroup items={[]} />)).not.toThrow();
+    it('handles empty items array gracefully', async () => {
+      await expect(renderWithProviders(<SettingsGroup items={[]} />)).resolves.toBeDefined();
     });
 
-    it('handles single item with all optional props', () => {
+    it('handles single item with all optional props', async () => {
       const MockIcon = () => null;
       const items: SettingsGroupItem[] = [
         {
@@ -264,13 +264,13 @@ describe('SettingsGroup', () => {
         },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Single Complex')).toBeOnTheScreen();
       expect(getByText('Value')).toBeOnTheScreen();
     });
 
-    it('handles items with partial optional props', () => {
+    it('handles items with partial optional props', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'Only Label 1', onPress: jest.fn(), testID: 'only-label-1' },
         {
@@ -282,7 +282,7 @@ describe('SettingsGroup', () => {
         { label: 'Only Label 2', onPress: jest.fn(), testID: 'only-label-2' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Only Label 1')).toBeOnTheScreen();
       expect(getByText('With End Label')).toBeOnTheScreen();
@@ -292,7 +292,7 @@ describe('SettingsGroup', () => {
   });
 
   describe('Dark Mode', () => {
-    it('renders correctly in dark mode', () => {
+    it('renders correctly in dark mode', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const items: SettingsGroupItem[] = [
@@ -300,7 +300,7 @@ describe('SettingsGroup', () => {
         { label: 'Dark Item 2', onPress: jest.fn(), testID: 'dark-2' },
       ];
 
-      const { getByText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expect(getByText('Dark Item 1')).toBeOnTheScreen();
       expect(getByText('Dark Item 2')).toBeOnTheScreen();
@@ -308,12 +308,12 @@ describe('SettingsGroup', () => {
   });
 
   describe('Accessibility', () => {
-    it('items are accessible via label text', () => {
+    it('items are accessible via label text', async () => {
       const items: SettingsGroupItem[] = [
         { label: 'Settings Item', onPress: jest.fn(), endLabel: 'English' },
       ];
 
-      const { getByLabelText } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByLabelText } = await renderWithProviders(<SettingsGroup items={items} />);
 
       // SettingsItem uses accessibilityLabel with combined label and endLabel
       expect(getByLabelText('Settings Item, English')).toBeOnTheScreen();
@@ -321,7 +321,7 @@ describe('SettingsGroup', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('all items have accessible touch targets', () => {
+    it('all items have accessible touch targets', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const items: SettingsGroupItem[] = [
@@ -330,26 +330,26 @@ describe('SettingsGroup', () => {
         { label: 'Button 3', onPress: jest.fn(), testID: 'button-3' },
       ];
 
-      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByTestId } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expectMinTouchTarget(getByTestId('button-1'));
       expectMinTouchTarget(getByTestId('button-2'));
       expectMinTouchTarget(getByTestId('button-3'));
     });
 
-    it('single item has accessible touch target', () => {
+    it('single item has accessible touch target', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const items: SettingsGroupItem[] = [
         { label: 'Single Item', onPress: jest.fn(), testID: 'single-item' },
       ];
 
-      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByTestId } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expectMinTouchTarget(getByTestId('single-item'));
     });
 
-    it('items with icons have accessible touch targets', () => {
+    it('items with icons have accessible touch targets', async () => {
       mockUseColorScheme.mockReturnValue('light');
       const MockIcon = () => null;
 
@@ -363,19 +363,19 @@ describe('SettingsGroup', () => {
         },
       ];
 
-      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByTestId } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expectMinTouchTarget(getByTestId('icon-item'));
     });
 
-    it('items in dark mode have accessible touch targets', () => {
+    it('items in dark mode have accessible touch targets', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const items: SettingsGroupItem[] = [
         { label: 'Dark Mode Item', onPress: jest.fn(), testID: 'dark-item' },
       ];
 
-      const { getByTestId } = renderWithProviders(<SettingsGroup items={items} />);
+      const { getByTestId } = await renderWithProviders(<SettingsGroup items={items} />);
 
       expectMinTouchTarget(getByTestId('dark-item'));
     });

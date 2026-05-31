@@ -138,7 +138,7 @@ describe('useToast Hook (Isolated)', () => {
   });
 
   describe('hook return value', () => {
-    it('returns showToast function', () => {
+    it('returns showToast function', async () => {
       let capturedShowToast: unknown;
 
       const CaptureHook: React.FC = () => {
@@ -148,12 +148,12 @@ describe('useToast Hook (Isolated)', () => {
       };
 
       // Note: renderWithProviders already includes ToastProvider
-      renderWithProviders(<CaptureHook />);
+      await renderWithProviders(<CaptureHook />);
 
       expect(typeof capturedShowToast).toBe('function');
     });
 
-    it('returns hideToast function', () => {
+    it('returns hideToast function', async () => {
       let capturedHideToast: unknown;
 
       const CaptureHook: React.FC = () => {
@@ -162,12 +162,12 @@ describe('useToast Hook (Isolated)', () => {
         return null;
       };
 
-      renderWithProviders(<CaptureHook />);
+      await renderWithProviders(<CaptureHook />);
 
       expect(typeof capturedHideToast).toBe('function');
     });
 
-    it('returns object with exactly showToast and hideToast', () => {
+    it('returns object with exactly showToast and hideToast', async () => {
       let capturedContext: unknown;
 
       const CaptureHook: React.FC = () => {
@@ -176,7 +176,7 @@ describe('useToast Hook (Isolated)', () => {
         return null;
       };
 
-      renderWithProviders(<CaptureHook />);
+      await renderWithProviders(<CaptureHook />);
 
       expect(capturedContext).toHaveProperty('showToast');
       expect(capturedContext).toHaveProperty('hideToast');
@@ -188,14 +188,14 @@ describe('useToast Hook (Isolated)', () => {
     it('showToast maintains same reference across renders', async () => {
       const capturedRefs = { showToast: [] as unknown[], hideToast: [] as unknown[] };
 
-      const { getByTestId } = renderWithProviders(<StabilityTracker capturedRefs={capturedRefs} />);
+      const { getByTestId } = await renderWithProviders(<StabilityTracker capturedRefs={capturedRefs} />);
 
       // Initial render
       expect(capturedRefs.showToast.length).toBe(1);
 
       // Force rerender
       await act(async () => {
-        fireEvent.press(getByTestId('force-rerender'));
+        await fireEvent.press(getByTestId('force-rerender'));
       });
 
       // After rerender, reference should be stable
@@ -206,14 +206,14 @@ describe('useToast Hook (Isolated)', () => {
     it('hideToast maintains same reference across renders', async () => {
       const capturedRefs = { showToast: [] as unknown[], hideToast: [] as unknown[] };
 
-      const { getByTestId } = renderWithProviders(<StabilityTracker capturedRefs={capturedRefs} />);
+      const { getByTestId } = await renderWithProviders(<StabilityTracker capturedRefs={capturedRefs} />);
 
       // Initial render
       expect(capturedRefs.hideToast.length).toBe(1);
 
       // Force rerender
       await act(async () => {
-        fireEvent.press(getByTestId('force-rerender'));
+        await fireEvent.press(getByTestId('force-rerender'));
       });
 
       // After rerender, reference should be stable
@@ -224,10 +224,10 @@ describe('useToast Hook (Isolated)', () => {
 
   describe('multiple consumers', () => {
     it('multiple consumers share the same context', async () => {
-      const { getByTestId, getByText } = renderWithProviders(<MultiConsumer />);
+      const { getByTestId, getByText } = await renderWithProviders(<MultiConsumer />);
 
       // Consumer 1 shows toast
-      fireEvent.press(getByTestId('consumer-1-show'));
+      await fireEvent.press(getByTestId('consumer-1-show'));
 
       await waitFor(
         () => {
@@ -237,7 +237,7 @@ describe('useToast Hook (Isolated)', () => {
       );
 
       // Consumer 2 replaces toast (same context, new toast replaces old)
-      fireEvent.press(getByTestId('consumer-2-show'));
+      await fireEvent.press(getByTestId('consumer-2-show'));
 
       await waitFor(
         () => {
@@ -248,10 +248,10 @@ describe('useToast Hook (Isolated)', () => {
     });
 
     it('any consumer can hide the current toast', async () => {
-      const { getByTestId, getByText } = renderWithProviders(<MultiConsumer />);
+      const { getByTestId, getByText } = await renderWithProviders(<MultiConsumer />);
 
       // Consumer 1 shows toast
-      fireEvent.press(getByTestId('consumer-1-show'));
+      await fireEvent.press(getByTestId('consumer-1-show'));
 
       await waitFor(
         () => {
@@ -261,17 +261,17 @@ describe('useToast Hook (Isolated)', () => {
       );
 
       // Consumer 2 hides toast (shared context)
-      expect(() => fireEvent.press(getByTestId('consumer-2-hide'))).not.toThrow();
+      await expect(fireEvent.press(getByTestId('consumer-2-hide'))).resolves.toBeUndefined();
     });
   });
 
   describe('sequential operations', () => {
     it('handles rapid sequential show/hide operations', async () => {
       // Note: renderWithProviders already includes ToastProvider
-      const { getByTestId, getByText } = renderWithProviders(<SequentialOperator />);
+      const { getByTestId, getByText } = await renderWithProviders(<SequentialOperator />);
 
       // Run sequential operations
-      fireEvent.press(getByTestId('run-sequential'));
+      await fireEvent.press(getByTestId('run-sequential'));
 
       // Verify the final toast is displayed (third one)
       await waitFor(
@@ -285,7 +285,7 @@ describe('useToast Hook (Isolated)', () => {
       expect(getByText('1')).toBeTruthy();
     });
 
-    it('calling hideToast when no toast is visible does not throw', () => {
+    it('calling hideToast when no toast is visible does not throw', async () => {
       const HideWithoutShow: React.FC = () => {
         const { hideToast } = useToast();
 
@@ -296,10 +296,10 @@ describe('useToast Hook (Isolated)', () => {
         );
       };
 
-      const { getByTestId } = renderWithProviders(<HideWithoutShow />);
+      const { getByTestId } = await renderWithProviders(<HideWithoutShow />);
 
       // This should not throw
-      expect(() => fireEvent.press(getByTestId('hide-empty'))).not.toThrow();
+      await expect(fireEvent.press(getByTestId('hide-empty'))).resolves.toBeUndefined();
     });
 
     it('calling showToast multiple times rapidly replaces toasts', async () => {
@@ -319,9 +319,9 @@ describe('useToast Hook (Isolated)', () => {
         );
       };
 
-      const { getByTestId, getByText, queryByText } = renderWithProviders(<RapidShow />);
+      const { getByTestId, getByText, queryByText } = await renderWithProviders(<RapidShow />);
 
-      fireEvent.press(getByTestId('rapid-show'));
+      await fireEvent.press(getByTestId('rapid-show'));
 
       await waitFor(
         () => {
@@ -356,7 +356,7 @@ describe('useToast Hook (Isolated)', () => {
         );
       };
 
-      const { getByTestId, getByText, queryByTestId } = renderWithProviders(<UnmountTest />);
+      const { getByTestId, getByText, queryByTestId } = await renderWithProviders(<UnmountTest />);
 
       // Wait for toast to appear
       await waitFor(
@@ -367,7 +367,7 @@ describe('useToast Hook (Isolated)', () => {
       );
 
       // Unmount consumer
-      fireEvent.press(getByTestId('toggle-consumer'));
+      await fireEvent.press(getByTestId('toggle-consumer'));
 
       await waitFor(
         () => {
@@ -382,7 +382,7 @@ describe('useToast Hook (Isolated)', () => {
   });
 
   describe('error handling', () => {
-    it('throws descriptive error when used outside ToastProvider', () => {
+    it('throws descriptive error when used outside ToastProvider', async () => {
       // Component that attempts to use the hook without the provider
       const OutsideProvider: React.FC = () => {
         try {
@@ -398,7 +398,7 @@ describe('useToast Hook (Isolated)', () => {
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
       // Use bare render (not renderWithProviders which adds ToastProvider)
-      const { getByTestId, getByText } = render(<OutsideProvider />);
+      const { getByTestId, getByText } = await render(<OutsideProvider />);
 
       // Verify error was caught
       expect(getByTestId('error-caught')).toBeTruthy();
@@ -424,9 +424,9 @@ describe('useToast Hook (Isolated)', () => {
         );
       };
 
-      const { getByTestId, getAllByTestId } = renderWithProviders(<DefaultTypeTest />);
+      const { getByTestId, getAllByTestId } = await renderWithProviders(<DefaultTypeTest />);
 
-      fireEvent.press(getByTestId('show-default'));
+      await fireEvent.press(getByTestId('show-default'));
 
       await waitFor(
         () => {
@@ -453,9 +453,9 @@ describe('useToast Hook (Isolated)', () => {
         );
       };
 
-      const { getByTestId } = renderWithProviders(<PositionTest />);
+      const { getByTestId } = await renderWithProviders(<PositionTest />);
 
-      fireEvent.press(getByTestId('show-position'));
+      await fireEvent.press(getByTestId('show-position'));
 
       await waitFor(
         () => {
@@ -482,9 +482,9 @@ describe('useToast Hook (Isolated)', () => {
         );
       };
 
-      const { getByTestId } = renderWithProviders(<DismissibleTest />);
+      const { getByTestId } = await renderWithProviders(<DismissibleTest />);
 
-      fireEvent.press(getByTestId('show-dismissible'));
+      await fireEvent.press(getByTestId('show-dismissible'));
 
       await waitFor(
         () => {
@@ -516,9 +516,9 @@ describe('useToast Hook (Isolated)', () => {
           );
         };
 
-        const { getByTestId, getByText } = renderWithProviders(<DurationTest type={type} />);
+        const { getByTestId, getByText } = await renderWithProviders(<DurationTest type={type} />);
 
-        fireEvent.press(getByTestId('show-duration'));
+        await fireEvent.press(getByTestId('show-duration'));
 
         // Toast should appear
         await waitFor(
@@ -555,10 +555,10 @@ describe('useToast Hook (Isolated)', () => {
         );
       };
 
-      const { getByTestId, getByText, queryByText } = renderWithProviders(<TimeoutCleanup />);
+      const { getByTestId, getByText, queryByText } = await renderWithProviders(<TimeoutCleanup />);
 
       // Show first toast
-      fireEvent.press(getByTestId('show-for-timeout'));
+      await fireEvent.press(getByTestId('show-for-timeout'));
 
       await waitFor(
         () => {
@@ -568,7 +568,7 @@ describe('useToast Hook (Isolated)', () => {
       );
 
       // Show second toast (should clear first timeout)
-      fireEvent.press(getByTestId('show-for-timeout'));
+      await fireEvent.press(getByTestId('show-for-timeout'));
 
       await waitFor(
         () => {
@@ -580,7 +580,7 @@ describe('useToast Hook (Isolated)', () => {
 
       // Advance timers - second toast should still be visible
       // (first timeout was cleared, only second applies)
-      act(() => {
+      await act(() => {
         jest.advanceTimersByTime(5000);
       });
 

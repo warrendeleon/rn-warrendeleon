@@ -76,7 +76,7 @@ describe('Memory Pressure Scenarios', () => {
   });
 
   describe('large data set handling', () => {
-    it('should gracefully handle large image gallery', () => {
+    it('should gracefully handle large image gallery', async () => {
       // Create profile with many gallery images
       const manyImages = Array.from(
         { length: 100 },
@@ -84,7 +84,7 @@ describe('Memory Pressure Scenarios', () => {
       );
       const profileWithManyImages = createMockProfile({ galleryImages: manyImages });
 
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: profileWithManyImages,
         loading: false,
         error: null,
@@ -95,7 +95,7 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle profile with extensive social links', () => {
+    it('should handle profile with extensive social links', async () => {
       const profileWithExtendedData = createMockProfile({
         socials: {
           facebook: 'https://www.facebook.com/test',
@@ -105,7 +105,7 @@ describe('Memory Pressure Scenarios', () => {
         },
       });
 
-      const { getByTestId } = renderProfileWithState({
+      const { getByTestId } = await renderProfileWithState({
         data: profileWithExtendedData,
         loading: false,
         error: null,
@@ -114,13 +114,13 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle very long text content', () => {
+    it('should handle very long text content', async () => {
       const longHeadline = 'Senior React Native Developer '.repeat(10);
       const profileWithLongContent = createMockProfile({
         headline: longHeadline,
       });
 
-      const { getByTestId } = renderProfileWithState({
+      const { getByTestId } = await renderProfileWithState({
         data: profileWithLongContent,
         loading: false,
         error: null,
@@ -131,13 +131,13 @@ describe('Memory Pressure Scenarios', () => {
   });
 
   describe('memory warning recovery', () => {
-    it('should recover from memory warning during navigation', () => {
+    it('should recover from memory warning during navigation', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
       const mockProfile = createMockProfile();
 
       // First render
-      const { unmount: unmount1, getByTestId: getByTestId1 } = renderProfileWithState({
+      const { unmount: unmount1, getByTestId: getByTestId1 } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -150,7 +150,7 @@ describe('Memory Pressure Scenarios', () => {
       jest.runAllTimers();
 
       // Re-mount after memory warning
-      const { getByTestId: getByTestId2 } = renderProfileWithState({
+      const { getByTestId: getByTestId2 } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -167,23 +167,23 @@ describe('Memory Pressure Scenarios', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should handle rapid remounts under memory pressure', () => {
+    it('should handle rapid remounts under memory pressure', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       const mockProfile = createMockProfile();
 
       // Rapid mount/unmount cycles simulating memory pressure
       for (let i = 0; i < 10; i++) {
-        const { unmount } = renderProfileWithState({
+        const { unmount } = await renderProfileWithState({
           data: mockProfile,
           loading: false,
           error: null,
         });
-        unmount();
+        await unmount();
         jest.runAllTimers();
       }
 
       // Final mount should work
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -206,7 +206,7 @@ describe('Memory Pressure Scenarios', () => {
     it('should clear caches appropriately under pressure', async () => {
       const mockProfile = createMockProfile();
 
-      const { rerender, getByTestId, getByText } = renderProfileWithState({
+      const { rerender, getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -215,17 +215,17 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
 
       // Simulate cache clear (profile data still available via store)
-      rerender(<ProfileScreen />);
+      await rerender(<ProfileScreen />);
 
       // Profile should still be accessible
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should prioritise critical data retention', () => {
+    it('should prioritise critical data retention', async () => {
       const mockProfile = createMockProfile();
 
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -239,7 +239,7 @@ describe('Memory Pressure Scenarios', () => {
     it('should handle state transitions during cache clear', async () => {
       const mockProfile = createMockProfile();
 
-      const { rerender, getByTestId } = renderProfileWithState({
+      const { rerender, getByTestId } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -248,7 +248,7 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // Loading state during potential cache refresh (rerender keeps same store)
-      rerender(<ProfileScreen />);
+      await rerender(<ProfileScreen />);
 
       // Cached data should still be visible during refresh
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
@@ -260,7 +260,7 @@ describe('Memory Pressure Scenarios', () => {
       // Auth tokens are handled by Redux persist, test component stability
       const mockProfile = createMockProfile();
 
-      const { unmount, getByTestId } = renderProfileWithState({
+      const { unmount, getByTestId } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -269,11 +269,11 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // Unmount (simulates memory pressure)
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // Remount with same auth state (tokens persisted)
-      const { getByTestId: getByTestId2 } = renderProfileWithState({
+      const { getByTestId: getByTestId2 } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -287,7 +287,7 @@ describe('Memory Pressure Scenarios', () => {
       const mockProfile = createMockProfile();
 
       // Initial render
-      const { unmount: unmount1 } = renderProfileWithState({
+      const { unmount: unmount1 } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -298,7 +298,7 @@ describe('Memory Pressure Scenarios', () => {
         unmount1();
         jest.runAllTimers();
 
-        const { unmount: unmountNext, getByTestId } = renderProfileWithState({
+        const { unmount: unmountNext, getByTestId } = await renderProfileWithState({
           data: mockProfile,
           loading: false,
           error: null,
@@ -314,11 +314,11 @@ describe('Memory Pressure Scenarios', () => {
   });
 
   describe('component cleanup on low memory', () => {
-    it('should clean up event listeners on unmount', () => {
+    it('should clean up event listeners on unmount', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       const mockProfile = createMockProfile();
 
-      const { unmount, getByTestId } = renderProfileWithState({
+      const { unmount, getByTestId } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -327,7 +327,7 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // Unmount should clean up all listeners
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // No warnings about cleanup failures
@@ -339,10 +339,10 @@ describe('Memory Pressure Scenarios', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should release resources during loading state unmount', () => {
+    it('should release resources during loading state unmount', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderProfileWithState({
+      const { unmount, getByTestId } = await renderProfileWithState({
         data: null,
         loading: true,
         error: null,
@@ -351,7 +351,7 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // Unmount during loading
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // No memory leak warnings
@@ -367,7 +367,7 @@ describe('Memory Pressure Scenarios', () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       const mockProfile = createMockProfile();
 
-      const { unmount, rerender, getByTestId } = renderProfileWithState({
+      const { unmount, rerender, getByTestId } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -377,11 +377,11 @@ describe('Memory Pressure Scenarios', () => {
 
       // Multiple rerenders before unmount
       for (let i = 0; i < 3; i++) {
-        rerender(<ProfileScreen />);
+        await rerender(<ProfileScreen />);
       }
 
       // Final unmount
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // No subscription leak warnings
@@ -395,7 +395,7 @@ describe('Memory Pressure Scenarios', () => {
   });
 
   describe('image gallery memory management', () => {
-    it('should handle gallery with many images without crash', () => {
+    it('should handle gallery with many images without crash', async () => {
       // Large gallery simulation
       const manyImages = Array.from(
         { length: 50 },
@@ -403,7 +403,7 @@ describe('Memory Pressure Scenarios', () => {
       );
       const profileWithGallery = createMockProfile({ galleryImages: manyImages });
 
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: profileWithGallery,
         loading: false,
         error: null,
@@ -413,10 +413,10 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle empty gallery gracefully', () => {
+    it('should handle empty gallery gracefully', async () => {
       const profileWithEmptyGallery = createMockProfile({ galleryImages: [] });
 
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: profileWithEmptyGallery,
         loading: false,
         error: null,
@@ -430,7 +430,7 @@ describe('Memory Pressure Scenarios', () => {
       const manyImages = Array.from({ length: 20 }, (_, i) => `https://example.com/img-${i}.jpg`);
       const profileWithGallery = createMockProfile({ galleryImages: manyImages });
 
-      const { unmount, getByTestId } = renderProfileWithState({
+      const { unmount, getByTestId } = await renderProfileWithState({
         data: profileWithGallery,
         loading: false,
         error: null,
@@ -439,11 +439,11 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // Memory event causes unmount
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // Remount
-      const { getByTestId: getByTestId2 } = renderProfileWithState({
+      const { getByTestId: getByTestId2 } = await renderProfileWithState({
         data: profileWithGallery,
         loading: false,
         error: null,
@@ -458,7 +458,7 @@ describe('Memory Pressure Scenarios', () => {
     it('should preserve profile state across memory events', async () => {
       const mockProfile = createMockProfile();
 
-      const { unmount, getByText } = renderProfileWithState({
+      const { unmount, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -467,11 +467,11 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
 
       // Memory pressure event
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // State should be preserved (from Redux store)
-      const { getByText: getByText2 } = renderProfileWithState({
+      const { getByText: getByText2 } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -480,7 +480,7 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByText2('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle partial state loss gracefully', () => {
+    it('should handle partial state loss gracefully', async () => {
       // Profile with missing optional data (simulates partial state loss)
       const partialProfile = createMockProfile({
         namePronunciation: undefined as unknown as string,
@@ -488,7 +488,7 @@ describe('Memory Pressure Scenarios', () => {
         socials: undefined as unknown as Profile['socials'],
       });
 
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: partialProfile,
         loading: false,
         error: null,
@@ -501,7 +501,7 @@ describe('Memory Pressure Scenarios', () => {
 
     it('should recover from state hydration failure', async () => {
       // Start with no data (hydration failed)
-      const { rerender, getByTestId, queryByText } = renderProfileWithState({
+      const { rerender, getByTestId, queryByText } = await renderProfileWithState({
         data: null,
         loading: true,
         error: null,
@@ -511,7 +511,7 @@ describe('Memory Pressure Scenarios', () => {
       expect(queryByText('Warren de Leon')).toBeNull();
 
       // Hydration succeeds - rerender to trigger UI update
-      rerender(<ProfileScreen />);
+      await rerender(<ProfileScreen />);
 
       await waitFor(
         () => {
@@ -526,7 +526,7 @@ describe('Memory Pressure Scenarios', () => {
     it('should handle concurrent state updates during memory pressure', async () => {
       const mockProfile = createMockProfile();
 
-      const { rerender, getByTestId } = renderProfileWithState({
+      const { rerender, getByTestId } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -536,17 +536,17 @@ describe('Memory Pressure Scenarios', () => {
 
       // Rapid state updates simulating concurrent operations
       for (let i = 0; i < 10; i++) {
-        rerender(<ProfileScreen />);
+        await rerender(<ProfileScreen />);
       }
 
       // Final state should be stable
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle settings change during memory event', () => {
+    it('should handle settings change during memory event', async () => {
       const mockProfile = createMockProfile();
 
-      const { rerender, getByTestId } = renderProfileWithState({
+      const { rerender, getByTestId } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -555,7 +555,7 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // Settings change during memory event (rerender keeps same store)
-      rerender(<ProfileScreen />);
+      await rerender(<ProfileScreen />);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });

@@ -69,7 +69,7 @@ describe('User Abandonment Scenarios', () => {
 
   describe('Login Form Abandonment', () => {
     it('should clear form state when user navigates away', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -77,10 +77,10 @@ describe('User Abandonment Scenarios', () => {
       await fillField('email-input', TEST_CREDENTIALS.VALID_EMAIL);
 
       // Simulate user navigating away (unmounting)
-      unmount();
+      await unmount();
 
       // Re-render to simulate returning
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -90,7 +90,7 @@ describe('User Abandonment Scenarios', () => {
     });
 
     it('should not persist partial login credentials', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -106,17 +106,17 @@ describe('User Abandonment Scenarios', () => {
     });
 
     it('should clear password field on blur for security', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
       const passwordInput = screen.getByTestId('password-input');
 
-      fireEvent.changeText(passwordInput, 'my-secret-password');
+      await fireEvent.changeText(passwordInput, 'my-secret-password');
       expect(passwordInput.props.value).toBe('my-secret-password');
 
       // Blur should not clear password (only on navigation away)
-      fireEvent(passwordInput, 'blur');
+      await fireEvent(passwordInput, 'blur');
 
       // Password should still be there while on the screen
       expect(screen.getByTestId('password-input').props.value).toBe('my-secret-password');
@@ -125,7 +125,7 @@ describe('User Abandonment Scenarios', () => {
 
   describe('Registration Form Abandonment', () => {
     it('should warn user about unsaved data before leaving', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -140,7 +140,7 @@ describe('User Abandonment Scenarios', () => {
     });
 
     it('should preserve form data if user returns within session', async () => {
-      const { rerender } = renderWithProviders(
+      const { rerender } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -148,7 +148,7 @@ describe('User Abandonment Scenarios', () => {
       await fillField('firstName-input', 'Warren');
 
       // Simulate a re-render (not unmount) - component should preserve state
-      rerender(
+      await rerender(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -157,7 +157,7 @@ describe('User Abandonment Scenarios', () => {
     });
 
     it('should track abandonment points in the form', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -176,7 +176,7 @@ describe('User Abandonment Scenarios', () => {
   describe('Multi-Step Process Abandonment', () => {
     it('should handle abandonment at each step of registration', async () => {
       // Step 1: Basic info
-      renderWithProviders(
+      await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -187,7 +187,7 @@ describe('User Abandonment Scenarios', () => {
     });
 
     it('should clean up temporary state on process abandonment', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -196,10 +196,10 @@ describe('User Abandonment Scenarios', () => {
       await fillField('email-input', TEST_CREDENTIALS.VALID_EMAIL);
 
       // Unmount (user leaves)
-      unmount();
+      await unmount();
 
       // Re-render (user returns to registration fresh)
-      renderWithProviders(
+      await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -211,7 +211,7 @@ describe('User Abandonment Scenarios', () => {
 
   describe('Network Error During Submission', () => {
     it('should preserve form data when submission fails', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -227,7 +227,7 @@ describe('User Abandonment Scenarios', () => {
     });
 
     it('should allow retry without re-entering data', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -237,7 +237,7 @@ describe('User Abandonment Scenarios', () => {
 
       // Simulate failed submission (button click)
       const submitButton = screen.getByTestId('login-button');
-      fireEvent.press(submitButton);
+      await fireEvent.press(submitButton);
 
       // After failure, form data should still be present
       await waitFor(() => {
@@ -248,7 +248,7 @@ describe('User Abandonment Scenarios', () => {
 
   describe('App Background/Foreground Transitions', () => {
     it('should preserve form state when app goes to background', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -266,7 +266,7 @@ describe('User Abandonment Scenarios', () => {
       // This would be handled by app state management
       // After security timeout, password fields should clear
 
-      renderWithProviders(
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -281,7 +281,7 @@ describe('User Abandonment Scenarios', () => {
 
   describe('Session Expiry During Form Fill', () => {
     it('should handle session expiry gracefully', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -298,7 +298,7 @@ describe('User Abandonment Scenarios', () => {
     });
 
     it('should not lose form data on forced re-authentication', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -319,17 +319,17 @@ describe('User Abandonment Scenarios', () => {
 
   describe('Validation State During Abandonment', () => {
     it('should not show validation errors after form reset', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
       // Trigger validation
       const emailInput = screen.getByTestId('email-input');
-      fireEvent(emailInput, 'blur');
+      await fireEvent(emailInput, 'blur');
 
       // Unmount and re-render
-      unmount();
-      renderWithProviders(
+      await unmount();
+      await renderWithProviders(
         <LoginScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
@@ -338,17 +338,17 @@ describe('User Abandonment Scenarios', () => {
     });
 
     it('should clear touched state on form reset', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 
       // Touch multiple fields
-      fireEvent(screen.getByTestId('firstName-input'), 'blur');
-      fireEvent(screen.getByTestId('lastName-input'), 'blur');
+      await fireEvent(screen.getByTestId('firstName-input'), 'blur');
+      await fireEvent(screen.getByTestId('lastName-input'), 'blur');
 
       // Unmount and re-render
-      unmount();
-      renderWithProviders(
+      await unmount();
+      await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation as never} route={mockRoute as never} />
       );
 

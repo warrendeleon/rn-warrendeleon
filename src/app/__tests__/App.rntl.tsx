@@ -38,9 +38,9 @@ describe('App', () => {
     });
   });
 
-  it('renders App component and initialises providers', () => {
+  it('renders App component and initialises providers', async () => {
     // App wraps RootNavigator in GluestackUIProvider, Redux Provider, and PersistGate
-    expect(() => render(<App />)).not.toThrow();
+    await expect(render(<App />)).resolves.toBeDefined();
   });
 
   it('initializes i18n with correct configuration', () => {
@@ -84,7 +84,7 @@ describe('App Boot Logic', () => {
     it('hides native splash with fade in normal mode', async () => {
       jest.useFakeTimers();
 
-      render(<App />);
+      await render(<App />);
 
       // Advance timers to trigger BootSplash.hide
       jest.advanceTimersByTime(600);
@@ -103,7 +103,7 @@ describe('App Boot Logic', () => {
       const e2eConfig = require('@app/config/e2e');
       (e2eConfig.isE2EMockEnabled as jest.Mock).mockReturnValue(true);
 
-      render(<App />);
+      await render(<App />);
 
       await waitFor(
         () => {
@@ -119,7 +119,7 @@ describe('App Boot Logic', () => {
       const e2eConfig = require('@app/config/e2e');
       (e2eConfig.hasLoadedOverride as jest.Mock).mockReturnValue(false);
 
-      render(<App />);
+      await render(<App />);
 
       await waitFor(
         () => {
@@ -133,7 +133,7 @@ describe('App Boot Logic', () => {
       const e2eConfig = require('@app/config/e2e');
       (e2eConfig.hasLoadedOverride as jest.Mock).mockReturnValue(true);
 
-      render(<App />);
+      await render(<App />);
 
       // Wait a tick to ensure useEffect runs
       await waitFor(
@@ -144,18 +144,18 @@ describe('App Boot Logic', () => {
       );
     });
 
-    it('returns null while mock override is loading', () => {
+    it('returns null while mock override is loading', async () => {
       const e2eConfig = require('@app/config/e2e');
       (e2eConfig.hasLoadedOverride as jest.Mock).mockReturnValue(false);
       (e2eConfig.loadPersistedMockOverride as jest.Mock).mockReturnValue(
         new Promise(() => {}) // Never resolves
       );
 
-      const { UNSAFE_root } = render(<App />);
+      const { root } = await render(<App />);
 
       // App returns null while loading, but SafeAreaProvider is still rendered
       // Verify the render doesn't crash
-      expect(UNSAFE_root).toBeDefined();
+      expect(root).toBeDefined();
     });
   });
 
@@ -171,7 +171,7 @@ describe('App Boot Logic', () => {
         endpoint: 'all',
       });
 
-      render(<App />);
+      await render(<App />);
 
       // In E2E mode without errors, data should be fetched immediately
       // The actual fetch is mocked, so we just verify no crashes
@@ -195,8 +195,8 @@ describe('App Boot Logic', () => {
       });
 
       // Should not crash and should show splash screen for error testing
-      const { UNSAFE_root } = render(<App />);
-      expect(UNSAFE_root).toBeDefined();
+      const { root } = await render(<App />);
+      expect(root).toBeDefined();
     });
   });
 
@@ -205,10 +205,10 @@ describe('App Boot Logic', () => {
       const e2eConfig = require('@app/config/e2e');
       (e2eConfig.isE2EMockEnabled as jest.Mock).mockReturnValue(false);
 
-      const { UNSAFE_root } = render(<App />);
+      const { root } = await render(<App />);
 
       // App renders without crashing
-      expect(UNSAFE_root).toBeDefined();
+      expect(root).toBeDefined();
     });
 
     it('skips JS splash screen in E2E mode', async () => {
@@ -222,10 +222,10 @@ describe('App Boot Logic', () => {
         endpoint: 'all',
       });
 
-      const { UNSAFE_root } = render(<App />);
+      const { root } = await render(<App />);
 
       // Should render main app directly
-      expect(UNSAFE_root).toBeDefined();
+      expect(root).toBeDefined();
     });
 
     it('shows splash screen when E2E error mode is enabled', async () => {
@@ -239,25 +239,25 @@ describe('App Boot Logic', () => {
         endpoint: 'all',
       });
 
-      const { UNSAFE_root } = render(<App />);
+      const { root } = await render(<App />);
 
       // Should show splash screen for error testing
-      expect(UNSAFE_root).toBeDefined();
+      expect(root).toBeDefined();
     });
   });
 
   describe('Language Sync', () => {
-    it('syncs i18n language with persisted language on boot', () => {
-      render(<App />);
+    it('syncs i18n language with persisted language on boot', async () => {
+      await render(<App />);
 
       // i18n should be initialized
       expect(i18n.isInitialized).toBe(true);
     });
 
-    it('does not change language if already matches persisted', () => {
+    it('does not change language if already matches persisted', async () => {
       const originalLanguage = i18n.language;
 
-      render(<App />);
+      await render(<App />);
 
       // Language should remain the same
       expect(i18n.language).toBe(originalLanguage);
@@ -265,41 +265,41 @@ describe('App Boot Logic', () => {
   });
 
   describe('Provider Hierarchy', () => {
-    it('wraps app with SafeAreaProvider', () => {
-      const { UNSAFE_root } = render(<App />);
+    it('wraps app with SafeAreaProvider', async () => {
+      const { root } = await render(<App />);
 
       // App renders with provider hierarchy
-      expect(UNSAFE_root).toBeDefined();
+      expect(root).toBeDefined();
     });
 
-    it('wraps app with Redux Provider', () => {
-      const { UNSAFE_root } = render(<App />);
+    it('wraps app with Redux Provider', async () => {
+      const { root } = await render(<App />);
 
       // Verify Provider is in the tree (Redux store is available)
-      expect(UNSAFE_root).toBeDefined();
+      expect(root).toBeDefined();
     });
 
-    it('wraps app with PersistGate', () => {
-      const { UNSAFE_root } = render(<App />);
+    it('wraps app with PersistGate', async () => {
+      const { root } = await render(<App />);
 
       // PersistGate waits for rehydration
-      expect(UNSAFE_root).toBeDefined();
+      expect(root).toBeDefined();
     });
   });
 
   describe('Error Boundary Behaviour', () => {
-    it('handles render without crashing', () => {
+    it('handles render without crashing', async () => {
       // App should handle normal render
-      expect(() => render(<App />)).not.toThrow();
+      await expect(render(<App />)).resolves.toBeDefined();
     });
 
-    it('handles multiple renders without memory leaks', () => {
-      const { unmount } = render(<App />);
-      unmount();
+    it('handles multiple renders without memory leaks', async () => {
+      const { unmount } = await render(<App />);
+      await unmount();
 
       // Re-render should not cause issues
-      const { unmount: unmount2 } = render(<App />);
-      unmount2();
+      const { unmount: unmount2 } = await render(<App />);
+      await unmount2();
 
       expect(true).toBe(true); // No crash means success
     });
@@ -323,13 +323,13 @@ describe('App Cleanup', () => {
     });
   });
 
-  it('cleans up timers on unmount', () => {
+  it('cleans up timers on unmount', async () => {
     jest.useFakeTimers();
 
-    const { unmount } = render(<App />);
+    const { unmount } = await render(<App />);
 
     // Unmount before timer fires
-    unmount();
+    await unmount();
 
     // Advance timers - should not cause errors
     jest.advanceTimersByTime(1000);
@@ -339,10 +339,10 @@ describe('App Cleanup', () => {
     jest.useRealTimers();
   });
 
-  it('cleans up effects on unmount', () => {
-    const { unmount } = render(<App />);
+  it('cleans up effects on unmount', async () => {
+    const { unmount } = await render(<App />);
 
     // Unmount should not throw
-    expect(() => unmount()).not.toThrow();
+    await expect(unmount()).resolves.toBeUndefined();
   });
 });

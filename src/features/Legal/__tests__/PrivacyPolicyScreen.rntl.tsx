@@ -41,8 +41,8 @@ describe('PrivacyPolicyScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders privacy policy screen with scrollable content', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('renders privacy policy screen with scrollable content', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -51,8 +51,8 @@ describe('PrivacyPolicyScreen', () => {
       expect(getByText(/25 November 2025/i)).toBeOnTheScreen();
     });
 
-    it('renders scroll view container', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders scroll view container', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -60,8 +60,8 @@ describe('PrivacyPolicyScreen', () => {
       expect(scrollView).toBeOnTheScreen();
     });
 
-    it('renders the last updated date', () => {
-      const { getByText } = renderWithProviders(
+    it('renders the last updated date', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -70,96 +70,96 @@ describe('PrivacyPolicyScreen', () => {
   });
 
   describe('Content Sections', () => {
-    it('renders introduction section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders introduction section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('1. Introduction')).toBeOnTheScreen();
     });
 
-    it('renders data collection section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders data collection section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('2. Information We Collect')).toBeOnTheScreen();
     });
 
-    it('renders data use section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders data use section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('3. How We Use Your Information')).toBeOnTheScreen();
     });
 
-    it('renders legal basis (GDPR) section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders legal basis (GDPR) section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('4. Legal Basis for Processing')).toBeOnTheScreen();
     });
 
-    it('renders data sharing section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders data sharing section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText(/5\. /)).toBeOnTheScreen();
     });
 
-    it('renders data retention section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders data retention section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('6. Data Retention')).toBeOnTheScreen();
     });
 
-    it('renders your rights (GDPR) section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders your rights (GDPR) section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('7. Your Data Protection Rights')).toBeOnTheScreen();
     });
 
-    it('renders international transfers section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders international transfers section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('8. International Data Transfers')).toBeOnTheScreen();
     });
 
-    it('renders security section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders security section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('9. Data Security')).toBeOnTheScreen();
     });
 
-    it("renders children's privacy section", () => {
-      const { getByText } = renderWithProviders(
+    it("renders children's privacy section", async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText("10. Children's Privacy")).toBeOnTheScreen();
     });
 
-    it('renders changes to policy section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders changes to policy section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('11. Changes to This Policy')).toBeOnTheScreen();
     });
 
-    it('renders contact section', () => {
-      const { getByText } = renderWithProviders(
+    it('renders contact section', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -168,8 +168,8 @@ describe('PrivacyPolicyScreen', () => {
   });
 
   describe('GDPR Compliance', () => {
-    it('renders GDPR-specific sections', () => {
-      const { getByText } = renderWithProviders(
+    it('renders GDPR-specific sections', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -178,8 +178,8 @@ describe('PrivacyPolicyScreen', () => {
       expect(getByText('8. International Data Transfers')).toBeOnTheScreen();
     });
 
-    it('renders GDPR rights bullet points', () => {
-      const { getByText } = renderWithProviders(
+    it('renders GDPR rights bullet points', async () => {
+      const { getByText } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -193,8 +193,8 @@ describe('PrivacyPolicyScreen', () => {
   });
 
   describe('Accessibility', () => {
-    it('has proper accessibility role on scroll view', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility role on scroll view', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -202,8 +202,8 @@ describe('PrivacyPolicyScreen', () => {
       expect(scrollView.props.accessibilityRole).toBe('scrollbar');
     });
 
-    it('has proper accessibility label on scroll view', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility label on scroll view', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -213,8 +213,8 @@ describe('PrivacyPolicyScreen', () => {
   });
 
   describe('Theme Support', () => {
-    it('renders correctly in light mode', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders correctly in light mode', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -222,8 +222,8 @@ describe('PrivacyPolicyScreen', () => {
       expect(scrollView).toBeOnTheScreen();
     });
 
-    it('renders correctly in dark mode', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders correctly in dark mode', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PrivacyPolicyScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {

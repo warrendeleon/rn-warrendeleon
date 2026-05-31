@@ -23,6 +23,7 @@ export const ButtonGroupDivider: React.FC = React.memo(() => {
 
   return (
     <Box
+      testID="button-group-divider"
       h={0.5}
       bg={dividerColor}
       ml={64} // Aligns with button text: padding (16px) + icon (36px) + spacing (12px)

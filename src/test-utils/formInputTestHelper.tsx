@@ -92,18 +92,18 @@ export function testFormInputComponent<
     });
 
     describe('Rendering', () => {
-      it('renders with placeholder', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('renders with placeholder', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         expect(screen.getByPlaceholderText(config.defaultPlaceholder)).toBeOnTheScreen();
       });
 
-      it('renders with value', () => {
-        renderWithProviders(<Component {...defaultProps} value="test-value" />);
+      it('renders with value', async () => {
+        await renderWithProviders(<Component {...defaultProps} value="test-value" />);
         expect(screen.getByDisplayValue('test-value')).toBeOnTheScreen();
       });
 
-      it('renders with testID', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('renders with testID', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         expect(screen.getByTestId(config.testID)).toBeOnTheScreen();
       });
     });
@@ -115,15 +115,15 @@ export function testFormInputComponent<
     ) {
       describe('Input Configuration', () => {
         if (config.keyboardType) {
-          it(`uses ${config.keyboardType} keyboard type`, () => {
-            renderWithProviders(<Component {...defaultProps} />);
+          it(`uses ${config.keyboardType} keyboard type`, async () => {
+            await renderWithProviders(<Component {...defaultProps} />);
             expect(screen.getByTestId(config.testID).props.keyboardType).toBe(config.keyboardType);
           });
         }
 
         if (config.autoCapitalize !== undefined) {
-          it(`has autoCapitalize set to ${config.autoCapitalize}`, () => {
-            renderWithProviders(<Component {...defaultProps} />);
+          it(`has autoCapitalize set to ${config.autoCapitalize}`, async () => {
+            await renderWithProviders(<Component {...defaultProps} />);
             expect(screen.getByTestId(config.testID).props.autoCapitalize).toBe(
               config.autoCapitalize
             );
@@ -131,22 +131,22 @@ export function testFormInputComponent<
         }
 
         if (config.autoCorrect !== undefined) {
-          it(`has autoCorrect set to ${config.autoCorrect}`, () => {
-            renderWithProviders(<Component {...defaultProps} />);
+          it(`has autoCorrect set to ${config.autoCorrect}`, async () => {
+            await renderWithProviders(<Component {...defaultProps} />);
             expect(screen.getByTestId(config.testID).props.autoCorrect).toBe(config.autoCorrect);
           });
         }
 
         if (config.autoComplete) {
-          it(`has autoComplete set to ${config.autoComplete}`, () => {
-            renderWithProviders(<Component {...defaultProps} />);
+          it(`has autoComplete set to ${config.autoComplete}`, async () => {
+            await renderWithProviders(<Component {...defaultProps} />);
             expect(screen.getByTestId(config.testID).props.autoComplete).toBe(config.autoComplete);
           });
         }
 
         if (config.textContentType) {
-          it(`has textContentType set to ${config.textContentType}`, () => {
-            renderWithProviders(<Component {...defaultProps} />);
+          it(`has textContentType set to ${config.textContentType}`, async () => {
+            await renderWithProviders(<Component {...defaultProps} />);
             expect(screen.getByTestId(config.testID).props.textContentType).toBe(
               config.textContentType
             );
@@ -156,100 +156,100 @@ export function testFormInputComponent<
     }
 
     describe('Interaction', () => {
-      it('calls onChangeText when text changes', () => {
+      it('calls onChangeText when text changes', async () => {
         const onChangeText = jest.fn();
-        renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
+        await renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
 
-        fireEvent.changeText(screen.getByTestId(config.testID), 'new-value');
+        await fireEvent.changeText(screen.getByTestId(config.testID), 'new-value');
 
         expect(onChangeText).toHaveBeenCalledWith('new-value');
       });
 
-      it('calls onBlur when input loses focus', () => {
+      it('calls onBlur when input loses focus', async () => {
         const onBlur = jest.fn();
-        renderWithProviders(<Component {...defaultProps} onBlur={onBlur} />);
+        await renderWithProviders(<Component {...defaultProps} onBlur={onBlur} />);
 
-        fireEvent(screen.getByTestId(config.testID), 'blur');
+        await fireEvent(screen.getByTestId(config.testID), 'blur');
 
         expect(onBlur).toHaveBeenCalled();
       });
 
-      it('calls onSubmitEditing when return key is pressed', () => {
+      it('calls onSubmitEditing when return key is pressed', async () => {
         const onSubmitEditing = jest.fn();
-        renderWithProviders(<Component {...defaultProps} onSubmitEditing={onSubmitEditing} />);
+        await renderWithProviders(<Component {...defaultProps} onSubmitEditing={onSubmitEditing} />);
 
-        fireEvent(screen.getByTestId(config.testID), 'submitEditing');
+        await fireEvent(screen.getByTestId(config.testID), 'submitEditing');
 
         expect(onSubmitEditing).toHaveBeenCalled();
       });
     });
 
     describe('Accessibility', () => {
-      it('uses placeholder as default accessibility label', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('uses placeholder as default accessibility label', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         expect(screen.getByLabelText(config.defaultPlaceholder)).toBeOnTheScreen();
       });
 
-      it('uses custom accessibility label when provided', () => {
-        renderWithProviders(<Component {...defaultProps} accessibilityLabel="Custom label" />);
+      it('uses custom accessibility label when provided', async () => {
+        await renderWithProviders(<Component {...defaultProps} accessibilityLabel="Custom label" />);
         expect(screen.getByLabelText('Custom label')).toBeOnTheScreen();
       });
 
       if (config.defaultAccessibilityHint) {
-        it('has default accessibility hint', () => {
-          renderWithProviders(<Component {...defaultProps} />);
+        it('has default accessibility hint', async () => {
+          await renderWithProviders(<Component {...defaultProps} />);
           expect(screen.getByTestId(config.testID).props.accessibilityHint).toBe(
             config.defaultAccessibilityHint
           );
         });
       }
 
-      it('uses custom accessibility hint when provided', () => {
-        renderWithProviders(<Component {...defaultProps} accessibilityHint="Custom hint" />);
+      it('uses custom accessibility hint when provided', async () => {
+        await renderWithProviders(<Component {...defaultProps} accessibilityHint="Custom hint" />);
         expect(screen.getByTestId(config.testID).props.accessibilityHint).toBe('Custom hint');
       });
     });
 
     describe('Error Display', () => {
-      it('renders error message when error prop is provided', () => {
-        renderWithProviders(<Component {...defaultProps} error="Validation error" />);
+      it('renders error message when error prop is provided', async () => {
+        await renderWithProviders(<Component {...defaultProps} error="Validation error" />);
         expect(screen.getByText('Validation error')).toBeOnTheScreen();
       });
 
-      it('does not render error when no error prop', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('does not render error when no error prop', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         expect(screen.queryByText('Validation error')).toBeNull();
       });
     });
 
     describe('Return Key Type', () => {
-      it('defaults to next return key type', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('defaults to next return key type', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         expect(screen.getByTestId(config.testID).props.returnKeyType).toBe('next');
       });
 
-      it('accepts custom return key type', () => {
-        renderWithProviders(<Component {...defaultProps} returnKeyType="done" />);
+      it('accepts custom return key type', async () => {
+        await renderWithProviders(<Component {...defaultProps} returnKeyType="done" />);
         expect(screen.getByTestId(config.testID).props.returnKeyType).toBe('done');
       });
     });
 
     describe('Editable State', () => {
-      it('is editable by default', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('is editable by default', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         expect(screen.getByTestId(config.testID).props.editable).toBe(true);
       });
 
-      it('is non-editable when editable is false', () => {
-        renderWithProviders(<Component {...defaultProps} editable={false} />);
+      it('is non-editable when editable is false', async () => {
+        await renderWithProviders(<Component {...defaultProps} editable={false} />);
         expect(screen.getByTestId(config.testID).props.editable).toBe(false);
       });
     });
 
     describe('Ref Forwarding', () => {
-      it('forwards ref for focus functionality', () => {
+      it('forwards ref for focus functionality', async () => {
         const ref = createRef<{ focus: () => void }>();
-        renderWithProviders(<Component {...defaultProps} ref={ref} />);
+        await renderWithProviders(<Component {...defaultProps} ref={ref} />);
         expect(ref.current).toBeDefined();
       });
     });
@@ -257,60 +257,60 @@ export function testFormInputComponent<
     describe('Group Variants', () => {
       it.each(['single', 'top', 'middle', 'bottom'] as const)(
         'renders with groupVariant=%s',
-        groupVariant => {
-          renderWithProviders(<Component {...defaultProps} groupVariant={groupVariant} />);
+        async groupVariant => {
+          await renderWithProviders(<Component {...defaultProps} groupVariant={groupVariant} />);
           expect(screen.getByTestId(config.testID)).toBeOnTheScreen();
         }
       );
     });
 
     describe('Security - Input Sanitisation', () => {
-      it('handles XSS attempts without crashing', () => {
+      it('handles XSS attempts without crashing', async () => {
         const onChangeText = jest.fn();
-        renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
+        await renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
 
-        fireEvent.changeText(screen.getByTestId(config.testID), '<script>alert("xss")</script>');
+        await fireEvent.changeText(screen.getByTestId(config.testID), '<script>alert("xss")</script>');
 
         expect(onChangeText).toHaveBeenCalledWith('<script>alert("xss")</script>');
         expect(screen.getByTestId(config.testID)).toBeOnTheScreen();
       });
 
-      it('handles SQL injection attempts without crashing', () => {
+      it('handles SQL injection attempts without crashing', async () => {
         const onChangeText = jest.fn();
-        renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
+        await renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
 
-        fireEvent.changeText(screen.getByTestId(config.testID), "admin'--");
+        await fireEvent.changeText(screen.getByTestId(config.testID), "admin'--");
 
         expect(onChangeText).toHaveBeenCalledWith("admin'--");
         expect(screen.getByTestId(config.testID)).toBeOnTheScreen();
       });
 
-      it('handles unicode characters without crashing', () => {
+      it('handles unicode characters without crashing', async () => {
         const onChangeText = jest.fn();
-        renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
+        await renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
 
-        fireEvent.changeText(screen.getByTestId(config.testID), 'tëst-ünïcödé');
+        await fireEvent.changeText(screen.getByTestId(config.testID), 'tëst-ünïcödé');
 
         expect(onChangeText).toHaveBeenCalledWith('tëst-ünïcödé');
         expect(screen.getByTestId(config.testID)).toBeOnTheScreen();
       });
 
-      it('handles emoji without crashing', () => {
+      it('handles emoji without crashing', async () => {
         const onChangeText = jest.fn();
-        renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
+        await renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
 
-        fireEvent.changeText(screen.getByTestId(config.testID), '😀test-emoji');
+        await fireEvent.changeText(screen.getByTestId(config.testID), '😀test-emoji');
 
         expect(onChangeText).toHaveBeenCalledWith('😀test-emoji');
         expect(screen.getByTestId(config.testID)).toBeOnTheScreen();
       });
 
-      it('handles very long input', () => {
+      it('handles very long input', async () => {
         const onChangeText = jest.fn();
-        renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
+        await renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
 
         const longValue = 'a'.repeat(500);
-        fireEvent.changeText(screen.getByTestId(config.testID), longValue);
+        await fireEvent.changeText(screen.getByTestId(config.testID), longValue);
 
         expect(onChangeText).toHaveBeenCalledWith(longValue);
         expect(screen.getByTestId(config.testID)).toBeOnTheScreen();
@@ -318,39 +318,39 @@ export function testFormInputComponent<
     });
 
     describe('EAA Accessibility Compliance', () => {
-      it('input is accessible within touch-target container', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('input is accessible within touch-target container', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         const input = screen.getByLabelText(config.defaultPlaceholder);
         expect(input).toBeOnTheScreen();
       });
 
-      it('input with error is accessible', () => {
-        renderWithProviders(<Component {...defaultProps} error="Error message" />);
+      it('input with error is accessible', async () => {
+        await renderWithProviders(<Component {...defaultProps} error="Error message" />);
         const input = screen.getByTestId(config.testID);
         expect(input).toBeOnTheScreen();
         expect(screen.getByText('Error message')).toBeOnTheScreen();
       });
 
-      it('non-editable input is accessible', () => {
-        renderWithProviders(<Component {...defaultProps} editable={false} />);
+      it('non-editable input is accessible', async () => {
+        await renderWithProviders(<Component {...defaultProps} editable={false} />);
         const input = screen.getByTestId(config.testID);
         expect(input.props.editable).toBe(false);
       });
 
-      it('meets minimum touch target requirements', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('meets minimum touch target requirements', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         const input = screen.getByTestId(config.testID);
         expect(input.props.accessible).not.toBe(false);
       });
 
-      it('can receive programmatic focus', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('can receive programmatic focus', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         const input = screen.getByTestId(config.testID);
         expectCanReceiveFocus(input);
       });
 
-      it('has complete accessibility properties', () => {
-        renderWithProviders(<Component {...defaultProps} />);
+      it('has complete accessibility properties', async () => {
+        await renderWithProviders(<Component {...defaultProps} />);
         const input = screen.getByTestId(config.testID);
         expect(input.props.accessibilityLabel).toBe(config.defaultPlaceholder);
         if (config.defaultAccessibilityHint) {

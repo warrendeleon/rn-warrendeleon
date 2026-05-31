@@ -26,8 +26,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
   });
 
   describe('focus order for screen readers', () => {
-    it('should have correct focus order for form elements', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have correct focus order for form elements', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -39,8 +39,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
       expectFocusOrder([emailInput, passwordInput, loginButton]);
     });
 
-    it('should have focusable email input', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable email input', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -48,8 +48,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
       expectCanReceiveFocus(emailInput);
     });
 
-    it('should have focusable password input', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable password input', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -57,8 +57,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
       expectCanReceiveFocus(passwordInput);
     });
 
-    it('should have focusable login button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable login button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -66,8 +66,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
       expectCanReceiveFocus(loginButton);
     });
 
-    it('should have focusable navigation links', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable navigation links', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -80,8 +80,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
   });
 
   describe('screen reader announcements', () => {
-    it('should have accessible labels on all interactive elements', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have accessible labels on all interactive elements', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -100,8 +100,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
       expect(loginButton.props.accessibilityRole).toBe('button');
     });
 
-    it('should have appropriate hints for form fields', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have appropriate hints for form fields', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -117,8 +117,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
       ).toBeDefined();
     });
 
-    it('should announce button disabled state to screen readers', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should announce button disabled state to screen readers', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -128,12 +128,12 @@ describe('LoginScreen Screen Reader Accessibility', () => {
     });
 
     it('should announce button enabled state when form is valid', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -147,14 +147,14 @@ describe('LoginScreen Screen Reader Accessibility', () => {
 
   describe('focus management after actions', () => {
     it('should maintain focus context after form validation', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const emailInput = getByTestId('email-input');
 
       // Type invalid email
-      fireEvent.changeText(emailInput, 'invalid');
+      await fireEvent.changeText(emailInput, 'invalid');
 
       // Screen should still be on screen (no unexpected navigation)
       expect(getByTestId('login-screen')).toBeOnTheScreen();
@@ -163,8 +163,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
       expectCanReceiveFocus(emailInput);
     });
 
-    it('should keep form accessible during loading state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should keep form accessible during loading state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -187,8 +187,8 @@ describe('LoginScreen Screen Reader Accessibility', () => {
       expect(loginButton.props.accessibilityState?.disabled).toBe(true);
     });
 
-    it('should preserve accessibility after error display', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should preserve accessibility after error display', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -221,24 +221,24 @@ describe('LoginScreen Touch Targets', () => {
     jest.clearAllMocks();
   });
 
-  it('verifies login button touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('verifies login button touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expectMinTouchTarget(getByTestId('login-button'));
   });
 
-  it('verifies forgot password link touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('verifies forgot password link touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expectMinTouchTarget(getByTestId('forgot-password-link'));
   });
 
-  it('verifies register link touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('verifies register link touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -251,8 +251,8 @@ describe('LoginScreen Accessibility Roles', () => {
     jest.clearAllMocks();
   });
 
-  it('has proper accessibility role on login button', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has proper accessibility role on login button', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -260,8 +260,8 @@ describe('LoginScreen Accessibility Roles', () => {
     expect(loginButton.props.accessibilityRole).toBe('button');
   });
 
-  it('has proper accessibility role on forgot password link', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has proper accessibility role on forgot password link', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -269,8 +269,8 @@ describe('LoginScreen Accessibility Roles', () => {
     expect(forgotPasswordLink.props.accessibilityRole).toBe('link');
   });
 
-  it('has proper accessibility role on register link', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has proper accessibility role on register link', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -285,15 +285,15 @@ describe('Focus Management After Errors', () => {
   });
 
   it('should keep email field focusable after email validation error', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     const emailInput = getByTestId('email-input');
 
     // Trigger email validation error
-    fireEvent.changeText(emailInput, 'invalid-email');
-    fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+    await fireEvent.changeText(emailInput, 'invalid-email');
+    await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
     await waitFor(
       () => {
@@ -306,15 +306,15 @@ describe('Focus Management After Errors', () => {
   });
 
   it('should keep password field focusable after password validation error', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     const passwordInput = getByTestId('password-input');
 
     // Trigger password validation error (too short)
-    fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-    fireEvent.changeText(passwordInput, 'short');
+    await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+    await fireEvent.changeText(passwordInput, 'short');
 
     await waitFor(
       () => {
@@ -327,7 +327,7 @@ describe('Focus Management After Errors', () => {
   });
 
   it('should maintain focus order after multiple sequential errors', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -336,10 +336,10 @@ describe('Focus Management After Errors', () => {
     const loginButton = getByTestId('login-button');
 
     // First error: invalid email
-    fireEvent.changeText(emailInput, 'invalid');
+    await fireEvent.changeText(emailInput, 'invalid');
 
     // Second error: short password
-    fireEvent.changeText(passwordInput, 'abc');
+    await fireEvent.changeText(passwordInput, 'abc');
 
     await waitFor(
       () => {
@@ -350,8 +350,8 @@ describe('Focus Management After Errors', () => {
     );
   });
 
-  it('should announce auth error to screen readers via role="alert"', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should announce auth error to screen readers via role="alert"', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -372,8 +372,8 @@ describe('Focus Management After Errors', () => {
     expect(errorMessage.props.accessibilityRole).toBe('alert');
   });
 
-  it('should keep form fields accessible after network error', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should keep form fields accessible after network error', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -402,23 +402,23 @@ describe('Focus Management After Errors', () => {
   });
 
   it('should handle rapid error-recovery cycles without losing focus context', async () => {
-    const { getByTestId, rerender } = renderWithProviders(
+    const { getByTestId, rerender } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Simulate rapid state changes
     // First: trigger error
-    rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+    await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
     // Screen remains accessible
     expect(getByTestId('login-screen')).toBeOnTheScreen();
 
     // Change email value multiple times rapidly
     const emailInput = getByTestId('email-input');
-    fireEvent.changeText(emailInput, 'a');
-    fireEvent.changeText(emailInput, 'ab');
-    fireEvent.changeText(emailInput, 'abc');
-    fireEvent.changeText(emailInput, 'abcd@example.com');
+    await fireEvent.changeText(emailInput, 'a');
+    await fireEvent.changeText(emailInput, 'ab');
+    await fireEvent.changeText(emailInput, 'abc');
+    await fireEvent.changeText(emailInput, 'abcd@example.com');
 
     await waitFor(
       () => {
@@ -430,8 +430,8 @@ describe('Focus Management After Errors', () => {
     );
   });
 
-  it('should maintain accessibility during loading state', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should maintain accessibility during loading state', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -457,8 +457,8 @@ describe('Focus Management After Errors', () => {
     expectCanReceiveFocus(passwordInput);
   });
 
-  it('should maintain accessibility in error state', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should maintain accessibility in error state', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {

@@ -14,9 +14,9 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 describe('FallbackUI Stories', () => {
-  it('renders Default story with error message and action buttons', () => {
+  it('renders Default story with error message and action buttons', async () => {
     const { args } = stories.Default;
-    const { getByTestId, getAllByText } = renderWithProviders(
+    const { getByTestId, getAllByText } = await renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
     expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
@@ -25,9 +25,9 @@ describe('FallbackUI Stories', () => {
     expect(getAllByText(/something went wrong/i).length).toBeGreaterThan(0);
   });
 
-  it('renders NetworkError story with network error message', () => {
+  it('renders NetworkError story with network error message', async () => {
     const { args } = stories.NetworkError;
-    const { getByTestId, getByText } = renderWithProviders(
+    const { getByTestId, getByText } = await renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
     expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
@@ -35,35 +35,35 @@ describe('FallbackUI Stories', () => {
     expect(getByText(/Network request failed/i)).toBeOnTheScreen();
   });
 
-  it('renders NullError story with fallback content', () => {
+  it('renders NullError story with fallback content', async () => {
     const { args } = stories.NullError;
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <FallbackUI error={args!.error ?? null} onReset={args!.onReset!} />
     );
     expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
     expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
   });
 
-  it('renders LongErrorMessage story with truncated or full message', () => {
+  it('renders LongErrorMessage story with truncated or full message', async () => {
     const { args } = stories.LongErrorMessage;
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
     expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
     expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
   });
 
-  it('Default story has Try Again button', () => {
+  it('Default story has Try Again button', async () => {
     const { args } = stories.Default;
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
     expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
   });
 
-  it('Default story has Go Home button', () => {
+  it('Default story has Go Home button', async () => {
     const { args } = stories.Default;
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <FallbackUI error={args!.error!} onReset={args!.onReset!} />
     );
     expect(getByTestId('error-go-home-button')).toBeOnTheScreen();

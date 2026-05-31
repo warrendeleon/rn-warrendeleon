@@ -105,7 +105,7 @@ describe('ProfilePicturePreviewScreen', () => {
 
   describe('rendering', () => {
     it('renders the preview screen', async () => {
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -118,7 +118,7 @@ describe('ProfilePicturePreviewScreen', () => {
     // Note: Title is shown in navigation bar header, not in-screen
 
     it('renders the image preview', async () => {
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -129,7 +129,7 @@ describe('ProfilePicturePreviewScreen', () => {
     });
 
     it('renders retry button', async () => {
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -146,7 +146,7 @@ describe('ProfilePicturePreviewScreen', () => {
         () => new Promise(() => {}) // Never resolves
       );
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       expect(screen.getByText('Checking photo...')).toBeOnTheScreen();
     });
@@ -158,7 +158,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -175,7 +175,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -192,7 +192,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -209,7 +209,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -226,7 +226,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -245,7 +245,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       // Wait for the save button to appear and verify it exists
       await waitFor(
@@ -263,7 +263,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -272,7 +272,7 @@ describe('ProfilePicturePreviewScreen', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(screen.getByTestId('profile-picture-preview-retry-button'));
+      await fireEvent.press(screen.getByTestId('profile-picture-preview-retry-button'));
 
       await waitFor(
         () => {
@@ -293,7 +293,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -307,7 +307,7 @@ describe('ProfilePicturePreviewScreen', () => {
     });
 
     it('has accessible retry button', async () => {
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -321,7 +321,7 @@ describe('ProfilePicturePreviewScreen', () => {
     });
 
     it('has accessible image', async () => {
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -336,7 +336,7 @@ describe('ProfilePicturePreviewScreen', () => {
   describe('missing route params', () => {
     it('renders screen when imageUri is provided', async () => {
       // The mock always provides imageUri, so we just verify the screen renders
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       expect(screen.getByTestId('profile-picture-preview-screen')).toBeOnTheScreen();
     });
@@ -350,7 +350,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -369,7 +369,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -391,7 +391,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -415,7 +415,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -443,7 +443,7 @@ describe('ProfilePicturePreviewScreen', () => {
         confidence: 0.95,
       });
 
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {
@@ -454,7 +454,7 @@ describe('ProfilePicturePreviewScreen', () => {
     });
 
     it('retry button has accessible touch target', async () => {
-      render(<ProfilePicturePreviewScreen />);
+      await render(<ProfilePicturePreviewScreen />);
 
       await waitFor(
         () => {

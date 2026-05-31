@@ -68,56 +68,56 @@ describe('SettingsScreen', () => {
   });
 
   describe('Basic Rendering', () => {
-    it('renders the screen correctly', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('renders the screen correctly', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
       expect(getByTestId('settings-screen')).toBeOnTheScreen();
     });
 
-    it('renders screen with testID', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('renders screen with testID', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
       expect(getByTestId('settings-screen')).toBeOnTheScreen();
     });
   });
 
   describe('Account Section - Unauthenticated', () => {
-    it('shows sign in button when user is not authenticated', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('shows sign in button when user is not authenticated', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: unauthenticatedState,
       });
 
       expect(getByTestId('settings-sign-in-button')).toBeOnTheScreen();
     });
 
-    it('does not show user card when user is not authenticated', () => {
-      const { queryByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('does not show user card when user is not authenticated', async () => {
+      const { queryByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: unauthenticatedState,
       });
 
       expect(queryByTestId('settings-user-card')).toBeNull();
     });
 
-    it('navigates to Login when sign in button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('navigates to Login when sign in button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: unauthenticatedState,
       });
 
-      fireEvent.press(getByTestId('settings-sign-in-button'));
+      await fireEvent.press(getByTestId('settings-sign-in-button'));
       expect(mockNavigate).toHaveBeenCalledWith('Login');
     });
   });
 
   describe('Account Section - Authenticated', () => {
-    it('shows user card when user is authenticated', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('shows user card when user is authenticated', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('settings-user-card')).toBeOnTheScreen();
     });
 
-    it('shows profile picture when user has one', () => {
+    it('shows profile picture when user has one', async () => {
       const stateWithPicture = {
         auth: {
           ...authenticatedState.auth,
@@ -128,70 +128,70 @@ describe('SettingsScreen', () => {
         },
       };
 
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: stateWithPicture,
       });
 
       expect(getByTestId('user-card-profile-picture')).toBeOnTheScreen();
     });
 
-    it('shows initials when user has no profile picture', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('shows initials when user has no profile picture', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('user-card-initials')).toBeOnTheScreen();
     });
 
-    it('does not show sign in button when user is authenticated', () => {
-      const { queryByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('does not show sign in button when user is authenticated', async () => {
+      const { queryByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(queryByTestId('settings-sign-in-button')).toBeNull();
     });
 
-    it('navigates to EditAccount when user card is pressed', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('navigates to EditAccount when user card is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.press(getByTestId('settings-user-card'));
+      await fireEvent.press(getByTestId('settings-user-card'));
       expect(mockNavigate).toHaveBeenCalledWith('EditAccount');
     });
   });
 
   describe('General Section', () => {
-    it('renders appearance button', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('renders appearance button', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
       expect(getByTestId('settings-appearance-button')).toBeOnTheScreen();
     });
 
-    it('renders language button', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('renders language button', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
       expect(getByTestId('settings-language-button')).toBeOnTheScreen();
     });
 
-    it('navigates to Appearance when appearance button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('navigates to Appearance when appearance button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
-      fireEvent.press(getByTestId('settings-appearance-button'));
+      await fireEvent.press(getByTestId('settings-appearance-button'));
       expect(mockNavigate).toHaveBeenCalledWith('Appearance');
     });
 
-    it('navigates to Language when language button is pressed', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('navigates to Language when language button is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
-      fireEvent.press(getByTestId('settings-language-button'));
+      await fireEvent.press(getByTestId('settings-language-button'));
       expect(mockNavigate).toHaveBeenCalledWith('Language');
     });
   });
 
   describe('Accessibility', () => {
-    it('has accessibility label on settings screen', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('has accessibility label on settings screen', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
       expect(getByTestId('settings-screen').props.accessibilityLabel).toBe('Settings');
     });
@@ -211,8 +211,8 @@ describe('SettingsScreen Screen Reader Accessibility', () => {
   });
 
   describe('focus order for screen readers', () => {
-    it('should have correct focus order for settings items when authenticated', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should have correct focus order for settings items when authenticated', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -223,8 +223,8 @@ describe('SettingsScreen Screen Reader Accessibility', () => {
       expectFocusOrder([userCard, appearanceButton, languageButton]);
     });
 
-    it('should have correct focus order for settings items when unauthenticated', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should have correct focus order for settings items when unauthenticated', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: unauthenticatedState,
       });
 
@@ -235,38 +235,38 @@ describe('SettingsScreen Screen Reader Accessibility', () => {
       expectFocusOrder([signInButton, appearanceButton, languageButton]);
     });
 
-    it('should have focusable sign in button when unauthenticated', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should have focusable sign in button when unauthenticated', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: unauthenticatedState,
       });
 
       expectCanReceiveFocus(getByTestId('settings-sign-in-button'));
     });
 
-    it('should have focusable user card when authenticated', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should have focusable user card when authenticated', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
       expectCanReceiveFocus(getByTestId('settings-user-card'));
     });
 
-    it('should have focusable appearance button', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('should have focusable appearance button', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
       expectCanReceiveFocus(getByTestId('settings-appearance-button'));
     });
 
-    it('should have focusable language button', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('should have focusable language button', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
       expectCanReceiveFocus(getByTestId('settings-language-button'));
     });
   });
 
   describe('accessibility roles', () => {
-    it('should have button role on sign in button', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should have button role on sign in button', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: unauthenticatedState,
       });
 
@@ -274,15 +274,15 @@ describe('SettingsScreen Screen Reader Accessibility', () => {
       expect(signInButton.props.accessibilityRole).toBe('button');
     });
 
-    it('should have button role on appearance button', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('should have button role on appearance button', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
       const appearanceButton = getByTestId('settings-appearance-button');
       expect(appearanceButton.props.accessibilityRole).toBe('button');
     });
 
-    it('should have button role on language button', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />);
+    it('should have button role on language button', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />);
 
       const languageButton = getByTestId('settings-language-button');
       expect(languageButton.props.accessibilityRole).toBe('button');

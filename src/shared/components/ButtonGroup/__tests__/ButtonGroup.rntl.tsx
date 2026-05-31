@@ -2,7 +2,6 @@ import React from 'react';
 import * as ReactNative from 'react-native';
 import { Box, Text } from '@gluestack-ui/themed';
 
-import { ButtonGroupDivider } from '@app/shared/components/ButtonGroupDivider';
 import type { GroupVariant } from '@app/shared/components/shared/types';
 import { expectFocusOrder, renderWithProviders } from '@app/test-utils';
 
@@ -29,14 +28,14 @@ describe('ButtonGroup', () => {
   );
 
   describe('children rendering', () => {
-    it('renders all items correctly', () => {
+    it('renders all items correctly', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
         { id: '3', label: 'Third' },
       ];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -45,13 +44,13 @@ describe('ButtonGroup', () => {
       expect(getByTestId('item-2')).toBeOnTheScreen();
     });
 
-    it('renders item labels correctly', () => {
+    it('renders item labels correctly', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
       ];
 
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -59,14 +58,14 @@ describe('ButtonGroup', () => {
       expect(getByText('Second')).toBeOnTheScreen();
     });
 
-    it('passes correct index to renderItem', () => {
+    it('passes correct index to renderItem', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'Item 1' },
         { id: '2', label: 'Item 2' },
         { id: '3', label: 'Item 3' },
       ];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -77,37 +76,37 @@ describe('ButtonGroup', () => {
   });
 
   describe('single item layout', () => {
-    it('renders single item with "single" variant', () => {
+    it('renders single item with "single" variant', async () => {
       const items: TestItem[] = [{ id: '1', label: 'Only Item' }];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
       expect(getByTestId('variant-0')).toHaveTextContent('single');
     });
 
-    it('does not render divider for single item', () => {
+    it('does not render divider for single item', async () => {
       const items: TestItem[] = [{ id: '1', label: 'Only Item' }];
 
-      const { UNSAFE_queryAllByType } = renderWithProviders(
+      const { queryAllByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
       // ButtonGroupDivider should not be present
-      const dividers = UNSAFE_queryAllByType(ButtonGroupDivider);
+      const dividers = queryAllByTestId('button-group-divider');
       expect(dividers).toHaveLength(0);
     });
   });
 
   describe('multiple items layout', () => {
-    it('renders two items with "top" and "bottom" variants', () => {
+    it('renders two items with "top" and "bottom" variants', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
       ];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -115,14 +114,14 @@ describe('ButtonGroup', () => {
       expect(getByTestId('variant-1')).toHaveTextContent('bottom');
     });
 
-    it('renders three items with "top", "middle", and "bottom" variants', () => {
+    it('renders three items with "top", "middle", and "bottom" variants', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
         { id: '3', label: 'Third' },
       ];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -131,7 +130,7 @@ describe('ButtonGroup', () => {
       expect(getByTestId('variant-2')).toHaveTextContent('bottom');
     });
 
-    it('renders five items with correct variants', () => {
+    it('renders five items with correct variants', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'One' },
         { id: '2', label: 'Two' },
@@ -140,7 +139,7 @@ describe('ButtonGroup', () => {
         { id: '5', label: 'Five' },
       ];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -153,13 +152,13 @@ describe('ButtonGroup', () => {
   });
 
   describe('spacing between items (dividers)', () => {
-    it('renders all items correctly for two items', () => {
+    it('renders all items correctly for two items', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
       ];
 
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -167,14 +166,14 @@ describe('ButtonGroup', () => {
       expect(getByText('Second')).toBeOnTheScreen();
     });
 
-    it('renders all items correctly for three items', () => {
+    it('renders all items correctly for three items', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
         { id: '3', label: 'Third' },
       ];
 
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -183,7 +182,7 @@ describe('ButtonGroup', () => {
       expect(getByText('Third')).toBeOnTheScreen();
     });
 
-    it('renders all items correctly for five items', () => {
+    it('renders all items correctly for five items', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'One' },
         { id: '2', label: 'Two' },
@@ -192,7 +191,7 @@ describe('ButtonGroup', () => {
         { id: '5', label: 'Five' },
       ];
 
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -203,13 +202,13 @@ describe('ButtonGroup', () => {
       expect(getByText('Five')).toBeOnTheScreen();
     });
 
-    it('maintains correct item order with multiple items', () => {
+    it('maintains correct item order with multiple items', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
       ];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -220,12 +219,12 @@ describe('ButtonGroup', () => {
   });
 
   describe('dark/light theme support', () => {
-    it('renders items correctly in light theme', () => {
+    it('renders items correctly in light theme', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const items: TestItem[] = [{ id: '1', label: 'Test Item' }];
 
-      const { getByText, getByTestId } = renderWithProviders(
+      const { getByText, getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />,
         {
           preloadedState: {
@@ -241,12 +240,12 @@ describe('ButtonGroup', () => {
       expect(getByTestId('item-0')).toBeOnTheScreen();
     });
 
-    it('renders items correctly in dark theme', () => {
+    it('renders items correctly in dark theme', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const items: TestItem[] = [{ id: '1', label: 'Test Item' }];
 
-      const { getByText, getByTestId } = renderWithProviders(
+      const { getByText, getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />,
         {
           preloadedState: {
@@ -262,12 +261,12 @@ describe('ButtonGroup', () => {
       expect(getByTestId('item-0')).toBeOnTheScreen();
     });
 
-    it('renders items correctly with system theme in light mode', () => {
+    it('renders items correctly with system theme in light mode', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const items: TestItem[] = [{ id: '1', label: 'Test Item' }];
 
-      const { getByText, getByTestId } = renderWithProviders(
+      const { getByText, getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />,
         {
           preloadedState: {
@@ -283,12 +282,12 @@ describe('ButtonGroup', () => {
       expect(getByTestId('item-0')).toBeOnTheScreen();
     });
 
-    it('renders items correctly with system theme in dark mode', () => {
+    it('renders items correctly with system theme in dark mode', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
       const items: TestItem[] = [{ id: '1', label: 'Test Item' }];
 
-      const { getByText, getByTestId } = renderWithProviders(
+      const { getByText, getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />,
         {
           preloadedState: {
@@ -306,13 +305,13 @@ describe('ButtonGroup', () => {
   });
 
   describe('accessibility', () => {
-    it('renders accessible items with accessibility labels', () => {
+    it('renders accessible items with accessibility labels', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
       ];
 
-      const { getByLabelText } = renderWithProviders(
+      const { getByLabelText } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -320,13 +319,13 @@ describe('ButtonGroup', () => {
       expect(getByLabelText('Item Second')).toBeOnTheScreen();
     });
 
-    it('renders items in a container for visual grouping', () => {
+    it('renders items in a container for visual grouping', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
       ];
 
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
@@ -337,21 +336,21 @@ describe('ButtonGroup', () => {
   });
 
   describe('edge cases', () => {
-    it('renders empty list without items', () => {
+    it('renders empty list without items', async () => {
       const items: TestItem[] = [];
 
-      const { queryByTestId, UNSAFE_queryAllByType } = renderWithProviders(
+      const { queryByTestId, queryAllByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
       // No items should be rendered
       expect(queryByTestId('item-0')).toBeNull();
       // No dividers should be rendered
-      const dividers = UNSAFE_queryAllByType(ButtonGroupDivider);
+      const dividers = queryAllByTestId('button-group-divider');
       expect(dividers).toHaveLength(0);
     });
 
-    it('handles custom item types correctly', () => {
+    it('handles custom item types correctly', async () => {
       type CustomItem = {
         customId: number;
         customLabel: string;
@@ -369,7 +368,7 @@ describe('ButtonGroup', () => {
         </Box>
       );
 
-      const { getByText, getByTestId } = renderWithProviders(
+      const { getByText, getByTestId } = await renderWithProviders(
         <ButtonGroup items={customItems} renderItem={customRenderItem} />
       );
 
@@ -381,31 +380,31 @@ describe('ButtonGroup', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('has correct focus order for button group items', () => {
+    it('has correct focus order for button group items', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'First' },
         { id: '2', label: 'Second' },
         { id: '3', label: 'Third' },
       ];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
       expectFocusOrder([getByTestId('item-0'), getByTestId('item-1'), getByTestId('item-2')]);
     });
 
-    it('single item has correct focus order', () => {
+    it('single item has correct focus order', async () => {
       const items: TestItem[] = [{ id: '1', label: 'Only Item' }];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 
       expectFocusOrder([getByTestId('item-0')]);
     });
 
-    it('maintains focus order with five items', () => {
+    it('maintains focus order with five items', async () => {
       const items: TestItem[] = [
         { id: '1', label: 'One' },
         { id: '2', label: 'Two' },
@@ -414,7 +413,7 @@ describe('ButtonGroup', () => {
         { id: '5', label: 'Five' },
       ];
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ButtonGroup items={items} renderItem={testRenderItem} />
       );
 

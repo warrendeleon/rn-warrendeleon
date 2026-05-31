@@ -20,9 +20,9 @@ describe('ButtonGroup Stories', () => {
       ['TwoItems', stories.TwoItems],
       ['ThreeItems', stories.ThreeItems],
       ['FiveItems', stories.FiveItems],
-    ] as const)('renders %s story with all items visible', (_storyName, story) => {
+    ] as const)('renders %s story with all items visible', async (_storyName, story) => {
       const { args } = story;
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <ButtonGroup
           items={args!.items!}
           renderItem={item => simpleRenderItem(item as { label: string })}

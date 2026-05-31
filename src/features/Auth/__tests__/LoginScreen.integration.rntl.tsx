@@ -20,13 +20,13 @@ describe('LoginScreen Form Submission', () => {
   });
 
   it('should dispatch login action when form is submitted', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Fill form with valid data
-    fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-    fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+    await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+    await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
     // Wait for form to be valid
     await waitFor(
@@ -37,7 +37,7 @@ describe('LoginScreen Form Submission', () => {
     );
 
     // Submit form
-    fireEvent.press(getByTestId('login-button'));
+    await fireEvent.press(getByTestId('login-button'));
 
     // Verify form submission was attempted (button state changes during submission)
     // The actual dispatch is handled by Redux, which is mocked in renderWithProviders
@@ -45,7 +45,7 @@ describe('LoginScreen Form Submission', () => {
   });
 
   it('should show loading spinner during form submission', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -66,13 +66,13 @@ describe('LoginScreen Form Submission', () => {
   });
 
   it('should submit form when pressing enter on password field', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Fill form
-    fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-    fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+    await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+    await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
     await waitFor(
       () => {
@@ -82,7 +82,7 @@ describe('LoginScreen Form Submission', () => {
     );
 
     // Press enter on password field (simulates keyboard done button)
-    fireEvent(getByTestId('password-input'), 'submitEditing');
+    await fireEvent(getByTestId('password-input'), 'submitEditing');
 
     // Form should remain on screen (submission attempted)
     expect(getByTestId('login-screen')).toBeOnTheScreen();
@@ -94,24 +94,24 @@ describe('LoginScreen Keyboard Navigation', () => {
     jest.clearAllMocks();
   });
 
-  it('should have next return key type on email field', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should have next return key type on email field', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('email-input').props.returnKeyType).toBe('next');
   });
 
-  it('should have done return key type on password field', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should have done return key type on password field', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('password-input').props.returnKeyType).toBe('done');
   });
 
-  it('should trigger password focus when email field submits', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should trigger password focus when email field submits', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -120,21 +120,21 @@ describe('LoginScreen Keyboard Navigation', () => {
     expect(emailInput.props.onSubmitEditing).toBeDefined();
 
     // Triggering submitEditing should not crash
-    fireEvent(emailInput, 'submitEditing');
+    await fireEvent(emailInput, 'submitEditing');
     expect(getByTestId('password-input')).toBeOnTheScreen();
   });
 
   it('should allow keyboard-only form completion', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Type email and press next
-    fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-    fireEvent(getByTestId('email-input'), 'submitEditing');
+    await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+    await fireEvent(getByTestId('email-input'), 'submitEditing');
 
     // Type password
-    fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+    await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
     // Form should be valid
     await waitFor(
@@ -145,7 +145,7 @@ describe('LoginScreen Keyboard Navigation', () => {
     );
 
     // Press done on password (should submit)
-    fireEvent(getByTestId('password-input'), 'submitEditing');
+    await fireEvent(getByTestId('password-input'), 'submitEditing');
 
     expect(getByTestId('login-screen')).toBeOnTheScreen();
   });
@@ -156,13 +156,13 @@ describe('LoginScreen Password Updated Toast', () => {
     jest.clearAllMocks();
   });
 
-  it('should handle passwordUpdated route param', () => {
+  it('should handle passwordUpdated route param', async () => {
     const routeWithParam = {
       ...mockRoute,
       params: { passwordUpdated: true },
     };
 
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={routeWithParam} />
     );
 
@@ -173,8 +173,8 @@ describe('LoginScreen Password Updated Toast', () => {
     expect(mockNavigation.setParams).toHaveBeenCalledWith({ passwordUpdated: undefined });
   });
 
-  it('should not call setParams when no passwordUpdated param', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should not call setParams when no passwordUpdated param', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -189,13 +189,13 @@ describe('LoginScreen Password Updated Toast', () => {
     expect(passwordUpdatedCalls).toHaveLength(0);
   });
 
-  it('should not call setParams when passwordUpdated is false', () => {
+  it('should not call setParams when passwordUpdated is false', async () => {
     const routeWithFalseParam = {
       ...mockRoute,
       params: { passwordUpdated: false },
     };
 
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={routeWithFalseParam} />
     );
 
@@ -218,9 +218,9 @@ describe('LoginScreen Session Recovery (Intended Route)', () => {
     jest.clearAllMocks();
   });
 
-  it('should render login form when user has intended route set', () => {
+  it('should render login form when user has intended route set', async () => {
     // The intendedRoute is used after successful login, not during render
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -230,10 +230,10 @@ describe('LoginScreen Session Recovery (Intended Route)', () => {
     expect(getByTestId('login-button')).toBeOnTheScreen();
   });
 
-  it('should navigate to Home when authenticated without intended route', () => {
+  it('should navigate to Home when authenticated without intended route', async () => {
     // When user is already authenticated, navigation happens externally
     // This test verifies the screen handles the authenticated state
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -266,10 +266,10 @@ describe('LoginScreen Email Not Confirmed Flow', () => {
     jest.clearAllMocks();
   });
 
-  it('should handle email_not_confirmed error state gracefully', () => {
+  it('should handle email_not_confirmed error state gracefully', async () => {
     // When email_not_confirmed error occurs, the screen should navigate
     // to EmailVerification. This tests the screen still renders with error.
-    const { getByTestId, getByText } = renderWithProviders(
+    const { getByTestId, getByText } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -289,7 +289,7 @@ describe('LoginScreen Email Not Confirmed Flow', () => {
   });
 
   it('should allow retry with different email after verification error', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -305,8 +305,8 @@ describe('LoginScreen Email Not Confirmed Flow', () => {
     );
 
     // User can enter different email to retry
-    fireEvent.changeText(getByTestId('email-input'), 'verified@example.com');
-    fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+    await fireEvent.changeText(getByTestId('email-input'), 'verified@example.com');
+    await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
     await waitFor(
       () => {
@@ -323,8 +323,8 @@ describe('LoginScreen Async Cancellation', () => {
   });
 
   describe('component unmount during async operation', () => {
-    it('should handle component unmount during loading state without errors', () => {
-      const { unmount, getByTestId } = renderWithProviders(
+    it('should handle component unmount during loading state without errors', async () => {
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -347,13 +347,13 @@ describe('LoginScreen Async Cancellation', () => {
     });
 
     it('should handle component unmount after form submission without errors', async () => {
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -363,7 +363,7 @@ describe('LoginScreen Async Cancellation', () => {
       );
 
       // Press login button
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Immediately unmount (simulates rapid navigation away)
       expect(() => unmount()).not.toThrow();
@@ -372,7 +372,7 @@ describe('LoginScreen Async Cancellation', () => {
     it('should not update state after unmount (no memory leaks)', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -390,7 +390,7 @@ describe('LoginScreen Async Cancellation', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
 
       // Unmount component while in loading state
-      unmount();
+      await unmount();
 
       // No "Can't perform a React state update on an unmounted component" warning
       // should appear. Check console.error was not called with that message.
@@ -404,8 +404,8 @@ describe('LoginScreen Async Cancellation', () => {
   });
 
   describe('navigation during async operation', () => {
-    it('should allow navigation to forgot password during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should allow navigation to forgot password during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -421,13 +421,13 @@ describe('LoginScreen Async Cancellation', () => {
       );
 
       // User can still navigate away during loading
-      fireEvent.press(getByTestId('forgot-password-link'));
+      await fireEvent.press(getByTestId('forgot-password-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('ForgotPassword');
     });
 
-    it('should allow navigation to registration during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should allow navigation to registration during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -443,24 +443,24 @@ describe('LoginScreen Async Cancellation', () => {
       );
 
       // User can still navigate to registration during loading
-      fireEvent.press(getByTestId('register-link'));
+      await fireEvent.press(getByTestId('register-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('Registration');
     });
 
     it('should preserve form data when navigating away and back', async () => {
-      const { getByTestId, unmount } = renderWithProviders(
+      const { getByTestId, unmount } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form partially
-      fireEvent.changeText(getByTestId('email-input'), 'partial@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'partial@example.com');
 
       // Navigate away (unmount simulates navigation)
-      unmount();
+      await unmount();
 
       // Remount (simulates coming back) - form starts fresh
-      const { getByTestId: getByTestIdNew } = renderWithProviders(
+      const { getByTestId: getByTestIdNew } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -471,13 +471,13 @@ describe('LoginScreen Async Cancellation', () => {
 
   describe('rapid form submission prevention', () => {
     it('should prevent double submission via disabled state', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -487,30 +487,30 @@ describe('LoginScreen Async Cancellation', () => {
       );
 
       // First press
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Simulate loading state being set (by Redux)
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // During loading, button should be disabled
       // This is tested via preloaded state since Redux state change is mocked
     });
 
-    it('should handle rapid taps before state updates', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle rapid taps before state updates', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       const loginButton = getByTestId('login-button');
 
       // Rapid taps (simulates user tapping quickly)
-      fireEvent.press(loginButton);
-      fireEvent.press(loginButton);
-      fireEvent.press(loginButton);
+      await fireEvent.press(loginButton);
+      await fireEvent.press(loginButton);
+      await fireEvent.press(loginButton);
 
       // Screen should still be stable (no crashes)
       expect(getByTestId('login-screen')).toBeOnTheScreen();

@@ -6,9 +6,9 @@ import { PINDot } from '../PINDot';
 import * as stories from '../PINDot.stories';
 
 describe('PINDot Stories', () => {
-  it('renders Empty story with empty accessibility label', () => {
+  it('renders Empty story with empty accessibility label', async () => {
     const { args } = stories.Empty;
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <PINDot
         isFilled={args?.isFilled ?? false}
         hasError={args?.hasError ?? false}
@@ -20,9 +20,9 @@ describe('PINDot Stories', () => {
     expect(getByTestId('pin-dot-0').props.accessibilityLabel).toContain('empty');
   });
 
-  it('renders Filled story with entered accessibility label', () => {
+  it('renders Filled story with entered accessibility label', async () => {
     const { args } = stories.Filled;
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <PINDot
         isFilled={args?.isFilled ?? true}
         hasError={args?.hasError ?? false}
@@ -34,9 +34,9 @@ describe('PINDot Stories', () => {
     expect(getByTestId('pin-dot-0').props.accessibilityLabel).toContain('entered');
   });
 
-  it('renders Error story with entered state', () => {
+  it('renders Error story with entered state', async () => {
     const { args } = stories.Error;
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <PINDot
         isFilled={args?.isFilled ?? true}
         hasError={args?.hasError ?? true}
@@ -48,21 +48,21 @@ describe('PINDot Stories', () => {
     expect(getByTestId('pin-dot-0').props.accessibilityLabel).toContain('entered');
   });
 
-  it('renders AllStates story with multiple dots', () => {
+  it('renders AllStates story with multiple dots', async () => {
     const Story = stories.AllStates.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/dot-\d/).length).toBeGreaterThan(0);
   });
 
-  it('renders PartialEntry story with mix of filled and empty', () => {
+  it('renders PartialEntry story with mix of filled and empty', async () => {
     const Story = stories.PartialEntry.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/dot-\d/).length).toBeGreaterThan(0);
   });
 
-  it('renders FullError story with all dots in error state', () => {
+  it('renders FullError story with all dots in error state', async () => {
     const Story = stories.FullError.render as React.FC;
-    const { getAllByTestId } = renderWithProviders(<Story />);
+    const { getAllByTestId } = await renderWithProviders(<Story />);
     expect(getAllByTestId(/dot-\d/).length).toBeGreaterThan(0);
   });
 
@@ -87,24 +87,24 @@ describe('PINDot Stories', () => {
   });
 
   describe('accessibility', () => {
-    it('Empty dot has correct accessibility label', () => {
-      const { getByTestId } = renderWithProviders(
+    it('Empty dot has correct accessibility label', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINDot isFilled={false} hasError={false} index={0} total={6} testID="pin-dot" />
       );
       const dot = getByTestId('pin-dot-0');
       expect(dot.props.accessibilityLabel).toBe('PIN digit 1 of 6, empty');
     });
 
-    it('Filled dot has correct accessibility label', () => {
-      const { getByTestId } = renderWithProviders(
+    it('Filled dot has correct accessibility label', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINDot isFilled={true} hasError={false} index={2} total={6} testID="pin-dot" />
       );
       const dot = getByTestId('pin-dot-2');
       expect(dot.props.accessibilityLabel).toBe('PIN digit 3 of 6, entered');
     });
 
-    it('has accessibilityRole none (decorative)', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has accessibilityRole none (decorative)', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINDot isFilled={false} hasError={false} index={0} total={6} testID="pin-dot" />
       );
       const dot = getByTestId('pin-dot-0');

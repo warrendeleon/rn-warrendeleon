@@ -50,11 +50,11 @@ describe('WebViewScreen', () => {
   });
 
   describe('URL Validation', () => {
-    it('renders loading state initially while validating', () => {
+    it('renders loading state initially while validating', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('https://github.com'));
       mockIsUrlAllowed.mockReturnValue(false); // Will trigger error state
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       // Should show loading state briefly before validation completes
       const loading = screen.queryByTestId('webview-loading');
@@ -64,11 +64,11 @@ describe('WebViewScreen', () => {
       expect(loading ?? error).toBeDefined();
     });
 
-    it('renders error state when URL is not allowed', () => {
+    it('renders error state when URL is not allowed', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('https://evil.com'));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       const errorContainer = screen.getByTestId('webview-error');
       expect(errorContainer).toBeOnTheScreen();
@@ -76,33 +76,33 @@ describe('WebViewScreen', () => {
       expect(screen.getByText('https://evil.com')).toBeOnTheScreen();
     });
 
-    it('renders WebView when URL is allowed', () => {
+    it('renders WebView when URL is allowed', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('https://github.com'));
       mockIsUrlAllowed.mockReturnValue(true);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       const webview = screen.getByTestId('webview-content');
       expect(webview).toBeOnTheScreen();
     });
 
-    it('validates URL against ALLOWED_WEBVIEW_DOMAINS', () => {
+    it('validates URL against ALLOWED_WEBVIEW_DOMAINS', async () => {
       const testUri = 'https://github.com/user/repo';
       mockUseRoute.mockReturnValue(createMockRoute(testUri));
       mockIsUrlAllowed.mockReturnValue(true);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       expect(mockIsUrlAllowed).toHaveBeenCalledWith(testUri, ALLOWED_WEBVIEW_DOMAINS);
     });
   });
 
   describe('Accessibility', () => {
-    it('loading state has proper accessibility props', () => {
+    it('loading state has proper accessibility props', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('https://github.com'));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       const loading = screen.queryByTestId('webview-loading');
       if (loading) {
@@ -111,11 +111,11 @@ describe('WebViewScreen', () => {
       }
     });
 
-    it('error state has proper accessibility props', () => {
+    it('error state has proper accessibility props', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('https://evil.com'));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       const errorContainer = screen.getByTestId('webview-error');
       expect(errorContainer.props.accessibilityRole).toBe('alert');
@@ -126,12 +126,12 @@ describe('WebViewScreen', () => {
   });
 
   describe('Dark Mode Support', () => {
-    it('renders correctly when dark mode is active', () => {
+    it('renders correctly when dark mode is active', async () => {
       mockUseAppColorScheme.mockReturnValue('dark');
       mockUseRoute.mockReturnValue(createMockRoute('https://evil.com'));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       // Verify error message is displayed (GlueStack UI handles theming internally)
       const errorText = screen.getByText('This URL is not allowed for security reasons');
@@ -139,12 +139,12 @@ describe('WebViewScreen', () => {
       expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
 
-    it('renders correctly when light mode is active', () => {
+    it('renders correctly when light mode is active', async () => {
       mockUseAppColorScheme.mockReturnValue('light');
       mockUseRoute.mockReturnValue(createMockRoute('https://evil.com'));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       // Verify error message is displayed (GlueStack UI handles theming internally)
       const errorText = screen.getByText('This URL is not allowed for security reasons');
@@ -154,62 +154,62 @@ describe('WebViewScreen', () => {
   });
 
   describe('Security Scenarios', () => {
-    it('blocks HTTP URLs', () => {
+    it('blocks HTTP URLs', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('http://github.com'));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
       expect(screen.getByText('This URL is not allowed for security reasons')).toBeOnTheScreen();
     });
 
-    it('blocks non-whitelisted domains', () => {
+    it('blocks non-whitelisted domains', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('https://malicious.com'));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
 
-    it('allows whitelisted domains with paths and query params', () => {
+    it('allows whitelisted domains with paths and query params', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('https://github.com/user/repo?tab=readme'));
       mockIsUrlAllowed.mockReturnValue(true);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       expect(screen.getByTestId('webview-content')).toBeOnTheScreen();
     });
 
-    it('allows subdomains of whitelisted domains', () => {
+    it('allows subdomains of whitelisted domains', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('https://gist.github.com'));
       mockIsUrlAllowed.mockReturnValue(true);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       expect(screen.getByTestId('webview-content')).toBeOnTheScreen();
     });
   });
 
   describe('WebView Configuration', () => {
-    it('passes correct source URI to WebView', () => {
+    it('passes correct source URI to WebView', async () => {
       const testUri = 'https://github.com';
       mockUseRoute.mockReturnValue(createMockRoute(testUri));
       mockIsUrlAllowed.mockReturnValue(true);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       // Verify WebView is rendered with correct testID
       expect(screen.getByTestId('webview-content')).toBeOnTheScreen();
     });
 
-    it('applies dark mode injection when dark mode is active', () => {
+    it('applies dark mode injection when dark mode is active', async () => {
       mockUseAppColorScheme.mockReturnValue('dark');
       mockUseRoute.mockReturnValue(createMockRoute('https://github.com'));
       mockIsUrlAllowed.mockReturnValue(true);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       expect(screen.getByTestId('webview-content')).toBeOnTheScreen();
       // WebView props are passed to the mock but not easily testable here
@@ -217,29 +217,29 @@ describe('WebViewScreen', () => {
   });
 
   describe('Edge Cases', () => {
-    it('handles empty URI gracefully', () => {
+    it('handles empty URI gracefully', async () => {
       mockUseRoute.mockReturnValue(createMockRoute(''));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
 
-    it('handles malformed URLs', () => {
+    it('handles malformed URLs', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('not a url'));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });
 
-    it('handles javascript: protocol URLs', () => {
+    it('handles javascript: protocol URLs', async () => {
       mockUseRoute.mockReturnValue(createMockRoute('javascript:alert(1)'));
       mockIsUrlAllowed.mockReturnValue(false);
 
-      render(<WebViewScreen />);
+      await render(<WebViewScreen />);
 
       expect(screen.getByTestId('webview-error')).toBeOnTheScreen();
     });

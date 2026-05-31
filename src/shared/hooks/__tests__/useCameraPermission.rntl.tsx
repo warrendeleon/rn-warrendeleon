@@ -58,7 +58,7 @@ describe('useCameraPermission', () => {
         () => new Promise(resolve => setTimeout(() => resolve(RESULTS.GRANTED), 100))
       );
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       expect(result.current.isLoading).toBe(true);
 
@@ -70,12 +70,12 @@ describe('useCameraPermission', () => {
       );
     });
 
-    it('status is null initially before check completes', () => {
+    it('status is null initially before check completes', async () => {
       mockCheck.mockImplementation(
         () => new Promise(resolve => setTimeout(() => resolve(RESULTS.GRANTED), 100))
       );
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       // Status is null until check completes
       expect(result.current.status).toBeNull();
@@ -86,7 +86,7 @@ describe('useCameraPermission', () => {
     it('returns GRANTED and sets isGranted: true', async () => {
       mockCheck.mockResolvedValue(RESULTS.GRANTED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -103,7 +103,7 @@ describe('useCameraPermission', () => {
     it('returns DENIED and sets isDenied: true', async () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -120,7 +120,7 @@ describe('useCameraPermission', () => {
     it('returns BLOCKED and sets isBlocked: true', async () => {
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -138,7 +138,7 @@ describe('useCameraPermission', () => {
       const error = new Error('Permission check failed');
       mockCheck.mockRejectedValue(error);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -154,7 +154,7 @@ describe('useCameraPermission', () => {
     it('E2E mock returns GRANTED without calling check', async () => {
       mockIsE2EMockEnabled.mockReturnValue(true);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -174,7 +174,7 @@ describe('useCameraPermission', () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
       mockRequest.mockResolvedValue(RESULTS.GRANTED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -197,7 +197,7 @@ describe('useCameraPermission', () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
       mockRequest.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -219,7 +219,7 @@ describe('useCameraPermission', () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
       mockRequest.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -242,7 +242,7 @@ describe('useCameraPermission', () => {
       const error = new Error('Request failed');
       mockRequest.mockRejectedValue(error);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -263,7 +263,7 @@ describe('useCameraPermission', () => {
     it('E2E mock returns GRANTED without calling request', async () => {
       mockIsE2EMockEnabled.mockReturnValue(true);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -286,7 +286,7 @@ describe('useCameraPermission', () => {
     it('isGranted: true when status === GRANTED', async () => {
       mockCheck.mockResolvedValue(RESULTS.GRANTED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -303,7 +303,7 @@ describe('useCameraPermission', () => {
     it('isDenied: true when status === DENIED', async () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -320,7 +320,7 @@ describe('useCameraPermission', () => {
     it('isBlocked: true when status === BLOCKED', async () => {
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -337,7 +337,7 @@ describe('useCameraPermission', () => {
     it('canProceed: true only when isGranted', async () => {
       mockCheck.mockResolvedValue(RESULTS.GRANTED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -350,7 +350,7 @@ describe('useCameraPermission', () => {
 
       // Test that DENIED does not allow proceed
       mockCheck.mockResolvedValue(RESULTS.DENIED);
-      const { result: deniedResult } = renderHook(() => useCameraPermission());
+      const { result: deniedResult } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -375,7 +375,7 @@ describe('useCameraPermission', () => {
       const mockOpenURL = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -397,7 +397,7 @@ describe('useCameraPermission', () => {
       mockOpenSettings.mockResolvedValue(undefined);
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -419,7 +419,7 @@ describe('useCameraPermission', () => {
       const mockOpenURL = jest.spyOn(Linking, 'openURL').mockRejectedValue(error);
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -441,7 +441,7 @@ describe('useCameraPermission', () => {
     it('calls checkPermission and updates state', async () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -468,7 +468,7 @@ describe('useCameraPermission', () => {
     it('checks permission on mount', async () => {
       mockCheck.mockResolvedValue(RESULTS.GRANTED);
 
-      renderHook(() => useCameraPermission());
+      await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {
@@ -484,7 +484,7 @@ describe('useCameraPermission', () => {
       const error = new Error('Permission check failed');
       mockCheck.mockRejectedValue(error);
 
-      const { result } = renderHook(() => useCameraPermission());
+      const { result } = await renderHook(() => useCameraPermission());
 
       await waitFor(
         () => {

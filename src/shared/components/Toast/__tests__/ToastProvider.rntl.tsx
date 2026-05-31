@@ -85,8 +85,8 @@ describe('ToastProvider', () => {
   });
 
   describe('rendering', () => {
-    it('renders children correctly', () => {
-      const { getByText } = renderWithProviders(
+    it('renders children correctly', async () => {
+      const { getByText } = await renderWithProviders(
         <ToastProvider>
           <Text>Child content</Text>
         </ToastProvider>
@@ -95,8 +95,8 @@ describe('ToastProvider', () => {
       expect(getByText('Child content')).toBeOnTheScreen();
     });
 
-    it('does not render toast initially', () => {
-      const { queryByTestId } = renderWithProviders(
+    it('does not render toast initially', async () => {
+      const { queryByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger testID="my-toast" />
         </ToastProvider>
@@ -109,7 +109,7 @@ describe('ToastProvider', () => {
 
   describe('showToast', () => {
     it('displays toast with message when showToast is called', async () => {
-      const { getByTestId, queryByTestId, getByText } = renderWithProviders(
+      const { getByTestId, queryByTestId, getByText } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger message="Hello World" />
         </ToastProvider>
@@ -117,7 +117,7 @@ describe('ToastProvider', () => {
 
       expect(queryByTestId('toast-container')).toBeNull();
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -129,13 +129,13 @@ describe('ToastProvider', () => {
     });
 
     it('displays toast with custom testID', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger message="Test" testID="custom-toast" />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -146,13 +146,13 @@ describe('ToastProvider', () => {
     });
 
     it('displays toast with title when provided', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger message="Body text" title="Title text" />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -174,7 +174,7 @@ describe('ToastProvider', () => {
       ];
 
       for (const type of types) {
-        const { getAllByTestId, unmount } = renderWithProviders(
+        const { getAllByTestId, unmount } = await renderWithProviders(
           <ToastProvider>
             <ToastTrigger type={type} />
           </ToastProvider>
@@ -182,7 +182,7 @@ describe('ToastProvider', () => {
 
         const showToastButtons = getAllByTestId('show-toast-button');
         if (showToastButtons[0]) {
-          fireEvent.press(showToastButtons[0]);
+          await fireEvent.press(showToastButtons[0]);
         }
 
         await waitFor(
@@ -194,21 +194,21 @@ describe('ToastProvider', () => {
           { timeout: 3000, interval: 100 }
         );
 
-        unmount();
+        await unmount();
       }
     });
   });
 
   describe('hideToast', () => {
     it('hideToast function can be called after showing toast', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger />
         </ToastProvider>
       );
 
       // Show toast
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -219,17 +219,17 @@ describe('ToastProvider', () => {
 
       // Verify hideToast can be called without error
       // Note: Animation completion is tested in E2E tests
-      expect(() => fireEvent.press(getByTestId('hide-toast-button'))).not.toThrow();
+      await expect(fireEvent.press(getByTestId('hide-toast-button'))).resolves.toBeUndefined();
     });
 
     it('dismiss button can be pressed', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -240,19 +240,19 @@ describe('ToastProvider', () => {
 
       // Verify dismiss button can be pressed without error
       // Note: Animation completion is tested in E2E tests
-      expect(() => fireEvent.press(getByTestId('toast-dismiss-button'))).not.toThrow();
+      await expect(fireEvent.press(getByTestId('toast-dismiss-button'))).resolves.toBeUndefined();
     });
   });
 
   describe('auto-dismiss', () => {
     it('shows toast and sets up auto-dismiss timer', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger duration={500} />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       // Toast should appear
       await waitFor(
@@ -267,13 +267,13 @@ describe('ToastProvider', () => {
     });
 
     it('accepts custom duration prop', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger duration={1000} />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       // Toast should appear with custom duration (verified by no errors)
       await waitFor(
@@ -294,13 +294,13 @@ describe('ToastProvider', () => {
       ];
 
       for (const type of types) {
-        const { getByTestId, unmount } = renderWithProviders(
+        const { getByTestId, unmount } = await renderWithProviders(
           <ToastProvider>
             <ToastTrigger type={type} />
           </ToastProvider>
         );
 
-        fireEvent.press(getByTestId('show-toast-button'));
+        await fireEvent.press(getByTestId('show-toast-button'));
 
         await waitFor(
           () => {
@@ -309,20 +309,20 @@ describe('ToastProvider', () => {
           { timeout: 3000, interval: 100 }
         );
 
-        unmount();
+        await unmount();
       }
     });
   });
 
   describe('dismissible prop', () => {
     it('shows dismiss button when dismissible is true (default)', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -333,13 +333,13 @@ describe('ToastProvider', () => {
     });
 
     it('hides dismiss button when dismissible is false', async () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger dismissible={false} />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -353,13 +353,13 @@ describe('ToastProvider', () => {
 
   describe('action button', () => {
     it('renders action button when action is provided', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger actionLabel="Undo" />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -372,13 +372,13 @@ describe('ToastProvider', () => {
     it('calls action onPress when action button is pressed', async () => {
       const mockActionOnPress = jest.fn();
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger actionLabel="Retry" actionOnPress={mockActionOnPress} />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -387,7 +387,7 @@ describe('ToastProvider', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('toast-action-button'));
+      await fireEvent.press(getByTestId('toast-action-button'));
 
       // Verify action callback was called
       expect(mockActionOnPress).toHaveBeenCalledTimes(1);
@@ -398,13 +398,13 @@ describe('ToastProvider', () => {
 
   describe('accessibility', () => {
     it('has alert role for screen readers', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -416,13 +416,13 @@ describe('ToastProvider', () => {
     });
 
     it('has polite live region for announcements', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -434,13 +434,13 @@ describe('ToastProvider', () => {
     });
 
     it('has accessibility label with message', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger message="Test accessibility" />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -452,13 +452,13 @@ describe('ToastProvider', () => {
     });
 
     it('has accessibility label with title and message when both provided', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger title="Success" message="Operation completed" />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -470,13 +470,13 @@ describe('ToastProvider', () => {
     });
 
     it('dismiss button has proper accessibility props', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -492,13 +492,13 @@ describe('ToastProvider', () => {
     });
 
     it('action button has proper accessibility props', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger actionLabel="Undo" />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -515,7 +515,7 @@ describe('ToastProvider', () => {
     it('renders correctly in light theme', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger />
         </ToastProvider>,
@@ -529,7 +529,7 @@ describe('ToastProvider', () => {
         }
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -542,7 +542,7 @@ describe('ToastProvider', () => {
     it('renders correctly in dark theme', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger />
         </ToastProvider>,
@@ -556,7 +556,7 @@ describe('ToastProvider', () => {
         }
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {
@@ -603,14 +603,14 @@ describe('ToastProvider', () => {
         );
       };
 
-      const { getByTestId, getByText, queryByText } = renderWithProviders(
+      const { getByTestId, getByText, queryByText } = await renderWithProviders(
         <ToastProvider>
           <MultiToastTrigger />
         </ToastProvider>
       );
 
       // Show first toast
-      fireEvent.press(getByTestId('show-first-toast'));
+      await fireEvent.press(getByTestId('show-first-toast'));
 
       await waitFor(
         () => {
@@ -620,7 +620,7 @@ describe('ToastProvider', () => {
       );
 
       // Show second toast (should replace first)
-      fireEvent.press(getByTestId('show-second-toast'));
+      await fireEvent.press(getByTestId('show-second-toast'));
 
       await waitFor(
         () => {
@@ -634,9 +634,9 @@ describe('ToastProvider', () => {
   });
 
   describe('useToast hook', () => {
-    it('throws error when used outside ToastProvider', () => {
+    it('throws error when used outside ToastProvider', async () => {
       // Use direct render (not renderWithProviders) to avoid ToastProvider wrapper
-      const { getByTestId } = render(<InvalidToastConsumer />);
+      const { getByTestId } = await render(<InvalidToastConsumer />);
 
       expect(getByTestId('error-text')).toBeOnTheScreen();
     });
@@ -644,13 +644,13 @@ describe('ToastProvider', () => {
 
   describe('testIDs', () => {
     it('has all expected testIDs for testing', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ToastProvider>
           <ToastTrigger title="Test" actionLabel="Action" />
         </ToastProvider>
       );
 
-      fireEvent.press(getByTestId('show-toast-button'));
+      await fireEvent.press(getByTestId('show-toast-button'));
 
       await waitFor(
         () => {

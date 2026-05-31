@@ -88,7 +88,7 @@ const mockProfile: Profile = {
   },
 };
 
-const renderProfileScreen = (state: {
+const renderProfileScreen = async (state: {
   data: Profile | null;
   loading: boolean;
   error: string | null;
@@ -98,7 +98,7 @@ const renderProfileScreen = (state: {
     settings: { theme: 'light', language: 'en' },
   });
 
-  return render(
+  return await render(
     <Provider store={store}>
       <ProfileScreen />
     </Provider>
@@ -117,8 +117,8 @@ describe('Offline Sync Integration - Profile', () => {
   });
 
   describe('offline state handling', () => {
-    it('should display cached profile data when offline', () => {
-      const { getByTestId, getByText } = renderProfileScreen({
+    it('should display cached profile data when offline', async () => {
+      const { getByTestId, getByText } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -129,8 +129,8 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should show loading state when no cached data and offline', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should show loading state when no cached data and offline', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: null,
         loading: true,
         error: null,
@@ -140,8 +140,8 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should display error when offline with no cached data', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should display error when offline with no cached data', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: null,
         loading: false,
         error: 'Network error',
@@ -150,9 +150,9 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should show cached data with stale indicator concept', () => {
+    it('should show cached data with stale indicator concept', async () => {
       // When offline but have cached data, show it
-      const { getByTestId, getByText } = renderProfileScreen({
+      const { getByTestId, getByText } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -165,7 +165,7 @@ describe('Offline Sync Integration - Profile', () => {
 
   describe('network recovery transitions', () => {
     it('should handle transition from loading to data', async () => {
-      const { rerender, getByTestId, getByText } = renderProfileScreen({
+      const { rerender, getByTestId, getByText } = await renderProfileScreen({
         data: null,
         loading: true,
         error: null,
@@ -179,7 +179,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -194,7 +194,7 @@ describe('Offline Sync Integration - Profile', () => {
     });
 
     it('should handle transition from error to data', async () => {
-      const { rerender, getByTestId, getByText } = renderProfileScreen({
+      const { rerender, getByTestId, getByText } = await renderProfileScreen({
         data: null,
         loading: false,
         error: 'Network error',
@@ -208,7 +208,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -222,8 +222,8 @@ describe('Offline Sync Integration - Profile', () => {
       );
     });
 
-    it('should handle transition from data to error gracefully', () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+    it('should handle transition from data to error gracefully', async () => {
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -235,7 +235,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -247,19 +247,19 @@ describe('Offline Sync Integration - Profile', () => {
   });
 
   describe('offline data persistence', () => {
-    it('should handle component remount with cached data', () => {
+    it('should handle component remount with cached data', async () => {
       // First mount
-      const { unmount, getByText } = renderProfileScreen({
+      const { unmount, getByText } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
       });
 
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
-      unmount();
+      await unmount();
 
       // Remount with same cached data
-      const { getByText: getByTextNew } = renderProfileScreen({
+      const { getByText: getByTextNew } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -269,7 +269,7 @@ describe('Offline Sync Integration - Profile', () => {
     });
 
     it('should preserve profile state across rerenders', async () => {
-      const { rerender, getByText } = renderProfileScreen({
+      const { rerender, getByText } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -284,7 +284,7 @@ describe('Offline Sync Integration - Profile', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={store}>
             <ProfileScreen />
           </Provider>
@@ -297,11 +297,11 @@ describe('Offline Sync Integration - Profile', () => {
   });
 
   describe('MSW offline handler simulation', () => {
-    it('should handle offline response from MSW', () => {
+    it('should handle offline response from MSW', async () => {
       // Use MSW offline handlers
       server.use(...offlineHandlers);
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: null,
         loading: false,
         error: 'Network error',
@@ -313,7 +313,7 @@ describe('Offline Sync Integration - Profile', () => {
 
   describe('rapid network state changes', () => {
     it('should handle rapid online/offline transitions', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -327,7 +327,7 @@ describe('Offline Sync Integration - Profile', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={offlineStore}>
             <ProfileScreen />
           </Provider>
@@ -339,7 +339,7 @@ describe('Offline Sync Integration - Profile', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={onlineStore}>
             <ProfileScreen />
           </Provider>
@@ -350,8 +350,8 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle loading interrupted by offline', () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+    it('should handle loading interrupted by offline', async () => {
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: null,
         loading: true,
         error: null,
@@ -363,7 +363,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={errorStore}>
           <ProfileScreen />
         </Provider>
@@ -374,7 +374,7 @@ describe('Offline Sync Integration - Profile', () => {
   });
 
   describe('partial data scenarios', () => {
-    it('should handle profile with missing optional fields', () => {
+    it('should handle profile with missing optional fields', async () => {
       const partialProfile: Profile = {
         ...mockProfile,
         namePronunciation: undefined as unknown as string,
@@ -382,7 +382,7 @@ describe('Offline Sync Integration - Profile', () => {
         socials: undefined as unknown as Profile['socials'],
       };
 
-      const { getByTestId, getByText } = renderProfileScreen({
+      const { getByTestId, getByText } = await renderProfileScreen({
         data: partialProfile,
         loading: false,
         error: null,
@@ -392,13 +392,13 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle profile with empty arrays', () => {
+    it('should handle profile with empty arrays', async () => {
       const emptyArraysProfile: Profile = {
         ...mockProfile,
         galleryImages: [],
       };
 
-      const { getByTestId, getByText } = renderProfileScreen({
+      const { getByTestId, getByText } = await renderProfileScreen({
         data: emptyArraysProfile,
         loading: false,
         error: null,
@@ -410,8 +410,8 @@ describe('Offline Sync Integration - Profile', () => {
   });
 
   describe('concurrent state updates', () => {
-    it('should handle settings change while offline', () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+    it('should handle settings change while offline', async () => {
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -423,7 +423,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'dark', language: 'es' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={updatedStore}>
           <ProfileScreen />
         </Provider>
@@ -435,7 +435,7 @@ describe('Offline Sync Integration - Profile', () => {
 
   describe('offline CRUD operations', () => {
     it('should queue profile update when offline', async () => {
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -455,13 +455,13 @@ describe('Offline Sync Integration - Profile', () => {
       expect(mockSetItem).toBeDefined();
     });
 
-    it('should apply optimistic update while offline', () => {
+    it('should apply optimistic update while offline', async () => {
       const updatedProfile: Profile = {
         ...mockProfile,
         headline: 'Updated Headline While Offline',
       };
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: updatedProfile,
         loading: false,
         error: 'Network error',
@@ -471,8 +471,8 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should preserve pending changes across component rerenders', () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+    it('should preserve pending changes across component rerenders', async () => {
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -487,7 +487,7 @@ describe('Offline Sync Integration - Profile', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={store}>
             <ProfileScreen />
           </Provider>
@@ -498,14 +498,14 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle delete operation while offline', () => {
+    it('should handle delete operation while offline', async () => {
       // Simulate profile section deletion queued offline
       const profileWithDeletedSection: Profile = {
         ...mockProfile,
         galleryImages: [], // Simulates deleted gallery
       };
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: profileWithDeletedSection,
         loading: false,
         error: 'Network error',
@@ -535,7 +535,7 @@ describe('Offline Sync Integration - Profile', () => {
     ];
 
     it('should persist offline queue to AsyncStorage', async () => {
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -549,7 +549,7 @@ describe('Offline Sync Integration - Profile', () => {
     });
 
     it('should persist offline queue to AsyncStorage', async () => {
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -566,7 +566,7 @@ describe('Offline Sync Integration - Profile', () => {
       // Set up storage to return saved queue
       mockGetItem.mockResolvedValueOnce(JSON.stringify(mockQueueItems));
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -587,7 +587,7 @@ describe('Offline Sync Integration - Profile', () => {
     it('should handle corrupted queue data gracefully', async () => {
       mockGetItem.mockResolvedValueOnce('{ invalid json }');
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -607,7 +607,7 @@ describe('Offline Sync Integration - Profile', () => {
     it('should process queue items in order when online', async () => {
       mockGetItem.mockResolvedValueOnce(JSON.stringify(mockQueueItems));
 
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -621,7 +621,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={onlineStore}>
           <ProfileScreen />
         </Provider>
@@ -632,7 +632,7 @@ describe('Offline Sync Integration - Profile', () => {
     });
 
     it('should clear processed items from queue', async () => {
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -652,7 +652,7 @@ describe('Offline Sync Integration - Profile', () => {
         headline: 'Server Value',
       };
 
-      const { rerender, getByTestId, getByText } = renderProfileScreen({
+      const { rerender, getByTestId, getByText } = await renderProfileScreen({
         data: { ...mockProfile, headline: 'Client Value' },
         loading: false,
         error: null,
@@ -666,7 +666,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={serverStore}>
           <ProfileScreen />
         </Provider>
@@ -680,13 +680,13 @@ describe('Offline Sync Integration - Profile', () => {
       );
     });
 
-    it('should handle client wins conflict resolution', () => {
+    it('should handle client wins conflict resolution', async () => {
       const clientProfile: Profile = {
         ...mockProfile,
         headline: 'Client Wins Value',
       };
 
-      const { getByTestId, getByText } = renderProfileScreen({
+      const { getByTestId, getByText } = await renderProfileScreen({
         data: clientProfile,
         loading: false,
         error: null,
@@ -705,7 +705,7 @@ describe('Offline Sync Integration - Profile', () => {
         phone: '+447999888777', // From client
       };
 
-      const { getByTestId, getByText } = renderProfileScreen({
+      const { getByTestId, getByText } = await renderProfileScreen({
         data: mergedProfile,
         loading: false,
         error: null,
@@ -716,7 +716,7 @@ describe('Offline Sync Integration - Profile', () => {
     });
 
     it('should handle version conflict with newer server data', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -733,7 +733,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={newerStore}>
           <ProfileScreen />
         </Provider>
@@ -742,9 +742,9 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should notify user of conflict resolution', () => {
+    it('should notify user of conflict resolution', async () => {
       // Conflict resolved state
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -756,8 +756,8 @@ describe('Offline Sync Integration - Profile', () => {
   });
 
   describe('sync status indicator', () => {
-    it('should show synced status when all changes uploaded', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should show synced status when all changes uploaded', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -767,8 +767,8 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should show pending status when changes queued', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should show pending status when changes queued', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -778,8 +778,8 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should show syncing status during upload', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should show syncing status during upload', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: true,
         error: null,
@@ -789,8 +789,8 @@ describe('Offline Sync Integration - Profile', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should show error status when sync fails', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should show error status when sync fails', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Sync failed',
@@ -803,7 +803,7 @@ describe('Offline Sync Integration - Profile', () => {
 
   describe('retry failed sync items', () => {
     it('should retry failed items on manual trigger', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Sync failed',
@@ -817,7 +817,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={retryStore}>
           <ProfileScreen />
         </Provider>
@@ -839,7 +839,7 @@ describe('Offline Sync Integration - Profile', () => {
 
       mockGetItem.mockResolvedValueOnce(JSON.stringify(queueWithRetries));
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -869,7 +869,7 @@ describe('Offline Sync Integration - Profile', () => {
 
       mockGetItem.mockResolvedValueOnce(JSON.stringify(maxRetriesQueue));
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -888,7 +888,7 @@ describe('Offline Sync Integration - Profile', () => {
     });
 
     it('should exponential backoff on retries', async () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -901,7 +901,7 @@ describe('Offline Sync Integration - Profile', () => {
           settings: { theme: 'light', language: 'en' },
         });
 
-        rerender(
+        await rerender(
           <Provider store={store}>
             <ProfileScreen />
           </Provider>
@@ -923,7 +923,7 @@ describe('Offline Sync Integration - Profile', () => {
 
       mockGetItem.mockResolvedValueOnce(JSON.stringify(queueItems));
 
-      const { getByTestId } = renderProfileScreen({
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -936,8 +936,8 @@ describe('Offline Sync Integration - Profile', () => {
       expect(mockRemoveItem).toBeDefined();
     });
 
-    it('should warn user about pending changes before logout', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should warn user about pending changes before logout', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error', // Has pending changes
@@ -952,7 +952,7 @@ describe('Offline Sync Integration - Profile', () => {
         JSON.stringify([{ id: 'pending-1', type: 'UPDATE', payload: {} }])
       );
 
-      const { unmount, getByTestId } = renderProfileScreen({
+      const { unmount, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -964,8 +964,8 @@ describe('Offline Sync Integration - Profile', () => {
       expect(() => unmount()).not.toThrow();
     });
 
-    it('should not clear queue on background/minimize', () => {
-      const { rerender, getByTestId } = renderProfileScreen({
+    it('should not clear queue on background/minimize', async () => {
+      const { rerender, getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -977,7 +977,7 @@ describe('Offline Sync Integration - Profile', () => {
         settings: { theme: 'light', language: 'en' },
       });
 
-      rerender(
+      await rerender(
         <Provider store={store}>
           <ProfileScreen />
         </Provider>

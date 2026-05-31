@@ -17,42 +17,42 @@ describe('SettingsItem', () => {
     mockUseColorScheme.mockReset();
   });
 
-  it('displays the label text', () => {
+  it('displays the label text', async () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const { getByText } = renderWithProviders(
+    const { getByText } = await renderWithProviders(
       <SettingsItem label="Profile" testID="settings-item" />
     );
 
     expect(getByText('Profile')).toBeOnTheScreen();
   });
 
-  it('does not render icon container when no startIcon provided', () => {
+  it('does not render icon container when no startIcon provided', async () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const { queryByTestId } = renderWithProviders(
+    const { queryByTestId } = await renderWithProviders(
       <SettingsItem label="Profile" testID="settings-item" />
     );
 
     expect(queryByTestId('settings-item-icon')).toBeNull();
   });
 
-  it('renders icon container when startIcon is provided', () => {
+  it('renders icon container when startIcon is provided', async () => {
     mockUseColorScheme.mockReturnValue('light');
 
     const DummyIcon = () => null;
 
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <SettingsItem label="Settings" startIcon={DummyIcon} testID="settings-item" />
     );
 
     expect(getByTestId('settings-item-icon')).toBeOnTheScreen();
   });
 
-  it('displays endLabel text when provided', () => {
+  it('displays endLabel text when provided', async () => {
     mockUseColorScheme.mockReturnValue('dark');
 
-    const { getByText } = renderWithProviders(
+    const { getByText } = await renderWithProviders(
       <SettingsItem label="Language" endLabel="English" testID="settings-item" />
     );
 
@@ -60,10 +60,10 @@ describe('SettingsItem', () => {
     expect(getByText('English')).toBeOnTheScreen();
   });
 
-  it('displays all group variant items with correct labels', () => {
+  it('displays all group variant items with correct labels', async () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const { getByText } = renderWithProviders(
+    const { getByText } = await renderWithProviders(
       <>
         <SettingsItem label="Single Item" groupVariant="single" />
         <SettingsItem label="Top Item" groupVariant="top" />
@@ -78,10 +78,10 @@ describe('SettingsItem', () => {
     expect(getByText('Bottom Item')).toBeOnTheScreen();
   });
 
-  it('renders as pressable even without onPress handler', () => {
+  it('renders as pressable even without onPress handler', async () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const { getByRole, getByText } = renderWithProviders(<SettingsItem label="No Handler" />);
+    const { getByRole, getByText } = await renderWithProviders(<SettingsItem label="No Handler" />);
 
     expect(getByRole('button')).toBeOnTheScreen();
     expect(getByText('No Handler')).toBeOnTheScreen();
@@ -92,7 +92,7 @@ describe('SettingsItem', () => {
     const onPress = jest.fn();
     const user = userEvent.setup();
 
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <SettingsItem label="Pressable Item" onPress={onPress} testID="settings-item" />
     );
 
@@ -101,12 +101,12 @@ describe('SettingsItem', () => {
     expect(onPress).toHaveBeenCalledTimes(1);
   });
 
-  it('renders icon container with custom background colour', () => {
+  it('renders icon container with custom background colour', async () => {
     mockUseColorScheme.mockReturnValue('light');
 
     const DummyIcon = () => null;
 
-    const { getByTestId, getByText } = renderWithProviders(
+    const { getByTestId, getByText } = await renderWithProviders(
       <SettingsItem
         label="Custom Icon"
         startIcon={DummyIcon}
@@ -119,10 +119,10 @@ describe('SettingsItem', () => {
     expect(getByTestId('settings-item-icon')).toBeOnTheScreen();
   });
 
-  it('displays label without endLabel when endLabel not provided', () => {
+  it('displays label without endLabel when endLabel not provided', async () => {
     mockUseColorScheme.mockReturnValue('dark');
 
-    const { getByText, queryByText } = renderWithProviders(<SettingsItem label="Settings" />);
+    const { getByText, queryByText } = await renderWithProviders(<SettingsItem label="Settings" />);
 
     expect(getByText('Settings')).toBeOnTheScreen();
     // No secondary text should appear
@@ -137,10 +137,10 @@ describe('SettingsItem groupVariant styling', () => {
     mockUseColorScheme.mockReset();
   });
 
-  it('renders single variant in light mode', () => {
+  it('renders single variant in light mode', async () => {
     mockUseColorScheme.mockReturnValue('light');
 
-    const { getByText, getByRole } = renderWithProviders(
+    const { getByText, getByRole } = await renderWithProviders(
       <SettingsItem label="Direct light" groupVariant="single" />
     );
 
@@ -148,12 +148,12 @@ describe('SettingsItem groupVariant styling', () => {
     expect(getByRole('button')).toBeOnTheScreen();
   });
 
-  it('renders with icon and custom colour in dark mode', () => {
+  it('renders with icon and custom colour in dark mode', async () => {
     mockUseColorScheme.mockReturnValue('dark');
 
     const DummyIcon = () => null;
 
-    const { getByText, getByTestId } = renderWithProviders(
+    const { getByText, getByTestId } = await renderWithProviders(
       <SettingsItem
         label="Default groupVariant"
         startIcon={DummyIcon}
@@ -220,16 +220,16 @@ describe('SettingsItem accessibility', () => {
     mockUseColorScheme.mockReturnValue('light');
   });
 
-  it('has accessibilityRole of button', () => {
-    const { getByRole } = renderWithProviders(
+  it('has accessibilityRole of button', async () => {
+    const { getByRole } = await renderWithProviders(
       <SettingsItem label="Settings" testID="settings-item" />
     );
 
     expect(getByRole('button')).toBeOnTheScreen();
   });
 
-  it('combines label and endLabel in accessibilityLabel', () => {
-    const { getByLabelText } = renderWithProviders(
+  it('combines label and endLabel in accessibilityLabel', async () => {
+    const { getByLabelText } = await renderWithProviders(
       <SettingsItem label="Language" endLabel="English" testID="language-item" />
     );
 
@@ -237,25 +237,25 @@ describe('SettingsItem accessibility', () => {
     expect(getByLabelText('Language, English')).toBeOnTheScreen();
   });
 
-  it('uses only label as accessibilityLabel when endLabel is not provided', () => {
-    const { getByLabelText } = renderWithProviders(
+  it('uses only label as accessibilityLabel when endLabel is not provided', async () => {
+    const { getByLabelText } = await renderWithProviders(
       <SettingsItem label="Settings" testID="settings-item" />
     );
 
     expect(getByLabelText('Settings')).toBeOnTheScreen();
   });
 
-  it('applies accessibilityHint when provided', () => {
+  it('applies accessibilityHint when provided', async () => {
     const hint = 'Double tap to change appearance settings';
-    const { getByA11yHint } = renderWithProviders(
+    const { getByA11yHint } = await renderWithProviders(
       <SettingsItem label="Appearance" accessibilityHint={hint} testID="appearance-item" />
     );
 
     expect(getByA11yHint(hint)).toBeOnTheScreen();
   });
 
-  it('applies all accessibility props correctly', () => {
-    const { getByRole, getByLabelText, getByA11yHint } = renderWithProviders(
+  it('applies all accessibility props correctly', async () => {
+    const { getByRole, getByLabelText, getByA11yHint } = await renderWithProviders(
       <SettingsItem
         label="Appearance"
         endLabel="Automatic"
@@ -278,8 +278,8 @@ describe('SettingsItem EAA touch targets', () => {
     mockUseColorScheme.mockReturnValue('light');
   });
 
-  it('verifies touch target sizing with expectMinTouchTarget utility', () => {
-    const { getByTestId } = renderWithProviders(
+  it('verifies touch target sizing with expectMinTouchTarget utility', async () => {
+    const { getByTestId } = await renderWithProviders(
       <SettingsItem label="Settings" testID="settings-item" />
     );
 
@@ -289,8 +289,8 @@ describe('SettingsItem EAA touch targets', () => {
     expectMinTouchTarget(item);
   });
 
-  it('should render all interactive content within the pressable area', () => {
-    const { getByTestId } = renderWithProviders(
+  it('should render all interactive content within the pressable area', async () => {
+    const { getByTestId } = await renderWithProviders(
       <SettingsItem label="Language" endLabel="English" testID="language-item" />
     );
 
@@ -299,10 +299,10 @@ describe('SettingsItem EAA touch targets', () => {
     expectMinTouchTarget(item);
   });
 
-  it('should maintain touch target size with icon', () => {
+  it('should maintain touch target size with icon', async () => {
     const DummyIcon = () => null;
 
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <SettingsItem label="Profile" startIcon={DummyIcon} testID="profile-item" />
     );
 
@@ -311,10 +311,10 @@ describe('SettingsItem EAA touch targets', () => {
     expectMinTouchTarget(item);
   });
 
-  it('should support pressed state feedback for accessibility', () => {
+  it('should support pressed state feedback for accessibility', async () => {
     const onPress = jest.fn();
 
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <SettingsItem label="Settings" onPress={onPress} testID="settings-item" />
     );
 
@@ -332,8 +332,8 @@ describe('SettingsItem complete accessibility verification', () => {
     mockUseColorScheme.mockReturnValue('light');
   });
 
-  it('has complete accessibility properties with label only', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has complete accessibility properties with label only', async () => {
+    const { getByTestId } = await renderWithProviders(
       <SettingsItem label="Settings" testID="settings-item" />
     );
 
@@ -344,8 +344,8 @@ describe('SettingsItem complete accessibility verification', () => {
     });
   });
 
-  it('has complete accessibility properties with combined label', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has complete accessibility properties with combined label', async () => {
+    const { getByTestId } = await renderWithProviders(
       <SettingsItem
         label="Language"
         endLabel="English"

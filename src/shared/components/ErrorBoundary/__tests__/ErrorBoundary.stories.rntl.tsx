@@ -13,8 +13,8 @@ const SuccessfulChild = () => (
 );
 
 describe('ErrorBoundary Stories', () => {
-  it('renders Normal story with children visible', () => {
-    const { getByTestId, getByText } = renderWithProviders(
+  it('renders Normal story with children visible', async () => {
+    const { getByTestId, getByText } = await renderWithProviders(
       <ErrorBoundary>
         <SuccessfulChild />
       </ErrorBoundary>
@@ -23,8 +23,8 @@ describe('ErrorBoundary Stories', () => {
     expect(getByText('Rendered successfully')).toBeOnTheScreen();
   });
 
-  it('renders children when no error occurs', () => {
-    const { getByTestId, getByText } = renderWithProviders(
+  it('renders children when no error occurs', async () => {
+    const { getByTestId, getByText } = await renderWithProviders(
       <ErrorBoundary>
         <SuccessfulChild />
       </ErrorBoundary>
@@ -33,8 +33,8 @@ describe('ErrorBoundary Stories', () => {
     expect(getByText('Rendered successfully')).toBeOnTheScreen();
   });
 
-  it('renders nested content correctly', () => {
-    const { getByText } = renderWithProviders(
+  it('renders nested content correctly', async () => {
+    const { getByText } = await renderWithProviders(
       <ErrorBoundary>
         <Box>
           <Text>Parent</Text>

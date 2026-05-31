@@ -260,7 +260,7 @@ describe('Realtime Subscription Integration', () => {
 
   describe('subscribe to channel', () => {
     it('should connect to channel on component mount', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="test-channel" />
       );
 
@@ -273,7 +273,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should create channel subscription with correct name', async () => {
-      renderWithProviders(<RealtimeMessageList channelName="my-channel" />);
+      await renderWithProviders(<RealtimeMessageList channelName="my-channel" />);
 
       await waitFor(
         () => {
@@ -287,7 +287,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should handle channel name changes by resubscribing', async () => {
-      const { rerender, getByTestId } = renderWithProviders(
+      const { rerender, getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="channel-1" />
       );
 
@@ -300,7 +300,7 @@ describe('Realtime Subscription Integration', () => {
 
       expect(mockChannels.get('channel-1')?.isConnected).toBe(true);
 
-      rerender(<RealtimeMessageList channelName="channel-2" />);
+      await rerender(<RealtimeMessageList channelName="channel-2" />);
 
       await waitFor(
         () => {
@@ -313,7 +313,7 @@ describe('Realtime Subscription Integration', () => {
 
   describe('receive real-time updates', () => {
     it('should start with empty message list', async () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="messages-channel" />
       );
 
@@ -330,7 +330,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should handle channel send API', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="typed-messages" />
       );
 
@@ -351,7 +351,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should attempt to send messages when button is pressed', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="send-channel" />
       );
 
@@ -365,7 +365,7 @@ describe('Realtime Subscription Integration', () => {
       const channel = mockChannels.get('send-channel');
       const initialMessageCount = channel?.messages.length ?? 0;
 
-      fireEvent.press(getByTestId('send-message-button'));
+      await fireEvent.press(getByTestId('send-message-button'));
 
       // Verify message was sent to channel
       expect(channel?.messages.length).toBe(initialMessageCount + 1);
@@ -374,7 +374,7 @@ describe('Realtime Subscription Integration', () => {
 
   describe('handle disconnect/reconnect', () => {
     it('should show disconnected status when connection drops', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="disconnect-channel" />
       );
 
@@ -387,7 +387,7 @@ describe('Realtime Subscription Integration', () => {
 
       // Simulate disconnect
       const channel = mockChannels.get('disconnect-channel');
-      act(() => {
+      await act(() => {
         channel?.unsubscribe();
       });
 
@@ -400,7 +400,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should reconnect after connection restored', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="reconnect-channel" />
       );
 
@@ -414,7 +414,7 @@ describe('Realtime Subscription Integration', () => {
       const channel = mockChannels.get('reconnect-channel');
 
       // Simulate disconnect then reconnect
-      act(() => {
+      await act(() => {
         channel?.unsubscribe();
       });
 
@@ -425,7 +425,7 @@ describe('Realtime Subscription Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      act(() => {
+      await act(() => {
         channel?.subscribe();
       });
 
@@ -438,7 +438,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should preserve channel messages across reconnections', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="history-channel" />
       );
 
@@ -458,7 +458,7 @@ describe('Realtime Subscription Integration', () => {
       expect(channel?.messages.length).toBe(1);
 
       // Disconnect and reconnect
-      act(() => {
+      await act(() => {
         channel?.unsubscribe();
         channel?.subscribe();
       });
@@ -471,7 +471,7 @@ describe('Realtime Subscription Integration', () => {
 
   describe('unsubscribe on unmount', () => {
     it('should unsubscribe from channel when component unmounts', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <RealtimeMessageList channelName="unmount-channel" />
       );
 
@@ -482,13 +482,13 @@ describe('Realtime Subscription Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      unmount();
+      await unmount();
 
       expect(mockChannels.get('unmount-channel')?.isConnected).toBe(false);
     });
 
     it('should remove message listeners on unmount', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <RealtimeMessageList channelName="listener-channel" />
       );
 
@@ -499,13 +499,13 @@ describe('Realtime Subscription Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      unmount();
+      await unmount();
 
       expect(mockListeners.get('listener-channel')?.size).toBe(0);
     });
 
     it('should not receive messages after unmount', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <RealtimeMessageList channelName="post-unmount-channel" />
       );
 
@@ -516,7 +516,7 @@ describe('Realtime Subscription Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      unmount();
+      await unmount();
 
       // Channel should be disconnected after unmount
       expect(mockChannels.get('post-unmount-channel')?.isConnected).toBe(false);
@@ -528,7 +528,7 @@ describe('Realtime Subscription Integration', () => {
 
   describe('multiple subscriptions', () => {
     it('should handle multiple channel subscriptions simultaneously', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <MultiChannelComponent channels={['channel-a', 'channel-b', 'channel-c']} />
       );
 
@@ -549,7 +549,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should create separate channel instances', async () => {
-      renderWithProviders(<MultiChannelComponent channels={['alpha', 'beta']} />);
+      await renderWithProviders(<MultiChannelComponent channels={['alpha', 'beta']} />);
 
       await waitFor(
         () => {
@@ -571,7 +571,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should unsubscribe from all channels on unmount', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <MultiChannelComponent channels={['multi-1', 'multi-2']} />
       );
 
@@ -583,7 +583,7 @@ describe('Realtime Subscription Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      unmount();
+      await unmount();
 
       expect(mockChannels.get('multi-1')?.isConnected).toBe(false);
       expect(mockChannels.get('multi-2')?.isConnected).toBe(false);
@@ -592,7 +592,7 @@ describe('Realtime Subscription Integration', () => {
 
   describe('subscription error handling', () => {
     it('should display error when sending message while disconnected', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="error-channel" />
       );
 
@@ -605,7 +605,7 @@ describe('Realtime Subscription Integration', () => {
 
       // Disconnect
       const channel = mockChannels.get('error-channel');
-      act(() => {
+      await act(() => {
         channel?.unsubscribe();
       });
 
@@ -617,7 +617,7 @@ describe('Realtime Subscription Integration', () => {
       );
 
       // Try to send message while disconnected
-      fireEvent.press(getByTestId('send-message-button'));
+      await fireEvent.press(getByTestId('send-message-button'));
 
       await waitFor(
         () => {
@@ -628,7 +628,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should have accessible error message', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="accessible-error" />
       );
 
@@ -640,11 +640,11 @@ describe('Realtime Subscription Integration', () => {
       );
 
       const channel = mockChannels.get('accessible-error');
-      act(() => {
+      await act(() => {
         channel?.unsubscribe();
       });
 
-      fireEvent.press(getByTestId('send-message-button'));
+      await fireEvent.press(getByTestId('send-message-button'));
 
       await waitFor(
         () => {
@@ -658,7 +658,7 @@ describe('Realtime Subscription Integration', () => {
 
   describe('presence tracking', () => {
     it('should track user presence on channel join', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <PresenceComponent channelName="presence-room" userId="user-1" userName="Alice" />
       );
 
@@ -673,7 +673,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should add user to presence store on join', async () => {
-      renderWithProviders(
+      await renderWithProviders(
         <PresenceComponent channelName="multi-presence" userId="user-1" userName="Alice" />
       );
 
@@ -693,7 +693,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should update user status in presence store', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <PresenceComponent channelName="status-room" userId="user-1" userName="Alice" />
       );
 
@@ -709,7 +709,7 @@ describe('Realtime Subscription Integration', () => {
       expect(users?.find(u => u.id === 'user-1')?.status).toBe('online');
 
       // Press away button
-      fireEvent.press(getByTestId('set-away-button'));
+      await fireEvent.press(getByTestId('set-away-button'));
 
       // Status should be updated in store
       users = mockPresenceUsers.get('status-room');
@@ -717,7 +717,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should remove user from presence on unmount', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <PresenceComponent channelName="leave-room" userId="leaving-user" userName="Charlie" />
       );
 
@@ -729,7 +729,7 @@ describe('Realtime Subscription Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      unmount();
+      await unmount();
 
       const usersAfterUnmount = mockPresenceUsers.get('leave-room');
       expect(usersAfterUnmount?.some(u => u.id === 'leaving-user')).toBe(false);
@@ -738,7 +738,7 @@ describe('Realtime Subscription Integration', () => {
 
   describe('accessibility', () => {
     it('should have accessible send message button', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RealtimeMessageList channelName="a11y-channel" />
       );
 
@@ -748,7 +748,7 @@ describe('Realtime Subscription Integration', () => {
     });
 
     it('should have accessible status indicators', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <PresenceComponent channelName="a11y-presence" userId="user-1" userName="Alice" />
       );
 
@@ -764,7 +764,7 @@ describe('Realtime Subscription Integration', () => {
         // Simulate a channel that fails to connect within timeout
         const timeoutChannelName = 'timeout-channel';
 
-        const { getByTestId } = renderWithProviders(
+        const { getByTestId } = await renderWithProviders(
           <RealtimeMessageList channelName={timeoutChannelName} />
         );
 
@@ -780,7 +780,7 @@ describe('Realtime Subscription Integration', () => {
         expect(channel).toBeDefined();
 
         // Simulate timeout by disconnecting
-        act(() => {
+        await act(() => {
           channel?.unsubscribe();
         });
 
@@ -798,7 +798,7 @@ describe('Realtime Subscription Integration', () => {
       it('allows manual retry after connection timeout', async () => {
         const retryChannelName = 'retry-after-timeout';
 
-        const { getByTestId } = renderWithProviders(
+        const { getByTestId } = await renderWithProviders(
           <RealtimeMessageList channelName={retryChannelName} />
         );
 
@@ -812,7 +812,7 @@ describe('Realtime Subscription Integration', () => {
         const channel = mockChannels.get(retryChannelName);
 
         // Simulate timeout/disconnect
-        act(() => {
+        await act(() => {
           channel?.unsubscribe();
         });
 
@@ -824,7 +824,7 @@ describe('Realtime Subscription Integration', () => {
         );
 
         // Manual retry by resubscribing
-        act(() => {
+        await act(() => {
           channel?.subscribe();
         });
 
@@ -843,7 +843,7 @@ describe('Realtime Subscription Integration', () => {
         const reconnectAttempts: number[] = [];
         let attemptCount = 0;
 
-        const { getByTestId } = renderWithProviders(
+        const { getByTestId } = await renderWithProviders(
           <RealtimeMessageList channelName={backoffChannelName} />
         );
 
@@ -858,7 +858,7 @@ describe('Realtime Subscription Integration', () => {
 
         // Simulate multiple disconnect/reconnect cycles
         for (let i = 0; i < 3; i++) {
-          act(() => {
+          await act(() => {
             channel?.unsubscribe();
           });
 
@@ -873,7 +873,7 @@ describe('Realtime Subscription Integration', () => {
           const backoffDelay = Math.pow(2, attemptCount) * 100;
           reconnectAttempts.push(backoffDelay);
 
-          act(() => {
+          await act(() => {
             channel?.subscribe();
           });
 
@@ -896,7 +896,7 @@ describe('Realtime Subscription Integration', () => {
       it('resets backoff counter after successful stable connection', async () => {
         const resetBackoffChannel = 'reset-backoff-channel';
 
-        const { getByTestId } = renderWithProviders(
+        const { getByTestId } = await renderWithProviders(
           <RealtimeMessageList channelName={resetBackoffChannel} />
         );
 
@@ -910,7 +910,7 @@ describe('Realtime Subscription Integration', () => {
         const channel = mockChannels.get(resetBackoffChannel);
 
         // First disconnect/reconnect cycle
-        act(() => {
+        await act(() => {
           channel?.unsubscribe();
         });
 
@@ -921,7 +921,7 @@ describe('Realtime Subscription Integration', () => {
           { timeout: 3000, interval: 100 }
         );
 
-        act(() => {
+        await act(() => {
           channel?.subscribe();
         });
 
@@ -943,7 +943,7 @@ describe('Realtime Subscription Integration', () => {
       it('maintains message ordering guarantees', async () => {
         const orderingChannelName = 'ordering-channel';
 
-        const { getByTestId } = renderWithProviders(
+        const { getByTestId } = await renderWithProviders(
           <RealtimeMessageList channelName={orderingChannelName} />
         );
 
@@ -957,7 +957,7 @@ describe('Realtime Subscription Integration', () => {
         const channel = mockChannels.get(orderingChannelName);
 
         // Send messages in specific order
-        act(() => {
+        await act(() => {
           channel?.send({ type: 'message', payload: { order: 1, text: 'First' } });
           channel?.send({ type: 'message', payload: { order: 2, text: 'Second' } });
           channel?.send({ type: 'message', payload: { order: 3, text: 'Third' } });
@@ -973,7 +973,7 @@ describe('Realtime Subscription Integration', () => {
       it('preserves order after rapid message burst', async () => {
         const burstChannelName = 'burst-channel';
 
-        const { getByTestId } = renderWithProviders(
+        const { getByTestId } = await renderWithProviders(
           <RealtimeMessageList channelName={burstChannelName} />
         );
 
@@ -987,7 +987,7 @@ describe('Realtime Subscription Integration', () => {
         const channel = mockChannels.get(burstChannelName);
 
         // Send 10 messages rapidly
-        act(() => {
+        await act(() => {
           for (let i = 0; i < 10; i++) {
             channel?.send({ type: 'burst', payload: { index: i } });
           }
@@ -1003,7 +1003,7 @@ describe('Realtime Subscription Integration', () => {
       it('maintains order across reconnection', async () => {
         const reconnectOrderChannel = 'reconnect-order-channel';
 
-        const { getByTestId } = renderWithProviders(
+        const { getByTestId } = await renderWithProviders(
           <RealtimeMessageList channelName={reconnectOrderChannel} />
         );
 
@@ -1017,19 +1017,19 @@ describe('Realtime Subscription Integration', () => {
         const channel = mockChannels.get(reconnectOrderChannel);
 
         // Send messages before disconnect
-        act(() => {
+        await act(() => {
           channel?.send({ type: 'pre', payload: { seq: 1 } });
           channel?.send({ type: 'pre', payload: { seq: 2 } });
         });
 
         // Disconnect and reconnect
-        act(() => {
+        await act(() => {
           channel?.unsubscribe();
           channel?.subscribe();
         });
 
         // Send messages after reconnect
-        act(() => {
+        await act(() => {
           channel?.send({ type: 'post', payload: { seq: 3 } });
         });
 
@@ -1044,7 +1044,7 @@ describe('Realtime Subscription Integration', () => {
       it('cleans up all subscriptions on unmount', async () => {
         const cleanupChannel = 'cleanup-channel';
 
-        const { unmount, getByTestId } = renderWithProviders(
+        const { unmount, getByTestId } = await renderWithProviders(
           <RealtimeMessageList channelName={cleanupChannel} />
         );
 
@@ -1060,7 +1060,7 @@ describe('Realtime Subscription Integration', () => {
         expect(mockListeners.get(cleanupChannel)?.size).toBeGreaterThan(0);
 
         // Unmount component
-        unmount();
+        await unmount();
 
         // All subscriptions should be cleaned up
         expect(mockChannels.get(cleanupChannel)?.isConnected).toBe(false);
@@ -1070,7 +1070,7 @@ describe('Realtime Subscription Integration', () => {
       it('cleans up multiple channel subscriptions on unmount', async () => {
         const channels = ['cleanup-multi-1', 'cleanup-multi-2', 'cleanup-multi-3'];
 
-        const { unmount } = renderWithProviders(<MultiChannelComponent channels={channels} />);
+        const { unmount } = await renderWithProviders(<MultiChannelComponent channels={channels} />);
 
         await waitFor(
           () => {
@@ -1081,7 +1081,7 @@ describe('Realtime Subscription Integration', () => {
           { timeout: 3000, interval: 100 }
         );
 
-        unmount();
+        await unmount();
 
         // All channels should be disconnected
         channels.forEach(name => {
@@ -1093,12 +1093,12 @@ describe('Realtime Subscription Integration', () => {
         const pendingChannel = 'pending-channel';
 
         // Create a channel that doesn't auto-connect
-        const { unmount } = renderWithProviders(
+        const { unmount } = await renderWithProviders(
           <RealtimeMessageList channelName={pendingChannel} />
         );
 
         // Immediately unmount before connection settles
-        unmount();
+        await unmount();
 
         // Should not throw or cause memory leak
         // Channel should be cleaned up
@@ -1110,7 +1110,7 @@ describe('Realtime Subscription Integration', () => {
         // Mount and unmount 5 times with unique channel names to avoid state pollution
         for (let i = 0; i < 5; i++) {
           const channelName = `leak-test-channel-${i}`;
-          const { unmount, getByTestId } = renderWithProviders(
+          const { unmount, getByTestId } = await renderWithProviders(
             <RealtimeMessageList channelName={channelName} />
           );
 
@@ -1124,7 +1124,7 @@ describe('Realtime Subscription Integration', () => {
           // Verify listener was added
           expect(mockListeners.get(channelName)?.size).toBeGreaterThan(0);
 
-          unmount();
+          await unmount();
 
           // Verify listener was cleaned up after unmount
           expect(mockListeners.get(channelName)?.size).toBe(0);

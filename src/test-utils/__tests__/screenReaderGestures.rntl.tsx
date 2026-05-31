@@ -128,8 +128,8 @@ describe('screen reader gesture tests', () => {
   });
 
   describe('swipe navigation order', () => {
-    it('verifies elements are in correct swipe order', () => {
-      render(
+    it('verifies elements are in correct swipe order', async () => {
+      await render(
         <View>
           <Pressable testID="first" accessible={true} accessibilityLabel="First button">
             <Text>First</Text>
@@ -150,8 +150,8 @@ describe('screen reader gesture tests', () => {
       expect(() => expectSwipeNavigationOrder([first, second, third])).not.toThrow();
     });
 
-    it('fails when element is not accessible', () => {
-      render(
+    it('fails when element is not accessible', async () => {
+      await render(
         <View>
           <Pressable testID="first" accessible={true}>
             <Text>First</Text>
@@ -168,8 +168,8 @@ describe('screen reader gesture tests', () => {
       expect(() => expectSwipeNavigationOrder([first, second])).toThrow();
     });
 
-    it('fails when element is hidden from accessibility tree', () => {
-      const { UNSAFE_getByProps } = render(
+    it('fails when element is hidden from accessibility tree', async () => {
+      const { getByTestId } = await render(
         <View>
           <Pressable testID="first" accessible={true}>
             <Text>First</Text>
@@ -181,13 +181,13 @@ describe('screen reader gesture tests', () => {
       );
 
       const first = screen.getByTestId('first');
-      const hidden = UNSAFE_getByProps({ testID: 'hidden' });
+      const hidden = getByTestId('hidden', { includeHiddenElements: true });
 
       expect(() => expectSwipeNavigationOrder([first, hidden])).toThrow();
     });
 
-    it('verifies accessibilityOrder matches visual order when set', () => {
-      render(
+    it('verifies accessibilityOrder matches visual order when set', async () => {
+      await render(
         <View>
           <TestPressable testID="first" accessible={true} accessibilityOrder={0}>
             <Text>First</Text>
@@ -204,8 +204,8 @@ describe('screen reader gesture tests', () => {
       expect(() => expectSwipeNavigationOrder([first, second])).not.toThrow();
     });
 
-    it('fails when accessibilityOrder does not match expected sequence', () => {
-      render(
+    it('fails when accessibilityOrder does not match expected sequence', async () => {
+      await render(
         <View>
           <TestPressable testID="first" accessible={true} accessibilityOrder={1}>
             <Text>First</Text>
@@ -222,8 +222,8 @@ describe('screen reader gesture tests', () => {
       expect(() => expectSwipeNavigationOrder([first, second])).toThrow();
     });
 
-    it('handles elements with importantForAccessibility set to no', () => {
-      const { UNSAFE_getByProps } = render(
+    it('handles elements with importantForAccessibility set to no', async () => {
+      const { getByTestId } = await render(
         <View>
           <Pressable testID="first" accessible={true}>
             <Text>First</Text>
@@ -235,17 +235,17 @@ describe('screen reader gesture tests', () => {
       );
 
       const first = screen.getByTestId('first');
-      const hidden = UNSAFE_getByProps({ testID: 'hidden' });
+      const hidden = getByTestId('hidden', { includeHiddenElements: true });
 
       expect(() => expectSwipeNavigationOrder([first, hidden])).toThrow();
     });
   });
 
   describe('custom accessibility actions', () => {
-    it('verifies element has required actions', () => {
+    it('verifies element has required actions', async () => {
       const handleAction = jest.fn();
 
-      render(
+      await render(
         <Pressable
           testID="action-element"
           accessibilityActions={[
@@ -266,10 +266,10 @@ describe('screen reader gesture tests', () => {
       ).not.toThrow();
     });
 
-    it('fails when required action is missing', () => {
+    it('fails when required action is missing', async () => {
       const handleAction = jest.fn();
 
-      render(
+      await render(
         <Pressable
           testID="action-element"
           accessibilityActions={[{ name: 'activate', label: 'Activate' }]}
@@ -284,8 +284,8 @@ describe('screen reader gesture tests', () => {
       expect(() => expectAccessibilityActions(element, ['activate', 'delete'])).toThrow();
     });
 
-    it('fails when accessibilityActions is not defined', () => {
-      render(
+    it('fails when accessibilityActions is not defined', async () => {
+      await render(
         <Pressable testID="action-element">
           <Text>No Actions</Text>
         </Pressable>
@@ -296,8 +296,8 @@ describe('screen reader gesture tests', () => {
       expect(() => expectAccessibilityActions(element, ['activate'])).toThrow();
     });
 
-    it('fails when onAccessibilityAction handler is missing', () => {
-      render(
+    it('fails when onAccessibilityAction handler is missing', async () => {
+      await render(
         <Pressable
           testID="action-element"
           accessibilityActions={[{ name: 'activate', label: 'Activate' }]}
@@ -314,10 +314,10 @@ describe('screen reader gesture tests', () => {
   });
 
   describe('magic tap gesture (iOS)', () => {
-    it('verifies element supports magic tap', () => {
+    it('verifies element supports magic tap', async () => {
       const handleAction = jest.fn();
 
-      render(
+      await render(
         <Pressable
           testID="magic-tap-element"
           accessibilityActions={[
@@ -335,10 +335,10 @@ describe('screen reader gesture tests', () => {
       expect(() => expectMagicTapSupport(element)).not.toThrow();
     });
 
-    it('fails when magic tap is not supported', () => {
+    it('fails when magic tap is not supported', async () => {
       const handleAction = jest.fn();
 
-      render(
+      await render(
         <Pressable
           testID="no-magic-tap"
           accessibilityActions={[{ name: 'activate', label: 'Activate' }]}
@@ -355,10 +355,10 @@ describe('screen reader gesture tests', () => {
   });
 
   describe('escape gesture (two-finger Z)', () => {
-    it('verifies element supports escape gesture', () => {
+    it('verifies element supports escape gesture', async () => {
       const handleAction = jest.fn();
 
-      render(
+      await render(
         <View
           testID="modal"
           accessibilityActions={[
@@ -376,10 +376,10 @@ describe('screen reader gesture tests', () => {
       expect(() => expectEscapeGestureSupport(element)).not.toThrow();
     });
 
-    it('fails when escape gesture is not supported', () => {
+    it('fails when escape gesture is not supported', async () => {
       const handleAction = jest.fn();
 
-      render(
+      await render(
         <View
           testID="modal"
           accessibilityActions={[{ name: 'activate', label: 'Select' }]}
@@ -396,8 +396,8 @@ describe('screen reader gesture tests', () => {
   });
 
   describe('direct touch passthrough', () => {
-    it('verifies accessibilityViewIsModal creates focus trap', () => {
-      render(
+    it('verifies accessibilityViewIsModal creates focus trap', async () => {
+      await render(
         <View>
           <Pressable testID="background" accessible={true}>
             <Text>Background</Text>
@@ -416,10 +416,10 @@ describe('screen reader gesture tests', () => {
       expect(modal.props.accessibilityViewIsModal).toBe(true);
     });
 
-    it('verifies elements outside modal are hidden from accessibility', () => {
+    it('verifies elements outside modal are hidden from accessibility', async () => {
       // When accessibilityViewIsModal is true, elements outside should not be focusable
       // This is handled by the OS, but we can verify the modal setup is correct
-      render(
+      await render(
         <View>
           <View testID="background-container">
             <Pressable testID="background-button">
@@ -441,7 +441,7 @@ describe('screen reader gesture tests', () => {
   });
 
   describe('complete accessibility actions array', () => {
-    it('verifies slider has increment/decrement actions', () => {
+    it('verifies slider has increment/decrement actions', async () => {
       const handleAction = jest.fn((event: AccessibilityActionEvent) => {
         const { actionName } = event.nativeEvent;
         if (actionName === 'increment' || actionName === 'decrement') {
@@ -449,7 +449,7 @@ describe('screen reader gesture tests', () => {
         }
       });
 
-      render(
+      await render(
         <Pressable
           testID="slider"
           accessibilityRole="adjustable"
@@ -471,10 +471,10 @@ describe('screen reader gesture tests', () => {
       expect(() => expectAccessibilityActions(slider, ['increment', 'decrement'])).not.toThrow();
     });
 
-    it('verifies deletable item has delete action', () => {
+    it('verifies deletable item has delete action', async () => {
       const handleAction = jest.fn();
 
-      render(
+      await render(
         <Pressable
           testID="deletable-item"
           accessibilityActions={[
@@ -492,10 +492,10 @@ describe('screen reader gesture tests', () => {
       expect(() => expectAccessibilityActions(item, ['activate', 'delete'])).not.toThrow();
     });
 
-    it('verifies media control has play/pause via magicTap', () => {
+    it('verifies media control has play/pause via magicTap', async () => {
       const handleAction = jest.fn();
 
-      render(
+      await render(
         <Pressable
           testID="media-control"
           accessibilityRole="button"
@@ -517,8 +517,8 @@ describe('screen reader gesture tests', () => {
   });
 
   describe('scroll view accessibility', () => {
-    it('verifies scroll view has accessible scroll content', () => {
-      render(
+    it('verifies scroll view has accessible scroll content', async () => {
+      await render(
         <ScrollView testID="scroll-view" accessible={false}>
           <Pressable testID="item-1" accessible={true} accessibilityLabel="Item 1">
             <Text>Item 1</Text>
@@ -546,8 +546,8 @@ describe('screen reader gesture tests', () => {
       expect(item3.props.accessible).toBe(true);
     });
 
-    it('verifies scroll view items are navigable in order', () => {
-      render(
+    it('verifies scroll view items are navigable in order', async () => {
+      await render(
         <ScrollView testID="scroll-view" accessible={false}>
           <Pressable testID="item-1" accessible={true}>
             <Text>Item 1</Text>
@@ -566,8 +566,8 @@ describe('screen reader gesture tests', () => {
   });
 
   describe('grouped accessibility elements', () => {
-    it('verifies group is announced as single element when accessible', () => {
-      render(
+    it('verifies group is announced as single element when accessible', async () => {
+      await render(
         <View
           testID="card"
           accessible={true}
@@ -586,8 +586,8 @@ describe('screen reader gesture tests', () => {
       expect(card.props.accessibilityLabel).toBe('John Doe, Software Engineer, View profile');
     });
 
-    it('verifies children are individually focusable when group is not accessible', () => {
-      render(
+    it('verifies children are individually focusable when group is not accessible', async () => {
+      await render(
         <View testID="container" accessible={false}>
           <Pressable testID="name" accessible={true} accessibilityLabel="John Doe">
             <Text>John Doe</Text>
@@ -615,10 +615,10 @@ describe('screen reader gesture tests', () => {
        * React Native supports it via onMagicTap prop for custom handling.
        * Common uses: play/pause media, toggle primary action.
        */
-      it('verifies onMagicTap handler is configured', () => {
+      it('verifies onMagicTap handler is configured', async () => {
         const handleMagicTap = jest.fn(() => true);
 
-        render(
+        await render(
           <Pressable
             testID="media-player"
             onMagicTap={handleMagicTap}
@@ -635,10 +635,10 @@ describe('screen reader gesture tests', () => {
         expect(typeof element.props.onMagicTap).toBe('function');
       });
 
-      it('verifies magic tap returns true for successful handling', () => {
+      it('verifies magic tap returns true for successful handling', async () => {
         const handleMagicTap = jest.fn(() => true);
 
-        render(
+        await render(
           <Pressable testID="media-player" onMagicTap={handleMagicTap}>
             <Text>Play/Pause</Text>
           </Pressable>
@@ -653,10 +653,10 @@ describe('screen reader gesture tests', () => {
         expect(handleMagicTap).toHaveBeenCalledTimes(1);
       });
 
-      it('verifies magic tap returns false to allow bubbling', () => {
+      it('verifies magic tap returns false to allow bubbling', async () => {
         const handleMagicTap = jest.fn(() => false);
 
-        render(
+        await render(
           <Pressable testID="child" onMagicTap={handleMagicTap}>
             <Text>Child</Text>
           </Pressable>
@@ -670,14 +670,14 @@ describe('screen reader gesture tests', () => {
         expect(result).toBe(false);
       });
 
-      it('verifies media player pattern with magic tap', () => {
+      it('verifies media player pattern with magic tap', async () => {
         let isPlaying = false;
         const togglePlayback = jest.fn(() => {
           isPlaying = !isPlaying;
           return true;
         });
 
-        render(
+        await render(
           <Pressable
             testID="audio-player"
             onMagicTap={togglePlayback}
@@ -709,10 +709,10 @@ describe('screen reader gesture tests', () => {
        * React Native supports it via onAccessibilityEscape prop.
        * Common uses: dismiss modal, go back, cancel action.
        */
-      it('verifies onAccessibilityEscape handler is configured', () => {
+      it('verifies onAccessibilityEscape handler is configured', async () => {
         const handleEscape = jest.fn(() => true);
 
-        render(
+        await render(
           <View testID="modal" onAccessibilityEscape={handleEscape} accessibilityViewIsModal={true}>
             <Text>Modal Content</Text>
           </View>
@@ -724,10 +724,10 @@ describe('screen reader gesture tests', () => {
         expect(typeof element.props.onAccessibilityEscape).toBe('function');
       });
 
-      it('verifies escape returns true for successful dismissal', () => {
+      it('verifies escape returns true for successful dismissal', async () => {
         const handleEscape = jest.fn(() => true);
 
-        render(
+        await render(
           <View testID="modal" onAccessibilityEscape={handleEscape}>
             <Text>Modal Content</Text>
           </View>
@@ -742,14 +742,14 @@ describe('screen reader gesture tests', () => {
         expect(handleEscape).toHaveBeenCalledTimes(1);
       });
 
-      it('verifies modal dismissal pattern with escape', () => {
+      it('verifies modal dismissal pattern with escape', async () => {
         let isModalVisible = true;
         const dismissModal = jest.fn(() => {
           isModalVisible = false;
           return true;
         });
 
-        render(
+        await render(
           <View
             testID="dismissible-modal"
             onAccessibilityEscape={dismissModal}
@@ -773,10 +773,10 @@ describe('screen reader gesture tests', () => {
         expect(isModalVisible).toBe(false);
       });
 
-      it('verifies escape combined with accessibilityViewIsModal for proper focus trapping', () => {
+      it('verifies escape combined with accessibilityViewIsModal for proper focus trapping', async () => {
         const handleEscape = jest.fn(() => true);
 
-        render(
+        await render(
           <View
             testID="focus-trapped-modal"
             onAccessibilityEscape={handleEscape}
@@ -803,10 +803,10 @@ describe('screen reader gesture tests', () => {
        * Custom actions appear in rotor and can be triggered with swipe.
        * This tests the configuration of custom rotor actions.
        */
-      it('verifies rotor actions are properly configured', () => {
+      it('verifies rotor actions are properly configured', async () => {
         const handleAction = jest.fn();
 
-        render(
+        await render(
           <Pressable
             testID="rotor-element"
             accessibilityActions={[
@@ -833,10 +833,10 @@ describe('screen reader gesture tests', () => {
         ]);
       });
 
-      it('verifies rotor action handler receives correct action name', () => {
+      it('verifies rotor action handler receives correct action name', async () => {
         const handleAction = jest.fn();
 
-        render(
+        await render(
           <Pressable
             testID="rotor-element"
             accessibilityActions={[
@@ -863,13 +863,13 @@ describe('screen reader gesture tests', () => {
         );
       });
 
-      it('verifies multiple rotor actions can be distinguished', () => {
+      it('verifies multiple rotor actions can be distinguished', async () => {
         const actions: string[] = [];
         const handleAction = jest.fn((event: AccessibilityActionEvent) => {
           actions.push(event.nativeEvent.actionName);
         });
 
-        render(
+        await render(
           <Pressable
             testID="multi-action"
             accessibilityActions={[
@@ -900,10 +900,10 @@ describe('screen reader gesture tests', () => {
         expect(actions).toEqual(['activate', 'increment', 'decrement']);
       });
 
-      it('verifies standard rotor actions for adjustable elements', () => {
+      it('verifies standard rotor actions for adjustable elements', async () => {
         const handleAction = jest.fn();
 
-        render(
+        await render(
           <Pressable
             testID="rating-slider"
             accessibilityRole="adjustable"
@@ -931,10 +931,10 @@ describe('screen reader gesture tests', () => {
         );
       });
 
-      it('verifies rotor action labels are descriptive', () => {
+      it('verifies rotor action labels are descriptive', async () => {
         const handleAction = jest.fn();
 
-        render(
+        await render(
           <Pressable
             testID="labeled-actions"
             accessibilityActions={[
@@ -963,12 +963,12 @@ describe('screen reader gesture tests', () => {
     });
 
     describe('combined gesture patterns', () => {
-      it('verifies element supports both magic tap and escape', () => {
+      it('verifies element supports both magic tap and escape', async () => {
         const handleMagicTap = jest.fn(() => true);
         const handleEscape = jest.fn(() => true);
         const handleAction = jest.fn();
 
-        render(
+        await render(
           <View
             testID="full-featured"
             onMagicTap={handleMagicTap}
@@ -997,7 +997,7 @@ describe('screen reader gesture tests', () => {
         expect(actionNames).toContain('escape');
       });
 
-      it('verifies swipeable list item with rotor delete action', () => {
+      it('verifies swipeable list item with rotor delete action', async () => {
         const handleDelete = jest.fn();
         const handleAction = jest.fn((event: AccessibilityActionEvent) => {
           if (event.nativeEvent.actionName === 'delete') {
@@ -1005,7 +1005,7 @@ describe('screen reader gesture tests', () => {
           }
         });
 
-        render(
+        await render(
           <Pressable
             testID="swipeable-item"
             accessibilityLabel="Email from John, Subject: Meeting tomorrow"
@@ -1034,8 +1034,8 @@ describe('screen reader gesture tests', () => {
   });
 
   describe('accessibility value for adjustable elements', () => {
-    it('verifies slider announces current value', () => {
-      render(
+    it('verifies slider announces current value', async () => {
+      await render(
         <Pressable
           testID="brightness"
           accessibilityRole="adjustable"
@@ -1063,8 +1063,8 @@ describe('screen reader gesture tests', () => {
       expect(slider.props.accessibilityValue.text).toBe('75%');
     });
 
-    it('verifies progress element announces progress', () => {
-      render(
+    it('verifies progress element announces progress', async () => {
+      await render(
         <View
           testID="progress"
           accessibilityRole="progressbar"

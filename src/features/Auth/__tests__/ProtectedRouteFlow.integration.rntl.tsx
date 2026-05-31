@@ -62,7 +62,7 @@ describe('Protected Route Flow Integration', () => {
         setIntendedRoute,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -85,7 +85,7 @@ describe('Protected Route Flow Integration', () => {
         setIntendedRoute,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -97,13 +97,13 @@ describe('Protected Route Flow Integration', () => {
       );
     });
 
-    it('should not render protected content when not authenticated', () => {
+    it('should not render protected content when not authenticated', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: false,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -112,7 +112,7 @@ describe('Protected Route Flow Integration', () => {
   });
 
   describe('authenticated access', () => {
-    it('should render protected content when authenticated', () => {
+    it('should render protected content when authenticated', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: true,
         isLoading: false,
@@ -127,7 +127,7 @@ describe('Protected Route Flow Integration', () => {
         },
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -135,7 +135,7 @@ describe('Protected Route Flow Integration', () => {
       expect(screen.getByText('Protected Content')).toBeOnTheScreen();
     });
 
-    it('should not redirect when authenticated', () => {
+    it('should not redirect when authenticated', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: true,
         isLoading: false,
@@ -150,20 +150,20 @@ describe('Protected Route Flow Integration', () => {
         },
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
       expect(mockReset).not.toHaveBeenCalled();
     });
 
-    it('should pass props to protected component', () => {
+    it('should pass props to protected component', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: true,
         isLoading: false,
       });
 
-      render(<ProtectedScreen title="Custom Protected Page" />, {
+      await render(<ProtectedScreen title="Custom Protected Page" />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -172,39 +172,39 @@ describe('Protected Route Flow Integration', () => {
   });
 
   describe('loading state handling', () => {
-    it('should show loading indicator during session check', () => {
+    it('should show loading indicator during session check', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
       expect(screen.getByTestId('auth-loading-indicator')).toBeOnTheScreen();
     });
 
-    it('should not redirect while loading', () => {
+    it('should not redirect while loading', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
       expect(mockReset).not.toHaveBeenCalled();
     });
 
-    it('should not render protected content while loading', () => {
+    it('should not render protected content while loading', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -223,7 +223,7 @@ describe('Protected Route Flow Integration', () => {
         setIntendedRoute,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(loadingContext),
       });
 
@@ -236,7 +236,7 @@ describe('Protected Route Flow Integration', () => {
         setIntendedRoute,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={unauthContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -250,14 +250,14 @@ describe('Protected Route Flow Integration', () => {
       );
     });
 
-    it('should render content when transitioning from loading to authenticated', () => {
+    it('should render content when transitioning from loading to authenticated', async () => {
       // Start with loading state
       const loadingContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(loadingContext),
       });
 
@@ -278,7 +278,7 @@ describe('Protected Route Flow Integration', () => {
         },
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={authContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -289,13 +289,13 @@ describe('Protected Route Flow Integration', () => {
   });
 
   describe('accessibility during protected route transitions', () => {
-    it('should have accessible loading indicator', () => {
+    it('should have accessible loading indicator', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -306,7 +306,7 @@ describe('Protected Route Flow Integration', () => {
   });
 
   describe('intended route preservation', () => {
-    it('should clear intended route after successful navigation', () => {
+    it('should clear intended route after successful navigation', async () => {
       const clearIntendedRoute = jest.fn();
       const authContext = createMockAuthContext({
         isAuthenticated: true,
@@ -315,7 +315,7 @@ describe('Protected Route Flow Integration', () => {
         clearIntendedRoute,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -323,14 +323,14 @@ describe('Protected Route Flow Integration', () => {
       expect(screen.getByTestId('protected-content')).toBeOnTheScreen();
     });
 
-    it('should handle null intended route gracefully', () => {
+    it('should handle null intended route gracefully', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: true,
         isLoading: false,
         intendedRoute: null,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 

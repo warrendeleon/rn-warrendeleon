@@ -12,6 +12,7 @@ exports[`ButtonGroup Snapshots Content Variants renders with Unicode characters:
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-2-middle-1"
@@ -23,6 +24,7 @@ exports[`ButtonGroup Snapshots Content Variants renders with Unicode characters:
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-3-bottom-2"
@@ -42,6 +44,7 @@ exports[`ButtonGroup Snapshots Content Variants renders with empty labels: Butto
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-2-bottom-1"
@@ -61,6 +64,7 @@ exports[`ButtonGroup Snapshots Content Variants renders with long labels: Button
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-2-bottom-1"
@@ -82,6 +86,7 @@ exports[`ButtonGroup Snapshots Content Variants renders with special characters:
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-2-middle-1"
@@ -93,6 +98,7 @@ exports[`ButtonGroup Snapshots Content Variants renders with special characters:
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-3-bottom-2"
@@ -116,6 +122,7 @@ exports[`ButtonGroup Snapshots Item Count Variants renders many items correctly:
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-2-middle-1"
@@ -127,6 +134,7 @@ exports[`ButtonGroup Snapshots Item Count Variants renders many items correctly:
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-3-middle-2"
@@ -138,6 +146,7 @@ exports[`ButtonGroup Snapshots Item Count Variants renders many items correctly:
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-4-middle-3"
@@ -149,6 +158,7 @@ exports[`ButtonGroup Snapshots Item Count Variants renders many items correctly:
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-5-bottom-4"
@@ -180,6 +190,7 @@ exports[`ButtonGroup Snapshots Item Count Variants renders three items correctly
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-2-middle-1"
@@ -191,6 +202,7 @@ exports[`ButtonGroup Snapshots Item Count Variants renders three items correctly
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-3-bottom-2"
@@ -212,6 +224,7 @@ exports[`ButtonGroup Snapshots Item Count Variants renders two items correctly: 
     h={0.5}
     ml={64}
     mr={16}
+    testID="button-group-divider"
   />
   <Text
     testID="item-2-bottom-1"

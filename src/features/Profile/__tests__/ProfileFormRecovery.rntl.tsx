@@ -147,7 +147,7 @@ describe('Profile Form Recovery', () => {
 
   describe('form data preservation during editing', () => {
     it('should preserve edited form data during rerender', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <EditAccountScreen />,
         { preloadedState: authenticatedState }
       );
@@ -162,17 +162,17 @@ describe('Profile Form Recovery', () => {
 
       // Edit first name
       const firstNameInput = getByTestId('first-name-input');
-      fireEvent.changeText(firstNameInput, 'Warren Updated');
+      await fireEvent.changeText(firstNameInput, 'Warren Updated');
 
       // Rerender (simulates navigation back)
-      rerender(<EditAccountScreen />);
+      await rerender(<EditAccountScreen />);
 
       // Data should be preserved
       expect(getByDisplayValue('Warren Updated')).toBeOnTheScreen();
     });
 
     it('should preserve multiple field edits', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <EditAccountScreen />,
         { preloadedState: authenticatedState }
       );
@@ -185,11 +185,11 @@ describe('Profile Form Recovery', () => {
       );
 
       // Edit multiple fields
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
-      fireEvent.changeText(getByTestId('last-name-input'), 'Smith');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'Smith');
 
       // Rerender
-      rerender(<EditAccountScreen />);
+      await rerender(<EditAccountScreen />);
 
       // Both edits preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -197,7 +197,7 @@ describe('Profile Form Recovery', () => {
     });
 
     it('should preserve edits after blur events', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -210,8 +210,8 @@ describe('Profile Form Recovery', () => {
 
       // Edit and blur
       const firstNameInput = getByTestId('first-name-input');
-      fireEvent.changeText(firstNameInput, 'John');
-      fireEvent(firstNameInput, 'blur');
+      await fireEvent.changeText(firstNameInput, 'John');
+      await fireEvent(firstNameInput, 'blur');
 
       // Data should be preserved after blur
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -220,7 +220,7 @@ describe('Profile Form Recovery', () => {
 
   describe('form recovery after error', () => {
     it('should preserve form data when save fails', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: {
           ...authenticatedState,
           auth: {
@@ -238,8 +238,8 @@ describe('Profile Form Recovery', () => {
       );
 
       // Edit form while error is displayed
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
-      fireEvent.changeText(getByTestId('last-name-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'Doe');
 
       // Data should be preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -247,7 +247,7 @@ describe('Profile Form Recovery', () => {
     });
 
     it('should allow retry after network error', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -259,7 +259,7 @@ describe('Profile Form Recovery', () => {
       );
 
       // Make changes
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
 
       // Verify data is there (can retry)
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -269,7 +269,7 @@ describe('Profile Form Recovery', () => {
 
   describe('form state during loading', () => {
     it('should preserve form data during save operation', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: {
           ...authenticatedState,
           auth: {
@@ -296,7 +296,7 @@ describe('Profile Form Recovery', () => {
     it('should not crash on unmount during form edit', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { unmount, getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -308,7 +308,7 @@ describe('Profile Form Recovery', () => {
       );
 
       // Start editing
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
 
       // Unmount mid-edit
       expect(() => unmount()).not.toThrow();
@@ -324,14 +324,14 @@ describe('Profile Form Recovery', () => {
 
     it('should handle rapid mount/unmount cycles', async () => {
       for (let i = 0; i < 5; i++) {
-        const { unmount } = renderWithProviders(<EditAccountScreen />, {
+        const { unmount } = await renderWithProviders(<EditAccountScreen />, {
           preloadedState: authenticatedState,
         });
-        unmount();
+        await unmount();
       }
 
       // Final mount should work correctly
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -344,7 +344,7 @@ describe('Profile Form Recovery', () => {
     });
 
     it('should handle multiple rapid rerenders during form edit', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <EditAccountScreen />,
         { preloadedState: authenticatedState }
       );
@@ -357,16 +357,16 @@ describe('Profile Form Recovery', () => {
       );
 
       // Rapid edits with rerenders
-      fireEvent.changeText(getByTestId('first-name-input'), 'J');
-      rerender(<EditAccountScreen />);
+      await fireEvent.changeText(getByTestId('first-name-input'), 'J');
+      await rerender(<EditAccountScreen />);
 
-      fireEvent.changeText(getByTestId('first-name-input'), 'Jo');
-      rerender(<EditAccountScreen />);
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Jo');
+      await rerender(<EditAccountScreen />);
 
-      fireEvent.changeText(getByTestId('first-name-input'), 'Joh');
-      rerender(<EditAccountScreen />);
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Joh');
+      await rerender(<EditAccountScreen />);
 
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
 
       // Final value should be preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -375,7 +375,7 @@ describe('Profile Form Recovery', () => {
 
   describe('keyboard interaction recovery', () => {
     it('should preserve form data after keyboard show/hide cycles', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -388,12 +388,12 @@ describe('Profile Form Recovery', () => {
 
       // Edit with keyboard interactions
       const firstNameInput = getByTestId('first-name-input');
-      fireEvent.changeText(firstNameInput, 'John');
-      fireEvent(firstNameInput, 'blur');
+      await fireEvent.changeText(firstNameInput, 'John');
+      await fireEvent(firstNameInput, 'blur');
 
       const lastNameInput = getByTestId('last-name-input');
-      fireEvent.changeText(lastNameInput, 'Doe');
-      fireEvent(lastNameInput, 'blur');
+      await fireEvent.changeText(lastNameInput, 'Doe');
+      await fireEvent(lastNameInput, 'blur');
 
       // Data should be preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -401,7 +401,7 @@ describe('Profile Form Recovery', () => {
     });
 
     it('should preserve data when keyboard is dismissed via submit editing', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -413,8 +413,8 @@ describe('Profile Form Recovery', () => {
       );
 
       // Fill and submit edit
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
-      fireEvent(getByTestId('first-name-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent(getByTestId('first-name-input'), 'submitEditing');
 
       // Data preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -423,7 +423,7 @@ describe('Profile Form Recovery', () => {
 
   describe('edge cases', () => {
     it('should handle clearing field to empty string', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -435,14 +435,14 @@ describe('Profile Form Recovery', () => {
       );
 
       // Fill then clear
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
-      fireEvent.changeText(getByTestId('first-name-input'), '');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent.changeText(getByTestId('first-name-input'), '');
 
       expect(getByTestId('first-name-input').props.value).toBe('');
     });
 
     it('should handle special characters in profile fields', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -454,15 +454,15 @@ describe('Profile Form Recovery', () => {
       );
 
       // Names with special characters
-      fireEvent.changeText(getByTestId('first-name-input'), "O'Brien");
-      fireEvent.changeText(getByTestId('last-name-input'), 'García-López');
+      await fireEvent.changeText(getByTestId('first-name-input'), "O'Brien");
+      await fireEvent.changeText(getByTestId('last-name-input'), 'García-López');
 
       expect(getByDisplayValue("O'Brien")).toBeOnTheScreen();
       expect(getByDisplayValue('García-López')).toBeOnTheScreen();
     });
 
     it('should handle Unicode characters in names', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -474,15 +474,15 @@ describe('Profile Form Recovery', () => {
       );
 
       // Unicode names
-      fireEvent.changeText(getByTestId('first-name-input'), '田中');
-      fireEvent.changeText(getByTestId('last-name-input'), '太郎');
+      await fireEvent.changeText(getByTestId('first-name-input'), '田中');
+      await fireEvent.changeText(getByTestId('last-name-input'), '太郎');
 
       expect(getByDisplayValue('田中')).toBeOnTheScreen();
       expect(getByDisplayValue('太郎')).toBeOnTheScreen();
     });
 
     it('should handle very long input values', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -494,7 +494,7 @@ describe('Profile Form Recovery', () => {
       );
 
       const longName = 'A'.repeat(100);
-      fireEvent.changeText(getByTestId('first-name-input'), longName);
+      await fireEvent.changeText(getByTestId('first-name-input'), longName);
 
       // Should handle without crash
       expect(getByTestId('edit-account-screen')).toBeOnTheScreen();
@@ -503,7 +503,7 @@ describe('Profile Form Recovery', () => {
 
   describe('dirty state tracking', () => {
     it('should track when form has unsaved changes', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -515,7 +515,7 @@ describe('Profile Form Recovery', () => {
       );
 
       // Make a change
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
 
       // Save button should be enabled (form is dirty)
       const saveButton = getByTestId('save-button');
@@ -523,7 +523,7 @@ describe('Profile Form Recovery', () => {
     });
 
     it('should reset dirty state after successful save simulation', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -535,10 +535,10 @@ describe('Profile Form Recovery', () => {
       );
 
       // Make a change
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
 
       // Press save
-      fireEvent.press(getByTestId('save-button'));
+      await fireEvent.press(getByTestId('save-button'));
 
       // Screen should remain stable
       expect(getByTestId('edit-account-screen')).toBeOnTheScreen();

@@ -6,7 +6,7 @@
  */
 
 import { StyleSheet } from 'react-native';
-import type { ReactTestInstance } from 'react-test-renderer';
+import type { TestInstance } from 'test-renderer';
 
 /**
  * Minimum touch target sizes per platform
@@ -69,7 +69,7 @@ function getNumericValue(value: unknown): number | undefined {
  * ```
  */
 export function expectMinTouchTarget(
-  element: ReactTestInstance,
+  element: TestInstance,
   minWidth: number = TOUCH_TARGET_SIZES.default.minWidth,
   minHeight: number = TOUCH_TARGET_SIZES.default.minHeight
 ): void {
@@ -137,7 +137,7 @@ export function expectMinTouchTarget(
  * });
  * ```
  */
-export function expectMinHitSlop(element: ReactTestInstance, minHitSlop: number = 8): void {
+export function expectMinHitSlop(element: TestInstance, minHitSlop: number = 8): void {
   const hitSlop = element.props.hitSlop;
 
   if (!hitSlop) {
@@ -178,7 +178,7 @@ export function expectMinHitSlop(element: ReactTestInstance, minHitSlop: number 
  * ```
  */
 export function expectAccessibilityProps(
-  element: ReactTestInstance,
+  element: TestInstance,
   options: {
     role?: string;
     label?: boolean | string;
@@ -241,7 +241,7 @@ export function expectAccessibilityProps(
  * ```
  */
 export function expectScreenReaderAnnouncement(
-  element: ReactTestInstance,
+  element: TestInstance,
   options: {
     liveRegion?: 'none' | 'polite' | 'assertive';
     role?: string;
@@ -284,7 +284,7 @@ export function expectScreenReaderAnnouncement(
  * });
  * ```
  */
-export function expectFocusOrder(elements: ReactTestInstance[]): void {
+export function expectFocusOrder(elements: TestInstance[]): void {
   // Verify all elements are focusable (have tabIndex or are naturally focusable)
   elements.forEach((element, index) => {
     const isFocusable =
@@ -330,7 +330,7 @@ export function expectFocusOrder(elements: ReactTestInstance[]): void {
  * ```
  */
 export function expectCanReceiveFocus(
-  element: ReactTestInstance,
+  element: TestInstance,
   options?: { autoFocus?: boolean }
 ): void {
   // Element must be accessible
@@ -499,7 +499,7 @@ export function expectColorContrast(
  * ```
  */
 export function expectAccessibilityComplete(
-  element: ReactTestInstance,
+  element: TestInstance,
   options: {
     role: string;
     label: string;
@@ -582,7 +582,7 @@ export function expectAccessibilityComplete(
  * ```
  */
 export function expectLiveRegionContent(
-  element: ReactTestInstance,
+  element: TestInstance,
   expectedContent: string,
   options: {
     liveRegion: 'polite' | 'assertive';
@@ -630,7 +630,7 @@ export function expectLiveRegionContent(
 /**
  * Type guard to check if element has required accessibility props
  */
-export function hasAccessibilityProps(element: ReactTestInstance): element is ReactTestInstance & {
+export function hasAccessibilityProps(element: TestInstance): element is TestInstance & {
   props: {
     accessibilityRole: string;
     accessibilityLabel: string;
@@ -668,7 +668,7 @@ export function hasAccessibilityProps(element: ReactTestInstance): element is Re
  * ```
  */
 export function expectNoTimingDependence(
-  element: ReactTestInstance,
+  element: TestInstance,
   options: {
     /** Maximum acceptable timeout in ms (default: none - no timeout expected) */
     maxTimeout?: number;
@@ -731,14 +731,14 @@ export function expectNoTimingDependence(
  * ```
  */
 export function expectPauseStopHide(
-  element: ReactTestInstance,
+  element: TestInstance,
   controls: {
     /** Element that pauses the content */
-    pauseControl?: ReactTestInstance;
+    pauseControl?: TestInstance;
     /** Element that stops the content */
-    stopControl?: ReactTestInstance;
+    stopControl?: TestInstance;
     /** Element that hides the content */
-    hideControl?: ReactTestInstance;
+    hideControl?: TestInstance;
     /** Current paused state */
     isPaused?: boolean;
     /** Current stopped state */
@@ -819,7 +819,7 @@ export function expectPauseStopHide(
  * ```
  */
 export function expectNoFlashing(
-  element: ReactTestInstance,
+  element: TestInstance,
   options: {
     /** Maximum allowed flashes per second (default: 3 per WCAG) */
     maxFlashesPerSecond?: number;
@@ -875,7 +875,7 @@ export function expectNoFlashing(
     const children = Array.isArray(element.children) ? element.children : [element.children];
     children.forEach(child => {
       if (child && typeof child === 'object' && 'props' in child) {
-        expectNoFlashing(child as ReactTestInstance, options);
+        expectNoFlashing(child as TestInstance, options);
       }
     });
   }
@@ -905,7 +905,7 @@ export function expectNoFlashing(
  * ```
  */
 export function expectConsistentNavigation(
-  navigationElements: ReactTestInstance[],
+  navigationElements: TestInstance[],
   expectedOrder: string[]
 ): void {
   // Verify we have the expected number of elements
@@ -950,12 +950,12 @@ export function expectConsistentNavigation(
  * ```
  */
 export function expectErrorIdentification(
-  element: ReactTestInstance,
+  element: TestInstance,
   options: {
     /** Whether the field currently has an error */
     hasError: boolean;
     /** The element containing the error message */
-    errorElement?: ReactTestInstance;
+    errorElement?: TestInstance;
     /** Expected error text */
     errorText?: string;
   }
@@ -1035,7 +1035,7 @@ export function expectErrorIdentification(
  * ```
  */
 export function expectLabelInstructions(
-  element: ReactTestInstance,
+  element: TestInstance,
   options: {
     /** Expected label text */
     label: string;

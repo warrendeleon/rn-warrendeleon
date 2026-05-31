@@ -59,7 +59,7 @@ describe('usePhotoLibraryPermission', () => {
         () => new Promise(resolve => setTimeout(() => resolve(RESULTS.GRANTED), 100))
       );
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       expect(result.current.isLoading).toBe(true);
 
@@ -71,12 +71,12 @@ describe('usePhotoLibraryPermission', () => {
       );
     });
 
-    it('status is null initially before check completes', () => {
+    it('status is null initially before check completes', async () => {
       mockCheck.mockImplementation(
         () => new Promise(resolve => setTimeout(() => resolve(RESULTS.GRANTED), 100))
       );
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       expect(result.current.status).toBeNull();
     });
@@ -86,7 +86,7 @@ describe('usePhotoLibraryPermission', () => {
     it('returns GRANTED and sets isGranted: true', async () => {
       mockCheck.mockResolvedValue(RESULTS.GRANTED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -103,7 +103,7 @@ describe('usePhotoLibraryPermission', () => {
     it('returns DENIED and sets isDenied: true', async () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -120,7 +120,7 @@ describe('usePhotoLibraryPermission', () => {
     it('returns BLOCKED and sets isBlocked: true', async () => {
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -138,7 +138,7 @@ describe('usePhotoLibraryPermission', () => {
       const error = new Error('Permission check failed');
       mockCheck.mockRejectedValue(error);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -154,7 +154,7 @@ describe('usePhotoLibraryPermission', () => {
     it('E2E mock returns GRANTED without calling check', async () => {
       mockIsE2EMockEnabled.mockReturnValue(true);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -173,7 +173,7 @@ describe('usePhotoLibraryPermission', () => {
     it('isLimited: true when status === LIMITED', async () => {
       mockCheck.mockResolvedValue(RESULTS.LIMITED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -190,7 +190,7 @@ describe('usePhotoLibraryPermission', () => {
     it('canProceed: true when LIMITED (iOS 14+ behaviour)', async () => {
       mockCheck.mockResolvedValue(RESULTS.LIMITED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -207,7 +207,7 @@ describe('usePhotoLibraryPermission', () => {
     it('distinguishes LIMITED from GRANTED', async () => {
       mockCheck.mockResolvedValue(RESULTS.LIMITED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -229,7 +229,7 @@ describe('usePhotoLibraryPermission', () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
       mockRequest.mockResolvedValue(RESULTS.GRANTED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -252,7 +252,7 @@ describe('usePhotoLibraryPermission', () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
       mockRequest.mockResolvedValue(RESULTS.LIMITED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -275,7 +275,7 @@ describe('usePhotoLibraryPermission', () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
       mockRequest.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -297,7 +297,7 @@ describe('usePhotoLibraryPermission', () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
       mockRequest.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -320,7 +320,7 @@ describe('usePhotoLibraryPermission', () => {
       const error = new Error('Request failed');
       mockRequest.mockRejectedValue(error);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -344,7 +344,7 @@ describe('usePhotoLibraryPermission', () => {
     it('E2E mock returns GRANTED without calling request', async () => {
       mockIsE2EMockEnabled.mockReturnValue(true);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -367,7 +367,7 @@ describe('usePhotoLibraryPermission', () => {
     it('isGranted: true when status === GRANTED', async () => {
       mockCheck.mockResolvedValue(RESULTS.GRANTED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -385,7 +385,7 @@ describe('usePhotoLibraryPermission', () => {
     it('isDenied: true when status === DENIED', async () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -403,7 +403,7 @@ describe('usePhotoLibraryPermission', () => {
     it('isBlocked: true when status === BLOCKED', async () => {
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -421,7 +421,7 @@ describe('usePhotoLibraryPermission', () => {
     it('canProceed: true when GRANTED', async () => {
       mockCheck.mockResolvedValue(RESULTS.GRANTED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -436,7 +436,7 @@ describe('usePhotoLibraryPermission', () => {
     it('canProceed: true when LIMITED', async () => {
       mockCheck.mockResolvedValue(RESULTS.LIMITED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -451,7 +451,7 @@ describe('usePhotoLibraryPermission', () => {
     it('canProceed: false when DENIED', async () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -466,7 +466,7 @@ describe('usePhotoLibraryPermission', () => {
     it('canProceed: false when BLOCKED', async () => {
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -491,7 +491,7 @@ describe('usePhotoLibraryPermission', () => {
       const mockOpenURL = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -513,7 +513,7 @@ describe('usePhotoLibraryPermission', () => {
       mockOpenSettings.mockResolvedValue(undefined);
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -535,7 +535,7 @@ describe('usePhotoLibraryPermission', () => {
       const mockOpenURL = jest.spyOn(Linking, 'openURL').mockRejectedValue(error);
       mockCheck.mockResolvedValue(RESULTS.BLOCKED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -557,7 +557,7 @@ describe('usePhotoLibraryPermission', () => {
     it('calls checkPermission and updates state', async () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -582,7 +582,7 @@ describe('usePhotoLibraryPermission', () => {
     it('can transition from DENIED to LIMITED after settings change', async () => {
       mockCheck.mockResolvedValue(RESULTS.DENIED);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -610,7 +610,7 @@ describe('usePhotoLibraryPermission', () => {
     it('checks permission on mount', async () => {
       mockCheck.mockResolvedValue(RESULTS.GRANTED);
 
-      renderHook(() => usePhotoLibraryPermission());
+      await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {
@@ -626,7 +626,7 @@ describe('usePhotoLibraryPermission', () => {
       const error = new Error('Permission check failed');
       mockCheck.mockRejectedValue(error);
 
-      const { result } = renderHook(() => usePhotoLibraryPermission());
+      const { result } = await renderHook(() => usePhotoLibraryPermission());
 
       await waitFor(
         () => {

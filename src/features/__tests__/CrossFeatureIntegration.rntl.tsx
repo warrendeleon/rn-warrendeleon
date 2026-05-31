@@ -310,8 +310,8 @@ describe('Cross-Feature Integration', () => {
   });
 
   describe('auth state affects navigation options', () => {
-    it('should show auth-only navigation when authenticated', () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<NavigationOptionsComponent />, {
+    it('should show auth-only navigation when authenticated', async () => {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<NavigationOptionsComponent />, {
         preloadedState: {
           auth: {
             user: {
@@ -339,8 +339,8 @@ describe('Cross-Feature Integration', () => {
       expect(queryByTestId('nav-register')).toBeNull();
     });
 
-    it('should show public navigation when not authenticated', () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<NavigationOptionsComponent />, {
+    it('should show public navigation when not authenticated', async () => {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<NavigationOptionsComponent />, {
         preloadedState: {
           auth: {
             user: null,
@@ -360,7 +360,7 @@ describe('Cross-Feature Integration', () => {
     });
 
     it('should update navigation when auth state changes', async () => {
-      const { getByTestId, store } = renderWithProviders(<NavigationOptionsComponent />, {
+      const { getByTestId, store } = await renderWithProviders(<NavigationOptionsComponent />, {
         preloadedState: {
           auth: {
             user: {
@@ -383,7 +383,7 @@ describe('Cross-Feature Integration', () => {
       expect(getByTestId('nav-profile')).toBeOnTheScreen();
 
       // Trigger logout
-      fireEvent.press(getByTestId('logout-button'));
+      await fireEvent.press(getByTestId('logout-button'));
 
       await waitFor(
         () => {
@@ -395,8 +395,8 @@ describe('Cross-Feature Integration', () => {
   });
 
   describe('profile update reflects in Settings', () => {
-    it('should display profile data from store', () => {
-      const { getByTestId } = renderWithProviders(<ProfileSettingsComponent />, {
+    it('should display profile data from store', async () => {
+      const { getByTestId } = await renderWithProviders(<ProfileSettingsComponent />, {
         preloadedState: {
           profile: createProfileState(true),
         },
@@ -406,8 +406,8 @@ describe('Cross-Feature Integration', () => {
       expect(getByTestId('profile-email')).toHaveTextContent('john@example.com');
     });
 
-    it('should show placeholder when no profile exists', () => {
-      const { getByTestId } = renderWithProviders(<ProfileSettingsComponent />, {
+    it('should show placeholder when no profile exists', async () => {
+      const { getByTestId } = await renderWithProviders(<ProfileSettingsComponent />, {
         preloadedState: {
           profile: createProfileState(false),
         },
@@ -420,7 +420,7 @@ describe('Cross-Feature Integration', () => {
 
   describe('language change updates all screens', () => {
     it('should change language across all components', async () => {
-      const { getByTestId, store } = renderWithProviders(<LanguageAwareComponent />, {
+      const { getByTestId, store } = await renderWithProviders(<LanguageAwareComponent />, {
         preloadedState: {
           settings: {
             theme: 'system',
@@ -431,7 +431,7 @@ describe('Cross-Feature Integration', () => {
 
       expect(getByTestId('current-language')).toHaveTextContent('en');
 
-      fireEvent.press(getByTestId('change-to-es-button'));
+      await fireEvent.press(getByTestId('change-to-es-button'));
 
       await waitFor(
         () => {
@@ -444,7 +444,7 @@ describe('Cross-Feature Integration', () => {
     });
 
     it('should propagate language change to all screens in layout', async () => {
-      const { getByTestId, store } = renderWithProviders(
+      const { getByTestId, store } = await renderWithProviders(
         <>
           <MultiScreenLayout />
           <LanguageAwareComponent />
@@ -465,7 +465,7 @@ describe('Cross-Feature Integration', () => {
       expect(getByTestId('footer-language')).toHaveTextContent('en');
 
       // Change language
-      fireEvent.press(getByTestId('change-to-es-button'));
+      await fireEvent.press(getByTestId('change-to-es-button'));
 
       await waitFor(
         () => {
@@ -483,7 +483,7 @@ describe('Cross-Feature Integration', () => {
 
   describe('theme change applies globally', () => {
     it('should apply theme change to component', async () => {
-      const { getByTestId, store } = renderWithProviders(<ThemeAwareComponent />, {
+      const { getByTestId, store } = await renderWithProviders(<ThemeAwareComponent />, {
         preloadedState: {
           settings: {
             theme: 'light',
@@ -494,7 +494,7 @@ describe('Cross-Feature Integration', () => {
 
       expect(getByTestId('current-theme')).toHaveTextContent('light');
 
-      fireEvent.press(getByTestId('toggle-dark-button'));
+      await fireEvent.press(getByTestId('toggle-dark-button'));
 
       await waitFor(
         () => {
@@ -507,7 +507,7 @@ describe('Cross-Feature Integration', () => {
     });
 
     it('should propagate theme to all screens', async () => {
-      const { getByTestId, store } = renderWithProviders(
+      const { getByTestId, store } = await renderWithProviders(
         <>
           <MultiScreenLayout />
           <ThemeAwareComponent />
@@ -525,7 +525,7 @@ describe('Cross-Feature Integration', () => {
       expect(getByTestId('header-theme')).toHaveTextContent('light');
       expect(getByTestId('footer-theme')).toHaveTextContent('light');
 
-      fireEvent.press(getByTestId('toggle-dark-button'));
+      await fireEvent.press(getByTestId('toggle-dark-button'));
 
       await waitFor(
         () => {
@@ -539,7 +539,7 @@ describe('Cross-Feature Integration', () => {
     });
 
     it('should support system theme option', async () => {
-      const { getByTestId, store } = renderWithProviders(<ThemeAwareComponent />, {
+      const { getByTestId, store } = await renderWithProviders(<ThemeAwareComponent />, {
         preloadedState: {
           settings: {
             theme: 'light',
@@ -548,7 +548,7 @@ describe('Cross-Feature Integration', () => {
         },
       });
 
-      fireEvent.press(getByTestId('toggle-system-button'));
+      await fireEvent.press(getByTestId('toggle-system-button'));
 
       await waitFor(
         () => {
@@ -563,7 +563,7 @@ describe('Cross-Feature Integration', () => {
 
   describe('logout clears all feature state', () => {
     it('should clear auth state on logout', async () => {
-      const { getByTestId, store } = renderWithProviders(<FullStateComponent />, {
+      const { getByTestId, store } = await renderWithProviders(<FullStateComponent />, {
         preloadedState: {
           auth: {
             user: {
@@ -587,7 +587,7 @@ describe('Cross-Feature Integration', () => {
       expect(getByTestId('auth-state')).toHaveTextContent('Logged In');
       expect(getByTestId('profile-state')).toHaveTextContent('Has Profile');
 
-      fireEvent.press(getByTestId('full-logout-button'));
+      await fireEvent.press(getByTestId('full-logout-button'));
 
       await waitFor(
         () => {
@@ -602,7 +602,7 @@ describe('Cross-Feature Integration', () => {
     });
 
     it('should preserve settings on logout', async () => {
-      const { getByTestId, store } = renderWithProviders(<FullStateComponent />, {
+      const { getByTestId, store } = await renderWithProviders(<FullStateComponent />, {
         preloadedState: {
           auth: {
             user: {
@@ -629,7 +629,7 @@ describe('Cross-Feature Integration', () => {
       expect(getByTestId('language-state')).toHaveTextContent('es');
       expect(getByTestId('theme-state')).toHaveTextContent('dark');
 
-      fireEvent.press(getByTestId('full-logout-button'));
+      await fireEvent.press(getByTestId('full-logout-button'));
 
       await waitFor(
         () => {
@@ -645,8 +645,8 @@ describe('Cross-Feature Integration', () => {
   });
 
   describe('deep link triggers correct feature flow', () => {
-    it('should route to profile when authenticated', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should route to profile when authenticated', async () => {
+      const { getByTestId } = await renderWithProviders(
         <DeepLinkComponent initialPath="/profile/edit" />,
         {
           preloadedState: {
@@ -673,8 +673,8 @@ describe('Cross-Feature Integration', () => {
       expect(getByTestId('deep-link-target')).toHaveTextContent('profile');
     });
 
-    it('should require login for protected routes when unauthenticated', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should require login for protected routes when unauthenticated', async () => {
+      const { getByTestId } = await renderWithProviders(
         <DeepLinkComponent initialPath="/settings/account" />,
         {
           preloadedState: {
@@ -693,8 +693,8 @@ describe('Cross-Feature Integration', () => {
       expect(getByTestId('auth-required-message')).toBeOnTheScreen();
     });
 
-    it('should handle public deep links without auth', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle public deep links without auth', async () => {
+      const { getByTestId } = await renderWithProviders(
         <DeepLinkComponent initialPath="/shared-content/abc123" />,
         {
           preloadedState: {
@@ -712,8 +712,8 @@ describe('Cross-Feature Integration', () => {
       expect(getByTestId('deep-link-target')).toHaveTextContent('shared-content');
     });
 
-    it('should pass deep link parameters', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should pass deep link parameters', async () => {
+      const { getByTestId } = await renderWithProviders(
         <DeepLinkComponent
           initialPath="/shared-content/item"
           params={{ itemId: '12345', source: 'email' }}
@@ -739,8 +739,8 @@ describe('Cross-Feature Integration', () => {
       expect(paramsText).toContain('email');
     });
 
-    it('should default to home for unknown paths', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should default to home for unknown paths', async () => {
+      const { getByTestId } = await renderWithProviders(
         <DeepLinkComponent initialPath="/unknown/route" />,
         {
           preloadedState: {
@@ -760,8 +760,8 @@ describe('Cross-Feature Integration', () => {
   });
 
   describe('accessibility', () => {
-    it('should have accessible logout button', () => {
-      const { getByTestId } = renderWithProviders(<NavigationOptionsComponent />, {
+    it('should have accessible logout button', async () => {
+      const { getByTestId } = await renderWithProviders(<NavigationOptionsComponent />, {
         preloadedState: {
           auth: {
             user: {
@@ -786,16 +786,16 @@ describe('Cross-Feature Integration', () => {
       expect(logoutButton.props.accessibilityLabel).toBe('Log out');
     });
 
-    it('should have accessible language controls', () => {
-      const { getByTestId } = renderWithProviders(<LanguageAwareComponent />);
+    it('should have accessible language controls', async () => {
+      const { getByTestId } = await renderWithProviders(<LanguageAwareComponent />);
 
       const esButton = getByTestId('change-to-es-button');
       expect(esButton.props.accessibilityRole).toBe('button');
       expect(esButton.props.accessibilityLabel).toBe('Change language to Spanish');
     });
 
-    it('should have accessible theme controls', () => {
-      const { getByTestId } = renderWithProviders(<ThemeAwareComponent />);
+    it('should have accessible theme controls', async () => {
+      const { getByTestId } = await renderWithProviders(<ThemeAwareComponent />);
 
       const darkButton = getByTestId('toggle-dark-button');
       expect(darkButton.props.accessibilityRole).toBe('button');

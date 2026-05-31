@@ -5,7 +5,7 @@
  * Reduces duplication and improves test readability.
  */
 
-import type { ReactTestInstance } from 'react-test-renderer';
+import type { TestInstance } from 'test-renderer';
 import type { RenderResult } from '@testing-library/react-native';
 import { waitFor } from '@testing-library/react-native';
 
@@ -26,8 +26,8 @@ import type { mockNavigation } from './mocks/react-navigation';
  * ```
  */
 export async function submitForm(
-  user: { press: (element: ReactTestInstance) => Promise<void> },
-  submitButton: ReactTestInstance,
+  user: { press: (element: TestInstance) => Promise<void> },
+  submitButton: TestInstance,
   options: {
     /** Timeout for waiting (default: 3000ms) */
     timeout?: number;
@@ -64,8 +64,8 @@ export async function submitForm(
  * ```
  */
 export async function fillField(
-  user: { type: (element: ReactTestInstance, text: string) => Promise<void> },
-  input: ReactTestInstance,
+  user: { type: (element: TestInstance, text: string) => Promise<void> },
+  input: TestInstance,
   value: string
 ): Promise<void> {
   await user.type(input, value);
@@ -86,8 +86,8 @@ export async function fillField(
  * ```
  */
 export async function fillFields(
-  user: { type: (element: ReactTestInstance, text: string) => Promise<void> },
-  fields: Record<string, { element: ReactTestInstance; value: string }>
+  user: { type: (element: TestInstance, text: string) => Promise<void> },
+  fields: Record<string, { element: TestInstance; value: string }>
 ): Promise<void> {
   for (const { element, value } of Object.values(fields)) {
     await user.type(element, value);
@@ -131,7 +131,7 @@ export function expectNavigatedTo(
  * expectErrorMessage(errorText, 'Invalid email address');
  * ```
  */
-export function expectErrorMessage(errorElement: ReactTestInstance, expectedMessage: string): void {
+export function expectErrorMessage(errorElement: TestInstance, expectedMessage: string): void {
   expect(errorElement).toBeOnTheScreen();
   // Check children for text content
   const hasMessage =
@@ -153,7 +153,7 @@ export function expectErrorMessage(errorElement: ReactTestInstance, expectedMess
  * ```
  */
 export function expectFieldValidationState(
-  field: ReactTestInstance,
+  field: TestInstance,
   isInvalid: boolean = true
 ): void {
   const state = field.props.accessibilityState;
@@ -171,7 +171,7 @@ export function expectFieldValidationState(
  * expectButtonDisabled(submitButton, true);
  * ```
  */
-export function expectButtonDisabled(button: ReactTestInstance, isDisabled: boolean = true): void {
+export function expectButtonDisabled(button: TestInstance, isDisabled: boolean = true): void {
   const state = button.props.accessibilityState;
   expect(state?.disabled).toBe(isDisabled);
 }
@@ -188,7 +188,7 @@ export function expectButtonDisabled(button: ReactTestInstance, isDisabled: bool
  * expectButtonBusy(submitButton, true);
  * ```
  */
-export function expectButtonBusy(button: ReactTestInstance, isBusy: boolean = true): void {
+export function expectButtonBusy(button: TestInstance, isBusy: boolean = true): void {
   const state = button.props.accessibilityState;
   expect(state?.busy).toBe(isBusy);
 }
@@ -234,10 +234,10 @@ export async function waitForLoadingComplete(
  */
 export function expectRendersSuccessfully(renderResult: {
   toJSON: () => unknown;
-  UNSAFE_root: ReactTestInstance;
+  root: unknown;
 }): void {
   expect(renderResult.toJSON()).not.toBeNull();
-  expect(renderResult.UNSAFE_root).toBeDefined();
+  expect(renderResult.root).toBeDefined();
 }
 
 /**
@@ -274,7 +274,7 @@ export function expectStoryRenders(toJSON: () => unknown, storyName: string): vo
  * ```
  */
 export function expectTextVisible(
-  getByText: (text: string | RegExp) => ReactTestInstance,
+  getByText: (text: string | RegExp) => TestInstance,
   text: string | RegExp
 ): void {
   const element = getByText(text);
@@ -293,7 +293,7 @@ export function expectTextVisible(
  * ```
  */
 export function expectElementVisible(
-  getByTestId: (testId: string) => ReactTestInstance,
+  getByTestId: (testId: string) => TestInstance,
   testId: string
 ): void {
   const element = getByTestId(testId);
@@ -365,13 +365,13 @@ export function createMockStorage(): MockStorage {
  */
 export async function fillFormAndSubmit(
   user: {
-    type: (element: ReactTestInstance, text: string) => Promise<void>;
-    press: (element: ReactTestInstance) => Promise<void>;
+    type: (element: TestInstance, text: string) => Promise<void>;
+    press: (element: TestInstance) => Promise<void>;
   },
-  fields: Array<{ element: ReactTestInstance; value: string }>,
-  submitButton: ReactTestInstance,
+  fields: Array<{ element: TestInstance; value: string }>,
+  submitButton: TestInstance,
   expectedText: string,
-  getByText: (text: string | RegExp) => ReactTestInstance
+  getByText: (text: string | RegExp) => TestInstance
 ): Promise<void> {
   // Fill all fields
   for (const { element, value } of fields) {
@@ -404,8 +404,8 @@ export async function fillFormAndSubmit(
  * ```
  */
 export function expectValidationError(
-  field: ReactTestInstance,
-  errorElement: ReactTestInstance,
+  field: TestInstance,
+  errorElement: TestInstance,
   expectedError: string
 ): void {
   // Field should be in invalid state
@@ -437,8 +437,8 @@ export function expectValidationError(
  * ```
  */
 export async function pressAndExpectNavigation(
-  user: { press: (element: ReactTestInstance) => Promise<void> },
-  element: ReactTestInstance,
+  user: { press: (element: TestInstance) => Promise<void> },
+  element: TestInstance,
   navigation: typeof mockNavigation,
   expectedScreen: string,
   params?: Record<string, unknown>
@@ -471,7 +471,7 @@ export async function pressAndExpectNavigation(
  * ```
  */
 export async function expectAsyncSuccess(
-  getByText: (text: string | RegExp) => ReactTestInstance,
+  getByText: (text: string | RegExp) => TestInstance,
   successText: string,
   timeout = 3000
 ): Promise<void> {
@@ -498,7 +498,7 @@ export async function expectAsyncSuccess(
  * ```
  */
 export async function expectAsyncError(
-  getByText: (text: string | RegExp) => ReactTestInstance,
+  getByText: (text: string | RegExp) => TestInstance,
   errorText: string,
   timeout = 3000
 ): Promise<void> {
@@ -582,11 +582,11 @@ export async function waitForWithTimeout(
  * ```
  */
 export async function waitForElement(
-  getElement: () => ReactTestInstance,
+  getElement: () => TestInstance,
   options: WaitOptions = {}
-): Promise<ReactTestInstance> {
+): Promise<TestInstance> {
   const { timeout = 3000, interval = 100 } = options;
-  let element: ReactTestInstance | undefined;
+  let element: TestInstance | undefined;
 
   await waitFor(
     () => {
@@ -611,7 +611,7 @@ export async function waitForElement(
  * ```
  */
 export async function waitForElementToDisappear(
-  queryElement: () => ReactTestInstance | null,
+  queryElement: () => TestInstance | null,
   options: WaitOptions = {}
 ): Promise<void> {
   const { timeout = 3000, interval = 100 } = options;
@@ -637,12 +637,12 @@ export async function waitForElementToDisappear(
  * ```
  */
 export async function waitForText(
-  getByText: (text: string | RegExp) => ReactTestInstance,
+  getByText: (text: string | RegExp) => TestInstance,
   text: string | RegExp,
   options: WaitOptions = {}
-): Promise<ReactTestInstance> {
+): Promise<TestInstance> {
   const { timeout = 3000, interval = 100 } = options;
-  let element: ReactTestInstance | undefined;
+  let element: TestInstance | undefined;
 
   await waitFor(
     () => {

@@ -80,7 +80,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -104,7 +104,7 @@ describe('ProtectedRoute Security', () => {
         user: null, // Inconsistent state
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -121,14 +121,14 @@ describe('ProtectedRoute Security', () => {
       expect(mockReset).not.toHaveBeenCalled();
     });
 
-    it('should block access during authentication state transition', () => {
+    it('should block access during authentication state transition', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
         user: null,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -151,7 +151,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      render(<ProtectedScreen userId="12345" />, {
+      await render(<ProtectedScreen userId="12345" />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -183,7 +183,7 @@ describe('ProtectedRoute Security', () => {
         user: userA,
       });
 
-      render(<ProtectedScreen userId="user-b-id" />, {
+      await render(<ProtectedScreen userId="user-b-id" />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -208,7 +208,7 @@ describe('ProtectedRoute Security', () => {
       // Try with admin flag in params
       mockRouteParams = { isAdmin: 'true', role: 'admin' };
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -234,7 +234,7 @@ describe('ProtectedRoute Security', () => {
       mockRouteName = 'Admin';
       mockRouteParams = { bypass: 'true' };
 
-      render(<AdminScreen />, {
+      await render(<AdminScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -259,7 +259,7 @@ describe('ProtectedRoute Security', () => {
         user: validUser,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(initialContext),
       });
 
@@ -274,7 +274,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={invalidatedContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -297,7 +297,7 @@ describe('ProtectedRoute Security', () => {
         user,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(initialContext),
       });
 
@@ -311,7 +311,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={loadingContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -328,7 +328,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={expiredContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -350,7 +350,7 @@ describe('ProtectedRoute Security', () => {
         user,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -364,7 +364,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={forcedLogoutContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -390,7 +390,7 @@ describe('ProtectedRoute Security', () => {
         setIntendedRoute,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -415,7 +415,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(unauthContext),
       });
 
@@ -426,7 +426,7 @@ describe('ProtectedRoute Security', () => {
         user,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={authContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -441,7 +441,7 @@ describe('ProtectedRoute Security', () => {
       );
 
       // Rapid logout
-      rerender(
+      await rerender(
         <AuthContext.Provider value={unauthContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -456,7 +456,7 @@ describe('ProtectedRoute Security', () => {
       );
     });
 
-    it('should not flash protected content during initial render', () => {
+    it('should not flash protected content during initial render', async () => {
       // Important: Content must NEVER be visible before auth check completes
       const authContext = createMockAuthContext({
         isAuthenticated: false,
@@ -464,7 +464,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -481,7 +481,7 @@ describe('ProtectedRoute Security', () => {
       });
 
       // Pass undefined/null props
-      render(<ProtectedScreen userId={undefined} />, {
+      await render(<ProtectedScreen userId={undefined} />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -504,7 +504,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -530,7 +530,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -562,7 +562,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -592,11 +592,11 @@ describe('ProtectedRoute Security', () => {
       });
 
       // Should not throw
-      expect(() => {
+      await expect(
         render(<ProtectedScreen />, {
           wrapper: createWrapper(authContext),
-        });
-      }).not.toThrow();
+        })
+      ).resolves.toBeDefined();
 
       // Content renders because isAuthenticated is true
       // Actual user data validation is the component's responsibility
@@ -605,14 +605,14 @@ describe('ProtectedRoute Security', () => {
   });
 
   describe('Loading State Security', () => {
-    it('should show accessible loading indicator during auth check', () => {
+    it('should show accessible loading indicator during auth check', async () => {
       const authContext = createMockAuthContext({
         isAuthenticated: false,
         isLoading: true,
         user: null,
       });
 
-      render(<ProtectedScreen />, {
+      await render(<ProtectedScreen />, {
         wrapper: createWrapper(authContext),
       });
 
@@ -633,7 +633,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(loadingContext),
       });
 
@@ -648,7 +648,7 @@ describe('ProtectedRoute Security', () => {
         user,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={authenticatedContext}>
           <ProtectedScreen />
         </AuthContext.Provider>
@@ -674,7 +674,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      const { rerender } = render(<ProtectedScreen />, {
+      const { rerender } = await render(<ProtectedScreen />, {
         wrapper: createWrapper(loadingContext),
       });
 
@@ -689,7 +689,7 @@ describe('ProtectedRoute Security', () => {
         user: null,
       });
 
-      rerender(
+      await rerender(
         <AuthContext.Provider value={unauthContext}>
           <ProtectedScreen />
         </AuthContext.Provider>

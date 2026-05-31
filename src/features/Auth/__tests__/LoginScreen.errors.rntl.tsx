@@ -19,8 +19,8 @@ describe('LoginScreen Error Display', () => {
     jest.clearAllMocks();
   });
 
-  it('displays auth error message when present in Redux state', () => {
-    const { getByTestId, getByText } = renderWithProviders(
+  it('displays auth error message when present in Redux state', async () => {
+    const { getByTestId, getByText } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -39,8 +39,8 @@ describe('LoginScreen Error Display', () => {
     expect(getByText('Invalid email or password')).toBeOnTheScreen();
   });
 
-  it('does not display error message when no error in Redux state', () => {
-    const { queryByTestId } = renderWithProviders(
+  it('does not display error message when no error in Redux state', async () => {
+    const { queryByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       {
         preloadedState: {
@@ -66,7 +66,7 @@ describe('LoginScreen Error Recovery', () => {
 
   describe('error clearing behaviour', () => {
     it('should clear error state when form is modified after error', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -85,7 +85,7 @@ describe('LoginScreen Error Recovery', () => {
       expect(getByTestId('auth-error-message')).toBeOnTheScreen();
 
       // Simulate user modifying email (error should remain until resubmit)
-      fireEvent.changeText(getByTestId('email-input'), 'new@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'new@example.com');
 
       // Error should still be visible (only clears on successful submission)
       // This tests that form modifications don't accidentally clear errors
@@ -93,7 +93,7 @@ describe('LoginScreen Error Recovery', () => {
     });
 
     it('should allow retry after error with modified credentials', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -112,8 +112,8 @@ describe('LoginScreen Error Recovery', () => {
       expect(getByTestId('auth-error-message')).toBeOnTheScreen();
 
       // User can still interact with form to retry
-      fireEvent.changeText(getByTestId('email-input'), 'correct@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'CorrectPassword123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'correct@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'CorrectPassword123!');
 
       await waitFor(
         () => {
@@ -126,13 +126,13 @@ describe('LoginScreen Error Recovery', () => {
     });
 
     it('should preserve form data when error occurs', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill in form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'MyPassword123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'MyPassword123!');
 
       // Form data should be preserved (error state from Redux doesn't clear local state)
       expect(getByDisplayValue('user@example.com')).toBeOnTheScreen();
@@ -140,9 +140,9 @@ describe('LoginScreen Error Recovery', () => {
   });
 
   describe('sequential error handling', () => {
-    it('should display different errors for different scenarios', () => {
+    it('should display different errors for different scenarios', async () => {
       // First render with credentials error
-      const { getByText, unmount } = renderWithProviders(
+      const { getByText, unmount } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -159,10 +159,10 @@ describe('LoginScreen Error Recovery', () => {
 
       // First error is visible
       expect(getByText('Invalid credentials')).toBeOnTheScreen();
-      unmount();
+      await unmount();
 
       // Second render with account locked error
-      const { getByText: getByText2 } = renderWithProviders(
+      const { getByText: getByText2 } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -189,8 +189,8 @@ describe('LoginScreen HTTP Error Codes', () => {
   });
 
   describe('401 Unauthorized', () => {
-    it('should display appropriate error for invalid credentials', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display appropriate error for invalid credentials', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -211,8 +211,8 @@ describe('LoginScreen HTTP Error Codes', () => {
   });
 
   describe('403 Forbidden', () => {
-    it('should display account suspended error', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display account suspended error', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -233,8 +233,8 @@ describe('LoginScreen HTTP Error Codes', () => {
   });
 
   describe('429 Rate Limit', () => {
-    it('should display rate limit error with retry message', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display rate limit error with retry message', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -253,8 +253,8 @@ describe('LoginScreen HTTP Error Codes', () => {
       expect(getByText('Too many attempts. Please wait 5 minutes.')).toBeOnTheScreen();
     });
 
-    it('should keep form interactive during rate limit', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should keep form interactive during rate limit', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -279,8 +279,8 @@ describe('LoginScreen HTTP Error Codes', () => {
   });
 
   describe('5xx Server Errors', () => {
-    it('should display server error for 500 Internal Server Error', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display server error for 500 Internal Server Error', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -299,8 +299,8 @@ describe('LoginScreen HTTP Error Codes', () => {
       expect(getByText('Something went wrong. Please try again later.')).toBeOnTheScreen();
     });
 
-    it('should display service unavailable for 503', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display service unavailable for 503', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -320,7 +320,7 @@ describe('LoginScreen HTTP Error Codes', () => {
     });
 
     it('should allow retry after server error', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -336,8 +336,8 @@ describe('LoginScreen HTTP Error Codes', () => {
       );
 
       // User can fill form and retry
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {

@@ -74,8 +74,8 @@ describe('CameraPermissionScreen', () => {
     jest.clearAllMocks();
   });
 
-  it('displays camera access title, explanation, and privacy assurances', () => {
-    render(<CameraPermissionScreen />);
+  it('displays camera access title, explanation, and privacy assurances', async () => {
+    await render(<CameraPermissionScreen />);
 
     expect(screen.getByText('Camera Access Required')).toBeOnTheScreen();
     expect(
@@ -87,17 +87,17 @@ describe('CameraPermissionScreen', () => {
     expect(screen.getByText(/Face detection happens locally/)).toBeOnTheScreen();
   });
 
-  it('displays Continue and Skip action buttons', () => {
-    render(<CameraPermissionScreen />);
+  it('displays Continue and Skip action buttons', async () => {
+    await render(<CameraPermissionScreen />);
 
     expect(screen.getByTestId('camera-permission-continue-button')).toBeOnTheScreen();
     expect(screen.getByTestId('camera-permission-skip-button')).toBeOnTheScreen();
   });
 
-  it('should go back when Skip is pressed', () => {
-    render(<CameraPermissionScreen />);
+  it('should go back when Skip is pressed', async () => {
+    await render(<CameraPermissionScreen />);
 
-    fireEvent.press(screen.getByTestId('camera-permission-skip-button'));
+    await fireEvent.press(screen.getByTestId('camera-permission-skip-button'));
 
     expect(mockGoBack).toHaveBeenCalled();
   });
@@ -105,9 +105,9 @@ describe('CameraPermissionScreen', () => {
   it('should request permission and go back when granted', async () => {
     mockRequestPermission.mockResolvedValue('granted');
 
-    render(<CameraPermissionScreen />);
+    await render(<CameraPermissionScreen />);
 
-    fireEvent.press(screen.getByTestId('camera-permission-continue-button'));
+    await fireEvent.press(screen.getByTestId('camera-permission-continue-button'));
 
     await waitFor(
       () => {
@@ -127,9 +127,9 @@ describe('CameraPermissionScreen', () => {
   it('should navigate to PermissionDenied when denied', async () => {
     mockRequestPermission.mockResolvedValue('denied');
 
-    render(<CameraPermissionScreen />);
+    await render(<CameraPermissionScreen />);
 
-    fireEvent.press(screen.getByTestId('camera-permission-continue-button'));
+    await fireEvent.press(screen.getByTestId('camera-permission-continue-button'));
 
     await waitFor(
       () => {
@@ -149,9 +149,9 @@ describe('CameraPermissionScreen', () => {
   it('should navigate to PermissionDenied when blocked', async () => {
     mockRequestPermission.mockResolvedValue('blocked');
 
-    render(<CameraPermissionScreen />);
+    await render(<CameraPermissionScreen />);
 
-    fireEvent.press(screen.getByTestId('camera-permission-continue-button'));
+    await fireEvent.press(screen.getByTestId('camera-permission-continue-button'));
 
     await waitFor(
       () => {
@@ -161,8 +161,8 @@ describe('CameraPermissionScreen', () => {
     );
   });
 
-  it('should have accessible Continue button', () => {
-    render(<CameraPermissionScreen />);
+  it('should have accessible Continue button', async () => {
+    await render(<CameraPermissionScreen />);
 
     const continueButton = screen.getByTestId('camera-permission-continue-button');
 
@@ -173,8 +173,8 @@ describe('CameraPermissionScreen', () => {
     );
   });
 
-  it('should have accessible Skip button', () => {
-    render(<CameraPermissionScreen />);
+  it('should have accessible Skip button', async () => {
+    await render(<CameraPermissionScreen />);
 
     const skipButton = screen.getByTestId('camera-permission-skip-button');
 
@@ -191,14 +191,14 @@ describe('CameraPermissionScreen EAA Accessibility Compliance', () => {
     jest.clearAllMocks();
   });
 
-  it('continue button has accessible touch target', () => {
-    render(<CameraPermissionScreen />);
+  it('continue button has accessible touch target', async () => {
+    await render(<CameraPermissionScreen />);
 
     expectMinTouchTarget(screen.getByTestId('camera-permission-continue-button'));
   });
 
-  it('skip button has accessible touch target', () => {
-    render(<CameraPermissionScreen />);
+  it('skip button has accessible touch target', async () => {
+    await render(<CameraPermissionScreen />);
 
     expectMinTouchTarget(screen.getByTestId('camera-permission-skip-button'));
   });

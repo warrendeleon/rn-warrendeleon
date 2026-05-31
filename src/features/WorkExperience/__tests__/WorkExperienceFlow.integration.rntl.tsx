@@ -230,7 +230,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -238,7 +238,7 @@ describe('Work Experience Flow Integration', () => {
 
       // Tap on single position company
       const item = screen.getByTestId('work-experience-item-work-single');
-      fireEvent.press(item);
+      await fireEvent.press(item);
 
       await waitFor(
         () => {
@@ -264,7 +264,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -272,7 +272,7 @@ describe('Work Experience Flow Integration', () => {
 
       // Tap on multiple positions company
       const item = screen.getByTestId('work-experience-item-work-positions');
-      fireEvent.press(item);
+      await fireEvent.press(item);
 
       await waitFor(
         () => {
@@ -284,7 +284,7 @@ describe('Work Experience Flow Integration', () => {
       );
     });
 
-    it('should show badge with position count', () => {
+    it('should show badge with position count', async () => {
       const store = mockStore({
         workExperience: {
           data: [multiplePositionsCompany],
@@ -296,7 +296,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -321,7 +321,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -329,7 +329,7 @@ describe('Work Experience Flow Integration', () => {
 
       // Tap on multiple clients company
       const item = screen.getByTestId('work-experience-item-work-clients');
-      fireEvent.press(item);
+      await fireEvent.press(item);
 
       await waitFor(
         () => {
@@ -341,7 +341,7 @@ describe('Work Experience Flow Integration', () => {
       );
     });
 
-    it('should show badge with client count', () => {
+    it('should show badge with client count', async () => {
       const store = mockStore({
         workExperience: {
           data: [multipleClientsCompany],
@@ -353,7 +353,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -366,7 +366,7 @@ describe('Work Experience Flow Integration', () => {
   });
 
   describe('complete list view flow', () => {
-    it('should display all work experiences with appropriate navigation types', () => {
+    it('should display all work experiences with appropriate navigation types', async () => {
       const store = mockStore({
         workExperience: {
           data: mockWorkExperienceData,
@@ -378,7 +378,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -402,14 +402,14 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
       );
 
       // Single position → Details
-      fireEvent.press(screen.getByTestId('work-experience-item-work-single'));
+      await fireEvent.press(screen.getByTestId('work-experience-item-work-single'));
       await waitFor(
         () => {
           expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceDetails', expect.any(Object));
@@ -420,7 +420,7 @@ describe('Work Experience Flow Integration', () => {
       mockNavigate.mockClear();
 
       // Multiple positions → Positions screen
-      fireEvent.press(screen.getByTestId('work-experience-item-work-positions'));
+      await fireEvent.press(screen.getByTestId('work-experience-item-work-positions'));
       await waitFor(
         () => {
           expect(mockNavigate).toHaveBeenCalledWith('WorkExperiencePositions', expect.any(Object));
@@ -431,7 +431,7 @@ describe('Work Experience Flow Integration', () => {
       mockNavigate.mockClear();
 
       // Multiple clients → Clients screen
-      fireEvent.press(screen.getByTestId('work-experience-item-work-clients'));
+      await fireEvent.press(screen.getByTestId('work-experience-item-work-clients'));
       await waitFor(
         () => {
           expect(mockNavigate).toHaveBeenCalledWith('WorkExperienceClients', expect.any(Object));
@@ -454,7 +454,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      const { rerender } = render(
+      const { rerender } = await render(
         <Provider store={loadingStore}>
           <WorkExperienceScreen />
         </Provider>
@@ -473,7 +473,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      rerender(
+      await rerender(
         <Provider store={loadedStore}>
           <WorkExperienceScreen />
         </Provider>
@@ -489,7 +489,7 @@ describe('Work Experience Flow Integration', () => {
   });
 
   describe('error state flow', () => {
-    it('should display translated error message on failure', () => {
+    it('should display translated error message on failure', async () => {
       const store = mockStore({
         workExperience: {
           data: null,
@@ -501,7 +501,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -512,7 +512,7 @@ describe('Work Experience Flow Integration', () => {
   });
 
   describe('empty state flow', () => {
-    it('should display empty state when no work experience exists', () => {
+    it('should display empty state when no work experience exists', async () => {
       const store = mockStore({
         workExperience: {
           data: [],
@@ -524,7 +524,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -535,7 +535,7 @@ describe('Work Experience Flow Integration', () => {
   });
 
   describe('accessibility', () => {
-    it('should provide appropriate accessibility hints based on navigation type', () => {
+    it('should provide appropriate accessibility hints based on navigation type', async () => {
       const store = mockStore({
         workExperience: {
           data: mockWorkExperienceData,
@@ -547,7 +547,7 @@ describe('Work Experience Flow Integration', () => {
         },
       });
 
-      render(
+      await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -568,7 +568,7 @@ describe('Work Experience Flow Integration', () => {
   });
 
   describe('language change flow', () => {
-    it('should refetch data when language changes', () => {
+    it('should refetch data when language changes', async () => {
       const store = mockStore({
         workExperience: {
           data: mockWorkExperienceData,
@@ -582,7 +582,7 @@ describe('Work Experience Flow Integration', () => {
 
       const dispatchSpy = jest.spyOn(store, 'dispatch');
 
-      const { rerender } = render(
+      const { rerender } = await render(
         <Provider store={store}>
           <WorkExperienceScreen />
         </Provider>
@@ -603,7 +603,7 @@ describe('Work Experience Flow Integration', () => {
 
       const spanishDispatchSpy = jest.spyOn(spanishStore, 'dispatch');
 
-      rerender(
+      await rerender(
         <Provider store={spanishStore}>
           <WorkExperienceScreen />
         </Provider>

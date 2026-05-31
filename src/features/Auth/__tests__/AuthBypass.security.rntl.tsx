@@ -28,7 +28,7 @@ describe('Authentication Bypass Prevention', () => {
 
   describe('Direct Parameter Manipulation', () => {
     it('should not allow login with empty credentials', async () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       const loginButton = screen.getByTestId('login-button');
 
@@ -37,11 +37,11 @@ describe('Authentication Bypass Prevention', () => {
     });
 
     it('should not allow login with only email', async () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       const emailInput = screen.getByTestId('email-input');
 
-      fireEvent.changeText(emailInput, 'test@example.com');
+      await fireEvent.changeText(emailInput, 'test@example.com');
 
       await waitFor(
         () => {
@@ -54,11 +54,11 @@ describe('Authentication Bypass Prevention', () => {
     });
 
     it('should not allow login with only password', async () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       const passwordInput = screen.getByTestId('password-input');
 
-      fireEvent.changeText(passwordInput, 'SecurePass123!');
+      await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -71,13 +71,13 @@ describe('Authentication Bypass Prevention', () => {
     });
 
     it('should reject whitespace-only email', async () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       const emailInput = screen.getByTestId('email-input');
       const passwordInput = screen.getByTestId('password-input');
 
-      fireEvent.changeText(emailInput, '   ');
-      fireEvent.changeText(passwordInput, 'SecurePass123!');
+      await fireEvent.changeText(emailInput, '   ');
+      await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -90,13 +90,13 @@ describe('Authentication Bypass Prevention', () => {
     });
 
     it('should reject whitespace-only password', async () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       const emailInput = screen.getByTestId('email-input');
       const passwordInput = screen.getByTestId('password-input');
 
-      fireEvent.changeText(emailInput, 'test@example.com');
-      fireEvent.changeText(passwordInput, '   ');
+      await fireEvent.changeText(emailInput, 'test@example.com');
+      await fireEvent.changeText(passwordInput, '   ');
 
       await waitFor(
         () => {
@@ -109,14 +109,14 @@ describe('Authentication Bypass Prevention', () => {
     });
 
     it('should trim email before validation', async () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       const emailInput = screen.getByTestId('email-input');
       const passwordInput = screen.getByTestId('password-input');
 
       // Email with surrounding whitespace
-      fireEvent.changeText(emailInput, '  test@example.com  ');
-      fireEvent.changeText(passwordInput, 'SecurePass123!');
+      await fireEvent.changeText(emailInput, '  test@example.com  ');
+      await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -130,9 +130,9 @@ describe('Authentication Bypass Prevention', () => {
   });
 
   describe('Session Token Security', () => {
-    it('should not treat null user as authenticated', () => {
+    it('should not treat null user as authenticated', async () => {
       // Test with null user in preloaded state
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -148,8 +148,8 @@ describe('Authentication Bypass Prevention', () => {
       expect(screen.getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should render login form when not authenticated', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+    it('should render login form when not authenticated', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -167,8 +167,8 @@ describe('Authentication Bypass Prevention', () => {
       expect(screen.getByTestId('password-input')).toBeOnTheScreen();
     });
 
-    it('should handle loading state transitions safely', () => {
-      const { rerender } = renderWithProviders(
+    it('should handle loading state transitions safely', async () => {
+      const { rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -187,7 +187,7 @@ describe('Authentication Bypass Prevention', () => {
       expect(screen.getByTestId('login-button').props.accessibilityState?.disabled).toBe(true);
 
       // Transition to loaded state via new render
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Should render without issues
       expect(screen.getByTestId('login-screen')).toBeOnTheScreen();
@@ -195,8 +195,8 @@ describe('Authentication Bypass Prevention', () => {
   });
 
   describe('Account Lockout Indicators', () => {
-    it('should display error message for rate limited requests', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+    it('should display error message for rate limited requests', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -211,8 +211,8 @@ describe('Authentication Bypass Prevention', () => {
       expect(screen.getByText('Too many attempts. Please try again later.')).toBeOnTheScreen();
     });
 
-    it('should show generic error for failed credentials (no username enumeration)', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+    it('should show generic error for failed credentials (no username enumeration)', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -235,8 +235,8 @@ describe('Authentication Bypass Prevention', () => {
       expect(screen.queryByText(/wrong password/i)).toBeNull();
     });
 
-    it('should have accessible error announcement for screen readers', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+    it('should have accessible error announcement for screen readers', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -254,8 +254,8 @@ describe('Authentication Bypass Prevention', () => {
   });
 
   describe('Brute Force Prevention UI', () => {
-    it('should disable submit button during authentication', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+    it('should disable submit button during authentication', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -271,8 +271,8 @@ describe('Authentication Bypass Prevention', () => {
       expect(loginButton.props.accessibilityState?.disabled).toBe(true);
     });
 
-    it('should show loading state during authentication', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+    it('should show loading state during authentication', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -292,7 +292,7 @@ describe('Authentication Bypass Prevention', () => {
     });
 
     it('should re-enable button after failed attempt', async () => {
-      const { rerender } = renderWithProviders(
+      const { rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -312,7 +312,7 @@ describe('Authentication Bypass Prevention', () => {
 
       // Simulate failed attempt - rerender doesn't accept preloadedState
       // Just verify the loading state was shown correctly
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // After error, need to fill in valid credentials for button to be enabled
       // The button state depends on form validity
@@ -322,7 +322,7 @@ describe('Authentication Bypass Prevention', () => {
 
   describe('Replay Attack Prevention', () => {
     it('should not persist credentials in global state after unmount', async () => {
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -330,14 +330,14 @@ describe('Authentication Bypass Prevention', () => {
       const passwordInput = screen.getByTestId('password-input');
 
       // Fill in credentials
-      fireEvent.changeText(emailInput, 'test@example.com');
-      fireEvent.changeText(passwordInput, 'SecurePass123!');
+      await fireEvent.changeText(emailInput, 'test@example.com');
+      await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
       // Unmount the screen (simulates navigation away)
-      unmount();
+      await unmount();
 
       // Remount - fresh instance
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Fresh instance should have empty fields (not persisted in global state)
       const newEmailInput = screen.getByTestId('email-input');
@@ -351,7 +351,7 @@ describe('Authentication Bypass Prevention', () => {
     it('should use local state for credentials not redux state', async () => {
       // This tests that credentials are stored locally, not in Redux
       // which would persist across navigations
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -373,8 +373,8 @@ describe('Authentication Bypass Prevention', () => {
   });
 
   describe('Hidden Field Security', () => {
-    it('should not render hidden form fields', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+    it('should not render hidden form fields', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Should only have expected form fields
       expect(screen.getByTestId('email-input')).toBeOnTheScreen();
@@ -388,8 +388,8 @@ describe('Authentication Bypass Prevention', () => {
       expect(screen.queryByTestId('bypass-field')).toBeNull();
     });
 
-    it('should not have accessible hidden inputs', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+    it('should not have accessible hidden inputs', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Should match expected input count (email + password)
       // Verify only expected inputs exist by checking specific testIDs
@@ -399,8 +399,8 @@ describe('Authentication Bypass Prevention', () => {
   });
 
   describe('Form State Security', () => {
-    it('should not expose form state in accessibility tree beyond necessary', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+    it('should not expose form state in accessibility tree beyond necessary', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       const emailInput = screen.getByTestId('email-input');
       const passwordInput = screen.getByTestId('password-input');
@@ -412,8 +412,8 @@ describe('Authentication Bypass Prevention', () => {
       expect(emailInput.props.keyboardType).toBe('email-address');
     });
 
-    it('should have consistent form structure across renders', () => {
-      const { rerender } = renderWithProviders(
+    it('should have consistent form structure across renders', async () => {
+      const { rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -424,7 +424,7 @@ describe('Authentication Bypass Prevention', () => {
       expect(screen.getByTestId('login-button')).toBeOnTheScreen();
 
       // Re-render with same props
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Structure should be identical
       expect(screen.getByTestId('login-screen')).toBeOnTheScreen();
@@ -435,8 +435,8 @@ describe('Authentication Bypass Prevention', () => {
   });
 
   describe('Error Handling Security', () => {
-    it('should not expose stack traces in error messages', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+    it('should not expose stack traces in error messages', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -457,8 +457,8 @@ describe('Authentication Bypass Prevention', () => {
       expect(String(errorText)).not.toMatch(/Error:/i); // Error class name
     });
 
-    it('should not expose technical details in error messages', () => {
-      renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
+    it('should not expose technical details in error messages', async () => {
+      await renderWithProviders(<LoginScreen navigation={mockNavigation} route={mockRoute} />, {
         preloadedState: {
           auth: {
             user: null,
@@ -481,7 +481,7 @@ describe('Authentication Bypass Prevention', () => {
       expect(screen.queryByText(/undefined/i)).toBeNull();
     });
 
-    it('should display user-friendly error messages', () => {
+    it('should display user-friendly error messages', async () => {
       const userFriendlyErrors = [
         'Invalid credentials',
         'Too many attempts. Please try again later.',
@@ -489,8 +489,8 @@ describe('Authentication Bypass Prevention', () => {
         'Email not confirmed',
       ];
 
-      userFriendlyErrors.forEach(errorMessage => {
-        const { unmount } = renderWithProviders(
+      for (const errorMessage of userFriendlyErrors) {
+        const { unmount } = await renderWithProviders(
           <LoginScreen navigation={mockNavigation} route={mockRoute} />,
           {
             preloadedState: {
@@ -506,8 +506,8 @@ describe('Authentication Bypass Prevention', () => {
         );
 
         expect(screen.getByText(errorMessage)).toBeOnTheScreen();
-        unmount();
-      });
+        await unmount();
+      }
     });
   });
 });

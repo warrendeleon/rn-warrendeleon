@@ -31,8 +31,8 @@ describe('PINInput', () => {
   });
 
   describe('Rendering', () => {
-    it('renders PIN input with dots and keypad', () => {
-      const { getByTestId } = renderPINInput();
+    it('renders PIN input with dots and keypad', async () => {
+      const { getByTestId } = await renderPINInput();
 
       // Verify main container, dots, and keypad render
       expect(getByTestId('pin-input')).toBeOnTheScreen();
@@ -40,50 +40,50 @@ describe('PINInput', () => {
       expect(getByTestId('pin-input-keypad')).toBeOnTheScreen();
     });
 
-    it('renders 6 PIN dots', () => {
-      const { getByTestId } = renderPINInput();
+    it('renders 6 PIN dots', async () => {
+      const { getByTestId } = await renderPINInput();
 
       for (let i = 0; i < 6; i++) {
         expect(getByTestId(`pin-input-dot-${i}`)).toBeOnTheScreen();
       }
     });
 
-    it('renders keypad', () => {
-      const { getByTestId } = renderPINInput();
+    it('renders keypad', async () => {
+      const { getByTestId } = await renderPINInput();
 
       expect(getByTestId('pin-input-keypad')).toBeOnTheScreen();
     });
   });
 
   describe('Digit Entry', () => {
-    it('calls onChange when digit is pressed', () => {
-      const { getByTestId } = renderPINInput({ value: '' });
+    it('calls onChange when digit is pressed', async () => {
+      const { getByTestId } = await renderPINInput({ value: '' });
 
-      fireEvent.press(getByTestId('pin-input-keypad-5'));
+      await fireEvent.press(getByTestId('pin-input-keypad-5'));
 
       expect(mockOnChange).toHaveBeenCalledWith('5');
     });
 
-    it('appends digit to existing value', () => {
-      const { getByTestId } = renderPINInput({ value: '12' });
+    it('appends digit to existing value', async () => {
+      const { getByTestId } = await renderPINInput({ value: '12' });
 
-      fireEvent.press(getByTestId('pin-input-keypad-3'));
+      await fireEvent.press(getByTestId('pin-input-keypad-3'));
 
       expect(mockOnChange).toHaveBeenCalledWith('123');
     });
 
-    it('does not append digit when value is 6 digits', () => {
-      const { getByTestId } = renderPINInput({ value: '123456' });
+    it('does not append digit when value is 6 digits', async () => {
+      const { getByTestId } = await renderPINInput({ value: '123456' });
 
-      fireEvent.press(getByTestId('pin-input-keypad-7'));
+      await fireEvent.press(getByTestId('pin-input-keypad-7'));
 
       expect(mockOnChange).not.toHaveBeenCalled();
     });
 
     it('calls onComplete when 6th digit is entered', async () => {
-      const { getByTestId } = renderPINInput({ value: '12345' });
+      const { getByTestId } = await renderPINInput({ value: '12345' });
 
-      fireEvent.press(getByTestId('pin-input-keypad-6'));
+      await fireEvent.press(getByTestId('pin-input-keypad-6'));
 
       await waitFor(
         () => {
@@ -95,34 +95,34 @@ describe('PINInput', () => {
   });
 
   describe('Delete', () => {
-    it('removes last digit when delete is pressed', () => {
-      const { getByTestId } = renderPINInput({ value: '123' });
+    it('removes last digit when delete is pressed', async () => {
+      const { getByTestId } = await renderPINInput({ value: '123' });
 
-      fireEvent.press(getByTestId('pin-input-keypad-delete'));
+      await fireEvent.press(getByTestId('pin-input-keypad-delete'));
 
       expect(mockOnChange).toHaveBeenCalledWith('12');
     });
 
-    it('does nothing when delete pressed on empty value', () => {
-      const { getByTestId } = renderPINInput({ value: '' });
+    it('does nothing when delete pressed on empty value', async () => {
+      const { getByTestId } = await renderPINInput({ value: '' });
 
-      fireEvent.press(getByTestId('pin-input-keypad-delete'));
+      await fireEvent.press(getByTestId('pin-input-keypad-delete'));
 
       expect(mockOnChange).not.toHaveBeenCalled();
     });
 
-    it('handles delete on single digit', () => {
-      const { getByTestId } = renderPINInput({ value: '5' });
+    it('handles delete on single digit', async () => {
+      const { getByTestId } = await renderPINInput({ value: '5' });
 
-      fireEvent.press(getByTestId('pin-input-keypad-delete'));
+      await fireEvent.press(getByTestId('pin-input-keypad-delete'));
 
       expect(mockOnChange).toHaveBeenCalledWith('');
     });
   });
 
   describe('PIN Dots Display', () => {
-    it('shows correct number of filled dots for 3-digit value', () => {
-      const { getByTestId } = renderPINInput({ value: '123' });
+    it('shows correct number of filled dots for 3-digit value', async () => {
+      const { getByTestId } = await renderPINInput({ value: '123' });
 
       // Check dots 0-2 exist (they should be filled in the component)
       for (let i = 0; i < 3; i++) {
@@ -134,16 +134,16 @@ describe('PINInput', () => {
       }
     });
 
-    it('shows all dots as empty when value is empty', () => {
-      const { getByTestId } = renderPINInput({ value: '' });
+    it('shows all dots as empty when value is empty', async () => {
+      const { getByTestId } = await renderPINInput({ value: '' });
 
       for (let i = 0; i < 6; i++) {
         expect(getByTestId(`pin-input-dot-${i}`)).toBeOnTheScreen();
       }
     });
 
-    it('shows all dots as filled when value is 6 digits', () => {
-      const { getByTestId } = renderPINInput({ value: '123456' });
+    it('shows all dots as filled when value is 6 digits', async () => {
+      const { getByTestId } = await renderPINInput({ value: '123456' });
 
       for (let i = 0; i < 6; i++) {
         expect(getByTestId(`pin-input-dot-${i}`)).toBeOnTheScreen();
@@ -152,26 +152,26 @@ describe('PINInput', () => {
   });
 
   describe('Disabled State', () => {
-    it('does not call onChange when disabled', () => {
-      const { getByTestId } = renderPINInput({ disabled: true, value: '12' });
+    it('does not call onChange when disabled', async () => {
+      const { getByTestId } = await renderPINInput({ disabled: true, value: '12' });
 
-      fireEvent.press(getByTestId('pin-input-keypad-3'));
+      await fireEvent.press(getByTestId('pin-input-keypad-3'));
 
       expect(mockOnChange).not.toHaveBeenCalled();
     });
 
-    it('does not call onComplete when disabled', () => {
-      const { getByTestId } = renderPINInput({ disabled: true, value: '12345' });
+    it('does not call onComplete when disabled', async () => {
+      const { getByTestId } = await renderPINInput({ disabled: true, value: '12345' });
 
-      fireEvent.press(getByTestId('pin-input-keypad-6'));
+      await fireEvent.press(getByTestId('pin-input-keypad-6'));
 
       expect(mockOnComplete).not.toHaveBeenCalled();
     });
   });
 
   describe('Error State', () => {
-    it('renders with error state', () => {
-      const { getByTestId } = renderPINInput({ hasError: true, value: '123' });
+    it('renders with error state', async () => {
+      const { getByTestId } = await renderPINInput({ hasError: true, value: '123' });
 
       expect(getByTestId('pin-input')).toBeOnTheScreen();
     });
@@ -180,18 +180,18 @@ describe('PINInput', () => {
   describe('Full PIN Entry Flow', () => {
     it('allows entering complete PIN', async () => {
       // Use a controlled component approach
-      const { getByTestId } = renderPINInput({ value: '' });
+      const { getByTestId } = await renderPINInput({ value: '' });
 
       // Verify all digit buttons work
       for (const digit of ['1', '2', '3', '4', '5']) {
-        fireEvent.press(getByTestId(`pin-input-keypad-${digit}`));
+        await fireEvent.press(getByTestId(`pin-input-keypad-${digit}`));
       }
 
       expect(mockOnChange).toHaveBeenCalledTimes(5);
 
       // Now test with value '12345' to trigger onComplete
-      const { getByTestId: getByTestId2 } = renderPINInput({ value: '12345' });
-      fireEvent.press(getByTestId2('pin-input-keypad-6'));
+      const { getByTestId: getByTestId2 } = await renderPINInput({ value: '12345' });
+      await fireEvent.press(getByTestId2('pin-input-keypad-6'));
 
       await waitFor(
         () => {
@@ -203,8 +203,8 @@ describe('PINInput', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('PIN dots have accessible ordering for screen readers', () => {
-      const { getByTestId } = renderPINInput({ value: '123' });
+    it('PIN dots have accessible ordering for screen readers', async () => {
+      const { getByTestId } = await renderPINInput({ value: '123' });
 
       const dots = [];
       for (let i = 0; i < 6; i++) {
@@ -214,8 +214,8 @@ describe('PINInput', () => {
       expectFocusOrder(dots);
     });
 
-    it('keypad has accessible touch targets', () => {
-      const { getByTestId } = renderPINInput();
+    it('keypad has accessible touch targets', async () => {
+      const { getByTestId } = await renderPINInput();
 
       // Check a sample of keypad buttons
       const keypad5 = getByTestId('pin-input-keypad-5');
@@ -225,15 +225,15 @@ describe('PINInput', () => {
       expectMinTouchTarget(deleteButton);
     });
 
-    it('disabled state maintains accessible touch targets', () => {
-      const { getByTestId } = renderPINInput({ disabled: true });
+    it('disabled state maintains accessible touch targets', async () => {
+      const { getByTestId } = await renderPINInput({ disabled: true });
 
       const keypad5 = getByTestId('pin-input-keypad-5');
       expectMinTouchTarget(keypad5);
     });
 
-    it('error state maintains accessible touch targets', () => {
-      const { getByTestId } = renderPINInput({ hasError: true, value: '123' });
+    it('error state maintains accessible touch targets', async () => {
+      const { getByTestId } = await renderPINInput({ hasError: true, value: '123' });
 
       const keypad5 = getByTestId('pin-input-keypad-5');
       expectMinTouchTarget(keypad5);

@@ -45,7 +45,7 @@ const mockProfile: Profile = {
 };
 
 describe('ProfileScreen Screen Reader Accessibility', () => {
-  const renderProfileScreen = (state: {
+  const renderProfileScreen = async (state: {
     data: Profile | null;
     loading: boolean;
     error: string | null;
@@ -55,7 +55,7 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
       settings: { theme: 'light', language: 'en' },
     });
 
-    return render(
+    return await render(
       <Provider store={store}>
         <ProfileScreen />
       </Provider>
@@ -63,8 +63,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
   };
 
   describe('focus order for screen readers', () => {
-    it('should have correct focus order for contact elements', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have correct focus order for contact elements', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -76,8 +76,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
       expectFocusOrder([phone, email]);
     });
 
-    it('should have correct focus order for social media buttons', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have correct focus order for social media buttons', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -91,8 +91,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
       expectFocusOrder([facebook, twitter, instagram, linkedin]);
     });
 
-    it('should have focusable phone button', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have focusable phone button', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -101,8 +101,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
       expectCanReceiveFocus(getByTestId('profile-phone'));
     });
 
-    it('should have focusable email button', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have focusable email button', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -111,8 +111,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
       expectCanReceiveFocus(getByTestId('profile-email'));
     });
 
-    it('should have focusable social media buttons', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have focusable social media buttons', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -126,8 +126,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
   });
 
   describe('heading hierarchy', () => {
-    it('should have profile name as header', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have profile name as header', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -137,8 +137,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
       expect(nameHeading.props.accessibilityRole).toBe('header');
     });
 
-    it('should have social media section header', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have social media section header', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -150,8 +150,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
   });
 
   describe('screen reader announcements', () => {
-    it('should have accessible labels on all contact buttons', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have accessible labels on all contact buttons', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -164,8 +164,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
       expect(emailButton.props.accessibilityLabel).toBeDefined();
     });
 
-    it('should have accessible hints on contact buttons', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have accessible hints on contact buttons', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,
@@ -178,8 +178,8 @@ describe('ProfileScreen Screen Reader Accessibility', () => {
       expect(emailButton.props.accessibilityHint).toBeDefined();
     });
 
-    it('should have accessible labels on social media buttons', () => {
-      const { getByTestId } = renderProfileScreen({
+    it('should have accessible labels on social media buttons', async () => {
+      const { getByTestId } = await renderProfileScreen({
         data: mockProfile,
         loading: false,
         error: null,

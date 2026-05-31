@@ -20,46 +20,46 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 describe('FormInputGroup Stories', () => {
-  it('renders Default story with input fields', () => {
+  it('renders Default story with input fields', async () => {
     const StoryComponent = stories.Default.render as React.FC;
-    const { getAllByPlaceholderText } = renderWithProviders(<StoryComponent />);
+    const { getAllByPlaceholderText } = await renderWithProviders(<StoryComponent />);
     expect(getAllByPlaceholderText(/.+/).length).toBeGreaterThan(0);
   });
 
-  it('renders WithoutTitle story with input fields', () => {
+  it('renders WithoutTitle story with input fields', async () => {
     const StoryComponent = stories.WithoutTitle.render as React.FC;
-    const { getAllByPlaceholderText } = renderWithProviders(<StoryComponent />);
+    const { getAllByPlaceholderText } = await renderWithProviders(<StoryComponent />);
     expect(getAllByPlaceholderText(/.+/).length).toBeGreaterThan(0);
   });
 
-  it('renders LoginForm story with email and password', () => {
+  it('renders LoginForm story with email and password', async () => {
     const StoryComponent = stories.LoginForm.render as React.FC;
-    const { getByPlaceholderText } = renderWithProviders(<StoryComponent />);
+    const { getByPlaceholderText } = await renderWithProviders(<StoryComponent />);
     expect(getByPlaceholderText(/email/i)).toBeOnTheScreen();
     expect(getByPlaceholderText(/password/i)).toBeOnTheScreen();
   });
 
-  it('renders NameSection story with name fields', () => {
+  it('renders NameSection story with name fields', async () => {
     const StoryComponent = stories.NameSection.render as React.FC;
-    const { getAllByPlaceholderText } = renderWithProviders(<StoryComponent />);
+    const { getAllByPlaceholderText } = await renderWithProviders(<StoryComponent />);
     expect(getAllByPlaceholderText(/.+/).length).toBeGreaterThan(0);
   });
 
-  it('renders ContactSection story with phone field', () => {
+  it('renders ContactSection story with phone field', async () => {
     const StoryComponent = stories.ContactSection.render as React.FC;
-    const { getByPlaceholderText } = renderWithProviders(<StoryComponent />);
+    const { getByPlaceholderText } = await renderWithProviders(<StoryComponent />);
     expect(getByPlaceholderText(/phone/i)).toBeOnTheScreen();
   });
 
-  it('renders PasswordSection story with password fields', () => {
+  it('renders PasswordSection story with password fields', async () => {
     const StoryComponent = stories.PasswordSection.render as React.FC;
-    const { getAllByPlaceholderText } = renderWithProviders(<StoryComponent />);
+    const { getAllByPlaceholderText } = await renderWithProviders(<StoryComponent />);
     expect(getAllByPlaceholderText(/password/i).length).toBeGreaterThan(0);
   });
 
-  it('renders CompleteRegistrationForm story with all sections', () => {
+  it('renders CompleteRegistrationForm story with all sections', async () => {
     const StoryComponent = stories.CompleteRegistrationForm.render as React.FC;
-    const { getAllByPlaceholderText } = renderWithProviders(<StoryComponent />);
+    const { getAllByPlaceholderText } = await renderWithProviders(<StoryComponent />);
     expect(getAllByPlaceholderText(/.+/).length).toBeGreaterThan(3);
   });
 });

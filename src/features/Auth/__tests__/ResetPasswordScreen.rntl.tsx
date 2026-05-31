@@ -68,8 +68,8 @@ describe('ResetPasswordScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders reset password screen with form fields', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders reset password screen with form fields', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -80,40 +80,40 @@ describe('ResetPasswordScreen', () => {
       expect(getByTestId('reset-password-button')).toBeOnTheScreen();
     });
 
-    it('renders new password input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders new password input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('new-password-input')).toBeOnTheScreen();
     });
 
-    it('renders confirm password input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders confirm password input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('confirm-password-input')).toBeOnTheScreen();
     });
 
-    it('renders reset button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders reset button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('reset-password-button')).toBeOnTheScreen();
     });
 
-    it('renders back to login link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders back to login link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('back-to-login-link')).toBeOnTheScreen();
     });
 
-    it('renders password requirements section', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders password requirements section', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -122,8 +122,8 @@ describe('ResetPasswordScreen', () => {
   });
 
   describe('Button states', () => {
-    it('disables reset button when passwords are empty', () => {
-      const { getByTestId } = renderWithProviders(
+    it('disables reset button when passwords are empty', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -132,15 +132,15 @@ describe('ResetPasswordScreen', () => {
     });
 
     it('disables reset button when password is too short', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const passwordInput = getByTestId('new-password-input');
-      fireEvent.changeText(passwordInput, 'Short1!');
+      await fireEvent.changeText(passwordInput, 'Short1!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'Short1!');
+      await fireEvent.changeText(confirmInput, 'Short1!');
 
       await waitFor(
         () => {
@@ -152,15 +152,15 @@ describe('ResetPasswordScreen', () => {
     });
 
     it('disables reset button when passwords do not match', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const passwordInput = getByTestId('new-password-input');
-      fireEvent.changeText(passwordInput, 'StrongPass123!');
+      await fireEvent.changeText(passwordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'DifferentPass123!');
+      await fireEvent.changeText(confirmInput, 'DifferentPass123!');
 
       await waitFor(
         () => {
@@ -172,15 +172,15 @@ describe('ResetPasswordScreen', () => {
     });
 
     it('enables reset button when password is valid and matches', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const passwordInput = getByTestId('new-password-input');
-      fireEvent.changeText(passwordInput, 'StrongPass123!');
+      await fireEvent.changeText(passwordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'StrongPass123!');
+      await fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       await waitFor(
         () => {
@@ -193,20 +193,20 @@ describe('ResetPasswordScreen', () => {
   });
 
   describe('Navigation', () => {
-    it('resets to login when back to login link is pressed (deep link flow)', () => {
-      const { getByTestId } = renderWithProviders(
+    it('resets to login when back to login link is pressed (deep link flow)', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.press(getByTestId('back-to-login-link'));
+      await fireEvent.press(getByTestId('back-to-login-link'));
       expect(mockNavigation.reset).toHaveBeenCalledWith({
         index: 0,
         routes: [{ name: 'Home' }, { name: 'Login' }],
       });
     });
 
-    it('does not show back to login link when fromEditAccount is true', () => {
-      const { queryByTestId } = renderWithProviders(
+    it('does not show back to login link when fromEditAccount is true', async () => {
+      const { queryByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRouteFromEditAccount} />
       );
 
@@ -217,16 +217,16 @@ describe('ResetPasswordScreen', () => {
 
   describe('Form submission', () => {
     it('shows success message and navigates after button press', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid password
       const passwordInput = getByTestId('new-password-input');
-      fireEvent.changeText(passwordInput, 'StrongPass123!');
+      await fireEvent.changeText(passwordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'StrongPass123!');
+      await fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -238,7 +238,7 @@ describe('ResetPasswordScreen', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('reset-password-button'));
+      await fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for success message to appear
       await waitFor(
@@ -249,23 +249,23 @@ describe('ResetPasswordScreen', () => {
       );
 
       // Tap the back to login button
-      fireEvent.press(getByTestId('back-to-login-button'));
+      await fireEvent.press(getByTestId('back-to-login-button'));
 
       // Verify navigation happened
       expect(mockNavigation.reset).toHaveBeenCalled();
     });
 
     it('calls Supabase API to reset password with correct arguments', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid password
       const passwordInput = getByTestId('new-password-input');
-      fireEvent.changeText(passwordInput, 'StrongPass123!');
+      await fireEvent.changeText(passwordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'StrongPass123!');
+      await fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -277,7 +277,7 @@ describe('ResetPasswordScreen', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('reset-password-button'));
+      await fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for API call and navigation
       await waitFor(
@@ -296,16 +296,16 @@ describe('ResetPasswordScreen', () => {
         new Error('Token expired')
       );
 
-      const { getByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid password
       const passwordInput = getByTestId('new-password-input');
-      fireEvent.changeText(passwordInput, 'StrongPass123!');
+      await fireEvent.changeText(passwordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'StrongPass123!');
+      await fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -317,7 +317,7 @@ describe('ResetPasswordScreen', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('reset-password-button'));
+      await fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for error message
       await waitFor(
@@ -333,16 +333,16 @@ describe('ResetPasswordScreen', () => {
         new Error('Token expired or invalid')
       );
 
-      const { getByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid password
       const passwordInput = getByTestId('new-password-input');
-      fireEvent.changeText(passwordInput, 'StrongPass123!');
+      await fireEvent.changeText(passwordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'StrongPass123!');
+      await fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -354,7 +354,7 @@ describe('ResetPasswordScreen', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('reset-password-button'));
+      await fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for error message
       await waitFor(
@@ -368,16 +368,16 @@ describe('ResetPasswordScreen', () => {
 
   describe('Success navigation', () => {
     it('navigates to Login with passwordUpdated param after tapping button on success screen', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid password and submit
       const passwordInput = getByTestId('new-password-input');
-      fireEvent.changeText(passwordInput, 'StrongPass123!');
+      await fireEvent.changeText(passwordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'StrongPass123!');
+      await fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       await waitFor(
         () => {
@@ -387,7 +387,7 @@ describe('ResetPasswordScreen', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('reset-password-button'));
+      await fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for success state to show
       await waitFor(
@@ -398,7 +398,7 @@ describe('ResetPasswordScreen', () => {
       );
 
       // Tap the back to login button
-      fireEvent.press(getByTestId('back-to-login-button'));
+      await fireEvent.press(getByTestId('back-to-login-button'));
 
       // Verify navigation to Login with passwordUpdated param
       expect(mockNavigation.reset).toHaveBeenCalledWith({
@@ -416,16 +416,16 @@ describe('ResetPasswordScreen', () => {
         },
       };
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRouteFromEditAccount} />
       );
 
       // Enter valid password and submit
       const passwordInput = getByTestId('new-password-input');
-      fireEvent.changeText(passwordInput, 'StrongPass123!');
+      await fireEvent.changeText(passwordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'StrongPass123!');
+      await fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       await waitFor(
         () => {
@@ -435,7 +435,7 @@ describe('ResetPasswordScreen', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('reset-password-button'));
+      await fireEvent.press(getByTestId('reset-password-button'));
 
       // Wait for success state to show
       await waitFor(
@@ -446,7 +446,7 @@ describe('ResetPasswordScreen', () => {
       );
 
       // Tap the back to account button
-      fireEvent.press(getByTestId('back-to-login-button'));
+      await fireEvent.press(getByTestId('back-to-login-button'));
 
       // Verify navigation to EditAccount with passwordUpdated param
       expect(mockNavigation.navigate).toHaveBeenCalledWith('EditAccount', {
@@ -456,8 +456,8 @@ describe('ResetPasswordScreen', () => {
   });
 
   describe('Accessibility', () => {
-    it('has accessible button with proper accessibility state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has accessible button with proper accessibility state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -466,8 +466,8 @@ describe('ResetPasswordScreen', () => {
       expect(resetButton.props.accessibilityState?.disabled).toBe(true);
     });
 
-    it('has accessible link for back to login', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has accessible link for back to login', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -524,8 +524,8 @@ describe('ResetPasswordScreen EAA Accessibility Compliance', () => {
     jest.clearAllMocks();
   });
 
-  it('form inputs are accessible', () => {
-    const { getByTestId } = renderWithProviders(
+  it('form inputs are accessible', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -533,24 +533,24 @@ describe('ResetPasswordScreen EAA Accessibility Compliance', () => {
     expect(getByTestId('confirm-password-input')).toBeOnTheScreen();
   });
 
-  it('reset password button has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('reset password button has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expectMinTouchTarget(getByTestId('reset-password-button'));
   });
 
-  it('back to login link has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('back to login link has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expectMinTouchTarget(getByTestId('back-to-login-link'));
   });
 
-  it('has correct focus order for form elements', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has correct focus order for form elements', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ResetPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 

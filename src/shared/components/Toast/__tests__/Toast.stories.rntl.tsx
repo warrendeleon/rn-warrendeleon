@@ -50,9 +50,9 @@ describe('Toast Stories', () => {
         stories.CustomDurations,
         ['Custom Durations', 'Quick Toast (2s)', 'Long Toast (10s)'],
       ],
-    ] as const)('renders %s story with expected content', (_storyName, story, expectedTexts) => {
+    ] as const)('renders %s story with expected content', async (_storyName, story, expectedTexts) => {
       const StoryComponent = story.render as React.FC;
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <ToastProvider>
           <StoryComponent />
         </ToastProvider>

@@ -87,8 +87,8 @@ describe('Settings Flow Integration', () => {
   });
 
   describe('Settings Screen - navigation hub', () => {
-    it('should display settings options when authenticated', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should display settings options when authenticated', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -97,66 +97,66 @@ describe('Settings Flow Integration', () => {
       expect(getByTestId('settings-language-button')).toBeOnTheScreen();
     });
 
-    it('should display user card when authenticated', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should display user card when authenticated', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('settings-user-card')).toBeOnTheScreen();
     });
 
-    it('should display sign in button when not authenticated', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should display sign in button when not authenticated', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: unauthenticatedState,
       });
 
       expect(getByTestId('settings-sign-in-button')).toBeOnTheScreen();
     });
 
-    it('should navigate to appearance settings', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should navigate to appearance settings', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.press(getByTestId('settings-appearance-button'));
+      await fireEvent.press(getByTestId('settings-appearance-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('Appearance');
     });
 
-    it('should navigate to language settings', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should navigate to language settings', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.press(getByTestId('settings-language-button'));
+      await fireEvent.press(getByTestId('settings-language-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('Language');
     });
 
-    it('should navigate to edit account when user card pressed', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should navigate to edit account when user card pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.press(getByTestId('settings-user-card'));
+      await fireEvent.press(getByTestId('settings-user-card'));
 
       expect(mockNavigate).toHaveBeenCalledWith('EditAccount');
     });
 
-    it('should navigate to login when sign in pressed', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should navigate to login when sign in pressed', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: unauthenticatedState,
       });
 
-      fireEvent.press(getByTestId('settings-sign-in-button'));
+      await fireEvent.press(getByTestId('settings-sign-in-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('Login');
     });
   });
 
   describe('Appearance Screen - theme selection', () => {
-    it('should display all theme options', () => {
-      const { getByTestId } = renderWithProviders(<AppearanceScreen />, {
+    it('should display all theme options', async () => {
+      const { getByTestId } = await renderWithProviders(<AppearanceScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -166,8 +166,8 @@ describe('Settings Flow Integration', () => {
       expect(getByTestId('appearance-option-dark')).toBeOnTheScreen();
     });
 
-    it('should show current theme as selected', () => {
-      const { getByTestId } = renderWithProviders(<AppearanceScreen />, {
+    it('should show current theme as selected', async () => {
+      const { getByTestId } = await renderWithProviders(<AppearanceScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -176,11 +176,11 @@ describe('Settings Flow Integration', () => {
     });
 
     it('should dispatch theme change and navigate back on selection', async () => {
-      const { getByTestId, store } = renderWithProviders(<AppearanceScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<AppearanceScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.press(getByTestId('appearance-option-light'));
+      await fireEvent.press(getByTestId('appearance-option-light'));
 
       await waitFor(
         () => {
@@ -193,11 +193,11 @@ describe('Settings Flow Integration', () => {
     });
 
     it('should dispatch dark theme change correctly', async () => {
-      const { getByTestId, store } = renderWithProviders(<AppearanceScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<AppearanceScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.press(getByTestId('appearance-option-dark'));
+      await fireEvent.press(getByTestId('appearance-option-dark'));
 
       await waitFor(
         () => {
@@ -211,8 +211,8 @@ describe('Settings Flow Integration', () => {
   });
 
   describe('Language Screen - language selection', () => {
-    it('should display available languages', () => {
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+    it('should display available languages', async () => {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -224,8 +224,8 @@ describe('Settings Flow Integration', () => {
       expect(getByTestId('language-option-tl')).toBeOnTheScreen();
     });
 
-    it('should show current language as selected', () => {
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+    it('should show current language as selected', async () => {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -234,11 +234,11 @@ describe('Settings Flow Integration', () => {
     });
 
     it('should dispatch language change on selection', async () => {
-      const { getByTestId, store } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: authenticatedState,
       });
 
-      fireEvent.press(getByTestId('language-option-es'));
+      await fireEvent.press(getByTestId('language-option-es'));
 
       await waitFor(
         () => {
@@ -252,8 +252,8 @@ describe('Settings Flow Integration', () => {
   });
 
   describe('accessibility throughout settings flow', () => {
-    it('should have correct focus order on settings screen', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should have correct focus order on settings screen', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -263,8 +263,8 @@ describe('Settings Flow Integration', () => {
       expectFocusOrder([appearanceSetting, languageSetting]);
     });
 
-    it('should have proper accessibility roles on settings screen', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should have proper accessibility roles on settings screen', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -272,8 +272,8 @@ describe('Settings Flow Integration', () => {
       expect(appearanceSetting.props.accessibilityRole).toBeDefined();
     });
 
-    it('should have selected state announced on appearance options', () => {
-      const { getByTestId } = renderWithProviders(<AppearanceScreen />, {
+    it('should have selected state announced on appearance options', async () => {
+      const { getByTestId } = await renderWithProviders(<AppearanceScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -281,8 +281,8 @@ describe('Settings Flow Integration', () => {
       expect(systemOption.props.accessibilityState?.selected).toBeDefined();
     });
 
-    it('should have selected state announced on language options', () => {
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+    it('should have selected state announced on language options', async () => {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -292,7 +292,7 @@ describe('Settings Flow Integration', () => {
   });
 
   describe('state persistence', () => {
-    it('should reflect theme state from Redux', () => {
+    it('should reflect theme state from Redux', async () => {
       const lightThemeState = {
         ...authenticatedState,
         settings: {
@@ -301,7 +301,7 @@ describe('Settings Flow Integration', () => {
         },
       };
 
-      const { getByTestId } = renderWithProviders(<AppearanceScreen />, {
+      const { getByTestId } = await renderWithProviders(<AppearanceScreen />, {
         preloadedState: lightThemeState,
       });
 
@@ -309,7 +309,7 @@ describe('Settings Flow Integration', () => {
       expect(lightOption.props.accessibilityState?.selected).toBe(true);
     });
 
-    it('should reflect dark theme state from Redux', () => {
+    it('should reflect dark theme state from Redux', async () => {
       const darkThemeState = {
         ...authenticatedState,
         settings: {
@@ -318,7 +318,7 @@ describe('Settings Flow Integration', () => {
         },
       };
 
-      const { getByTestId } = renderWithProviders(<AppearanceScreen />, {
+      const { getByTestId } = await renderWithProviders(<AppearanceScreen />, {
         preloadedState: darkThemeState,
       });
 
@@ -326,7 +326,7 @@ describe('Settings Flow Integration', () => {
       expect(darkOption.props.accessibilityState?.selected).toBe(true);
     });
 
-    it('should reflect Spanish language state from Redux', () => {
+    it('should reflect Spanish language state from Redux', async () => {
       const spanishState = {
         ...authenticatedState,
         settings: {
@@ -335,7 +335,7 @@ describe('Settings Flow Integration', () => {
         },
       };
 
-      const { getByTestId } = renderWithProviders(<LanguageScreen />, {
+      const { getByTestId } = await renderWithProviders(<LanguageScreen />, {
         preloadedState: spanishState,
       });
 
@@ -345,7 +345,7 @@ describe('Settings Flow Integration', () => {
   });
 
   describe('theme display in settings', () => {
-    it('should display theme setting with current value', () => {
+    it('should display theme setting with current value', async () => {
       const lightThemeState = {
         ...authenticatedState,
         settings: {
@@ -354,7 +354,7 @@ describe('Settings Flow Integration', () => {
         },
       };
 
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: lightThemeState,
       });
 
@@ -362,8 +362,8 @@ describe('Settings Flow Integration', () => {
       expect(getByTestId('settings-appearance-button')).toBeOnTheScreen();
     });
 
-    it('should display language setting', () => {
-      const { getByTestId } = renderWithProviders(<SettingsScreen />, {
+    it('should display language setting', async () => {
+      const { getByTestId } = await renderWithProviders(<SettingsScreen />, {
         preloadedState: authenticatedState,
       });
 

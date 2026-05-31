@@ -44,12 +44,12 @@ const ToastTrigger: React.FC<{ type: ToastType; title?: string; message: string 
 };
 
 // Helper to render toast with provider
-const renderToastWithProvider = (
+const renderToastWithProvider = async (
   type: ToastType,
   message: string,
   options?: { title?: string }
 ) => {
-  return render(
+  return await render(
     <Provider store={store}>
       <SafeAreaProvider
         initialMetrics={{
@@ -83,7 +83,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders success toast in light mode', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('success', 'Operation completed!');
+      const { getByTestId, toJSON } = await renderToastWithProvider('success', 'Operation completed!');
 
       await waitFor(
         () => {
@@ -96,7 +96,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders error toast in light mode', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('error', 'Something went wrong');
+      const { getByTestId, toJSON } = await renderToastWithProvider('error', 'Something went wrong');
 
       await waitFor(
         () => {
@@ -109,7 +109,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders info toast in light mode', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('info', 'Here is some information');
+      const { getByTestId, toJSON } = await renderToastWithProvider('info', 'Here is some information');
 
       await waitFor(
         () => {
@@ -122,7 +122,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders warning toast in light mode', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('warning', 'Please be careful');
+      const { getByTestId, toJSON } = await renderToastWithProvider('warning', 'Please be careful');
 
       await waitFor(
         () => {
@@ -141,7 +141,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders success toast in dark mode', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('success', 'Operation completed!');
+      const { getByTestId, toJSON } = await renderToastWithProvider('success', 'Operation completed!');
 
       await waitFor(
         () => {
@@ -154,7 +154,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders error toast in dark mode', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('error', 'Something went wrong');
+      const { getByTestId, toJSON } = await renderToastWithProvider('error', 'Something went wrong');
 
       await waitFor(
         () => {
@@ -167,7 +167,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders info toast in dark mode', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('info', 'Here is some information');
+      const { getByTestId, toJSON } = await renderToastWithProvider('info', 'Here is some information');
 
       await waitFor(
         () => {
@@ -180,7 +180,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders warning toast in dark mode', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('warning', 'Please be careful');
+      const { getByTestId, toJSON } = await renderToastWithProvider('warning', 'Please be careful');
 
       await waitFor(
         () => {
@@ -199,7 +199,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders toast with title and message', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider(
+      const { getByTestId, toJSON } = await renderToastWithProvider(
         'success',
         'Your changes have been saved',
         {
@@ -218,7 +218,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders error toast with title', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('error', 'Please try again later', {
+      const { getByTestId, toJSON } = await renderToastWithProvider('error', 'Please try again later', {
         title: 'Error',
       });
 
@@ -239,7 +239,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders toast with short message', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider('info', 'Done');
+      const { getByTestId, toJSON } = await renderToastWithProvider('info', 'Done');
 
       await waitFor(
         () => {
@@ -252,7 +252,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders toast with long message', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider(
+      const { getByTestId, toJSON } = await renderToastWithProvider(
         'warning',
         'This is a very long message that might wrap to multiple lines on smaller screen sizes to ensure proper text handling'
       );
@@ -268,7 +268,7 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders toast with special characters', async () => {
-      const { getByTestId, toJSON } = renderToastWithProvider(
+      const { getByTestId, toJSON } = await renderToastWithProvider(
         'info',
         'Operación completada con éxito 🎉'
       );
@@ -299,7 +299,7 @@ describe('Toast Snapshot Consistency', () => {
   });
 
   it('produces consistent output for same toast type', async () => {
-    const { getByTestId: getByTestId1, toJSON: toJSON1 } = renderToastWithProvider(
+    const { getByTestId: getByTestId1, toJSON: toJSON1 } = await renderToastWithProvider(
       'success',
       'Test message'
     );
@@ -314,7 +314,7 @@ describe('Toast Snapshot Consistency', () => {
     const cleaned1 = cleanSnapshotProps(toJSON1());
 
     // Unmount and re-render
-    const { getByTestId: getByTestId2, toJSON: toJSON2 } = renderToastWithProvider(
+    const { getByTestId: getByTestId2, toJSON: toJSON2 } = await renderToastWithProvider(
       'success',
       'Test message'
     );
@@ -333,7 +333,7 @@ describe('Toast Snapshot Consistency', () => {
   });
 
   it('different toast types produce different outputs', async () => {
-    const { getByTestId: getByTestId1, toJSON: toJSON1 } = renderToastWithProvider(
+    const { getByTestId: getByTestId1, toJSON: toJSON1 } = await renderToastWithProvider(
       'success',
       'Test message'
     );
@@ -345,7 +345,7 @@ describe('Toast Snapshot Consistency', () => {
       { timeout: 3000, interval: 100 }
     );
 
-    const { getByTestId: getByTestId2, toJSON: toJSON2 } = renderToastWithProvider(
+    const { getByTestId: getByTestId2, toJSON: toJSON2 } = await renderToastWithProvider(
       'error',
       'Test message'
     );

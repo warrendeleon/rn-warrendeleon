@@ -106,24 +106,24 @@ function calculateStatistics(samples: number[]): {
  * });
  * ```
  */
-export function measureRenderTime(
-  renderFn: () => RenderResult,
+export async function measureRenderTime(
+  renderFn: () => Promise<RenderResult>,
   iterations: number = 10
-): PerformanceResult {
+): Promise<PerformanceResult> {
   const samples: number[] = [];
 
   // Warm-up render (not counted)
-  const warmup = renderFn();
-  warmup.unmount();
+  const warmup = await renderFn();
+  await warmup.unmount();
 
-  // Actual measurements - synchronous to avoid Jest timer issues
+  // Actual measurements - each render is awaited (RNTL 14 render is async)
   for (let i = 0; i < iterations; i++) {
     const startTime = performance.now();
-    const result = renderFn();
+    const result = await renderFn();
     const endTime = performance.now();
 
     samples.push(endTime - startTime);
-    result.unmount();
+    await result.unmount();
   }
 
   const stats = calculateStatistics(samples);
@@ -247,7 +247,7 @@ export function expectRenderUnder(result: PerformanceResult, thresholdMs: number
  */
 export function describePerformance(
   componentName: string,
-  renderFn: () => RenderResult,
+  renderFn: () => Promise<RenderResult>,
   thresholdMs: number
 ): void {
   describe(`${componentName} Performance`, () => {

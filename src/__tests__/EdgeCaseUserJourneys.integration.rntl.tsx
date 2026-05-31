@@ -36,13 +36,13 @@ describe('Edge Case User Journeys', () => {
 
   describe('session timeout during form entry', () => {
     it('should preserve form data when session expires mid-entry', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // User starts filling form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Verify form data is entered
       expect(getByDisplayValue('user@example.com')).toBeOnTheScreen();
@@ -52,7 +52,7 @@ describe('Edge Case User Journeys', () => {
     });
 
     it('should prompt re-authentication without losing progress', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -72,8 +72,8 @@ describe('Edge Case User Journeys', () => {
       expect(getByText('Session expired. Please sign in again.')).toBeOnTheScreen();
 
       // User can still interact with form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -84,7 +84,7 @@ describe('Edge Case User Journeys', () => {
     });
 
     it('should restore form state after successful re-login', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -100,8 +100,8 @@ describe('Edge Case User Journeys', () => {
       );
 
       // Fill credentials for re-login
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -111,10 +111,10 @@ describe('Edge Case User Journeys', () => {
       );
 
       // Submit login
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Rerender simulates successful re-authentication
-      rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+      await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
@@ -123,7 +123,7 @@ describe('Edge Case User Journeys', () => {
 
   describe('network state transitions', () => {
     it('should handle offline → online during form submission', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -139,11 +139,11 @@ describe('Edge Case User Journeys', () => {
       );
 
       // User fills form during offline state
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Network recovers (simulated by state change)
-      rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+      await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
 
       await waitFor(
         () => {
@@ -153,18 +153,18 @@ describe('Edge Case User Journeys', () => {
       );
 
       // Can now submit
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should queue actions when going offline unexpectedly', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -174,27 +174,27 @@ describe('Edge Case User Journeys', () => {
       );
 
       // Submit during network transition
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Network fails
-      rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+      await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle rapid network state changes', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Rapid online/offline transitions
       for (let i = 0; i < 5; i++) {
         // Offline
-        rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+        await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
 
         // Online
-        rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+        await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
       }
 
       // Screen should be stable after rapid transitions
@@ -206,7 +206,7 @@ describe('Edge Case User Journeys', () => {
     it('should handle app backgrounding during API call', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -224,7 +224,7 @@ describe('Edge Case User Journeys', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
 
       // App goes to background during API call
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // No memory leak warnings
@@ -240,7 +240,7 @@ describe('Edge Case User Journeys', () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
       // Simulate app restart after force quit
-      const { unmount } = renderWithProviders(
+      const { unmount } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -256,11 +256,11 @@ describe('Edge Case User Journeys', () => {
       );
 
       // Force quit
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // App restarts with fresh state
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
@@ -276,19 +276,19 @@ describe('Edge Case User Journeys', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should handle rapid mount/unmount cycles', () => {
+    it('should handle rapid mount/unmount cycles', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
       // Rapid mount/unmount cycles
       for (let i = 0; i < 10; i++) {
-        const { unmount } = renderWithProviders(
+        const { unmount } = await renderWithProviders(
           <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
         );
-        unmount();
+        await unmount();
       }
 
       // Final mount should work
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
@@ -305,8 +305,8 @@ describe('Edge Case User Journeys', () => {
   });
 
   describe('multi-device scenarios', () => {
-    it('should handle concurrent logins from different devices', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle concurrent logins from different devices', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -333,23 +333,23 @@ describe('Edge Case User Journeys', () => {
     });
 
     it('should sync profile changes from another device', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Profile updated on another device (simulated by rerender)
-      rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+      await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle session invalidation from another device', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle session invalidation from another device', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -368,12 +368,12 @@ describe('Edge Case User Journeys', () => {
       expect(getByText('Your session has been terminated from another device.')).toBeOnTheScreen();
 
       // User can re-authenticate
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle maximum active sessions reached', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle maximum active sessions reached', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -397,16 +397,16 @@ describe('Edge Case User Journeys', () => {
 
   describe('form state preservation during errors', () => {
     it('should preserve registration form state during validation error', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />
       );
 
       // Fill partial form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'weak'); // Invalid password
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'weak'); // Invalid password
 
       // Form data should be preserved even with validation error
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -415,7 +415,7 @@ describe('Edge Case User Journeys', () => {
     });
 
     it('should preserve form state during server error', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />,
         {
           preloadedState: {
@@ -431,30 +431,30 @@ describe('Edge Case User Journeys', () => {
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
 
       // Server error (rerender simulates state change)
-      rerender(<RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />);
+      await rerender(<RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />);
 
       // Screen should remain stable
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
     });
 
     it('should preserve form state through loading → error → retry cycle', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Loading state
-      rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+      await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
 
       // Error state
-      rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+      await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
 
       // Form should still work for retry
       expect(getByTestId('login-screen')).toBeOnTheScreen();
@@ -463,14 +463,14 @@ describe('Edge Case User Journeys', () => {
 
   describe('rapid user interactions', () => {
     it('should handle rapid form field changes', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Rapid email changes
       const emailInput = getByTestId('email-input');
       for (let i = 0; i < 10; i++) {
-        fireEvent.changeText(emailInput, `user${i}@example.com`);
+        await fireEvent.changeText(emailInput, `user${i}@example.com`);
       }
 
       // Final value should be set
@@ -478,13 +478,13 @@ describe('Edge Case User Journeys', () => {
     });
 
     it('should handle rapid button presses', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -495,7 +495,7 @@ describe('Edge Case User Journeys', () => {
 
       // Rapid button presses
       for (let i = 0; i < 5; i++) {
-        fireEvent.press(getByTestId('login-button'));
+        await fireEvent.press(getByTestId('login-button'));
       }
 
       // Screen should remain stable
@@ -503,14 +503,14 @@ describe('Edge Case User Journeys', () => {
     });
 
     it('should handle rapid navigation attempts', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Rapid navigation link presses
       for (let i = 0; i < 5; i++) {
-        fireEvent.press(getByTestId('register-link'));
-        fireEvent.press(getByTestId('forgot-password-link'));
+        await fireEvent.press(getByTestId('register-link'));
+        await fireEvent.press(getByTestId('forgot-password-link'));
       }
 
       // Navigation should be called
@@ -518,13 +518,13 @@ describe('Edge Case User Journeys', () => {
     });
 
     it('should handle rapid keyboard submit events', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -535,7 +535,7 @@ describe('Edge Case User Journeys', () => {
 
       // Rapid keyboard submits
       for (let i = 0; i < 5; i++) {
-        fireEvent(getByTestId('password-input'), 'submitEditing');
+        await fireEvent(getByTestId('password-input'), 'submitEditing');
       }
 
       // Screen should remain stable
@@ -545,7 +545,7 @@ describe('Edge Case User Journeys', () => {
 
   describe('timing edge cases', () => {
     it('should handle very slow network response', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -564,7 +564,7 @@ describe('Edge Case User Journeys', () => {
       jest.advanceTimersByTime(30000); // 30 seconds
 
       // Rerender after long wait
-      rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+      await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
@@ -572,7 +572,7 @@ describe('Edge Case User Journeys', () => {
     it('should handle response arriving after unmount', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -590,7 +590,7 @@ describe('Edge Case User Journeys', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
 
       // Unmount before response arrives
-      unmount();
+      await unmount();
 
       // Response arrives after unmount (simulated by timer)
       jest.runAllTimers();
@@ -605,13 +605,13 @@ describe('Edge Case User Journeys', () => {
     });
 
     it('should handle race between multiple API calls', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // First submission
-      fireEvent.changeText(getByTestId('email-input'), 'user1@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user1@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -620,10 +620,10 @@ describe('Edge Case User Journeys', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Second submission before first completes (simulated by rerender)
-      rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
+      await rerender(<LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />);
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
@@ -631,8 +631,8 @@ describe('Edge Case User Journeys', () => {
   });
 
   describe('boundary conditions', () => {
-    it('should handle empty form submission attempts', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle empty form submission attempts', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
@@ -640,52 +640,52 @@ describe('Edge Case User Journeys', () => {
       expect(getByTestId('login-button').props.accessibilityState?.disabled).toBe(true);
 
       // Try to press anyway
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle maximum length input values', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Very long email (254 char limit typically)
       const longEmail = 'a'.repeat(200) + '@example.com';
-      fireEvent.changeText(getByTestId('email-input'), longEmail);
+      await fireEvent.changeText(getByTestId('email-input'), longEmail);
 
       // Very long password
       const longPassword = 'A'.repeat(100) + '1!';
-      fireEvent.changeText(getByTestId('password-input'), longPassword);
+      await fireEvent.changeText(getByTestId('password-input'), longPassword);
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle special characters in input', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Unicode email
-      fireEvent.changeText(getByTestId('email-input'), 'tëst+tag@exämple.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'tëst+tag@exämple.com');
 
       // Special character password
-      fireEvent.changeText(getByTestId('password-input'), 'Pass!@#$%^&*()123');
+      await fireEvent.changeText(getByTestId('password-input'), 'Pass!@#$%^&*()123');
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle null byte injection attempts gracefully', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle null byte injection attempts gracefully', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Null byte injection attempt
-      fireEvent.changeText(getByTestId('email-input'), 'user\x00@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'pass\x00word123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user\x00@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'pass\x00word123!');
 
       // Screen should remain stable (validation should reject)
       expect(getByTestId('login-screen')).toBeOnTheScreen();

@@ -84,11 +84,11 @@ describe('Cache Invalidation Integration', () => {
   });
 
   describe('Stale Data Handling', () => {
-    it('refreshes profile data after edit', () => {
+    it('refreshes profile data after edit', async () => {
       const initialProfile = { ...mockProfile, name: 'Original' };
       const updatedProfile = { ...mockProfile, name: 'Updated' };
 
-      const { store } = renderWithProviders(<CacheTestComponent />, {
+      const { store } = await renderWithProviders(<CacheTestComponent />, {
         preloadedState: {
           profile: {
             data: initialProfile,
@@ -116,7 +116,7 @@ describe('Cache Invalidation Integration', () => {
       expect(store.getState().profile.data?.name).toBe('Original');
 
       // Simulate profile update
-      const { store: store2 } = renderWithProviders(<CacheTestComponent />, {
+      const { store: store2 } = await renderWithProviders(<CacheTestComponent />, {
         preloadedState: {
           profile: {
             data: updatedProfile,
@@ -163,20 +163,20 @@ describe('Cache Invalidation Integration', () => {
       expect(mockStorage.getItem('persist:root')).toBeNull();
     });
 
-    it('handles cache corruption gracefully', () => {
+    it('handles cache corruption gracefully', async () => {
       // Set corrupted data
       mockStorage.setItem('persist:root', 'not-valid-json{{{');
 
-      const { getByTestId } = renderWithProviders(<CacheTestComponent />);
+      const { getByTestId } = await renderWithProviders(<CacheTestComponent />);
 
       // App should still render despite corrupted cache
       expect(getByTestId('cache-test-screen')).toBeOnTheScreen();
     });
 
-    it('refreshes data when cache is stale', () => {
+    it('refreshes data when cache is stale', async () => {
       const staleProfile = { ...mockProfile, name: 'Stale' };
 
-      const { store } = renderWithProviders(<CacheTestComponent />, {
+      const { store } = await renderWithProviders(<CacheTestComponent />, {
         preloadedState: {
           profile: {
             data: staleProfile,
@@ -204,7 +204,7 @@ describe('Cache Invalidation Integration', () => {
       expect(store.getState().profile.data?.name).toBe('Stale');
 
       // Simulate refresh with fresh data
-      const { store: freshStore } = renderWithProviders(<CacheTestComponent />, {
+      const { store: freshStore } = await renderWithProviders(<CacheTestComponent />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -307,11 +307,11 @@ describe('Cache Invalidation Integration', () => {
   });
 
   describe('Cache State Transitions', () => {
-    it('transitions from cached to fresh data smoothly', () => {
+    it('transitions from cached to fresh data smoothly', async () => {
       const cachedData = { ...mockProfile, name: 'Cached' };
 
       // Start with cached data
-      const { store } = renderWithProviders(<CacheTestComponent />, {
+      const { store } = await renderWithProviders(<CacheTestComponent />, {
         preloadedState: {
           profile: {
             data: cachedData,
@@ -338,9 +338,9 @@ describe('Cache Invalidation Integration', () => {
       expect(store.getState().profile.data?.name).toBe('Cached');
     });
 
-    it('handles cache miss gracefully', () => {
+    it('handles cache miss gracefully', async () => {
       // No cached data
-      const { getByTestId, store } = renderWithProviders(<CacheTestComponent />, {
+      const { getByTestId, store } = await renderWithProviders(<CacheTestComponent />, {
         preloadedState: {
           profile: {
             data: null,
@@ -409,8 +409,8 @@ describe('Cache Invalidation Integration', () => {
   });
 
   describe('Cache and Network Sync', () => {
-    it('updates cache after successful network request', () => {
-      const { store } = renderWithProviders(<CacheTestComponent />, {
+    it('updates cache after successful network request', async () => {
+      const { store } = await renderWithProviders(<CacheTestComponent />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -438,10 +438,10 @@ describe('Cache Invalidation Integration', () => {
       expect(store.getState().profile.data).toEqual(mockProfile);
     });
 
-    it('preserves cache on network failure', () => {
+    it('preserves cache on network failure', async () => {
       server.use(...errorHandlers);
 
-      const { getByTestId, store } = renderWithProviders(<CacheTestComponent />, {
+      const { getByTestId, store } = await renderWithProviders(<CacheTestComponent />, {
         preloadedState: {
           profile: {
             data: mockProfile,

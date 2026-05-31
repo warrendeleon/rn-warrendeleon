@@ -87,8 +87,8 @@ describe('Navigation Error Boundary', () => {
   });
 
   describe('Error Catching in Navigation Context', () => {
-    it('catches errors thrown by navigation screens', () => {
-      const { getByTestId } = renderWithProviders(
+    it('catches errors thrown by navigation screens', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <ThrowingComponent shouldThrow={true} />
         </ErrorBoundary>
@@ -99,8 +99,8 @@ describe('Navigation Error Boundary', () => {
       expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
     });
 
-    it('renders children when no error occurs', () => {
-      const { queryByTestId } = renderWithProviders(
+    it('renders children when no error occurs', async () => {
+      const { queryByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <ThrowingComponent shouldThrow={false} />
         </ErrorBoundary>
@@ -111,8 +111,8 @@ describe('Navigation Error Boundary', () => {
       expect(queryByTestId('error-go-home-button')).toBeNull();
     });
 
-    it('catches errors thrown during useEffect', () => {
-      const { getByTestId } = renderWithProviders(
+    it('catches errors thrown during useEffect', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <ThrowingEffectComponent shouldThrow={true} />
         </ErrorBoundary>
@@ -124,7 +124,7 @@ describe('Navigation Error Boundary', () => {
   });
 
   describe('Error Recovery', () => {
-    it('recovers from error when Try Again is pressed', () => {
+    it('recovers from error when Try Again is pressed', async () => {
       let shouldThrow = true;
       const RecoverableComponent: React.FC = () => {
         if (shouldThrow) {
@@ -133,7 +133,7 @@ describe('Navigation Error Boundary', () => {
         return <></>;
       };
 
-      const { getByTestId, rerender, queryByTestId } = renderWithProviders(
+      const { getByTestId, rerender, queryByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <RecoverableComponent />
         </ErrorBoundary>
@@ -146,10 +146,10 @@ describe('Navigation Error Boundary', () => {
       shouldThrow = false;
 
       // Press Try Again
-      fireEvent.press(getByTestId('error-try-again-button'));
+      await fireEvent.press(getByTestId('error-try-again-button'));
 
       // Re-render the tree
-      rerender(
+      await rerender(
         <ErrorBoundary>
           <RecoverableComponent />
         </ErrorBoundary>
@@ -159,28 +159,28 @@ describe('Navigation Error Boundary', () => {
       expect(queryByTestId('error-try-again-button')).toBeNull();
     });
 
-    it('navigates to Home when Go Home is pressed after error', () => {
-      const { getByTestId } = renderWithProviders(
+    it('navigates to Home when Go Home is pressed after error', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <ThrowingComponent shouldThrow={true} />
         </ErrorBoundary>
       );
 
-      fireEvent.press(getByTestId('error-go-home-button'));
+      await fireEvent.press(getByTestId('error-go-home-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('Home');
     });
 
-    it('resets error state before navigating home', () => {
+    it('resets error state before navigating home', async () => {
       const resetOrder: string[] = [];
       const mockOnReset = jest.fn(() => resetOrder.push('reset'));
       mockNavigate.mockImplementation(() => resetOrder.push('navigate'));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={new Error('Test')} onReset={mockOnReset} />
       );
 
-      fireEvent.press(getByTestId('error-go-home-button'));
+      await fireEvent.press(getByTestId('error-go-home-button'));
 
       // Reset should happen before navigation
       expect(resetOrder).toEqual(['reset', 'navigate']);
@@ -188,7 +188,7 @@ describe('Navigation Error Boundary', () => {
   });
 
   describe('Multiple Error Scenarios', () => {
-    it('handles recovery after error', () => {
+    it('handles recovery after error', async () => {
       // Track whether component should throw
       let shouldThrow = true;
 
@@ -200,7 +200,7 @@ describe('Navigation Error Boundary', () => {
       };
 
       // First render - component throws, caught by boundary
-      const { getByTestId, rerender, queryByTestId } = renderWithProviders(
+      const { getByTestId, rerender, queryByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <ConditionalErrorComponent />
         </ErrorBoundary>
@@ -213,10 +213,10 @@ describe('Navigation Error Boundary', () => {
       shouldThrow = false;
 
       // Press Try Again to reset the boundary
-      fireEvent.press(getByTestId('error-try-again-button'));
+      await fireEvent.press(getByTestId('error-try-again-button'));
 
       // Re-render with fixed component
-      rerender(
+      await rerender(
         <ErrorBoundary>
           <ConditionalErrorComponent />
         </ErrorBoundary>
@@ -226,7 +226,7 @@ describe('Navigation Error Boundary', () => {
       expect(queryByTestId('error-try-again-button')).toBeNull();
     });
 
-    it('handles errors with different messages', () => {
+    it('handles errors with different messages', async () => {
       const errors = ['Network error', 'Parse error', 'Timeout error'];
       let currentErrorIndex = 0;
 
@@ -234,7 +234,7 @@ describe('Navigation Error Boundary', () => {
         throw new Error(errors[currentErrorIndex]);
       };
 
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <ErrorBoundary>
           <VariableErrorComponent />
         </ErrorBoundary>
@@ -244,8 +244,8 @@ describe('Navigation Error Boundary', () => {
 
       // Change error type
       currentErrorIndex = 1;
-      fireEvent.press(getByTestId('error-try-again-button'));
-      rerender(
+      await fireEvent.press(getByTestId('error-try-again-button'));
+      await rerender(
         <ErrorBoundary>
           <VariableErrorComponent />
         </ErrorBoundary>
@@ -294,47 +294,47 @@ describe('Navigation Error Boundary', () => {
   });
 
   describe('FallbackUI Navigation Integration', () => {
-    it('displays Try Again button with correct testID', () => {
-      const { getByTestId } = renderWithProviders(
+    it('displays Try Again button with correct testID', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={new Error('Test')} onReset={jest.fn()} />
       );
 
       expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
     });
 
-    it('displays Go Home button with correct testID', () => {
-      const { getByTestId } = renderWithProviders(
+    it('displays Go Home button with correct testID', async () => {
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={new Error('Test')} onReset={jest.fn()} />
       );
 
       expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
     });
 
-    it('Try Again button triggers onReset callback', () => {
+    it('Try Again button triggers onReset callback', async () => {
       const mockReset = jest.fn();
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={new Error('Test')} onReset={mockReset} />
       );
 
-      fireEvent.press(getByTestId('error-try-again-button'));
+      await fireEvent.press(getByTestId('error-try-again-button'));
 
       expect(mockReset).toHaveBeenCalledTimes(1);
     });
 
-    it('Go Home button triggers both onReset and navigation', () => {
+    it('Go Home button triggers both onReset and navigation', async () => {
       const mockReset = jest.fn();
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <FallbackUI error={new Error('Test')} onReset={mockReset} />
       );
 
-      fireEvent.press(getByTestId('error-go-home-button'));
+      await fireEvent.press(getByTestId('error-go-home-button'));
 
       expect(mockReset).toHaveBeenCalledTimes(1);
       expect(mockNavigate).toHaveBeenCalledWith('Home');
     });
 
-    it('handles null error gracefully', () => {
-      const { getByTestId } = renderWithProviders(<FallbackUI error={null} onReset={jest.fn()} />);
+    it('handles null error gracefully', async () => {
+      const { getByTestId } = await renderWithProviders(<FallbackUI error={null} onReset={jest.fn()} />);
 
       expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
       expect(getByTestId('error-go-home-button')).toBeOnTheScreen();
@@ -342,9 +342,9 @@ describe('Navigation Error Boundary', () => {
   });
 
   describe('Edge Cases', () => {
-    it('handles error thrown during render of error boundary itself', () => {
+    it('handles error thrown during render of error boundary itself', async () => {
       // Test that ErrorBoundary handles its own render errors gracefully
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <ThrowingComponent shouldThrow={true} />
         </ErrorBoundary>
@@ -354,12 +354,12 @@ describe('Navigation Error Boundary', () => {
       expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
     });
 
-    it('handles error with no message', () => {
+    it('handles error with no message', async () => {
       const NoMessageErrorComponent: React.FC = () => {
         throw new Error();
       };
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <NoMessageErrorComponent />
         </ErrorBoundary>
@@ -368,23 +368,23 @@ describe('Navigation Error Boundary', () => {
       expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
     });
 
-    it('handles non-Error thrown objects', () => {
+    it('handles non-Error thrown objects', async () => {
       const StringThrowComponent: React.FC = () => {
         throw 'String error';
       };
 
       // Note: React may wrap non-Error throws, behaviour is implementation-dependent
       // This test verifies the boundary still catches something
-      expect(() => {
+      await expect(
         renderWithProviders(
           <ErrorBoundary>
             <StringThrowComponent />
           </ErrorBoundary>
-        );
-      }).not.toThrow();
+        )
+      ).resolves.toBeDefined();
     });
 
-    it('handles deeply nested errors', () => {
+    it('handles deeply nested errors', async () => {
       const DeepComponent: React.FC = () => {
         throw new Error('Deep error');
       };
@@ -393,7 +393,7 @@ describe('Navigation Error Boundary', () => {
         <>{children}</>
       );
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <NestedComponent>
             <NestedComponent>
@@ -419,7 +419,7 @@ describe('Navigation Error Boundary', () => {
     });
 
     it('catches errors that occur after initial render', async () => {
-      const { getByTestId, queryByTestId, rerender } = renderWithProviders(
+      const { getByTestId, queryByTestId, rerender } = await renderWithProviders(
         <ErrorBoundary>
           <DelayedThrowComponent delay={100} />
         </ErrorBoundary>
@@ -432,7 +432,7 @@ describe('Navigation Error Boundary', () => {
       jest.advanceTimersByTime(150);
 
       // Re-render to trigger the error in state
-      rerender(
+      await rerender(
         <ErrorBoundary>
           <DelayedThrowComponent delay={100} />
         </ErrorBoundary>
@@ -444,7 +444,7 @@ describe('Navigation Error Boundary', () => {
   });
 
   describe('Navigation to Non-Existent Route', () => {
-    it('handles attempt to navigate to non-existent route', () => {
+    it('handles attempt to navigate to non-existent route', async () => {
       const NonExistentRouteComponent: React.FC = () => {
         useEffect(() => {
           // Simulate navigation to non-existent route
@@ -453,7 +453,7 @@ describe('Navigation Error Boundary', () => {
         return <></>;
       };
 
-      const { queryByTestId } = renderWithProviders(
+      const { queryByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <NonExistentRouteComponent />
         </ErrorBoundary>
@@ -466,7 +466,7 @@ describe('Navigation Error Boundary', () => {
       expect(queryByTestId('error-try-again-button')).toBeNull();
     });
 
-    it('displays fallback when navigation throws error', () => {
+    it('displays fallback when navigation throws error', async () => {
       mockNavigate.mockImplementation(() => {
         throw new Error('Screen not found in navigator');
       });
@@ -478,7 +478,7 @@ describe('Navigation Error Boundary', () => {
         return <></>;
       };
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <NavigateAndThrowComponent />
         </ErrorBoundary>
@@ -489,7 +489,7 @@ describe('Navigation Error Boundary', () => {
   });
 
   describe('Navigation Stack Overflow Prevention', () => {
-    it('handles deep navigation stack without crashing', () => {
+    it('handles deep navigation stack without crashing', async () => {
       let navigationCount = 0;
       const MAX_STACK_DEPTH = 100;
 
@@ -510,7 +510,7 @@ describe('Navigation Error Boundary', () => {
         return <></>;
       };
 
-      const { queryByTestId } = renderWithProviders(
+      const { queryByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <DeepNavigationComponent />
         </ErrorBoundary>
@@ -521,7 +521,7 @@ describe('Navigation Error Boundary', () => {
       expect(navigationCount).toBe(50);
     });
 
-    it('catches stack overflow error and shows fallback', () => {
+    it('catches stack overflow error and shows fallback', async () => {
       mockNavigate.mockImplementation(() => {
         throw new Error('Maximum call stack size exceeded');
       });
@@ -533,7 +533,7 @@ describe('Navigation Error Boundary', () => {
         return <></>;
       };
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <StackOverflowComponent />
         </ErrorBoundary>
@@ -544,7 +544,7 @@ describe('Navigation Error Boundary', () => {
   });
 
   describe('Navigation State Persistence Across Crashes', () => {
-    it('preserves navigation state before error boundary triggers', () => {
+    it('preserves navigation state before error boundary triggers', async () => {
       const savedNavigationState: string[] = [];
 
       const StatePreservingComponent: React.FC<{ shouldCrash: boolean }> = ({ shouldCrash }) => {
@@ -560,7 +560,7 @@ describe('Navigation Error Boundary', () => {
       };
 
       // First render - saves state
-      renderWithProviders(
+      await renderWithProviders(
         <ErrorBoundary>
           <StatePreservingComponent shouldCrash={false} />
         </ErrorBoundary>
@@ -569,7 +569,7 @@ describe('Navigation Error Boundary', () => {
       expect(savedNavigationState).toContain('CurrentScreen');
 
       // Second render - crashes but state was already saved
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <StatePreservingComponent shouldCrash={true} />
         </ErrorBoundary>
@@ -580,7 +580,7 @@ describe('Navigation Error Boundary', () => {
       expect(savedNavigationState.length).toBeGreaterThanOrEqual(1);
     });
 
-    it('allows restoring to previous screen after crash recovery', () => {
+    it('allows restoring to previous screen after crash recovery', async () => {
       let currentScreen = 'DetailsScreen';
       const screenHistory: string[] = ['HomeScreen', 'ListScreen', 'DetailsScreen'];
       let shouldCrash = true;
@@ -592,7 +592,7 @@ describe('Navigation Error Boundary', () => {
         return <></>;
       };
 
-      const { getByTestId, rerender, queryByTestId } = renderWithProviders(
+      const { getByTestId, rerender, queryByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <RestorableComponent />
         </ErrorBoundary>
@@ -606,16 +606,16 @@ describe('Navigation Error Boundary', () => {
 
       // Press Go Home to recover
       mockNavigate.mockClear();
-      fireEvent.press(getByTestId('error-go-home-button'));
+      await fireEvent.press(getByTestId('error-go-home-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('Home');
 
       // Fix the crash and reset the error boundary
       shouldCrash = false;
-      fireEvent.press(getByTestId('error-try-again-button'));
+      await fireEvent.press(getByTestId('error-try-again-button'));
 
       // Rerender without crash
-      rerender(
+      await rerender(
         <ErrorBoundary>
           <RestorableComponent />
         </ErrorBoundary>
@@ -627,7 +627,7 @@ describe('Navigation Error Boundary', () => {
   });
 
   describe('Navigation Reset After Auth State Change', () => {
-    it('resets navigation when auth state changes to unauthenticated', () => {
+    it('resets navigation when auth state changes to unauthenticated', async () => {
       const AuthAwareComponent: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
         useEffect(() => {
           if (!isAuthenticated) {
@@ -642,7 +642,7 @@ describe('Navigation Error Boundary', () => {
       };
 
       // Start authenticated
-      const { rerender } = renderWithProviders(
+      const { rerender } = await renderWithProviders(
         <ErrorBoundary>
           <AuthAwareComponent isAuthenticated={true} />
         </ErrorBoundary>
@@ -651,7 +651,7 @@ describe('Navigation Error Boundary', () => {
       expect(mockReset).not.toHaveBeenCalled();
 
       // Logout - should reset to login
-      rerender(
+      await rerender(
         <ErrorBoundary>
           <AuthAwareComponent isAuthenticated={false} />
         </ErrorBoundary>
@@ -663,7 +663,7 @@ describe('Navigation Error Boundary', () => {
       });
     });
 
-    it('preserves error boundary state during auth reset', () => {
+    it('preserves error boundary state during auth reset', async () => {
       let isAuthenticated = true;
       let shouldCrash = true;
 
@@ -684,7 +684,7 @@ describe('Navigation Error Boundary', () => {
       };
 
       // Start with error
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <ErrorBoundary>
           <AuthErrorComponent />
         </ErrorBoundary>
@@ -695,9 +695,9 @@ describe('Navigation Error Boundary', () => {
       // Auth state changes - reset navigation and recover
       isAuthenticated = false;
       shouldCrash = false;
-      fireEvent.press(getByTestId('error-try-again-button'));
+      await fireEvent.press(getByTestId('error-try-again-button'));
 
-      rerender(
+      await rerender(
         <ErrorBoundary>
           <AuthErrorComponent />
         </ErrorBoundary>
@@ -709,7 +709,7 @@ describe('Navigation Error Boundary', () => {
       });
     });
 
-    it('handles error during auth reset gracefully', () => {
+    it('handles error during auth reset gracefully', async () => {
       mockReset.mockImplementation(() => {
         throw new Error('Navigation reset failed');
       });
@@ -721,7 +721,7 @@ describe('Navigation Error Boundary', () => {
         return <></>;
       };
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ErrorBoundary>
           <AuthResetErrorComponent />
         </ErrorBoundary>

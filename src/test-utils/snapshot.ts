@@ -5,7 +5,7 @@
  * across the application. Normalises platform differences and excludes dynamic values.
  */
 
-import { ReactTestInstance, ReactTestRendererJSON } from 'react-test-renderer';
+import type { TestInstance, JsonElement } from 'test-renderer';
 
 /**
  * Properties to exclude from snapshots for stability.
@@ -56,24 +56,24 @@ export const snapshotConfig = {
  * @returns A cleaned snapshot node without excluded properties
  */
 export function cleanSnapshotProps(
-  node: ReactTestRendererJSON | ReactTestRendererJSON[] | null
-): ReactTestRendererJSON | ReactTestRendererJSON[] | null {
+  node: JsonElement | JsonElement[] | null
+): JsonElement | JsonElement[] | null {
   if (!node) {
     return null;
   }
 
   // Handle array of nodes
   if (Array.isArray(node)) {
-    return node.map(child => cleanSnapshotProps(child)) as ReactTestRendererJSON[];
+    return node.map(child => cleanSnapshotProps(child)) as JsonElement[];
   }
 
   // Handle string nodes (text content)
   if (typeof node === 'string') {
-    return node as unknown as ReactTestRendererJSON;
+    return node as unknown as JsonElement;
   }
 
   // Clone the node to avoid mutations
-  const cleanedNode: ReactTestRendererJSON = {
+  const cleanedNode: JsonElement = {
     ...node,
     props: { ...node.props },
   };
@@ -92,7 +92,7 @@ export function cleanSnapshotProps(
         return child;
       }
       return cleanSnapshotProps(child);
-    }) as ReactTestRendererJSON['children'];
+    }) as JsonElement['children'];
   }
 
   return cleanedNode;
@@ -106,7 +106,7 @@ export interface SnapshotSerializer {
   test: (val: unknown) => boolean;
   /** Serialises the value to a string for snapshot comparison */
   serialize: (
-    val: ReactTestRendererJSON,
+    val: JsonElement,
     config: unknown,
     indentation: string,
     depth: number,
@@ -138,7 +138,7 @@ export function createSnapshotSerializer(): SnapshotSerializer {
       return val !== null && typeof val === 'object' && 'type' in val && 'props' in val;
     },
     serialize: (
-      val: ReactTestRendererJSON,
+      val: JsonElement,
       _config: unknown,
       _indentation: string,
       _depth: number,
@@ -169,7 +169,7 @@ export function createSnapshotSerializer(): SnapshotSerializer {
  */
 export function describeSnapshots<P extends Record<string, unknown>>(
   name: string,
-  renderVariant: (props: P) => ReactTestRendererJSON | null,
+  renderVariant: (props: P) => JsonElement | null,
   variants: Record<string, P>
 ): void {
   describe(`${name} Snapshots`, () => {
@@ -215,7 +215,7 @@ export interface SnapshotOptions {
  * ```
  */
 export function expectMatchesSnapshot(
-  tree: ReactTestRendererJSON | ReactTestRendererJSON[] | null,
+  tree: JsonElement | JsonElement[] | null,
   options?: SnapshotOptions
 ): void {
   const cleaned = cleanSnapshotProps(tree);
@@ -246,7 +246,7 @@ export function expectMatchesSnapshot(
  * ```
  */
 export function expectSnapshotMatch(
-  tree: ReactTestRendererJSON | ReactTestRendererJSON[] | null,
+  tree: JsonElement | JsonElement[] | null,
   name: string
 ): void {
   const cleaned = cleanSnapshotProps(tree);
@@ -254,15 +254,15 @@ export function expectSnapshotMatch(
 }
 
 /**
- * Creates a consistent snapshot from a ReactTestInstance.
+ * Creates a consistent snapshot from a TestInstance.
  *
  * Useful when working with @testing-library/react-native results.
  *
  * @param instance - The React test instance to snapshot
  * @returns A cleaned JSON representation suitable for snapshots
  */
-export function instanceToSnapshot(instance: ReactTestInstance): Record<string, unknown> {
-  const extractProps = (inst: ReactTestInstance): Record<string, unknown> => {
+export function instanceToSnapshot(instance: TestInstance): Record<string, unknown> {
+  const extractProps = (inst: TestInstance): Record<string, unknown> => {
     const cleanedProps: Record<string, unknown> = {};
 
     for (const [key, value] of Object.entries(inst.props)) {
@@ -283,7 +283,7 @@ export function instanceToSnapshot(instance: ReactTestInstance): Record<string, 
   };
 
   return {
-    type: typeof instance.type === 'string' ? instance.type : (instance.type?.name ?? 'Unknown'),
+    type: instance.type,
     props: extractProps(instance),
   };
 }

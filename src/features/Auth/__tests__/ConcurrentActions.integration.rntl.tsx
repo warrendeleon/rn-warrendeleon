@@ -47,13 +47,13 @@ describe('Concurrent User Actions', () => {
       // Simulate existing session on another device
       mockSessionStore.otherDeviceSession = 'session-device-1';
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill login form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -63,20 +63,20 @@ describe('Concurrent User Actions', () => {
       );
 
       // Submit login (should succeed even with existing session elsewhere)
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle concurrent login attempts from same user', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -86,15 +86,15 @@ describe('Concurrent User Actions', () => {
       );
 
       // Simulate rapid concurrent login attempts
-      fireEvent.press(getByTestId('login-button'));
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Should handle gracefully without crash
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should display appropriate message when session limit reached', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display appropriate message when session limit reached', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -117,8 +117,8 @@ describe('Concurrent User Actions', () => {
   });
 
   describe('session invalidation on other device', () => {
-    it('should handle session invalidated error gracefully', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle session invalidated error gracefully', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -142,7 +142,7 @@ describe('Concurrent User Actions', () => {
     });
 
     it('should allow re-login after session invalidation', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -158,8 +158,8 @@ describe('Concurrent User Actions', () => {
       );
 
       // Fill form for re-login
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -169,12 +169,12 @@ describe('Concurrent User Actions', () => {
       );
 
       // Should be able to attempt re-login
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle force logout notification from server', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle force logout notification from server', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -196,13 +196,13 @@ describe('Concurrent User Actions', () => {
 
   describe('optimistic update conflict resolution', () => {
     it('should handle optimistic update state during login', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -212,16 +212,16 @@ describe('Concurrent User Actions', () => {
       );
 
       // Submit (triggers optimistic update)
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Rerender simulates state update during async operation
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle conflict error after optimistic update', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle conflict error after optimistic update', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -241,7 +241,7 @@ describe('Concurrent User Actions', () => {
     });
 
     it('should preserve form data after conflict error', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -257,8 +257,8 @@ describe('Concurrent User Actions', () => {
       );
 
       // Fill form while error is displayed
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Data should be preserved
       expect(getByDisplayValue('user@example.com')).toBeOnTheScreen();
@@ -267,18 +267,18 @@ describe('Concurrent User Actions', () => {
 
   describe('real-time sync scenarios', () => {
     it('should handle state update during form interaction', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Start filling form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
 
       // Simulate real-time state update from server
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Continue filling form
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -289,17 +289,17 @@ describe('Concurrent User Actions', () => {
     });
 
     it('should handle rapid state changes from concurrent operations', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Simulate rapid state changes (real-time updates)
       for (let i = 0; i < 5; i++) {
-        rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+        await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
       }
 
       // Form should remain functional
@@ -311,17 +311,17 @@ describe('Concurrent User Actions', () => {
       );
     });
 
-    it('should maintain form consistency during background sync', () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+    it('should maintain form consistency during background sync', async () => {
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Background sync triggers rerender
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Form values should be preserved
       expect(getByDisplayValue('user@example.com')).toBeOnTheScreen();
@@ -329,8 +329,8 @@ describe('Concurrent User Actions', () => {
   });
 
   describe('force logout from all devices', () => {
-    it('should handle force logout error message', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle force logout error message', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -352,7 +352,7 @@ describe('Concurrent User Actions', () => {
     });
 
     it('should clear form and allow fresh login after force logout', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -361,8 +361,8 @@ describe('Concurrent User Actions', () => {
       expect(getByTestId('password-input').props.value).toBe('');
 
       // Fill and submit should work normally
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -372,8 +372,8 @@ describe('Concurrent User Actions', () => {
       );
     });
 
-    it('should handle security-related logout with password change required', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle security-related logout with password change required', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -396,8 +396,8 @@ describe('Concurrent User Actions', () => {
   });
 
   describe('session token refresh during operation', () => {
-    it('should handle loading state during token refresh', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle loading state during token refresh', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -416,8 +416,8 @@ describe('Concurrent User Actions', () => {
       expect(getByTestId('login-button').props.accessibilityState?.disabled).toBe(true);
     });
 
-    it('should handle token refresh failure', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle token refresh failure', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -436,7 +436,7 @@ describe('Concurrent User Actions', () => {
     });
 
     it('should recover gracefully after token refresh failure', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -452,8 +452,8 @@ describe('Concurrent User Actions', () => {
       );
 
       // Should be able to log in again
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -462,20 +462,20 @@ describe('Concurrent User Actions', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
   });
 
   describe('concurrent API calls handling', () => {
     it('should handle multiple state transitions during login flow', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -485,28 +485,28 @@ describe('Concurrent User Actions', () => {
       );
 
       // Submit
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Simulate multiple concurrent state updates (3 rerenders)
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should not lose form data during rapid API state changes', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Rapid rerenders simulating API state changes
       for (let i = 0; i < 10; i++) {
-        rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+        await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
       }
 
       // Form data should be preserved
@@ -515,8 +515,8 @@ describe('Concurrent User Actions', () => {
   });
 
   describe('profile update conflict from two devices', () => {
-    it('should handle profile conflict error from server', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle profile conflict error from server', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -537,8 +537,8 @@ describe('Concurrent User Actions', () => {
       ).toBeOnTheScreen();
     });
 
-    it('should handle version mismatch during concurrent update', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle version mismatch during concurrent update', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -562,7 +562,7 @@ describe('Concurrent User Actions', () => {
     });
 
     it('should allow retry after conflict resolution', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -578,8 +578,8 @@ describe('Concurrent User Actions', () => {
       );
 
       // User can retry after conflict
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -588,13 +588,13 @@ describe('Concurrent User Actions', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle last-write-wins conflict strategy', () => {
+    it('should handle last-write-wins conflict strategy', async () => {
       // Server accepts the latest write
-      const { getByText } = renderWithProviders(
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -615,8 +615,8 @@ describe('Concurrent User Actions', () => {
       ).toBeOnTheScreen();
     });
 
-    it('should handle merge conflict with partial success', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle merge conflict with partial success', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -639,40 +639,40 @@ describe('Concurrent User Actions', () => {
 
   describe('real-time sync notification handling', () => {
     it('should handle incoming sync notification during form fill', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // User starts filling form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
 
       // Sync notification arrives (simulated by rerender)
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // User continues
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Form data preserved
       expect(getByDisplayValue('user@example.com')).toBeOnTheScreen();
     });
 
-    it('should handle profile push notification while on login screen', () => {
-      const { getByTestId, rerender } = renderWithProviders(
+    it('should handle profile push notification while on login screen', async () => {
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
 
       // Push notification triggers state update
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should queue local changes when sync in progress', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -688,19 +688,19 @@ describe('Concurrent User Actions', () => {
       );
 
       // User tries to interact during sync
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
 
       // Changes should be accepted (queued)
       expect(getByTestId('email-input').props.value).toBe('user@example.com');
 
       // Sync completes
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should show notification when data refreshed from server', () => {
-      const { getByText } = renderWithProviders(
+    it('should show notification when data refreshed from server', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -721,8 +721,8 @@ describe('Concurrent User Actions', () => {
   });
 
   describe('multi-device session management', () => {
-    it('should handle device list exceeded error', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle device list exceeded error', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -742,8 +742,8 @@ describe('Concurrent User Actions', () => {
       ).toBeOnTheScreen();
     });
 
-    it('should handle trusted device verification required', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle trusted device verification required', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -761,8 +761,8 @@ describe('Concurrent User Actions', () => {
       expect(getByText('New device detected. Please verify via email.')).toBeOnTheScreen();
     });
 
-    it('should handle device removed remotely', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle device removed remotely', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -782,8 +782,8 @@ describe('Concurrent User Actions', () => {
       ).toBeOnTheScreen();
     });
 
-    it('should handle primary device change notification', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle primary device change notification', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {

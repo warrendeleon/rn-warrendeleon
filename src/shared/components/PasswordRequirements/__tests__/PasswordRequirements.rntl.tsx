@@ -107,14 +107,14 @@ describe('checkPasswordRequirements', () => {
 
 describe('PasswordRequirements component', () => {
   describe('rendering', () => {
-    it('should render with testID', () => {
-      renderWithProviders(<PasswordRequirements password="" testID="password-requirements" />);
+    it('should render with testID', async () => {
+      await renderWithProviders(<PasswordRequirements password="" testID="password-requirements" />);
 
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
     });
 
-    it('should render title', () => {
-      renderWithProviders(<PasswordRequirements password="" />);
+    it('should render title', async () => {
+      await renderWithProviders(<PasswordRequirements password="" />);
 
       // The title is translated - check for the requirements container
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
@@ -122,8 +122,8 @@ describe('PasswordRequirements component', () => {
   });
 
   describe('requirement indicators', () => {
-    it('should show all requirements as unmet for empty password', () => {
-      renderWithProviders(<PasswordRequirements password="" />);
+    it('should show all requirements as unmet for empty password', async () => {
+      await renderWithProviders(<PasswordRequirements password="" />);
 
       // All requirements should be displayed with unmet styling (grey text)
       // Note: Icons are mocked in jest.setup, so we verify text presence
@@ -139,8 +139,8 @@ describe('PasswordRequirements component', () => {
       expect(result.special).toBe(false);
     });
 
-    it('should show all requirements as met for strong password', () => {
-      renderWithProviders(<PasswordRequirements password="StrongPass123!" />);
+    it('should show all requirements as met for strong password', async () => {
+      await renderWithProviders(<PasswordRequirements password="StrongPass123!" />);
 
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
 
@@ -153,8 +153,8 @@ describe('PasswordRequirements component', () => {
       expect(result.special).toBe(true);
     });
 
-    it('should show partial requirements for password with some criteria met', () => {
-      renderWithProviders(<PasswordRequirements password="password" />);
+    it('should show partial requirements for password with some criteria met', async () => {
+      await renderWithProviders(<PasswordRequirements password="password" />);
 
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
 
@@ -167,15 +167,15 @@ describe('PasswordRequirements component', () => {
       expect(result.special).toBe(false);
     });
 
-    it('should update indicators when password changes', () => {
-      const { rerender } = renderWithProviders(<PasswordRequirements password="" />);
+    it('should update indicators when password changes', async () => {
+      const { rerender } = await renderWithProviders(<PasswordRequirements password="" />);
 
       // Initially all unmet
       let result = checkPasswordRequirements('');
       expect(result.length).toBe(false);
 
       // Rerender with a password that meets length requirement
-      rerender(<PasswordRequirements password="12345678" />);
+      await rerender(<PasswordRequirements password="12345678" />);
 
       // Now length is met
       result = checkPasswordRequirements('12345678');
@@ -187,12 +187,12 @@ describe('PasswordRequirements component', () => {
   });
 
   describe('additional requirements', () => {
-    it('should render additional requirements when provided', () => {
+    it('should render additional requirements when provided', async () => {
       const additionalRequirements: CustomRequirement[] = [
         { key: 'different', met: true, text: 'Different from current password' },
       ];
 
-      renderWithProviders(
+      await renderWithProviders(
         <PasswordRequirements
           password="NewPass123!"
           additionalRequirements={additionalRequirements}
@@ -202,13 +202,13 @@ describe('PasswordRequirements component', () => {
       expect(screen.getByText('Different from current password')).toBeOnTheScreen();
     });
 
-    it('should render multiple additional requirements', () => {
+    it('should render multiple additional requirements', async () => {
       const additionalRequirements: CustomRequirement[] = [
         { key: 'different', met: true, text: 'Different from current' },
         { key: 'history', met: false, text: 'Not used recently' },
       ];
 
-      renderWithProviders(
+      await renderWithProviders(
         <PasswordRequirements
           password="NewPass123!"
           additionalRequirements={additionalRequirements}
@@ -219,7 +219,7 @@ describe('PasswordRequirements component', () => {
       expect(screen.getByText('Not used recently')).toBeOnTheScreen();
     });
 
-    it('should show correct indicator for additional requirement status', () => {
+    it('should show correct indicator for additional requirement status', async () => {
       const metRequirement: CustomRequirement[] = [
         { key: 'met', met: true, text: 'Met requirement' },
       ];
@@ -227,14 +227,14 @@ describe('PasswordRequirements component', () => {
         { key: 'unmet', met: false, text: 'Unmet requirement' },
       ];
 
-      renderWithProviders(
+      await renderWithProviders(
         <PasswordRequirements password="" additionalRequirements={metRequirement} />
       );
 
       expect(screen.getByText('Met requirement')).toBeOnTheScreen();
 
       // Re-render fresh with different requirements
-      renderWithProviders(
+      await renderWithProviders(
         <PasswordRequirements password="" additionalRequirements={unmetRequirement} />
       );
 
@@ -243,13 +243,13 @@ describe('PasswordRequirements component', () => {
   });
 
   describe('memoisation', () => {
-    it('should recalculate requirements when password changes', () => {
-      const { rerender } = renderWithProviders(<PasswordRequirements password="short" />);
+    it('should recalculate requirements when password changes', async () => {
+      const { rerender } = await renderWithProviders(<PasswordRequirements password="short" />);
 
       // Length requirement should be false
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
 
-      rerender(<PasswordRequirements password="longenough" />);
+      await rerender(<PasswordRequirements password="longenough" />);
 
       // Length requirement should now be true
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
@@ -257,33 +257,33 @@ describe('PasswordRequirements component', () => {
   });
 
   describe('null/undefined password handling', () => {
-    it('should handle undefined password gracefully', () => {
+    it('should handle undefined password gracefully', async () => {
       // TypeScript would catch this, but runtime should be safe
-      renderWithProviders(<PasswordRequirements password={undefined as unknown as string} />);
+      await renderWithProviders(<PasswordRequirements password={undefined as unknown as string} />);
 
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
     });
   });
 
   describe('Accessibility', () => {
-    it('renders requirement text with correct met/unmet status', () => {
-      renderWithProviders(<PasswordRequirements password="Password123!" />);
+    it('renders requirement text with correct met/unmet status', async () => {
+      await renderWithProviders(<PasswordRequirements password="Password123!" />);
 
       // All requirements should be met for a strong password
       // The component displays text for each requirement
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
     });
 
-    it('displays visual indicators for each requirement status', () => {
-      renderWithProviders(<PasswordRequirements password="" />);
+    it('displays visual indicators for each requirement status', async () => {
+      await renderWithProviders(<PasswordRequirements password="" />);
 
       // For empty password, all requirements should show as unmet
       // Verify component renders all requirement items
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
     });
 
-    it('provides informative content for screen readers via text', () => {
-      renderWithProviders(
+    it('provides informative content for screen readers via text', async () => {
+      await renderWithProviders(
         <PasswordRequirements
           password="short"
           additionalRequirements={[{ key: 'custom', met: false, text: 'Custom requirement text' }]}
@@ -296,8 +296,8 @@ describe('PasswordRequirements component', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('requirement items are in correct focus order', () => {
-      renderWithProviders(<PasswordRequirements password="" testID="password-requirements" />);
+    it('requirement items are in correct focus order', async () => {
+      await renderWithProviders(<PasswordRequirements password="" testID="password-requirements" />);
 
       const container = screen.getByTestId('password-requirements');
       expect(container).toBeOnTheScreen();
@@ -306,28 +306,28 @@ describe('PasswordRequirements component', () => {
       expectFocusOrder([container]);
     });
 
-    it('requirement text is visible for all states', () => {
-      renderWithProviders(<PasswordRequirements password="Password123!" />);
+    it('requirement text is visible for all states', async () => {
+      await renderWithProviders(<PasswordRequirements password="Password123!" />);
 
       // Requirement items should be visible
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
     });
 
-    it('status changes are reflected visually', () => {
-      const { rerender } = renderWithProviders(<PasswordRequirements password="" />);
+    it('status changes are reflected visually', async () => {
+      const { rerender } = await renderWithProviders(<PasswordRequirements password="" />);
 
       // Initial - all unmet
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
 
       // Change password to meet some requirements
-      rerender(<PasswordRequirements password="Password123!" />);
+      await rerender(<PasswordRequirements password="Password123!" />);
 
       // Requirements should update
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
     });
 
-    it('container is accessible to screen readers', () => {
-      renderWithProviders(<PasswordRequirements password="" testID="password-requirements" />);
+    it('container is accessible to screen readers', async () => {
+      await renderWithProviders(<PasswordRequirements password="" testID="password-requirements" />);
 
       const container = screen.getByTestId('password-requirements');
       expect(container.props.accessible).not.toBe(false);

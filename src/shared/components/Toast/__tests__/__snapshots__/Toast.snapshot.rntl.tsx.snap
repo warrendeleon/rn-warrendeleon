@@ -1,1687 +1,1393 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Toast Type Snapshots Dark Mode Toast Types renders error toast in dark mode: Toast - Error Dark Mode 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Something went wrong"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#FCA5A5",
-                "size": 20,
-              },
-              "type": "AlertCircle",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Something went wrong",
-                  ],
-                  "props": {
-                    "color": "$error200",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#FCA5A5",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$error900",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Something went wrong",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$error900"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <AlertCircle
+        color="#FCA5A5"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$error200"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Something went wrong
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#FCA5A5"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Dark Mode Toast Types renders info toast in dark mode: Toast - Info Dark Mode 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Here is some information"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#93C5FD",
-                "size": 20,
-              },
-              "type": "Info",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Here is some information",
-                  ],
-                  "props": {
-                    "color": "$info200",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#93C5FD",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$info900",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Here is some information",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$info900"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <Info
+        color="#93C5FD"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$info200"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Here is some information
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#93C5FD"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Dark Mode Toast Types renders success toast in dark mode: Toast - Success Dark Mode 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Operation completed!"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#86EFAC",
-                "size": 20,
-              },
-              "type": "CheckCircle",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Operation completed!",
-                  ],
-                  "props": {
-                    "color": "$success200",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#86EFAC",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$success900",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Operation completed!",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$success900"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <CheckCircle
+        color="#86EFAC"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$success200"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Operation completed!
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#86EFAC"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Dark Mode Toast Types renders warning toast in dark mode: Toast - Warning Dark Mode 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Please be careful"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#FDE68A",
-                "size": 20,
-              },
-              "type": "AlertTriangle",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Please be careful",
-                  ],
-                  "props": {
-                    "color": "$warning200",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#FDE68A",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$warning900",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Please be careful",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$warning900"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <AlertTriangle
+        color="#FDE68A"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$warning200"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Please be careful
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#FDE68A"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Light Mode Toast Types renders error toast in light mode: Toast - Error Light Mode 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Something went wrong"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#EF4444",
-                "size": 20,
-              },
-              "type": "AlertCircle",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Something went wrong",
-                  ],
-                  "props": {
-                    "color": "$error700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#EF4444",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$error100",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Something went wrong",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$error100"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <AlertCircle
+        color="#EF4444"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$error700"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Something went wrong
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#EF4444"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Light Mode Toast Types renders info toast in light mode: Toast - Info Light Mode 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Here is some information"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#3B82F6",
-                "size": 20,
-              },
-              "type": "Info",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Here is some information",
-                  ],
-                  "props": {
-                    "color": "$info700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#3B82F6",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$info100",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Here is some information",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$info100"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <Info
+        color="#3B82F6"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$info700"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Here is some information
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#3B82F6"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Light Mode Toast Types renders success toast in light mode: Toast - Success Light Mode 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Operation completed!"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#22C55E",
-                "size": 20,
-              },
-              "type": "CheckCircle",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Operation completed!",
-                  ],
-                  "props": {
-                    "color": "$success700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#22C55E",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$success100",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Operation completed!",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$success100"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <CheckCircle
+        color="#22C55E"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$success700"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Operation completed!
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#22C55E"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Light Mode Toast Types renders warning toast in light mode: Toast - Warning Light Mode 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Please be careful"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#F59E0B",
-                "size": 20,
-              },
-              "type": "AlertTriangle",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Please be careful",
-                  ],
-                  "props": {
-                    "color": "$warning700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#F59E0B",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$warning100",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Please be careful",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$warning100"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <AlertTriangle
+        color="#F59E0B"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$warning700"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Please be careful
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#F59E0B"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Toast Content Variants renders toast with long message: Toast - Long Message 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="This is a very long message that might wrap to multiple lines on smaller screen sizes to ensure proper text handling"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#F59E0B",
-                "size": 20,
-              },
-              "type": "AlertTriangle",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "This is a very long message that might wrap to multiple lines on smaller screen sizes to ensure proper text handling",
-                  ],
-                  "props": {
-                    "color": "$warning700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#F59E0B",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$warning100",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "This is a very long message that might wrap to multiple lines on smaller screen sizes to ensure proper text handling",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$warning100"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <AlertTriangle
+        color="#F59E0B"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$warning700"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          This is a very long message that might wrap to multiple lines on smaller screen sizes to ensure proper text handling
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#F59E0B"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Toast Content Variants renders toast with short message: Toast - Short Message 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Done"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#3B82F6",
-                "size": 20,
-              },
-              "type": "Info",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Done",
-                  ],
-                  "props": {
-                    "color": "$info700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#3B82F6",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$info100",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Done",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$info100"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <Info
+        color="#3B82F6"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$info700"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Done
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#3B82F6"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Toast Content Variants renders toast with special characters: Toast - Special Characters 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Operación completada con éxito 🎉"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#3B82F6",
-                "size": 20,
-              },
-              "type": "Info",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Operación completada con éxito 🎉",
-                  ],
-                  "props": {
-                    "color": "$info700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#3B82F6",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$info100",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Operación completada con éxito 🎉",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$info100"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <Info
+        color="#3B82F6"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$info700"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Operación completada con éxito 🎉
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#3B82F6"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Toast with Title renders error toast with title: Toast - Error With Title 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Error: Please try again later"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#EF4444",
-                "size": 20,
-              },
-              "type": "AlertCircle",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Error",
-                  ],
-                  "props": {
-                    "color": "$error700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$bold",
-                  },
-                  "type": "Text",
-                },
-                {
-                  "children": [
-                    "Please try again later",
-                  ],
-                  "props": {
-                    "color": "$error700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#EF4444",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$error100",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Error: Please try again later",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$error100"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <AlertCircle
+        color="#EF4444"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$error700"
+          fontSize="$sm"
+          fontWeight="$bold"
+        >
+          Error
+        </Text>
+        <Text
+          color="$error700"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Please try again later
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#EF4444"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`Toast Type Snapshots Toast with Title renders toast with title and message: Toast - With Title 1`] = `
-{
-  "children": [
+<View
+  accessibilityLabel="Success!: Your changes have been saved"
+  accessibilityLiveRegion="polite"
+  accessibilityRole="alert"
+  style={
     {
-      "children": [
-        {
-          "children": [
-            {
-              "children": null,
-              "props": {
-                "color": "#22C55E",
-                "size": 20,
-              },
-              "type": "CheckCircle",
-            },
-            {
-              "children": [
-                {
-                  "children": [
-                    "Success!",
-                  ],
-                  "props": {
-                    "color": "$success700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$bold",
-                  },
-                  "type": "Text",
-                },
-                {
-                  "children": [
-                    "Your changes have been saved",
-                  ],
-                  "props": {
-                    "color": "$success700",
-                    "fontSize": "$sm",
-                    "fontWeight": "$medium",
-                  },
-                  "type": "Text",
-                },
-              ],
-              "props": {
-                "flex": 1,
-                "space": "xs",
-              },
-              "type": "View",
-            },
-            {
-              "children": [
-                {
-                  "children": null,
-                  "props": {
-                    "color": "#22C55E",
-                    "size": 18,
-                  },
-                  "type": "X",
-                },
-              ],
-              "props": {
-                "accessibilityHint": "Double tap to dismiss this notification",
-                "accessibilityLabel": "Dismiss notification",
-                "accessibilityRole": "button",
-                "accessibilityState": {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                },
-                "accessibilityValue": {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                },
-                "accessible": true,
-                "alignItems": "center",
-                "focusable": true,
-                "hitSlop": {
-                  "bottom": 10,
-                  "left": 10,
-                  "right": 10,
-                  "top": 10,
-                },
-                "justifyContent": "center",
-                "minHeight": 44,
-                "minWidth": 44,
-                "onClick": [Function],
-                "onResponderGrant": [Function],
-                "onResponderMove": [Function],
-                "onResponderRelease": [Function],
-                "onResponderTerminate": [Function],
-                "onResponderTerminationRequest": [Function],
-                "onStartShouldSetResponder": [Function],
-                "p": "$1",
-              },
-              "type": "View",
-            },
-          ],
-          "props": {
-            "alignItems": "center",
-            "flex": 1,
-            "space": "sm",
-          },
-          "type": "View",
-        },
-      ],
-      "props": {
-        "bg": "$success100",
-        "borderRadius": "$xl",
-        "elevation": 5,
-        "p": "$3",
-        "shadowColor": "$black",
-        "shadowOffset": {
-          "height": 2,
-          "width": 0,
-        },
-        "shadowOpacity": 0.15,
-        "shadowRadius": 8,
-      },
-      "type": "View",
-    },
-  ],
-  "props": {
-    "accessibilityLabel": "Success!: Your changes have been saved",
-    "accessibilityLiveRegion": "polite",
-    "accessibilityRole": "alert",
-    "style": {
       "left": 16,
       "opacity": 0,
       "position": "absolute",
       "right": 16,
       "top": 8,
       "zIndex": 9999,
-    },
-  },
-  "type": "View",
-}
+    }
+  }
+>
+  <View
+    bg="$success100"
+    borderRadius="$xl"
+    elevation={5}
+    p="$3"
+    shadowColor="$black"
+    shadowOffset={
+      {
+        "height": 2,
+        "width": 0,
+      }
+    }
+    shadowOpacity={0.15}
+    shadowRadius={8}
+  >
+    <View
+      alignItems="center"
+      flex={1}
+      space="sm"
+    >
+      <CheckCircle
+        color="#22C55E"
+        size={20}
+      />
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$success700"
+          fontSize="$sm"
+          fontWeight="$bold"
+        >
+          Success!
+        </Text>
+        <Text
+          color="$success700"
+          fontSize="$sm"
+          fontWeight="$medium"
+        >
+          Your changes have been saved
+        </Text>
+      </View>
+      <View
+        accessibilityHint="Double tap to dismiss this notification"
+        accessibilityLabel="Dismiss notification"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        alignItems="center"
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        justifyContent="center"
+        minHeight={44}
+        minWidth={44}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        p="$1"
+      >
+        <X
+          color="#22C55E"
+          size={18}
+        />
+      </View>
+    </View>
+  </View>
+</View>
 `;

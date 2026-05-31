@@ -25,8 +25,8 @@ describe('FormInputGroup', () => {
   });
 
   describe('rendering', () => {
-    it('renders children correctly', () => {
-      renderWithProviders(
+    it('renders children correctly', async () => {
+      await renderWithProviders(
         <FormInputGroup testID="form-group">
           <RNText testID="child">Child content</RNText>
         </FormInputGroup>
@@ -36,8 +36,8 @@ describe('FormInputGroup', () => {
       expect(screen.getByText('Child content')).toBeOnTheScreen();
     });
 
-    it('renders with testID', () => {
-      renderWithProviders(
+    it('renders with testID', async () => {
+      await renderWithProviders(
         <FormInputGroup testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -46,8 +46,8 @@ describe('FormInputGroup', () => {
       expect(screen.getByTestId('form-group')).toBeOnTheScreen();
     });
 
-    it('renders without title', () => {
-      renderWithProviders(
+    it('renders without title', async () => {
+      await renderWithProviders(
         <FormInputGroup testID="form-group">
           <RNText testID="input">Input field</RNText>
         </FormInputGroup>
@@ -57,8 +57,8 @@ describe('FormInputGroup', () => {
       expect(screen.getByTestId('input')).toBeOnTheScreen();
     });
 
-    it('renders with title', () => {
-      renderWithProviders(
+    it('renders with title', async () => {
+      await renderWithProviders(
         <FormInputGroup title="Account Details" testID="form-group">
           <RNText>Input field</RNText>
         </FormInputGroup>
@@ -67,8 +67,8 @@ describe('FormInputGroup', () => {
       expect(screen.getByText('Account Details')).toBeOnTheScreen();
     });
 
-    it('renders multiple children', () => {
-      renderWithProviders(
+    it('renders multiple children', async () => {
+      await renderWithProviders(
         <FormInputGroup testID="form-group">
           <RNText testID="input-1">Email</RNText>
           <RNText testID="input-2">Password</RNText>
@@ -83,8 +83,8 @@ describe('FormInputGroup', () => {
   });
 
   describe('title styling', () => {
-    it('renders title in uppercase', () => {
-      renderWithProviders(
+    it('renders title in uppercase', async () => {
+      await renderWithProviders(
         <FormInputGroup title="account details" testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -94,8 +94,8 @@ describe('FormInputGroup', () => {
       expect(screen.getByText('account details')).toBeOnTheScreen();
     });
 
-    it('title has header accessibility role', () => {
-      renderWithProviders(
+    it('title has header accessibility role', async () => {
+      await renderWithProviders(
         <FormInputGroup title="Personal Info" testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -106,10 +106,10 @@ describe('FormInputGroup', () => {
   });
 
   describe('theme support', () => {
-    it('renders with light theme', () => {
+    it('renders with light theme', async () => {
       mockUseAppColorScheme.mockReturnValue('light');
 
-      renderWithProviders(
+      await renderWithProviders(
         <FormInputGroup title="Light Mode" testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -119,10 +119,10 @@ describe('FormInputGroup', () => {
       expect(screen.getByText('Light Mode')).toBeOnTheScreen();
     });
 
-    it('renders with dark theme', () => {
+    it('renders with dark theme', async () => {
       mockUseAppColorScheme.mockReturnValue('dark');
 
-      renderWithProviders(
+      await renderWithProviders(
         <FormInputGroup title="Dark Mode" testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -134,8 +134,8 @@ describe('FormInputGroup', () => {
   });
 
   describe('accessibility', () => {
-    it('title has role="header" for screen readers', () => {
-      renderWithProviders(
+    it('title has role="header" for screen readers', async () => {
+      await renderWithProviders(
         <FormInputGroup title="Contact Information" testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -146,8 +146,8 @@ describe('FormInputGroup', () => {
       expect(screen.getByText('Contact Information')).toBeOnTheScreen();
     });
 
-    it('groups form fields semantically', () => {
-      renderWithProviders(
+    it('groups form fields semantically', async () => {
+      await renderWithProviders(
         <FormInputGroup title="Login Credentials" testID="login-group">
           <RNText testID="email-input">Email input</RNText>
           <RNText testID="password-input">Password input</RNText>
@@ -163,8 +163,8 @@ describe('FormInputGroup', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('has correct focus order with title and inputs', () => {
-      renderWithProviders(
+    it('has correct focus order with title and inputs', async () => {
+      await renderWithProviders(
         <FormInputGroup title="Login" testID="form-group">
           <RNText testID="email-field" accessibilityRole="none">
             Email
@@ -182,8 +182,8 @@ describe('FormInputGroup', () => {
       expectFocusOrder([title, emailField, passwordField]);
     });
 
-    it('has correct focus order for multi-field form', () => {
-      renderWithProviders(
+    it('has correct focus order for multi-field form', async () => {
+      await renderWithProviders(
         <FormInputGroup title="Personal Details" testID="form-group">
           <RNText testID="first-name" accessibilityRole="none">
             First Name
@@ -207,8 +207,8 @@ describe('FormInputGroup', () => {
   });
 
   describe('customisation', () => {
-    it('accepts custom horizontal margin', () => {
-      renderWithProviders(
+    it('accepts custom horizontal margin', async () => {
+      await renderWithProviders(
         <FormInputGroup mx="$8" testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -217,8 +217,8 @@ describe('FormInputGroup', () => {
       expect(screen.getByTestId('form-group')).toBeOnTheScreen();
     });
 
-    it('accepts custom top margin', () => {
-      renderWithProviders(
+    it('accepts custom top margin', async () => {
+      await renderWithProviders(
         <FormInputGroup mt="$10" testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -227,8 +227,8 @@ describe('FormInputGroup', () => {
       expect(screen.getByTestId('form-group')).toBeOnTheScreen();
     });
 
-    it('accepts both custom margins', () => {
-      renderWithProviders(
+    it('accepts both custom margins', async () => {
+      await renderWithProviders(
         <FormInputGroup mx="$2" mt="$0" testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -239,8 +239,8 @@ describe('FormInputGroup', () => {
   });
 
   describe('edge cases', () => {
-    it('handles empty title', () => {
-      renderWithProviders(
+    it('handles empty title', async () => {
+      await renderWithProviders(
         <FormInputGroup title="" testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -251,8 +251,8 @@ describe('FormInputGroup', () => {
       expect(screen.queryByRole('header')).toBeNull();
     });
 
-    it('handles undefined title', () => {
-      renderWithProviders(
+    it('handles undefined title', async () => {
+      await renderWithProviders(
         <FormInputGroup title={undefined} testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -262,10 +262,10 @@ describe('FormInputGroup', () => {
       expect(screen.queryByRole('header')).toBeNull();
     });
 
-    it('handles very long title', () => {
+    it('handles very long title', async () => {
       const longTitle = 'A'.repeat(100);
 
-      renderWithProviders(
+      await renderWithProviders(
         <FormInputGroup title={longTitle} testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -274,10 +274,10 @@ describe('FormInputGroup', () => {
       expect(screen.getByText(longTitle)).toBeOnTheScreen();
     });
 
-    it('handles special characters in title', () => {
+    it('handles special characters in title', async () => {
       const specialTitle = 'Account & Security (2FA)';
 
-      renderWithProviders(
+      await renderWithProviders(
         <FormInputGroup title={specialTitle} testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -286,10 +286,10 @@ describe('FormInputGroup', () => {
       expect(screen.getByText(specialTitle)).toBeOnTheScreen();
     });
 
-    it('handles unicode in title', () => {
+    it('handles unicode in title', async () => {
       const unicodeTitle = 'Données personnelles 日本語';
 
-      renderWithProviders(
+      await renderWithProviders(
         <FormInputGroup title={unicodeTitle} testID="form-group">
           <RNText>Content</RNText>
         </FormInputGroup>
@@ -298,16 +298,16 @@ describe('FormInputGroup', () => {
       expect(screen.getByText(unicodeTitle)).toBeOnTheScreen();
     });
 
-    it('handles null children', () => {
-      renderWithProviders(<FormInputGroup testID="form-group">{null}</FormInputGroup>);
+    it('handles null children', async () => {
+      await renderWithProviders(<FormInputGroup testID="form-group">{null}</FormInputGroup>);
 
       expect(screen.getByTestId('form-group')).toBeOnTheScreen();
     });
   });
 
   describe('integration', () => {
-    it('renders nested form groups', () => {
-      renderWithProviders(
+    it('renders nested form groups', async () => {
+      await renderWithProviders(
         <FormInputGroup title="Outer Group" testID="outer-group">
           <FormInputGroup title="Inner Group" testID="inner-group">
             <RNText>Nested content</RNText>
@@ -320,8 +320,8 @@ describe('FormInputGroup', () => {
       expect(screen.getByText('Nested content')).toBeOnTheScreen();
     });
 
-    it('renders complete form layout', () => {
-      renderWithProviders(
+    it('renders complete form layout', async () => {
+      await renderWithProviders(
         <FormInputGroup title="Login" testID="login-form">
           <RNText testID="email">Email field</RNText>
           <RNText testID="divider">Divider</RNText>

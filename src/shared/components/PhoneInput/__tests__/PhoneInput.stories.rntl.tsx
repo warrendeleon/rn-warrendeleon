@@ -24,57 +24,57 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 describe('PhoneInput Stories', () => {
-  it('renders Default story with placeholder', () => {
+  it('renders Default story with placeholder', async () => {
     const { args } = stories.Default;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PhoneInput {...(args as PhoneInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/phone/i)).toBeOnTheScreen();
   });
 
-  it('renders WithValue story with phone number', () => {
+  it('renders WithValue story with phone number', async () => {
     const { args } = stories.WithValue;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PhoneInput {...(args as PhoneInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/phone/i)).toBeOnTheScreen();
   });
 
-  it('renders WithError story with error message', () => {
+  it('renders WithError story with error message', async () => {
     const { args } = stories.WithError;
-    const { getByText } = renderWithProviders(
+    const { getByText } = await renderWithProviders(
       <PhoneInput {...(args as PhoneInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByText('Please enter a valid phone number')).toBeOnTheScreen();
   });
 
-  it('renders InGroupTop story with top variant', () => {
+  it('renders InGroupTop story with top variant', async () => {
     const { args } = stories.InGroupTop;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PhoneInput {...(args as PhoneInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/phone/i)).toBeOnTheScreen();
   });
 
-  it('renders InGroupBottom story with bottom variant', () => {
+  it('renders InGroupBottom story with bottom variant', async () => {
     const { args } = stories.InGroupBottom;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PhoneInput {...(args as PhoneInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/phone/i)).toBeOnTheScreen();
   });
 
-  it('renders CountrySelectorDisabled story with disabled selector', () => {
+  it('renders CountrySelectorDisabled story with disabled selector', async () => {
     const { args } = stories.CountrySelectorDisabled;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <PhoneInput {...(args as PhoneInputProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/phone/i)).toBeOnTheScreen();
   });
 
-  it('renders Disabled story with input disabled', () => {
+  it('renders Disabled story with input disabled', async () => {
     const { args } = stories.Disabled;
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <PhoneInput {...(args as PhoneInputProps)} onChangeText={jest.fn()} testID="phone-input" />
     );
     expect(getByTestId('phone-input').props.editable).toBe(false);

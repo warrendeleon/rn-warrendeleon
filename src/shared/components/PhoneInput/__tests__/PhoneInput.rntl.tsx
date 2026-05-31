@@ -69,28 +69,28 @@ describe('PhoneInput', () => {
   });
 
   describe('rendering', () => {
-    it('should render with placeholder', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} />);
+    it('should render with placeholder', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} />);
 
       expect(screen.getByPlaceholderText('Phone number')).toBeOnTheScreen();
     });
 
-    it('should render with testID', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
+    it('should render with testID', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
 
       expect(screen.getByTestId('phone-input')).toBeOnTheScreen();
     });
 
-    it('should render country code selector', () => {
-      renderWithProviders(
+    it('should render country code selector', async () => {
+      await renderWithProviders(
         <PhoneInput {...defaultProps} countrySelectorTestID="country-selector" />
       );
 
       expect(screen.getByTestId('country-selector')).toBeOnTheScreen();
     });
 
-    it('should display national number without country code', () => {
-      renderWithProviders(
+    it('should display national number without country code', async () => {
+      await renderWithProviders(
         <PhoneInput {...defaultProps} value="+447510084239" testID="phone-input" />
       );
 
@@ -100,74 +100,74 @@ describe('PhoneInput', () => {
   });
 
   describe('phone-specific configuration', () => {
-    it('should use phone-pad keyboard type', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
+    it('should use phone-pad keyboard type', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
 
       expect(screen.getByTestId('phone-input').props.keyboardType).toBe('phone-pad');
     });
 
-    it('should set autoComplete to tel', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
+    it('should set autoComplete to tel', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
 
       expect(screen.getByTestId('phone-input').props.autoComplete).toBe('tel');
     });
 
-    it('should set textContentType to telephoneNumber', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
+    it('should set textContentType to telephoneNumber', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
 
       expect(screen.getByTestId('phone-input').props.textContentType).toBe('telephoneNumber');
     });
   });
 
   describe('interaction', () => {
-    it('should prepend country code when text is entered', () => {
+    it('should prepend country code when text is entered', async () => {
       const onChangeText = jest.fn();
-      renderWithProviders(
+      await renderWithProviders(
         <PhoneInput {...defaultProps} onChangeText={onChangeText} testID="phone-input" />
       );
 
-      fireEvent.changeText(screen.getByTestId('phone-input'), '7510084239');
+      await fireEvent.changeText(screen.getByTestId('phone-input'), '7510084239');
 
       expect(onChangeText).toHaveBeenCalledWith('+447510084239');
     });
 
-    it('should not double-prepend country code', () => {
+    it('should not double-prepend country code', async () => {
       const onChangeText = jest.fn();
-      renderWithProviders(
+      await renderWithProviders(
         <PhoneInput {...defaultProps} onChangeText={onChangeText} testID="phone-input" />
       );
 
       // If user somehow enters with +, it should not add another
-      fireEvent.changeText(screen.getByTestId('phone-input'), '+447510084239');
+      await fireEvent.changeText(screen.getByTestId('phone-input'), '+447510084239');
 
       expect(onChangeText).toHaveBeenCalledWith('+447510084239');
     });
 
-    it('should call onBlur when input loses focus', () => {
+    it('should call onBlur when input loses focus', async () => {
       const onBlur = jest.fn();
-      renderWithProviders(<PhoneInput {...defaultProps} onBlur={onBlur} testID="phone-input" />);
+      await renderWithProviders(<PhoneInput {...defaultProps} onBlur={onBlur} testID="phone-input" />);
 
-      fireEvent(screen.getByTestId('phone-input'), 'blur');
+      await fireEvent(screen.getByTestId('phone-input'), 'blur');
 
       expect(onBlur).toHaveBeenCalled();
     });
 
-    it('should call onSubmitEditing when return key is pressed', () => {
+    it('should call onSubmitEditing when return key is pressed', async () => {
       const onSubmitEditing = jest.fn();
-      renderWithProviders(
+      await renderWithProviders(
         <PhoneInput {...defaultProps} onSubmitEditing={onSubmitEditing} testID="phone-input" />
       );
 
-      fireEvent(screen.getByTestId('phone-input'), 'submitEditing');
+      await fireEvent(screen.getByTestId('phone-input'), 'submitEditing');
 
       expect(onSubmitEditing).toHaveBeenCalled();
     });
   });
 
   describe('country code selection', () => {
-    it('should call onChangeText when country is selected with existing value', () => {
+    it('should call onChangeText when country is selected with existing value', async () => {
       const onChangeText = jest.fn();
-      renderWithProviders(
+      await renderWithProviders(
         <PhoneInput
           {...defaultProps}
           value="+447510084239"
@@ -177,15 +177,15 @@ describe('PhoneInput', () => {
       );
 
       // Press country selector (mock will select US +1)
-      fireEvent.press(screen.getByTestId('country-selector'));
+      await fireEvent.press(screen.getByTestId('country-selector'));
 
       // Should be called with new country code (actual behaviour based on regex stripping)
       expect(onChangeText).toHaveBeenCalled();
     });
 
-    it('should strip entire number when country changes (regex matches all digits)', () => {
+    it('should strip entire number when country changes (regex matches all digits)', async () => {
       const onChangeText = jest.fn();
-      renderWithProviders(
+      await renderWithProviders(
         <PhoneInput
           {...defaultProps}
           value="+447510084239"
@@ -195,7 +195,7 @@ describe('PhoneInput', () => {
       );
 
       // Press country selector (mock will select US +1)
-      fireEvent.press(screen.getByTestId('country-selector'));
+      await fireEvent.press(screen.getByTestId('country-selector'));
 
       // The regex /^\+\d+/ is greedy and matches +447510084239 entirely
       // This leaves empty string, and new country code +1 is prepended
@@ -203,9 +203,9 @@ describe('PhoneInput', () => {
       expect(onChangeText).toHaveBeenCalledWith('+1');
     });
 
-    it('should not call onChangeText when selecting country with empty value', () => {
+    it('should not call onChangeText when selecting country with empty value', async () => {
       const onChangeText = jest.fn();
-      renderWithProviders(
+      await renderWithProviders(
         <PhoneInput
           {...defaultProps}
           value=""
@@ -214,14 +214,14 @@ describe('PhoneInput', () => {
         />
       );
 
-      fireEvent.press(screen.getByTestId('country-selector'));
+      await fireEvent.press(screen.getByTestId('country-selector'));
 
       // Should not call with empty value
       expect(onChangeText).not.toHaveBeenCalled();
     });
 
-    it('should render country selector with isCountrySelectorDisabled', () => {
-      renderWithProviders(
+    it('should render country selector with isCountrySelectorDisabled', async () => {
+      await renderWithProviders(
         <PhoneInput
           {...defaultProps}
           isCountrySelectorDisabled
@@ -233,8 +233,8 @@ describe('PhoneInput', () => {
       expect(screen.getByTestId('country-selector')).toBeOnTheScreen();
     });
 
-    it('should render country selector when editable is false', () => {
-      renderWithProviders(
+    it('should render country selector when editable is false', async () => {
+      await renderWithProviders(
         <PhoneInput {...defaultProps} editable={false} countrySelectorTestID="country-selector" />
       );
 
@@ -244,28 +244,28 @@ describe('PhoneInput', () => {
   });
 
   describe('accessibility', () => {
-    it('should use placeholder as default accessibility label', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} />);
+    it('should use placeholder as default accessibility label', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} />);
 
       expect(screen.getByLabelText('Phone number')).toBeOnTheScreen();
     });
 
-    it('should use custom accessibility label when provided', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} accessibilityLabel="Your phone" />);
+    it('should use custom accessibility label when provided', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} accessibilityLabel="Your phone" />);
 
       expect(screen.getByLabelText('Your phone')).toBeOnTheScreen();
     });
 
-    it('should have default accessibility hint', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
+    it('should have default accessibility hint', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
 
       expect(screen.getByTestId('phone-input').props.accessibilityHint).toBe(
         'Enter your phone number'
       );
     });
 
-    it('should use custom accessibility hint when provided', () => {
-      renderWithProviders(
+    it('should use custom accessibility hint when provided', async () => {
+      await renderWithProviders(
         <PhoneInput {...defaultProps} accessibilityHint="Custom hint" testID="phone-input" />
       );
 
@@ -274,28 +274,28 @@ describe('PhoneInput', () => {
   });
 
   describe('error display', () => {
-    it('should render error message when error prop is provided', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} error="Invalid phone number" />);
+    it('should render error message when error prop is provided', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} error="Invalid phone number" />);
 
       expect(screen.getByText('Invalid phone number')).toBeOnTheScreen();
     });
 
-    it('should not render error when no error prop', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} />);
+    it('should not render error when no error prop', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} />);
 
       expect(screen.queryByText('Invalid phone number')).toBeNull();
     });
   });
 
   describe('return key type', () => {
-    it('should default to next return key type', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
+    it('should default to next return key type', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
 
       expect(screen.getByTestId('phone-input').props.returnKeyType).toBe('next');
     });
 
-    it('should accept custom return key type', () => {
-      renderWithProviders(
+    it('should accept custom return key type', async () => {
+      await renderWithProviders(
         <PhoneInput {...defaultProps} returnKeyType="done" testID="phone-input" />
       );
 
@@ -304,31 +304,31 @@ describe('PhoneInput', () => {
   });
 
   describe('editable state', () => {
-    it('should be editable by default', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
+    it('should be editable by default', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
 
       expect(screen.getByTestId('phone-input').props.editable).toBe(true);
     });
 
-    it('should be non-editable when editable is false', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} editable={false} testID="phone-input" />);
+    it('should be non-editable when editable is false', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} editable={false} testID="phone-input" />);
 
       expect(screen.getByTestId('phone-input').props.editable).toBe(false);
     });
   });
 
   describe('ref forwarding', () => {
-    it('should forward ref for focus functionality', () => {
+    it('should forward ref for focus functionality', async () => {
       const ref = createRef<{ focus: () => void }>();
-      renderWithProviders(<PhoneInput {...defaultProps} ref={ref} testID="phone-input" />);
+      await renderWithProviders(<PhoneInput {...defaultProps} ref={ref} testID="phone-input" />);
 
       expect(ref.current).toBeDefined();
     });
   });
 
   describe('initial country', () => {
-    it('should use UK as default country', () => {
-      renderWithProviders(
+    it('should use UK as default country', async () => {
+      await renderWithProviders(
         <PhoneInput {...defaultProps} countrySelectorTestID="country-selector" />
       );
 
@@ -336,7 +336,7 @@ describe('PhoneInput', () => {
       expect(screen.getByText('🇬🇧 +44')).toBeOnTheScreen();
     });
 
-    it('should accept custom initial country', () => {
+    it('should accept custom initial country', async () => {
       const customCountry = {
         code: 'US' as const,
         name: 'United States',
@@ -344,7 +344,7 @@ describe('PhoneInput', () => {
         flag: '🇺🇸',
       };
 
-      renderWithProviders(
+      await renderWithProviders(
         <PhoneInput
           {...defaultProps}
           initialCountry={customCountry}
@@ -357,8 +357,8 @@ describe('PhoneInput', () => {
   });
 
   describe('display value extraction', () => {
-    it('should strip matching country code from display value', () => {
-      renderWithProviders(
+    it('should strip matching country code from display value', async () => {
+      await renderWithProviders(
         <PhoneInput {...defaultProps} value="+447510084239" testID="phone-input" />
       );
 
@@ -366,23 +366,23 @@ describe('PhoneInput', () => {
       expect(screen.getByDisplayValue('7510084239')).toBeOnTheScreen();
     });
 
-    it('should handle empty value', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} value="" testID="phone-input" />);
+    it('should handle empty value', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} value="" testID="phone-input" />);
 
       expect(screen.getByTestId('phone-input')).toBeOnTheScreen();
     });
 
-    it('should handle value without country code prefix', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} value="7510084239" testID="phone-input" />);
+    it('should handle value without country code prefix', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} value="7510084239" testID="phone-input" />);
 
       // Value without + prefix is displayed as-is
       expect(screen.getByDisplayValue('7510084239')).toBeOnTheScreen();
     });
 
-    it('should use fallback regex when value has different country code prefix', () => {
+    it('should use fallback regex when value has different country code prefix', async () => {
       // Start with UK (+44) as default, but provide a US number (+1)
       // The fallback regex /^\+\d+/ is greedy and strips all digits
-      renderWithProviders(
+      await renderWithProviders(
         <PhoneInput {...defaultProps} value="+15551234567" testID="phone-input" />
       );
 
@@ -394,8 +394,8 @@ describe('PhoneInput', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('input is accessible and reachable', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
+    it('input is accessible and reachable', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} testID="phone-input" />);
 
       // The touch target is the container Box with minHeight={44}, not the inner TextInput
       // PhoneInput wraps FormInputItem which has the accessible container
@@ -403,8 +403,8 @@ describe('PhoneInput', () => {
       expect(input).toBeOnTheScreen();
     });
 
-    it('country selector has accessible touch target', () => {
-      renderWithProviders(
+    it('country selector has accessible touch target', async () => {
+      await renderWithProviders(
         <PhoneInput {...defaultProps} countrySelectorTestID="country-selector" />
       );
 
@@ -412,8 +412,8 @@ describe('PhoneInput', () => {
       expectMinTouchTarget(selector);
     });
 
-    it('input with error is accessible', () => {
-      renderWithProviders(
+    it('input with error is accessible', async () => {
+      await renderWithProviders(
         <PhoneInput {...defaultProps} error="Invalid phone number" testID="phone-input" />
       );
 
@@ -422,8 +422,8 @@ describe('PhoneInput', () => {
       expect(screen.getByText('Invalid phone number')).toBeOnTheScreen();
     });
 
-    it('non-editable input is accessible', () => {
-      renderWithProviders(<PhoneInput {...defaultProps} editable={false} testID="phone-input" />);
+    it('non-editable input is accessible', async () => {
+      await renderWithProviders(<PhoneInput {...defaultProps} editable={false} testID="phone-input" />);
 
       const input = screen.getByTestId('phone-input');
       expect(input.props.editable).toBe(false);

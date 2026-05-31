@@ -93,7 +93,7 @@ describe('EducationScreen', () => {
     jest.clearAllMocks();
   });
 
-  it('renders education items when data is loaded', () => {
+  it('renders education items when data is loaded', async () => {
     const store = mockStore({
       education: {
         data: mockEducationData,
@@ -105,7 +105,7 @@ describe('EducationScreen', () => {
       },
     });
 
-    render(
+    await render(
       <Provider store={store}>
         <EducationScreen />
       </Provider>
@@ -127,14 +127,14 @@ describe('EducationScreen', () => {
       },
     });
 
-    render(
+    await render(
       <Provider store={store}>
         <EducationScreen />
       </Provider>
     );
 
     const certItem = screen.getByTestId('education-item-university-a');
-    fireEvent.press(certItem);
+    await fireEvent.press(certItem);
 
     await waitFor(
       () => {
@@ -146,7 +146,7 @@ describe('EducationScreen', () => {
     );
   });
 
-  it('does not navigate when education without certificate is tapped', () => {
+  it('does not navigate when education without certificate is tapped', async () => {
     const store = mockStore({
       education: {
         data: mockEducationData,
@@ -158,19 +158,19 @@ describe('EducationScreen', () => {
       },
     });
 
-    render(
+    await render(
       <Provider store={store}>
         <EducationScreen />
       </Provider>
     );
 
     const noCertItem = screen.getByTestId('education-item-online-course-b');
-    fireEvent.press(noCertItem);
+    await fireEvent.press(noCertItem);
 
     expect(mockNavigate).not.toHaveBeenCalled();
   });
 
-  it('displays loading state', () => {
+  it('displays loading state', async () => {
     const store = mockStore({
       education: {
         data: null,
@@ -182,7 +182,7 @@ describe('EducationScreen', () => {
       },
     });
 
-    render(
+    await render(
       <Provider store={store}>
         <EducationScreen />
       </Provider>
@@ -191,7 +191,7 @@ describe('EducationScreen', () => {
     expect(screen.getByTestId('loading-state')).toBeOnTheScreen();
   });
 
-  it('displays error state', () => {
+  it('displays error state', async () => {
     const errorMessage = 'Network error';
     const store = mockStore({
       education: {
@@ -204,7 +204,7 @@ describe('EducationScreen', () => {
       },
     });
 
-    render(
+    await render(
       <Provider store={store}>
         <EducationScreen />
       </Provider>
@@ -214,7 +214,7 @@ describe('EducationScreen', () => {
     expect(screen.getByText(errorMessage)).toBeOnTheScreen();
   });
 
-  it('displays empty state when no data', () => {
+  it('displays empty state when no data', async () => {
     const store = mockStore({
       education: {
         data: [],
@@ -226,7 +226,7 @@ describe('EducationScreen', () => {
       },
     });
 
-    render(
+    await render(
       <Provider store={store}>
         <EducationScreen />
       </Provider>
@@ -235,7 +235,7 @@ describe('EducationScreen', () => {
     expect(screen.getByText('No education data available')).toBeOnTheScreen();
   });
 
-  it('fetches education data on mount', () => {
+  it('fetches education data on mount', async () => {
     const store = mockStore({
       education: {
         data: null,
@@ -249,7 +249,7 @@ describe('EducationScreen', () => {
 
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
-    render(
+    await render(
       <Provider store={store}>
         <EducationScreen />
       </Provider>

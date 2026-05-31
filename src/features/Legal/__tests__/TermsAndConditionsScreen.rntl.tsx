@@ -44,31 +44,31 @@ describe('TermsAndConditionsScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders without throwing errors', () => {
-      const result = renderWithProviders(
+    it('renders without throwing errors', async () => {
+      const result = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
       expectRendersSuccessfully(result);
     });
 
-    it('renders screen container with testID', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders screen container with testID', async () => {
+      const { getByTestId } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('terms-and-conditions-screen')).toBeOnTheScreen();
     });
 
-    it('renders scroll view container', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders scroll view container', async () => {
+      const { getByTestId } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('terms-and-conditions-screen')).toBeOnTheScreen();
     });
 
-    it('displays the last updated date', () => {
-      const { getByText } = renderWithProviders(
+    it('displays the last updated date', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -77,80 +77,80 @@ describe('TermsAndConditionsScreen', () => {
   });
 
   describe('Content Sections', () => {
-    it('displays introduction section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays introduction section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('1. Introduction')).toBeOnTheScreen();
     });
 
-    it('displays acceptance section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays acceptance section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('2. Acceptance of Terms')).toBeOnTheScreen();
     });
 
-    it('displays user accounts section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays user accounts section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('3. User Accounts')).toBeOnTheScreen();
     });
 
-    it('displays acceptable use section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays acceptable use section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('4. Acceptable Use')).toBeOnTheScreen();
     });
 
-    it('displays intellectual property section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays intellectual property section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('5. Intellectual Property')).toBeOnTheScreen();
     });
 
-    it('displays limitation of liability section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays limitation of liability section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('6. Limitation of Liability')).toBeOnTheScreen();
     });
 
-    it('displays termination section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays termination section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('7. Termination')).toBeOnTheScreen();
     });
 
-    it('displays governing law section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays governing law section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('8. Governing Law')).toBeOnTheScreen();
     });
 
-    it('displays changes to terms section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays changes to terms section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByText('9. Changes to Terms')).toBeOnTheScreen();
     });
 
-    it('displays contact section heading', () => {
-      const { getByText } = renderWithProviders(
+    it('displays contact section heading', async () => {
+      const { getByText } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -159,8 +159,8 @@ describe('TermsAndConditionsScreen', () => {
   });
 
   describe('Accessibility', () => {
-    it('has scrollbar accessibility role on container', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has scrollbar accessibility role on container', async () => {
+      const { getByTestId } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -168,8 +168,8 @@ describe('TermsAndConditionsScreen', () => {
       expect(scrollView.props.accessibilityRole).toBe('scrollbar');
     });
 
-    it('has descriptive accessibility label on container', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has descriptive accessibility label on container', async () => {
+      const { getByTestId } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -179,16 +179,16 @@ describe('TermsAndConditionsScreen', () => {
   });
 
   describe('Theme Support', () => {
-    it('renders in light mode', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders in light mode', async () => {
+      const { getByTestId } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('terms-and-conditions-screen')).toBeOnTheScreen();
     });
 
-    it('renders in dark mode with dark theme setting', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders in dark mode with dark theme setting', async () => {
+      const { getByTestId } = await renderWithProviders(
         <TermsAndConditionsScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {

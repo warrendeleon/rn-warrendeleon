@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import type { ReactTestInstance } from 'react-test-renderer';
+import type { TestInstance } from 'test-renderer';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { act, fireEvent, waitFor } from '@testing-library/react-native';
 
@@ -53,8 +53,8 @@ describe('PINSetupScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders PIN setup screen with title and input', () => {
-      const { getByText, getByTestId } = renderWithProviders(
+    it('renders PIN setup screen with title and input', async () => {
+      const { getByText, getByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -63,16 +63,16 @@ describe('PINSetupScreen', () => {
       expect(getByTestId('pin-input-enter')).toBeOnTheScreen();
     });
 
-    it('renders PIN input for entering PIN', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders PIN input for entering PIN', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('pin-input-enter')).toBeOnTheScreen();
     });
 
-    it('renders keypad buttons', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders keypad buttons', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -81,8 +81,8 @@ describe('PINSetupScreen', () => {
       }
     });
 
-    it('renders delete button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders delete button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -92,13 +92,13 @@ describe('PINSetupScreen', () => {
 
   describe('PIN Validation', () => {
     it('shows error for sequential PIN (123456)', async () => {
-      const { getByTestId, findByTestId } = renderWithProviders(
+      const { getByTestId, findByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter sequential PIN
       for (const digit of ['1', '2', '3', '4', '5', '6']) {
-        fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
+        await fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
       }
 
       const errorMessage = await findByTestId('pin-error-message');
@@ -106,13 +106,13 @@ describe('PINSetupScreen', () => {
     });
 
     it('shows error for repeated PIN (000000)', async () => {
-      const { getByTestId, findByTestId } = renderWithProviders(
+      const { getByTestId, findByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter repeated PIN
       for (let i = 0; i < 6; i++) {
-        fireEvent.press(getByTestId('pin-input-enter-keypad-0'));
+        await fireEvent.press(getByTestId('pin-input-enter-keypad-0'));
       }
 
       const errorMessage = await findByTestId('pin-error-message');
@@ -120,13 +120,13 @@ describe('PINSetupScreen', () => {
     });
 
     it('shows error for repeated pairs (121212)', async () => {
-      const { getByTestId, findByTestId } = renderWithProviders(
+      const { getByTestId, findByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter repeated pairs
       for (const digit of ['1', '2', '1', '2', '1', '2']) {
-        fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
+        await fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
       }
 
       const errorMessage = await findByTestId('pin-error-message');
@@ -134,13 +134,13 @@ describe('PINSetupScreen', () => {
     });
 
     it('proceeds to confirmation step with valid PIN', async () => {
-      const { getByTestId, findByTestId } = renderWithProviders(
+      const { getByTestId, findByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid PIN (742589)
       for (const digit of ['7', '4', '2', '5', '8', '9']) {
-        fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
+        await fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
       }
 
       // Should now show confirmation input
@@ -150,49 +150,52 @@ describe('PINSetupScreen', () => {
   });
 
   describe('PIN Confirmation Flow', () => {
-    const enterValidPIN = (getByTestId: (id: string) => ReactTestInstance) => {
+    const enterValidPIN = async (getByTestId: (id: string) => TestInstance) => {
       for (const digit of ['7', '4', '2', '5', '8', '9']) {
-        fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
+        await fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
       }
     };
 
-    const enterConfirmPIN = (getByTestId: (id: string) => ReactTestInstance, digits: string[]) => {
+    const enterConfirmPIN = async (
+      getByTestId: (id: string) => TestInstance,
+      digits: string[]
+    ) => {
       for (const digit of digits) {
-        fireEvent.press(getByTestId(`pin-input-confirm-keypad-${digit}`));
+        await fireEvent.press(getByTestId(`pin-input-confirm-keypad-${digit}`));
       }
     };
 
     it('shows success message in confirmation step', async () => {
-      const { getByTestId, findByTestId } = renderWithProviders(
+      const { getByTestId, findByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      enterValidPIN(getByTestId);
+      await enterValidPIN(getByTestId);
 
       const successMessage = await findByTestId('pin-strong-message');
       expect(successMessage).toBeOnTheScreen();
     });
 
     it('shows change PIN link in confirmation step', async () => {
-      const { getByTestId, findByTestId } = renderWithProviders(
+      const { getByTestId, findByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      enterValidPIN(getByTestId);
+      await enterValidPIN(getByTestId);
 
       const changePinLink = await findByTestId('change-pin-link');
       expect(changePinLink).toBeOnTheScreen();
     });
 
     it('returns to enter step when change PIN link is pressed', async () => {
-      const { getByTestId, findByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, findByTestId, queryByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      enterValidPIN(getByTestId);
+      await enterValidPIN(getByTestId);
 
       const changePinLink = await findByTestId('change-pin-link');
-      fireEvent.press(changePinLink);
+      await fireEvent.press(changePinLink);
 
       await waitFor(
         () => {
@@ -204,30 +207,30 @@ describe('PINSetupScreen', () => {
     });
 
     it('shows error when confirmation PIN does not match', async () => {
-      const { getByTestId, findByTestId } = renderWithProviders(
+      const { getByTestId, findByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid PIN
-      enterValidPIN(getByTestId);
+      await enterValidPIN(getByTestId);
 
       // Wait for confirmation step
       await findByTestId('pin-input-confirm');
 
       // Enter different PIN for confirmation (uses confirm keypad)
-      enterConfirmPIN(getByTestId, ['1', '2', '3', '7', '8', '9']);
+      await enterConfirmPIN(getByTestId, ['1', '2', '3', '7', '8', '9']);
 
       const errorMessage = await findByTestId('pin-error-message');
       expect(errorMessage).toBeOnTheScreen();
     });
 
     it('navigates to Home on successful PIN setup', async () => {
-      const { getByTestId, findByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, findByTestId, queryByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid PIN
-      enterValidPIN(getByTestId);
+      await enterValidPIN(getByTestId);
 
       // Wait for confirmation step
       await findByTestId('pin-input-confirm');
@@ -239,7 +242,7 @@ describe('PINSetupScreen', () => {
       const confirmDigits = ['7', '4', '2', '5', '8', '9'];
       for (const digit of confirmDigits) {
         await act(async () => {
-          fireEvent.press(getByTestId(`pin-input-confirm-keypad-${digit}`));
+          await fireEvent.press(getByTestId(`pin-input-confirm-keypad-${digit}`));
         });
       }
 
@@ -257,22 +260,22 @@ describe('PINSetupScreen', () => {
   });
 
   describe('Delete Functionality', () => {
-    it('allows deleting entered digits', () => {
-      const { getByTestId } = renderWithProviders(
+    it('allows deleting entered digits', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter 3 digits
       for (const digit of ['7', '4', '2']) {
-        fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
+        await fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
       }
 
       // Delete one digit
-      fireEvent.press(getByTestId('pin-input-enter-keypad-delete'));
+      await fireEvent.press(getByTestId('pin-input-enter-keypad-delete'));
 
       // Enter 4 more digits to complete (should now need 4 to complete)
       for (const digit of ['5', '8', '9', '3']) {
-        fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
+        await fireEvent.press(getByTestId(`pin-input-enter-keypad-${digit}`));
       }
 
       // Should not navigate yet as we're testing the delete worked
@@ -281,8 +284,8 @@ describe('PINSetupScreen', () => {
   });
 
   describe('Accessibility', () => {
-    it('has accessible screen', () => {
-      const { getByRole } = renderWithProviders(
+    it('has accessible screen', async () => {
+      const { getByRole } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -292,8 +295,8 @@ describe('PINSetupScreen', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('keypad buttons have accessible touch targets (44×44 minimum)', () => {
-      const { getByTestId } = renderWithProviders(
+    it('keypad buttons have accessible touch targets (44×44 minimum)', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -303,8 +306,8 @@ describe('PINSetupScreen', () => {
       expectMinTouchTarget(getByTestId('pin-input-enter-keypad-delete'));
     });
 
-    it('has correct focus order for PIN dots', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has correct focus order for PIN dots', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -316,8 +319,8 @@ describe('PINSetupScreen', () => {
       expectFocusOrder(dots);
     });
 
-    it('all digit buttons have accessible touch targets', () => {
-      const { getByTestId } = renderWithProviders(
+    it('all digit buttons have accessible touch targets', async () => {
+      const { getByTestId } = await renderWithProviders(
         <PINSetupScreen navigation={mockNavigation} route={mockRoute} />
       );
 

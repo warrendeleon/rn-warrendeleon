@@ -50,7 +50,7 @@ describe('SplashScreen', () => {
   });
 
   it('renders Logo component', async () => {
-    const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+    const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     await waitFor(
       () => {
@@ -63,7 +63,7 @@ describe('SplashScreen', () => {
   it('renders with dark mode when colour scheme is dark', async () => {
     mockUseAppColorScheme.mockReturnValue('dark');
 
-    const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+    const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     await waitFor(
       () => {
@@ -78,7 +78,7 @@ describe('SplashScreen', () => {
   it('renders with light mode when colour scheme is light', async () => {
     mockUseAppColorScheme.mockReturnValue('light');
 
-    const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+    const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     await waitFor(
       () => {
@@ -91,7 +91,7 @@ describe('SplashScreen', () => {
   });
 
   it('dispatches all three fetch actions on mount', async () => {
-    const { store } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+    const { store } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     await waitFor(
       () => {
@@ -111,7 +111,7 @@ describe('SplashScreen', () => {
   });
 
   it('calls onComplete after 1.5 seconds', async () => {
-    renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+    await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     expect(mockOnComplete).not.toHaveBeenCalled();
 
@@ -128,7 +128,7 @@ describe('SplashScreen', () => {
   });
 
   it('does not call onComplete before 1.5 seconds', async () => {
-    renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+    await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
     await act(async () => {
       jest.advanceTimersByTime(1000);
@@ -138,7 +138,7 @@ describe('SplashScreen', () => {
   });
 
   it('returns null after loading is complete', async () => {
-    const { queryByTestId, rerender } = renderWithProviders(
+    const { queryByTestId, rerender } = await renderWithProviders(
       <SplashScreen onComplete={mockOnComplete} />
     );
 
@@ -156,16 +156,16 @@ describe('SplashScreen', () => {
     });
 
     // Force re-render to check the new state
-    rerender(<SplashScreen onComplete={mockOnComplete} />);
+    await rerender(<SplashScreen onComplete={mockOnComplete} />);
 
     // After loading is complete, component returns null
     expect(queryByTestId('logo')).toBeNull();
   });
 
   it('clears timeout on unmount', async () => {
-    const { unmount } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+    const { unmount } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
-    unmount();
+    await unmount();
 
     await act(async () => {
       jest.advanceTimersByTime(1500);
@@ -182,7 +182,7 @@ describe('SplashScreen', () => {
     });
 
     it('displays error UI when fetch fails', async () => {
-      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await act(async () => {
         jest.runAllTimers();
@@ -199,7 +199,7 @@ describe('SplashScreen', () => {
     });
 
     it('does not call onComplete when fetch fails', async () => {
-      renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await act(async () => {
         jest.runAllTimers();
@@ -214,7 +214,7 @@ describe('SplashScreen', () => {
     });
 
     it('retries data fetch when retry button is pressed', async () => {
-      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await act(async () => {
         jest.runAllTimers();
@@ -233,7 +233,7 @@ describe('SplashScreen', () => {
       // Press retry button
       const retryButton = getByTestId('splash-retry-button');
       await act(async () => {
-        fireEvent.press(retryButton);
+        await fireEvent.press(retryButton);
       });
 
       await act(async () => {
@@ -251,7 +251,7 @@ describe('SplashScreen', () => {
 
   describe('Accessibility', () => {
     it('has accessible loading screen label', async () => {
-      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await waitFor(
         () => {
@@ -265,7 +265,7 @@ describe('SplashScreen', () => {
     it('has accessible error screen label when fetch fails', async () => {
       server.use(...errorHandlers);
 
-      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await act(async () => {
         jest.runAllTimers();
@@ -283,7 +283,7 @@ describe('SplashScreen', () => {
     it('retry button has proper accessibility props', async () => {
       server.use(...errorHandlers);
 
-      const { getByTestId } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await act(async () => {
         jest.runAllTimers();
@@ -302,7 +302,7 @@ describe('SplashScreen', () => {
     it('retry button has accessible label', async () => {
       server.use(...errorHandlers);
 
-      const { getByRole } = renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByRole } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
 
       await act(async () => {
         jest.runAllTimers();

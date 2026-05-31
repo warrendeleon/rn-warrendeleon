@@ -1,5 +1,4 @@
 import React from 'react';
-import LottieView from 'lottie-react-native';
 
 import { renderWithProviders } from '@app/test-utils/renderWithProviders';
 
@@ -12,11 +11,11 @@ describe('Logo Stories', () => {
       ['Default', stories.Default],
       ['DarkMode', stories.DarkMode],
       ['CustomSize', stories.CustomSize],
-    ] as const)('renders %s story with Lottie animation', (_storyName, story) => {
+    ] as const)('renders %s story with Lottie animation', async (_storyName, story) => {
       const { args } = story;
-      const { UNSAFE_getByType } = renderWithProviders(<Logo {...args} />);
-      // Logo renders a Lottie animation component - UNSAFE_getByType returns a component instance
-      expect(UNSAFE_getByType(LottieView)).toBeTruthy();
+      const { getByTestId } = await renderWithProviders(<Logo {...args} />);
+      // Logo renders a Lottie animation component, queried by its testID
+      expect(getByTestId('logo-lottie')).toBeTruthy();
     });
   });
 

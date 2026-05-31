@@ -56,56 +56,56 @@ describe('ChangePasswordScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders the screen correctly', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders the screen correctly', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('change-password-screen')).toBeOnTheScreen();
     });
 
-    it('renders the change password screen with testID', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders the change password screen with testID', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('change-password-screen')).toBeOnTheScreen();
     });
 
-    it('renders current password input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders current password input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('current-password-input')).toBeOnTheScreen();
     });
 
-    it('renders new password input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders new password input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('new-password-input')).toBeOnTheScreen();
     });
 
-    it('renders confirm password input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders confirm password input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('confirm-password-input')).toBeOnTheScreen();
     });
 
-    it('renders change password button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders change password button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('change-password-button')).toBeOnTheScreen();
     });
 
-    it('renders password requirements section', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders password requirements section', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -114,8 +114,8 @@ describe('ChangePasswordScreen', () => {
   });
 
   describe('Button states', () => {
-    it('disables change password button when passwords are empty', () => {
-      const { getByTestId } = renderWithProviders(
+    it('disables change password button when passwords are empty', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -124,18 +124,18 @@ describe('ChangePasswordScreen', () => {
     });
 
     it('disables change password button when new password is too short', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const currentPasswordInput = getByTestId('current-password-input');
-      fireEvent.changeText(currentPasswordInput, 'OldPass123!');
+      await fireEvent.changeText(currentPasswordInput, 'OldPass123!');
 
       const newPasswordInput = getByTestId('new-password-input');
-      fireEvent.changeText(newPasswordInput, 'Short1!');
+      await fireEvent.changeText(newPasswordInput, 'Short1!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'Short1!');
+      await fireEvent.changeText(confirmInput, 'Short1!');
 
       await waitFor(
         () => {
@@ -147,18 +147,18 @@ describe('ChangePasswordScreen', () => {
     });
 
     it('disables change password button when passwords do not match', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const currentPasswordInput = getByTestId('current-password-input');
-      fireEvent.changeText(currentPasswordInput, 'OldPass123!');
+      await fireEvent.changeText(currentPasswordInput, 'OldPass123!');
 
       const newPasswordInput = getByTestId('new-password-input');
-      fireEvent.changeText(newPasswordInput, 'StrongPass123!');
+      await fireEvent.changeText(newPasswordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'DifferentPass123!');
+      await fireEvent.changeText(confirmInput, 'DifferentPass123!');
 
       await waitFor(
         () => {
@@ -170,18 +170,18 @@ describe('ChangePasswordScreen', () => {
     });
 
     it('disables change password button when new password equals current password', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const currentPasswordInput = getByTestId('current-password-input');
-      fireEvent.changeText(currentPasswordInput, 'StrongPass123!');
+      await fireEvent.changeText(currentPasswordInput, 'StrongPass123!');
 
       const newPasswordInput = getByTestId('new-password-input');
-      fireEvent.changeText(newPasswordInput, 'StrongPass123!');
+      await fireEvent.changeText(newPasswordInput, 'StrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'StrongPass123!');
+      await fireEvent.changeText(confirmInput, 'StrongPass123!');
 
       await waitFor(
         () => {
@@ -193,18 +193,18 @@ describe('ChangePasswordScreen', () => {
     });
 
     it('enables change password button when all fields are valid and different', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const currentPasswordInput = getByTestId('current-password-input');
-      fireEvent.changeText(currentPasswordInput, 'OldPass123!');
+      await fireEvent.changeText(currentPasswordInput, 'OldPass123!');
 
       const newPasswordInput = getByTestId('new-password-input');
-      fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
+      await fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'NewStrongPass123!');
+      await fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       await waitFor(
         () => {
@@ -218,19 +218,19 @@ describe('ChangePasswordScreen', () => {
 
   describe('Form submission', () => {
     it('calls changePassword API with correct arguments on successful submit', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid passwords
       const currentPasswordInput = getByTestId('current-password-input');
-      fireEvent.changeText(currentPasswordInput, 'OldPass123!');
+      await fireEvent.changeText(currentPasswordInput, 'OldPass123!');
 
       const newPasswordInput = getByTestId('new-password-input');
-      fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
+      await fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'NewStrongPass123!');
+      await fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -242,7 +242,7 @@ describe('ChangePasswordScreen', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
 
       // Verify API called with correct arguments
       await waitFor(
@@ -257,19 +257,19 @@ describe('ChangePasswordScreen', () => {
     });
 
     it('navigates to EditAccount with passwordUpdated param after successful password change', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter valid passwords
       const currentPasswordInput = getByTestId('current-password-input');
-      fireEvent.changeText(currentPasswordInput, 'OldPass123!');
+      await fireEvent.changeText(currentPasswordInput, 'OldPass123!');
 
       const newPasswordInput = getByTestId('new-password-input');
-      fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
+      await fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'NewStrongPass123!');
+      await fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -281,7 +281,7 @@ describe('ChangePasswordScreen', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
 
       // Verify navigation to EditAccount
       await waitFor(
@@ -299,19 +299,19 @@ describe('ChangePasswordScreen', () => {
         new Error('Current password is incorrect')
       );
 
-      const { getByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter passwords
       const currentPasswordInput = getByTestId('current-password-input');
-      fireEvent.changeText(currentPasswordInput, 'WrongPassword123!');
+      await fireEvent.changeText(currentPasswordInput, 'WrongPassword123!');
 
       const newPasswordInput = getByTestId('new-password-input');
-      fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
+      await fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'NewStrongPass123!');
+      await fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -323,7 +323,7 @@ describe('ChangePasswordScreen', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
 
       // Wait for error message
       await waitFor(
@@ -339,19 +339,19 @@ describe('ChangePasswordScreen', () => {
         new Error('Network error')
       );
 
-      const { getByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter passwords
       const currentPasswordInput = getByTestId('current-password-input');
-      fireEvent.changeText(currentPasswordInput, 'OldPass123!');
+      await fireEvent.changeText(currentPasswordInput, 'OldPass123!');
 
       const newPasswordInput = getByTestId('new-password-input');
-      fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
+      await fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'NewStrongPass123!');
+      await fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -363,7 +363,7 @@ describe('ChangePasswordScreen', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
 
       // Wait for error message
       await waitFor(
@@ -376,8 +376,8 @@ describe('ChangePasswordScreen', () => {
   });
 
   describe('Accessibility', () => {
-    it('has accessible button with proper accessibility state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has accessible button with proper accessibility state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -389,19 +389,19 @@ describe('ChangePasswordScreen', () => {
     it('has accessible error message with alert role', async () => {
       (SupabaseAuthClient.changePassword as jest.Mock).mockRejectedValue(new Error('Test error'));
 
-      const { getByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Enter passwords and trigger error
       const currentPasswordInput = getByTestId('current-password-input');
-      fireEvent.changeText(currentPasswordInput, 'OldPass123!');
+      await fireEvent.changeText(currentPasswordInput, 'OldPass123!');
 
       const newPasswordInput = getByTestId('new-password-input');
-      fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
+      await fireEvent.changeText(newPasswordInput, 'NewStrongPass123!');
 
       const confirmInput = getByTestId('confirm-password-input');
-      fireEvent.changeText(confirmInput, 'NewStrongPass123!');
+      await fireEvent.changeText(confirmInput, 'NewStrongPass123!');
 
       await waitFor(
         () => {
@@ -411,7 +411,7 @@ describe('ChangePasswordScreen', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
 
       await waitFor(
         () => {
@@ -463,8 +463,8 @@ describe('ChangePasswordScreen EAA Accessibility Compliance', () => {
     jest.clearAllMocks();
   });
 
-  it('form inputs are accessible', () => {
-    const { getByTestId } = renderWithProviders(
+  it('form inputs are accessible', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -474,16 +474,16 @@ describe('ChangePasswordScreen EAA Accessibility Compliance', () => {
     expect(getByTestId('confirm-password-input')).toBeOnTheScreen();
   });
 
-  it('change password button has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('change password button has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expectMinTouchTarget(getByTestId('change-password-button'));
   });
 
-  it('has correct focus order for form elements', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has correct focus order for form elements', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ChangePasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 

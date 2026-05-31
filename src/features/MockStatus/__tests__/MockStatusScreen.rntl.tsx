@@ -35,7 +35,7 @@ describe('MockStatusScreen', () => {
     it('renders mock status screen correctly', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -58,7 +58,7 @@ describe('MockStatusScreen', () => {
     it('renders all mock status items including auth', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -81,12 +81,12 @@ describe('MockStatusScreen', () => {
       );
     });
 
-    it('shows loading spinner for auth initially', () => {
+    it('shows loading spinner for auth initially', async () => {
       mockUseColorScheme.mockReturnValue('light');
       // Make the promise never resolve to test loading state
       mockVerifyMockStatus.mockReturnValue(new Promise(() => {}));
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -104,7 +104,7 @@ describe('MockStatusScreen', () => {
       mockUseColorScheme.mockReturnValue('light');
       mockVerifyMockStatus.mockResolvedValue({ mocked: true });
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -125,7 +125,7 @@ describe('MockStatusScreen', () => {
       mockUseColorScheme.mockReturnValue('light');
       mockVerifyMockStatus.mockResolvedValue({ mocked: false });
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -146,7 +146,7 @@ describe('MockStatusScreen', () => {
       mockUseColorScheme.mockReturnValue('light');
       mockVerifyMockStatus.mockRejectedValue(new Error('Network error'));
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -170,7 +170,7 @@ describe('MockStatusScreen', () => {
 
       const mockProfile = { ...profileFixture, mocked: true } as Profile & { mocked: boolean };
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -201,7 +201,7 @@ describe('MockStatusScreen', () => {
         mocked: boolean;
       };
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: {
@@ -232,7 +232,7 @@ describe('MockStatusScreen', () => {
         mocked: boolean;
       };
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -261,7 +261,7 @@ describe('MockStatusScreen', () => {
     it('displays "Not Mocked" status for profile when data lacks mocked flag', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: {
             data: profileFixture as Profile,
@@ -288,7 +288,7 @@ describe('MockStatusScreen', () => {
     it('displays "Not Mocked" status for education when data lacks mocked flag', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: {
@@ -315,7 +315,7 @@ describe('MockStatusScreen', () => {
     it('displays "Not Mocked" status for work experience when data lacks mocked flag', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -344,7 +344,7 @@ describe('MockStatusScreen', () => {
     it('displays "No data loaded" for portfolio sections when no data exists', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getAllByText } = renderWithProviders(<MockStatusScreen />, {
+      const { getAllByText } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -369,7 +369,7 @@ describe('MockStatusScreen', () => {
     it('does not display "No data loaded" when profile has data', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { queryAllByText, getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { queryAllByText, getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: {
             data: profileFixture as Profile,
@@ -407,7 +407,7 @@ describe('MockStatusScreen', () => {
     it('renders correctly in light theme', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -430,7 +430,7 @@ describe('MockStatusScreen', () => {
     it('renders correctly in dark theme', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -453,7 +453,7 @@ describe('MockStatusScreen', () => {
     it('renders correctly with system theme in light mode', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -476,7 +476,7 @@ describe('MockStatusScreen', () => {
     it('renders correctly with system theme in dark mode', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -501,7 +501,7 @@ describe('MockStatusScreen', () => {
     it('has correct accessibility label for screen', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByLabelText, getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByLabelText, getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -524,7 +524,7 @@ describe('MockStatusScreen', () => {
     it('has correct accessibility role for header', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, getAllByRole } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId, getAllByRole } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },
@@ -551,7 +551,7 @@ describe('MockStatusScreen', () => {
 
       const mockProfile = { ...profileFixture, mocked: true } as Profile & { mocked: boolean };
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -580,7 +580,7 @@ describe('MockStatusScreen', () => {
     it('updates accessibility label based on mock status', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: {
             data: profileFixture as Profile,
@@ -605,12 +605,12 @@ describe('MockStatusScreen', () => {
       );
     });
 
-    it('shows Loading accessibility label for auth while checking', () => {
+    it('shows Loading accessibility label for auth while checking', async () => {
       mockUseColorScheme.mockReturnValue('light');
       // Never resolve to test loading state
       mockVerifyMockStatus.mockReturnValue(new Promise(() => {}));
 
-      const { getByTestId } = renderWithProviders(<MockStatusScreen />, {
+      const { getByTestId } = await renderWithProviders(<MockStatusScreen />, {
         preloadedState: {
           profile: { data: null, loading: false, error: null },
           education: { data: [], loading: false, error: null },

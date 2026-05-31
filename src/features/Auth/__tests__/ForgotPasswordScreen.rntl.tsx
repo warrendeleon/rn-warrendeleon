@@ -61,56 +61,56 @@ describe('ForgotPasswordScreen', () => {
     (SupabaseAuthClient.requestPasswordRecovery as jest.Mock).mockResolvedValue(undefined);
   });
 
-  it('renders the screen correctly', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders the screen correctly', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('forgot-password-screen')).toBeOnTheScreen();
   });
 
-  it('renders the forgot password screen with testID', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders the forgot password screen with testID', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('forgot-password-screen')).toBeOnTheScreen();
   });
 
-  it('renders email input field', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders email input field', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('email-input')).toBeOnTheScreen();
   });
 
-  it('renders send button', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders send button', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('send-reset-email-button')).toBeOnTheScreen();
   });
 
-  it('renders back to login link', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders back to login link', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('back-to-login-link')).toBeOnTheScreen();
   });
 
-  it('renders info box', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders info box', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     expect(getByTestId('info-box')).toBeOnTheScreen();
   });
 
-  it('disables send button when email is empty', () => {
-    const { getByTestId } = renderWithProviders(
+  it('disables send button when email is empty', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
@@ -118,23 +118,23 @@ describe('ForgotPasswordScreen', () => {
     expect(sendButton.props.accessibilityState?.disabled).toBe(true);
   });
 
-  it('navigates back when back to login link is pressed', () => {
-    const { getByTestId } = renderWithProviders(
+  it('navigates back when back to login link is pressed', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
-    fireEvent.press(getByTestId('back-to-login-link'));
+    await fireEvent.press(getByTestId('back-to-login-link'));
     expect(mockNavigation.goBack as jest.Mock).toHaveBeenCalled();
   });
 
   it('shows success state after successful submission', async () => {
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Enter valid email
     const emailInput = getByTestId('email-input');
-    fireEvent.changeText(emailInput, 'test@example.com');
+    await fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
     await waitFor(
@@ -146,7 +146,7 @@ describe('ForgotPasswordScreen', () => {
     );
 
     // Submit form
-    fireEvent.press(getByTestId('send-reset-email-button'));
+    await fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
     await waitFor(
@@ -164,13 +164,13 @@ describe('ForgotPasswordScreen', () => {
       error: 'Rate limit exceeded. Please try again later.',
     });
 
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Enter valid email
     const emailInput = getByTestId('email-input');
-    fireEvent.changeText(emailInput, 'test@example.com');
+    await fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
     await waitFor(
@@ -182,7 +182,7 @@ describe('ForgotPasswordScreen', () => {
     );
 
     // Submit form
-    fireEvent.press(getByTestId('send-reset-email-button'));
+    await fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for error message
     await waitFor(
@@ -194,13 +194,13 @@ describe('ForgotPasswordScreen', () => {
   });
 
   it('calls rate limiter check before submission', async () => {
-    const { getByTestId } = renderWithProviders(
+    const { getByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Enter valid email
     const emailInput = getByTestId('email-input');
-    fireEvent.changeText(emailInput, 'test@example.com');
+    await fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
     await waitFor(
@@ -212,7 +212,7 @@ describe('ForgotPasswordScreen', () => {
     );
 
     // Submit form
-    fireEvent.press(getByTestId('send-reset-email-button'));
+    await fireEvent.press(getByTestId('send-reset-email-button'));
 
     await waitFor(
       () => {
@@ -223,13 +223,13 @@ describe('ForgotPasswordScreen', () => {
   });
 
   it('records request after successful submission', async () => {
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Enter valid email
     const emailInput = getByTestId('email-input');
-    fireEvent.changeText(emailInput, 'test@example.com');
+    await fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
     await waitFor(
@@ -241,7 +241,7 @@ describe('ForgotPasswordScreen', () => {
     );
 
     // Submit form
-    fireEvent.press(getByTestId('send-reset-email-button'));
+    await fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
     await waitFor(
@@ -255,13 +255,13 @@ describe('ForgotPasswordScreen', () => {
   });
 
   it('calls Supabase API to request password recovery', async () => {
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Enter valid email
     const emailInput = getByTestId('email-input');
-    fireEvent.changeText(emailInput, 'test@example.com');
+    await fireEvent.changeText(emailInput, 'test@example.com');
 
     // Wait for form to be valid
     await waitFor(
@@ -273,7 +273,7 @@ describe('ForgotPasswordScreen', () => {
     );
 
     // Submit form
-    fireEvent.press(getByTestId('send-reset-email-button'));
+    await fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
     await waitFor(
@@ -291,13 +291,13 @@ describe('ForgotPasswordScreen', () => {
       new Error('User not found')
     );
 
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Enter valid email
     const emailInput = getByTestId('email-input');
-    fireEvent.changeText(emailInput, 'nonexistent@example.com');
+    await fireEvent.changeText(emailInput, 'nonexistent@example.com');
 
     // Wait for form to be valid
     await waitFor(
@@ -309,7 +309,7 @@ describe('ForgotPasswordScreen', () => {
     );
 
     // Submit form
-    fireEvent.press(getByTestId('send-reset-email-button'));
+    await fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Should still show success to prevent email enumeration
     await waitFor(
@@ -321,13 +321,13 @@ describe('ForgotPasswordScreen', () => {
   });
 
   it('success state shows back to login button', async () => {
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Enter valid email and submit
     const emailInput = getByTestId('email-input');
-    fireEvent.changeText(emailInput, 'test@example.com');
+    await fireEvent.changeText(emailInput, 'test@example.com');
 
     await waitFor(
       () => {
@@ -337,7 +337,7 @@ describe('ForgotPasswordScreen', () => {
       { timeout: 3000, interval: 100 }
     );
 
-    fireEvent.press(getByTestId('send-reset-email-button'));
+    await fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
     await waitFor(
@@ -352,13 +352,13 @@ describe('ForgotPasswordScreen', () => {
   });
 
   it('navigates back when back to login button is pressed in success state', async () => {
-    const { getByTestId, queryByTestId } = renderWithProviders(
+    const { getByTestId, queryByTestId } = await renderWithProviders(
       <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
     );
 
     // Enter valid email and submit
     const emailInput = getByTestId('email-input');
-    fireEvent.changeText(emailInput, 'test@example.com');
+    await fireEvent.changeText(emailInput, 'test@example.com');
 
     await waitFor(
       () => {
@@ -368,7 +368,7 @@ describe('ForgotPasswordScreen', () => {
       { timeout: 3000, interval: 100 }
     );
 
-    fireEvent.press(getByTestId('send-reset-email-button'));
+    await fireEvent.press(getByTestId('send-reset-email-button'));
 
     // Wait for success state
     await waitFor(
@@ -379,7 +379,7 @@ describe('ForgotPasswordScreen', () => {
     );
 
     // Press back to login button
-    fireEvent.press(getByTestId('back-to-login-button'));
+    await fireEvent.press(getByTestId('back-to-login-button'));
 
     expect(mockNavigation.goBack as jest.Mock).toHaveBeenCalled();
   });
@@ -402,8 +402,8 @@ describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
   });
 
   describe('focus order for screen readers', () => {
-    it('should have correct focus order for form elements', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have correct focus order for form elements', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -414,24 +414,24 @@ describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
       expectFocusOrder([emailInput, sendButton, backToLoginLink]);
     });
 
-    it('should have focusable email input', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable email input', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expectCanReceiveFocus(getByTestId('email-input'));
     });
 
-    it('should have focusable send button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable send button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expectCanReceiveFocus(getByTestId('send-reset-email-button'));
     });
 
-    it('should have focusable back to login link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have focusable back to login link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -440,8 +440,8 @@ describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
   });
 
   describe('accessibility roles', () => {
-    it('should have button role on send button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have button role on send button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -449,8 +449,8 @@ describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
       expect(sendButton.props.accessibilityRole).toBe('button');
     });
 
-    it('should have link role on back to login link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have link role on back to login link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -458,8 +458,8 @@ describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
       expect(backToLoginLink.props.accessibilityRole).toBe('link');
     });
 
-    it('should announce button disabled state to screen readers', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should announce button disabled state to screen readers', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -468,11 +468,11 @@ describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
     });
 
     it('should announce button enabled state when form is valid', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('email-input'), 'test@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'test@example.com');
 
       await waitFor(
         () => {
@@ -485,13 +485,13 @@ describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
   });
 
   describe('focus management after actions', () => {
-    it('should maintain focus context after form validation', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should maintain focus context after form validation', async () => {
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const emailInput = getByTestId('email-input');
-      fireEvent.changeText(emailInput, 'invalid');
+      await fireEvent.changeText(emailInput, 'invalid');
 
       expect(getByTestId('forgot-password-screen')).toBeOnTheScreen();
       expectCanReceiveFocus(emailInput);
@@ -500,11 +500,11 @@ describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
     it('should have focusable back to login button in success state', async () => {
       (SupabaseAuthClient.requestPasswordRecovery as jest.Mock).mockResolvedValue(undefined);
 
-      const { getByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.changeText(getByTestId('email-input'), 'test@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'test@example.com');
 
       await waitFor(
         () => {
@@ -514,7 +514,7 @@ describe('ForgotPasswordScreen Screen Reader Accessibility', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('send-reset-email-button'));
+      await fireEvent.press(getByTestId('send-reset-email-button'));
 
       await waitFor(
         () => {

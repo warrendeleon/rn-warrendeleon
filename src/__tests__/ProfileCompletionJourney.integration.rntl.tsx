@@ -135,7 +135,7 @@ describe('Profile Completion Journey Integration', () => {
 
   describe('profile editing journey', () => {
     it('should complete full profile edit flow', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -148,8 +148,8 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Edit profile fields
-      fireEvent.changeText(getByTestId('first-name-input'), 'Warren Updated');
-      fireEvent.changeText(getByTestId('last-name-input'), 'de Leon Updated');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Warren Updated');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'de Leon Updated');
 
       // Verify changes are reflected
       expect(getByDisplayValue('Warren Updated')).toBeOnTheScreen();
@@ -160,7 +160,7 @@ describe('Profile Completion Journey Integration', () => {
     });
 
     it('should navigate through edit account to change password', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -172,13 +172,13 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Navigate to change password
-      fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
 
       expect(mockNavigate).toHaveBeenCalledWith('ChangePassword');
     });
 
     it('should complete profile edit with keyboard navigation', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -190,12 +190,12 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Fill first name and navigate to next field
-      fireEvent.changeText(getByTestId('first-name-input'), 'John');
-      fireEvent(getByTestId('first-name-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'John');
+      await fireEvent(getByTestId('first-name-input'), 'submitEditing');
 
       // Fill last name
-      fireEvent.changeText(getByTestId('last-name-input'), 'Smith');
-      fireEvent(getByTestId('last-name-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'Smith');
+      await fireEvent(getByTestId('last-name-input'), 'submitEditing');
 
       // Verify all changes
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -205,7 +205,7 @@ describe('Profile Completion Journey Integration', () => {
 
   describe('logout journey', () => {
     it('should complete logout flow with confirmation', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -217,7 +217,7 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Initiate logout
-      fireEvent.press(getByTestId('logout-button'));
+      await fireEvent.press(getByTestId('logout-button'));
 
       // Confirmation dialog should appear
       await waitFor(
@@ -229,7 +229,7 @@ describe('Profile Completion Journey Integration', () => {
     });
 
     it('should cancel logout and remain on screen', async () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -241,7 +241,7 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Initiate logout
-      fireEvent.press(getByTestId('logout-button'));
+      await fireEvent.press(getByTestId('logout-button'));
 
       await waitFor(
         () => {
@@ -251,7 +251,7 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Cancel logout
-      fireEvent.press(getByTestId('logout-cancel-button'));
+      await fireEvent.press(getByTestId('logout-cancel-button'));
 
       // Dialog should close, remain on edit account
       await waitFor(
@@ -267,7 +267,7 @@ describe('Profile Completion Journey Integration', () => {
 
   describe('social auth profile journey', () => {
     it('should display social auth profile correctly', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: socialAuthState,
       });
 
@@ -284,7 +284,7 @@ describe('Profile Completion Journey Integration', () => {
     });
 
     it('should allow social auth user to edit profile', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: socialAuthState,
       });
 
@@ -296,7 +296,7 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Edit profile
-      fireEvent.changeText(getByTestId('first-name-input'), 'Updated Social');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Updated Social');
 
       expect(getByDisplayValue('Updated Social')).toBeOnTheScreen();
     });
@@ -304,7 +304,7 @@ describe('Profile Completion Journey Integration', () => {
 
   describe('profile journey state transitions', () => {
     it('should handle loading state during profile operations', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: {
           ...authenticatedState,
           auth: {
@@ -323,7 +323,7 @@ describe('Profile Completion Journey Integration', () => {
     });
 
     it('should handle transition from editing to saving', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <EditAccountScreen />,
         { preloadedState: authenticatedState }
       );
@@ -336,18 +336,18 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Make changes
-      fireEvent.changeText(getByTestId('first-name-input'), 'NewName');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'NewName');
       expect(getByDisplayValue('NewName')).toBeOnTheScreen();
 
       // Simulate save in progress
-      rerender(<EditAccountScreen />);
+      await rerender(<EditAccountScreen />);
 
       // Form should remain stable
       expect(getByTestId('edit-account-screen')).toBeOnTheScreen();
     });
 
     it('should handle error state during profile journey', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: {
           ...authenticatedState,
           auth: {
@@ -365,7 +365,7 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // User can still interact with form
-      fireEvent.changeText(getByTestId('first-name-input'), 'Retry');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Retry');
 
       expect(getByTestId('edit-account-screen')).toBeOnTheScreen();
     });
@@ -373,7 +373,7 @@ describe('Profile Completion Journey Integration', () => {
 
   describe('profile journey validation', () => {
     it('should validate name fields during edit journey', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -385,14 +385,14 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Clear first name (invalid)
-      fireEvent.changeText(getByTestId('first-name-input'), '');
+      await fireEvent.changeText(getByTestId('first-name-input'), '');
 
       // Form reflects the empty value
       expect(getByDisplayValue('')).toBeOnTheScreen();
     });
 
     it('should allow valid Unicode names in profile', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -404,15 +404,15 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Enter Unicode name
-      fireEvent.changeText(getByTestId('first-name-input'), '田中');
-      fireEvent.changeText(getByTestId('last-name-input'), '太郎');
+      await fireEvent.changeText(getByTestId('first-name-input'), '田中');
+      await fireEvent.changeText(getByTestId('last-name-input'), '太郎');
 
       expect(getByDisplayValue('田中')).toBeOnTheScreen();
       expect(getByDisplayValue('太郎')).toBeOnTheScreen();
     });
 
     it('should handle special characters in profile names', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -424,8 +424,8 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Enter names with special characters
-      fireEvent.changeText(getByTestId('first-name-input'), "O'Brien");
-      fireEvent.changeText(getByTestId('last-name-input'), 'García-López');
+      await fireEvent.changeText(getByTestId('first-name-input'), "O'Brien");
+      await fireEvent.changeText(getByTestId('last-name-input'), 'García-López');
 
       expect(getByDisplayValue("O'Brien")).toBeOnTheScreen();
       expect(getByDisplayValue('García-López')).toBeOnTheScreen();
@@ -436,7 +436,7 @@ describe('Profile Completion Journey Integration', () => {
     it('should handle unmount during profile edit', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { unmount, getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -448,10 +448,10 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Make changes
-      fireEvent.changeText(getByTestId('first-name-input'), 'Interrupted');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Interrupted');
 
       // Unmount during edit
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // No memory leak warnings
@@ -464,7 +464,7 @@ describe('Profile Completion Journey Integration', () => {
     });
 
     it('should handle rapid navigation during profile journey', async () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -476,9 +476,9 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Rapid navigation actions
-      fireEvent.press(getByTestId('change-password-button'));
-      fireEvent.press(getByTestId('change-password-button'));
-      fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
+      await fireEvent.press(getByTestId('change-password-button'));
 
       // Navigation should be called
       expect(mockNavigate).toHaveBeenCalled();
@@ -488,7 +488,7 @@ describe('Profile Completion Journey Integration', () => {
 
   describe('profile data persistence', () => {
     it('should preserve edits across rerenders', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <EditAccountScreen />,
         { preloadedState: authenticatedState }
       );
@@ -501,11 +501,11 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Make changes
-      fireEvent.changeText(getByTestId('first-name-input'), 'Persisted');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Persisted');
 
       // Multiple rerenders
       for (let i = 0; i < 3; i++) {
-        rerender(<EditAccountScreen />);
+        await rerender(<EditAccountScreen />);
       }
 
       // Data should be preserved
@@ -513,7 +513,7 @@ describe('Profile Completion Journey Integration', () => {
     });
 
     it('should handle form state during multiple field edits', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -525,12 +525,12 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Multiple rapid edits
-      fireEvent.changeText(getByTestId('first-name-input'), 'A');
-      fireEvent.changeText(getByTestId('last-name-input'), 'B');
-      fireEvent.changeText(getByTestId('first-name-input'), 'AB');
-      fireEvent.changeText(getByTestId('last-name-input'), 'CD');
-      fireEvent.changeText(getByTestId('first-name-input'), 'Final First');
-      fireEvent.changeText(getByTestId('last-name-input'), 'Final Last');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'A');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'B');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'AB');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'CD');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Final First');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'Final Last');
 
       // Final values should be correct
       expect(getByDisplayValue('Final First')).toBeOnTheScreen();
@@ -540,7 +540,7 @@ describe('Profile Completion Journey Integration', () => {
 
   describe('theme changes during profile journey', () => {
     it('should handle theme change during profile edit', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <EditAccountScreen />,
         { preloadedState: authenticatedState }
       );
@@ -553,11 +553,11 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Make changes
-      fireEvent.changeText(getByTestId('first-name-input'), 'Dark Mode');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Dark Mode');
 
       // Switch to dark mode
       mockUseColorScheme.mockReturnValue('dark');
-      rerender(<EditAccountScreen />);
+      await rerender(<EditAccountScreen />);
 
       // Data should be preserved
       expect(getByDisplayValue('Dark Mode')).toBeOnTheScreen();
@@ -567,7 +567,7 @@ describe('Profile Completion Journey Integration', () => {
 
   describe('complete profile journey scenarios', () => {
     it('should handle full edit → save → navigate flow', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -579,21 +579,21 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Complete edit journey
-      fireEvent.changeText(getByTestId('first-name-input'), 'Complete');
-      fireEvent.changeText(getByTestId('last-name-input'), 'Journey');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Complete');
+      await fireEvent.changeText(getByTestId('last-name-input'), 'Journey');
 
       expect(getByDisplayValue('Complete')).toBeOnTheScreen();
       expect(getByDisplayValue('Journey')).toBeOnTheScreen();
 
       // Press save
-      fireEvent.press(getByTestId('save-button'));
+      await fireEvent.press(getByTestId('save-button'));
 
       // Screen should remain stable
       expect(getByTestId('edit-account-screen')).toBeOnTheScreen();
     });
 
     it('should handle edit → cancel → re-edit flow', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -605,12 +605,12 @@ describe('Profile Completion Journey Integration', () => {
       );
 
       // Make changes
-      fireEvent.changeText(getByTestId('first-name-input'), 'First Edit');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'First Edit');
       expect(getByDisplayValue('First Edit')).toBeOnTheScreen();
 
       // Clear and re-edit
-      fireEvent.changeText(getByTestId('first-name-input'), '');
-      fireEvent.changeText(getByTestId('first-name-input'), 'Second Edit');
+      await fireEvent.changeText(getByTestId('first-name-input'), '');
+      await fireEvent.changeText(getByTestId('first-name-input'), 'Second Edit');
 
       expect(getByDisplayValue('Second Edit')).toBeOnTheScreen();
     });

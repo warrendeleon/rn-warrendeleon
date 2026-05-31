@@ -11,8 +11,8 @@ const NavigationWrapper = ({ children }: { children: React.ReactNode }) => (
 );
 
 describe('HeaderBackButton Stories', () => {
-  it('renders Default story with back button visible', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders Default story with back button visible', async () => {
+    const { getByTestId } = await renderWithProviders(
       <NavigationWrapper>
         <HeaderBackButton />
       </NavigationWrapper>
@@ -21,8 +21,8 @@ describe('HeaderBackButton Stories', () => {
     expect(getByTestId('header-back-button').props.accessibilityRole).toBe('button');
   });
 
-  it('renders with testID', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders with testID', async () => {
+    const { getByTestId } = await renderWithProviders(
       <NavigationWrapper>
         <HeaderBackButton />
       </NavigationWrapper>
@@ -30,8 +30,8 @@ describe('HeaderBackButton Stories', () => {
     expect(getByTestId('header-back-button')).toBeOnTheScreen();
   });
 
-  it('has correct accessibility role', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has correct accessibility role', async () => {
+    const { getByTestId } = await renderWithProviders(
       <NavigationWrapper>
         <HeaderBackButton />
       </NavigationWrapper>
@@ -40,8 +40,8 @@ describe('HeaderBackButton Stories', () => {
     expect(button.props.accessibilityRole).toBe('button');
   });
 
-  it('has correct accessibility label', () => {
-    const { getByTestId } = renderWithProviders(
+  it('has correct accessibility label', async () => {
+    const { getByTestId } = await renderWithProviders(
       <NavigationWrapper>
         <HeaderBackButton />
       </NavigationWrapper>

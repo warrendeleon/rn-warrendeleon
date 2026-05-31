@@ -25,8 +25,8 @@ describe('AuthScreenWrapper', () => {
   });
 
   describe('rendering', () => {
-    it('renders children correctly', () => {
-      renderWithProviders(
+    it('renders children correctly', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text testID="child">Child content</Text>
         </AuthScreenWrapper>
@@ -36,8 +36,8 @@ describe('AuthScreenWrapper', () => {
       expect(screen.getByText('Child content')).toBeOnTheScreen();
     });
 
-    it('renders with testID on ScrollView', () => {
-      renderWithProviders(
+    it('renders with testID on ScrollView', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text>Content</Text>
         </AuthScreenWrapper>
@@ -46,8 +46,8 @@ describe('AuthScreenWrapper', () => {
       expect(screen.getByTestId('auth-wrapper')).toBeOnTheScreen();
     });
 
-    it('renders multiple children', () => {
-      renderWithProviders(
+    it('renders multiple children', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text testID="child-1">First</Text>
           <Text testID="child-2">Second</Text>
@@ -62,10 +62,10 @@ describe('AuthScreenWrapper', () => {
   });
 
   describe('theme support', () => {
-    it('renders with light theme', () => {
+    it('renders with light theme', async () => {
       mockUseAppColorScheme.mockReturnValue('light');
 
-      renderWithProviders(
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text>Light mode</Text>
         </AuthScreenWrapper>
@@ -74,10 +74,10 @@ describe('AuthScreenWrapper', () => {
       expect(screen.getByTestId('auth-wrapper')).toBeOnTheScreen();
     });
 
-    it('renders with dark theme', () => {
+    it('renders with dark theme', async () => {
       mockUseAppColorScheme.mockReturnValue('dark');
 
-      renderWithProviders(
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text>Dark mode</Text>
         </AuthScreenWrapper>
@@ -88,8 +88,8 @@ describe('AuthScreenWrapper', () => {
   });
 
   describe('scroll behaviour', () => {
-    it('has keyboardShouldPersistTaps="handled"', () => {
-      renderWithProviders(
+    it('has keyboardShouldPersistTaps="handled"', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text>Content</Text>
         </AuthScreenWrapper>
@@ -99,8 +99,8 @@ describe('AuthScreenWrapper', () => {
       expect(scrollView.props.keyboardShouldPersistTaps).toBe('handled');
     });
 
-    it('has flexGrow enabled by default', () => {
-      renderWithProviders(
+    it('has flexGrow enabled by default', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text>Content</Text>
         </AuthScreenWrapper>
@@ -110,8 +110,8 @@ describe('AuthScreenWrapper', () => {
       expect(scrollView.props.contentContainerStyle.flexGrow).toBe(1);
     });
 
-    it('can disable flexGrow', () => {
-      renderWithProviders(
+    it('can disable flexGrow', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper" flexGrow={false}>
           <Text>Content</Text>
         </AuthScreenWrapper>
@@ -121,8 +121,8 @@ describe('AuthScreenWrapper', () => {
       expect(scrollView.props.contentContainerStyle.flexGrow).toBeUndefined();
     });
 
-    it('has default paddingBottom of 40', () => {
-      renderWithProviders(
+    it('has default paddingBottom of 40', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text>Content</Text>
         </AuthScreenWrapper>
@@ -132,8 +132,8 @@ describe('AuthScreenWrapper', () => {
       expect(scrollView.props.contentContainerStyle.paddingBottom).toBe(40);
     });
 
-    it('can set custom paddingBottom', () => {
-      renderWithProviders(
+    it('can set custom paddingBottom', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper" paddingBottom={80}>
           <Text>Content</Text>
         </AuthScreenWrapper>
@@ -143,8 +143,8 @@ describe('AuthScreenWrapper', () => {
       expect(scrollView.props.contentContainerStyle.paddingBottom).toBe(80);
     });
 
-    it('can set paddingBottom to 0', () => {
-      renderWithProviders(
+    it('can set paddingBottom to 0', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper" paddingBottom={0}>
           <Text>Content</Text>
         </AuthScreenWrapper>
@@ -173,14 +173,14 @@ describe('AuthScreenWrapper', () => {
   });
 
   describe('edge cases', () => {
-    it('handles empty children', () => {
-      renderWithProviders(<AuthScreenWrapper testID="auth-wrapper">{null}</AuthScreenWrapper>);
+    it('handles empty children', async () => {
+      await renderWithProviders(<AuthScreenWrapper testID="auth-wrapper">{null}</AuthScreenWrapper>);
 
       expect(screen.getByTestId('auth-wrapper')).toBeOnTheScreen();
     });
 
-    it('handles nested wrappers', () => {
-      renderWithProviders(
+    it('handles nested wrappers', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="outer-wrapper">
           <AuthScreenWrapper testID="inner-wrapper">
             <Text>Nested content</Text>
@@ -195,8 +195,8 @@ describe('AuthScreenWrapper', () => {
   });
 
   describe('integration', () => {
-    it('renders auth form content correctly', () => {
-      renderWithProviders(
+    it('renders auth form content correctly', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="login-wrapper">
           <Text testID="form-title">Login</Text>
           <Text testID="email-label">Email</Text>
@@ -214,8 +214,8 @@ describe('AuthScreenWrapper', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('wrapper is accessible to screen readers', () => {
-      renderWithProviders(
+    it('wrapper is accessible to screen readers', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text testID="child">Content</Text>
         </AuthScreenWrapper>
@@ -225,8 +225,8 @@ describe('AuthScreenWrapper', () => {
       expect(wrapper.props.accessible).not.toBe(false);
     });
 
-    it('children maintain focus order', () => {
-      renderWithProviders(
+    it('children maintain focus order', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text testID="first-element">First</Text>
           <Text testID="second-element">Second</Text>
@@ -242,8 +242,8 @@ describe('AuthScreenWrapper', () => {
       expectFocusOrder([first, second, third]);
     });
 
-    it('supports keyboard avoiding for form accessibility', () => {
-      renderWithProviders(
+    it('supports keyboard avoiding for form accessibility', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper">
           <Text>Form content</Text>
         </AuthScreenWrapper>
@@ -254,8 +254,8 @@ describe('AuthScreenWrapper', () => {
       expect(wrapper).toBeOnTheScreen();
     });
 
-    it('scroll view allows full content access', () => {
-      renderWithProviders(
+    it('scroll view allows full content access', async () => {
+      await renderWithProviders(
         <AuthScreenWrapper testID="auth-wrapper" paddingBottom={40}>
           <Text>Content that may need scrolling</Text>
         </AuthScreenWrapper>

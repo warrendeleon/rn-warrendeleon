@@ -404,13 +404,13 @@ describe('Background Tasks Integration', () => {
 
   describe('background fetch completion', () => {
     it('should start a background fetch task', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <BackgroundFetchComponent taskType="data-sync" />
       );
 
       expect(getByTestId('task-status')).toHaveTextContent('idle');
 
-      fireEvent.press(getByTestId('start-fetch-button'));
+      await fireEvent.press(getByTestId('start-fetch-button'));
 
       await waitFor(
         () => {
@@ -421,7 +421,7 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should track running status when task starts', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <BackgroundFetchComponent taskType="data-fetch" />
       );
 
@@ -430,7 +430,7 @@ describe('Background Tasks Integration', () => {
       expect(getByTestId('task-status')).toHaveTextContent('idle');
 
       // Start the task
-      fireEvent.press(getByTestId('start-fetch-button'));
+      await fireEvent.press(getByTestId('start-fetch-button'));
 
       // Task should be running
       await waitFor(
@@ -442,7 +442,7 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should transition from idle to pending', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <BackgroundFetchComponent taskType="transition-test" />
       );
 
@@ -450,7 +450,7 @@ describe('Background Tasks Integration', () => {
       expect(getByTestId('task-status')).toHaveTextContent('idle');
 
       // Start task
-      fireEvent.press(getByTestId('start-fetch-button'));
+      await fireEvent.press(getByTestId('start-fetch-button'));
 
       // Should transition to pending
       await waitFor(
@@ -464,7 +464,7 @@ describe('Background Tasks Integration', () => {
 
   describe('background task timeout handling', () => {
     it('should start task in pending state', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskTimeoutComponent taskType="slow-task" timeoutMs={100} />
       );
 
@@ -472,7 +472,7 @@ describe('Background Tasks Integration', () => {
       expect(getByTestId('task-status')).toHaveTextContent('idle');
 
       // Press start
-      fireEvent.press(getByTestId('start-timeout-task'));
+      await fireEvent.press(getByTestId('start-timeout-task'));
 
       // Task starts (hook returns pending initially)
       await waitFor(
@@ -485,11 +485,11 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should allow manual timeout trigger', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskTimeoutComponent taskType="manual-timeout" timeoutMs={10000} />
       );
 
-      fireEvent.press(getByTestId('start-timeout-task'));
+      await fireEvent.press(getByTestId('start-timeout-task'));
 
       // Task should be started
       await waitFor(
@@ -499,7 +499,7 @@ describe('Background Tasks Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('force-timeout'));
+      await fireEvent.press(getByTestId('force-timeout'));
 
       await waitFor(
         () => {
@@ -512,14 +512,14 @@ describe('Background Tasks Integration', () => {
 
   describe('background task retry on failure', () => {
     it('should retry failed task up to maxRetries', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskRetryComponent taskType="flaky-task" maxRetries={3} />
       );
 
-      fireEvent.press(getByTestId('start-retry-task'));
+      await fireEvent.press(getByTestId('start-retry-task'));
 
       // First failure - should retry
-      fireEvent.press(getByTestId('trigger-failure'));
+      await fireEvent.press(getByTestId('trigger-failure'));
 
       await waitFor(
         () => {
@@ -530,7 +530,7 @@ describe('Background Tasks Integration', () => {
       );
 
       // Second failure - should retry
-      fireEvent.press(getByTestId('trigger-failure'));
+      await fireEvent.press(getByTestId('trigger-failure'));
 
       await waitFor(
         () => {
@@ -540,7 +540,7 @@ describe('Background Tasks Integration', () => {
       );
 
       // Third failure - should retry
-      fireEvent.press(getByTestId('trigger-failure'));
+      await fireEvent.press(getByTestId('trigger-failure'));
 
       await waitFor(
         () => {
@@ -550,7 +550,7 @@ describe('Background Tasks Integration', () => {
       );
 
       // Fourth failure - should fail permanently
-      fireEvent.press(getByTestId('trigger-failure'));
+      await fireEvent.press(getByTestId('trigger-failure'));
 
       await waitFor(
         () => {
@@ -562,14 +562,14 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should show error message after max retries exhausted', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskRetryComponent taskType="failing-task" maxRetries={1} />
       );
 
-      fireEvent.press(getByTestId('start-retry-task'));
+      await fireEvent.press(getByTestId('start-retry-task'));
 
       // First failure
-      fireEvent.press(getByTestId('trigger-failure'));
+      await fireEvent.press(getByTestId('trigger-failure'));
 
       await waitFor(
         () => {
@@ -579,7 +579,7 @@ describe('Background Tasks Integration', () => {
       );
 
       // Second failure - max retries reached
-      fireEvent.press(getByTestId('trigger-failure'));
+      await fireEvent.press(getByTestId('trigger-failure'));
 
       await waitFor(
         () => {
@@ -593,13 +593,13 @@ describe('Background Tasks Integration', () => {
 
   describe('background task progress tracking', () => {
     it('should track task progress updates', async () => {
-      const { getByTestId } = renderWithProviders(<TaskProgressComponent taskType="upload-task" />);
+      const { getByTestId } = await renderWithProviders(<TaskProgressComponent taskType="upload-task" />);
 
-      fireEvent.press(getByTestId('start-progress-task'));
+      await fireEvent.press(getByTestId('start-progress-task'));
 
       expect(getByTestId('progress-value')).toHaveTextContent('0%');
 
-      fireEvent.press(getByTestId('update-progress-25'));
+      await fireEvent.press(getByTestId('update-progress-25'));
 
       await waitFor(
         () => {
@@ -608,7 +608,7 @@ describe('Background Tasks Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('update-progress-50'));
+      await fireEvent.press(getByTestId('update-progress-50'));
 
       await waitFor(
         () => {
@@ -619,13 +619,13 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should call onProgress callback with progress updates', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskProgressComponent taskType="callback-task" />
       );
 
-      fireEvent.press(getByTestId('start-progress-task'));
-      fireEvent.press(getByTestId('update-progress-25'));
-      fireEvent.press(getByTestId('update-progress-50'));
+      await fireEvent.press(getByTestId('start-progress-task'));
+      await fireEvent.press(getByTestId('update-progress-25'));
+      await fireEvent.press(getByTestId('update-progress-50'));
 
       await waitFor(
         () => {
@@ -636,12 +636,12 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should set progress to 100 on completion', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskProgressComponent taskType="complete-task" />
       );
 
-      fireEvent.press(getByTestId('start-progress-task'));
-      fireEvent.press(getByTestId('update-progress-100'));
+      await fireEvent.press(getByTestId('start-progress-task'));
+      await fireEvent.press(getByTestId('update-progress-100'));
 
       await waitFor(
         () => {
@@ -654,11 +654,11 @@ describe('Background Tasks Integration', () => {
 
   describe('background task cancellation', () => {
     it('should cancel a pending task', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskCancellationComponent taskType="cancellable-task" />
       );
 
-      fireEvent.press(getByTestId('start-long-task'));
+      await fireEvent.press(getByTestId('start-long-task'));
 
       await waitFor(
         () => {
@@ -668,7 +668,7 @@ describe('Background Tasks Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('cancel-task-button'));
+      await fireEvent.press(getByTestId('cancel-task-button'));
 
       await waitFor(
         () => {
@@ -680,12 +680,12 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should not cancel an already completed task', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskCancellationComponent taskType="completed-check" />
       );
 
       // Start and immediately complete a task manually via state
-      fireEvent.press(getByTestId('start-long-task'));
+      await fireEvent.press(getByTestId('start-long-task'));
 
       await waitFor(
         () => {
@@ -695,7 +695,7 @@ describe('Background Tasks Integration', () => {
       );
 
       // When task is pending, cancel should work
-      fireEvent.press(getByTestId('cancel-task-button'));
+      await fireEvent.press(getByTestId('cancel-task-button'));
 
       await waitFor(
         () => {
@@ -709,11 +709,11 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should prevent result delivery after cancellation', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <BackgroundFetchComponent taskType="cancel-before-complete" />
       );
 
-      fireEvent.press(getByTestId('start-fetch-button'));
+      await fireEvent.press(getByTestId('start-fetch-button'));
 
       await waitFor(
         () => {
@@ -727,7 +727,7 @@ describe('Background Tasks Integration', () => {
       cancelTask(taskId);
 
       // Advance timers to where completion would happen
-      act(() => {
+      await act(() => {
         jest.advanceTimersByTime(150);
       });
 
@@ -738,15 +738,15 @@ describe('Background Tasks Integration', () => {
 
   describe('background task result delivery', () => {
     it('should deliver result data on completion', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskProgressComponent taskType="result-delivery" />
       );
 
       // Start task
-      fireEvent.press(getByTestId('start-progress-task'));
+      await fireEvent.press(getByTestId('start-progress-task'));
 
       // Complete the task with result
-      fireEvent.press(getByTestId('update-progress-100'));
+      await fireEvent.press(getByTestId('update-progress-100'));
 
       await waitFor(
         () => {
@@ -757,12 +757,12 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should show error instead of result on failure', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskRetryComponent taskType="error-result" maxRetries={0} />
       );
 
-      fireEvent.press(getByTestId('start-retry-task'));
-      fireEvent.press(getByTestId('trigger-failure'));
+      await fireEvent.press(getByTestId('start-retry-task'));
+      await fireEvent.press(getByTestId('trigger-failure'));
 
       await waitFor(
         () => {
@@ -776,7 +776,7 @@ describe('Background Tasks Integration', () => {
 
   describe('accessibility', () => {
     it('should have accessible task controls', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <BackgroundFetchComponent taskType="a11y-task" />
       );
 
@@ -790,7 +790,7 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should have accessible progress controls', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskProgressComponent taskType="a11y-progress" />
       );
 
@@ -800,7 +800,7 @@ describe('Background Tasks Integration', () => {
     });
 
     it('should have accessible cancel button', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <TaskCancellationComponent taskType="a11y-cancel" />
       );
 

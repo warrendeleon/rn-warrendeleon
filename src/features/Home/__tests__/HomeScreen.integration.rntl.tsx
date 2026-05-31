@@ -47,7 +47,7 @@ describe('HomeScreen Integration', () => {
 
   describe('Initial Data Loading', () => {
     it('displays profile data when loaded from store', async () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -77,7 +77,7 @@ describe('HomeScreen Integration', () => {
     });
 
     it('renders home screen without profile card when profile data is null', async () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: null,
@@ -106,7 +106,7 @@ describe('HomeScreen Integration', () => {
     });
 
     it('handles profile loading state gracefully', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: null,
@@ -139,7 +139,7 @@ describe('HomeScreen Integration', () => {
 
   describe('Navigation Flow Integration', () => {
     it('navigates to WorkExperience and returns correctly', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -163,26 +163,26 @@ describe('HomeScreen Integration', () => {
         },
       });
 
-      fireEvent.press(getByTestId('home-work-experience-button'));
+      await fireEvent.press(getByTestId('home-work-experience-button'));
       expect(mockNavigate).toHaveBeenCalledWith('WorkExperience');
     });
 
     it('navigates to Education screen', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-education-button'));
+      await fireEvent.press(getByTestId('home-education-button'));
       expect(mockNavigate).toHaveBeenCalledWith('Education');
     });
 
     it('navigates to Settings screen', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-settings-button'));
+      await fireEvent.press(getByTestId('home-settings-button'));
       expect(mockNavigate).toHaveBeenCalledWith('Settings');
     });
 
     it('navigates to Profile when profile card is pressed', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -206,23 +206,23 @@ describe('HomeScreen Integration', () => {
         },
       });
 
-      fireEvent.press(getByTestId('profile-card'));
+      await fireEvent.press(getByTestId('profile-card'));
       expect(mockNavigate).toHaveBeenCalledWith('Profile');
     });
 
     it('navigates to WebView with correct GitHub URI', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-github-button'));
+      await fireEvent.press(getByTestId('home-github-button'));
       expect(mockNavigate).toHaveBeenCalledWith('WebView', {
         uri: 'https://github.com/warrendeleon/rn-warrendeleon',
       });
     });
 
     it('navigates to PDF with CV URL', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-cv-button'));
+      await fireEvent.press(getByTestId('home-cv-button'));
       expect(mockNavigate).toHaveBeenCalledWith('PDF', {
         uri: 'https://warrendeleon.com/wp-content/uploads/2025/06/CV_WARRENDELEON_2025.pdf',
         title: 'CV',
@@ -236,7 +236,7 @@ describe('HomeScreen Integration', () => {
     });
 
     it('remains functional when profile fails to load', async () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: null,
@@ -269,12 +269,12 @@ describe('HomeScreen Integration', () => {
       expect(queryByTestId('profile-card')).toBeNull();
 
       // Navigation should still work
-      fireEvent.press(getByTestId('home-settings-button'));
+      await fireEvent.press(getByTestId('home-settings-button'));
       expect(mockNavigate).toHaveBeenCalledWith('Settings');
     });
 
     it('displays all menu sections regardless of data fetch errors', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: null,
@@ -311,7 +311,7 @@ describe('HomeScreen Integration', () => {
 
   describe('State Persistence', () => {
     it('preserves navigation state after returning from sub-screens', async () => {
-      const { getByTestId, rerender } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId, rerender } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -336,11 +336,11 @@ describe('HomeScreen Integration', () => {
       });
 
       // Navigate away
-      fireEvent.press(getByTestId('home-work-experience-button'));
+      await fireEvent.press(getByTestId('home-work-experience-button'));
       expect(mockNavigate).toHaveBeenCalledWith('WorkExperience');
 
       // Simulate returning (re-render with same state)
-      rerender(<HomeScreen />);
+      await rerender(<HomeScreen />);
 
       // Verify screen is still functional
       expect(getByTestId('home-screen')).toBeOnTheScreen();
@@ -354,7 +354,7 @@ describe('HomeScreen Integration', () => {
         lastName: 'Name',
       };
 
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -381,7 +381,7 @@ describe('HomeScreen Integration', () => {
       expect(getByTestId('profile-card')).toBeOnTheScreen();
 
       // Re-render with updated profile (simulating return from Profile screen)
-      const { getByTestId: getByTestId2 } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId: getByTestId2 } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: updatedProfile,
@@ -411,12 +411,12 @@ describe('HomeScreen Integration', () => {
 
   describe('Multiple Navigation Actions', () => {
     it('handles rapid navigation button presses correctly', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
       // Rapid presses should result in only the appropriate navigations
-      fireEvent.press(getByTestId('home-settings-button'));
-      fireEvent.press(getByTestId('home-work-experience-button'));
-      fireEvent.press(getByTestId('home-education-button'));
+      await fireEvent.press(getByTestId('home-settings-button'));
+      await fireEvent.press(getByTestId('home-work-experience-button'));
+      await fireEvent.press(getByTestId('home-education-button'));
 
       expect(mockNavigate).toHaveBeenCalledTimes(3);
       expect(mockNavigate).toHaveBeenNthCalledWith(1, 'Settings');
@@ -425,19 +425,19 @@ describe('HomeScreen Integration', () => {
     });
 
     it('navigates to all placeholder screens', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />);
+      const { getByTestId } = await renderWithProviders(<HomeScreen />);
 
-      fireEvent.press(getByTestId('home-contact-me-button'));
+      await fireEvent.press(getByTestId('home-contact-me-button'));
       expect(mockNavigate).toHaveBeenCalledWith('ChatPlaceholder');
 
-      fireEvent.press(getByTestId('home-book-a-call-button'));
+      await fireEvent.press(getByTestId('home-book-a-call-button'));
       expect(mockNavigate).toHaveBeenCalledWith('BookingPlaceholder');
     });
   });
 
   describe('Theme Integration', () => {
     it('renders correctly with light theme', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -465,7 +465,7 @@ describe('HomeScreen Integration', () => {
     });
 
     it('renders correctly with dark theme', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,
@@ -495,7 +495,7 @@ describe('HomeScreen Integration', () => {
 
   describe('Language Integration', () => {
     it('displays content based on selected language', async () => {
-      const { getByTestId } = renderWithProviders(<HomeScreen />, {
+      const { getByTestId } = await renderWithProviders(<HomeScreen />, {
         preloadedState: {
           profile: {
             data: mockProfile,

@@ -25,8 +25,8 @@ describe('LoginScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders login screen with all form elements', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders login screen with all form elements', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -37,40 +37,40 @@ describe('LoginScreen', () => {
       expect(getByTestId('login-button')).toBeOnTheScreen();
     });
 
-    it('renders email input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders email input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('email-input')).toBeOnTheScreen();
     });
 
-    it('renders password input field', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders password input field', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('password-input')).toBeOnTheScreen();
     });
 
-    it('renders login button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders login button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('login-button')).toBeOnTheScreen();
     });
 
-    it('renders forgot password link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders forgot password link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       expect(getByTestId('forgot-password-link')).toBeOnTheScreen();
     });
 
-    it('renders register link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('renders register link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -79,8 +79,8 @@ describe('LoginScreen', () => {
   });
 
   describe('Form Validation', () => {
-    it('disables login button when form is empty', () => {
-      const { getByTestId } = renderWithProviders(
+    it('disables login button when form is empty', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -89,15 +89,15 @@ describe('LoginScreen', () => {
     });
 
     it('disables login button when email is invalid', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');
 
-      fireEvent.changeText(emailInput, 'invalid-email');
-      fireEvent.changeText(passwordInput, 'SecurePass123!');
+      await fireEvent.changeText(emailInput, 'invalid-email');
+      await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -109,15 +109,15 @@ describe('LoginScreen', () => {
     });
 
     it('disables login button when password is too short', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');
 
-      fireEvent.changeText(emailInput, 'user@example.com');
-      fireEvent.changeText(passwordInput, 'short');
+      await fireEvent.changeText(emailInput, 'user@example.com');
+      await fireEvent.changeText(passwordInput, 'short');
 
       await waitFor(
         () => {
@@ -129,15 +129,15 @@ describe('LoginScreen', () => {
     });
 
     it('enables login button when form is valid', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const emailInput = getByTestId('email-input');
       const passwordInput = getByTestId('password-input');
 
-      fireEvent.changeText(emailInput, 'user@example.com');
-      fireEvent.changeText(passwordInput, 'SecurePass123!');
+      await fireEvent.changeText(emailInput, 'user@example.com');
+      await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -150,30 +150,30 @@ describe('LoginScreen', () => {
   });
 
   describe('Navigation', () => {
-    it('navigates to ForgotPassword when forgot password link is pressed', () => {
-      const { getByTestId } = renderWithProviders(
+    it('navigates to ForgotPassword when forgot password link is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.press(getByTestId('forgot-password-link'));
+      await fireEvent.press(getByTestId('forgot-password-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('ForgotPassword');
     });
 
-    it('navigates to Registration when register link is pressed', () => {
-      const { getByTestId } = renderWithProviders(
+    it('navigates to Registration when register link is pressed', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
-      fireEvent.press(getByTestId('register-link'));
+      await fireEvent.press(getByTestId('register-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('Registration');
     });
   });
 
   describe('Accessibility', () => {
-    it('has proper accessibility role on login button', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility role on login button', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -181,8 +181,8 @@ describe('LoginScreen', () => {
       expect(loginButton.props.accessibilityRole).toBe('button');
     });
 
-    it('has proper accessibility role on forgot password link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility role on forgot password link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -190,8 +190,8 @@ describe('LoginScreen', () => {
       expect(forgotPasswordLink.props.accessibilityRole).toBe('link');
     });
 
-    it('has proper accessibility role on register link', () => {
-      const { getByTestId } = renderWithProviders(
+    it('has proper accessibility role on register link', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 

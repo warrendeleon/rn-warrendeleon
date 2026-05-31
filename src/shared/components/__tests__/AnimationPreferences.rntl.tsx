@@ -155,7 +155,7 @@ describe('AnimatedLoadingIndicator', () => {
   it('shows spinning indicator when reduced motion disabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-    render(<AnimatedLoadingIndicator />);
+    await render(<AnimatedLoadingIndicator />);
 
     await waitFor(
       () => {
@@ -168,7 +168,7 @@ describe('AnimatedLoadingIndicator', () => {
   it('shows static indicator when reduced motion enabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-    render(<AnimatedLoadingIndicator />);
+    await render(<AnimatedLoadingIndicator />);
 
     await waitFor(
       () => {
@@ -181,7 +181,7 @@ describe('AnimatedLoadingIndicator', () => {
   it('shows loading state while checking preferences', async () => {
     mockIsReduceMotionEnabled.mockReturnValue(new Promise(() => {}));
 
-    render(<AnimatedLoadingIndicator />);
+    await render(<AnimatedLoadingIndicator />);
 
     expect(screen.getByTestId('loading-indicator')).toBeOnTheScreen();
     expect(screen.getByText('Loading...')).toBeOnTheScreen();
@@ -192,7 +192,7 @@ describe('PageTransition', () => {
   it('uses slide transition when reduced motion disabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-    render(
+    await render(
       <PageTransition>
         <Text>Page Content</Text>
       </PageTransition>
@@ -211,7 +211,7 @@ describe('PageTransition', () => {
   it('uses fade transition with zero duration when reduced motion enabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-    render(
+    await render(
       <PageTransition>
         <Text>Page Content</Text>
       </PageTransition>
@@ -230,7 +230,7 @@ describe('PageTransition', () => {
   it('has accessible transition label', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-    render(
+    await render(
       <PageTransition>
         <Text>Page Content</Text>
       </PageTransition>
@@ -249,7 +249,7 @@ describe('AutoPlayCarousel', () => {
   it('enables auto-play when reduced motion disabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-    render(<AutoPlayCarousel />);
+    await render(<AutoPlayCarousel />);
 
     await waitFor(
       () => {
@@ -263,7 +263,7 @@ describe('AutoPlayCarousel', () => {
   it('disables auto-play when reduced motion enabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-    render(<AutoPlayCarousel />);
+    await render(<AutoPlayCarousel />);
 
     await waitFor(
       () => {
@@ -279,7 +279,7 @@ describe('SuccessAnimation', () => {
   it('shows animated success when reduced motion disabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-    render(<SuccessAnimation />);
+    await render(<SuccessAnimation />);
 
     await waitFor(
       () => {
@@ -293,7 +293,7 @@ describe('SuccessAnimation', () => {
   it('shows static success when reduced motion enabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-    render(<SuccessAnimation />);
+    await render(<SuccessAnimation />);
 
     await waitFor(
       () => {
@@ -307,7 +307,7 @@ describe('SuccessAnimation', () => {
   it('has proper accessibility role and live region', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-    render(<SuccessAnimation />);
+    await render(<SuccessAnimation />);
 
     await waitFor(
       () => {
@@ -324,7 +324,7 @@ describe('SkeletonLoader', () => {
   it('shows shimmer animation when reduced motion disabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-    render(<SkeletonLoader />);
+    await render(<SkeletonLoader />);
 
     await waitFor(
       () => {
@@ -337,7 +337,7 @@ describe('SkeletonLoader', () => {
   it('shows static skeleton when reduced motion enabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-    render(<SkeletonLoader />);
+    await render(<SkeletonLoader />);
 
     await waitFor(
       () => {
@@ -352,7 +352,7 @@ describe('ToastNotification', () => {
   it('uses slide animation when reduced motion disabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-    render(<ToastNotification message="Operation successful" />);
+    await render(<ToastNotification message="Operation successful" />);
 
     await waitFor(
       () => {
@@ -365,7 +365,7 @@ describe('ToastNotification', () => {
   it('appears instantly when reduced motion enabled', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-    render(<ToastNotification message="Operation successful" />);
+    await render(<ToastNotification message="Operation successful" />);
 
     await waitFor(
       () => {
@@ -378,7 +378,7 @@ describe('ToastNotification', () => {
   it('has proper accessibility attributes for screen readers', async () => {
     mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-    render(<ToastNotification message="Operation successful" />);
+    await render(<ToastNotification message="Operation successful" />);
 
     await waitFor(
       () => {
@@ -426,7 +426,7 @@ describe('Animation preferences EAA compliance patterns', () => {
     it('animates essential progress when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<ProgressBar progress={50} isEssential={true} />);
+      await render(<ProgressBar progress={50} isEssential={true} />);
 
       await waitFor(
         () => {
@@ -439,7 +439,7 @@ describe('Animation preferences EAA compliance patterns', () => {
     it('does not animate decorative progress when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<ProgressBar progress={50} isEssential={false} />);
+      await render(<ProgressBar progress={50} isEssential={false} />);
 
       await waitFor(
         () => {
@@ -452,7 +452,7 @@ describe('Animation preferences EAA compliance patterns', () => {
     it('has proper progressbar accessibility role', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<ProgressBar progress={75} />);
+      await render(<ProgressBar progress={75} />);
 
       await waitFor(
         () => {
@@ -489,7 +489,7 @@ describe('Animation preferences EAA compliance patterns', () => {
     it('disables all vestibular-triggering animations when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<MotionIntensiveComponent />);
+      await render(<MotionIntensiveComponent />);
 
       await waitFor(
         () => {
@@ -504,7 +504,7 @@ describe('Animation preferences EAA compliance patterns', () => {
     it('enables all animations when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<MotionIntensiveComponent />);
+      await render(<MotionIntensiveComponent />);
 
       await waitFor(
         () => {
@@ -536,7 +536,7 @@ describe('Animation preferences EAA compliance patterns', () => {
     it('shows pulsing badge when reduced motion disabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(false);
 
-      render(<NotificationBadge count={5} />);
+      await render(<NotificationBadge count={5} />);
 
       await waitFor(
         () => {
@@ -549,7 +549,7 @@ describe('Animation preferences EAA compliance patterns', () => {
     it('shows static badge when reduced motion enabled', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<NotificationBadge count={5} />);
+      await render(<NotificationBadge count={5} />);
 
       await waitFor(
         () => {
@@ -562,7 +562,7 @@ describe('Animation preferences EAA compliance patterns', () => {
     it('has proper accessibility label with count', async () => {
       mockIsReduceMotionEnabled.mockResolvedValue(true);
 
-      render(<NotificationBadge count={5} />);
+      await render(<NotificationBadge count={5} />);
 
       await waitFor(
         () => {

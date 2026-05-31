@@ -34,8 +34,8 @@ describe('Error Recovery', () => {
   });
 
   describe('network error recovery', () => {
-    it('should display network error message', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display network error message', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -55,7 +55,7 @@ describe('Error Recovery', () => {
     });
 
     it('should allow retry after network error', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -71,8 +71,8 @@ describe('Error Recovery', () => {
       );
 
       // Form should still be functional
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -82,12 +82,12 @@ describe('Error Recovery', () => {
       );
 
       // Retry should be possible
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should preserve form data after network error', () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+    it('should preserve form data after network error', async () => {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -103,15 +103,15 @@ describe('Error Recovery', () => {
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Data should be preserved
       expect(getByDisplayValue('user@example.com')).toBeOnTheScreen();
     });
 
     it('should handle intermittent network errors', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -127,8 +127,8 @@ describe('Error Recovery', () => {
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Retry attempt
       await waitFor(
@@ -138,18 +138,18 @@ describe('Error Recovery', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Rerender simulates state update
-      rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
+      await rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
   });
 
   describe('server error recovery', () => {
-    it('should display server error message', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display server error message', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -169,7 +169,7 @@ describe('Error Recovery', () => {
     });
 
     it('should allow retry after server error', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -184,8 +184,8 @@ describe('Error Recovery', () => {
         }
       );
 
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -194,12 +194,12 @@ describe('Error Recovery', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle service unavailable error', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle service unavailable error', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -217,8 +217,8 @@ describe('Error Recovery', () => {
       expect(getByText('Service temporarily unavailable. Please try again.')).toBeOnTheScreen();
     });
 
-    it('should handle timeout error', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle timeout error', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -238,8 +238,8 @@ describe('Error Recovery', () => {
   });
 
   describe('validation error recovery', () => {
-    it('should display validation error message', () => {
-      const { getByText } = renderWithProviders(
+    it('should display validation error message', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -258,7 +258,7 @@ describe('Error Recovery', () => {
     });
 
     it('should allow fixing input after validation error', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -274,8 +274,8 @@ describe('Error Recovery', () => {
       );
 
       // Fix the email
-      fireEvent.changeText(getByTestId('email-input'), 'corrected@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'corrected@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       expect(getByDisplayValue('corrected@example.com')).toBeOnTheScreen();
 
@@ -288,7 +288,7 @@ describe('Error Recovery', () => {
     });
 
     it('should allow resubmit after fixing validation error', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -304,8 +304,8 @@ describe('Error Recovery', () => {
       );
 
       // Fix and resubmit
-      fireEvent.changeText(getByTestId('email-input'), 'valid@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'valid@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -314,12 +314,12 @@ describe('Error Recovery', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle email already registered error in registration', async () => {
-      const { getByTestId, getByText, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByText, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen
           navigation={registrationProps.navigation}
           route={registrationProps.route}
@@ -340,12 +340,12 @@ describe('Error Recovery', () => {
       expect(getByText('Email already registered')).toBeOnTheScreen();
 
       // User can change email
-      fireEvent.changeText(getByTestId('email-input'), 'newemail@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'newemail@example.com');
       expect(getByDisplayValue('newemail@example.com')).toBeOnTheScreen();
     });
 
     it('should handle password mismatch error in registration', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen
           navigation={registrationProps.navigation}
           route={registrationProps.route}
@@ -364,8 +364,8 @@ describe('Error Recovery', () => {
       );
 
       // Fix password
-      fireEvent.changeText(getByTestId('password-input'), 'NewSecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'NewSecurePass123!');
+      await fireEvent.changeText(getByTestId('password-input'), 'NewSecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'NewSecurePass123!');
 
       // Form should update
       expect(getByTestId('password-input').props.value).toBe('NewSecurePass123!');
@@ -374,8 +374,8 @@ describe('Error Recovery', () => {
   });
 
   describe('session expired recovery', () => {
-    it('should display session expired error', () => {
-      const { getByText } = renderWithProviders(
+    it('should display session expired error', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -394,7 +394,7 @@ describe('Error Recovery', () => {
     });
 
     it('should allow re-login after session expiry', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -410,8 +410,8 @@ describe('Error Recovery', () => {
       );
 
       // Fresh form for re-login
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -420,12 +420,12 @@ describe('Error Recovery', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle token invalid error', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle token invalid error', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -443,8 +443,8 @@ describe('Error Recovery', () => {
       expect(getByText('Authentication token invalid. Please log in again.')).toBeOnTheScreen();
     });
 
-    it('should clear previous session data on re-login', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should clear previous session data on re-login', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />
       );
 
@@ -455,8 +455,8 @@ describe('Error Recovery', () => {
   });
 
   describe('rate limiting recovery', () => {
-    it('should display rate limit error message', () => {
-      const { getByText } = renderWithProviders(
+    it('should display rate limit error message', async () => {
+      const { getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -474,8 +474,8 @@ describe('Error Recovery', () => {
       expect(getByText('Too many attempts. Please wait 60 seconds.')).toBeOnTheScreen();
     });
 
-    it('should preserve form data during rate limit', () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+    it('should preserve form data during rate limit', async () => {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -491,15 +491,15 @@ describe('Error Recovery', () => {
       );
 
       // Fill form while rate limited
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Data should be preserved
       expect(getByDisplayValue('user@example.com')).toBeOnTheScreen();
     });
 
     it('should allow retry after rate limit period', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -515,8 +515,8 @@ describe('Error Recovery', () => {
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -526,12 +526,12 @@ describe('Error Recovery', () => {
       );
 
       // Retry should work after wait period
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle account locked error', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle account locked error', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -556,8 +556,8 @@ describe('Error Recovery', () => {
   });
 
   describe('error message clearing', () => {
-    it('should allow input changes after error', () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+    it('should allow input changes after error', async () => {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -573,13 +573,13 @@ describe('Error Recovery', () => {
       );
 
       // Start typing (error should not block input)
-      fireEvent.changeText(getByTestId('email-input'), 'new@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'new@example.com');
 
       expect(getByDisplayValue('new@example.com')).toBeOnTheScreen();
     });
 
     it('should maintain form interactivity with error displayed', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -595,8 +595,8 @@ describe('Error Recovery', () => {
       );
 
       // Form should be interactive
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -609,7 +609,7 @@ describe('Error Recovery', () => {
 
   describe('multiple error recovery attempts', () => {
     it('should handle multiple retry attempts', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -625,8 +625,8 @@ describe('Error Recovery', () => {
       );
 
       // First retry
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -635,22 +635,22 @@ describe('Error Recovery', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Second error
-      rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
+      await rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
 
       // Second retry
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle different error types in sequence', () => {
+    it('should handle different error types in sequence', async () => {
       const errors = ['Network error', 'Server error', 'Validation error', 'Session expired'];
 
       for (const error of errors) {
-        const { getByTestId, getByText, unmount } = renderWithProviders(
+        const { getByTestId, getByText, unmount } = await renderWithProviders(
           <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
           {
             preloadedState: {
@@ -667,14 +667,14 @@ describe('Error Recovery', () => {
 
         expect(getByText(error)).toBeOnTheScreen();
         expect(getByTestId('email-input')).toBeOnTheScreen();
-        unmount();
+        await unmount();
       }
     });
   });
 
   describe('error accessibility', () => {
-    it('should have accessible error message', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should have accessible error message', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -693,8 +693,8 @@ describe('Error Recovery', () => {
       expect(errorMessage.props.accessibilityRole).toBe('alert');
     });
 
-    it('should announce error to screen readers', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should announce error to screen readers', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -714,8 +714,8 @@ describe('Error Recovery', () => {
       expect(errorMessage.props.accessibilityRole).toBe('alert');
     });
 
-    it('should maintain form accessibility after error', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should maintain form accessibility after error', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -740,7 +740,7 @@ describe('Error Recovery', () => {
 
   describe('registration error recovery', () => {
     it('should handle registration network error', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <RegistrationScreen
           navigation={registrationProps.navigation}
           route={registrationProps.route}
@@ -761,12 +761,12 @@ describe('Error Recovery', () => {
       expect(getByText('Network error during registration')).toBeOnTheScreen();
 
       // Form should be functional for retry
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
       expect(getByTestId('firstName-input').props.value).toBe('John');
     });
 
-    it('should handle weak password error in registration', () => {
-      const { getByText } = renderWithProviders(
+    it('should handle weak password error in registration', async () => {
+      const { getByText } = await renderWithProviders(
         <RegistrationScreen
           navigation={registrationProps.navigation}
           route={registrationProps.route}
@@ -790,7 +790,7 @@ describe('Error Recovery', () => {
     });
 
     it('should allow fixing all fields in registration after error', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen
           navigation={registrationProps.navigation}
           route={registrationProps.route}
@@ -809,13 +809,13 @@ describe('Error Recovery', () => {
       );
 
       // Fix all fields
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -828,7 +828,7 @@ describe('Error Recovery', () => {
 
   describe('resume action after re-login', () => {
     it('should display intended action after session expiry and re-login', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -848,8 +848,8 @@ describe('Error Recovery', () => {
       ).toBeOnTheScreen();
 
       // User can re-login
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -860,7 +860,7 @@ describe('Error Recovery', () => {
     });
 
     it('should preserve pending action context through re-login flow', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -876,8 +876,8 @@ describe('Error Recovery', () => {
       );
 
       // Fill login form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -887,17 +887,17 @@ describe('Error Recovery', () => {
       );
 
       // Submit login
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Rerender simulates successful login
-      rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
+      await rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle deep link action resume after re-login', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -915,8 +915,8 @@ describe('Error Recovery', () => {
       expect(getByText('Session expired. Log in to view the shared content.')).toBeOnTheScreen();
 
       // User re-authenticates
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -925,12 +925,12 @@ describe('Error Recovery', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should resume form submission after re-login', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -950,8 +950,8 @@ describe('Error Recovery', () => {
       ).toBeOnTheScreen();
 
       // Complete re-login
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -960,12 +960,12 @@ describe('Error Recovery', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle payment action resume after re-login', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -984,8 +984,8 @@ describe('Error Recovery', () => {
         getByText('Authentication required to complete payment. Please log in.')
       ).toBeOnTheScreen();
 
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -996,7 +996,7 @@ describe('Error Recovery', () => {
     });
 
     it('should not lose pending action on failed re-login attempt', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -1012,8 +1012,8 @@ describe('Error Recovery', () => {
       );
 
       // Try to login with wrong password
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'WrongPass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'WrongPass123!');
 
       await waitFor(
         () => {
@@ -1022,10 +1022,10 @@ describe('Error Recovery', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Simulate failed login
-      rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
+      await rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
 
       // Should still be able to retry
       expect(getByTestId('email-input')).toBeOnTheScreen();
@@ -1033,7 +1033,7 @@ describe('Error Recovery', () => {
     });
 
     it('should handle multiple action types queued for resume', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -1050,8 +1050,8 @@ describe('Error Recovery', () => {
 
       expect(getByText('Multiple pending actions require authentication.')).toBeOnTheScreen();
 
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -1062,7 +1062,7 @@ describe('Error Recovery', () => {
     });
 
     it('should clear pending action after successful completion', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />
       );
 
@@ -1071,13 +1071,13 @@ describe('Error Recovery', () => {
       expect(getByTestId('password-input').props.value).toBe('');
 
       // No pending action error
-      rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
+      await rerender(<LoginScreen navigation={loginProps.navigation} route={loginProps.route} />);
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle action timeout after re-login', async () => {
-      const { getByTestId, getByText } = renderWithProviders(
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={loginProps.navigation} route={loginProps.route} />,
         {
           preloadedState: {
@@ -1095,8 +1095,8 @@ describe('Error Recovery', () => {
       expect(getByText('Your pending action has expired. Please start again.')).toBeOnTheScreen();
 
       // User can still log in normally
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {

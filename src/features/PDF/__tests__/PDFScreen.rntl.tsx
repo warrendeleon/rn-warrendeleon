@@ -56,8 +56,8 @@ describe('PDFScreen', () => {
     mockIsUrlAllowed.mockReturnValue(true);
   });
 
-  it('renders PDF component with correct URI', () => {
-    renderWithProviders(<PDFScreen />);
+  it('renders PDF component with correct URI', async () => {
+    await renderWithProviders(<PDFScreen />);
 
     const pdf = screen.getByTestId('mock-pdf');
     expect(pdf).toBeOnTheScreen();
@@ -67,22 +67,22 @@ describe('PDFScreen', () => {
     });
   });
 
-  it('enables caching for offline viewing', () => {
-    renderWithProviders(<PDFScreen />);
+  it('enables caching for offline viewing', async () => {
+    await renderWithProviders(<PDFScreen />);
 
     const pdf = screen.getByTestId('mock-pdf');
     expect(pdf.props.source.cache).toBe(true);
   });
 
-  it('disables trust all certs for security', () => {
-    renderWithProviders(<PDFScreen />);
+  it('disables trust all certs for security', async () => {
+    await renderWithProviders(<PDFScreen />);
 
     const pdf = screen.getByTestId('mock-pdf');
     expect(pdf.props.trustAllCerts).toBe(false);
   });
 
-  it('applies full screen styles', () => {
-    renderWithProviders(<PDFScreen />);
+  it('applies full screen styles', async () => {
+    await renderWithProviders(<PDFScreen />);
 
     const pdf = screen.getByTestId('mock-pdf');
     // StyledPDF transforms GlueStack props (flex, w, h) into styles
@@ -90,13 +90,13 @@ describe('PDFScreen', () => {
     expect(pdf.props.style).toBeDefined();
   });
 
-  it('sets up share button in header', () => {
+  it('sets up share button in header', async () => {
     const mockSetOptions = jest.fn();
     (ReactNavigation.useNavigation as jest.Mock).mockReturnValue({
       setOptions: mockSetOptions,
     });
 
-    renderWithProviders(<PDFScreen />);
+    await renderWithProviders(<PDFScreen />);
 
     expect(mockSetOptions).toHaveBeenCalled();
     const options = mockSetOptions.mock.calls[0][0];
@@ -117,13 +117,13 @@ describe('PDFScreen - URL Validation', () => {
   });
 
   describe('URL Validation Logic', () => {
-    it('renders loading state initially while validating', () => {
+    it('renders loading state initially while validating', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://warrendeleon.com/cv.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const loading = screen.queryByTestId('pdf-loading');
       const error = screen.queryByTestId('pdf-error');
@@ -131,13 +131,13 @@ describe('PDFScreen - URL Validation', () => {
       expect(loading ?? error).toBeDefined();
     });
 
-    it('renders error state when URL is not allowed', () => {
+    it('renders error state when URL is not allowed', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
       expect(
@@ -146,38 +146,38 @@ describe('PDFScreen - URL Validation', () => {
       expect(screen.getByText('https://evil.com/malware.pdf')).toBeOnTheScreen();
     });
 
-    it('renders PDF viewer when URL is allowed', () => {
+    it('renders PDF viewer when URL is allowed', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://warrendeleon.com/cv.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(true);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('mock-pdf')).toBeOnTheScreen();
     });
 
-    it('validates URL against ALLOWED_PDF_DOMAINS', () => {
+    it('validates URL against ALLOWED_PDF_DOMAINS', async () => {
       const testUri = 'https://warrendeleon.com/wp-content/uploads/2025/06/CV.pdf';
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: testUri },
       });
       mockIsUrlAllowed.mockReturnValue(true);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(mockIsUrlAllowed).toHaveBeenCalledWith(testUri, ALLOWED_PDF_DOMAINS);
     });
   });
 
   describe('Accessibility', () => {
-    it('loading state has proper accessibility props', () => {
+    it('loading state has proper accessibility props', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://warrendeleon.com/cv.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const loading = screen.queryByTestId('pdf-loading');
       if (loading) {
@@ -186,13 +186,13 @@ describe('PDFScreen - URL Validation', () => {
       }
     });
 
-    it('error state has proper accessibility props', () => {
+    it('error state has proper accessibility props', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const errorContainer = screen.getByTestId('pdf-error');
       expect(errorContainer.props.accessibilityRole).toBe('alert');
@@ -203,28 +203,28 @@ describe('PDFScreen - URL Validation', () => {
   });
 
   describe('Dark Mode Support', () => {
-    it('applies dark colors when dark mode is active', () => {
+    it('applies dark colors when dark mode is active', async () => {
       mockUseAppColorScheme.mockReturnValue('dark');
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
       // Check for GlueStack UI color token instead of hex color
       expect(errorText.props.color).toBe('$error400');
     });
 
-    it('applies light colors when light mode is active', () => {
+    it('applies light colors when light mode is active', async () => {
       mockUseAppColorScheme.mockReturnValue('light');
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://evil.com/malware.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       const errorText = screen.getByText('This PDF URL is not allowed for security reasons');
       // Check for GlueStack UI color token instead of hex color
@@ -233,29 +233,29 @@ describe('PDFScreen - URL Validation', () => {
   });
 
   describe('Security Scenarios', () => {
-    it('blocks HTTP URLs', () => {
+    it('blocks HTTP URLs', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'http://warrendeleon.com/cv.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
 
-    it('blocks non-whitelisted domains', () => {
+    it('blocks non-whitelisted domains', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://malicious.com/virus.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
 
-    it('allows whitelisted domains with paths', () => {
+    it('allows whitelisted domains with paths', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: {
           uri: 'https://warrendeleon.com/wp-content/uploads/2025/06/CV_WARRENDELEON_2025.pdf',
@@ -263,53 +263,53 @@ describe('PDFScreen - URL Validation', () => {
       });
       mockIsUrlAllowed.mockReturnValue(true);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('mock-pdf')).toBeOnTheScreen();
     });
 
-    it('allows subdomains of whitelisted domains', () => {
+    it('allows subdomains of whitelisted domains', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'https://cdn.warrendeleon.com/documents/cv.pdf' },
       });
       mockIsUrlAllowed.mockReturnValue(true);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('mock-pdf')).toBeOnTheScreen();
     });
   });
 
   describe('Edge Cases', () => {
-    it('handles empty URI gracefully', () => {
+    it('handles empty URI gracefully', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: '' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
 
-    it('handles malformed URLs', () => {
+    it('handles malformed URLs', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'not a url' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });
 
-    it('handles javascript: protocol URLs', () => {
+    it('handles javascript: protocol URLs', async () => {
       (ReactNavigation.useRoute as jest.Mock).mockReturnValue({
         params: { uri: 'javascript:alert(1)' },
       });
       mockIsUrlAllowed.mockReturnValue(false);
 
-      renderWithProviders(<PDFScreen />);
+      await renderWithProviders(<PDFScreen />);
 
       expect(screen.getByTestId('pdf-error')).toBeOnTheScreen();
     });

@@ -33,116 +33,116 @@ describe('useAppColorScheme', () => {
   });
 
   describe('when theme preference is "system"', () => {
-    it('returns "light" when device color scheme is "light"', () => {
+    it('returns "light" when device color scheme is "light"', async () => {
       mockUseColorScheme.mockReturnValue('light');
       const wrapper = createWrapper({ settings: { theme: 'system', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('light');
     });
 
-    it('returns "dark" when device color scheme is "dark"', () => {
+    it('returns "dark" when device color scheme is "dark"', async () => {
       mockUseColorScheme.mockReturnValue('dark');
       const wrapper = createWrapper({ settings: { theme: 'system', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('dark');
     });
 
-    it('returns "light" when device color scheme is null (fallback)', () => {
+    it('returns "light" when device color scheme is null (fallback)', async () => {
       mockUseColorScheme.mockReturnValue(null);
       const wrapper = createWrapper({ settings: { theme: 'system', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('light');
     });
 
-    it('returns "light" when device color scheme is undefined (fallback)', () => {
+    it('returns "light" when device color scheme is undefined (fallback)', async () => {
       mockUseColorScheme.mockReturnValue(undefined);
       const wrapper = createWrapper({ settings: { theme: 'system', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('light');
     });
   });
 
   describe('when theme preference is "light"', () => {
-    it('returns "light" regardless of device color scheme being "dark"', () => {
+    it('returns "light" regardless of device color scheme being "dark"', async () => {
       mockUseColorScheme.mockReturnValue('dark');
       const wrapper = createWrapper({ settings: { theme: 'light', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('light');
     });
 
-    it('returns "light" when device color scheme is "light"', () => {
+    it('returns "light" when device color scheme is "light"', async () => {
       mockUseColorScheme.mockReturnValue('light');
       const wrapper = createWrapper({ settings: { theme: 'light', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('light');
     });
 
-    it('returns "light" when device color scheme is null', () => {
+    it('returns "light" when device color scheme is null', async () => {
       mockUseColorScheme.mockReturnValue(null);
       const wrapper = createWrapper({ settings: { theme: 'light', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('light');
     });
   });
 
   describe('when theme preference is "dark"', () => {
-    it('returns "dark" regardless of device color scheme being "light"', () => {
+    it('returns "dark" regardless of device color scheme being "light"', async () => {
       mockUseColorScheme.mockReturnValue('light');
       const wrapper = createWrapper({ settings: { theme: 'dark', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('dark');
     });
 
-    it('returns "dark" when device color scheme is "dark"', () => {
+    it('returns "dark" when device color scheme is "dark"', async () => {
       mockUseColorScheme.mockReturnValue('dark');
       const wrapper = createWrapper({ settings: { theme: 'dark', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('dark');
     });
 
-    it('returns "dark" when device color scheme is null', () => {
+    it('returns "dark" when device color scheme is null', async () => {
       mockUseColorScheme.mockReturnValue(null);
       const wrapper = createWrapper({ settings: { theme: 'dark', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(result.current).toBe('dark');
     });
   });
 
   describe('hook integration', () => {
-    it('calls React Native useColorScheme', () => {
+    it('calls React Native useColorScheme', async () => {
       mockUseColorScheme.mockReturnValue('light');
       const wrapper = createWrapper({ settings: { theme: 'system', language: 'en' } });
 
-      renderHook(() => useAppColorScheme(), { wrapper });
+      await renderHook(() => useAppColorScheme(), { wrapper });
 
       expect(mockUseColorScheme).toHaveBeenCalledTimes(1);
     });
 
-    it('integrates with Redux store to read theme preference', () => {
+    it('integrates with Redux store to read theme preference', async () => {
       mockUseColorScheme.mockReturnValue('light');
       const wrapper = createWrapper({ settings: { theme: 'dark', language: 'en' } });
 
-      const { result } = renderHook(() => useAppColorScheme(), { wrapper });
+      const { result } = await renderHook(() => useAppColorScheme(), { wrapper });
 
       // Even though system is 'light', preference is 'dark', so should return 'dark'
       expect(result.current).toBe('dark');

@@ -57,18 +57,18 @@ describe('Onboarding Journey Integration', () => {
 
   describe('registration journey', () => {
     it('should complete full registration form', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />
       );
 
       // Fill all required fields
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       // Form should be valid
       await waitFor(
@@ -79,37 +79,37 @@ describe('Onboarding Journey Integration', () => {
       );
 
       // Submit registration
-      fireEvent.press(getByTestId('register-button'));
+      await fireEvent.press(getByTestId('register-button'));
 
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
     });
 
-    it('should navigate to login from registration', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should navigate to login from registration', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />
       );
 
-      fireEvent.press(getByTestId('login-link'));
+      await fireEvent.press(getByTestId('login-link'));
 
       expect(mockRegNav.navigate).toHaveBeenCalledWith('Login');
     });
 
-    it('should navigate to terms from registration', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should navigate to terms from registration', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />
       );
 
-      fireEvent.press(getByTestId('terms-link'));
+      await fireEvent.press(getByTestId('terms-link'));
 
       expect(mockRegNav.navigate).toHaveBeenCalledWith('TermsAndConditions');
     });
 
-    it('should navigate to privacy from registration', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should navigate to privacy from registration', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />
       );
 
-      fireEvent.press(getByTestId('privacy-link'));
+      await fireEvent.press(getByTestId('privacy-link'));
 
       expect(mockRegNav.navigate).toHaveBeenCalledWith('PrivacyPolicy');
     });
@@ -117,13 +117,13 @@ describe('Onboarding Journey Integration', () => {
 
   describe('login journey', () => {
     it('should complete full login flow', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Fill credentials
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Form should be valid
       await waitFor(
@@ -134,27 +134,27 @@ describe('Onboarding Journey Integration', () => {
       );
 
       // Submit login
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should navigate to registration from login', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should navigate to registration from login', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
-      fireEvent.press(getByTestId('register-link'));
+      await fireEvent.press(getByTestId('register-link'));
 
       expect(mockLoginNav.navigate).toHaveBeenCalledWith('Registration');
     });
 
-    it('should navigate to forgot password from login', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should navigate to forgot password from login', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
-      fireEvent.press(getByTestId('forgot-password-link'));
+      await fireEvent.press(getByTestId('forgot-password-link'));
 
       expect(mockLoginNav.navigate).toHaveBeenCalledWith('ForgotPassword');
     });
@@ -162,12 +162,12 @@ describe('Onboarding Journey Integration', () => {
 
   describe('password recovery journey', () => {
     it('should complete forgot password request', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockForgotNav} route={mockForgotRoute} />
       );
 
       // Fill email
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
 
       // Form should be valid
       await waitFor(
@@ -180,18 +180,18 @@ describe('Onboarding Journey Integration', () => {
       );
 
       // Submit request
-      fireEvent.press(getByTestId('send-reset-email-button'));
+      await fireEvent.press(getByTestId('send-reset-email-button'));
 
       expect(getByTestId('forgot-password-screen')).toBeOnTheScreen();
     });
 
     it('should show back to login button after successful submission', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ForgotPasswordScreen navigation={mockForgotNav} route={mockForgotRoute} />
       );
 
       // Fill email and submit
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
 
       await waitFor(
         () => {
@@ -202,7 +202,7 @@ describe('Onboarding Journey Integration', () => {
         { timeout: 3000, interval: 100 }
       );
 
-      fireEvent.press(getByTestId('send-reset-email-button'));
+      await fireEvent.press(getByTestId('send-reset-email-button'));
 
       // Wait for success state
       await waitFor(
@@ -213,15 +213,15 @@ describe('Onboarding Journey Integration', () => {
       );
 
       // Navigate back to login
-      fireEvent.press(getByTestId('back-to-login-button'));
+      await fireEvent.press(getByTestId('back-to-login-button'));
 
       expect(mockForgotNav.goBack).toHaveBeenCalled();
     });
   });
 
   describe('journey state transitions', () => {
-    it('should handle loading state during login', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle loading state during login', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -241,8 +241,8 @@ describe('Onboarding Journey Integration', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle loading state during registration', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle loading state during registration', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />,
         {
           preloadedState: {
@@ -262,8 +262,8 @@ describe('Onboarding Journey Integration', () => {
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
     });
 
-    it('should display error during login journey', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display error during login journey', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -282,8 +282,8 @@ describe('Onboarding Journey Integration', () => {
       expect(getByText('Invalid credentials')).toBeOnTheScreen();
     });
 
-    it('should display error during registration journey', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display error during registration journey', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />,
         {
           preloadedState: {
@@ -305,13 +305,13 @@ describe('Onboarding Journey Integration', () => {
 
   describe('journey validation', () => {
     it('should validate email format in login', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Invalid email
-      fireEvent.changeText(getByTestId('email-input'), 'invalid-email');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'invalid-email');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Form should be invalid
       await waitFor(
@@ -323,18 +323,18 @@ describe('Onboarding Journey Integration', () => {
     });
 
     it('should validate password match in registration', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />
       );
 
       // Fill form with mismatched passwords
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'DifferentPass456!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'DifferentPass456!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       // Form should be invalid
       await waitFor(
@@ -346,17 +346,17 @@ describe('Onboarding Journey Integration', () => {
     });
 
     it('should validate terms acceptance in registration', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />
       );
 
       // Fill form without accepting terms
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
       // Don't accept terms
 
       // Form should be invalid
@@ -370,10 +370,10 @@ describe('Onboarding Journey Integration', () => {
   });
 
   describe('journey interruption handling', () => {
-    it('should handle unmount during login submission', () => {
+    it('should handle unmount during login submission', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -391,7 +391,7 @@ describe('Onboarding Journey Integration', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
 
       // Unmount during loading
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // No memory leak warnings
@@ -403,10 +403,10 @@ describe('Onboarding Journey Integration', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should handle unmount during registration submission', () => {
+    it('should handle unmount during registration submission', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />,
         {
           preloadedState: {
@@ -424,7 +424,7 @@ describe('Onboarding Journey Integration', () => {
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
 
       // Unmount during loading
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // No memory leak warnings
@@ -439,16 +439,16 @@ describe('Onboarding Journey Integration', () => {
 
   describe('keyboard navigation journey', () => {
     it('should complete login via keyboard navigation', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
       // Fill email and press next
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
-      fireEvent(getByTestId('email-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent(getByTestId('email-input'), 'submitEditing');
 
       // Fill password and press done
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -458,34 +458,34 @@ describe('Onboarding Journey Integration', () => {
       );
 
       // Submit via keyboard
-      fireEvent(getByTestId('password-input'), 'submitEditing');
+      await fireEvent(getByTestId('password-input'), 'submitEditing');
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should complete registration via keyboard navigation', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />
       );
 
       // Navigate through all fields via keyboard
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent(getByTestId('firstName-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent(getByTestId('firstName-input'), 'submitEditing');
 
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent(getByTestId('lastName-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent(getByTestId('lastName-input'), 'submitEditing');
 
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent(getByTestId('phone-number-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent(getByTestId('phone-number-input'), 'submitEditing');
 
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
-      fireEvent(getByTestId('email-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent(getByTestId('email-input'), 'submitEditing');
 
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent(getByTestId('password-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('password-input'), 'submitEditing');
 
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -495,7 +495,7 @@ describe('Onboarding Journey Integration', () => {
       );
 
       // Submit via keyboard on last field
-      fireEvent(getByTestId('confirmPassword-input'), 'submitEditing');
+      await fireEvent(getByTestId('confirmPassword-input'), 'submitEditing');
 
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
     });

@@ -30,13 +30,13 @@ describe('Auth Race Conditions', () => {
 
   describe('concurrent login requests', () => {
     it('should handle rapid form submissions without duplicate requests', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Wait for form to be valid
       await waitFor(
@@ -47,16 +47,16 @@ describe('Auth Race Conditions', () => {
       );
 
       // Rapid clicks
-      fireEvent.press(getByTestId('login-button'));
-      fireEvent.press(getByTestId('login-button'));
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should disable button during pending request', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should disable button during pending request', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -76,7 +76,7 @@ describe('Auth Race Conditions', () => {
     });
 
     it('should handle submit while already loading', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -92,7 +92,7 @@ describe('Auth Race Conditions', () => {
       );
 
       // Try to submit during loading (should be prevented by disabled state)
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Screen should remain stable
       expect(getByTestId('login-screen')).toBeOnTheScreen();
@@ -103,7 +103,7 @@ describe('Auth Race Conditions', () => {
     it('should handle unmount during pending login', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -121,7 +121,7 @@ describe('Auth Race Conditions', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
 
       // Unmount during loading
-      unmount();
+      await unmount();
 
       // Advance timers to trigger any pending async operations
       jest.runAllTimers();
@@ -138,13 +138,13 @@ describe('Auth Race Conditions', () => {
     it('should handle unmount immediately after form submission', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -154,8 +154,8 @@ describe('Auth Race Conditions', () => {
       );
 
       // Submit and immediately unmount
-      fireEvent.press(getByTestId('login-button'));
-      unmount();
+      await fireEvent.press(getByTestId('login-button'));
+      await unmount();
 
       // Advance timers
       jest.runAllTimers();
@@ -169,16 +169,16 @@ describe('Auth Race Conditions', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should handle rapid mount/unmount cycles', () => {
+    it('should handle rapid mount/unmount cycles', async () => {
       for (let i = 0; i < 5; i++) {
-        const { unmount } = renderWithProviders(
+        const { unmount } = await renderWithProviders(
           <LoginScreen navigation={mockNavigation} route={mockRoute} />
         );
-        unmount();
+        await unmount();
       }
 
       // Final mount should work correctly
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -188,22 +188,22 @@ describe('Auth Race Conditions', () => {
 
   describe('state transitions during async flow', () => {
     it('should handle error state appearing during input', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Start typing
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
 
       // Error state appears (simulates delayed network error)
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Should handle gracefully
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle loading to error transition', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -227,7 +227,7 @@ describe('Auth Race Conditions', () => {
     });
 
     it('should clear error on new form submission attempt', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -243,8 +243,8 @@ describe('Auth Race Conditions', () => {
       );
 
       // Fill form with new data
-      fireEvent.changeText(getByTestId('email-input'), 'new@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'NewSecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'new@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'NewSecurePass123!');
 
       await waitFor(
         () => {
@@ -254,7 +254,7 @@ describe('Auth Race Conditions', () => {
       );
 
       // Submit new attempt
-      fireEvent.press(getByTestId('login-button'));
+      await fireEvent.press(getByTestId('login-button'));
 
       // Form submission attempted
       expect(getByTestId('login-screen')).toBeOnTheScreen();
@@ -262,8 +262,8 @@ describe('Auth Race Conditions', () => {
   });
 
   describe('navigation during async operation', () => {
-    it('should handle navigation to forgot password during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle navigation to forgot password during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -279,13 +279,13 @@ describe('Auth Race Conditions', () => {
       );
 
       // Navigate during loading
-      fireEvent.press(getByTestId('forgot-password-link'));
+      await fireEvent.press(getByTestId('forgot-password-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('ForgotPassword');
     });
 
-    it('should handle navigation to registration during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle navigation to registration during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -301,13 +301,13 @@ describe('Auth Race Conditions', () => {
       );
 
       // Navigate during loading
-      fireEvent.press(getByTestId('register-link'));
+      await fireEvent.press(getByTestId('register-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('Registration');
     });
 
-    it('should handle back navigation during loading', () => {
-      const { unmount, getByTestId } = renderWithProviders(
+    it('should handle back navigation during loading', async () => {
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -331,25 +331,25 @@ describe('Auth Race Conditions', () => {
 
   describe('form state consistency', () => {
     it('should maintain form values during loading state', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Rerender (simulates Redux state change)
-      rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Form values should be preserved (managed by form state)
       expect(getByTestId('email-input').props.value).toBe('user@example.com');
     });
 
-    it('should reset form on successful authentication redirect', () => {
+    it('should reset form on successful authentication redirect', async () => {
       // When user is authenticated, they are redirected away
       // This tests that the component handles the authenticated state
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -379,13 +379,13 @@ describe('Auth Race Conditions', () => {
 
   describe('keyboard interaction race conditions', () => {
     it('should handle rapid keyboard show/hide during submission', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -395,24 +395,24 @@ describe('Auth Race Conditions', () => {
       );
 
       // Rapid keyboard interactions
-      fireEvent(getByTestId('email-input'), 'focus');
-      fireEvent(getByTestId('email-input'), 'blur');
-      fireEvent(getByTestId('password-input'), 'focus');
-      fireEvent(getByTestId('password-input'), 'submitEditing');
+      await fireEvent(getByTestId('email-input'), 'focus');
+      await fireEvent(getByTestId('email-input'), 'blur');
+      await fireEvent(getByTestId('password-input'), 'focus');
+      await fireEvent(getByTestId('password-input'), 'submitEditing');
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
     it('should handle submit via keyboard enter key during typing', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent(getByTestId('email-input'), 'submitEditing'); // Enter key moves to password
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent(getByTestId('email-input'), 'submitEditing'); // Enter key moves to password
 
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -422,7 +422,7 @@ describe('Auth Race Conditions', () => {
       );
 
       // Submit via enter key on password field
-      fireEvent(getByTestId('password-input'), 'submitEditing');
+      await fireEvent(getByTestId('password-input'), 'submitEditing');
 
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });

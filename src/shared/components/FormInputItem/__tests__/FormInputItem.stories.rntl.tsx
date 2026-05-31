@@ -15,81 +15,81 @@ import * as stories from '../FormInputItem.stories';
 type FormInputItemProps = ComponentProps<typeof FormInputItem>;
 
 describe('FormInputItem Stories', () => {
-  it('renders Default story with placeholder', () => {
+  it('renders Default story with placeholder', async () => {
     const { args } = stories.Default;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <FormInputItem {...(args as FormInputItemProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(args!.placeholder as string)).toBeOnTheScreen();
   });
 
-  it('renders WithValue story with value displayed', () => {
+  it('renders WithValue story with value displayed', async () => {
     const { args } = stories.WithValue;
-    const { getByDisplayValue } = renderWithProviders(
+    const { getByDisplayValue } = await renderWithProviders(
       <FormInputItem {...(args as FormInputItemProps)} onChangeText={jest.fn()} />
     );
     expect(getByDisplayValue(args!.value as string)).toBeOnTheScreen();
   });
 
-  it('renders EmailInput story with email keyboard', () => {
+  it('renders EmailInput story with email keyboard', async () => {
     const { args } = stories.EmailInput;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <FormInputItem {...(args as FormInputItemProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/email/i)).toBeOnTheScreen();
   });
 
-  it('renders PasswordInput story with secure text', () => {
+  it('renders PasswordInput story with secure text', async () => {
     const { args } = stories.PasswordInput;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <FormInputItem {...(args as FormInputItemProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/password/i)).toBeOnTheScreen();
   });
 
-  it('renders WithError story with error message', () => {
+  it('renders WithError story with error message', async () => {
     const { args } = stories.WithError;
-    const { getByText } = renderWithProviders(
+    const { getByText } = await renderWithProviders(
       <FormInputItem {...(args as FormInputItemProps)} onChangeText={jest.fn()} />
     );
     expect(getByText('Please enter a valid email address')).toBeOnTheScreen();
   });
 
-  it('renders PhoneInput story with phone placeholder', () => {
+  it('renders PhoneInput story with phone placeholder', async () => {
     const { args } = stories.PhoneInput;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <FormInputItem {...(args as FormInputItemProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(/phone/i)).toBeOnTheScreen();
   });
 
-  it('renders TopInGroup story with top variant', () => {
+  it('renders TopInGroup story with top variant', async () => {
     const { args } = stories.TopInGroup;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <FormInputItem {...(args as FormInputItemProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(args!.placeholder as string)).toBeOnTheScreen();
   });
 
-  it('renders MiddleInGroup story with middle variant', () => {
+  it('renders MiddleInGroup story with middle variant', async () => {
     const { args } = stories.MiddleInGroup;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <FormInputItem {...(args as FormInputItemProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(args!.placeholder as string)).toBeOnTheScreen();
   });
 
-  it('renders BottomInGroup story with bottom variant', () => {
+  it('renders BottomInGroup story with bottom variant', async () => {
     const { args } = stories.BottomInGroup;
-    const { getByPlaceholderText } = renderWithProviders(
+    const { getByPlaceholderText } = await renderWithProviders(
       <FormInputItem {...(args as FormInputItemProps)} onChangeText={jest.fn()} />
     );
     expect(getByPlaceholderText(args!.placeholder as string)).toBeOnTheScreen();
   });
 
-  it('renders GroupedForm story with multiple inputs', () => {
+  it('renders GroupedForm story with multiple inputs', async () => {
     const StoryComponent = stories.GroupedForm.render as React.FC;
-    const { getAllByPlaceholderText } = renderWithProviders(<StoryComponent />);
+    const { getAllByPlaceholderText } = await renderWithProviders(<StoryComponent />);
     expect(getAllByPlaceholderText(/.+/).length).toBeGreaterThan(0);
   });
 });

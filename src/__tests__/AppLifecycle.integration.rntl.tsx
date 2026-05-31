@@ -83,7 +83,7 @@ describe('App Lifecycle Edge Cases', () => {
     it('should handle app termination during auth flow', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -101,7 +101,7 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
 
       // App terminated during auth
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // No memory leak warnings
@@ -113,9 +113,9 @@ describe('App Lifecycle Edge Cases', () => {
       consoleErrorSpy.mockRestore();
     });
 
-    it('should restore to login screen after termination during auth', () => {
+    it('should restore to login screen after termination during auth', async () => {
       // App restarts after termination during auth
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
@@ -128,7 +128,7 @@ describe('App Lifecycle Edge Cases', () => {
     it('should handle termination during registration flow', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockRegNav} route={mockRegRoute} />,
         {
           preloadedState: {
@@ -146,7 +146,7 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
 
       // Terminated during registration
-      unmount();
+      await unmount();
       jest.runAllTimers();
 
       // No memory leak warnings
@@ -164,7 +164,7 @@ describe('App Lifecycle Edge Cases', () => {
       const mockProfile = createMockProfile();
 
       // Simulates redux-persist rehydration after restart
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -174,14 +174,14 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle partial state rehydration', () => {
+    it('should handle partial state rehydration', async () => {
       // Only partial state restored (some data missing)
       const partialProfile = createMockProfile({
         galleryImages: [],
         socials: undefined as unknown as Profile['socials'],
       });
 
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: partialProfile,
         loading: false,
         error: null,
@@ -194,7 +194,7 @@ describe('App Lifecycle Edge Cases', () => {
 
     it('should handle corrupted persisted state', async () => {
       // Corrupted state results in null/error
-      const { rerender, getByTestId } = renderProfileWithState({
+      const { rerender, getByTestId } = await renderProfileWithState({
         data: null,
         loading: false,
         error: 'Failed to restore state',
@@ -203,7 +203,7 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // State recovers - rerender simulates recovery
-      rerender(<ProfileScreen />);
+      await rerender(<ProfileScreen />);
 
       await waitFor(
         () => {
@@ -213,8 +213,8 @@ describe('App Lifecycle Edge Cases', () => {
       );
     });
 
-    it('should show loading during rehydration', () => {
-      const { getByTestId } = renderProfileWithState({
+    it('should show loading during rehydration', async () => {
+      const { getByTestId } = await renderProfileWithState({
         data: null,
         loading: true,
         error: null,
@@ -225,9 +225,9 @@ describe('App Lifecycle Edge Cases', () => {
   });
 
   describe('first launch after update scenarios', () => {
-    it('should handle first launch after update', () => {
+    it('should handle first launch after update', async () => {
       // Fresh state after update (no persisted data)
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
@@ -238,7 +238,7 @@ describe('App Lifecycle Edge Cases', () => {
       const mockProfile = createMockProfile();
 
       // Settings migrated from old format
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -248,9 +248,9 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle missing migration data gracefully', () => {
+    it('should handle missing migration data gracefully', async () => {
       // Migration data missing
-      const { getByTestId } = renderProfileWithState({
+      const { getByTestId } = await renderProfileWithState({
         data: null,
         loading: false,
         error: null,
@@ -266,7 +266,7 @@ describe('App Lifecycle Edge Cases', () => {
       const mockProfile = createMockProfile();
 
       // Old data format migrated to new format
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -276,13 +276,13 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle migration with new required fields', () => {
+    it('should handle migration with new required fields', async () => {
       // New fields added with defaults
       const migratedProfile = createMockProfile({
         headline: 'Default headline', // Simulates newly required field
       });
 
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: migratedProfile,
         loading: false,
         error: null,
@@ -292,11 +292,11 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle migration of deprecated fields', () => {
+    it('should handle migration of deprecated fields', async () => {
       // Old fields ignored, new format used
       const modernProfile = createMockProfile();
 
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: modernProfile,
         loading: false,
         error: null,
@@ -306,9 +306,9 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should rollback migration on failure', () => {
+    it('should rollback migration on failure', async () => {
       // Migration failed, show error
-      const { getByTestId } = renderProfileWithState({
+      const { getByTestId } = await renderProfileWithState({
         data: null,
         loading: false,
         error: 'Migration failed. Please update the app.',
@@ -319,9 +319,9 @@ describe('App Lifecycle Edge Cases', () => {
   });
 
   describe('cold start vs warm start behaviour', () => {
-    it('should handle cold start correctly', () => {
+    it('should handle cold start correctly', async () => {
       // Cold start: fresh app launch, no cached data
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
@@ -332,7 +332,7 @@ describe('App Lifecycle Edge Cases', () => {
       const mockProfile = createMockProfile();
 
       // Warm start: app resumes with cached data
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -345,7 +345,7 @@ describe('App Lifecycle Edge Cases', () => {
     it('should prioritise cache on warm start', async () => {
       const cachedProfile = createMockProfile({ headline: 'Cached headline' });
 
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: cachedProfile,
         loading: false,
         error: null,
@@ -360,7 +360,7 @@ describe('App Lifecycle Edge Cases', () => {
       const staleProfile = createMockProfile({ headline: 'Stale data' });
 
       // Show cached data first
-      const { rerender, getByTestId, getByText } = renderProfileWithState({
+      const { rerender, getByTestId, getByText } = await renderProfileWithState({
         data: staleProfile,
         loading: false,
         error: null,
@@ -369,7 +369,7 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
 
       // Fresh data arrives after background refresh (rerender keeps same store)
-      rerender(<ProfileScreen />);
+      await rerender(<ProfileScreen />);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
@@ -380,7 +380,7 @@ describe('App Lifecycle Edge Cases', () => {
     it('should handle background to foreground transition', async () => {
       const mockProfile = createMockProfile();
 
-      const { unmount, getByTestId } = renderProfileWithState({
+      const { unmount, getByTestId } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -389,10 +389,10 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // App goes to background (unmount simulates)
-      unmount();
+      await unmount();
 
       // App returns to foreground (remount)
-      const { getByTestId: getByTestId2, getByText } = renderProfileWithState({
+      const { getByTestId: getByTestId2, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -405,7 +405,7 @@ describe('App Lifecycle Edge Cases', () => {
     it('should refresh data on foreground return', async () => {
       const initialProfile = createMockProfile();
 
-      const { rerender, getByTestId, getByText } = renderProfileWithState({
+      const { rerender, getByTestId, getByText } = await renderProfileWithState({
         data: initialProfile,
         loading: false,
         error: null,
@@ -414,13 +414,13 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
 
       // Foreground return triggers refresh (rerender keeps same store)
-      rerender(<ProfileScreen />);
+      await rerender(<ProfileScreen />);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle session expiry during background', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should handle session expiry during background', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -442,7 +442,7 @@ describe('App Lifecycle Edge Cases', () => {
     it('should handle network change while backgrounded', async () => {
       const mockProfile = createMockProfile();
 
-      const { rerender, getByTestId } = renderProfileWithState({
+      const { rerender, getByTestId } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: 'Network error',
@@ -451,16 +451,16 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
       // Network recovers while backgrounded (rerender keeps same store)
-      rerender(<ProfileScreen />);
+      await rerender(<ProfileScreen />);
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
   });
 
   describe('state persistence across app restarts', () => {
-    it('should persist auth state across restarts', () => {
+    it('should persist auth state across restarts', async () => {
       // Simulates authenticated state restored from persistence
-      const { getByTestId, queryByTestId } = renderWithProviders(
+      const { getByTestId, queryByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />,
         {
           preloadedState: {
@@ -483,7 +483,7 @@ describe('App Lifecycle Edge Cases', () => {
       const mockProfile = createMockProfile();
 
       // Profile persisted and restored
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -497,7 +497,7 @@ describe('App Lifecycle Edge Cases', () => {
       const mockProfile = createMockProfile();
 
       // Settings restored (dark theme)
-      const { getByTestId } = renderWithProviders(<ProfileScreen />, {
+      const { getByTestId } = await renderWithProviders(<ProfileScreen />, {
         preloadedState: {
           profile: { data: mockProfile, loading: false, error: null },
           settings: { theme: 'dark', language: 'en' },
@@ -507,9 +507,9 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
     });
 
-    it('should handle persistence failure gracefully', () => {
+    it('should handle persistence failure gracefully', async () => {
       // Persistence failed, show fresh state
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockLoginNav} route={mockLoginRoute} />
       );
 
@@ -518,25 +518,25 @@ describe('App Lifecycle Edge Cases', () => {
   });
 
   describe('lifecycle event combinations', () => {
-    it('should handle rapid lifecycle events', () => {
+    it('should handle rapid lifecycle events', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       const mockProfile = createMockProfile();
 
       // Rapid lifecycle events
       for (let i = 0; i < 5; i++) {
-        const { unmount } = renderProfileWithState({
+        const { unmount } = await renderProfileWithState({
           data: mockProfile,
           loading: false,
           error: null,
         });
 
         // Background
-        unmount();
+        await unmount();
         jest.advanceTimersByTime(100);
       }
 
       // Final foreground
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -557,20 +557,20 @@ describe('App Lifecycle Edge Cases', () => {
     it('should handle update during background', async () => {
       const mockProfile = createMockProfile();
 
-      const { unmount } = renderProfileWithState({
+      const { unmount } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
       });
 
       // App goes to background
-      unmount();
+      await unmount();
 
       // App update happens (simulated by delay)
       jest.advanceTimersByTime(1000);
 
       // App relaunches with potentially different version
-      const { getByTestId, getByText } = renderProfileWithState({
+      const { getByTestId, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -580,12 +580,12 @@ describe('App Lifecycle Edge Cases', () => {
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('should handle memory warning followed by termination', () => {
+    it('should handle memory warning followed by termination', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
       const mockProfile = createMockProfile();
 
       // Memory warning
-      const { unmount: unmount1 } = renderProfileWithState({
+      const { unmount: unmount1 } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -595,7 +595,7 @@ describe('App Lifecycle Edge Cases', () => {
       jest.runAllTimers();
 
       // Termination
-      const { unmount: unmount2, getByTestId } = renderProfileWithState({
+      const { unmount: unmount2, getByTestId } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,
@@ -607,7 +607,7 @@ describe('App Lifecycle Edge Cases', () => {
       jest.runAllTimers();
 
       // Restart
-      const { getByTestId: getByTestId3, getByText } = renderProfileWithState({
+      const { getByTestId: getByTestId3, getByText } = await renderProfileWithState({
         data: mockProfile,
         loading: false,
         error: null,

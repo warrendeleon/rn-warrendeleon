@@ -22,15 +22,15 @@ const renderPINDot = (props: Partial<Parameters<typeof PINDot>[0]> = {}) => {
 
 describe('PINDot', () => {
   describe('Rendering', () => {
-    it('renders PIN dot with testID containing index', () => {
-      const { getByTestId } = renderPINDot();
+    it('renders PIN dot with testID containing index', async () => {
+      const { getByTestId } = await renderPINDot();
 
       // testID includes index: pin-dot-0
       expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
 
-    it('renders with custom testID', () => {
-      const { getByTestId } = renderPINDot({ testID: 'custom-dot' });
+    it('renders with custom testID', async () => {
+      const { getByTestId } = await renderPINDot({ testID: 'custom-dot' });
 
       // testID includes index: custom-dot-0
       expect(getByTestId('custom-dot-0')).toBeOnTheScreen();
@@ -38,34 +38,34 @@ describe('PINDot', () => {
   });
 
   describe('States', () => {
-    it('renders empty state when not filled', () => {
-      const { getByTestId } = renderPINDot({ isFilled: false });
+    it('renders empty state when not filled', async () => {
+      const { getByTestId } = await renderPINDot({ isFilled: false });
 
       expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
 
-    it('renders filled state when filled', () => {
-      const { getByTestId } = renderPINDot({ isFilled: true });
+    it('renders filled state when filled', async () => {
+      const { getByTestId } = await renderPINDot({ isFilled: true });
 
       expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
 
-    it('renders error state when hasError is true', () => {
-      const { getByTestId } = renderPINDot({ hasError: true });
+    it('renders error state when hasError is true', async () => {
+      const { getByTestId } = await renderPINDot({ hasError: true });
 
       expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
 
-    it('renders error state with filled dot', () => {
-      const { getByTestId } = renderPINDot({ isFilled: true, hasError: true });
+    it('renders error state with filled dot', async () => {
+      const { getByTestId } = await renderPINDot({ isFilled: true, hasError: true });
 
       expect(getByTestId('pin-dot-0')).toBeOnTheScreen();
     });
   });
 
   describe('Accessibility', () => {
-    it('has correct accessibility label when empty', () => {
-      const { getByTestId } = renderPINDot({ index: 2, total: 6, isFilled: false });
+    it('has correct accessibility label when empty', async () => {
+      const { getByTestId } = await renderPINDot({ index: 2, total: 6, isFilled: false });
       const dot = getByTestId('pin-dot-2');
 
       expect(dot.props.accessibilityLabel).toContain('3');
@@ -73,8 +73,8 @@ describe('PINDot', () => {
       expect(dot.props.accessibilityLabel).toContain('empty');
     });
 
-    it('has correct accessibility label when filled', () => {
-      const { getByTestId } = renderPINDot({ index: 2, total: 6, isFilled: true });
+    it('has correct accessibility label when filled', async () => {
+      const { getByTestId } = await renderPINDot({ index: 2, total: 6, isFilled: true });
       const dot = getByTestId('pin-dot-2');
 
       expect(dot.props.accessibilityLabel).toContain('3');
@@ -82,8 +82,8 @@ describe('PINDot', () => {
       expect(dot.props.accessibilityLabel).toContain('entered');
     });
 
-    it('has image accessibility role', () => {
-      const { getByTestId } = renderPINDot();
+    it('has image accessibility role', async () => {
+      const { getByTestId } = await renderPINDot();
       const dot = getByTestId('pin-dot-0');
 
       // Box component uses 'none' role when accessibilityRole not explicitly image
@@ -92,15 +92,15 @@ describe('PINDot', () => {
   });
 
   describe('Position indices', () => {
-    it('handles first position (index 0)', () => {
-      const { getByTestId } = renderPINDot({ index: 0, total: 6 });
+    it('handles first position (index 0)', async () => {
+      const { getByTestId } = await renderPINDot({ index: 0, total: 6 });
       const dot = getByTestId('pin-dot-0');
 
       expect(dot.props.accessibilityLabel).toContain('1');
     });
 
-    it('handles last position (index 5)', () => {
-      const { getByTestId } = renderPINDot({ index: 5, total: 6 });
+    it('handles last position (index 5)', async () => {
+      const { getByTestId } = await renderPINDot({ index: 5, total: 6 });
       const dot = getByTestId('pin-dot-5');
 
       expect(dot.props.accessibilityLabel).toContain('6');

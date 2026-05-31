@@ -69,8 +69,8 @@ const MinimalComponent: React.FC<{ text?: string }> = ({ text = 'Test' }) => (
 
 describe('Performance Infrastructure Verification', () => {
   describe('measureRenderTime', () => {
-    it('returns valid performance metrics structure', () => {
-      const result = measureRenderTime(() => render(<MinimalComponent />), 5);
+    it('returns valid performance metrics structure', async () => {
+      const result = await measureRenderTime(() => render(<MinimalComponent />), 5);
 
       // Verify all required fields exist
       expect(result).toHaveProperty('mean');
@@ -90,8 +90,8 @@ describe('Performance Infrastructure Verification', () => {
       expect(result.max).toBeGreaterThanOrEqual(result.mean);
     });
 
-    it('produces consistent results (low variance)', () => {
-      const result = measureRenderTime(() => render(<MinimalComponent />), 10);
+    it('produces consistent results (low variance)', async () => {
+      const result = await measureRenderTime(() => render(<MinimalComponent />), 10);
 
       // Coefficient of variation should be reasonable (< 200%)
       // Very fast operations can have high relative variance
@@ -99,9 +99,9 @@ describe('Performance Infrastructure Verification', () => {
       expect(cv).toBeLessThan(2);
     });
 
-    it('detects performance differences between components', () => {
+    it('detects performance differences between components', async () => {
       // Simple component
-      const simpleResult = measureRenderTime(() => render(<MinimalComponent />), 5);
+      const simpleResult = await measureRenderTime(() => render(<MinimalComponent />), 5);
 
       // Slightly more complex component
       const ComplexComponent = () => (
@@ -111,7 +111,7 @@ describe('Performance Infrastructure Verification', () => {
           ))}
         </View>
       );
-      const complexResult = measureRenderTime(() => render(<ComplexComponent />), 5);
+      const complexResult = await measureRenderTime(() => render(<ComplexComponent />), 5);
 
       // Both should complete and produce valid results
       expect(simpleResult.iterations).toBe(5);
@@ -197,8 +197,8 @@ describe('Performance Infrastructure Verification', () => {
   });
 
   describe('formatPerformanceReport', () => {
-    it('produces readable report', () => {
-      const result = measureRenderTime(() => render(<MinimalComponent />), 3);
+    it('produces readable report', async () => {
+      const result = await measureRenderTime(() => render(<MinimalComponent />), 3);
       const report = formatPerformanceReport(result, 'MinimalComponent');
 
       expect(report).toContain('Performance Report: MinimalComponent');
@@ -332,8 +332,8 @@ describe('Login Validation Performance', () => {
 describe('LoginScreen Render Smoke Test', () => {
   // Single render to verify LoginScreen works with providers
   // Not for timing (too slow/variable in Jest)
-  it('renders without error', () => {
-    const { getByTestId } = renderWithProviders(
+  it('renders without error', async () => {
+    const { getByTestId } = await renderWithProviders(
       <LoginScreen navigation={mockNavigation} route={mockRoute} />,
       { preloadedState: { auth: defaultAuthState } }
     );

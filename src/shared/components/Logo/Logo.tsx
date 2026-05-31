@@ -12,6 +12,13 @@ export const Logo = ({ darkMode = false, style, ...props }: LogoProps) => {
   // In dark mode, show white logo (white letters)
   // In light mode, show black logo (black letters)
   return (
-    <Lottie source={darkMode ? whiteLogo : blackLogo} autoPlay loop style={style} {...props} />
+    <Lottie
+      testID="logo-lottie"
+      source={darkMode ? whiteLogo : blackLogo}
+      autoPlay
+      loop
+      style={style}
+      {...props}
+    />
   );
 };

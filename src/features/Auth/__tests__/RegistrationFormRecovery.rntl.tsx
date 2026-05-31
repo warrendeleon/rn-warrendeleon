@@ -67,21 +67,21 @@ describe('Registration Form Recovery', () => {
 
   describe('form data preservation during navigation', () => {
     it('should preserve form data when navigating to terms and back', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill partial form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
 
       // Navigate to terms
-      fireEvent.press(getByTestId('terms-link'));
+      await fireEvent.press(getByTestId('terms-link'));
       expect(mockNavigation.navigate).toHaveBeenCalledWith('TermsAndConditions');
 
       // Simulate coming back - rerender represents user returning
-      rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Form data should be preserved in component state
       await waitFor(
@@ -95,20 +95,20 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should preserve form data when navigating to privacy and back', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('firstName-input'), 'Jane');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Smith');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'Jane');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Smith');
 
       // Navigate to privacy
-      fireEvent.press(getByTestId('privacy-link'));
+      await fireEvent.press(getByTestId('privacy-link'));
       expect(mockNavigation.navigate).toHaveBeenCalledWith('PrivacyPolicy');
 
       // Simulate coming back
-      rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
 
       await waitFor(
         () => {
@@ -120,16 +120,16 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should preserve password fields during navigation', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill password fields
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
 
       // Rerender (simulates navigation back)
-      rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Password fields should maintain their values
       expect(getByTestId('password-input').props.value).toBe('SecurePass123!');
@@ -139,18 +139,18 @@ describe('Registration Form Recovery', () => {
 
   describe('form recovery after error', () => {
     it('should preserve form data after network error', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill complete form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       // Wait for form to be valid
       await waitFor(
@@ -161,7 +161,7 @@ describe('Registration Form Recovery', () => {
       );
 
       // Rerender simulates component update (error state handled in component)
-      rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Form data should still be preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -170,7 +170,7 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should allow retry with preserved data after server error', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -186,13 +186,13 @@ describe('Registration Form Recovery', () => {
       );
 
       // Fill form while error is displayed
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       // Data should be preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -208,7 +208,7 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should preserve form data after validation error', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -224,23 +224,23 @@ describe('Registration Form Recovery', () => {
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
 
       // Data should be preserved even with error displayed
       expect(getByDisplayValue('John')).toBeOnTheScreen();
       expect(getByDisplayValue('john.doe@example.com')).toBeOnTheScreen();
 
       // User can change email and retry
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe2@example.com');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe2@example.com');
       expect(getByDisplayValue('john.doe2@example.com')).toBeOnTheScreen();
     });
   });
 
   describe('form state during loading', () => {
-    it('should preserve form data during submission', () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+    it('should preserve form data during submission', async () => {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -256,16 +256,16 @@ describe('Registration Form Recovery', () => {
       );
 
       // Fill form during loading state
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
 
       // Data should be preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
       expect(getByDisplayValue('john@example.com')).toBeOnTheScreen();
     });
 
-    it('should disable form submission during loading', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should disable form submission during loading', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -286,38 +286,38 @@ describe('Registration Form Recovery', () => {
 
   describe('form step recovery', () => {
     it('should remember terms acceptance after partial form fill', async () => {
-      const { getByTestId, rerender } = renderWithProviders(
+      const { getByTestId, rerender } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Accept terms
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       // Fill some fields
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
 
       // Rerender
-      rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
+      await rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
 
       // Terms should still be accepted in component state
       expect(getByTestId('accept-terms-switch').props.value).toBe(true);
     });
 
     it('should allow completing form after partial fill and return', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill first half
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
 
       // Complete rest of form
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       // Form should be valid
       await waitFor(
@@ -330,23 +330,23 @@ describe('Registration Form Recovery', () => {
   });
 
   describe('unmount and remount recovery', () => {
-    it('should handle rapid unmount and remount without data loss', () => {
-      const { unmount, getByTestId, getByDisplayValue } = renderWithProviders(
+    it('should handle rapid unmount and remount without data loss', async () => {
+      const { unmount, getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
 
       // Verify data is there
       expect(getByDisplayValue('John')).toBeOnTheScreen();
 
       // Unmount
-      unmount();
+      await unmount();
 
       // Remount fresh instance
-      const { getByTestId: getByTestId2 } = renderWithProviders(
+      const { getByTestId: getByTestId2 } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -354,15 +354,15 @@ describe('Registration Form Recovery', () => {
       expect(getByTestId2('firstName-input').props.value).toBe('');
     });
 
-    it('should not crash on unmount during form input', () => {
+    it('should not crash on unmount during form input', async () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-      const { unmount, getByTestId } = renderWithProviders(
+      const { unmount, getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Start typing
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
 
       // Unmount mid-input
       expect(() => unmount()).not.toThrow();
@@ -377,21 +377,21 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should handle multiple rapid rerenders during form fill', async () => {
-      const { getByTestId, getByDisplayValue, rerender } = renderWithProviders(
+      const { getByTestId, getByDisplayValue, rerender } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill field
-      fireEvent.changeText(getByTestId('firstName-input'), 'J');
-      rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'J');
+      await rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'Jo');
-      rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'Jo');
+      await rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'Joh');
-      rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'Joh');
+      await rerender(<RegistrationScreen navigation={mockNavigation} route={mockRoute} />);
 
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
 
       // Final value should be preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -399,17 +399,17 @@ describe('Registration Form Recovery', () => {
   });
 
   describe('keyboard dismissal recovery', () => {
-    it('should preserve form data after keyboard show/hide cycles', () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+    it('should preserve form data after keyboard show/hide cycles', async () => {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form with keyboard interactions
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent(getByTestId('firstName-input'), 'blur');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent(getByTestId('firstName-input'), 'blur');
 
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent(getByTestId('lastName-input'), 'blur');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent(getByTestId('lastName-input'), 'blur');
 
       // Data should be preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -417,16 +417,16 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should preserve data when keyboard is dismissed via submit editing', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill and submit edit (moves to next field)
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent(getByTestId('firstName-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent(getByTestId('firstName-input'), 'submitEditing');
 
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent(getByTestId('lastName-input'), 'submitEditing');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent(getByTestId('lastName-input'), 'submitEditing');
 
       // All data preserved
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -435,51 +435,51 @@ describe('Registration Form Recovery', () => {
   });
 
   describe('edge cases', () => {
-    it('should handle empty string values correctly', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle empty string values correctly', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill then clear
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('firstName-input'), '');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('firstName-input'), '');
 
       expect(getByTestId('firstName-input').props.value).toBe('');
     });
 
-    it('should handle special characters in form fields', () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+    it('should handle special characters in form fields', async () => {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Names with special characters
-      fireEvent.changeText(getByTestId('firstName-input'), "O'Brien");
-      fireEvent.changeText(getByTestId('lastName-input'), 'García-López');
+      await fireEvent.changeText(getByTestId('firstName-input'), "O'Brien");
+      await fireEvent.changeText(getByTestId('lastName-input'), 'García-López');
 
       expect(getByDisplayValue("O'Brien")).toBeOnTheScreen();
       expect(getByDisplayValue('García-López')).toBeOnTheScreen();
     });
 
-    it('should handle very long input values', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle very long input values', async () => {
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       const longName = 'A'.repeat(100);
-      fireEvent.changeText(getByTestId('firstName-input'), longName);
+      await fireEvent.changeText(getByTestId('firstName-input'), longName);
 
       // Should handle without crash
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
     });
 
-    it('should preserve form data with Unicode characters', () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+    it('should preserve form data with Unicode characters', async () => {
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Unicode names
-      fireEvent.changeText(getByTestId('firstName-input'), '田中');
-      fireEvent.changeText(getByTestId('lastName-input'), '太郎');
+      await fireEvent.changeText(getByTestId('firstName-input'), '田中');
+      await fireEvent.changeText(getByTestId('lastName-input'), '太郎');
 
       expect(getByDisplayValue('田中')).toBeOnTheScreen();
       expect(getByDisplayValue('太郎')).toBeOnTheScreen();
@@ -497,17 +497,17 @@ describe('Registration Form Recovery', () => {
     };
 
     it('should save form draft to AsyncStorage when form is partially filled', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form fields
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
 
       // Trigger blur to potentially save draft
-      fireEvent(getByTestId('email-input'), 'blur');
+      await fireEvent(getByTestId('email-input'), 'blur');
 
       // Advance timers to allow debounced save
       jest.advanceTimersByTime(1000);
@@ -521,7 +521,7 @@ describe('Registration Form Recovery', () => {
       // Set up AsyncStorage to return saved draft
       mockGetItem.mockResolvedValueOnce(JSON.stringify(mockDraftData));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -542,7 +542,7 @@ describe('Registration Form Recovery', () => {
       // Simulate storage error
       mockGetItem.mockRejectedValueOnce(new Error('Storage error'));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -562,13 +562,13 @@ describe('Registration Form Recovery', () => {
       // Simulate storage write error
       mockSetItem.mockRejectedValueOnce(new Error('Storage full'));
 
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent(getByTestId('firstName-input'), 'blur');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent(getByTestId('firstName-input'), 'blur');
 
       // Advance timers
       jest.advanceTimersByTime(1000);
@@ -578,13 +578,13 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should persist draft with timestamp for expiry tracking', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent(getByTestId('firstName-input'), 'blur');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent(getByTestId('firstName-input'), 'blur');
 
       jest.advanceTimersByTime(1000);
 
@@ -593,18 +593,18 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should update draft when form fields change', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Initial fill
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent(getByTestId('firstName-input'), 'blur');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent(getByTestId('firstName-input'), 'blur');
       jest.advanceTimersByTime(1000);
 
       // Update field
-      fireEvent.changeText(getByTestId('firstName-input'), 'Jane');
-      fireEvent(getByTestId('firstName-input'), 'blur');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'Jane');
+      await fireEvent(getByTestId('firstName-input'), 'blur');
       jest.advanceTimersByTime(1000);
 
       // Latest value should be preserved
@@ -623,7 +623,7 @@ describe('Registration Form Recovery', () => {
 
       mockGetItem.mockResolvedValueOnce(JSON.stringify(expiredDraft));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -649,7 +649,7 @@ describe('Registration Form Recovery', () => {
 
       mockGetItem.mockResolvedValueOnce(JSON.stringify(validDraft));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -673,7 +673,7 @@ describe('Registration Form Recovery', () => {
 
       mockGetItem.mockResolvedValueOnce(JSON.stringify(expiredDraft));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -697,7 +697,7 @@ describe('Registration Form Recovery', () => {
 
       mockGetItem.mockResolvedValueOnce(JSON.stringify(draftWithoutTimestamp));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -713,20 +713,20 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should update draft timestamp on each save', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill and trigger save
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent(getByTestId('firstName-input'), 'blur');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent(getByTestId('firstName-input'), 'blur');
       jest.advanceTimersByTime(1000);
 
       // Wait, then update
       jest.advanceTimersByTime(60000); // 1 minute later
 
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent(getByTestId('lastName-input'), 'blur');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent(getByTestId('lastName-input'), 'blur');
       jest.advanceTimersByTime(1000);
 
       // Each save should have updated timestamp
@@ -736,18 +736,18 @@ describe('Registration Form Recovery', () => {
 
   describe('draft cleanup after successful submission', () => {
     it('should clear draft from AsyncStorage after successful registration', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill complete form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -757,14 +757,14 @@ describe('Registration Form Recovery', () => {
       );
 
       // Submit form
-      fireEvent.press(getByTestId('register-button'));
+      await fireEvent.press(getByTestId('register-button'));
 
       // Implementation would call removeItem on successful submission
       expect(getByTestId('registration-screen')).toBeOnTheScreen();
     });
 
     it('should not clear draft on failed registration attempt', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -780,8 +780,8 @@ describe('Registration Form Recovery', () => {
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('email-input'), 'john@example.com');
 
       // Draft should be preserved for retry
       expect(getByDisplayValue('John')).toBeOnTheScreen();
@@ -789,15 +789,15 @@ describe('Registration Form Recovery', () => {
     });
 
     it('should clear draft when user navigates to login after abandoning registration', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill partial form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
 
       // Navigate to login (user chose to log in instead)
-      fireEvent.press(getByTestId('login-link'));
+      await fireEvent.press(getByTestId('login-link'));
 
       expect(mockNavigation.navigate).toHaveBeenCalledWith('Login');
 
@@ -808,18 +808,18 @@ describe('Registration Form Recovery', () => {
     it('should not crash if draft cleanup fails', async () => {
       mockRemoveItem.mockRejectedValueOnce(new Error('Storage error'));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill and submit
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
-      fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
-      fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
-      fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
-      fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('phone-number-input'), '+447123456789');
+      await fireEvent.changeText(getByTestId('email-input'), 'john.doe@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('confirmPassword-input'), 'SecurePass123!');
+      await fireEvent(getByTestId('accept-terms-switch'), 'valueChange', true);
 
       await waitFor(
         () => {
@@ -829,7 +829,7 @@ describe('Registration Form Recovery', () => {
       );
 
       // Submit - should not crash even if cleanup fails
-      expect(() => fireEvent.press(getByTestId('register-button'))).not.toThrow();
+      await expect(fireEvent.press(getByTestId('register-button'))).resolves.toBeUndefined();
     });
   });
 
@@ -845,7 +845,7 @@ describe('Registration Form Recovery', () => {
 
       mockGetItem.mockResolvedValueOnce(JSON.stringify(otherDeviceDraft));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -870,7 +870,7 @@ describe('Registration Form Recovery', () => {
 
       mockGetItem.mockResolvedValueOnce(JSON.stringify(newerDraft));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -890,7 +890,7 @@ describe('Registration Form Recovery', () => {
       // Corrupted JSON
       mockGetItem.mockResolvedValueOnce('{ invalid json }');
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -908,7 +908,7 @@ describe('Registration Form Recovery', () => {
     it('should handle null draft value', async () => {
       mockGetItem.mockResolvedValueOnce(null);
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -926,17 +926,17 @@ describe('Registration Form Recovery', () => {
 
   describe('app termination and restart recovery', () => {
     it('should save draft before app terminates (blur/background)', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
       // Fill form
-      fireEvent.changeText(getByTestId('firstName-input'), 'John');
-      fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
+      await fireEvent.changeText(getByTestId('firstName-input'), 'John');
+      await fireEvent.changeText(getByTestId('lastName-input'), 'Doe');
 
       // Simulate app going to background (blur all fields)
-      fireEvent(getByTestId('firstName-input'), 'blur');
-      fireEvent(getByTestId('lastName-input'), 'blur');
+      await fireEvent(getByTestId('firstName-input'), 'blur');
+      await fireEvent(getByTestId('lastName-input'), 'blur');
 
       jest.advanceTimersByTime(1000);
 
@@ -955,7 +955,7 @@ describe('Registration Form Recovery', () => {
       // Simulate app restart - draft exists in storage
       mockGetItem.mockResolvedValueOnce(JSON.stringify(savedDraft));
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
       );
 
@@ -981,7 +981,7 @@ describe('Registration Form Recovery', () => {
 
       // Multiple rapid mounts/unmounts
       for (let i = 0; i < 3; i++) {
-        const { getByTestId, unmount } = renderWithProviders(
+        const { getByTestId, unmount } = await renderWithProviders(
           <RegistrationScreen navigation={mockNavigation} route={mockRoute} />
         );
 
@@ -992,7 +992,7 @@ describe('Registration Form Recovery', () => {
           { timeout: 3000, interval: 100 }
         );
 
-        unmount();
+        await unmount();
       }
 
       // Should handle rapid cycles without issues

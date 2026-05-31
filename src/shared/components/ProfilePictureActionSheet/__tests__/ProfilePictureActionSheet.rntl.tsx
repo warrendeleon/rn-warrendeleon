@@ -43,60 +43,60 @@ describe('ProfilePictureActionSheet', () => {
   });
 
   describe('rendering', () => {
-    it('renders nothing when isOpen is false', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} isOpen={false} />);
+    it('renders nothing when isOpen is false', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} isOpen={false} />);
 
       expect(screen.queryByTestId('profile-picture-action-sheet')).toBeNull();
     });
 
-    it('renders action sheet when isOpen is true', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('renders action sheet when isOpen is true', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       expect(screen.getByTestId('profile-picture-action-sheet')).toBeOnTheScreen();
     });
 
-    it('renders Take Photo option', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('renders Take Photo option', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       expect(screen.getByTestId('profile-picture-action-take-photo')).toBeOnTheScreen();
       expect(screen.getByText('Take Photo')).toBeOnTheScreen();
     });
 
-    it('renders Choose from Library option', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('renders Choose from Library option', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       expect(screen.getByTestId('profile-picture-action-choose-library')).toBeOnTheScreen();
       expect(screen.getByText('Choose from Library')).toBeOnTheScreen();
     });
 
-    it('renders title', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('renders title', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       expect(screen.getByTestId('profile-picture-action-sheet-title')).toBeOnTheScreen();
     });
 
-    it('renders backdrop', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('renders backdrop', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       expect(screen.getByTestId('profile-picture-action-sheet-backdrop')).toBeOnTheScreen();
     });
   });
 
   describe('Remove Photo option', () => {
-    it('does not render Remove Photo when hasExistingPhoto is false', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} hasExistingPhoto={false} />);
+    it('does not render Remove Photo when hasExistingPhoto is false', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} hasExistingPhoto={false} />);
 
       expect(screen.queryByTestId('profile-picture-action-remove')).toBeNull();
     });
 
-    it('does not render Remove Photo when onRemovePhoto is not provided', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} hasExistingPhoto={true} />);
+    it('does not render Remove Photo when onRemovePhoto is not provided', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} hasExistingPhoto={true} />);
 
       expect(screen.queryByTestId('profile-picture-action-remove')).toBeNull();
     });
 
-    it('renders Remove Photo when hasExistingPhoto is true and onRemovePhoto is provided', () => {
-      render(
+    it('renders Remove Photo when hasExistingPhoto is true and onRemovePhoto is provided', async () => {
+      await render(
         <ProfilePictureActionSheet
           {...defaultProps}
           hasExistingPhoto={true}
@@ -110,18 +110,18 @@ describe('ProfilePictureActionSheet', () => {
   });
 
   describe('interactions', () => {
-    it('calls onClose when backdrop is pressed', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('calls onClose when backdrop is pressed', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-sheet-backdrop'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-sheet-backdrop'));
 
       expect(mockOnClose).toHaveBeenCalledTimes(1);
     });
 
-    it('calls onClose and sets pending action when Take Photo is pressed', () => {
-      const { rerender } = render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('calls onClose and sets pending action when Take Photo is pressed', async () => {
+      const { rerender } = await render(<ProfilePictureActionSheet {...defaultProps} />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-take-photo'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-take-photo'));
 
       // onClose is called immediately to trigger modal close
       expect(mockOnClose).toHaveBeenCalledTimes(1);
@@ -130,19 +130,19 @@ describe('ProfilePictureActionSheet', () => {
       expect(mockOnTakePhoto).not.toHaveBeenCalled();
 
       // Simulate modal closing (parent sets isOpen to false)
-      rerender(<ProfilePictureActionSheet {...defaultProps} isOpen={false} />);
+      await rerender(<ProfilePictureActionSheet {...defaultProps} isOpen={false} />);
 
       // After modal closes and small delay, action is triggered
-      act(() => {
+      await act(() => {
         jest.advanceTimersByTime(100);
       });
       expect(mockOnTakePhoto).toHaveBeenCalledTimes(1);
     });
 
-    it('calls onClose and sets pending action when Choose from Library is pressed', () => {
-      const { rerender } = render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('calls onClose and sets pending action when Choose from Library is pressed', async () => {
+      const { rerender } = await render(<ProfilePictureActionSheet {...defaultProps} />);
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-choose-library'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-choose-library'));
 
       // onClose is called immediately to trigger modal close
       expect(mockOnClose).toHaveBeenCalledTimes(1);
@@ -151,17 +151,17 @@ describe('ProfilePictureActionSheet', () => {
       expect(mockOnChooseFromLibrary).not.toHaveBeenCalled();
 
       // Simulate modal closing (parent sets isOpen to false)
-      rerender(<ProfilePictureActionSheet {...defaultProps} isOpen={false} />);
+      await rerender(<ProfilePictureActionSheet {...defaultProps} isOpen={false} />);
 
       // After modal closes and small delay, action is triggered
-      act(() => {
+      await act(() => {
         jest.advanceTimersByTime(100);
       });
       expect(mockOnChooseFromLibrary).toHaveBeenCalledTimes(1);
     });
 
-    it('calls onClose and onRemovePhoto when Remove Photo is pressed', () => {
-      render(
+    it('calls onClose and onRemovePhoto when Remove Photo is pressed', async () => {
+      await render(
         <ProfilePictureActionSheet
           {...defaultProps}
           hasExistingPhoto={true}
@@ -169,7 +169,7 @@ describe('ProfilePictureActionSheet', () => {
         />
       );
 
-      fireEvent.press(screen.getByTestId('profile-picture-action-remove'));
+      await fireEvent.press(screen.getByTestId('profile-picture-action-remove'));
 
       expect(mockOnClose).toHaveBeenCalledTimes(1);
       expect(mockOnRemovePhoto).toHaveBeenCalledTimes(1);
@@ -177,31 +177,31 @@ describe('ProfilePictureActionSheet', () => {
   });
 
   describe('accessibility', () => {
-    it('has accessible title with header role', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('has accessible title with header role', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       const title = screen.getByText('Change Profile Picture');
       expect(title.props.accessibilityRole).toBe('header');
     });
 
-    it('has accessible Take Photo button', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('has accessible Take Photo button', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       const button = screen.getByTestId('profile-picture-action-take-photo');
       expect(button.props.accessibilityRole).toBe('button');
       expect(button.props.accessibilityLabel).toBe('Take Photo');
     });
 
-    it('has accessible Choose from Library button', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('has accessible Choose from Library button', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       const button = screen.getByTestId('profile-picture-action-choose-library');
       expect(button.props.accessibilityRole).toBe('button');
       expect(button.props.accessibilityLabel).toBe('Choose from Library');
     });
 
-    it('has accessible backdrop', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('has accessible backdrop', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       const backdrop = screen.getByTestId('profile-picture-action-sheet-backdrop');
       expect(backdrop.props.accessibilityRole).toBe('button');
@@ -220,8 +220,8 @@ describe('ProfilePictureActionSheet', () => {
       (useAppColorScheme as jest.Mock).mockReturnValue('light');
     });
 
-    it('renders correctly in dark mode', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('renders correctly in dark mode', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       expect(screen.getByTestId('profile-picture-action-sheet')).toBeOnTheScreen();
       expect(screen.getByText('Change Profile Picture')).toBeOnTheScreen();
@@ -229,23 +229,23 @@ describe('ProfilePictureActionSheet', () => {
   });
 
   describe('EAA Accessibility Compliance', () => {
-    it('Take Photo button has minimum touch target size', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('Take Photo button has minimum touch target size', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       const button = screen.getByTestId('profile-picture-action-take-photo');
       // EAA requires 44×44 minimum touch target
       expect(button.props.style?.minHeight ?? 48).toBeGreaterThanOrEqual(44);
     });
 
-    it('Choose from Library button has minimum touch target size', () => {
-      render(<ProfilePictureActionSheet {...defaultProps} />);
+    it('Choose from Library button has minimum touch target size', async () => {
+      await render(<ProfilePictureActionSheet {...defaultProps} />);
 
       const button = screen.getByTestId('profile-picture-action-choose-library');
       expect(button.props.style?.minHeight ?? 48).toBeGreaterThanOrEqual(44);
     });
 
-    it('Remove Photo button has minimum touch target size when shown', () => {
-      render(
+    it('Remove Photo button has minimum touch target size when shown', async () => {
+      await render(
         <ProfilePictureActionSheet
           {...defaultProps}
           hasExistingPhoto={true}
@@ -257,8 +257,8 @@ describe('ProfilePictureActionSheet', () => {
       expect(button.props.style?.minHeight ?? 48).toBeGreaterThanOrEqual(44);
     });
 
-    it('all interactive elements have button role', () => {
-      render(
+    it('all interactive elements have button role', async () => {
+      await render(
         <ProfilePictureActionSheet
           {...defaultProps}
           hasExistingPhoto={true}
@@ -280,8 +280,8 @@ describe('ProfilePictureActionSheet', () => {
       ).toBe('button');
     });
 
-    it('all buttons have accessibility labels', () => {
-      render(
+    it('all buttons have accessibility labels', async () => {
+      await render(
         <ProfilePictureActionSheet
           {...defaultProps}
           hasExistingPhoto={true}

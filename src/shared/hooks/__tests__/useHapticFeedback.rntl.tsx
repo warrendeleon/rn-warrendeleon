@@ -28,50 +28,50 @@ describe('useHapticFeedback', () => {
   });
 
   describe('Feedback Triggering', () => {
-    it('should trigger success haptic on form submission success', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should trigger success haptic on form submission success', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
       expect(mockTrigger).toHaveBeenCalledWith('notificationSuccess', expect.any(Object));
     });
 
-    it('should trigger error haptic on validation failure', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should trigger error haptic on validation failure', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('error');
       });
 
       expect(mockTrigger).toHaveBeenCalledWith('notificationError', expect.any(Object));
     });
 
-    it('should trigger warning haptic on destructive action', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should trigger warning haptic on destructive action', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('warning');
       });
 
       expect(mockTrigger).toHaveBeenCalledWith('notificationWarning', expect.any(Object));
     });
 
-    it('should trigger selection haptic on picker change', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should trigger selection haptic on picker change', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('selection');
       });
 
       expect(mockTrigger).toHaveBeenCalledWith('selection', expect.any(Object));
     });
 
-    it('should trigger impact haptic for general feedback', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should trigger impact haptic for general feedback', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('impact');
       });
 
@@ -79,31 +79,31 @@ describe('useHapticFeedback', () => {
       expect(mockTrigger).toHaveBeenCalledWith(expectedType, expect.any(Object));
     });
 
-    it('should trigger notification haptic for alerts', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should trigger notification haptic for alerts', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('notification');
       });
 
       expect(mockTrigger).toHaveBeenCalledWith('impactMedium', expect.any(Object));
     });
 
-    it('should allow raw haptic type triggering', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should allow raw haptic type triggering', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
       const { HapticFeedbackTypes } = require('react-native-haptic-feedback');
 
-      act(() => {
+      await act(() => {
         result.current.triggerRaw(HapticFeedbackTypes.impactHeavy);
       });
 
       expect(mockTrigger).toHaveBeenCalledWith(HapticFeedbackTypes.impactHeavy, expect.any(Object));
     });
 
-    it('should trigger multiple haptics in sequence', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should trigger multiple haptics in sequence', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('selection');
         result.current.trigger('success');
       });
@@ -115,22 +115,22 @@ describe('useHapticFeedback', () => {
   });
 
   describe('Accessibility Integration', () => {
-    it('should be enabled by default when reduced motion is not preferred', () => {
+    it('should be enabled by default when reduced motion is not preferred', async () => {
       mockPrefersReducedMotion.mockReturnValue(false);
 
-      const { result } = renderHook(() => useHapticFeedback());
+      const { result } = await renderHook(() => useHapticFeedback());
 
       expect(result.current.isEnabled).toBe(true);
     });
 
-    it('should respect system reduced motion preferences by default', () => {
+    it('should respect system reduced motion preferences by default', async () => {
       mockPrefersReducedMotion.mockReturnValue(true);
 
-      const { result } = renderHook(() => useHapticFeedback());
+      const { result } = await renderHook(() => useHapticFeedback());
 
       expect(result.current.isEnabled).toBe(false);
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
@@ -138,24 +138,24 @@ describe('useHapticFeedback', () => {
       expect(mockTrigger).not.toHaveBeenCalled();
     });
 
-    it('should allow ignoring reduced motion setting when specified', () => {
+    it('should allow ignoring reduced motion setting when specified', async () => {
       mockPrefersReducedMotion.mockReturnValue(true);
 
-      const { result } = renderHook(() => useHapticFeedback({ respectReducedMotion: false }));
+      const { result } = await renderHook(() => useHapticFeedback({ respectReducedMotion: false }));
 
       expect(result.current.isEnabled).toBe(true);
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
       expect(mockTrigger).toHaveBeenCalled();
     });
 
-    it('should not trigger haptic when disabled due to reduced motion', () => {
+    it('should not trigger haptic when disabled due to reduced motion', async () => {
       mockPrefersReducedMotion.mockReturnValue(true);
 
-      const { result } = renderHook(() => useHapticFeedback());
+      const { result } = await renderHook(() => useHapticFeedback());
 
       const allActions: HapticFeedbackAction[] = [
         'success',
@@ -166,7 +166,7 @@ describe('useHapticFeedback', () => {
         'notification',
       ];
 
-      act(() => {
+      await act(() => {
         allActions.forEach(action => result.current.trigger(action));
       });
 
@@ -175,10 +175,10 @@ describe('useHapticFeedback', () => {
   });
 
   describe('System Settings', () => {
-    it('should enable vibrate fallback by default', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should enable vibrate fallback by default', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
@@ -190,10 +190,10 @@ describe('useHapticFeedback', () => {
       );
     });
 
-    it('should allow disabling vibrate fallback', () => {
-      const { result } = renderHook(() => useHapticFeedback({ enableVibrateFallback: false }));
+    it('should allow disabling vibrate fallback', async () => {
+      const { result } = await renderHook(() => useHapticFeedback({ enableVibrateFallback: false }));
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
@@ -205,10 +205,10 @@ describe('useHapticFeedback', () => {
       );
     });
 
-    it('should not ignore Android system settings by default', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should not ignore Android system settings by default', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
@@ -220,10 +220,10 @@ describe('useHapticFeedback', () => {
       );
     });
 
-    it('should allow ignoring Android system settings', () => {
-      const { result } = renderHook(() => useHapticFeedback({ ignoreAndroidSystemSettings: true }));
+    it('should allow ignoring Android system settings', async () => {
+      const { result } = await renderHook(() => useHapticFeedback({ ignoreAndroidSystemSettings: true }));
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
@@ -237,20 +237,20 @@ describe('useHapticFeedback', () => {
   });
 
   describe('Hook Stability', () => {
-    it('should maintain stable function references across renders', () => {
-      const { result, rerender } = renderHook(() => useHapticFeedback());
+    it('should maintain stable function references across renders', async () => {
+      const { result, rerender } = await renderHook(() => useHapticFeedback());
 
       const initialTrigger = result.current.trigger;
       const initialTriggerRaw = result.current.triggerRaw;
 
-      rerender({});
+      await rerender({});
 
       expect(result.current.trigger).toBe(initialTrigger);
       expect(result.current.triggerRaw).toBe(initialTriggerRaw);
     });
 
-    it('should update functions when options change', () => {
-      const { result, rerender } = renderHook(
+    it('should update functions when options change', async () => {
+      const { result, rerender } = await renderHook(
         (props: { options: { enableVibrateFallback: boolean } }) =>
           useHapticFeedback(props.options),
         { initialProps: { options: { enableVibrateFallback: true } } }
@@ -258,22 +258,22 @@ describe('useHapticFeedback', () => {
 
       const initialTrigger = result.current.trigger;
 
-      rerender({ options: { enableVibrateFallback: false } });
+      await rerender({ options: { enableVibrateFallback: false } });
 
       // Function reference should change when options change
       expect(result.current.trigger).not.toBe(initialTrigger);
     });
 
-    it('should handle rapid trigger calls without errors', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should handle rapid trigger calls without errors', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      expect(() => {
+      await expect(
         act(() => {
           for (let i = 0; i < 100; i++) {
             result.current.trigger('selection');
           }
-        });
-      }).not.toThrow();
+        })
+      ).resolves.toBeUndefined();
 
       expect(mockTrigger).toHaveBeenCalledTimes(100);
     });
@@ -289,10 +289,10 @@ describe('useHapticFeedback', () => {
       'notification',
     ];
 
-    it.each(actionTypes)('should handle "%s" action type', action => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it.each(actionTypes)('should handle "%s" action type', async action => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger(action);
       });
 
@@ -301,52 +301,52 @@ describe('useHapticFeedback', () => {
   });
 
   describe('Edge Cases', () => {
-    it('should work when called immediately after mounting', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should work when called immediately after mounting', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
       // Call trigger synchronously after render
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
       expect(mockTrigger).toHaveBeenCalled();
     });
 
-    it('should handle unmount gracefully', () => {
-      const { result, unmount } = renderHook(() => useHapticFeedback());
+    it('should handle unmount gracefully', async () => {
+      const { result, unmount } = await renderHook(() => useHapticFeedback());
 
       const { trigger } = result.current;
 
-      unmount();
+      await unmount();
 
       // Should not throw when called after unmount
-      expect(() => {
+      await expect(
         act(() => {
           trigger('success');
-        });
-      }).not.toThrow();
+        })
+      ).resolves.toBeUndefined();
     });
 
-    it('should return consistent isEnabled value', () => {
+    it('should return consistent isEnabled value', async () => {
       mockPrefersReducedMotion.mockReturnValue(false);
 
-      const { result, rerender } = renderHook(() => useHapticFeedback());
+      const { result, rerender } = await renderHook(() => useHapticFeedback());
 
       expect(result.current.isEnabled).toBe(true);
 
       // Rerender multiple times
-      rerender({});
-      rerender({});
-      rerender({});
+      await rerender({});
+      await rerender({});
+      await rerender({});
 
       expect(result.current.isEnabled).toBe(true);
     });
 
-    it('should handle concurrent triggers without race conditions', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should handle concurrent triggers without race conditions', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
       // Trigger multiple haptics in same act block
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
         result.current.trigger('error');
         result.current.trigger('selection');
@@ -355,19 +355,19 @@ describe('useHapticFeedback', () => {
       expect(mockTrigger).toHaveBeenCalledTimes(3);
     });
 
-    it('should handle rapid sequential triggers correctly', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should handle rapid sequential triggers correctly', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         // Rapid triggers of the same type
         result.current.trigger('selection');
       });
 
-      act(() => {
+      await act(() => {
         result.current.trigger('selection');
       });
 
-      act(() => {
+      await act(() => {
         result.current.trigger('selection');
       });
 
@@ -375,18 +375,18 @@ describe('useHapticFeedback', () => {
       expect(mockTrigger).toHaveBeenCalledTimes(3);
     });
 
-    it('should handle different action types in sequence', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should handle different action types in sequence', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
-      act(() => {
+      await act(() => {
         result.current.trigger('error');
       });
 
-      act(() => {
+      await act(() => {
         result.current.trigger('warning');
       });
 
@@ -398,20 +398,20 @@ describe('useHapticFeedback', () => {
   });
 
   describe('Platform-Specific Behaviour', () => {
-    it('should trigger haptic regardless of platform', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should trigger haptic regardless of platform', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 
       expect(mockTrigger).toHaveBeenCalledWith('notificationSuccess', expect.any(Object));
     });
 
-    it('should use impact type based on current platform', () => {
-      const { result } = renderHook(() => useHapticFeedback());
+    it('should use impact type based on current platform', async () => {
+      const { result } = await renderHook(() => useHapticFeedback());
 
-      act(() => {
+      await act(() => {
         result.current.trigger('impact');
       });
 
@@ -422,12 +422,12 @@ describe('useHapticFeedback', () => {
       );
     });
 
-    it('should apply options to all platform triggers', () => {
-      const { result } = renderHook(() =>
+    it('should apply options to all platform triggers', async () => {
+      const { result } = await renderHook(() =>
         useHapticFeedback({ enableVibrateFallback: false, ignoreAndroidSystemSettings: true })
       );
 
-      act(() => {
+      await act(() => {
         result.current.trigger('success');
       });
 

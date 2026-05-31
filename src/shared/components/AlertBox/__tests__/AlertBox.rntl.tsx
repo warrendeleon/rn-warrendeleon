@@ -28,14 +28,14 @@ describe('AlertBox', () => {
   });
 
   describe('rendering', () => {
-    it('renders with message only', () => {
-      renderWithProviders(<AlertBox variant="error" message="Something went wrong" />);
+    it('renders with message only', async () => {
+      await renderWithProviders(<AlertBox variant="error" message="Something went wrong" />);
 
       expect(screen.getByText('Something went wrong')).toBeOnTheScreen();
     });
 
-    it('renders with title and message', () => {
-      renderWithProviders(
+    it('renders with title and message', async () => {
+      await renderWithProviders(
         <AlertBox variant="error" title="Error" message="Something went wrong" />
       );
 
@@ -43,16 +43,16 @@ describe('AlertBox', () => {
       expect(screen.getByText('Something went wrong')).toBeOnTheScreen();
     });
 
-    it('renders with testID', () => {
-      renderWithProviders(<AlertBox variant="error" message="Test message" testID="alert-box" />);
+    it('renders with testID', async () => {
+      await renderWithProviders(<AlertBox variant="error" message="Test message" testID="alert-box" />);
 
       expect(screen.getByTestId('alert-box')).toBeOnTheScreen();
     });
   });
 
   describe('variants', () => {
-    it.each<AlertBoxVariant>(['error', 'success', 'info'])('renders %s variant', variant => {
-      renderWithProviders(
+    it.each<AlertBoxVariant>(['error', 'success', 'info'])('renders %s variant', async variant => {
+      await renderWithProviders(
         <AlertBox variant={variant} message={`${variant} message`} testID="alert" />
       );
 
@@ -60,24 +60,24 @@ describe('AlertBox', () => {
       expect(screen.getByText(`${variant} message`)).toBeOnTheScreen();
     });
 
-    it('renders error variant with correct icon accessibility', () => {
-      renderWithProviders(<AlertBox variant="error" message="Error occurred" testID="alert-box" />);
+    it('renders error variant with correct icon accessibility', async () => {
+      await renderWithProviders(<AlertBox variant="error" message="Error occurred" testID="alert-box" />);
 
       // The alert should have role="alert"
       const alertBox = screen.getByTestId('alert-box');
       expect(alertBox.props.accessibilityRole).toBe('alert');
     });
 
-    it('renders success variant correctly', () => {
-      renderWithProviders(
+    it('renders success variant correctly', async () => {
+      await renderWithProviders(
         <AlertBox variant="success" message="Operation successful" testID="alert-box" />
       );
 
       expect(screen.getByText('Operation successful')).toBeOnTheScreen();
     });
 
-    it('renders info variant correctly', () => {
-      renderWithProviders(
+    it('renders info variant correctly', async () => {
+      await renderWithProviders(
         <AlertBox variant="info" message="Important information" testID="alert-box" />
       );
 
@@ -86,20 +86,20 @@ describe('AlertBox', () => {
   });
 
   describe('theme support', () => {
-    it('renders in light mode', () => {
+    it('renders in light mode', async () => {
       mockUseAppColorScheme.mockReturnValue('light');
 
-      renderWithProviders(
+      await renderWithProviders(
         <AlertBox variant="error" message="Light mode alert" testID="alert-box" />
       );
 
       expect(screen.getByTestId('alert-box')).toBeOnTheScreen();
     });
 
-    it('renders in dark mode', () => {
+    it('renders in dark mode', async () => {
       mockUseAppColorScheme.mockReturnValue('dark');
 
-      renderWithProviders(
+      await renderWithProviders(
         <AlertBox variant="error" message="Dark mode alert" testID="alert-box" />
       );
 
@@ -108,10 +108,10 @@ describe('AlertBox', () => {
 
     it.each<AlertBoxVariant>(['error', 'success', 'info'])(
       'renders %s variant in dark mode',
-      variant => {
+      async variant => {
         mockUseAppColorScheme.mockReturnValue('dark');
 
-        renderWithProviders(
+        await renderWithProviders(
           <AlertBox variant={variant} message={`${variant} dark mode`} testID="alert" />
         );
 
@@ -121,15 +121,15 @@ describe('AlertBox', () => {
   });
 
   describe('accessibility - EAA compliance', () => {
-    it('has role="alert"', () => {
-      renderWithProviders(<AlertBox variant="error" message="Alert message" testID="alert-box" />);
+    it('has role="alert"', async () => {
+      await renderWithProviders(<AlertBox variant="error" message="Alert message" testID="alert-box" />);
 
       const alertBox = screen.getByTestId('alert-box');
       expect(alertBox.props.accessibilityRole).toBe('alert');
     });
 
-    it('has correct accessibility label for message only', () => {
-      renderWithProviders(
+    it('has correct accessibility label for message only', async () => {
+      await renderWithProviders(
         <AlertBox variant="error" message="Something went wrong" testID="alert-box" />
       );
 
@@ -137,8 +137,8 @@ describe('AlertBox', () => {
       expect(alertBox.props.accessibilityLabel).toBe('Something went wrong');
     });
 
-    it('has correct accessibility label for title and message', () => {
-      renderWithProviders(
+    it('has correct accessibility label for title and message', async () => {
+      await renderWithProviders(
         <AlertBox variant="error" title="Error" message="Something went wrong" testID="alert-box" />
       );
 
@@ -146,8 +146,8 @@ describe('AlertBox', () => {
       expect(alertBox.props.accessibilityLabel).toBe('Error: Something went wrong');
     });
 
-    it('supports polite live region', () => {
-      renderWithProviders(
+    it('supports polite live region', async () => {
+      await renderWithProviders(
         <AlertBox
           variant="info"
           message="Info message"
@@ -160,8 +160,8 @@ describe('AlertBox', () => {
       expect(alertBox.props.accessibilityLiveRegion).toBe('polite');
     });
 
-    it('supports assertive live region for critical alerts', () => {
-      renderWithProviders(
+    it('supports assertive live region for critical alerts', async () => {
+      await renderWithProviders(
         <AlertBox
           variant="error"
           message="Critical error"
@@ -174,15 +174,15 @@ describe('AlertBox', () => {
       expect(alertBox.props.accessibilityLiveRegion).toBe('assertive');
     });
 
-    it('defaults to polite live region when not specified', () => {
-      renderWithProviders(<AlertBox variant="success" message="Success" testID="alert-box" />);
+    it('defaults to polite live region when not specified', async () => {
+      await renderWithProviders(<AlertBox variant="success" message="Success" testID="alert-box" />);
 
       const alertBox = screen.getByTestId('alert-box');
       expect(alertBox.props.accessibilityLiveRegion).toBe('polite');
     });
 
-    it('allows disabling live region with none', () => {
-      renderWithProviders(
+    it('allows disabling live region with none', async () => {
+      await renderWithProviders(
         <AlertBox
           variant="success"
           message="Success"
@@ -197,15 +197,15 @@ describe('AlertBox', () => {
   });
 
   describe('content layout', () => {
-    it('renders message inline when no title', () => {
-      renderWithProviders(<AlertBox variant="info" message="Simple message" testID="alert-box" />);
+    it('renders message inline when no title', async () => {
+      await renderWithProviders(<AlertBox variant="info" message="Simple message" testID="alert-box" />);
 
       expect(screen.getByText('Simple message')).toBeOnTheScreen();
       // Without title, there's only one Text component for the message
     });
 
-    it('renders title and message in stacked layout', () => {
-      renderWithProviders(
+    it('renders title and message in stacked layout', async () => {
+      await renderWithProviders(
         <AlertBox
           variant="success"
           title="Success!"
@@ -218,8 +218,8 @@ describe('AlertBox', () => {
       expect(screen.getByText('Your changes have been saved')).toBeOnTheScreen();
     });
 
-    it('uses smaller padding when no title (p=$3)', () => {
-      renderWithProviders(<AlertBox variant="info" message="No title" testID="alert-box" />);
+    it('uses smaller padding when no title (p=$3)', async () => {
+      await renderWithProviders(<AlertBox variant="info" message="No title" testID="alert-box" />);
 
       const alertBox = screen.getByTestId('alert-box');
       // Without title, Box uses p="$3" (smaller padding)
@@ -228,8 +228,8 @@ describe('AlertBox', () => {
       expect(screen.queryByText('Success!')).toBeNull(); // No title present
     });
 
-    it('uses larger padding when title present (p=$4)', () => {
-      renderWithProviders(
+    it('uses larger padding when title present (p=$4)', async () => {
+      await renderWithProviders(
         <AlertBox variant="info" title="Info" message="With title" testID="alert-box" />
       );
 
@@ -239,15 +239,15 @@ describe('AlertBox', () => {
       expect(screen.getByText('Info')).toBeOnTheScreen(); // Title present
     });
 
-    it('uses smaller icon when no title (size 20)', () => {
-      renderWithProviders(<AlertBox variant="error" message="No title error" testID="alert-box" />);
+    it('uses smaller icon when no title (size 20)', async () => {
+      await renderWithProviders(<AlertBox variant="error" message="No title error" testID="alert-box" />);
 
       // Without title, iconSize = 20
       expect(screen.getByTestId('alert-box')).toBeOnTheScreen();
     });
 
-    it('uses larger icon when title present (size 24)', () => {
-      renderWithProviders(
+    it('uses larger icon when title present (size 24)', async () => {
+      await renderWithProviders(
         <AlertBox variant="error" title="Error" message="With title error" testID="alert-box" />
       );
 
@@ -258,40 +258,40 @@ describe('AlertBox', () => {
   });
 
   describe('edge cases', () => {
-    it('handles empty message', () => {
-      renderWithProviders(<AlertBox variant="error" message="" testID="alert-box" />);
+    it('handles empty message', async () => {
+      await renderWithProviders(<AlertBox variant="error" message="" testID="alert-box" />);
 
       expect(screen.getByTestId('alert-box')).toBeOnTheScreen();
     });
 
-    it('handles very long message', () => {
+    it('handles very long message', async () => {
       const longMessage = 'A'.repeat(500);
 
-      renderWithProviders(<AlertBox variant="info" message={longMessage} testID="alert-box" />);
+      await renderWithProviders(<AlertBox variant="info" message={longMessage} testID="alert-box" />);
 
       expect(screen.getByText(longMessage)).toBeOnTheScreen();
     });
 
-    it('handles special characters in message', () => {
+    it('handles special characters in message', async () => {
       const specialMessage = 'Error: "Invalid input" <script>alert(1)</script>';
 
-      renderWithProviders(<AlertBox variant="error" message={specialMessage} testID="alert-box" />);
+      await renderWithProviders(<AlertBox variant="error" message={specialMessage} testID="alert-box" />);
 
       expect(screen.getByText(specialMessage)).toBeOnTheScreen();
     });
 
-    it('handles unicode characters in message', () => {
+    it('handles unicode characters in message', async () => {
       const unicodeMessage = 'Ошибка: データが見つかりません 🚨';
 
-      renderWithProviders(<AlertBox variant="error" message={unicodeMessage} testID="alert-box" />);
+      await renderWithProviders(<AlertBox variant="error" message={unicodeMessage} testID="alert-box" />);
 
       expect(screen.getByText(unicodeMessage)).toBeOnTheScreen();
     });
   });
 
   describe('live region state changes', () => {
-    it('uses expectScreenReaderAnnouncement for polite live region', () => {
-      renderWithProviders(
+    it('uses expectScreenReaderAnnouncement for polite live region', async () => {
+      await renderWithProviders(
         <AlertBox
           variant="info"
           message="Information updated"
@@ -307,8 +307,8 @@ describe('AlertBox', () => {
       });
     });
 
-    it('uses expectScreenReaderAnnouncement for assertive live region', () => {
-      renderWithProviders(
+    it('uses expectScreenReaderAnnouncement for assertive live region', async () => {
+      await renderWithProviders(
         <AlertBox
           variant="error"
           message="Critical error occurred"
@@ -324,8 +324,8 @@ describe('AlertBox', () => {
       });
     });
 
-    it('verifies live region content with expectLiveRegionContent', () => {
-      renderWithProviders(
+    it('verifies live region content with expectLiveRegionContent', async () => {
+      await renderWithProviders(
         <AlertBox
           variant="error"
           message="Login failed"
@@ -341,8 +341,8 @@ describe('AlertBox', () => {
       });
     });
 
-    it('verifies live region content changes on rerender', () => {
-      const { rerender } = renderWithProviders(
+    it('verifies live region content changes on rerender', async () => {
+      const { rerender } = await renderWithProviders(
         <AlertBox
           variant="error"
           message="Error 1"
@@ -359,7 +359,7 @@ describe('AlertBox', () => {
       });
 
       // Rerender with new content
-      rerender(
+      await rerender(
         <AlertBox
           variant="error"
           message="Error 2"
@@ -375,8 +375,8 @@ describe('AlertBox', () => {
       });
     });
 
-    it('verifies live region content with title and message', () => {
-      renderWithProviders(
+    it('verifies live region content with title and message', async () => {
+      await renderWithProviders(
         <AlertBox
           variant="error"
           title="Authentication Failed"

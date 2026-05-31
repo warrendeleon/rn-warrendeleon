@@ -23,114 +23,114 @@ describe('ProfileCard', () => {
   });
 
   describe('Rendering', () => {
-    it('renders in light mode with profile-card testID', () => {
+    it('renders in light mode with profile-card testID', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
       expect(getByTestId('profile-card')).toBeOnTheScreen();
     });
 
-    it('renders in dark mode with profile-card testID', () => {
+    it('renders in dark mode with profile-card testID', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
       expect(getByTestId('profile-card')).toBeOnTheScreen();
     });
 
-    it('displays the avatar image', () => {
+    it('displays the avatar image', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
       const avatar = getByTestId('profile-card-avatar');
       expect(avatar).toBeOnTheScreen();
     });
 
-    it('displays full name correctly', () => {
+    it('displays full name correctly', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByText } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByText } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
     });
 
-    it('displays "View Profile" subtitle', () => {
+    it('displays "View Profile" subtitle', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByText } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByText } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
       expect(getByText('View Profile')).toBeOnTheScreen();
     });
 
-    it('renders with custom testID', () => {
+    it('renders with custom testID', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ProfileCard {...mockProps} testID="custom-profile-card" />
       );
 
       expect(getByTestId('custom-profile-card')).toBeOnTheScreen();
     });
 
-    it('renders with default testID when not provided', () => {
+    it('renders with default testID when not provided', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
       expect(getByTestId('profile-card')).toBeOnTheScreen();
     });
   });
 
   describe('Interactions', () => {
-    it('calls onPress when pressed', () => {
+    it('calls onPress when pressed', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const onPressMock = jest.fn();
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ProfileCard {...mockProps} onPress={onPressMock} />
       );
 
       const card = getByTestId('profile-card');
-      fireEvent.press(card);
+      await fireEvent.press(card);
 
       expect(onPressMock).toHaveBeenCalledTimes(1);
       expect(onPressMock).toHaveBeenCalledWith();
     });
 
-    it('calls onPress multiple times when pressed multiple times', () => {
+    it('calls onPress multiple times when pressed multiple times', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const onPressMock = jest.fn();
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <ProfileCard {...mockProps} onPress={onPressMock} />
       );
 
       const card = getByTestId('profile-card');
-      fireEvent.press(card);
-      fireEvent.press(card);
-      fireEvent.press(card);
+      await fireEvent.press(card);
+      await fireEvent.press(card);
+      await fireEvent.press(card);
 
       expect(onPressMock).toHaveBeenCalledTimes(3);
     });
   });
 
   describe('Theme Support', () => {
-    it('applies light theme and renders correctly', () => {
+    it('applies light theme and renders correctly', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
-      const { getByTestId, getByText } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId, getByText } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
       expect(getByTestId('profile-card')).toBeOnTheScreen();
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
       expect(getByText('View Profile')).toBeOnTheScreen();
     });
 
-    it('applies dark theme and renders correctly', () => {
+    it('applies dark theme and renders correctly', async () => {
       mockUseColorScheme.mockReturnValue('dark');
 
-      const { getByTestId, getByText } = renderWithProviders(<ProfileCard {...mockProps} />);
+      const { getByTestId, getByText } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
       expect(getByTestId('profile-card')).toBeOnTheScreen();
       expect(getByText('Warren de Leon')).toBeOnTheScreen();
@@ -139,7 +139,7 @@ describe('ProfileCard', () => {
   });
 
   describe('Edge Cases', () => {
-    it('handles very long names correctly', () => {
+    it('handles very long names correctly', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const longProps = {
@@ -148,7 +148,7 @@ describe('ProfileCard', () => {
         lastName: 'LongLastNameThatCouldPotentiallyCauseLayoutIssues',
       };
 
-      const { getByText, getByTestId } = renderWithProviders(<ProfileCard {...longProps} />);
+      const { getByText, getByTestId } = await renderWithProviders(<ProfileCard {...longProps} />);
 
       expect(getByTestId('profile-card')).toBeOnTheScreen();
       expect(
@@ -156,7 +156,7 @@ describe('ProfileCard', () => {
       ).toBeOnTheScreen();
     });
 
-    it('handles special characters in names', () => {
+    it('handles special characters in names', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const specialProps = {
@@ -165,12 +165,12 @@ describe('ProfileCard', () => {
         lastName: 'García-Pérez',
       };
 
-      const { getByText } = renderWithProviders(<ProfileCard {...specialProps} />);
+      const { getByText } = await renderWithProviders(<ProfileCard {...specialProps} />);
 
       expect(getByText('José García-Pérez')).toBeOnTheScreen();
     });
 
-    it('handles single character names', () => {
+    it('handles single character names', async () => {
       mockUseColorScheme.mockReturnValue('light');
 
       const shortProps = {
@@ -179,7 +179,7 @@ describe('ProfileCard', () => {
         lastName: 'D',
       };
 
-      const { getByText } = renderWithProviders(<ProfileCard {...shortProps} />);
+      const { getByText } = await renderWithProviders(<ProfileCard {...shortProps} />);
 
       expect(getByText('J D')).toBeOnTheScreen();
     });
@@ -235,35 +235,35 @@ describe('ProfileCard accessibility', () => {
     mockUseColorScheme.mockReturnValue('light');
   });
 
-  it('has correct accessibilityLabel with full name and action', () => {
-    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+  it('has correct accessibilityLabel with full name and action', async () => {
+    const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
     const card = getByTestId('profile-card');
     expect(card.props.accessibilityLabel).toBe('Warren de Leon, View Profile');
   });
 
-  it('has correct accessibilityRole as button', () => {
-    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+  it('has correct accessibilityRole as button', async () => {
+    const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
     const card = getByTestId('profile-card');
     expect(card.props.accessibilityRole).toBe('button');
   });
 
-  it('has correct accessibilityHint', () => {
-    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+  it('has correct accessibilityHint', async () => {
+    const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
     const card = getByTestId('profile-card');
     expect(card.props.accessibilityHint).toBe('Opens your profile details');
   });
 
-  it('is queryable by button role', () => {
-    const { getByRole } = renderWithProviders(<ProfileCard {...mockProps} />);
+  it('is queryable by button role', async () => {
+    const { getByRole } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
     expect(getByRole('button')).toBeOnTheScreen();
   });
 
-  it('avatar has correct testID', () => {
-    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+  it('avatar has correct testID', async () => {
+    const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
     const avatar = getByTestId('profile-card-avatar');
     expect(avatar).toBeOnTheScreen();
@@ -285,24 +285,24 @@ describe('ProfileCard EAA Accessibility Compliance', () => {
     mockUseColorScheme.mockReturnValue('light');
   });
 
-  it('card has accessible touch target (44×44 minimum)', () => {
-    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+  it('card has accessible touch target (44×44 minimum)', async () => {
+    const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
     const card = getByTestId('profile-card');
     expectMinTouchTarget(card);
   });
 
-  it('card maintains accessible touch target in dark mode', () => {
+  it('card maintains accessible touch target in dark mode', async () => {
     mockUseColorScheme.mockReturnValue('dark');
 
-    const { getByTestId } = renderWithProviders(<ProfileCard {...mockProps} />);
+    const { getByTestId } = await renderWithProviders(<ProfileCard {...mockProps} />);
 
     const card = getByTestId('profile-card');
     expectMinTouchTarget(card);
   });
 
-  it('card with custom testID has accessible touch target', () => {
-    const { getByTestId } = renderWithProviders(
+  it('card with custom testID has accessible touch target', async () => {
+    const { getByTestId } = await renderWithProviders(
       <ProfileCard {...mockProps} testID="custom-profile" />
     );
 

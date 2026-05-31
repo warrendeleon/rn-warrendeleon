@@ -131,48 +131,48 @@ describe('EditAccountScreen', () => {
   });
 
   describe('Rendering', () => {
-    it('renders the screen correctly', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('renders the screen correctly', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('edit-account-screen')).toBeOnTheScreen();
     });
 
-    it('renders the screen with testID', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('renders the screen with testID', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('edit-account-screen')).toBeOnTheScreen();
     });
 
-    it('renders first name input', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('renders first name input', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('first-name-input')).toBeOnTheScreen();
     });
 
-    it('renders last name input', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('renders last name input', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('last-name-input')).toBeOnTheScreen();
     });
 
-    it('renders save button', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('renders save button', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('save-button')).toBeOnTheScreen();
     });
 
-    it('renders logout button', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('renders logout button', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -181,8 +181,8 @@ describe('EditAccountScreen', () => {
   });
 
   describe('Form Pre-population', () => {
-    it('pre-populates first name input with user data', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('pre-populates first name input with user data', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -190,8 +190,8 @@ describe('EditAccountScreen', () => {
       expect(firstNameInput.props.value).toBe('Warren');
     });
 
-    it('pre-populates last name input with user data', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('pre-populates last name input with user data', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -201,24 +201,24 @@ describe('EditAccountScreen', () => {
   });
 
   describe('Form Interaction', () => {
-    it('allows updating first name', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('allows updating first name', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       const firstNameInput = getByTestId('first-name-input');
-      fireEvent.changeText(firstNameInput, 'Warren Updated');
+      await fireEvent.changeText(firstNameInput, 'Warren Updated');
 
       expect(firstNameInput.props.value).toBe('Warren Updated');
     });
 
-    it('allows updating last name', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('allows updating last name', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       const lastNameInput = getByTestId('last-name-input');
-      fireEvent.changeText(lastNameInput, 'de Leon Updated');
+      await fireEvent.changeText(lastNameInput, 'de Leon Updated');
 
       expect(lastNameInput.props.value).toBe('de Leon Updated');
     });
@@ -226,20 +226,20 @@ describe('EditAccountScreen', () => {
 
   describe('Form Submission', () => {
     it('triggers save when form is dirty and save button is pressed', async () => {
-      const { getByTestId, store } = renderWithProviders(<EditAccountScreen />, {
+      const { getByTestId, store } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       // Change form to make it dirty
       const firstNameInput = getByTestId('first-name-input');
-      fireEvent.changeText(firstNameInput, 'Warren Updated');
+      await fireEvent.changeText(firstNameInput, 'Warren Updated');
 
       // Verify form value was updated
       expect(firstNameInput.props.value).toBe('Warren Updated');
 
       // Press save button - this dispatches updateUserProfileAsync
       const saveButton = getByTestId('save-button');
-      fireEvent.press(saveButton);
+      await fireEvent.press(saveButton);
 
       // Wait for loading state to be triggered (action was dispatched)
       await waitFor(
@@ -255,8 +255,8 @@ describe('EditAccountScreen', () => {
   });
 
   describe('Logout Functionality', () => {
-    it('shows confirmation dialog when logout button is pressed', () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('shows confirmation dialog when logout button is pressed', async () => {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -264,7 +264,7 @@ describe('EditAccountScreen', () => {
       expect(queryByTestId('logout-dialog')).toBeNull();
 
       // Press logout button
-      fireEvent.press(getByTestId('logout-button'));
+      await fireEvent.press(getByTestId('logout-button'));
 
       // Dialog should now be visible with confirm and cancel buttons
       expect(getByTestId('logout-dialog')).toBeOnTheScreen();
@@ -272,17 +272,17 @@ describe('EditAccountScreen', () => {
       expect(getByTestId('logout-cancel-button')).toBeOnTheScreen();
     });
 
-    it('hides dialog when cancel button is pressed', () => {
-      const { getByTestId, queryByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('hides dialog when cancel button is pressed', async () => {
+      const { getByTestId, queryByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       // Show dialog
-      fireEvent.press(getByTestId('logout-button'));
+      await fireEvent.press(getByTestId('logout-button'));
       expect(getByTestId('logout-dialog')).toBeOnTheScreen();
 
       // Press cancel
-      fireEvent.press(getByTestId('logout-cancel-button'));
+      await fireEvent.press(getByTestId('logout-cancel-button'));
 
       // Dialog should be hidden
       expect(queryByTestId('logout-dialog')).toBeNull();
@@ -290,48 +290,48 @@ describe('EditAccountScreen', () => {
   });
 
   describe('Accessibility', () => {
-    it('has proper accessibility role on save button', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('has proper accessibility role on save button', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('save-button').props.accessibilityRole).toBe('button');
     });
 
-    it('has proper accessibility role on logout button', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('has proper accessibility role on logout button', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('logout-button').props.accessibilityRole).toBe('button');
     });
 
-    it('has proper accessibility label on first name input', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('has proper accessibility label on first name input', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('first-name-input').props.accessibilityLabel).toBe('First Name');
     });
 
-    it('has proper accessibility label on last name input', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('has proper accessibility label on last name input', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('last-name-input').props.accessibilityLabel).toBe('Last Name');
     });
 
-    it('has accessibility hint on first name input', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('has accessibility hint on first name input', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
       expect(getByTestId('first-name-input').props.accessibilityHint).toBe('Edit your first name');
     });
 
-    it('has accessibility hint on last name input', () => {
-      const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+    it('has accessibility hint on last name input', async () => {
+      const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
         preloadedState: authenticatedState,
       });
 
@@ -370,8 +370,8 @@ describe('EditAccountScreen EAA Accessibility Compliance', () => {
     jest.clearAllMocks();
   });
 
-  it('form inputs have accessible touch targets', () => {
-    const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+  it('form inputs have accessible touch targets', async () => {
+    const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
       preloadedState: authenticatedState,
     });
 
@@ -379,8 +379,8 @@ describe('EditAccountScreen EAA Accessibility Compliance', () => {
     expectMinTouchTarget(getByTestId('last-name-input'));
   });
 
-  it('buttons have accessible touch targets', () => {
-    const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+  it('buttons have accessible touch targets', async () => {
+    const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
       preloadedState: authenticatedState,
     });
 
@@ -388,8 +388,8 @@ describe('EditAccountScreen EAA Accessibility Compliance', () => {
     expectMinTouchTarget(getByTestId('logout-button'));
   });
 
-  it('has correct focus order for form elements', () => {
-    const { getByTestId } = renderWithProviders(<EditAccountScreen />, {
+  it('has correct focus order for form elements', async () => {
+    const { getByTestId } = await renderWithProviders(<EditAccountScreen />, {
       preloadedState: authenticatedState,
     });
 

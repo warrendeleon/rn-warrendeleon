@@ -20,8 +20,8 @@ describe('LoginScreen Network Scenarios', () => {
   });
 
   describe('timeout handling', () => {
-    it('should display timeout error message when network times out', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display timeout error message when network times out', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -40,8 +40,8 @@ describe('LoginScreen Network Scenarios', () => {
       expect(getByText('Request timed out. Please try again.')).toBeOnTheScreen();
     });
 
-    it('should keep form interactive after timeout error', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should keep form interactive after timeout error', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -65,7 +65,7 @@ describe('LoginScreen Network Scenarios', () => {
     });
 
     it('should allow form resubmission after timeout', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -81,8 +81,8 @@ describe('LoginScreen Network Scenarios', () => {
       );
 
       // Fill form for retry
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -96,8 +96,8 @@ describe('LoginScreen Network Scenarios', () => {
   });
 
   describe('offline mode behaviour', () => {
-    it('should display offline error message when network unavailable', () => {
-      const { getByTestId, getByText } = renderWithProviders(
+    it('should display offline error message when network unavailable', async () => {
+      const { getByTestId, getByText } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -117,7 +117,7 @@ describe('LoginScreen Network Scenarios', () => {
     });
 
     it('should preserve form data during offline state', async () => {
-      const { getByTestId, getByDisplayValue } = renderWithProviders(
+      const { getByTestId, getByDisplayValue } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -133,15 +133,15 @@ describe('LoginScreen Network Scenarios', () => {
       );
 
       // Fill form while "offline"
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       // Data should be preserved
       expect(getByDisplayValue('user@example.com')).toBeOnTheScreen();
     });
 
     it('should allow retry when connection restored', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -156,8 +156,8 @@ describe('LoginScreen Network Scenarios', () => {
         }
       );
 
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
@@ -176,8 +176,8 @@ describe('LoginScreen Biometric Authentication', () => {
   });
 
   describe('biometric state handling', () => {
-    it('should recognise when biometric is enabled in state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should recognise when biometric is enabled in state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -196,8 +196,8 @@ describe('LoginScreen Biometric Authentication', () => {
       expect(getByTestId('login-screen')).toBeOnTheScreen();
     });
 
-    it('should handle biometric disabled state', () => {
-      const { getByTestId } = renderWithProviders(
+    it('should handle biometric disabled state', async () => {
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -219,7 +219,7 @@ describe('LoginScreen Biometric Authentication', () => {
     });
 
     it('should maintain form functionality regardless of biometric state', async () => {
-      const { getByTestId } = renderWithProviders(
+      const { getByTestId } = await renderWithProviders(
         <LoginScreen navigation={mockNavigation} route={mockRoute} />,
         {
           preloadedState: {
@@ -235,8 +235,8 @@ describe('LoginScreen Biometric Authentication', () => {
       );
 
       // Form should work normally even with biometric enabled
-      fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
-      fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
+      await fireEvent.changeText(getByTestId('email-input'), 'user@example.com');
+      await fireEvent.changeText(getByTestId('password-input'), 'SecurePass123!');
 
       await waitFor(
         () => {
