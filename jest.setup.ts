@@ -41,18 +41,12 @@ jest.mock('@app/features/Auth/store', () => {
   };
 });
 
-// Mock NativeWind and react-native-css-interop
-jest.mock('react-native-css-interop', () => ({
-  remapProps: jest.fn(),
-  cssInterop: jest.fn(),
-  createInteropElement: jest.fn(component => component),
-}));
-
-jest.mock('nativewind', () => ({
-  useColorScheme: jest.fn(),
-  useDeviceContext: jest.fn(),
-  cssInterop: jest.fn(),
-}));
+// NativeWind / react-native-css-interop are intentionally NOT mocked. The
+// nativewind/babel preset sets the JSX runtime to nativewind's, which routes
+// every element through cssInterop; under RN 0.85 a stubbed cssInterop renders
+// host components as bare type strings (e.g. "View") and nothing is queryable.
+// The real css-interop test setup (added to setupFilesAfterEnv) resolves
+// classNames to styles in the render tree, matching how the app actually runs.
 
 // Mock react-native-config
 jest.mock('react-native-config', () => ({

@@ -1,9 +1,9 @@
 module.exports = {
-  preset: 'react-native',
+  preset: '@react-native/jest-preset',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'mjs', 'json', 'node'],
   testEnvironment: 'node',
   setupFiles: ['<rootDir>/jest.polyfills.cjs'],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: [require.resolve('react-native-css-interop/dist/test/setupAfterEnv.js'), '<rootDir>/jest.setup.ts'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx|mjs)$': ['babel-jest', { configFile: './babel.config.js' }],
   },
