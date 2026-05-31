@@ -1531,15 +1531,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@egjs/hammerjs@npm:^2.0.17":
-  version: 2.0.17
-  resolution: "@egjs/hammerjs@npm:2.0.17"
-  dependencies:
-    "@types/hammerjs": ^2.0.36
-  checksum: 8945137cec5837edd70af3f2e0ea621543eb0aa3b667e6269ec6485350f4d120c2434b37c7c30b1cf42a65275dd61c1f24626749c616696d3956ac0c008c4766
-  languageName: node
-  linkType: hard
-
 "@emnapi/core@npm:1.10.0":
   version: 1.10.0
   resolution: "@emnapi/core@npm:1.10.0"
@@ -4306,9 +4297,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/datetimepicker@npm:^8.6.0":
-  version: 8.6.0
-  resolution: "@react-native-community/datetimepicker@npm:8.6.0"
+"@react-native-community/datetimepicker@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "@react-native-community/datetimepicker@npm:9.1.0"
   dependencies:
     invariant: ^2.2.4
   peerDependencies:
@@ -4321,7 +4312,7 @@ __metadata:
       optional: true
     react-native-windows:
       optional: true
-  checksum: e4f0312225b9738d28b075fbfadb0be258ce91610abfd7d5728b06c92113d83de414e9708ae980d605594f037c1e4f68e1078923c34adc42b5c6b712520d65fc
+  checksum: 31b37df04613d299b4f107ee2325d4ea25a895bc358c080eca23ea06dc2278393950b632f67b5a27a8b2b801823f1febc201d3a555972c121e3a1f0b559180e3
   languageName: node
   linkType: hard
 
@@ -6211,13 +6202,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hammerjs@npm:^2.0.36":
-  version: 2.0.46
-  resolution: "@types/hammerjs@npm:2.0.46"
-  checksum: caba6ec788d19905c71092670b58514b3d1f5eee5382bf9205e8df688d51e7857b7994e2dd7aed57fac8977bdf0e456d67fbaf23440a4385b8ce25fe2af1ec39
-  languageName: node
-  linkType: hard
-
 "@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1":
   version: 2.0.6
   resolution: "@types/istanbul-lib-coverage@npm:2.0.6"
@@ -6341,6 +6325,15 @@ __metadata:
   peerDependencies:
     "@types/react": "*"
   checksum: 9ff6ec96aeda1a5a6f577f1e890b6c1ba67d4fbd1c8097b7f1320a3419061ab2c5b42ee2937b950936728517736b484035764f655bfe0169afecbec9c4e4d747
+  languageName: node
+  linkType: hard
+
+"@types/react-test-renderer@npm:^19.1.0":
+  version: 19.1.0
+  resolution: "@types/react-test-renderer@npm:19.1.0"
+  dependencies:
+    "@types/react": "*"
+  checksum: 2ef3aec0f2fd638902cda606d70c8531d66f8e8944334427986b99dcac9755ee60b700c5c3a19ac354680f9c45669e98077b84f79cac60e950bdb7d38aebffde
   languageName: node
   linkType: hard
 
@@ -10388,15 +10381,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.0":
-  version: 3.3.2
-  resolution: "hoist-non-react-statics@npm:3.3.2"
-  dependencies:
-    react-is: ^16.7.0
-  checksum: b1538270429b13901ee586aa44f4cc3ecd8831c061d06cb8322e50ea17b3f5ce4d0e2e66394761e6c8e152cd8c34fb3b4b690116c6ce2bd45b18c746516cb9e8
-  languageName: node
-  linkType: hard
-
 "hosted-git-info@npm:^9.0.0":
   version: 9.0.3
   resolution: "hosted-git-info@npm:9.0.3"
@@ -14340,7 +14324,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.13.1, react-is@npm:^16.7.0":
+"react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
@@ -14418,15 +14402,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-config@npm:1.5.6":
-  version: 1.5.6
-  resolution: "react-native-config@npm:1.5.6"
+"react-native-config@npm:1.6.1":
+  version: 1.6.1
+  resolution: "react-native-config@npm:1.6.1"
   peerDependencies:
+    react: "*"
+    react-native: "*"
     react-native-windows: ">=0.61"
   peerDependenciesMeta:
     react-native-windows:
       optional: true
-  checksum: a055ed473203b085a76f550b53f16bcd1c0ec89e16ffd2ec926384ac88d23c710d3fd66da264aa1762d594c30046238d3f44f825f1eeb396b3adfb3568b09b1c
+  checksum: 356419af35bdc5eed6328c0ada41b49efd5e280d1843ecfb14a37cc37b23c5c28ced038a2ae5ccc9e1d9af324202393f83ad0e1fae4bf0d4ba5798f3c895b8f9
   languageName: node
   linkType: hard
 
@@ -14501,26 +14487,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-gesture-handler@npm:^2.29.1":
-  version: 2.29.1
-  resolution: "react-native-gesture-handler@npm:2.29.1"
+"react-native-gesture-handler@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "react-native-gesture-handler@npm:3.0.0"
   dependencies:
-    "@egjs/hammerjs": ^2.0.17
-    hoist-non-react-statics: ^3.3.0
+    "@types/react-test-renderer": ^19.1.0
     invariant: ^2.2.4
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: dddabdb12ce31d68ef71796e8fcaa57acd4608cca14412f36ce36fee14911fb629f325f0ced86bea1336a64673a434e34cde32a63be8d33f29d9a7bed292c5b2
+  checksum: c796d981eb4522813917e3486b0bbf56629394053cc2236de0dc2af4bfc01045f638666f697dd98e7fdf786ce710d96f8479e02b31fdffdf09c114dc4b07fa6a
   languageName: node
   linkType: hard
 
-"react-native-haptic-feedback@npm:^2.3.3":
-  version: 2.3.3
-  resolution: "react-native-haptic-feedback@npm:2.3.3"
+"react-native-haptic-feedback@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "react-native-haptic-feedback@npm:3.0.0"
   peerDependencies:
-    react-native: ">=0.60.0"
-  checksum: 5ff12aaf44fa1cad8ab3d9c58046a11c631c6622955120294060efc51c625203ee4cd7ccb565663c12b27552ebbb7034a386000d9da738b9eea5ff62d58b14c0
+    react: ">=18.0.0"
+    react-native: ">=0.71.0"
+  peerDependenciesMeta:
+    react:
+      optional: true
+  checksum: 9fca6abeb5463edd3ee00812b11af211a9161a14beeb900b78d9cf3244d28c8c9952c682cbb3a8c4fe42bd9d490dc4372ff7be84bda0af7bcf6b14b12818d4c4
   languageName: node
   linkType: hard
 
@@ -17277,7 +17266,7 @@ __metadata:
     "@react-native-async-storage/async-storage": ^3.1.1
     "@react-native-community/blur": ^4.4.1
     "@react-native-community/cli": ^20.1.3
-    "@react-native-community/datetimepicker": ^8.6.0
+    "@react-native-community/datetimepicker": ^9.1.0
     "@react-native-community/slider": ^5.2.0
     "@react-native/babel-preset": 0.85.3
     "@react-native/jest-preset": 0.85.3
@@ -17340,13 +17329,13 @@ __metadata:
     react-native-blob-util: ^0.24.9
     react-native-bootsplash: ^6.3.11
     react-native-compressor: ^1.18.2
-    react-native-config: 1.5.6
+    react-native-config: 1.6.1
     react-native-dotenv: ^3.4.11
     react-native-encrypted-storage: ^4.0.3
     react-native-fast-tflite: ^1.6.1
     react-native-fs: ^2.20.0
-    react-native-gesture-handler: ^2.29.1
-    react-native-haptic-feedback: ^2.3.3
+    react-native-gesture-handler: ^3.0.0
+    react-native-haptic-feedback: ^3.0.0
     react-native-image-crop-picker: ^0.51.1
     react-native-keychain: ^10.0.0
     react-native-launch-arguments: ^4.1.1
