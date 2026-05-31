@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image as RNImage, Platform } from 'react-native';
+import { Image as RNImage } from 'react-native';
 import { createImage } from '@gluestack-ui/core/image/creator';
 import type { VariantProps } from '@gluestack-ui/utils/nativewind-utils';
 import { tva } from '@gluestack-ui/utils/nativewind-utils';
@@ -28,15 +28,7 @@ const Image = React.forwardRef<
   React.ComponentRef<typeof UIImage>,
   ImageProps & { className?: string }
 >(function Image({ size = 'md', className, ...props }, ref) {
-  return (
-    <UIImage
-      className={imageStyle({ size, class: className })}
-      {...props}
-      ref={ref}
-      // @ts-expect-error : web only
-      style={Platform.OS === 'web' ? { height: 'revert-layer', width: 'revert-layer' } : undefined}
-    />
-  );
+  return <UIImage className={imageStyle({ size, class: className })} {...props} ref={ref} />;
 });
 
 Image.displayName = 'Image';

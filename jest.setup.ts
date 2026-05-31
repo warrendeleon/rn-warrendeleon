@@ -131,24 +131,6 @@ jest.mock('react-native-reanimated', () => {
   };
 });
 
-// Mock @legendapp/motion
-jest.mock('@legendapp/motion', () => {
-  const RN = require('react-native');
-
-  return {
-    Motion: {
-      View: RN.View,
-      Text: RN.Text,
-      ScrollView: RN.ScrollView,
-      Image: RN.Image,
-      Pressable: RN.Pressable,
-    },
-    AnimatePresence: ({ children }: { children?: unknown }) => children,
-    createMotionAnimatedComponent: (component: unknown) => component,
-    motionAnimatedDriver: jest.fn(),
-  };
-});
-
 // Mock @expo/html-elements
 jest.mock('@expo/html-elements', () => {
   const RN = require('react-native');
@@ -170,82 +152,6 @@ jest.mock('@expo/html-elements', () => {
     Main: RN.View,
   };
 });
-
-// Mock @gluestack-ui/themed
-jest.mock('@gluestack-ui/themed', () => {
-  const mockRN = require('react-native');
-
-  return {
-    // Layout components
-    Box: mockRN.View,
-    VStack: mockRN.View,
-    HStack: mockRN.View,
-    Center: mockRN.View,
-    Divider: mockRN.View,
-    Spinner: mockRN.ActivityIndicator,
-
-    // Typography
-    Text: mockRN.Text,
-    Heading: mockRN.Text,
-
-    // Interactive components
-    Button: mockRN.Pressable,
-    ButtonText: mockRN.Text,
-    ButtonIcon: mockRN.View,
-    ButtonSpinner: mockRN.ActivityIndicator,
-    Pressable: mockRN.Pressable,
-
-    // Form components
-    Input: mockRN.View,
-    InputField: mockRN.TextInput,
-    InputSlot: mockRN.View,
-    InputIcon: mockRN.View,
-    Switch: mockRN.Switch,
-    FormControl: mockRN.View,
-    FormControlLabel: mockRN.View,
-    FormControlLabelText: mockRN.Text,
-    FormControlHelper: mockRN.View,
-    FormControlHelperText: mockRN.Text,
-    FormControlError: mockRN.View,
-    FormControlErrorText: mockRN.Text,
-    FormControlErrorIcon: mockRN.View,
-
-    // Avatar components
-    Avatar: mockRN.View,
-    AvatarImage: mockRN.Image,
-    AvatarFallbackText: mockRN.Text,
-
-    // Icon components
-    Icon: mockRN.View,
-    ChevronRightIcon: mockRN.View,
-    ChevronLeftIcon: mockRN.View,
-    ChevronDownIcon: mockRN.View,
-    ChevronUpIcon: mockRN.View,
-
-    // Image
-    Image: mockRN.Image,
-
-    // ScrollView
-    ScrollView: mockRN.ScrollView,
-
-    // GluestackUIProvider (pass through children)
-    GluestackUIProvider: ({ children }: { children?: unknown }) => children,
-
-    // Config
-    config: {},
-  };
-});
-
-// Mock @react-aria/utils to prevent react-dom import
-jest.mock('@react-aria/utils', () => ({
-  useLayoutEffect: require('react').useEffect,
-  useEffectEvent: jest.fn(fn => fn),
-  mergeProps: jest.fn((...args) => Object.assign({}, ...args)),
-  mergeRefs: jest.fn(),
-  focusWithoutScrolling: jest.fn(),
-  openLink: jest.fn(),
-  runAfterTransition: jest.fn(fn => fn()),
-}));
 
 // Mock react-native-safe-area-context with displayName for css-interop compatibility
 jest.mock('react-native-safe-area-context', () => {

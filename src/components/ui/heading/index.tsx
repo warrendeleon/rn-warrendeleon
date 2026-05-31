@@ -1,9 +1,29 @@
 import React, { forwardRef, memo } from 'react';
-import { H1, H2, H3, H4, H5, H6 } from '@expo/html-elements';
+import { Text as RNText } from 'react-native';
+import {
+  H1 as RawH1,
+  H2 as RawH2,
+  H3 as RawH3,
+  H4 as RawH4,
+  H5 as RawH5,
+  H6 as RawH6,
+} from '@expo/html-elements';
 import type { VariantProps } from '@gluestack-ui/utils/nativewind-utils';
 import { cssInterop } from 'nativewind';
 
 import { headingStyle } from './styles';
+
+// @expo/html-elements types H1..H6 as ComponentType<TextProps>, which drops the
+// forwarded-ref instance type. On native each heading renders an RN Text and accepts
+// TextProps, so treat them as Text-compatible. This matches the ref pattern used by the
+// Text component and lets the size switch forward one ref across H1..H6 without a
+// per-branch suppression.
+const H1 = RawH1 as unknown as typeof RNText;
+const H2 = RawH2 as unknown as typeof RNText;
+const H3 = RawH3 as unknown as typeof RNText;
+const H4 = RawH4 as unknown as typeof RNText;
+const H5 = RawH5 as unknown as typeof RNText;
+const H6 = RawH6 as unknown as typeof RNText;
 
 type IHeadingProps = VariantProps<typeof headingStyle> &
   React.ComponentPropsWithoutRef<typeof H1> & {
@@ -51,10 +71,6 @@ const MappedHeading = memo(
               class: className,
             })}
             {...props}
-            // @ts-expect-error Polymorphic ref: this branch can render H1..H6 but the
-            // outer forwardRef pins the ref type to React.ComponentRef<typeof H1>. TS
-            // can't narrow the ref shape per-mapped-element. Suppression is upstream
-            // (gluestack-ui v3); revisit if/when Gluestack types the polymorphism.
             ref={ref}
           />
         );
@@ -73,10 +89,6 @@ const MappedHeading = memo(
               class: className,
             })}
             {...props}
-            // @ts-expect-error Polymorphic ref: this branch can render H1..H6 but the
-            // outer forwardRef pins the ref type to React.ComponentRef<typeof H1>. TS
-            // can't narrow the ref shape per-mapped-element. Suppression is upstream
-            // (gluestack-ui v3); revisit if/when Gluestack types the polymorphism.
             ref={ref}
           />
         );
@@ -95,10 +107,6 @@ const MappedHeading = memo(
               class: className,
             })}
             {...props}
-            // @ts-expect-error Polymorphic ref: this branch can render H1..H6 but the
-            // outer forwardRef pins the ref type to React.ComponentRef<typeof H1>. TS
-            // can't narrow the ref shape per-mapped-element. Suppression is upstream
-            // (gluestack-ui v3); revisit if/when Gluestack types the polymorphism.
             ref={ref}
           />
         );
@@ -117,10 +125,6 @@ const MappedHeading = memo(
               class: className,
             })}
             {...props}
-            // @ts-expect-error Polymorphic ref: this branch can render H1..H6 but the
-            // outer forwardRef pins the ref type to React.ComponentRef<typeof H1>. TS
-            // can't narrow the ref shape per-mapped-element. Suppression is upstream
-            // (gluestack-ui v3); revisit if/when Gluestack types the polymorphism.
             ref={ref}
           />
         );
@@ -139,10 +143,6 @@ const MappedHeading = memo(
               class: className,
             })}
             {...props}
-            // @ts-expect-error Polymorphic ref: this branch can render H1..H6 but the
-            // outer forwardRef pins the ref type to React.ComponentRef<typeof H1>. TS
-            // can't narrow the ref shape per-mapped-element. Suppression is upstream
-            // (gluestack-ui v3); revisit if/when Gluestack types the polymorphism.
             ref={ref}
           />
         );
@@ -162,10 +162,6 @@ const MappedHeading = memo(
               class: className,
             })}
             {...props}
-            // @ts-expect-error Polymorphic ref: this branch can render H1..H6 but the
-            // outer forwardRef pins the ref type to React.ComponentRef<typeof H1>. TS
-            // can't narrow the ref shape per-mapped-element. Suppression is upstream
-            // (gluestack-ui v3); revisit if/when Gluestack types the polymorphism.
             ref={ref}
           />
         );
@@ -184,10 +180,6 @@ const MappedHeading = memo(
               class: className,
             })}
             {...props}
-            // @ts-expect-error Polymorphic ref: this branch can render H1..H6 but the
-            // outer forwardRef pins the ref type to React.ComponentRef<typeof H1>. TS
-            // can't narrow the ref shape per-mapped-element. Suppression is upstream
-            // (gluestack-ui v3); revisit if/when Gluestack types the polymorphism.
             ref={ref}
           />
         );
