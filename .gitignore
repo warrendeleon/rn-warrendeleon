@@ -164,3 +164,6 @@ vendor/bundle/
 # --- Supabase CLI ---
 supabase/.temp/
 supabase/.branches/
+
+# Generated on demand by "yarn test:a11y"
+accessibility-report.md

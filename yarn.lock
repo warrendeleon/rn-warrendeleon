@@ -4783,6 +4783,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tailwindcss/container-queries@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@tailwindcss/container-queries@npm:0.1.1"
+  peerDependencies:
+    tailwindcss: ">=3.2.0"
+  checksum: 2515ae0ce3ca5f3eb2a54116e97cbf4bce45d5fc7ad4b01f3204f51937461ff099c878048afbca22ca422ea3a9c1779df68a7cfe320ca155da47a8dde3257f4b
+  languageName: node
+  linkType: hard
+
 "@tensorflow/tfjs-backend-cpu@npm:4.22.0":
   version: 4.22.0
   resolution: "@tensorflow/tfjs-backend-cpu@npm:4.22.0"
@@ -15919,6 +15928,7 @@ __metadata:
     "@storybook/addon-ondevice-notes": ^10.4.4
     "@storybook/react-native": ^10.4.4
     "@storybook/test": ^8.6.15
+    "@tailwindcss/container-queries": ^0.1.1
     "@tensorflow/tfjs": ^4.22.0
     "@tensorflow/tfjs-react-native": ^1.0.0
     "@testing-library/jest-native": ^5.4.3
