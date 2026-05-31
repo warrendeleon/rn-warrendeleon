@@ -41,7 +41,9 @@ describe('ConfirmDialog', () => {
     });
 
     it('should not render content when visible is false', async () => {
-      await renderWithProviders(<ConfirmDialog {...defaultProps} visible={false} testID="dialog" />);
+      await renderWithProviders(
+        <ConfirmDialog {...defaultProps} visible={false} testID="dialog" />
+      );
 
       expect(screen.queryByTestId('dialog-content')).toBeNull();
     });
@@ -89,7 +91,9 @@ describe('ConfirmDialog', () => {
         { text: 'Confirm', onPress },
       ];
 
-      await renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
+      await renderWithProviders(
+        <ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />
+      );
 
       await fireEvent.press(screen.getByText('Confirm'));
 
@@ -98,7 +102,9 @@ describe('ConfirmDialog', () => {
 
     it('should call onClose when button is pressed', async () => {
       const onClose = jest.fn();
-      await renderWithProviders(<ConfirmDialog {...defaultProps} onClose={onClose} testID="dialog" />);
+      await renderWithProviders(
+        <ConfirmDialog {...defaultProps} onClose={onClose} testID="dialog" />
+      );
 
       await fireEvent.press(screen.getByText('Cancel'));
 
@@ -126,7 +132,9 @@ describe('ConfirmDialog', () => {
         { text: 'Confirm', testID: 'confirm-btn' },
       ];
 
-      await renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
+      await renderWithProviders(
+        <ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />
+      );
 
       expect(screen.getByTestId('cancel-btn')).toBeOnTheScreen();
       expect(screen.getByTestId('confirm-btn')).toBeOnTheScreen();
@@ -144,7 +152,9 @@ describe('ConfirmDialog', () => {
     it('should render cancel style button', async () => {
       const buttons: ConfirmDialogButton[] = [{ text: 'Cancel', style: 'cancel' }];
 
-      await renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
+      await renderWithProviders(
+        <ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />
+      );
 
       expect(screen.getByText('Cancel')).toBeOnTheScreen();
     });
@@ -152,7 +162,9 @@ describe('ConfirmDialog', () => {
     it('should render destructive style button', async () => {
       const buttons: ConfirmDialogButton[] = [{ text: 'Delete', style: 'destructive' }];
 
-      await renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
+      await renderWithProviders(
+        <ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />
+      );
 
       expect(screen.getByText('Delete')).toBeOnTheScreen();
     });
@@ -160,7 +172,9 @@ describe('ConfirmDialog', () => {
     it('should render default style button', async () => {
       const buttons: ConfirmDialogButton[] = [{ text: 'OK', style: 'default' }];
 
-      await renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
+      await renderWithProviders(
+        <ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />
+      );
 
       expect(screen.getByText('OK')).toBeOnTheScreen();
     });
@@ -243,7 +257,9 @@ describe('ConfirmDialog', () => {
         { text: 'Delete', style: 'destructive' },
       ];
 
-      await renderWithProviders(<ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />);
+      await renderWithProviders(
+        <ConfirmDialog {...defaultProps} buttons={buttons} testID="dialog" />
+      );
 
       const deleteButton = screen.getByTestId('dialog-button-1');
       expectMinTouchTarget(deleteButton);

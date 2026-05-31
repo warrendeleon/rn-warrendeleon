@@ -44,7 +44,9 @@ describe('AlertBox', () => {
     });
 
     it('renders with testID', async () => {
-      await renderWithProviders(<AlertBox variant="error" message="Test message" testID="alert-box" />);
+      await renderWithProviders(
+        <AlertBox variant="error" message="Test message" testID="alert-box" />
+      );
 
       expect(screen.getByTestId('alert-box')).toBeOnTheScreen();
     });
@@ -61,7 +63,9 @@ describe('AlertBox', () => {
     });
 
     it('renders error variant with correct icon accessibility', async () => {
-      await renderWithProviders(<AlertBox variant="error" message="Error occurred" testID="alert-box" />);
+      await renderWithProviders(
+        <AlertBox variant="error" message="Error occurred" testID="alert-box" />
+      );
 
       // The alert should have role="alert"
       const alertBox = screen.getByTestId('alert-box');
@@ -122,7 +126,9 @@ describe('AlertBox', () => {
 
   describe('accessibility - EAA compliance', () => {
     it('has role="alert"', async () => {
-      await renderWithProviders(<AlertBox variant="error" message="Alert message" testID="alert-box" />);
+      await renderWithProviders(
+        <AlertBox variant="error" message="Alert message" testID="alert-box" />
+      );
 
       const alertBox = screen.getByTestId('alert-box');
       expect(alertBox.props.accessibilityRole).toBe('alert');
@@ -175,7 +181,9 @@ describe('AlertBox', () => {
     });
 
     it('defaults to polite live region when not specified', async () => {
-      await renderWithProviders(<AlertBox variant="success" message="Success" testID="alert-box" />);
+      await renderWithProviders(
+        <AlertBox variant="success" message="Success" testID="alert-box" />
+      );
 
       const alertBox = screen.getByTestId('alert-box');
       expect(alertBox.props.accessibilityLiveRegion).toBe('polite');
@@ -198,7 +206,9 @@ describe('AlertBox', () => {
 
   describe('content layout', () => {
     it('renders message inline when no title', async () => {
-      await renderWithProviders(<AlertBox variant="info" message="Simple message" testID="alert-box" />);
+      await renderWithProviders(
+        <AlertBox variant="info" message="Simple message" testID="alert-box" />
+      );
 
       expect(screen.getByText('Simple message')).toBeOnTheScreen();
       // Without title, there's only one Text component for the message
@@ -240,7 +250,9 @@ describe('AlertBox', () => {
     });
 
     it('uses smaller icon when no title (size 20)', async () => {
-      await renderWithProviders(<AlertBox variant="error" message="No title error" testID="alert-box" />);
+      await renderWithProviders(
+        <AlertBox variant="error" message="No title error" testID="alert-box" />
+      );
 
       // Without title, iconSize = 20
       expect(screen.getByTestId('alert-box')).toBeOnTheScreen();
@@ -267,7 +279,9 @@ describe('AlertBox', () => {
     it('handles very long message', async () => {
       const longMessage = 'A'.repeat(500);
 
-      await renderWithProviders(<AlertBox variant="info" message={longMessage} testID="alert-box" />);
+      await renderWithProviders(
+        <AlertBox variant="info" message={longMessage} testID="alert-box" />
+      );
 
       expect(screen.getByText(longMessage)).toBeOnTheScreen();
     });
@@ -275,7 +289,9 @@ describe('AlertBox', () => {
     it('handles special characters in message', async () => {
       const specialMessage = 'Error: "Invalid input" <script>alert(1)</script>';
 
-      await renderWithProviders(<AlertBox variant="error" message={specialMessage} testID="alert-box" />);
+      await renderWithProviders(
+        <AlertBox variant="error" message={specialMessage} testID="alert-box" />
+      );
 
       expect(screen.getByText(specialMessage)).toBeOnTheScreen();
     });
@@ -283,7 +299,9 @@ describe('AlertBox', () => {
     it('handles unicode characters in message', async () => {
       const unicodeMessage = 'Ошибка: データが見つかりません 🚨';
 
-      await renderWithProviders(<AlertBox variant="error" message={unicodeMessage} testID="alert-box" />);
+      await renderWithProviders(
+        <AlertBox variant="error" message={unicodeMessage} testID="alert-box" />
+      );
 
       expect(screen.getByText(unicodeMessage)).toBeOnTheScreen();
     });

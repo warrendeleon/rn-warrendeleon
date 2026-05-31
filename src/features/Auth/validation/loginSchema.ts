@@ -14,7 +14,9 @@ export const loginSchema = yup.object({
   email: yup
     .string()
     .required('Email is required')
+    .max(254, 'Email is too long')
     .email('Please enter a valid email address')
+    .noPathTraversal('Email contains invalid characters')
     .noEmoji('Email cannot contain emojis')
     .noDisposableEmail('Disposable email addresses are not allowed')
     .lowercase()

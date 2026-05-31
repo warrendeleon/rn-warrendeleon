@@ -213,19 +213,25 @@ describe('FormInputItem', () => {
     });
 
     it('should apply return key type', async () => {
-      await renderWithProviders(<FormInputItem {...defaultProps} returnKeyType="done" testID="input" />);
+      await renderWithProviders(
+        <FormInputItem {...defaultProps} returnKeyType="done" testID="input" />
+      );
 
       expect(screen.getByTestId('input').props.returnKeyType).toBe('done');
     });
 
     it('should disable auto capitalisation when specified', async () => {
-      await renderWithProviders(<FormInputItem {...defaultProps} autoCapitalize="none" testID="input" />);
+      await renderWithProviders(
+        <FormInputItem {...defaultProps} autoCapitalize="none" testID="input" />
+      );
 
       expect(screen.getByTestId('input').props.autoCapitalize).toBe('none');
     });
 
     it('should disable auto correct when specified', async () => {
-      await renderWithProviders(<FormInputItem {...defaultProps} autoCorrect={false} testID="input" />);
+      await renderWithProviders(
+        <FormInputItem {...defaultProps} autoCorrect={false} testID="input" />
+      );
 
       expect(screen.getByTestId('input').props.autoCorrect).toBe(false);
     });
@@ -239,7 +245,9 @@ describe('FormInputItem', () => {
     });
 
     it('should be non-editable when editable is false', async () => {
-      await renderWithProviders(<FormInputItem {...defaultProps} editable={false} testID="input" />);
+      await renderWithProviders(
+        <FormInputItem {...defaultProps} editable={false} testID="input" />
+      );
 
       expect(screen.getByTestId('input').props.editable).toBe(false);
     });

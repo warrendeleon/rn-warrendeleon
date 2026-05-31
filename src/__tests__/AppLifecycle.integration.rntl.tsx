@@ -591,7 +591,7 @@ describe('App Lifecycle Edge Cases', () => {
         error: null,
       });
 
-      unmount1();
+      await unmount1();
       jest.runAllTimers();
 
       // Termination
@@ -603,7 +603,7 @@ describe('App Lifecycle Edge Cases', () => {
 
       expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
-      unmount2();
+      await unmount2();
       jest.runAllTimers();
 
       // Restart

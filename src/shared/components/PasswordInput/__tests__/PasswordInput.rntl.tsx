@@ -208,7 +208,9 @@ describe('PasswordInput', () => {
     });
 
     it('should use custom accessibility label when provided', async () => {
-      await renderWithProviders(<PasswordInput {...defaultProps} accessibilityLabel="Your password" />);
+      await renderWithProviders(
+        <PasswordInput {...defaultProps} accessibilityLabel="Your password" />
+      );
 
       expect(screen.getByLabelText('Your password')).toBeOnTheScreen();
     });
@@ -279,7 +281,9 @@ describe('PasswordInput', () => {
   describe('ref forwarding', () => {
     it('should forward ref for focus functionality', async () => {
       const ref = createRef<{ focus: () => void }>();
-      await renderWithProviders(<PasswordInput {...defaultProps} ref={ref} testID="password-input" />);
+      await renderWithProviders(
+        <PasswordInput {...defaultProps} ref={ref} testID="password-input" />
+      );
 
       expect(ref.current).not.toBeNull();
       expect(typeof ref.current?.focus).toBe('function');

@@ -146,7 +146,7 @@ describe('Memory Pressure Scenarios', () => {
       expect(getByTestId1('profile-screen')).toBeOnTheScreen();
 
       // Simulate memory warning by unmounting
-      unmount1();
+      await unmount1();
       jest.runAllTimers();
 
       // Re-mount after memory warning
@@ -295,7 +295,7 @@ describe('Memory Pressure Scenarios', () => {
 
       // Multiple memory events
       for (let i = 0; i < 5; i++) {
-        unmount1();
+        await unmount1();
         jest.runAllTimers();
 
         const { unmount: unmountNext, getByTestId } = await renderProfileWithState({
@@ -307,7 +307,7 @@ describe('Memory Pressure Scenarios', () => {
         expect(getByTestId('profile-screen')).toBeOnTheScreen();
 
         if (i < 4) {
-          unmountNext();
+          await unmountNext();
         }
       }
     });

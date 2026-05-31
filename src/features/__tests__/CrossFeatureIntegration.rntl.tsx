@@ -311,25 +311,28 @@ describe('Cross-Feature Integration', () => {
 
   describe('auth state affects navigation options', () => {
     it('should show auth-only navigation when authenticated', async () => {
-      const { getByTestId, queryByTestId } = await renderWithProviders(<NavigationOptionsComponent />, {
-        preloadedState: {
-          auth: {
-            user: {
-              id: 'user-1',
-              email: 'test@example.com',
-              firstName: 'Test',
-              lastName: 'User',
-              phoneNumber: null,
-              profilePicture: null,
-              authProvider: 'email',
+      const { getByTestId, queryByTestId } = await renderWithProviders(
+        <NavigationOptionsComponent />,
+        {
+          preloadedState: {
+            auth: {
+              user: {
+                id: 'user-1',
+                email: 'test@example.com',
+                firstName: 'Test',
+                lastName: 'User',
+                phoneNumber: null,
+                profilePicture: null,
+                authProvider: 'email',
+              },
+              isAuthenticated: true,
+              isLoading: false,
+              error: null,
+              biometricEnabled: false,
             },
-            isAuthenticated: true,
-            isLoading: false,
-            error: null,
-            biometricEnabled: false,
           },
-        },
-      });
+        }
+      );
 
       expect(getByTestId('auth-status')).toHaveTextContent('Authenticated');
       expect(getByTestId('nav-profile')).toBeOnTheScreen();
@@ -340,17 +343,20 @@ describe('Cross-Feature Integration', () => {
     });
 
     it('should show public navigation when not authenticated', async () => {
-      const { getByTestId, queryByTestId } = await renderWithProviders(<NavigationOptionsComponent />, {
-        preloadedState: {
-          auth: {
-            user: null,
-            isAuthenticated: false,
-            isLoading: false,
-            error: null,
-            biometricEnabled: false,
+      const { getByTestId, queryByTestId } = await renderWithProviders(
+        <NavigationOptionsComponent />,
+        {
+          preloadedState: {
+            auth: {
+              user: null,
+              isAuthenticated: false,
+              isLoading: false,
+              error: null,
+              biometricEnabled: false,
+            },
           },
-        },
-      });
+        }
+      );
 
       expect(getByTestId('auth-status')).toHaveTextContent('Not Authenticated');
       expect(getByTestId('nav-login')).toBeOnTheScreen();

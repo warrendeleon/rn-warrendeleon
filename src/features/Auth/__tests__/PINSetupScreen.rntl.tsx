@@ -3,9 +3,9 @@
  */
 
 import React from 'react';
-import type { TestInstance } from 'test-renderer';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { act, fireEvent, waitFor } from '@testing-library/react-native';
+import type { TestInstance } from 'test-renderer';
 
 import type { RootStackParamList } from '@app/navigation';
 import { expectFocusOrder, expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
@@ -156,10 +156,7 @@ describe('PINSetupScreen', () => {
       }
     };
 
-    const enterConfirmPIN = async (
-      getByTestId: (id: string) => TestInstance,
-      digits: string[]
-    ) => {
+    const enterConfirmPIN = async (getByTestId: (id: string) => TestInstance, digits: string[]) => {
       for (const digit of digits) {
         await fireEvent.press(getByTestId(`pin-input-confirm-keypad-${digit}`));
       }

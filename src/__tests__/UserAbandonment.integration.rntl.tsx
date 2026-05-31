@@ -14,7 +14,7 @@ import { renderWithProviders, TEST_CREDENTIALS } from '@app/test-utils';
 // Local helper for filling fields without user event setup
 const fillField = async (testID: string, value: string) => {
   const input = screen.getByTestId(testID);
-  fireEvent.changeText(input, value);
+  await fireEvent.changeText(input, value);
 };
 
 // Mock navigation

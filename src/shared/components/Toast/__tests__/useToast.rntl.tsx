@@ -188,7 +188,9 @@ describe('useToast Hook (Isolated)', () => {
     it('showToast maintains same reference across renders', async () => {
       const capturedRefs = { showToast: [] as unknown[], hideToast: [] as unknown[] };
 
-      const { getByTestId } = await renderWithProviders(<StabilityTracker capturedRefs={capturedRefs} />);
+      const { getByTestId } = await renderWithProviders(
+        <StabilityTracker capturedRefs={capturedRefs} />
+      );
 
       // Initial render
       expect(capturedRefs.showToast.length).toBe(1);
@@ -206,7 +208,9 @@ describe('useToast Hook (Isolated)', () => {
     it('hideToast maintains same reference across renders', async () => {
       const capturedRefs = { showToast: [] as unknown[], hideToast: [] as unknown[] };
 
-      const { getByTestId } = await renderWithProviders(<StabilityTracker capturedRefs={capturedRefs} />);
+      const { getByTestId } = await renderWithProviders(
+        <StabilityTracker capturedRefs={capturedRefs} />
+      );
 
       // Initial render
       expect(capturedRefs.hideToast.length).toBe(1);

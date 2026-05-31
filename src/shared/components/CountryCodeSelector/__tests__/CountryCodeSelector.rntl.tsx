@@ -177,7 +177,9 @@ describe('CountryCodeSelector', () => {
       { code: 'JP', name: 'Japan', callingCode: '+81', flag: '🇯🇵' },
       { code: 'AU', name: 'Australia', callingCode: '+61', flag: '🇦🇺' },
     ])('displays $name flag and calling code', async country => {
-      await renderWithProviders(<CountryCodeSelector {...defaultProps} selectedCountry={country} />);
+      await renderWithProviders(
+        <CountryCodeSelector {...defaultProps} selectedCountry={country} />
+      );
 
       expect(screen.getByText(country.flag)).toBeOnTheScreen();
       expect(screen.getByText(country.callingCode)).toBeOnTheScreen();
@@ -191,7 +193,9 @@ describe('CountryCodeSelector', () => {
         flag: '🇺🇸',
       };
 
-      await renderWithProviders(<CountryCodeSelector {...defaultProps} selectedCountry={usCountry} />);
+      await renderWithProviders(
+        <CountryCodeSelector {...defaultProps} selectedCountry={usCountry} />
+      );
 
       expect(
         screen.getByLabelText('Country code selector. Currently selected: United States, +1')
@@ -208,7 +212,9 @@ describe('CountryCodeSelector', () => {
         flag: '🇺🇸',
       };
 
-      await renderWithProviders(<CountryCodeSelector {...defaultProps} selectedCountry={usCountry} />);
+      await renderWithProviders(
+        <CountryCodeSelector {...defaultProps} selectedCountry={usCountry} />
+      );
 
       await fireEvent.press(screen.getByTestId('country-code-selector'));
 

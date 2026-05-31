@@ -5,7 +5,7 @@
  * across the application. Normalises platform differences and excludes dynamic values.
  */
 
-import type { TestInstance, JsonElement } from 'test-renderer';
+import type { JsonElement, TestInstance } from 'test-renderer';
 
 /**
  * Properties to exclude from snapshots for stability.
@@ -245,10 +245,7 @@ export function expectMatchesSnapshot(
  * });
  * ```
  */
-export function expectSnapshotMatch(
-  tree: JsonElement | JsonElement[] | null,
-  name: string
-): void {
+export function expectSnapshotMatch(tree: JsonElement | JsonElement[] | null, name: string): void {
   const cleaned = cleanSnapshotProps(tree);
   expect(cleaned).toMatchSnapshot(name);
 }

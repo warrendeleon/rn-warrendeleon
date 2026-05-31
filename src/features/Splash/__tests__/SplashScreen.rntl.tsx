@@ -182,7 +182,9 @@ describe('SplashScreen', () => {
     });
 
     it('displays error UI when fetch fails', async () => {
-      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = await renderWithProviders(
+        <SplashScreen onComplete={mockOnComplete} />
+      );
 
       await act(async () => {
         jest.runAllTimers();
@@ -214,11 +216,14 @@ describe('SplashScreen', () => {
     });
 
     it('retries data fetch when retry button is pressed', async () => {
-      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      // Real timers: the retry re-fetches via MSW and then waits out the
+      // minimum splash duration before calling onComplete. Faking timers here
+      // cannot interleave the MSW resolution with the post-fetch timer.
+      jest.useRealTimers();
 
-      await act(async () => {
-        jest.runAllTimers();
-      });
+      const { getByTestId } = await renderWithProviders(
+        <SplashScreen onComplete={mockOnComplete} />
+      );
 
       await waitFor(
         () => {
@@ -231,14 +236,7 @@ describe('SplashScreen', () => {
       server.resetHandlers();
 
       // Press retry button
-      const retryButton = getByTestId('splash-retry-button');
-      await act(async () => {
-        await fireEvent.press(retryButton);
-      });
-
-      await act(async () => {
-        jest.runAllTimers();
-      });
+      await fireEvent.press(getByTestId('splash-retry-button'));
 
       await waitFor(
         () => {
@@ -251,7 +249,9 @@ describe('SplashScreen', () => {
 
   describe('Accessibility', () => {
     it('has accessible loading screen label', async () => {
-      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = await renderWithProviders(
+        <SplashScreen onComplete={mockOnComplete} />
+      );
 
       await waitFor(
         () => {
@@ -265,7 +265,9 @@ describe('SplashScreen', () => {
     it('has accessible error screen label when fetch fails', async () => {
       server.use(...errorHandlers);
 
-      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = await renderWithProviders(
+        <SplashScreen onComplete={mockOnComplete} />
+      );
 
       await act(async () => {
         jest.runAllTimers();
@@ -283,7 +285,9 @@ describe('SplashScreen', () => {
     it('retry button has proper accessibility props', async () => {
       server.use(...errorHandlers);
 
-      const { getByTestId } = await renderWithProviders(<SplashScreen onComplete={mockOnComplete} />);
+      const { getByTestId } = await renderWithProviders(
+        <SplashScreen onComplete={mockOnComplete} />
+      );
 
       await act(async () => {
         jest.runAllTimers();

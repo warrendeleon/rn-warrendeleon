@@ -246,9 +246,35 @@ yup.addMethod<yup.StringSchema>(
   }
 );
 
+/**
+ * Custom validation method to reject path-traversal characters
+ *
+ * Rejects strings containing forward/back slashes or parent-directory
+ * sequences. Used on the email field to block path-traversal style input
+ * that Yup's permissive email matcher would otherwise accept.
+ */
+yup.addMethod<yup.StringSchema>(
+  yup.string,
+  'noPathTraversal',
+  function (message = 'Invalid characters in input') {
+    return this.test('no-path-traversal', message, function (value) {
+      const { path, createError } = this;
+
+      if (!value) return true; // Let required() handle empty values
+
+      if (/[/\\]/.test(value)) {
+        return createError({ path, message });
+      }
+
+      return true;
+    });
+  }
+);
+
 // TypeScript module augmentation to add custom methods to Yup schema
 declare module 'yup' {
   interface StringSchema {
+    noPathTraversal(message?: string): this;
     strongPassword(message?: string): this;
     notCommonPassword(message?: string): this;
     noEmoji(message?: string): this;

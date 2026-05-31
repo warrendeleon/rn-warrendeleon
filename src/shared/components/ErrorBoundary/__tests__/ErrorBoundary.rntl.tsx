@@ -157,7 +157,7 @@ describe('FallbackUI', () => {
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 
-      fireEvent.press(getByTestId('error-try-again-button'));
+      await fireEvent.press(getByTestId('error-try-again-button'));
 
       expect(mockOnReset).toHaveBeenCalledTimes(1);
     });
@@ -167,7 +167,7 @@ describe('FallbackUI', () => {
         <FallbackUI error={mockError} onReset={mockOnReset} />
       );
 
-      fireEvent.press(getByTestId('error-go-home-button'));
+      await fireEvent.press(getByTestId('error-go-home-button'));
 
       expect(mockOnReset).toHaveBeenCalledTimes(1);
       expect(mockNavigate).toHaveBeenCalledWith('Home');
@@ -182,7 +182,7 @@ describe('FallbackUI', () => {
         <FallbackUI error={mockError} onReset={trackingOnReset} />
       );
 
-      fireEvent.press(getByTestId('error-go-home-button'));
+      await fireEvent.press(getByTestId('error-go-home-button'));
 
       // onReset should be called before navigation
       expect(callOrder).toEqual(['reset', 'navigate']);

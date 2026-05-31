@@ -174,7 +174,9 @@ describe('AuthScreenWrapper', () => {
 
   describe('edge cases', () => {
     it('handles empty children', async () => {
-      await renderWithProviders(<AuthScreenWrapper testID="auth-wrapper">{null}</AuthScreenWrapper>);
+      await renderWithProviders(
+        <AuthScreenWrapper testID="auth-wrapper">{null}</AuthScreenWrapper>
+      );
 
       expect(screen.getByTestId('auth-wrapper')).toBeOnTheScreen();
     });

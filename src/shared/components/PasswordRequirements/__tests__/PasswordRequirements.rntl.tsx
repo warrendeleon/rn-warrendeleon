@@ -108,7 +108,9 @@ describe('checkPasswordRequirements', () => {
 describe('PasswordRequirements component', () => {
   describe('rendering', () => {
     it('should render with testID', async () => {
-      await renderWithProviders(<PasswordRequirements password="" testID="password-requirements" />);
+      await renderWithProviders(
+        <PasswordRequirements password="" testID="password-requirements" />
+      );
 
       expect(screen.getByTestId('password-requirements')).toBeOnTheScreen();
     });
@@ -297,7 +299,9 @@ describe('PasswordRequirements component', () => {
 
   describe('EAA Accessibility Compliance', () => {
     it('requirement items are in correct focus order', async () => {
-      await renderWithProviders(<PasswordRequirements password="" testID="password-requirements" />);
+      await renderWithProviders(
+        <PasswordRequirements password="" testID="password-requirements" />
+      );
 
       const container = screen.getByTestId('password-requirements');
       expect(container).toBeOnTheScreen();
@@ -327,7 +331,9 @@ describe('PasswordRequirements component', () => {
     });
 
     it('container is accessible to screen readers', async () => {
-      await renderWithProviders(<PasswordRequirements password="" testID="password-requirements" />);
+      await renderWithProviders(
+        <PasswordRequirements password="" testID="password-requirements" />
+      );
 
       const container = screen.getByTestId('password-requirements');
       expect(container.props.accessible).not.toBe(false);

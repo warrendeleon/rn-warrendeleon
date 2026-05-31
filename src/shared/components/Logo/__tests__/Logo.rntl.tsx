@@ -20,7 +20,9 @@ describe('Logo', () => {
   });
 
   it('passes additional props to Lottie component', async () => {
-    const { getByTestId } = await render(<Logo testID="logo" style={{ width: 200, height: 200 }} />);
+    const { getByTestId } = await render(
+      <Logo testID="logo" style={{ width: 200, height: 200 }} />
+    );
     expect(getByTestId('logo')).toBeDefined();
   });
 

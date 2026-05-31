@@ -21,8 +21,8 @@ const mockListeners: Set<MockListener> = new Set();
 /**
  * Helper to simulate AppState changes in tests
  */
-const simulateAppStateChange = (newState: AppStateStatus): void => {
-  act(() => {
+const simulateAppStateChange = async (newState: AppStateStatus): Promise<void> => {
+  await act(async () => {
     // Notify all listeners
     mockListeners.forEach(listener => listener(newState));
   });
@@ -147,7 +147,7 @@ describe('App State Transitions', () => {
 
       expect(getByTestId('app-state').props.children).toBe('active');
 
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
 
       expect(getByTestId('app-state').props.children).toBe('background');
       expect(getByTestId('transition-count').props.children).toBe(1);
@@ -156,7 +156,7 @@ describe('App State Transitions', () => {
     it('records transition details', async () => {
       const { getByTestId } = await render(<AppStateComponent />);
 
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
 
       // React renders multiple children as array: ['active', ' → ', 'background']
       const children = getByTestId('last-transition').props.children;
@@ -167,7 +167,7 @@ describe('App State Transitions', () => {
       const mockCleanup = jest.fn();
       await render(<CleanupOnBackgroundComponent onCleanup={mockCleanup} />);
 
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
 
       expect(mockCleanup).toHaveBeenCalledTimes(1);
     });
@@ -177,7 +177,7 @@ describe('App State Transitions', () => {
       await render(<CleanupOnBackgroundComponent onCleanup={mockCleanup} />);
 
       // Stay active
-      simulateAppStateChange('active');
+      await simulateAppStateChange('active');
 
       expect(mockCleanup).not.toHaveBeenCalled();
     });
@@ -188,11 +188,11 @@ describe('App State Transitions', () => {
       const { getByTestId } = await render(<AppStateComponent />);
 
       // Go to background first
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
       expect(getByTestId('app-state').props.children).toBe('background');
 
       // Return to active
-      simulateAppStateChange('active');
+      await simulateAppStateChange('active');
       expect(getByTestId('app-state').props.children).toBe('active');
       expect(getByTestId('transition-count').props.children).toBe(2);
     });
@@ -202,11 +202,11 @@ describe('App State Transitions', () => {
       await render(<RefreshOnForegroundComponent onRefresh={mockRefresh} />);
 
       // Go to background
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
       expect(mockRefresh).not.toHaveBeenCalled();
 
       // Return to active
-      simulateAppStateChange('active');
+      await simulateAppStateChange('active');
       expect(mockRefresh).toHaveBeenCalledTimes(1);
     });
 
@@ -215,7 +215,7 @@ describe('App State Transitions', () => {
       await render(<RefreshOnForegroundComponent onRefresh={mockRefresh} />);
 
       // Stay active
-      simulateAppStateChange('active');
+      await simulateAppStateChange('active');
 
       expect(mockRefresh).not.toHaveBeenCalled();
     });
@@ -225,7 +225,7 @@ describe('App State Transitions', () => {
     it('detects inactive state (e.g., phone call overlay)', async () => {
       const { getByTestId } = await render(<AppStateComponent />);
 
-      simulateAppStateChange('inactive');
+      await simulateAppStateChange('inactive');
 
       expect(getByTestId('app-state').props.children).toBe('inactive');
     });
@@ -233,7 +233,7 @@ describe('App State Transitions', () => {
     it('records active to inactive transition', async () => {
       const { getByTestId } = await render(<AppStateComponent />);
 
-      simulateAppStateChange('inactive');
+      await simulateAppStateChange('inactive');
 
       // React renders multiple children as array: ['active', ' → ', 'inactive']
       const children = getByTestId('last-transition').props.children;
@@ -245,11 +245,11 @@ describe('App State Transitions', () => {
       await render(<RefreshOnForegroundComponent onRefresh={mockRefresh} />);
 
       // Go to inactive
-      simulateAppStateChange('inactive');
+      await simulateAppStateChange('inactive');
       expect(mockRefresh).not.toHaveBeenCalled();
 
       // Return to active
-      simulateAppStateChange('active');
+      await simulateAppStateChange('active');
       expect(mockRefresh).toHaveBeenCalledTimes(1);
     });
   });
@@ -258,10 +258,10 @@ describe('App State Transitions', () => {
     it('handles rapid state changes', async () => {
       const { getByTestId } = await render(<AppStateComponent />);
 
-      simulateAppStateChange('background');
-      simulateAppStateChange('active');
-      simulateAppStateChange('inactive');
-      simulateAppStateChange('active');
+      await simulateAppStateChange('background');
+      await simulateAppStateChange('active');
+      await simulateAppStateChange('inactive');
+      await simulateAppStateChange('active');
 
       expect(getByTestId('transition-count').props.children).toBe(4);
       expect(getByTestId('app-state').props.children).toBe('active');
@@ -272,11 +272,11 @@ describe('App State Transitions', () => {
       await render(<RefreshOnForegroundComponent onRefresh={mockRefresh} />);
 
       // Multiple transitions
-      simulateAppStateChange('background');
-      simulateAppStateChange('active'); // Should trigger
-      simulateAppStateChange('inactive');
-      simulateAppStateChange('active'); // Should trigger
-      simulateAppStateChange('active'); // Should NOT trigger (already active)
+      await simulateAppStateChange('background');
+      await simulateAppStateChange('active'); // Should trigger
+      await simulateAppStateChange('inactive');
+      await simulateAppStateChange('active'); // Should trigger
+      await simulateAppStateChange('active'); // Should NOT trigger (already active)
 
       expect(mockRefresh).toHaveBeenCalledTimes(2);
     });
@@ -285,9 +285,9 @@ describe('App State Transitions', () => {
       const mockCleanup = jest.fn();
       await render(<CleanupOnBackgroundComponent onCleanup={mockCleanup} />);
 
-      simulateAppStateChange('background');
-      simulateAppStateChange('active');
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
+      await simulateAppStateChange('active');
+      await simulateAppStateChange('background');
 
       expect(mockCleanup).toHaveBeenCalledTimes(2);
     });
@@ -312,7 +312,7 @@ describe('App State Transitions', () => {
       await unmount();
 
       // Simulate state change after unmount
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
 
       expect(mockCleanup).not.toHaveBeenCalled();
     });
@@ -323,7 +323,7 @@ describe('App State Transitions', () => {
       const { getByTestId } = await render(<AppStateComponent />);
 
       // TypeScript ensures valid states, but test resilience
-      simulateAppStateChange('unknown');
+      await simulateAppStateChange('unknown');
 
       expect(getByTestId('app-state').props.children).toBe('unknown');
     });
@@ -331,7 +331,7 @@ describe('App State Transitions', () => {
     it('handles same state transition', async () => {
       const { getByTestId } = await render(<AppStateComponent />);
 
-      simulateAppStateChange('active');
+      await simulateAppStateChange('active');
 
       // Same state should still increment count
       expect(getByTestId('transition-count').props.children).toBe(1);
@@ -341,7 +341,7 @@ describe('App State Transitions', () => {
       const { getByTestId } = await render(<AppStateComponent />);
 
       // iOS apps can have 'extension' state in certain contexts
-      simulateAppStateChange('extension' as AppStateStatus);
+      await simulateAppStateChange('extension' as AppStateStatus);
 
       expect(getByTestId('app-state').props.children).toBe('extension');
     });
@@ -351,13 +351,13 @@ describe('App State Transitions', () => {
     it('preserves listener across re-renders', async () => {
       const { rerender, getByTestId } = await render(<AppStateComponent />);
 
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
       expect(getByTestId('transition-count').props.children).toBe(1);
 
       // Re-render
       await rerender(<AppStateComponent />);
 
-      simulateAppStateChange('active');
+      await simulateAppStateChange('active');
       expect(getByTestId('transition-count').props.children).toBe(2);
     });
 
@@ -383,8 +383,8 @@ describe('App State Transitions', () => {
 
       const { getByTestId } = await render(<StateChangeDuringRenderComponent />);
 
-      simulateAppStateChange('background');
-      simulateAppStateChange('active');
+      await simulateAppStateChange('background');
+      await simulateAppStateChange('active');
 
       expect(getByTestId('render-count').props.children).toBe(2);
     });
@@ -418,7 +418,7 @@ describe('App State Transitions', () => {
 
       await render(<MemoryWarningComponent onMemoryWarning={mockOnMemoryWarning} />);
 
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
 
       expect(mockOnMemoryWarning).toHaveBeenCalled();
     });
@@ -446,7 +446,7 @@ describe('App State Transitions', () => {
       };
 
       await render(<ResourceCleanupComponent />);
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
 
       expect(cleanedResources).toContain('cache');
       expect(cleanedResources).toContain('images');
@@ -479,7 +479,7 @@ describe('App State Transitions', () => {
       };
 
       await render(<StatePersistenceComponent onPersist={mockPersistState} />);
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
 
       expect(mockPersistState).toHaveBeenCalledWith({ user: 'test', items: [1, 2, 3] });
     });
@@ -509,7 +509,7 @@ describe('App State Transitions', () => {
       };
 
       await render(<NavigationPersistComponent onSaveNavState={mockSaveNavState} />);
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
 
       expect(mockSaveNavState).toHaveBeenCalledWith('ProfileScreen');
     });
@@ -544,8 +544,8 @@ describe('App State Transitions', () => {
       await render(<StateRestorationComponent onRestore={mockRestoreState} />);
 
       // Simulate app going to background and returning
-      simulateAppStateChange('background');
-      simulateAppStateChange('active');
+      await simulateAppStateChange('background');
+      await simulateAppStateChange('active');
 
       expect(mockRestoreState).toHaveBeenCalled();
     });
@@ -581,8 +581,8 @@ describe('App State Transitions', () => {
       };
 
       await render(<StateValidationComponent />);
-      simulateAppStateChange('background');
-      simulateAppStateChange('active');
+      await simulateAppStateChange('background');
+      await simulateAppStateChange('active');
 
       expect(restoredStates).toContain('validated');
       expect(restoredStates).toContain('applied');
@@ -619,8 +619,8 @@ describe('App State Transitions', () => {
       };
 
       await render(<PushNotificationComponent />);
-      simulateAppStateChange('background');
-      simulateAppStateChange('active');
+      await simulateAppStateChange('background');
+      await simulateAppStateChange('active');
 
       expect(queuedNotifications).toContain('notification-1');
       expect(queuedNotifications).toContain('processed');
@@ -654,8 +654,8 @@ describe('App State Transitions', () => {
       };
 
       await render(<PushNotificationNavComponent />);
-      simulateAppStateChange('background');
-      simulateAppStateChange('active');
+      await simulateAppStateChange('background');
+      await simulateAppStateChange('active');
 
       expect(navigationTargets).toContain('ProfileScreen');
     });
@@ -689,8 +689,8 @@ describe('App State Transitions', () => {
       };
 
       await render(<MultiPushComponent />);
-      simulateAppStateChange('background');
-      simulateAppStateChange('active');
+      await simulateAppStateChange('background');
+      await simulateAppStateChange('active');
 
       expect(processedNotifications).toHaveLength(3);
       expect(processedNotifications).toContain('notif-1');
@@ -719,7 +719,7 @@ describe('App State Transitions', () => {
       };
 
       const { unmount } = await render(<TerminationComponent />);
-      simulateAppStateChange('background');
+      await simulateAppStateChange('background');
 
       // Simulate app termination
       await unmount();

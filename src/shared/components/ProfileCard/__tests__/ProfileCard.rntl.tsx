@@ -96,7 +96,8 @@ describe('ProfileCard', () => {
       await fireEvent.press(card);
 
       expect(onPressMock).toHaveBeenCalledTimes(1);
-      expect(onPressMock).toHaveBeenCalledWith();
+      // RNTL 14's fireEvent.press forwards the press event to the handler
+      expect(onPressMock).toHaveBeenCalledWith(expect.any(Object));
     });
 
     it('calls onPress multiple times when pressed multiple times', async () => {

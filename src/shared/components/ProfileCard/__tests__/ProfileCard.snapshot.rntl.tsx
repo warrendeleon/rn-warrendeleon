@@ -125,7 +125,9 @@ describe('ProfileCard Snapshots', () => {
     });
 
     it('renders with empty avatar URL', async () => {
-      const { toJSON } = await renderWithProviders(<ProfileCard {...defaultProps} profilePicture="" />);
+      const { toJSON } = await renderWithProviders(
+        <ProfileCard {...defaultProps} profilePicture="" />
+      );
       expect(toJSON()).toMatchSnapshot('ProfileCard - Empty Avatar URL');
     });
   });

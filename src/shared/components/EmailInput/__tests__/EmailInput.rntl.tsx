@@ -87,7 +87,9 @@ describe('EmailInput', () => {
 
     it('should call onBlur when input loses focus', async () => {
       const onBlur = jest.fn();
-      await renderWithProviders(<EmailInput {...defaultProps} onBlur={onBlur} testID="email-input" />);
+      await renderWithProviders(
+        <EmailInput {...defaultProps} onBlur={onBlur} testID="email-input" />
+      );
 
       await fireEvent(screen.getByTestId('email-input'), 'blur');
 
@@ -174,7 +176,9 @@ describe('EmailInput', () => {
     });
 
     it('should be non-editable when editable is false', async () => {
-      await renderWithProviders(<EmailInput {...defaultProps} editable={false} testID="email-input" />);
+      await renderWithProviders(
+        <EmailInput {...defaultProps} editable={false} testID="email-input" />
+      );
 
       expect(screen.getByTestId('email-input').props.editable).toBe(false);
     });
@@ -217,7 +221,10 @@ describe('EmailInput', () => {
       );
 
       // XSS attempt
-      await fireEvent.changeText(screen.getByTestId('email-input'), '<script>alert("xss")</script>');
+      await fireEvent.changeText(
+        screen.getByTestId('email-input'),
+        '<script>alert("xss")</script>'
+      );
 
       // Component should handle gracefully
       expect(onChangeText).toHaveBeenCalledWith('<script>alert("xss")</script>');
@@ -312,7 +319,9 @@ describe('EmailInput', () => {
     });
 
     it('non-editable input is accessible', async () => {
-      await renderWithProviders(<EmailInput {...defaultProps} editable={false} testID="email-input" />);
+      await renderWithProviders(
+        <EmailInput {...defaultProps} editable={false} testID="email-input" />
+      );
 
       const input = screen.getByTestId('email-input');
       expect(input.props.editable).toBe(false);

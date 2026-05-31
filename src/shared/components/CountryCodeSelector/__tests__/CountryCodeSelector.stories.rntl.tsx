@@ -27,7 +27,9 @@ describe('CountryCodeSelector Stories', () => {
   };
 
   it('renders Default story with country flag', async () => {
-    const { toJSON, getByText } = await renderWithProviders(<CountryCodeSelector {...defaultProps} />);
+    const { toJSON, getByText } = await renderWithProviders(
+      <CountryCodeSelector {...defaultProps} />
+    );
     expectStoryRenders(toJSON, 'Default');
     expect(getByText(DEFAULT_COUNTRY.flag)).toBeOnTheScreen();
   });
@@ -93,7 +95,9 @@ describe('CountryCodeSelector Stories', () => {
   });
 
   it('renders Disabled story without crashing', async () => {
-    const { toJSON } = await renderWithProviders(<CountryCodeSelector {...defaultProps} isDisabled />);
+    const { toJSON } = await renderWithProviders(
+      <CountryCodeSelector {...defaultProps} isDisabled />
+    );
     expectStoryRenders(toJSON, 'Disabled');
   });
 

@@ -191,7 +191,9 @@ describe('useHapticFeedback', () => {
     });
 
     it('should allow disabling vibrate fallback', async () => {
-      const { result } = await renderHook(() => useHapticFeedback({ enableVibrateFallback: false }));
+      const { result } = await renderHook(() =>
+        useHapticFeedback({ enableVibrateFallback: false })
+      );
 
       await act(() => {
         result.current.trigger('success');
@@ -221,7 +223,9 @@ describe('useHapticFeedback', () => {
     });
 
     it('should allow ignoring Android system settings', async () => {
-      const { result } = await renderHook(() => useHapticFeedback({ ignoreAndroidSystemSettings: true }));
+      const { result } = await renderHook(() =>
+        useHapticFeedback({ ignoreAndroidSystemSettings: true })
+      );
 
       await act(() => {
         result.current.trigger('success');

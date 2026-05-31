@@ -50,16 +50,19 @@ describe('Toast Stories', () => {
         stories.CustomDurations,
         ['Custom Durations', 'Quick Toast (2s)', 'Long Toast (10s)'],
       ],
-    ] as const)('renders %s story with expected content', async (_storyName, story, expectedTexts) => {
-      const StoryComponent = story.render as React.FC;
-      const { getByText } = await renderWithProviders(
-        <ToastProvider>
-          <StoryComponent />
-        </ToastProvider>
-      );
-      expectedTexts.forEach(text => {
-        expect(getByText(text)).toBeOnTheScreen();
-      });
-    });
+    ] as const)(
+      'renders %s story with expected content',
+      async (_storyName, story, expectedTexts) => {
+        const StoryComponent = story.render as React.FC;
+        const { getByText } = await renderWithProviders(
+          <ToastProvider>
+            <StoryComponent />
+          </ToastProvider>
+        );
+        expectedTexts.forEach(text => {
+          expect(getByText(text)).toBeOnTheScreen();
+        });
+      }
+    );
   });
 });

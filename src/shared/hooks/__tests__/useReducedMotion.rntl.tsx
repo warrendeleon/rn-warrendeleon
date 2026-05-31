@@ -1253,13 +1253,24 @@ describe('useReducedMotion edge cases and timing', () => {
     });
 
     it('should handle transition from loading to loaded smoothly', async () => {
-      mockIsReduceMotionEnabled.mockResolvedValue(false);
+      // Defer the async check so the loading state is observable before it resolves
+      let resolveReduceMotion: (value: boolean) => void = () => {};
+      mockIsReduceMotionEnabled.mockReturnValue(
+        new Promise<boolean>(resolve => {
+          resolveReduceMotion = resolve;
+        })
+      );
 
       const { result } = await renderHook(() => useReducedMotion());
 
-      // Initially loading
+      // Initially loading (async check has not resolved yet)
       expect(result.current.isLoading).toBe(true);
       expect(result.current.prefersReducedMotion).toBe(false); // Default value
+
+      // Resolve the async check
+      await act(async () => {
+        resolveReduceMotion(false);
+      });
 
       await waitFor(
         () => {

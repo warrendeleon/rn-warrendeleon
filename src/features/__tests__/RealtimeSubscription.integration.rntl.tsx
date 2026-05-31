@@ -1070,7 +1070,9 @@ describe('Realtime Subscription Integration', () => {
       it('cleans up multiple channel subscriptions on unmount', async () => {
         const channels = ['cleanup-multi-1', 'cleanup-multi-2', 'cleanup-multi-3'];
 
-        const { unmount } = await renderWithProviders(<MultiChannelComponent channels={channels} />);
+        const { unmount } = await renderWithProviders(
+          <MultiChannelComponent channels={channels} />
+        );
 
         await waitFor(
           () => {

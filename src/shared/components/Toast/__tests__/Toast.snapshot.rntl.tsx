@@ -83,7 +83,10 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders success toast in light mode', async () => {
-      const { getByTestId, toJSON } = await renderToastWithProvider('success', 'Operation completed!');
+      const { getByTestId, toJSON } = await renderToastWithProvider(
+        'success',
+        'Operation completed!'
+      );
 
       await waitFor(
         () => {
@@ -96,7 +99,10 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders error toast in light mode', async () => {
-      const { getByTestId, toJSON } = await renderToastWithProvider('error', 'Something went wrong');
+      const { getByTestId, toJSON } = await renderToastWithProvider(
+        'error',
+        'Something went wrong'
+      );
 
       await waitFor(
         () => {
@@ -109,7 +115,10 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders info toast in light mode', async () => {
-      const { getByTestId, toJSON } = await renderToastWithProvider('info', 'Here is some information');
+      const { getByTestId, toJSON } = await renderToastWithProvider(
+        'info',
+        'Here is some information'
+      );
 
       await waitFor(
         () => {
@@ -141,7 +150,10 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders success toast in dark mode', async () => {
-      const { getByTestId, toJSON } = await renderToastWithProvider('success', 'Operation completed!');
+      const { getByTestId, toJSON } = await renderToastWithProvider(
+        'success',
+        'Operation completed!'
+      );
 
       await waitFor(
         () => {
@@ -154,7 +166,10 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders error toast in dark mode', async () => {
-      const { getByTestId, toJSON } = await renderToastWithProvider('error', 'Something went wrong');
+      const { getByTestId, toJSON } = await renderToastWithProvider(
+        'error',
+        'Something went wrong'
+      );
 
       await waitFor(
         () => {
@@ -167,7 +182,10 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders info toast in dark mode', async () => {
-      const { getByTestId, toJSON } = await renderToastWithProvider('info', 'Here is some information');
+      const { getByTestId, toJSON } = await renderToastWithProvider(
+        'info',
+        'Here is some information'
+      );
 
       await waitFor(
         () => {
@@ -218,9 +236,13 @@ describe('Toast Type Snapshots', () => {
     });
 
     it('renders error toast with title', async () => {
-      const { getByTestId, toJSON } = await renderToastWithProvider('error', 'Please try again later', {
-        title: 'Error',
-      });
+      const { getByTestId, toJSON } = await renderToastWithProvider(
+        'error',
+        'Please try again later',
+        {
+          title: 'Error',
+        }
+      );
 
       await waitFor(
         () => {

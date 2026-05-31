@@ -151,11 +151,11 @@ describe('App Boot Logic', () => {
         new Promise(() => {}) // Never resolves
       );
 
-      const { root } = await render(<App />);
+      const { toJSON } = await render(<App />);
 
-      // App returns null while loading, but SafeAreaProvider is still rendered
-      // Verify the render doesn't crash
-      expect(root).toBeDefined();
+      // App returns null while the mock override is still loading; verify it
+      // renders null without crashing
+      expect(toJSON()).toBeNull();
     });
   });
 

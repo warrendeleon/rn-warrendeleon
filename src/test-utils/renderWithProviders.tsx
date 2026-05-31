@@ -97,5 +97,5 @@ export async function renderWithProviders(
     );
   }
 
-  return { store: createdStore, ...await render(ui, { wrapper: Wrapper, ...renderOptions }) };
+  return { store: createdStore, ...(await render(ui, { wrapper: Wrapper, ...renderOptions })) };
 }

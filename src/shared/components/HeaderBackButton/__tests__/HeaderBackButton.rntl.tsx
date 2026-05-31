@@ -156,20 +156,23 @@ describe('HeaderBackButton', () => {
       }
     );
 
-    it.each(['light', 'dark'] as const)('uses correct icon colour for %s theme', async colourScheme => {
-      mockUseColorScheme.mockReturnValue(colourScheme);
+    it.each(['light', 'dark'] as const)(
+      'uses correct icon colour for %s theme',
+      async colourScheme => {
+        mockUseColorScheme.mockReturnValue(colourScheme);
 
-      const { getByTestId } = await renderWithProviders(<HeaderBackButton />, {
-        preloadedState: {
-          settings: {
-            theme: colourScheme,
-            language: 'en',
+        const { getByTestId } = await renderWithProviders(<HeaderBackButton />, {
+          preloadedState: {
+            settings: {
+              theme: colourScheme,
+              language: 'en',
+            },
           },
-        },
-      });
+        });
 
-      expect(getByTestId('header-back-button')).toBeOnTheScreen();
-    });
+        expect(getByTestId('header-back-button')).toBeOnTheScreen();
+      }
+    );
   });
 
   describe('touch target size (EAA compliance)', () => {

@@ -321,7 +321,10 @@ describe('LoginScreen Security', () => {
       const passwordInput = getByTestId('password-input');
 
       // Data URL scheme injection
-      await fireEvent.changeText(emailInput, 'data:text/html,<script>alert(1)</script>@example.com');
+      await fireEvent.changeText(
+        emailInput,
+        'data:text/html,<script>alert(1)</script>@example.com'
+      );
       await fireEvent.changeText(passwordInput, 'SecurePass123!');
 
       await waitFor(

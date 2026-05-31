@@ -27,6 +27,20 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
+// Neutralise AuthProvider's mount-effect session restoration so that tests are
+// authoritative on their preloadedState. Under RNTL 14's async renderer the real
+// checkSession thunk resolves after render and would otherwise clear a preloaded
+// authenticated state (and leak pending async into the next test). The thunk's
+// own behaviour is covered by store unit tests, which import it from '../actions'
+// directly and so are unaffected by this barrel mock.
+jest.mock('@app/features/Auth/store', () => {
+  const actual = jest.requireActual('@app/features/Auth/store');
+  return {
+    ...actual,
+    checkSession: () => ({ type: 'auth/checkSession/test-noop' }),
+  };
+});
+
 // Mock NativeWind and react-native-css-interop
 jest.mock('react-native-css-interop', () => ({
   remapProps: jest.fn(),

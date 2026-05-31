@@ -593,7 +593,9 @@ describe('Background Tasks Integration', () => {
 
   describe('background task progress tracking', () => {
     it('should track task progress updates', async () => {
-      const { getByTestId } = await renderWithProviders(<TaskProgressComponent taskType="upload-task" />);
+      const { getByTestId } = await renderWithProviders(
+        <TaskProgressComponent taskType="upload-task" />
+      );
 
       await fireEvent.press(getByTestId('start-progress-task'));
 

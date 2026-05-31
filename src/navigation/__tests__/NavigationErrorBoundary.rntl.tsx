@@ -334,7 +334,9 @@ describe('Navigation Error Boundary', () => {
     });
 
     it('handles null error gracefully', async () => {
-      const { getByTestId } = await renderWithProviders(<FallbackUI error={null} onReset={jest.fn()} />);
+      const { getByTestId } = await renderWithProviders(
+        <FallbackUI error={null} onReset={jest.fn()} />
+      );
 
       expect(getByTestId('error-try-again-button')).toBeOnTheScreen();
       expect(getByTestId('error-go-home-button')).toBeOnTheScreen();

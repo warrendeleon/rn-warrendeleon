@@ -145,7 +145,9 @@ describe('PhoneInput', () => {
 
     it('should call onBlur when input loses focus', async () => {
       const onBlur = jest.fn();
-      await renderWithProviders(<PhoneInput {...defaultProps} onBlur={onBlur} testID="phone-input" />);
+      await renderWithProviders(
+        <PhoneInput {...defaultProps} onBlur={onBlur} testID="phone-input" />
+      );
 
       await fireEvent(screen.getByTestId('phone-input'), 'blur');
 
@@ -311,7 +313,9 @@ describe('PhoneInput', () => {
     });
 
     it('should be non-editable when editable is false', async () => {
-      await renderWithProviders(<PhoneInput {...defaultProps} editable={false} testID="phone-input" />);
+      await renderWithProviders(
+        <PhoneInput {...defaultProps} editable={false} testID="phone-input" />
+      );
 
       expect(screen.getByTestId('phone-input').props.editable).toBe(false);
     });
@@ -373,7 +377,9 @@ describe('PhoneInput', () => {
     });
 
     it('should handle value without country code prefix', async () => {
-      await renderWithProviders(<PhoneInput {...defaultProps} value="7510084239" testID="phone-input" />);
+      await renderWithProviders(
+        <PhoneInput {...defaultProps} value="7510084239" testID="phone-input" />
+      );
 
       // Value without + prefix is displayed as-is
       expect(screen.getByDisplayValue('7510084239')).toBeOnTheScreen();
@@ -423,7 +429,9 @@ describe('PhoneInput', () => {
     });
 
     it('non-editable input is accessible', async () => {
-      await renderWithProviders(<PhoneInput {...defaultProps} editable={false} testID="phone-input" />);
+      await renderWithProviders(
+        <PhoneInput {...defaultProps} editable={false} testID="phone-input" />
+      );
 
       const input = screen.getByTestId('phone-input');
       expect(input.props.editable).toBe(false);

@@ -176,7 +176,9 @@ export function testFormInputComponent<
 
       it('calls onSubmitEditing when return key is pressed', async () => {
         const onSubmitEditing = jest.fn();
-        await renderWithProviders(<Component {...defaultProps} onSubmitEditing={onSubmitEditing} />);
+        await renderWithProviders(
+          <Component {...defaultProps} onSubmitEditing={onSubmitEditing} />
+        );
 
         await fireEvent(screen.getByTestId(config.testID), 'submitEditing');
 
@@ -191,7 +193,9 @@ export function testFormInputComponent<
       });
 
       it('uses custom accessibility label when provided', async () => {
-        await renderWithProviders(<Component {...defaultProps} accessibilityLabel="Custom label" />);
+        await renderWithProviders(
+          <Component {...defaultProps} accessibilityLabel="Custom label" />
+        );
         expect(screen.getByLabelText('Custom label')).toBeOnTheScreen();
       });
 
@@ -269,7 +273,10 @@ export function testFormInputComponent<
         const onChangeText = jest.fn();
         await renderWithProviders(<Component {...defaultProps} onChangeText={onChangeText} />);
 
-        await fireEvent.changeText(screen.getByTestId(config.testID), '<script>alert("xss")</script>');
+        await fireEvent.changeText(
+          screen.getByTestId(config.testID),
+          '<script>alert("xss")</script>'
+        );
 
         expect(onChangeText).toHaveBeenCalledWith('<script>alert("xss")</script>');
         expect(screen.getByTestId(config.testID)).toBeOnTheScreen();

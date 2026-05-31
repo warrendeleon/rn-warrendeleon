@@ -534,7 +534,11 @@ describe('Profile Completion Journey', () => {
     });
 
     it('should recover from error and show updated profile', async () => {
-      const { rerender, getByText } = await renderProfileScreen(incompleteProfile, false, 'Save failed');
+      const { rerender, getByText } = await renderProfileScreen(
+        incompleteProfile,
+        false,
+        'Save failed'
+      );
 
       // Recover with successful save
       const store = mockStore({

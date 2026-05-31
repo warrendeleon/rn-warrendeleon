@@ -5,9 +5,9 @@
  * Reduces duplication and improves test readability.
  */
 
-import type { TestInstance } from 'test-renderer';
 import type { RenderResult } from '@testing-library/react-native';
 import { waitFor } from '@testing-library/react-native';
+import type { TestInstance } from 'test-renderer';
 
 import type { mockNavigation } from './mocks/react-navigation';
 
@@ -152,10 +152,7 @@ export function expectErrorMessage(errorElement: TestInstance, expectedMessage: 
  * expectFieldValidationState(passwordInput, false); // Expect valid
  * ```
  */
-export function expectFieldValidationState(
-  field: TestInstance,
-  isInvalid: boolean = true
-): void {
+export function expectFieldValidationState(field: TestInstance, isInvalid: boolean = true): void {
   const state = field.props.accessibilityState;
   expect(state?.invalid).toBe(isInvalid);
 }

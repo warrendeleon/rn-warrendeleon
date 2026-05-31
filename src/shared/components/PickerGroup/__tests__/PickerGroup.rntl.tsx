@@ -402,7 +402,9 @@ describe('PickerGroup', () => {
           isSelected: i % 3 === 0, // Items 1, 4, 7, 10 selected
         }));
 
-        const { getByText, getAllByText } = await renderWithProviders(<PickerGroup items={items} />);
+        const { getByText, getAllByText } = await renderWithProviders(
+          <PickerGroup items={items} />
+        );
 
         expect(getByText('Item 1')).toBeOnTheScreen();
         expect(getByText('Item 10')).toBeOnTheScreen();
