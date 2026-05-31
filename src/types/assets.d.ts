@@ -41,3 +41,6 @@ declare module '*.tflite' {
   const content: number;
   export default content;
 }
+
+// NativeWind global stylesheet, imported for its side effects.
+declare module '*.css';

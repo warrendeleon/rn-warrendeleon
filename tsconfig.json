@@ -40,11 +40,11 @@
     "jsx": "react-native",
     "forceConsistentCasingInFileNames": true,
     "noUncheckedIndexedAccess": true,
-    /* Path Mapping (Optional but useful) */
-    "baseUrl": ".",
+    /* Path Mapping (paths resolve relative to this tsconfig; baseUrl dropped
+       as it is deprecated in TS 6 and removed in TS 7) */
     "paths": {
-      "@app": ["src"],
-      "@app/*": ["src/*"]
+      "@app": ["./src"],
+      "@app/*": ["./src/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", "nativewind-env.d.ts"],
