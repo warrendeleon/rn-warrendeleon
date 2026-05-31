@@ -7,8 +7,8 @@
 
 import React from 'react';
 import * as ReactNative from 'react-native';
-import { Text } from '@gluestack-ui/themed';
 
+import { Text } from '@app/components/ui/text';
 import { renderWithProviders } from '@app/test-utils';
 
 import { FormInputGroup } from '../FormInputGroup';

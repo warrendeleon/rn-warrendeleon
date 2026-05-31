@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 import { renderWithProviders } from '@app/test-utils/renderWithProviders';
 
 import { ErrorBoundary } from '../ErrorBoundary';

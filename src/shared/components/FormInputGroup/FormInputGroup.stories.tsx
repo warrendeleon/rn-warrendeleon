@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, ScrollView } from '@gluestack-ui/themed';
+import { ScrollView } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { Meta, StoryObj } from '@storybook/react-native';
 
+import { Box } from '@app/components/ui/box';
 import { ButtonGroupDivider } from '@app/shared/components/ButtonGroupDivider';
 import { EmailInput } from '@app/shared/components/EmailInput';
 import { FormInputItem } from '@app/shared/components/FormInputItem';
@@ -28,9 +29,9 @@ const meta: Meta<typeof FormInputGroup> = {
   decorators: [
     Story => (
       <StackWrapper>
-        <ScrollView flex={1} p="$0">
+        <ScrollView style={{ flex: 1 }}>
           <Story />
-          <Box h="$20" />
+          <Box className="h-20" />
         </ScrollView>
       </StackWrapper>
     ),

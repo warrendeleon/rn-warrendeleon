@@ -15,9 +15,11 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Pressable, Text } from '@gluestack-ui/themed';
 import { fireEvent, waitFor } from '@testing-library/react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
 import {
   clearProfile,
   logout,
@@ -164,8 +166,15 @@ const ThemeAwareComponent: React.FC = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <Box testID="theme-aware" bg={currentTheme === 'dark' ? '$black' : '$white'} p="$4">
-      <Text testID="current-theme" color={currentTheme === 'dark' ? '$white' : '$black'}>
+    <Box
+      testID="theme-aware"
+      className="p-4"
+      style={{ backgroundColor: currentTheme === 'dark' ? '#000000' : '#FFFFFF' }}
+    >
+      <Text
+        testID="current-theme"
+        style={{ color: currentTheme === 'dark' ? '#FFFFFF' : '#000000' }}
+      >
         {currentTheme}
       </Text>
       <Pressable

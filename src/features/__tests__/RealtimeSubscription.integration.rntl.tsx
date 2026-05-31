@@ -15,9 +15,11 @@
  */
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { Box, Pressable, Text } from '@gluestack-ui/themed';
 import { act, fireEvent, waitFor } from '@testing-library/react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
 import { renderWithProviders } from '@app/test-utils';
 
 // Mock realtime channel for testing

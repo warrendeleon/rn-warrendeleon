@@ -1,5 +1,5 @@
-import { GlobeIcon, MoonIcon, SunIcon } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+import { Globe, Moon, Sun } from 'lucide-react-native';
 
 import { SettingsGroup } from './SettingsGroup';
 
@@ -33,8 +33,8 @@ export const SingleItem: Story = {
       {
         label: 'Appearance',
         onPress: () => {},
-        startIcon: SunIcon,
-        startIconBgColor: '$orange500',
+        startIcon: Sun,
+        startIconBgColor: '#f97316',
         endLabel: 'System',
       },
     ],
@@ -47,15 +47,15 @@ export const TwoItems: Story = {
       {
         label: 'Appearance',
         onPress: () => {},
-        startIcon: SunIcon,
-        startIconBgColor: '$orange500',
+        startIcon: Sun,
+        startIconBgColor: '#f97316',
         endLabel: 'System',
       },
       {
         label: 'Language',
         onPress: () => {},
-        startIcon: GlobeIcon,
-        startIconBgColor: '$blue500',
+        startIcon: Globe,
+        startIconBgColor: '#3b82f6',
         endLabel: 'English',
       },
     ],
@@ -68,22 +68,22 @@ export const ThreeItems: Story = {
       {
         label: 'Appearance',
         onPress: () => {},
-        startIcon: SunIcon,
-        startIconBgColor: '$orange500',
+        startIcon: Sun,
+        startIconBgColor: '#f97316',
         endLabel: 'System',
       },
       {
         label: 'Language',
         onPress: () => {},
-        startIcon: GlobeIcon,
-        startIconBgColor: '$blue500',
+        startIcon: Globe,
+        startIconBgColor: '#3b82f6',
         endLabel: 'English',
       },
       {
         label: 'Dark Mode',
         onPress: () => {},
-        startIcon: MoonIcon,
-        startIconBgColor: '$purple500',
+        startIcon: Moon,
+        startIconBgColor: '#a855f7',
         endLabel: 'Off',
       },
     ],
@@ -115,13 +115,13 @@ export const Mixed: Story = {
       {
         label: 'Profile',
         onPress: () => {},
-        startIcon: SunIcon,
-        startIconBgColor: '$green500',
+        startIcon: Sun,
+        startIconBgColor: '#22c55e',
       },
       {
         label: 'Version',
-        startIcon: GlobeIcon,
-        startIconBgColor: '$gray500',
+        startIcon: Globe,
+        startIconBgColor: '#6b7280',
         endLabel: '1.0.0',
         showChevron: false,
         onPress: () => {},

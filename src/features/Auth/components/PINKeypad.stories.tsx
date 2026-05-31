@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 
 import { PINKeypad } from './PINKeypad';
 
@@ -9,7 +11,7 @@ const meta: Meta<typeof PINKeypad> = {
   component: PINKeypad,
   decorators: [
     Story => (
-      <Box p="$4" alignItems="center">
+      <Box className="items-center p-4">
         <Story />
       </Box>
     ),
@@ -60,14 +62,10 @@ const InteractiveKeypad = () => {
   const [sequence, setSequence] = useState<string>('');
 
   return (
-    <Box alignItems="center">
-      <Box mb="$4" p="$2" bg="$backgroundLight200" borderRadius="$md" w={200}>
-        <Text textAlign="center" fontSize="$lg">
-          Pressed: {lastPressed || '-'}
-        </Text>
-        <Text textAlign="center" fontSize="$sm" color="$textLight500">
-          Sequence: {sequence || 'none'}
-        </Text>
+    <Box className="items-center">
+      <Box className="mb-4 w-[200px] rounded-md bg-[#DBDBDB] p-2">
+        <Text className="text-center text-lg">Pressed: {lastPressed || '-'}</Text>
+        <Text className="text-center text-sm text-[#8C8C8C]">Sequence: {sequence || 'none'}</Text>
       </Box>
       <PINKeypad
         onDigitPress={digit => {

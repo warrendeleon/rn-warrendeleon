@@ -1,5 +1,5 @@
-import { InfoIcon, MoonIcon, SunIcon } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+import { Info, Moon, Sun } from 'lucide-react-native';
 
 import { SettingsItem } from './SettingsItem';
 
@@ -76,8 +76,8 @@ export const WithIcon: Story = {
   args: {
     label: 'Appearance',
     onPress: () => {},
-    startIcon: SunIcon,
-    startIconBgColor: '$orange500',
+    startIcon: Sun,
+    startIconBgColor: '#f97316',
     groupVariant: 'single',
   },
 };
@@ -86,8 +86,8 @@ export const WithEndLabel: Story = {
   args: {
     label: 'Theme',
     onPress: () => {},
-    startIcon: MoonIcon,
-    startIconBgColor: '$purple500',
+    startIcon: Moon,
+    startIconBgColor: '#a855f7',
     endLabel: 'System',
     groupVariant: 'single',
   },
@@ -96,8 +96,8 @@ export const WithEndLabel: Story = {
 export const WithoutChevron: Story = {
   args: {
     label: 'Version',
-    startIcon: InfoIcon,
-    startIconBgColor: '$blue500',
+    startIcon: Info,
+    startIconBgColor: '#3b82f6',
     endLabel: '1.0.0',
     showChevron: false,
     groupVariant: 'single',

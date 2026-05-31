@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box, HStack } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
+import { HStack } from '@app/components/ui/hstack';
 
 import { PINDot } from './PINDot';
 
@@ -9,7 +11,7 @@ const meta: Meta<typeof PINDot> = {
   component: PINDot,
   decorators: [
     Story => (
-      <Box p="$8" alignItems="center">
+      <Box className="items-center p-8">
         <Story />
       </Box>
     ),

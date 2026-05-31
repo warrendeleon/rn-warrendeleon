@@ -6,11 +6,9 @@ import { DevSettings } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { GluestackUIProvider as GluestackUIProviderV2 } from '@app/components/ui/gluestack-ui-provider';
+import { GluestackUIProvider } from '@app/components/ui/gluestack-ui-provider';
 import { hasLoadedOverride, isE2EMockEnabled, loadPersistedMockOverride } from '@app/config/e2e';
 import { getE2EErrorConfig } from '@app/config/e2e-error';
 import { AuthProvider, SplashScreen } from '@app/features';
@@ -131,14 +129,9 @@ const AppContent: React.FC = () => {
     );
   }
 
-  // v2 provider (outer) injects the design-token CSS variables and syncs the
-  // colour scheme to the user's theme; the v1 provider (inner) still serves the
-  // screens not yet migrated off @gluestack-ui/themed.
-  return (
-    <GluestackUIProviderV2 mode={colorScheme}>
-      <GluestackUIProvider config={config}>{content}</GluestackUIProvider>
-    </GluestackUIProviderV2>
-  );
+  // Injects the design-token CSS variables and syncs NativeWind's colour scheme
+  // to the user's theme preference.
+  return <GluestackUIProvider mode={colorScheme}>{content}</GluestackUIProvider>;
 };
 
 export const App: React.FC = () => {

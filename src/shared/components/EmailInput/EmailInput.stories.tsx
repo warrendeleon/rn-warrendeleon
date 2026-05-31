@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Box } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
 
 import { EmailInput } from './EmailInput';
 
@@ -9,7 +10,7 @@ const meta: Meta<typeof EmailInput> = {
   component: EmailInput,
   decorators: [
     Story => (
-      <Box p="$4" flex={1}>
+      <Box className="flex-1 p-4">
         <Story />
       </Box>
     ),

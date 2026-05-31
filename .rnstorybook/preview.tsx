@@ -3,12 +3,11 @@ import '../src/i18n'; // Initialize i18next for components using useTranslation
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { NavigationContainer } from '@react-navigation/native';
 import { withBackgrounds } from '@storybook/addon-ondevice-backgrounds';
 import type { Preview } from '@storybook/react-native';
 
+import { GluestackUIProvider } from '../src/components/ui/gluestack-ui-provider';
 import { store } from '../src/store';
 
 import '../global.css';
@@ -18,7 +17,7 @@ const preview: Preview = {
     Story => (
       <SafeAreaProvider>
         <Provider store={store}>
-          <GluestackUIProvider config={config}>
+          <GluestackUIProvider mode="light">
             <NavigationContainer>
               <Story />
             </NavigationContainer>

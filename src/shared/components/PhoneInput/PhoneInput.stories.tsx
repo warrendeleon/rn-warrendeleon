@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 
 import { PhoneInput } from './PhoneInput';
 
@@ -22,7 +24,7 @@ const meta: Meta<typeof PhoneInput> = {
   decorators: [
     Story => (
       <StackWrapper>
-        <Box p="$4" flex={1}>
+        <Box className="flex-1 p-4">
           <Story />
         </Box>
       </StackWrapper>
@@ -108,13 +110,9 @@ const InteractivePhoneInput = (props: React.ComponentProps<typeof PhoneInput>) =
   return (
     <Box>
       <PhoneInput {...props} value={value} onChangeText={setValue} />
-      <Box mt="$4" p="$3" bg="$white" borderRadius="$lg">
-        <Text fontSize="$xs" color="$coolGray500" mb="$1">
-          Stored value (international format):
-        </Text>
-        <Text fontSize="$sm" fontFamily="$mono">
-          {value || '(empty)'}
-        </Text>
+      <Box className="mt-4 rounded-lg bg-white p-3">
+        <Text className="mb-1 text-xs text-gray-500">Stored value (international format):</Text>
+        <Text className="text-sm">{value || '(empty)'}</Text>
       </Box>
     </Box>
   );

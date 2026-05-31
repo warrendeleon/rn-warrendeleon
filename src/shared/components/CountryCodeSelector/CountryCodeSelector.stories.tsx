@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Box } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
 
 import { CountryCodeSelector, type CountryData, DEFAULT_COUNTRY } from './index';
 
@@ -9,7 +10,7 @@ const meta: Meta<typeof CountryCodeSelector> = {
   component: CountryCodeSelector,
   decorators: [
     Story => (
-      <Box p="$4" flex={1}>
+      <Box className="flex-1 p-4">
         <Story />
       </Box>
     ),
@@ -139,21 +140,19 @@ export const InFormContext: Story = {
     const [country, setCountry] = useState<CountryData>(DEFAULT_COUNTRY);
 
     return (
-      <Box bg="$white" borderRadius="$xl" p="$3">
-        <Box flexDirection="row" alignItems="center">
+      <Box className="rounded-xl bg-white p-3">
+        <Box className="flex-row items-center">
           <CountryCodeSelector
             selectedCountry={country}
             onCountrySelect={setCountry}
             testID="form-country-selector"
           />
-          <Box flex={1} ml="$2">
+          <Box className="ml-2 flex-1">
             <Box
-              borderWidth={0}
-              bg="transparent"
-              p="$0"
+              className="border-0 bg-transparent p-0"
               accessibilityLabel="Phone number input placeholder"
             >
-              <Box height={22} justifyContent="center" opacity={0.5}>
+              <Box className="h-[22px] justify-center opacity-50">
                 {/* Placeholder text would go here */}
               </Box>
             </Box>

@@ -1,13 +1,11 @@
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import type { RenderOptions } from '@testing-library/react-native';
 import { render } from '@testing-library/react-native';
 
-import { GluestackUIProvider as GluestackUIProviderV2 } from '@app/components/ui/gluestack-ui-provider';
+import { GluestackUIProvider } from '@app/components/ui/gluestack-ui-provider';
 import { AuthProvider, authReducer } from '@app/features/Auth';
 import { educationReducer } from '@app/features/Education';
 import { profileReducer } from '@app/features/Profile';
@@ -95,11 +93,9 @@ export async function renderWithProviders(
       <Provider store={createdStore}>
         <AuthProvider>
           <I18nextProvider i18n={i18n}>
-            <GluestackUIProviderV2 mode={mode}>
-              <GluestackUIProvider config={config}>
-                <ToastProvider>{children}</ToastProvider>
-              </GluestackUIProvider>
-            </GluestackUIProviderV2>
+            <GluestackUIProvider mode={mode}>
+              <ToastProvider>{children}</ToastProvider>
+            </GluestackUIProvider>
           </I18nextProvider>
         </AuthProvider>
       </Provider>

@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import { Text } from '@gluestack-ui/themed';
 
+import { Text } from '@app/components/ui/text';
 import { type GroupVariant } from '@app/shared/components';
 import { renderWithProviders } from '@app/test-utils';
 

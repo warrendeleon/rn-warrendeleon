@@ -1,7 +1,8 @@
 import React from 'react';
 import * as ReactNative from 'react-native';
-import { Box, Text } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 import type { GroupVariant } from '@app/shared/components/shared/types';
 import { expectFocusOrder, renderWithProviders } from '@app/test-utils';
 

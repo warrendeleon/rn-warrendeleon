@@ -1,17 +1,19 @@
 import React from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 
 import { HeaderBackButton } from './HeaderBackButton';
 
 // Helper component to avoid whitespace text node issues in React Native
 const HeaderLayout = ({ children }: { children: React.ReactNode }) => (
-  <Box flexDirection="row" alignItems="center" p="$4">
+  <Box className="flex-row items-center p-4">
     {children}
-    <Box flex={1} alignItems="center">
+    <Box className="flex-1 items-center">
       <Text>Screen Title</Text>
     </Box>
-    <Box w={32} />
+    <Box className="w-[32px]" />
   </Box>
 );
 
@@ -20,7 +22,7 @@ const meta: Meta<typeof HeaderBackButton> = {
   component: HeaderBackButton,
   decorators: [
     Story => (
-      <Box p="$4">
+      <Box className="p-4">
         <Story />
       </Box>
     ),

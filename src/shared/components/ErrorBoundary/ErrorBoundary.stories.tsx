@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 
 import { ErrorBoundary } from './ErrorBoundary';
 
@@ -10,7 +12,7 @@ const ErrorThrower = ({ shouldError }: { shouldError: boolean }) => {
     throw new Error('Test error from ErrorThrower component');
   }
   return (
-    <Box p="$4" bg="$green100" borderRadius="$lg">
+    <Box className="rounded-lg bg-green-100 p-4">
       <Text>Content rendered successfully</Text>
     </Box>
   );
@@ -66,11 +68,9 @@ export const WithError: Story = {
 export const NestedContent: Story = {
   render: () => (
     <ErrorBoundary>
-      <Box p="$4" bg="$blue100" borderRadius="$lg">
-        <Text fontWeight="$bold" mb="$2">
-          Parent Content
-        </Text>
-        <Box p="$3" bg="$white" borderRadius="$md">
+      <Box className="rounded-lg bg-blue-100 p-4">
+        <Text className="mb-2 font-bold">Parent Content</Text>
+        <Box className="rounded-md bg-white p-3">
           <Text>Nested child content</Text>
         </Box>
       </Box>

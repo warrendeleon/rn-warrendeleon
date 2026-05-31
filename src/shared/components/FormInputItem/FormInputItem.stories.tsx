@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Box } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
 
 import { FormInputItem } from './FormInputItem';
 
@@ -9,7 +10,7 @@ const meta: Meta<typeof FormInputItem> = {
   component: FormInputItem,
   decorators: [
     Story => (
-      <Box p="$4" flex={1}>
+      <Box className="flex-1 p-4">
         <Story />
       </Box>
     ),
@@ -208,7 +209,7 @@ export const GroupedForm: Story = {
           groupVariant="top"
           textContentType="givenName"
         />
-        <Box h={1} bg="$coolGray200" />
+        <Box className="h-[1px] bg-gray-200" />
         <FormInputItem
           placeholder="Last Name"
           value={lastName}

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 import { renderWithProviders } from '@app/test-utils/renderWithProviders';
 
 import { ButtonGroup } from '../ButtonGroup';
@@ -8,7 +9,7 @@ import * as stories from '../ButtonGroup.stories';
 
 // Simple render function for testing
 const simpleRenderItem = (item: { label: string }) => (
-  <Box p="$4">
+  <Box className="p-4">
     <Text>{item.label as string}</Text>
   </Box>
 );

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { Box, Text } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 
 import { PINInput } from './PINInput';
 
@@ -10,7 +12,7 @@ const meta: Meta<typeof PINInput> = {
   component: PINInput,
   decorators: [
     Story => (
-      <Box p="$4" alignItems="center">
+      <Box className="items-center p-4">
         <Story />
       </Box>
     ),
@@ -80,7 +82,7 @@ const InteractivePINInput = ({
   };
 
   return (
-    <Box alignItems="center">
+    <Box className="items-center">
       <PINInput
         value={pin}
         onChange={setPin}
@@ -109,16 +111,10 @@ const PINWithDisplay = () => {
   };
 
   return (
-    <Box alignItems="center">
-      <Box mb="$4" p="$3" bg="$backgroundLight200" borderRadius="$md" w={200}>
-        <Text textAlign="center" fontSize="$lg" fontFamily="$mono">
-          {pin.padEnd(6, '·')}
-        </Text>
-        {completed && (
-          <Text textAlign="center" fontSize="$sm" color="$success600">
-            PIN entered
-          </Text>
-        )}
+    <Box className="items-center">
+      <Box className="mb-4 w-[200px] rounded-md bg-[#DBDBDB] p-3">
+        <Text className="text-center text-lg">{pin.padEnd(6, '·')}</Text>
+        {completed && <Text className="text-center text-sm text-[#2A7948]">PIN entered</Text>}
       </Box>
       <PINInput value={pin} onChange={setPin} onComplete={handleComplete} length={6} />
     </Box>

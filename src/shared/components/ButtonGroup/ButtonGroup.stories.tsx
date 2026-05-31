@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 import { ButtonGroup } from './ButtonGroup';
@@ -43,20 +44,17 @@ const SimpleItem = ({
   const scheme = useAppColorScheme();
   const isDark = scheme === 'dark';
 
+  const isTop = groupVariant === 'single' || groupVariant === 'top';
+  const isBottom = groupVariant === 'single' || groupVariant === 'bottom';
+  const topRadius = isTop ? 'rounded-t-xl' : '';
+  const bottomRadius = isBottom ? 'rounded-b-xl' : '';
+
   return (
     <Box
-      p="$4"
-      bg={isDark ? '$backgroundDark900' : '$white'}
-      borderTopLeftRadius={groupVariant === 'single' || groupVariant === 'top' ? '$xl' : '$none'}
-      borderTopRightRadius={groupVariant === 'single' || groupVariant === 'top' ? '$xl' : '$none'}
-      borderBottomLeftRadius={
-        groupVariant === 'single' || groupVariant === 'bottom' ? '$xl' : '$none'
-      }
-      borderBottomRightRadius={
-        groupVariant === 'single' || groupVariant === 'bottom' ? '$xl' : '$none'
-      }
+      className={`p-4 ${topRadius} ${bottomRadius}`}
+      style={{ backgroundColor: isDark ? '#262626' : '#FFFFFF' }}
     >
-      <Text color={isDark ? '$white' : '$black'}>{label}</Text>
+      <Text style={{ color: isDark ? '#FFFFFF' : '#000000' }}>{label}</Text>
     </Box>
   );
 };

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
+
+import { Box } from '@app/components/ui/box';
+import { Text } from '@app/components/ui/text';
 
 import { ButtonGroupDivider } from './ButtonGroupDivider';
 
@@ -20,7 +22,7 @@ No props required - automatically adapts to light/dark mode.
   },
   decorators: [
     Story => (
-      <Box p="$4">
+      <Box className="p-4">
         <Story />
       </Box>
     ),
@@ -35,16 +37,16 @@ export const Default: Story = {};
 
 export const InContext: Story = {
   render: () => (
-    <Box bg="$white" borderRadius="$lg" overflow="hidden">
-      <Box p="$4">
+    <Box className="overflow-hidden rounded-lg bg-white">
+      <Box className="p-4">
         <Text>Item 1</Text>
       </Box>
       <ButtonGroupDivider />
-      <Box p="$4">
+      <Box className="p-4">
         <Text>Item 2</Text>
       </Box>
       <ButtonGroupDivider />
-      <Box p="$4">
+      <Box className="p-4">
         <Text>Item 3</Text>
       </Box>
     </Box>

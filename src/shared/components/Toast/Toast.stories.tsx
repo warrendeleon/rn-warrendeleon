@@ -1,7 +1,10 @@
 import React from 'react';
-import { Box, Pressable, Text, VStack } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
 
+import { Box } from '@app/components/ui/box';
+import { Pressable } from '@app/components/ui/pressable';
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { useAppColorScheme } from '@app/shared/hooks';
 
 import { ToastProvider, useToast } from './ToastProvider';
@@ -77,21 +80,15 @@ const TriggerButton = ({ label, onPress }: { label: string; onPress: () => void 
   return (
     <Pressable
       onPress={onPress}
-      bg={isDark ? '$primary700' : '$primary500'}
-      px="$4"
-      py="$3"
-      borderRadius="$lg"
-      minWidth={44}
-      minHeight={44}
-      alignItems="center"
-      justifyContent="center"
+      className="min-h-[44px] min-w-[44px] items-center justify-center rounded-lg px-4 py-3"
+      style={({ pressed }) => ({
+        backgroundColor: isDark ? '#004282' : '#0077E6',
+        opacity: pressed ? 0.8 : 1,
+      })}
       accessibilityRole="button"
       accessibilityLabel={label}
-      $active={{ opacity: 0.8 }}
     >
-      <Text color="$white" fontWeight="$semibold" fontSize="$sm">
-        {label}
-      </Text>
+      <Text className="text-sm font-semibold text-white">{label}</Text>
     </Pressable>
   );
 };
@@ -103,12 +100,10 @@ const ToastTypesDemo = () => {
   const isDark = colorScheme === 'dark';
 
   return (
-    <Box flex={1} p="$4">
+    <Box className="flex-1 p-4">
       <Text
-        fontSize="$lg"
-        fontWeight="$bold"
-        color={isDark ? '$white' : '$black'}
-        mb="$4"
+        className="mb-4 text-lg font-bold"
+        style={{ color: isDark ? '#FFFFFF' : '#000000' }}
         testID="toast-demo-title"
       >
         Toast Types
@@ -166,12 +161,10 @@ const ToastWithTitleDemo = () => {
   const isDark = colorScheme === 'dark';
 
   return (
-    <Box flex={1} p="$4">
+    <Box className="flex-1 p-4">
       <Text
-        fontSize="$lg"
-        fontWeight="$bold"
-        color={isDark ? '$white' : '$black'}
-        mb="$4"
+        className="mb-4 text-lg font-bold"
+        style={{ color: isDark ? '#FFFFFF' : '#000000' }}
         testID="toast-title-demo-title"
       >
         Toast with Title
@@ -211,12 +204,10 @@ const ToastWithActionDemo = () => {
   const isDark = colorScheme === 'dark';
 
   return (
-    <Box flex={1} p="$4">
+    <Box className="flex-1 p-4">
       <Text
-        fontSize="$lg"
-        fontWeight="$bold"
-        color={isDark ? '$white' : '$black'}
-        mb="$4"
+        className="mb-4 text-lg font-bold"
+        style={{ color: isDark ? '#FFFFFF' : '#000000' }}
         testID="toast-action-demo-title"
       >
         Toast with Action Button
@@ -278,12 +269,10 @@ const ToastPositionDemo = () => {
   const isDark = colorScheme === 'dark';
 
   return (
-    <Box flex={1} p="$4">
+    <Box className="flex-1 p-4">
       <Text
-        fontSize="$lg"
-        fontWeight="$bold"
-        color={isDark ? '$white' : '$black'}
-        mb="$4"
+        className="mb-4 text-lg font-bold"
+        style={{ color: isDark ? '#FFFFFF' : '#000000' }}
         testID="toast-position-demo-title"
       >
         Toast Positions
@@ -323,12 +312,10 @@ const NonDismissibleDemo = () => {
   const isDark = colorScheme === 'dark';
 
   return (
-    <Box flex={1} p="$4">
+    <Box className="flex-1 p-4">
       <Text
-        fontSize="$lg"
-        fontWeight="$bold"
-        color={isDark ? '$white' : '$black'}
-        mb="$4"
+        className="mb-4 text-lg font-bold"
+        style={{ color: isDark ? '#FFFFFF' : '#000000' }}
         testID="non-dismissible-demo-title"
       >
         Non-Dismissible Toast
@@ -347,7 +334,7 @@ const NonDismissibleDemo = () => {
           }
         />
       </VStack>
-      <Text fontSize="$sm" color={isDark ? '$textDark400' : '$textLight500'} mt="$4">
+      <Text className="mt-4 text-sm" style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}>
         Note: This toast will auto-dismiss after 3 seconds but has no X button.
       </Text>
     </Box>
@@ -361,12 +348,10 @@ const CustomDurationDemo = () => {
   const isDark = colorScheme === 'dark';
 
   return (
-    <Box flex={1} p="$4">
+    <Box className="flex-1 p-4">
       <Text
-        fontSize="$lg"
-        fontWeight="$bold"
-        color={isDark ? '$white' : '$black'}
-        mb="$4"
+        className="mb-4 text-lg font-bold"
+        style={{ color: isDark ? '#FFFFFF' : '#000000' }}
         testID="duration-demo-title"
       >
         Custom Durations
@@ -395,7 +380,7 @@ const CustomDurationDemo = () => {
           }
         />
       </VStack>
-      <Text fontSize="$sm" color={isDark ? '$textDark400' : '$textLight500'} mt="$4">
+      <Text className="mt-4 text-sm" style={{ color: isDark ? '#A3A3A3' : '#8C8C8C' }}>
         Default durations: Success (4s), Info (5s), Warning (6s), Error (7s)
       </Text>
     </Box>

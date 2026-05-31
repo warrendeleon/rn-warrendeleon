@@ -10,9 +10,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable } from 'react-native';
-import { Text, VStack } from '@gluestack-ui/themed';
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 
+import { Text } from '@app/components/ui/text';
+import { VStack } from '@app/components/ui/vstack';
 import { renderWithProviders } from '@app/test-utils';
 
 import { useToast } from '../ToastProvider';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Box } from '@gluestack-ui/themed';
 import type { Meta, StoryObj } from '@storybook/react-native';
 
+import { Box } from '@app/components/ui/box';
 import { ButtonGroupDivider } from '@app/shared/components/ButtonGroupDivider';
 
 import { PasswordInput } from './PasswordInput';
@@ -11,7 +11,7 @@ const meta: Meta<typeof PasswordInput> = {
   component: PasswordInput,
   decorators: [
     Story => (
-      <Box p="$4" flex={1}>
+      <Box className="flex-1 p-4">
         <Story />
       </Box>
     ),

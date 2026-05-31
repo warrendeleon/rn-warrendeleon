@@ -1,9 +1,9 @@
 import React from 'react';
 import * as ReactNative from 'react-native';
 import { Pressable } from 'react-native';
-import { Text } from '@gluestack-ui/themed';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
+import { Text } from '@app/components/ui/text';
 import { renderWithProviders } from '@app/test-utils';
 
 import { ToastProvider, useToast } from '../ToastProvider';

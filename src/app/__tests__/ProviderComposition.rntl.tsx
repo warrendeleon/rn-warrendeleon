@@ -15,12 +15,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
-import { config } from '@gluestack-ui/config';
-import { Box, Text } from '@gluestack-ui/themed';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { render, waitFor } from '@testing-library/react-native';
 
+import { Box } from '@app/components/ui/box';
+import { GluestackUIProvider } from '@app/components/ui/gluestack-ui-provider';
+import { Text } from '@app/components/ui/text';
 import { authReducer } from '@app/features/Auth';
 import { educationReducer } from '@app/features/Education';
 import { profileReducer } from '@app/features/Profile';
@@ -226,7 +226,7 @@ describe('Provider Composition', () => {
       const { getByTestId } = await render(
         <Provider store={store}>
           <I18nextProvider i18n={i18n}>
-            <GluestackUIProvider config={config}>
+            <GluestackUIProvider mode="light">
               <OuterProvider value="test-outer">
                 <ContextReaderComponent />
               </OuterProvider>
@@ -290,7 +290,7 @@ describe('Provider Composition', () => {
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
       const { getByTestId } = await render(
-        <GluestackUIProvider config={config}>
+        <GluestackUIProvider mode="light">
           <Box testID="outer-container">
             <TestErrorBoundary fallback={<Text testID="inner-error">Inner Error</Text>}>
               <OuterProvider value="test">
@@ -385,7 +385,7 @@ describe('Provider Composition', () => {
 
       const { getByTestId, rerender } = await render(
         <Provider store={store}>
-          <GluestackUIProvider config={config}>
+          <GluestackUIProvider mode="light">
             <Text testID="hot-reload-text">Initial</Text>
           </GluestackUIProvider>
         </Provider>
@@ -396,7 +396,7 @@ describe('Provider Composition', () => {
       // Simulate hot reload by rerendering with same providers
       await rerender(
         <Provider store={store}>
-          <GluestackUIProvider config={config}>
+          <GluestackUIProvider mode="light">
             <Text testID="hot-reload-text">After Reload</Text>
           </GluestackUIProvider>
         </Provider>
