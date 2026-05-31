@@ -46,8 +46,10 @@ target 'warrendeleon' do
   # Certificate Pinning for SSL/TLS security
   pod 'TrustKit', '~> 3.0'
 
-  # Detox for E2E testing
-  pod 'RCT-Folly', :podspec => "#{$RN_ROOT}/third-party-podspecs/RCT-Folly.podspec"
+  # Note: RCT-Folly (and its fmt / fast_float deps) are provided by
+  # use_react_native! above. RN 0.85 wires all three third-party podspecs with
+  # modular headers, so declaring RCT-Folly here again conflicts on the fmt
+  # version. Detox picks up the RCT-Folly that use_react_native! installs.
 
   post_install do |installer|
     react_native_post_install(
