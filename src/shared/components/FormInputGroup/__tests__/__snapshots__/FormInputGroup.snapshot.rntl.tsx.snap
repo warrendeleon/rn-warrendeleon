@@ -2,335 +2,545 @@
 
 exports[`FormInputGroup Snapshots Children Variants renders with multiple children: FormInputGroup - Multiple Children 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
   >
-    Multiple Children
-  </Text>
-  <Text>
-    First input
-  </Text>
-  <Text>
-    Second input
-  </Text>
-  <Text>
-    Third input
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Multiple Children
+    </Text>
+    <Text>
+      First input
+    </Text>
+    <Text>
+      Second input
+    </Text>
+    <Text>
+      Third input
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Children Variants renders with nested components: FormInputGroup - Nested Components 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
-  >
-    Nested
-  </Text>
   <View
     mt="$6"
     mx="$4"
-    testID="nested-group"
+    testID="form-group"
   >
-    <Text>
-      Nested content
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Nested
     </Text>
+    <View
+      mt="$6"
+      mx="$4"
+      testID="nested-group"
+    >
+      <Text>
+        Nested content
+      </Text>
+    </View>
   </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Children Variants renders with single child: FormInputGroup - Single Child 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
   >
-    Single Child
-  </Text>
-  <Text>
-    Single input
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Single Child
+    </Text>
+    <Text>
+      Single input
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Dark Mode renders with title in dark mode: FormInputGroup - Dark Mode With Title 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textDark400"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
   >
-    Account Details
-  </Text>
-  <Text>
-    Input placeholder
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textDark400"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Account Details
+    </Text>
+    <Text>
+      Input placeholder
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Dark Mode renders without title in dark mode: FormInputGroup - Dark Mode Without Title 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text>
-    Input placeholder
-  </Text>
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
+  >
+    <Text>
+      Input placeholder
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Light Mode renders with title in light mode: FormInputGroup - Light Mode With Title 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
   >
-    Account Details
-  </Text>
-  <Text>
-    Input placeholder
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Account Details
+    </Text>
+    <Text>
+      Input placeholder
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Light Mode renders without title in light mode: FormInputGroup - Light Mode Without Title 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text>
-    Input placeholder
-  </Text>
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
+  >
+    <Text>
+      Input placeholder
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Spacing Variants renders with custom horizontal margin: FormInputGroup - Custom Horizontal Margin 1`] = `
 <View
-  mt="$6"
-  mx="$8"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$8"
+    testID="form-group"
   >
-    Custom Margin
-  </Text>
-  <Text>
-    Content
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Custom Margin
+    </Text>
+    <Text>
+      Content
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Spacing Variants renders with custom top margin: FormInputGroup - Custom Top Margin 1`] = `
 <View
-  mt="$10"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$10"
+    mx="$4"
+    testID="form-group"
   >
-    Custom Top
-  </Text>
-  <Text>
-    Content
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Custom Top
+    </Text>
+    <Text>
+      Content
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Spacing Variants renders with default spacing: FormInputGroup - Default Spacing 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
   >
-    Default Spacing
-  </Text>
-  <Text>
-    Content
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Default Spacing
+    </Text>
+    <Text>
+      Content
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Spacing Variants renders with zero margins: FormInputGroup - Zero Margins 1`] = `
 <View
-  mt="$0"
-  mx="$0"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$0"
+    mx="$0"
+    testID="form-group"
   >
-    Zero Margins
-  </Text>
-  <Text>
-    Content
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Zero Margins
+    </Text>
+    <Text>
+      Content
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Title Variants renders with long title: FormInputGroup - Long Title 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
   >
-    Personal Information and Contact Details
-  </Text>
-  <Text>
-    Content
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Personal Information and Contact Details
+    </Text>
+    <Text>
+      Content
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Title Variants renders with lowercase title (gets uppercased): FormInputGroup - Lowercase Title 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
   >
-    account details
-  </Text>
-  <Text>
-    Content
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      account details
+    </Text>
+    <Text>
+      Content
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Title Variants renders with short title: FormInputGroup - Short Title 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
   >
-    Info
-  </Text>
-  <Text>
-    Content
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Info
+    </Text>
+    <Text>
+      Content
+    </Text>
+  </View>
 </View>
 `;
 
 exports[`FormInputGroup Snapshots Title Variants renders with special characters in title: FormInputGroup - Special Characters Title 1`] = `
 <View
-  mt="$6"
-  mx="$4"
-  testID="form-group"
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
 >
-  <Text
-    accessibilityRole="header"
-    color="$textLight500"
-    fontSize="$xs"
-    fontWeight="$medium"
-    mb="$2"
-    ml="$4"
-    textTransform="uppercase"
+  <View
+    mt="$6"
+    mx="$4"
+    testID="form-group"
   >
-    Información Personal
-  </Text>
-  <Text>
-    Content
-  </Text>
+    <Text
+      accessibilityRole="header"
+      color="$textLight500"
+      fontSize="$xs"
+      fontWeight="$medium"
+      mb="$2"
+      ml="$4"
+      textTransform="uppercase"
+    >
+      Información Personal
+    </Text>
+    <Text>
+      Content
+    </Text>
+  </View>
 </View>
 `;

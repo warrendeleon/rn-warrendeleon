@@ -7,6 +7,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import type { RenderOptions } from '@testing-library/react-native';
 import { render } from '@testing-library/react-native';
 
+import { GluestackUIProvider as GluestackUIProviderV2 } from '@app/components/ui/gluestack-ui-provider';
 import { AuthProvider, authReducer } from '@app/features/Auth';
 import { educationReducer } from '@app/features/Education';
 import { profileReducer } from '@app/features/Profile';
@@ -83,14 +84,22 @@ export async function renderWithProviders(
   // Create store if not provided
   const createdStore = store || createTestStore(preloadedState);
 
+  // Drive NativeWind's colour scheme from the test store's theme so Gluestack v2
+  // className tokens and dark: variants resolve. 'system' falls back to light in
+  // jest (no device scheme); tests exercising dark preload settings.theme.
+  const themePreference = createdStore.getState().settings?.theme;
+  const mode = themePreference === 'dark' ? 'dark' : 'light';
+
   function Wrapper({ children }: { children: React.ReactNode }) {
     return (
       <Provider store={createdStore}>
         <AuthProvider>
           <I18nextProvider i18n={i18n}>
-            <GluestackUIProvider config={config}>
-              <ToastProvider>{children}</ToastProvider>
-            </GluestackUIProvider>
+            <GluestackUIProviderV2 mode={mode}>
+              <GluestackUIProvider config={config}>
+                <ToastProvider>{children}</ToastProvider>
+              </GluestackUIProvider>
+            </GluestackUIProviderV2>
           </I18nextProvider>
         </AuthProvider>
       </Provider>

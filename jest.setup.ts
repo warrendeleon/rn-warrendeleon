@@ -1,7 +1,15 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import '@testing-library/jest-native/extend-expect';
 
+import { StyleSheet } from 'react-native-css-interop';
+
 import { server } from './src/test-utils/msw/server';
+
+// Metro injects NativeWind's compiled flags at build time; jest has no Metro
+// pass, so the darkMode flag is unset and defaults to 'media', which makes the
+// Gluestack v2 provider's setColorScheme throw. Register it here so manual
+// colour-scheme control works in tests.
+StyleSheet.registerCompiled({ $compiled: true, flags: { darkMode: 'class' } });
 
 // Enable test-only UI components for RNTL tests
 process.env.ENABLE_TEST_UI = 'true';

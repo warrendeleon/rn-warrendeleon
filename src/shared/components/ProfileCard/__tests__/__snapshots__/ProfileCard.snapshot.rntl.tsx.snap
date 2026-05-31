@@ -2,1012 +2,1166 @@
 
 exports[`ProfileCard Snapshots Avatar Variants renders with empty avatar URL: ProfileCard - Empty Avatar URL 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="Warren de Leon, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="Warren de Leon, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="Warren de Leon"
-        source={
-          {
-            "uri": "",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="Warren de Leon"
+          source={
+            {
+              "uri": "",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          Warren de Leon
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        Warren de Leon
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Avatar Variants renders with placeholder avatar URL: ProfileCard - Placeholder Avatar 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="Warren de Leon, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="Warren de Leon, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="Warren de Leon"
-        source={
-          {
-            "uri": "https://via.placeholder.com/150",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="Warren de Leon"
+          source={
+            {
+              "uri": "https://via.placeholder.com/150",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          Warren de Leon
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        Warren de Leon
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Avatar Variants renders with valid avatar URL: ProfileCard - Valid Avatar URL 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="Warren de Leon, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="Warren de Leon, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="Warren de Leon"
-        source={
-          {
-            "uri": "https://example.com/avatar.png",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="Warren de Leon"
+          source={
+            {
+              "uri": "https://example.com/avatar.png",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          Warren de Leon
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        Warren de Leon
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Dark Mode renders default state in dark mode: ProfileCard - Dark Mode Default 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="Warren de Leon, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$backgroundDark900"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="Warren de Leon, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$backgroundDark900"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray700"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#9CA3AF"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="Warren de Leon"
-        source={
-          {
-            "uri": "https://example.com/avatar.jpg",
+      <View
+        bg="$coolGray700"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#9CA3AF"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="Warren de Leon"
+          source={
+            {
+              "uri": "https://example.com/avatar.jpg",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$white"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          Warren de Leon
+        </Text>
+        <Text
+          color="$textLight400"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight400"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$white"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        Warren de Leon
-      </Text>
-      <Text
-        color="$textLight400"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight400"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Light Mode renders default state in light mode: ProfileCard - Light Mode Default 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="Warren de Leon, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="Warren de Leon, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="Warren de Leon"
-        source={
-          {
-            "uri": "https://example.com/avatar.jpg",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="Warren de Leon"
+          source={
+            {
+              "uri": "https://example.com/avatar.jpg",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          Warren de Leon
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        Warren de Leon
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Light Mode renders with custom testID in light mode: ProfileCard - Light Mode Custom TestID 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="Warren de Leon, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="custom-profile"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="Warren de Leon, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="custom-profile"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="Warren de Leon"
-        source={
-          {
-            "uri": "https://example.com/avatar.jpg",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="Warren de Leon"
+          source={
+            {
+              "uri": "https://example.com/avatar.jpg",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          Warren de Leon
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        Warren de Leon
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Name Variants renders with Unicode characters: ProfileCard - Unicode Name 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="田中 太郎, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="田中 太郎, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="田中 太郎"
-        source={
-          {
-            "uri": "https://example.com/avatar.jpg",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="田中 太郎"
+          source={
+            {
+              "uri": "https://example.com/avatar.jpg",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          田中 太郎
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        田中 太郎
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Name Variants renders with emoji in name: ProfileCard - Emoji Name 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="John 👨‍💻 Doe, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="John 👨‍💻 Doe, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="John 👨‍💻 Doe"
-        source={
-          {
-            "uri": "https://example.com/avatar.jpg",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="John 👨‍💻 Doe"
+          source={
+            {
+              "uri": "https://example.com/avatar.jpg",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          John 👨‍💻 Doe
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        John 👨‍💻 Doe
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Name Variants renders with long name: ProfileCard - Long Name 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="Extraordinarily LongLastNameThatCouldPotentiallyCauseLayoutIssues, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="Extraordinarily LongLastNameThatCouldPotentiallyCauseLayoutIssues, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="Extraordinarily LongLastNameThatCouldPotentiallyCauseLayoutIssues"
-        source={
-          {
-            "uri": "https://example.com/avatar.jpg",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="Extraordinarily LongLastNameThatCouldPotentiallyCauseLayoutIssues"
+          source={
+            {
+              "uri": "https://example.com/avatar.jpg",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          Extraordinarily LongLastNameThatCouldPotentiallyCauseLayoutIssues
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        Extraordinarily LongLastNameThatCouldPotentiallyCauseLayoutIssues
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Name Variants renders with short name: ProfileCard - Short Name 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="J D, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="J D, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="J D"
-        source={
-          {
-            "uri": "https://example.com/avatar.jpg",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="J D"
+          source={
+            {
+              "uri": "https://example.com/avatar.jpg",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          J D
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        J D
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;
 
 exports[`ProfileCard Snapshots Name Variants renders with special characters in name: ProfileCard - Special Characters Name 1`] = `
 <View
-  accessibilityHint="Opens your profile details"
-  accessibilityLabel="José García-Pérez, View Profile"
-  accessibilityRole="button"
-  accessibilityState={
-    {
-      "busy": undefined,
-      "checked": undefined,
-      "disabled": undefined,
-      "expanded": undefined,
-      "selected": undefined,
-    }
+  style={
+    [
+      {},
+      {
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      },
+      undefined,
+    ]
   }
-  accessibilityValue={
-    {
-      "max": undefined,
-      "min": undefined,
-      "now": undefined,
-      "text": undefined,
-    }
-  }
-  accessible={true}
-  bg="$white"
-  borderRadius="$2xl"
-  className="w-full"
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  p="$3"
-  testID="profile-card"
 >
   <View
-    alignItems="center"
-    space="md"
+    accessibilityHint="Opens your profile details"
+    accessibilityLabel="José García-Pérez, View Profile"
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    bg="$white"
+    borderRadius="$2xl"
+    className="w-full"
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    p="$3"
+    testID="profile-card"
   >
     <View
-      bg="$coolGray200"
-      size="md"
-      testID="profile-card-avatar"
+      alignItems="center"
+      space="md"
     >
-      <MaterialCommunityIcons
-        color="#6B7280"
-        name="account"
-        size={28}
-      />
-      <Image
-        alt="José García-Pérez"
-        source={
-          {
-            "uri": "https://example.com/avatar.jpg",
+      <View
+        bg="$coolGray200"
+        size="md"
+        testID="profile-card-avatar"
+      >
+        <MaterialCommunityIcons
+          color="#6B7280"
+          name="account"
+          size={28}
+        />
+        <Image
+          alt="José García-Pérez"
+          source={
+            {
+              "uri": "https://example.com/avatar.jpg",
+            }
           }
-        }
+        />
+      </View>
+      <View
+        flex={1}
+        space="xs"
+      >
+        <Text
+          color="$black"
+          fontSize="$md"
+          fontWeight="$semibold"
+          lineHeight="$lg"
+        >
+          José García-Pérez
+        </Text>
+        <Text
+          color="$textLight500"
+          fontSize="$sm"
+          lineHeight="$sm"
+        >
+          View Profile
+        </Text>
+      </View>
+      <View
+        as={[Function]}
+        color="$textLight500"
+        size="lg"
       />
     </View>
-    <View
-      flex={1}
-      space="xs"
-    >
-      <Text
-        color="$black"
-        fontSize="$md"
-        fontWeight="$semibold"
-        lineHeight="$lg"
-      >
-        José García-Pérez
-      </Text>
-      <Text
-        color="$textLight500"
-        fontSize="$sm"
-        lineHeight="$sm"
-      >
-        View Profile
-      </Text>
-    </View>
-    <View
-      as={[Function]}
-      color="$textLight500"
-      size="lg"
-    />
   </View>
 </View>
 `;

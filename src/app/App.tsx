@@ -10,12 +10,14 @@ import { config } from '@gluestack-ui/config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import { GluestackUIProvider as GluestackUIProviderV2 } from '@app/components/ui/gluestack-ui-provider';
 import { hasLoadedOverride, isE2EMockEnabled, loadPersistedMockOverride } from '@app/config/e2e';
 import { getE2EErrorConfig } from '@app/config/e2e-error';
 import { AuthProvider, SplashScreen } from '@app/features';
 import { selectLanguage } from '@app/features/Settings/store';
 import { RootNavigator } from '@app/navigation';
 import { ToastProvider } from '@app/shared/components';
+import { useAppColorScheme } from '@app/shared/hooks';
 import {
   fetchEducation,
   fetchProfile,
@@ -45,6 +47,9 @@ const AppContent: React.FC = () => {
   const { i18n } = useTranslation();
   const dispatch = useAppDispatch();
   const persistedLanguage = useAppSelector(selectLanguage);
+  // Drives NativeWind's colour scheme (Gluestack v2 tokens + dark: variants)
+  // from the user's persisted theme preference.
+  const colorScheme = useAppColorScheme();
 
   // Load persisted E2E mock override from AsyncStorage at startup
   useEffect(() => {
@@ -108,34 +113,31 @@ const AppContent: React.FC = () => {
     return null; // BootSplash native screen is still visible
   }
 
-  // Show splash screen first
+  let content: React.ReactNode;
   if (showSplash) {
-    return (
-      <GluestackUIProvider config={config}>
-        <SplashScreen onComplete={handleSplashComplete} />
-      </GluestackUIProvider>
-    );
-  }
-
-  // In dev mode, can toggle to Storybook after splash
-  // Storybook is wrapped with GluestackUIProvider so components render correctly
-  if (__DEV__ && showStorybook && StorybookUI) {
-    return (
-      <GluestackUIProvider config={config}>
-        <StorybookUI />
-      </GluestackUIProvider>
-    );
-  }
-
-  // Main app
-  return (
-    <GluestackUIProvider config={config}>
+    // Show splash screen first
+    content = <SplashScreen onComplete={handleSplashComplete} />;
+  } else if (__DEV__ && showStorybook && StorybookUI) {
+    // In dev mode, can toggle to Storybook after splash
+    content = <StorybookUI />;
+  } else {
+    // Main app
+    content = (
       <ToastProvider>
         <AuthProvider>
           <RootNavigator />
         </AuthProvider>
       </ToastProvider>
-    </GluestackUIProvider>
+    );
+  }
+
+  // v2 provider (outer) injects the design-token CSS variables and syncs the
+  // colour scheme to the user's theme; the v1 provider (inner) still serves the
+  // screens not yet migrated off @gluestack-ui/themed.
+  return (
+    <GluestackUIProviderV2 mode={colorScheme}>
+      <GluestackUIProvider config={config}>{content}</GluestackUIProvider>
+    </GluestackUIProviderV2>
   );
 };
 
