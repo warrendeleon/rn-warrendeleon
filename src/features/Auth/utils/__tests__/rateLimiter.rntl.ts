@@ -2,7 +2,6 @@ import {
   mockAsyncStorage,
   mockGetAllKeys,
   mockGetItem,
-  mockMultiRemove,
   mockRemoveItem,
   mockSetItem,
   setupDefaultAsyncStorageMocks,
@@ -192,10 +191,11 @@ describe('rateLimiter', () => {
 
       await clearAllRateLimits();
 
-      expect(mockMultiRemove).toHaveBeenCalledWith([
-        '@rate_limit:password_reset:user1@example.com',
-        '@rate_limit:password_reset:user2@example.com',
-      ]);
+      // async-storage 3 dropped multiRemove; clearAllRateLimits now removes
+      // each rate-limit key individually and leaves unrelated keys untouched.
+      expect(mockRemoveItem).toHaveBeenCalledWith('@rate_limit:password_reset:user1@example.com');
+      expect(mockRemoveItem).toHaveBeenCalledWith('@rate_limit:password_reset:user2@example.com');
+      expect(mockRemoveItem).not.toHaveBeenCalledWith('@some_other_key');
     });
 
     it('should not throw error on storage failure', async () => {

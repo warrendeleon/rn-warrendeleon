@@ -154,7 +154,8 @@ export const clearAllRateLimits = async (): Promise<void> => {
   try {
     const keys = await AsyncStorage.getAllKeys();
     const rateLimitKeys = keys.filter(key => key.startsWith(RATE_LIMIT_KEY_PREFIX));
-    await AsyncStorage.multiRemove(rateLimitKeys);
+    // async-storage 3 dropped the multi-* methods; remove keys individually.
+    await Promise.all(rateLimitKeys.map(key => AsyncStorage.removeItem(key)));
   } catch {
     // Silently fail - clearing rate limits is not critical
   }

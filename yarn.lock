@@ -4063,14 +4063,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-async-storage/async-storage@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "@react-native-async-storage/async-storage@npm:2.2.0"
+"@react-native-async-storage/async-storage@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@react-native-async-storage/async-storage@npm:3.1.1"
   dependencies:
-    merge-options: ^3.0.4
+    idb: 8.0.3
   peerDependencies:
-    react-native: ^0.0.0-0 || >=0.65 <1.0
-  checksum: efbb9c801fb7eecfad1568d6a5e9d247db420b8ba8f1789d5b783e679432567a53cf54c7e7b5e6f315276f33d1df297253549e0cefef2e683539df346d2a1f2d
+    react: "*"
+    react-native: "*"
+  checksum: 4f2227cb7d7365bed1dc418404cb986aafcaefd7908671cc0f226fb7d264511b07c7d210699a997f7acda3c25f4ec23764f28ebf5e76cedd2438d5836fef9296
   languageName: node
   linkType: hard
 
@@ -10537,6 +10538,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"idb@npm:8.0.3":
+  version: 8.0.3
+  resolution: "idb@npm:8.0.3"
+  checksum: e0f160be2b9a3b031db25a3bd134b5187f1b51d7e2cdc85a0e5ec62b0f635a7e37847d4888c9d919e7de1e9d8646a9390ce42d249b6a0b30d538c651ab1c3852
+  languageName: node
+  linkType: hard
+
 "ieee754@npm:^1.1.13":
   version: 1.2.1
   resolution: "ieee754@npm:1.2.1"
@@ -12279,15 +12287,6 @@ __metadata:
   dependencies:
     map-or-similar: ^1.5.0
   checksum: d51bdc3ed8c39b4b73845c90eb62d243ddf21899914352d0c303f5e1d477abcb192f4c605e008caa4a31d823225eeb22a99ba5ee825fb88d0c33382db3aee95a
-  languageName: node
-  linkType: hard
-
-"merge-options@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "merge-options@npm:3.0.4"
-  dependencies:
-    is-plain-obj: ^2.1.0
-  checksum: d86ddb3dd6e85d558dbf25dc944f3527b6bacb944db3fdda6e84a3f59c4e4b85231095f58b835758b9a57708342dee0f8de0dffa352974a48221487fe9f4584f
   languageName: node
   linkType: hard
 
@@ -17275,7 +17274,7 @@ __metadata:
     "@hookform/resolvers": ^5.4.0
     "@infinitered/react-native-mlkit-core": ^5.0.0
     "@infinitered/react-native-mlkit-face-detection": ^5.0.0
-    "@react-native-async-storage/async-storage": ^2.2.0
+    "@react-native-async-storage/async-storage": ^3.1.1
     "@react-native-community/blur": ^4.4.1
     "@react-native-community/cli": ^20.1.3
     "@react-native-community/datetimepicker": ^8.6.0
