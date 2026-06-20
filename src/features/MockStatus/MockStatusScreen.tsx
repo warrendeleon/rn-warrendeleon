@@ -15,7 +15,7 @@ import {
   isE2EMockEnabled,
   setE2EMockOverride,
 } from '@app/config/e2e';
-import { SupabaseAuthClient } from '@app/features/Auth/api';
+import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
 import { useAppColorScheme } from '@app/shared/hooks';
 import type { RootState } from '@app/store';

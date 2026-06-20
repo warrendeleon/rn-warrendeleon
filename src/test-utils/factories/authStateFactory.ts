@@ -5,7 +5,7 @@
  * Use these factories to set up specific auth states in renderWithProviders.
  */
 
-import type { AuthState } from '@app/features/Auth/store/reducer';
+import type { AuthState } from '@app/features/Auth';
 
 import { createCompleteUser, createLinkedInUser, createMockUser } from './userFactory';
 

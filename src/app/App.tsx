@@ -12,7 +12,7 @@ import { GluestackUIProvider } from '@app/components/ui/gluestack-ui-provider';
 import { hasLoadedOverride, isE2EMockEnabled, loadPersistedMockOverride } from '@app/config/e2e';
 import { getE2EErrorConfig } from '@app/config/e2e-error';
 import { AuthProvider, SplashScreen } from '@app/features';
-import { selectLanguage } from '@app/features/Settings/store';
+import { selectLanguage } from '@app/features/Settings';
 import { RootNavigator } from '@app/navigation';
 import { ToastProvider } from '@app/shared/components';
 import { useAppColorScheme } from '@app/shared/hooks';

@@ -72,6 +72,21 @@ export default [
             'Use logError/logWarning/logDebug from @app/utils/logger instead of console.* for automatic PII masking.',
         },
       ],
+      // Keep feature boundaries honest: import another feature only through its
+      // public index (@app/features/X). Reaching into its internals is private.
+      // Within a feature, use relative imports. Tests are exempt (override below).
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
+              message:
+                'Import another feature through its public index (@app/features/X), not its internals. Within a feature, use relative imports.',
+            },
+          ],
+        },
+      ],
       'prettier/prettier': 'warn',
       'simple-import-sort/imports': [
         'error',

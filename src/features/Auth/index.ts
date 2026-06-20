@@ -25,6 +25,8 @@ export {
   updateUserProfile,
   updateUserProfileAsync,
 } from './store';
+export type { ChangePasswordFormData } from './validation/passwordRecoverySchema';
+export { changePasswordSchema } from './validation/passwordRecoverySchema';
 
 // Context
 export type { AuthContextValue } from './context';

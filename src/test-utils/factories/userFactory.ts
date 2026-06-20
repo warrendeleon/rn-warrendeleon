@@ -5,7 +5,7 @@
  * and easy customisation via overrides.
  */
 
-import type { AuthState } from '@app/features/Auth/store/reducer';
+import type { AuthState } from '@app/features/Auth';
 
 type UserType = NonNullable<AuthState['user']>;
 

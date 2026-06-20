@@ -7,8 +7,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box } from '@app/components/ui/box';
 import { Button, ButtonSpinner, ButtonText } from '@app/components/ui/button';
 import { Text } from '@app/components/ui/text';
-import type { ChangePasswordFormData } from '@app/features/Auth/validation/passwordRecoverySchema';
-import { changePasswordSchema } from '@app/features/Auth/validation/passwordRecoverySchema';
+import { type ChangePasswordFormData, changePasswordSchema } from '@app/features/Auth';
 import { SupabaseAuthClient } from '@app/httpClients';
 import type { RootStackParamList } from '@app/navigation';
 import {

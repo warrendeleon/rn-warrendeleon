@@ -15,8 +15,8 @@ import reactotron from '@app/config/reactotron';
 import { authReducer } from '@app/features/Auth';
 import { educationReducer } from '@app/features/Education';
 import { profileReducer } from '@app/features/Profile';
-import { settingsReducer } from '@app/features/Settings/store';
-import { workExperienceReducer } from '@app/features/WorkExperience/store';
+import { settingsReducer } from '@app/features/Settings';
+import { workExperienceReducer } from '@app/features/WorkExperience';
 
 /**
  * Redux Persist configuration for auth slice
