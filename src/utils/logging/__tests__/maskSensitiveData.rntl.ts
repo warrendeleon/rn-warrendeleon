@@ -762,4 +762,18 @@ describe('edge cases', () => {
     const obj = { status: 200, message: 'OK', count: 42 };
     expect(maskSensitiveData(obj)).toEqual(obj);
   });
+
+  it('preserves Error name, message and stack instead of flattening to {}', () => {
+    const err = new Error('login failed for user@example.com');
+    const result = maskSensitiveData(err) as Record<string, unknown>;
+    expect(result.name).toBe('Error');
+    expect(result.message).toContain('login failed');
+    expect(result.message).not.toContain('user@example.com');
+    expect(typeof result.stack).toBe('string');
+  });
+
+  it('passes Date through as ISO text instead of {}', () => {
+    const d = new Date('2026-01-02T03:04:05.000Z');
+    expect(maskSensitiveData(d)).toBe('2026-01-02T03:04:05.000Z');
+  });
 });

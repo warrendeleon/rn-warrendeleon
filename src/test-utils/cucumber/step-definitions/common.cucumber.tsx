@@ -13,7 +13,7 @@ Given('the app is launched', { timeout: 60000 }, async function (this: DetoxWorl
     // App might not be running, ignore
   }
   // Clear iOS Keychain to reset auth tokens (survives app uninstall)
-  await device.clearKeychain();
+  await device.clearKeychain(); // iOS only: silent no-op on Android (use launchApp({ delete: true }) there)
   // Launch app with fresh state (delete: true clears AsyncStorage)
   await device.launchApp({ newInstance: true, delete: true });
   // Wait for app to fully initialize before starting test

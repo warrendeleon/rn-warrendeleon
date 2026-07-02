@@ -80,7 +80,7 @@ export default [
         {
           patterns: [
             {
-              group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
+              group: ['@app/features/*/*', '@app/features/*/*/**'],
               message:
                 'Import another feature through its public index (@app/features/X), not its internals. Within a feature, use relative imports.',
             },

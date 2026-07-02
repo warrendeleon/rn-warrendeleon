@@ -31,7 +31,7 @@ Given(
   { timeout: 60000 },
   async function (this: DetoxWorld) {
     // Clear iOS Keychain to reset auth tokens
-    await device.clearKeychain();
+    await device.clearKeychain(); // iOS only: silent no-op on Android (use launchApp({ delete: true }) there)
     // Launch app with deep link URL (cold start)
     await device.launchApp({
       newInstance: true,
@@ -101,7 +101,7 @@ Given(
   { timeout: 60000 },
   async function (this: DetoxWorld) {
     // Clear iOS Keychain to reset auth tokens
-    await device.clearKeychain();
+    await device.clearKeychain(); // iOS only: silent no-op on Android (use launchApp({ delete: true }) there)
     // Launch app with deep link URL (cold start)
     // The app will store the access_token and auto-login the user
     await device.launchApp({

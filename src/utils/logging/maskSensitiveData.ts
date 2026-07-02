@@ -236,6 +236,21 @@ const maskDataRecursive = (
     return maskString(data);
   }
 
+  // Handle Errors: message and stack are non-enumerable, so the generic
+  // object branch would flatten an Error to {} and destroy what we're logging
+  if (data instanceof Error) {
+    return {
+      name: data.name,
+      message: maskString(data.message),
+      stack: data.stack ? maskString(data.stack) : undefined,
+    };
+  }
+
+  // Dates have no enumerable properties either; pass them through as ISO text
+  if (data instanceof Date) {
+    return data.toISOString();
+  }
+
   // Handle arrays
   if (Array.isArray(data)) {
     // Check for circular reference
