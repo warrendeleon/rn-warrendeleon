@@ -11,8 +11,11 @@ import type { Education, Profile, WorkExperience } from '@app/types/portfolio';
 
 import { MockStatusScreen } from '../MockStatusScreen';
 
-// Mock Auth API
-jest.mock('@app/features/Auth/api', () => ({
+// Mock the client at the module the screen imports. `@app/features/Auth/api`
+// only re-exports `@app/httpClients`, so mocking the re-export leaves the
+// screen holding the real client and the assertions below never fire.
+jest.mock('@app/httpClients', () => ({
+  ...jest.requireActual('@app/httpClients'),
   SupabaseAuthClient: {
     verifyMockStatus: jest.fn(),
   },

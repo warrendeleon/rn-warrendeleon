@@ -527,25 +527,6 @@ jest.mock('react-native-permissions', () => ({
   },
 }));
 
-// Mock @infinitered/react-native-mlkit-face-detection (Android face detection)
-jest.mock('@infinitered/react-native-mlkit-face-detection', () => ({
-  RNMLKitFaceDetector: {
-    detectFaces: jest.fn(() =>
-      Promise.resolve({
-        faces: [
-          {
-            boundingBox: { x: 0.2, y: 0.2, width: 0.6, height: 0.6 },
-          },
-        ],
-      })
-    ),
-  },
-  useFacesInPhoto: jest.fn(() => ({
-    faces: [],
-    status: 'ready',
-  })),
-}));
-
 // Mock jpeg-js
 jest.mock('jpeg-js', () => ({
   decode: jest.fn(() => ({

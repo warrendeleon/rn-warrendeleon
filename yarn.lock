@@ -2351,31 +2351,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@infinitered/react-native-mlkit-core@npm:5.0.0, @infinitered/react-native-mlkit-core@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "@infinitered/react-native-mlkit-core@npm:5.0.0"
-  peerDependencies:
-    expo: "*"
-    expo-image: "*"
-    react: "*"
-    react-native: "*"
-  checksum: 18f9072ab381fd5b51ef38476d15f177666443fe579f297e9e789b4df6134130c7c6a4eb26931f85956ac537639d80ff7dd2d4a5a03d18ec261321153439bc4f
-  languageName: node
-  linkType: hard
-
-"@infinitered/react-native-mlkit-face-detection@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "@infinitered/react-native-mlkit-face-detection@npm:5.0.0"
-  dependencies:
-    "@infinitered/react-native-mlkit-core": 5.0.0
-  peerDependencies:
-    expo: "*"
-    react: "*"
-    react-native: "*"
-  checksum: 120ebcf55a0998598c6914ff59158499b26056941e3baab337f173fd73845d684df143dfaf3a51cba1cefc499530b07ba0868cc3d35f7599635aab3bdeb3d238
-  languageName: node
-  linkType: hard
-
 "@inquirer/ansi@npm:^2.0.7":
   version: 2.0.7
   resolution: "@inquirer/ansi@npm:2.0.7"
@@ -15907,8 +15882,6 @@ __metadata:
     "@gluestack-ui/utils": 3.0.21
     "@gorhom/bottom-sheet": ^5.2.14
     "@hookform/resolvers": ^5.4.0
-    "@infinitered/react-native-mlkit-core": ^5.0.0
-    "@infinitered/react-native-mlkit-face-detection": ^5.0.0
     "@react-native-async-storage/async-storage": ^3.1.1
     "@react-native-community/blur": ^4.4.1
     "@react-native-community/cli": ^20.0.2

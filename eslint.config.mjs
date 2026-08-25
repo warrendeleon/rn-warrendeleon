@@ -104,6 +104,16 @@ export default [
       'simple-import-sort/exports': 'error',
     },
   },
+  // 👇 The root store wires reducers only, and must not pull a feature's screens
+  // in with them. Importing the barrel closes a require cycle (barrel -> screen
+  // -> @app/store -> configureStore) that leaves a reducer undefined at
+  // combineReducers time, so this one file reaches the store submodule directly.
+  {
+    files: ['src/store/configureStore.ts'],
+    rules: {
+      'no-restricted-imports': 'off',
+    },
+  },
   // 👇 Test-only override: don't auto-fix imports in tests
   {
     files: ['**/__tests__/**/*.{js,jsx,ts,tsx}', '**/*.test.{js,jsx,ts,tsx}'],

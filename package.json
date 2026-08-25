@@ -51,8 +51,6 @@
     "@gluestack-ui/utils": "3.0.21",
     "@gorhom/bottom-sheet": "^5.2.14",
     "@hookform/resolvers": "^5.4.0",
-    "@infinitered/react-native-mlkit-core": "^5.0.0",
-    "@infinitered/react-native-mlkit-face-detection": "^5.0.0",
     "@react-native-async-storage/async-storage": "^3.1.1",
     "@react-native-community/blur": "^4.4.1",
     "@react-navigation/native": "^7.2.5",

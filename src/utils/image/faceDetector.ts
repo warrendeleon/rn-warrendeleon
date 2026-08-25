@@ -1,8 +1,9 @@
 /**
  * Face Detector
  *
- * Cross-platform face detection for profile picture validation.
- * Uses Apple Vision on iOS (works on simulators) and ML Kit on Android.
+ * Face detection for profile picture validation.
+ * Uses Apple Vision on iOS (works on simulators). Android has no bundled
+ * detector, so validation is skipped there rather than blocking the upload.
  *
  * Features:
  * - On-device processing (no network calls, privacy-preserving)
@@ -57,6 +58,8 @@ export interface FaceDetectionResult {
   faces: DetectedFace[];
   /** Error message if detection failed */
   error?: string;
+  /** True when the platform has no face detector, so no check was performed */
+  unsupported?: boolean;
 }
 
 /** Face validation result for profile pictures */
@@ -104,62 +107,26 @@ async function detectFacesIOS(imageUri: string): Promise<FaceDetectionResult> {
 }
 
 /**
- * Detect faces using Android ML Kit (via Infinitered library)
+ * Android has no bundled face detector.
  *
- * Note: The Infinitered library uses a hook-based API (useFacesInPhoto).
- * For imperative usage, we use the underlying native module directly.
+ * This path previously imported `@infinitered/react-native-mlkit-face-detection`,
+ * which declares `expo` and `expo-image` as peer dependencies. This app is bare
+ * React Native with no Expo module system installed, so the import could never
+ * resolve and it broke every release bundle.
+ *
+ * Reporting the platform as unsupported lets the validator skip the check.
+ * Blocking every Android user from setting a profile picture would be a worse
+ * outcome than not validating the photo.
  */
-async function detectFacesAndroid(imageUri: string): Promise<FaceDetectionResult> {
-  try {
-    // The Infinitered library is hook-based, but the native module can be accessed
-    // through the internal API for imperative usage
-    const FaceDetection = await import('@infinitered/react-native-mlkit-face-detection');
-
-    // Access the native module for imperative detection
-    // The module exposes RNMLKitFaceDetectionModule for direct access
-    const nativeModule = (FaceDetection as Record<string, unknown>).RNMLKitFaceDetectionModule as {
-      detectFaces?: (uri: string) => Promise<{
-        faces: Array<{
-          frame: { origin: { x: number; y: number }; size: { x: number; y: number } };
-        }>;
-        success: boolean;
-      }>;
-    };
-
-    if (!nativeModule?.detectFaces) {
-      logWarning('Android ML Kit native module not available, using fallback');
-      // Fallback: Return a result indicating face detection is not available
-      return {
-        hasFace: false,
-        faceCount: 0,
-        confidence: null,
-        faces: [],
-        error: 'Face detection not available on this device',
-      };
-    }
-
-    const result = await nativeModule.detectFaces(imageUri);
-
-    const faces: DetectedFace[] = (result?.faces ?? []).map(face => ({
-      confidence: 0.9, // MLKit doesn't provide confidence per face
-      bounds: {
-        x: face.frame.origin.x,
-        y: face.frame.origin.y,
-        width: face.frame.size.x,
-        height: face.frame.size.y,
-      },
-    }));
-
-    return {
-      hasFace: faces.length > 0,
-      faceCount: faces.length,
-      confidence: faces.length > 0 ? 0.9 : null,
-      faces,
-    };
-  } catch (error) {
-    logError('Android ML Kit face detection failed', error);
-    throw error;
-  }
+function detectFacesUnsupported(): FaceDetectionResult {
+  logWarning('Face detection is unavailable on this platform, skipping the check');
+  return {
+    hasFace: false,
+    faceCount: 0,
+    confidence: null,
+    faces: [],
+    unsupported: true,
+  };
 }
 
 /**
@@ -202,7 +169,7 @@ export async function detectFaces(
     if (Platform.OS === 'ios') {
       result = await detectFacesIOS(imageUri);
     } else {
-      result = await detectFacesAndroid(imageUri);
+      result = detectFacesUnsupported();
     }
 
     // Apply minimum confidence filter
@@ -267,6 +234,16 @@ export async function validateFaceInImage(
   }
 
   const result = await detectFaces(imageUri, { minFaceConfidence });
+
+  // No detector on this platform: skip the check instead of rejecting the photo.
+  if (result.unsupported) {
+    return {
+      isValid: true,
+      message: 'Face validation is unavailable on this platform',
+      faceCount: 0,
+      confidence: null,
+    };
+  }
 
   // Check for detection errors
   if (result.error) {

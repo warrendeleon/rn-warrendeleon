@@ -12,11 +12,17 @@ import {
 } from 'redux-persist';
 
 import reactotron from '@app/config/reactotron';
-import { authReducer } from '@app/features/Auth';
-import { educationReducer } from '@app/features/Education';
-import { profileReducer } from '@app/features/Profile';
-import { settingsReducer } from '@app/features/Settings';
-import { workExperienceReducer } from '@app/features/WorkExperience';
+// Reducers come from each feature's store submodule, not its public barrel.
+// The barrels also export screens, and those screens import `@app/store`, which
+// imports this file. Going through a barrel therefore closes a require cycle:
+// when the app is the entry point, `settingsReducer` is still undefined at the
+// moment combineReducers runs and Redux silently drops the slice.
+// See the eslint.config.mjs override that allows these deep imports here.
+import { authReducer } from '@app/features/Auth/store';
+import { educationReducer } from '@app/features/Education/store';
+import { profileReducer } from '@app/features/Profile/store';
+import { settingsReducer } from '@app/features/Settings/store';
+import { workExperienceReducer } from '@app/features/WorkExperience/store';
 
 /**
  * Redux Persist configuration for auth slice

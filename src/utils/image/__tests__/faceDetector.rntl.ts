@@ -2,7 +2,7 @@
  * Tests for Face Detector utilities
  *
  * Tests face detection functions with mocked native modules.
- * Uses Vision on iOS and ML Kit on Android - both are mocked.
+ * Uses Vision on iOS, which is mocked. Android has no detector.
  */
 
 import { Platform } from 'react-native';
@@ -20,14 +20,6 @@ jest.mock('react-native', () => ({
       detectFaces: jest.fn(),
     },
   },
-}));
-
-// Mock Infinitered MLKit for Android (dynamic import)
-jest.mock('@infinitered/react-native-mlkit-face-detection', () => ({
-  RNMLKitFaceDetector: {
-    detectFaces: jest.fn(),
-  },
-  useFacesInPhoto: jest.fn(),
 }));
 
 // Mock E2E config
@@ -408,16 +400,48 @@ describe('faceDetector', () => {
 });
 
 /**
- * Note: Android ML Kit tests are challenging to unit test due to dynamic imports.
- * The Android detectFacesAndroid function uses `await import()` which doesn't work
- * well with jest.mock() in the same file.
+ * Android ships no face detector. `detectFaces` reports the platform as
+ * unsupported, and `validateFaceInImage` skips the check rather than rejecting
+ * the photo, so an Android user can still set a profile picture.
  *
- * Android face detection is tested via:
- * 1. E2E tests (Detox) which run on actual Android emulators
- * 2. The E2E mock path which is tested below
- *
- * The iOS path (via VisionFaceDetector native module) is thoroughly tested above.
+ * The iOS path (via the VisionFaceDetector native module) is tested above.
  */
+describe('faceDetector (Android, no detector available)', () => {
+  const { isE2EMockEnabled } = require('@app/config/e2e');
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (isE2EMockEnabled as jest.Mock).mockReturnValue(false);
+    (Platform as unknown as { OS: string }).OS = 'android';
+  });
+
+  afterEach(() => {
+    (Platform as unknown as { OS: string }).OS = 'ios';
+  });
+
+  it('should flag the platform as unsupported rather than erroring', async () => {
+    const result = await detectFaces('/path/to/android-image.jpg');
+
+    expect(result.unsupported).toBe(true);
+    expect(result.hasFace).toBe(false);
+    expect(result.faceCount).toBe(0);
+    expect(result.error).toBeUndefined();
+  });
+
+  it('should let the photo through instead of blocking the upload', async () => {
+    const result = await validateFaceInImage('/path/to/android-image.jpg');
+
+    expect(result.isValid).toBe(true);
+    expect(result.message).toBe('Face validation is unavailable on this platform');
+  });
+
+  it('should not claim a face was found', async () => {
+    const result = await hasFace('/path/to/android-image.jpg');
+
+    expect(result).toBe(false);
+  });
+});
+
 describe('faceDetector (Android E2E mock path)', () => {
   const { isE2EMockEnabled } = require('@app/config/e2e');
 
