@@ -24,6 +24,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+!.env.e2e
 
 # --- React Native / Expo ---
 .expo/
