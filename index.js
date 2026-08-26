@@ -10,6 +10,7 @@ if (__DEV__) {
 }
 
 import { AppRegistry, LogBox } from 'react-native';
+import Config from 'react-native-config';
 
 import { App } from './src/app';
 import { name as appName } from './app.json';
@@ -21,5 +22,12 @@ LogBox.ignoreLogs([
   'SafeAreaView has been deprecated',
   'Sending `onAnimatedValueUpdate` with no listeners registered',
 ]);
+
+// In E2E builds the LogBox notification banner overlays the bottom of the
+// screen and blocks Detox's visibility checks on controls near it. It is a
+// dev overlay, not app UI, so silence it entirely when the E2E flag is baked.
+if (Config.E2E_MOCK === 'true') {
+  LogBox.ignoreAllLogs();
+}
 
 AppRegistry.registerComponent(appName, () => App);

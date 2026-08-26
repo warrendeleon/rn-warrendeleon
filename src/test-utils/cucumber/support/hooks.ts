@@ -1,4 +1,5 @@
 import { After, AfterAll, Before, BeforeAll, Status } from '@cucumber/cucumber';
+import { execSync } from 'child_process';
 import { device } from 'detox';
 
 import { cleanupDetox, detox, setupDetox } from './detox-setup';
@@ -12,6 +13,26 @@ const getWorkerId = (): string => {
   return process.env.CUCUMBER_WORKER_ID ?? '0';
 };
 
+/**
+ * iOS 17+ simulators show a system "Save Password?" sheet after any password
+ * form submission. It sits above the app, Detox cannot reach system sheets,
+ * and every wait after login times out behind it. Writing this preference is
+ * what the Settings toggle (General > AutoFill & Passwords) writes, and it
+ * stops the sheet appearing. Simulator-only; a failure here must not kill the
+ * run, so it only warns.
+ */
+const disablePasswordAutofill = (): void => {
+  if (device.getPlatform() !== 'ios') return;
+  try {
+    execSync(
+      `xcrun simctl spawn ${device.id} defaults write com.apple.WebUI AutoFillPasswords -bool false`,
+      { stdio: 'ignore' }
+    );
+  } catch {
+    console.warn('⚠️ Could not disable simulator password autofill');
+  }
+};
+
 BeforeAll({ timeout: 180 * 1000 }, async function () {
   const workerId = getWorkerId();
   console.log(`🚀 Starting Detox E2E tests (worker ${workerId})...`);
@@ -19,6 +40,8 @@ BeforeAll({ timeout: 180 * 1000 }, async function () {
   console.log('📱 Setting up Detox...');
   await setupDetox(workerId);
   console.log('✅ Detox setup complete');
+
+  disablePasswordAutofill();
 
   console.log('🚀 Launching app...');
   await device.launchApp({
