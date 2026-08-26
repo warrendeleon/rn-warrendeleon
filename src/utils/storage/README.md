@@ -8,7 +8,7 @@ This app uses a 3-tier storage system based on data sensitivity:
 
 **Library**: `react-native-keychain`
 
-**Security**: Hardware-backed, biometric-protected, highest security
+**Security**: OS key storage — hardware-backed on iOS, device-dependent on Android (`Keychain.getSecurityLevel()`). Only the hashed PIN is biometric/passcode-gated; tokens are deliberately un-gated so background refresh never prompts.
 
 **Use for**:
 

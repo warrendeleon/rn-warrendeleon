@@ -5,7 +5,10 @@
  * - Auth tokens (access + refresh)
  * - Hashed PINs
  *
- * Security: Hardware-backed, biometric-protected per key, survives uninstall (optional)
+ * Security: OS key storage (hardware-backed on iOS; device-dependent on
+ * Android, see Keychain.getSecurityLevel()). Only the hashed PIN is gated
+ * behind biometrics/passcode; tokens stay un-gated so background refresh
+ * and the cold-start session check never prompt. Survives uninstall (iOS).
  */
 
 import * as Keychain from 'react-native-keychain';
