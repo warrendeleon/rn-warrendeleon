@@ -376,8 +376,6 @@ describe('Auth actions', () => {
         switch (key) {
           case SecureStoreKey.USER_ID:
             return Promise.resolve('user-123');
-          case SecureStoreKey.BIOMETRIC_PREFERENCE:
-            return Promise.resolve('enabled');
           default:
             return Promise.resolve(null);
         }
@@ -411,7 +409,6 @@ describe('Auth actions', () => {
         phoneNumber: null,
         profilePicture: null,
         authProvider: 'email',
-        biometricEnabled: true,
       });
     });
 
@@ -426,15 +423,16 @@ describe('Auth actions', () => {
       expect(result.payload).toBeNull();
     });
 
-    it('handles non-enabled biometric preference', async () => {
+    it('leaves the biometric preference to the persisted slice', async () => {
+      // Regression guard: checkSession once read a keychain copy of the
+      // preference that nothing wrote, so every cold start clobbered the
+      // redux-persist value with false. The payload must not carry it.
       (SupabaseAuthClient.isAuthenticated as jest.Mock).mockResolvedValue(true);
 
       (SecureStore.get as jest.Mock).mockImplementation((key: SecureStoreKey) => {
         switch (key) {
           case SecureStoreKey.USER_ID:
             return Promise.resolve('user-123');
-          case SecureStoreKey.BIOMETRIC_PREFERENCE:
-            return Promise.resolve('disabled');
           default:
             return Promise.resolve(null);
         }
@@ -460,10 +458,8 @@ describe('Auth actions', () => {
       const result = await thunk(mockDispatch, mockGetState, undefined);
 
       expect(result.type).toBe('auth/checkSession/fulfilled');
-      expect(result.payload).toMatchObject({
-        biometricEnabled: false,
-        authProvider: null,
-      });
+      expect(result.payload).toMatchObject({ authProvider: null });
+      expect(result.payload).not.toHaveProperty('biometricEnabled');
     });
 
     it('dispatches rejected on error', async () => {

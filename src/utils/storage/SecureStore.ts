@@ -3,11 +3,9 @@
  *
  * Use for:
  * - Auth tokens (access + refresh)
- * - Encryption keys
  * - Hashed PINs
- * - Biometric preferences
  *
- * Security: Hardware-backed, biometric-protected, survives uninstall (optional)
+ * Security: Hardware-backed, biometric-protected per key, survives uninstall (optional)
  */
 
 import * as Keychain from 'react-native-keychain';
@@ -21,10 +19,14 @@ export enum SecureStoreKey {
   ACCESS_TOKEN = 'accessToken',
   REFRESH_TOKEN = 'refreshToken',
   USER_ID = 'userId',
-  BIOMETRIC_PREFERENCE = 'biometricPreference',
   HASHED_PIN = 'hashedPIN',
-  ENCRYPTION_KEY = 'encryptionKey',
 }
+
+/**
+ * Keys the user should re-authenticate to read. Tokens stay un-gated so the
+ * refresh interceptor and cold-start session check never trigger a prompt.
+ */
+const BIOMETRIC_GATED: SecureStoreKey[] = [SecureStoreKey.HASHED_PIN];
 
 /**
  * Base service name - each key gets its own service to avoid overwrites
@@ -50,7 +52,9 @@ class SecureStoreClass {
       await Keychain.setGenericPassword(key, value, {
         service: getServiceName(key),
         accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
-        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
+        ...(BIOMETRIC_GATED.includes(key) && {
+          accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
+        }),
       });
       return true;
     } catch (error) {

@@ -140,10 +140,12 @@ export const checkSession = createAsyncThunk(
       const phoneNumber = await EncryptedStore.get(EncryptedStoreKey.USER_PHONE_NUMBER);
       const profilePicture = await EncryptedStore.get(EncryptedStoreKey.PROFILE_PICTURE_URL);
       const authProvider = await EncryptedStore.get(EncryptedStoreKey.AUTH_PROVIDER);
-      const biometricPref = await SecureStore.get(SecureStoreKey.BIOMETRIC_PREFERENCE);
 
       const provider = (authProvider as 'email' | 'linkedin' | 'magic_link' | null) || null;
 
+      // The biometric preference is not read here: it lives in the persisted
+      // auth slice (redux-persist whitelist), so rehydration restores it and
+      // checkSession must not overwrite it.
       return {
         id: userId,
         email,
@@ -152,7 +154,6 @@ export const checkSession = createAsyncThunk(
         phoneNumber,
         profilePicture,
         authProvider: provider,
-        biometricEnabled: biometricPref === 'enabled',
       };
     } catch {
       return rejectWithValue('Session check failed');

@@ -129,15 +129,20 @@ describe('Cryptographic Security Validation', () => {
       );
     });
 
-    it('should require biometry or device passcode', async () => {
+    it('should require biometry or device passcode for gated keys only', async () => {
+      await SecureStore.set(SecureStoreKey.HASHED_PIN, 'hashed-pin');
       await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, 'token');
 
-      const setPasswordCall = (Keychain.setGenericPassword as jest.Mock).mock.calls[0];
+      const calls = (Keychain.setGenericPassword as jest.Mock).mock.calls;
+      const pinCall = calls.find(c => c[0] === SecureStoreKey.HASHED_PIN);
+      const tokenCall = calls.find(c => c[0] === SecureStoreKey.ACCESS_TOKEN);
 
-      // Should require biometry or device passcode
-      expect(setPasswordCall[2].accessControl).toBe(
+      // The PIN is a consciously unlocked credential; tokens stay un-gated so
+      // background refresh and the cold-start session check never prompt.
+      expect(pinCall?.[2].accessControl).toBe(
         Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE
       );
+      expect(tokenCall?.[2]).not.toHaveProperty('accessControl');
     });
 
     it('should clear all keys on logout', async () => {
@@ -260,12 +265,12 @@ describe('Cryptographic Security Validation', () => {
       expect(Object.values(SecureStoreKey)).not.toContain('userFirstName');
     });
 
-    it('should store encryption key separately from encrypted data', () => {
-      // Encryption key should be in Keychain (SecureStore)
-      expect(Object.values(SecureStoreKey)).toContain('encryptionKey');
-
-      // Encrypted data uses EncryptedStorage (separate layer)
-      // This separation prevents single-point-of-failure
+    it('should keep local credentials in Keychain, not the encrypted tier', () => {
+      // The hashed PIN is a local credential, so it belongs to SecureStore
+      // (hardware-backed); EncryptedStorage manages its own key material and
+      // holds only PII.
+      expect(Object.values(SecureStoreKey)).toContain('hashedPIN');
+      expect(Object.values(EncryptedStoreKey)).not.toContain('hashedPIN');
     });
   });
 
@@ -305,16 +310,11 @@ describe('Cryptographic Security Validation', () => {
       expect(isAvailable).toBe(false);
     });
 
-    it('should store biometric preference securely', async () => {
-      expect(Object.values(SecureStoreKey)).toContain('biometricPreference');
-
-      await SecureStore.set(SecureStoreKey.BIOMETRIC_PREFERENCE, 'enabled');
-
-      expect(Keychain.setGenericPassword).toHaveBeenCalledWith(
-        SecureStoreKey.BIOMETRIC_PREFERENCE,
-        'enabled',
-        expect.any(Object)
-      );
+    it('should keep the biometric preference out of the secure tiers', () => {
+      // The preference gates UX, not access: it lives in the persisted auth
+      // slice (Tier 3), never in the Keychain or the encrypted store.
+      expect(Object.values(SecureStoreKey)).not.toContain('biometricPreference');
+      expect(Object.values(EncryptedStoreKey)).not.toContain('biometricPreference');
     });
   });
 
@@ -324,7 +324,6 @@ describe('Cryptographic Security Validation', () => {
       const tier1Keys = Object.values(SecureStoreKey);
       expect(tier1Keys).toContain('accessToken');
       expect(tier1Keys).toContain('refreshToken');
-      expect(tier1Keys).toContain('encryptionKey');
       expect(tier1Keys).toContain('hashedPIN');
 
       // Tier 2 (EncryptedStore): Sensitive PII

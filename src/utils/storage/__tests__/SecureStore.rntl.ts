@@ -41,7 +41,6 @@ describe('SecureStore', () => {
         expect.objectContaining({
           service: `com.warrendeleon.portfolio.${SecureStoreKey.ACCESS_TOKEN}`,
           accessible: 'WHEN_UNLOCKED_THIS_DEVICE_ONLY',
-          accessControl: 'BIOMETRY_ANY_OR_DEVICE_PASSCODE',
         })
       );
     });
@@ -205,10 +204,10 @@ describe('SecureStore', () => {
       );
     });
 
-    it('should require biometric or device passcode for access', async () => {
+    it('should require biometric or device passcode for the hashed PIN', async () => {
       (Keychain.setGenericPassword as jest.Mock).mockResolvedValueOnce(true);
 
-      await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, 'refresh_token');
+      await SecureStore.set(SecureStoreKey.HASHED_PIN, 'hashed_pin');
 
       expect(Keychain.setGenericPassword).toHaveBeenCalledWith(
         expect.any(String),
@@ -217,6 +216,20 @@ describe('SecureStore', () => {
           accessControl: 'BIOMETRY_ANY_OR_DEVICE_PASSCODE',
         })
       );
+    });
+
+    it('should leave tokens un-gated so background refresh never prompts', async () => {
+      (Keychain.setGenericPassword as jest.Mock).mockResolvedValue(true);
+
+      await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, 'access');
+      await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, 'refresh');
+
+      const calls = (Keychain.setGenericPassword as jest.Mock).mock.calls;
+      const lastTwo = calls.slice(-2);
+      for (const call of lastTwo) {
+        expect(call[2]).not.toHaveProperty('accessControl');
+        expect(call[2]).toMatchObject({ accessible: 'WHEN_UNLOCKED_THIS_DEVICE_ONLY' });
+      }
     });
 
     it('should use unique service per key to prevent overwrites', async () => {
@@ -231,21 +244,6 @@ describe('SecureStore', () => {
       expect(calls[0][2].service).toBe('com.warrendeleon.portfolio.accessToken');
       expect(calls[1][2].service).toBe('com.warrendeleon.portfolio.refreshToken');
       expect(calls[0][2].service).not.toBe(calls[1][2].service);
-    });
-
-    it('should store encryption key with biometric protection', async () => {
-      (Keychain.setGenericPassword as jest.Mock).mockResolvedValueOnce(true);
-
-      await SecureStore.set(SecureStoreKey.ENCRYPTION_KEY, 'encryption_key_value');
-
-      expect(Keychain.setGenericPassword).toHaveBeenCalledWith(
-        SecureStoreKey.ENCRYPTION_KEY,
-        'encryption_key_value',
-        expect.objectContaining({
-          service: 'com.warrendeleon.portfolio.encryptionKey',
-          accessControl: 'BIOMETRY_ANY_OR_DEVICE_PASSCODE',
-        })
-      );
     });
 
     it('should store hashed PIN securely', async () => {

@@ -13,9 +13,7 @@ This app uses a 3-tier storage system based on data sensitivity:
 **Use for**:
 
 - ✅ Auth tokens (access + refresh)
-- ✅ Encryption keys
 - ✅ Hashed PINs
-- ✅ Biometric preferences
 
 **DO NOT use for**:
 
@@ -46,7 +44,7 @@ await SecureStore.clear();
 
 **Library**: `react-native-encrypted-storage`
 
-**Security**: AES-256 encrypted, encryption key in Keychain, medium security
+**Security**: AES-256 encrypted (the library manages its own key material), medium security
 
 **Use for**:
 
@@ -93,6 +91,7 @@ await EncryptedStore.clear();
 - ✅ Theme preference (light/dark)
 - ✅ Language selection (en/es)
 - ✅ Redux Persist state (non-PII)
+- ✅ Biometric preference (a UX flag, not a secret)
 - ✅ Last selected tab
 
 **DO NOT use for**:
@@ -104,12 +103,19 @@ await EncryptedStore.clear();
 **API** (via Redux Persist):
 
 ```typescript
-// Configure in src/redux/store.ts
-const persistConfig = {
+// Configure in src/store/configureStore.ts
+const rootPersistConfig = {
   key: 'root',
   storage: AsyncStorage, // Uses AsyncStorage
-  whitelist: ['settings', 'ui'], // Only non-sensitive slices
-  blacklist: ['auth'], // NEVER persist auth slice (has tokens)
+  whitelist: ['settings'], // Positive list: only non-sensitive slices persist
+};
+
+// The auth slice has its own config whitelisting one field, so tokens and
+// user data can never reach AsyncStorage through Redux.
+const authPersistConfig = {
+  key: 'auth',
+  storage: AsyncStorage,
+  whitelist: ['biometricEnabled'],
 };
 ```
 
@@ -122,7 +128,7 @@ const persistConfig = {
 | Access Token         | ✅                   | ❌                      | ❌                    |
 | Refresh Token        | ✅                   | ❌                      | ❌                    |
 | Hashed PIN           | ✅                   | ❌                      | ❌                    |
-| Biometric Preference | ✅                   | ❌                      | ❌                    |
+| Biometric Preference | ❌                   | ❌                      | ✅                    |
 | User Email           | ❌                   | ✅                      | ❌                    |
 | User Name            | ❌                   | ✅                      | ❌                    |
 | Profile Picture URL  | ❌                   | ✅                      | ❌                    |

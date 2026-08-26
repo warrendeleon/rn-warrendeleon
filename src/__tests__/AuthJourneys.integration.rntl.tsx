@@ -1,7 +1,8 @@
 /**
- * Onboarding Journey Integration Tests
+ * Auth Journeys Integration Tests
  *
- * Tests for complete user onboarding flow:
+ * Screen-level journeys through the auth surface (the cross-feature
+ * onboarding flow lives in src/features/__tests__/OnboardingJourney):
  * - Registration → Email Verification → Login
  * - Form completion across multiple screens
  * - State persistence throughout journey

@@ -32,8 +32,9 @@ import { workExperienceReducer } from '@app/features/WorkExperience/store';
 const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
-  whitelist: ['biometricEnabled'], // Only persist biometric preference
-  blacklist: ['user', 'error', 'isLoading'], // NEVER persist tokens or user data
+  // Positive list only: everything not named here (user, error, isLoading) is
+  // ephemeral, so tokens and user data can never reach AsyncStorage via Redux.
+  whitelist: ['biometricEnabled'],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);

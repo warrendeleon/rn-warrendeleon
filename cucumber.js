@@ -1,12 +1,3 @@
-// Configure ts-node to handle TSX files
-require('ts-node').register({
-  transpileOnly: true,
-  compilerOptions: {
-    module: 'commonjs',
-    jsx: 'react',
-  },
-});
-
 /**
  * Determines number of parallel workers based on environment and platform
  * - DETOX_PARALLEL=false: Force sequential execution
@@ -39,6 +30,13 @@ const getParallelWorkers = () => {
 
 module.exports = {
   default: {
+    // ts-node compiles the TS/TSX support code (its options live in the
+    // "ts-node" block of tsconfig.cucumber.json, selected via TS_NODE_PROJECT);
+    // tsconfig-paths resolves the @app/* aliases. These must be requireModule
+    // entries, not register() calls in this file: parallel workers re-require
+    // the support code but never load this config file.
+    requireModule: ['ts-node/register', 'tsconfig-paths/register'],
+
     // Feature file locations (co-located in __tests__ folders)
     paths: ['src/features/**/__tests__/*.feature'],
 
@@ -55,9 +53,6 @@ module.exports = {
       'json:cucumber-report.json',
       'html:cucumber-report.html',
     ],
-    formatOptions: {
-      colorsEnabled: true,
-    },
 
     // Publish results
     publish: false,

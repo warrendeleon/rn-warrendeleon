@@ -60,9 +60,7 @@ jest.mock('@app/utils/storage/SecureStore', () => ({
     ACCESS_TOKEN: 'accessToken',
     REFRESH_TOKEN: 'refreshToken',
     USER_ID: 'userId',
-    BIOMETRIC_PREFERENCE: 'biometricPreference',
     HASHED_PIN: 'hashedPIN',
-    ENCRYPTION_KEY: 'encryptionKey',
   },
 }));
 

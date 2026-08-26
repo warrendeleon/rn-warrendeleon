@@ -142,7 +142,7 @@ const authSlice = createSlice({
         if (action.payload) {
           state.isAuthenticated = true;
           state.user = action.payload;
-          state.biometricEnabled = action.payload.biometricEnabled;
+          // biometricEnabled is rehydrated by redux-persist; leave it alone.
         } else {
           state.isAuthenticated = false;
           state.user = null;

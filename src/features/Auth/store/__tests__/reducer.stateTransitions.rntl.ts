@@ -100,8 +100,12 @@ describe('authReducer - State Transitions', () => {
     });
 
     it('handles checkSession → refreshUser sequence', () => {
-      // Check session returns authenticated user
-      let state = authReducer(initialState, { type: checkSession.pending.type });
+      // Check session returns authenticated user; the biometric preference
+      // arrives via redux-persist rehydration, not the payload.
+      let state = authReducer(
+        { ...initialState, biometricEnabled: true },
+        { type: checkSession.pending.type }
+      );
       state = authReducer(state, {
         type: checkSession.fulfilled.type,
         payload: {
@@ -112,7 +116,6 @@ describe('authReducer - State Transitions', () => {
           phoneNumber: null,
           profilePicture: null,
           authProvider: 'email',
-          biometricEnabled: true,
         },
       });
 
@@ -391,8 +394,11 @@ describe('authReducer - State Transitions', () => {
       expect(state.user?.profilePicture).toBeNull();
     });
 
-    it('handles checkSession payload with biometricEnabled true', () => {
-      const state = authReducer(initialState, {
+    it('keeps a true biometric preference through checkSession', () => {
+      // The preference is rehydrated by redux-persist; checkSession.fulfilled
+      // must not overwrite it (it once clobbered the persisted value).
+      const rehydrated = { ...initialState, biometricEnabled: true };
+      const state = authReducer(rehydrated, {
         type: checkSession.fulfilled.type,
         payload: {
           id: 'user-123',
@@ -402,14 +408,13 @@ describe('authReducer - State Transitions', () => {
           phoneNumber: null,
           profilePicture: null,
           authProvider: 'email',
-          biometricEnabled: true,
         },
       });
 
       expect(state.biometricEnabled).toBe(true);
     });
 
-    it('handles checkSession payload with biometricEnabled false', () => {
+    it('keeps a false biometric preference through checkSession', () => {
       const state = authReducer(initialState, {
         type: checkSession.fulfilled.type,
         payload: {
@@ -420,7 +425,6 @@ describe('authReducer - State Transitions', () => {
           phoneNumber: null,
           profilePicture: null,
           authProvider: 'email',
-          biometricEnabled: false,
         },
       });
 

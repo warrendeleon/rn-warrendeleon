@@ -1,7 +1,8 @@
 /**
- * Profile Completion Journey Integration Tests
+ * Profile Journeys Integration Tests
  *
- * Tests for complete profile completion flows:
+ * Screen-level journeys through the profile surface (the cross-feature
+ * completion flow lives in src/features/__tests__/ProfileCompletionJourney):
  * - Profile viewing with various data states
  * - Account editing with form validation
  * - Change password journey

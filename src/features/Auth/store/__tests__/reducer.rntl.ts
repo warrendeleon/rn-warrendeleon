@@ -177,12 +177,22 @@ describe('authReducer', () => {
     it('sets authenticated state when session exists', () => {
       const state = authReducer(initialState, {
         type: checkSession.fulfilled.type,
-        payload: { ...mockUser, biometricEnabled: true },
+        payload: { ...mockUser },
       });
       expect(state.isAuthenticated).toBe(true);
       expect(state.user?.email).toBe('test@example.com');
-      expect(state.biometricEnabled).toBe(true);
       expect(state.isLoading).toBe(false);
+    });
+
+    it('preserves the rehydrated biometric preference', () => {
+      // Regression guard: checkSession.fulfilled used to overwrite
+      // biometricEnabled from its payload, clobbering the redux-persist value.
+      const rehydrated = { ...initialState, biometricEnabled: true };
+      const state = authReducer(rehydrated, {
+        type: checkSession.fulfilled.type,
+        payload: { ...mockUser },
+      });
+      expect(state.biometricEnabled).toBe(true);
     });
 
     it('sets unauthenticated when no session', () => {

@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "commonjs",
-    "lib": ["ES2020"],
+    "lib": [
+      "ES2020"
+    ],
     "moduleResolution": "node",
     "jsx": "react",
     "esModuleInterop": true,
@@ -13,18 +15,31 @@
     "strict": false,
     "baseUrl": ".",
     "paths": {
-      "@app": ["src"],
-      "@app/*": ["src/*"]
+      "@app": [
+        "src"
+      ],
+      "@app/*": [
+        "src/*"
+      ]
     },
-    "types": ["node", "detox"]
+    "types": [
+      "node",
+      "detox"
+    ],
+    "ignoreDeprecations": "6.0",
+    "rootDir": "."
   },
   "ts-node": {
     "transpileOnly": true,
     "compilerOptions": {
       "module": "commonjs",
       "moduleResolution": "node",
-      "jsx": "react"
+      "jsx": "react",
+      "ignoreDeprecations": "6.0"
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
 }
