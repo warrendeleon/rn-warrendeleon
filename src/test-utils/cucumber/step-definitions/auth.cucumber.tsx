@@ -28,7 +28,9 @@ const EMAIL_CONFIRMATION_DEEP_LINK =
  */
 Given(
   'the app is launched via password reset deep link',
-  { timeout: 60000 },
+  // 240s: relaunches the app; the simulator's launch path occasionally
+  // stalls past a minute on a busy host before completing (see common steps)
+  { timeout: 240000 },
   async function (this: DetoxWorld) {
     // Clear iOS Keychain to reset auth tokens
     await device.clearKeychain(); // iOS only: silent no-op on Android (use launchApp({ delete: true }) there)
@@ -98,7 +100,9 @@ When('I open the password reset deep link', { timeout: 30000 }, async function (
  */
 Given(
   'the app is launched via email confirmation deep link',
-  { timeout: 60000 },
+  // 240s: relaunches the app; the simulator's launch path occasionally
+  // stalls past a minute on a busy host before completing (see common steps)
+  { timeout: 240000 },
   async function (this: DetoxWorld) {
     // Clear iOS Keychain to reset auth tokens
     await device.clearKeychain(); // iOS only: silent no-op on Android (use launchApp({ delete: true }) there)

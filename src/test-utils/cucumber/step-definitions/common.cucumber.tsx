@@ -5,7 +5,11 @@ import { DetoxWorld } from '../support/world';
 
 // Common Given steps
 
-Given('the app is launched', { timeout: 60000 }, async function (this: DetoxWorld) {
+// 240s, not 60s: the launch below deletes and reinstalls the app, and the
+// simulator's install/launch path occasionally stalls well past a minute on a
+// busy host before completing. BeforeAll already allows 180s for the same
+// operation; a tight cap here turns a slow platform into a failed scenario.
+Given('the app is launched', { timeout: 240000 }, async function (this: DetoxWorld) {
   // Terminate any running instance first to ensure clean state
   try {
     await device.terminateApp();
