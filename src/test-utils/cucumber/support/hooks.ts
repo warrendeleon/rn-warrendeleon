@@ -65,8 +65,14 @@ Before({ timeout: 30000 }, async function (this: DetoxWorld, { pickle }) {
     status: 'running',
   });
 
-  // Reload the app for each scenario
+  // Reload the app for each scenario. Synchronisation is suspended around
+  // the reload for the same reason BeforeAll launches with it disabled:
+  // Detox's idle tracking can latch onto a timer created during bundle
+  // evaluation and wait on it forever.
+  await device.disableSynchronization();
   await device.reloadReactNative();
+  await new Promise(resolve => setTimeout(resolve, 500));
+  await device.enableSynchronization();
 });
 
 After(async function (this: DetoxWorld, { pickle, result }) {

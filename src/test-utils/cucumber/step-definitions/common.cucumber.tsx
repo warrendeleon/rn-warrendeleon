@@ -14,10 +14,19 @@ Given('the app is launched', { timeout: 60000 }, async function (this: DetoxWorl
   }
   // Clear iOS Keychain to reset auth tokens (survives app uninstall)
   await device.clearKeychain(); // iOS only: silent no-op on Android (use launchApp({ delete: true }) there)
-  // Launch app with fresh state (delete: true clears AsyncStorage)
-  await device.launchApp({ newInstance: true, delete: true });
+  // Launch app with fresh state (delete: true clears AsyncStorage).
+  // Synchronisation is disabled for the launch itself and re-enabled after,
+  // the same sequence BeforeAll uses: Detox's idle tracking can latch onto a
+  // timer created during bundle evaluation and wait on it forever, timing
+  // the whole step out while the app sits idle on the Home screen.
+  await device.launchApp({
+    newInstance: true,
+    delete: true,
+    launchArgs: { detoxEnableSynchronization: 0 },
+  });
   // Wait for app to fully initialize before starting test
   await new Promise(resolve => setTimeout(resolve, 500));
+  await device.enableSynchronization();
 });
 
 Given('I am on the {string} screen', async function (this: DetoxWorld, screenName: string) {
@@ -45,19 +54,27 @@ When('I tap the element with testID {string}', async function (this: DetoxWorld,
       .withTimeout(2000);
   } catch {
     // Element not visible, try scrolling to find it
-    try {
-      await waitFor(element(by.id(testID)))
-        .toBeVisible()
-        .whileElement(by.type('RCTScrollView'))
-        .scroll(200, 'down');
-    } catch {
-      // Final attempt with longer timeout
-      await waitFor(element(by.id(testID)))
-        .toBeVisible()
-        .withTimeout(3000);
-    }
+    await scrollIntoView(testID);
+    // Final attempt with longer timeout
+    await waitFor(element(by.id(testID)))
+      .toBeVisible()
+      .withTimeout(3000);
   }
-  await element(by.id(testID)).tap();
+  try {
+    await element(by.id(testID)).tap();
+  } catch {
+    // The software keyboard can cover the target (the hit-test lands on the
+    // keyboard, not the control). The scroll views use
+    // keyboardShouldPersistTaps='handled', so a tap on non-interactive
+    // content near the top dismisses the keyboard; then retry once.
+    try {
+      await element(by.type('RCTScrollViewComponentView')).atIndex(0).tap({ x: 20, y: 10 });
+      await new Promise(resolve => setTimeout(resolve, 300));
+    } catch {
+      // No scroll view on this screen; let the retry surface the real error
+    }
+    await element(by.id(testID)).tap();
+  }
   // Wait for navigation/interaction animation to settle before subsequent steps
   // Increased from 300ms to 500ms for better stability in parallel execution
   await new Promise(resolve => setTimeout(resolve, 500));
@@ -67,12 +84,14 @@ When('I scroll down', async function (this: DetoxWorld) {
   // Use swipe gesture for reliable scrolling across different ScrollView implementations
   // Swipe up on element to scroll content down (reveal more content below)
   // Try multiple ScrollView type names for compatibility across RN versions
-  // Using 0.7 swipe distance (increased from 0.5) to ensure elements at bottom are visible
+  // Start the swipe from the centre of the element: the default start point
+  // sits near its bottom edge, and when the software keyboard is up the
+  // hit-test lands on the keyboard instead of the scroll view.
   try {
-    await element(by.type('RCTScrollView')).atIndex(0).swipe('up', 'fast', 0.7);
+    await element(by.type('RCTScrollView')).atIndex(0).swipe('up', 'fast', 0.5, 0.5, 0.5);
   } catch {
     // Fallback to UIScrollView (native iOS type)
-    await element(by.type('UIScrollView')).atIndex(0).swipe('up', 'fast', 0.7);
+    await element(by.type('UIScrollView')).atIndex(0).swipe('up', 'fast', 0.5, 0.5, 0.5);
   }
   // Wait for scroll animation to settle before subsequent interactions
   // Increased from 300ms to 500ms for better stability in parallel execution
@@ -111,14 +130,7 @@ When(
     }
 
     // Scroll to make the element visible if needed
-    try {
-      await waitFor(element(by.id(testID)))
-        .toBeVisible()
-        .whileElement(by.type('RCTScrollView'))
-        .scroll(100, 'up');
-    } catch {
-      // Element might already be visible
-    }
+    await scrollIntoView(testID);
 
     // Wait for element to be visible
     await waitFor(element(by.id(testID)))
@@ -254,13 +266,52 @@ Then(
   }
 );
 
+/**
+ * Best-effort scroll to bring an input into view before typing (the
+ * KeyboardAvoidingView shrinks the scroll view, so targets can be reached
+ * without dismissing the keyboard — a Return-key dismissal is not safe here
+ * because some fields submit on Return).
+ */
+const scrollIntoView = async (testID: string): Promise<void> => {
+  // Old architecture exposes RCTScrollView; the new architecture's class is
+  // RCTScrollViewComponentView (the UIScrollView base class is no use here:
+  // whileElement needs a unique match and text fields carry internal
+  // UIScrollViews). Detox's scroll 'down' reveals content below the
+  // viewport (where a form's submit button usually sits); 'up' covers
+  // targets above it.
+  for (const scrollableType of ['RCTScrollView', 'RCTScrollViewComponentView']) {
+    for (const direction of ['down', 'up'] as const) {
+      try {
+        // Start the drag from the centre of the scroll view: the default
+        // start point sits near its bottom edge, which the software
+        // keyboard covers, and Detox refuses to scroll from a covered point.
+        await waitFor(element(by.id(testID)))
+          .toBeVisible()
+          .whileElement(by.type(scrollableType))
+          .scroll(100, direction, 0.5, 0.5);
+        return;
+      } catch {
+        // Unknown class on this architecture, scroll exhausted without a
+        // match, or the screen has no scroll view: try the next strategy.
+      }
+    }
+  }
+};
+
+/*
+ * The enabled/disabled checks assert accessibility state, not screen
+ * position, so they match on existence rather than visibility: on devices
+ * showing the software keyboard the control can sit behind it (validation
+ * banners push it further down still), and a visibility assertion fails on
+ * occlusion even though the state under test is correct.
+ */
 Then(
   'the element with testID {string} should be disabled',
   async function (this: DetoxWorld, testID: string) {
     // On iOS, disabled elements have the 'notEnabled' accessibility trait
     // We use both by.id and by.traits to match a disabled element with the testID
     await waitFor(element(by.id(testID).and(by.traits(['notEnabled']))))
-      .toBeVisible()
+      .toExist()
       .withTimeout(5000);
   }
 );
@@ -268,9 +319,9 @@ Then(
 Then(
   'the element with testID {string} should be enabled',
   async function (this: DetoxWorld, testID: string) {
-    // Wait for element to be visible
+    // Wait for the element to be present
     await waitFor(element(by.id(testID)))
-      .toBeVisible()
+      .toExist()
       .withTimeout(5000);
     // Verify it does NOT have notEnabled trait by checking it doesn't match the disabled matcher
     await detoxExpect(element(by.id(testID).and(by.traits(['notEnabled'])))).not.toExist();
